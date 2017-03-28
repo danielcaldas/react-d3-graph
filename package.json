@@ -1,0 +1,40 @@
+{
+    "name": "react-d3-graph",
+    "version": "0.0.0",
+    "description": "React component to build interactive and configurable graphs with d3 effortlessly\"",
+    "main": "index.js",
+    "author": "Daniel Caldas",
+    "license": "MIT",
+    "dependencies": {
+        "babel-core": "latest",
+        "babel-loader": "latest",
+        "babel-plugin-add-module-exports": "latest",
+        "babel-plugin-react-html-attrs": "latest",
+        "babel-plugin-transform-class-properties": "latest",
+        "babel-plugin-transform-decorators-legacy": "latest",
+        "babel-preset-es2015": "latest",
+        "babel-preset-react": "latest",
+        "babel-preset-stage-0": "latest",
+        "css-loader": "latest",
+        "d3": "^4.7.4",
+        "lodash": "latest",
+        "react": "latest",
+        "react-dom": "latest",
+        "react-redux": "latest",
+        "react-router-dom": "^4.0.0",
+        "react-spinkit": "^2.1.1",
+        "redux": "latest",
+        "redux-logger": "latest",
+        "redux-promise": "latest",
+        "redux-promise-middleware": "latest",
+        "redux-thunk": "latest",
+        "style-loader": "^0.14.1",
+        "webpack": "latest",
+        "webpack-dev-server": "latest"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "dev": "./node_modules/.bin/webpack-dev-server -d --content-base src --inline --hot --port 3002",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    }
+}

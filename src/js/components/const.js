@@ -1,0 +1,21 @@
+export default {
+    DEFAULT_LINK_COLOR: '#a9a9a9',
+    DEFAULT_NODE_COLOR: '#d3d3d3',
+    DEFAULT_NODE_SIZE: 8,
+    DEFAULT_TEXT_SIZE: 10,
+    HEIGHT: 872,
+    HIGHLIGHT_COLOR: 'blue',
+    HIGHLIGHT_OPACITY: 0.1,
+    LABEL_PROPERTY: 'uid',
+    MAX_BASE_NODE_SIZE: 36,
+    MAX_SCORE: 1,
+    MAX_STROKE: 4.5,
+    MAX_TEXT_SIZE: 24,
+    MAX_ZOOM: 7,
+    MIN_SCORE: 0,
+    MIN_ZOOM: 0.1,
+    OUTLINE: false,
+    STROKE_THICKNESS: 1.5,
+    TEXT_CENTER: false,
+    WIDTH: 1440
+};
