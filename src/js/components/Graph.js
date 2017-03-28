@@ -25,7 +25,7 @@ export default class Graph extends React.Component {
             return !isNaN(parseFloat(n)) && isFinite(n);
         }
 
-        const tick = () => {
+        function tick() {
             node.attr('transform', function(d) {
                 return 'translate(' + d.x + ',' + d.y + ')';
             });
@@ -48,29 +48,26 @@ export default class Graph extends React.Component {
             }).attr('cy', function(d) {
                 return d.y;
             });
-        };
+        }
 
         // START - Drag & Drop ----------------------------------------
-        const dragstart = (d, i) => {
-            force.stop()
-        };
+        function dragstart(d) {
+            simulation.stop();
+        }
 
-        const dragmove = (d, i) => {
+        function dragmove(d) {
             d.px += d3.event.dx;
             d.py += d3.event.dy;
             d.x += d3.event.dx;
             d.y += d3.event.dy;
             tick();
-        };
+        }
 
-        const dragend = (d, i) => {
+        function dragend(d) {
             d.fixed = true;
             tick();
-            // This line will automatically make nodes rearrange when we drag and drop some node
-            // force.resume();
-        };
+        }
         // END - Drag & Drop ----------------------------------------
-        // ----------------------------------------------------
 
         console.log(d3);
         let color = d3.scaleLinear().domain([CONST.MIN_SCORE, (CONST.MIN_SCORE + CONST.MAX_SCORE) / 2, CONST.MAX_SCORE]).range(['lime', 'yellow', 'red']);
@@ -84,6 +81,7 @@ export default class Graph extends React.Component {
         svg.style('cursor', 'move');
         svg.style('width', CONST.WIDTH);
         svg.style('height', CONST.HEIGHT);
+        svg.style('border', '1px solid black');
         let g = svg.append('g');
 
         let graph = graphMock && graphMock.graph;
@@ -100,12 +98,6 @@ export default class Graph extends React.Component {
                 linkedByIndex[`${d.source},${d.target}`] = true
             }
         }
-
-        // @TODO: Not working. Force is not yet created with the correct parameters
-        var force = d3.forceSimulation(graph.nodes)
-                    .force('charge', d3.forceManyBody())
-                    .force('link', d3.forceLink(graph.links))
-                    .force('center', d3.forceCenter());
 
         function strokeStyle(d) {
             return isNumber(d.score) && d.score >= 0 ? color(d.score) : CONST.DEFAULT_LINK_COLOR;
@@ -131,30 +123,49 @@ export default class Graph extends React.Component {
         // @TODO: Missing shape type (shape) attribute on d3.symbol
         circle = node
             .append('path')
-            .attr('d', d3.symbol().size((d) => {
-                    return Math.PI * Math.pow(size(d.size) || CONST.DEFAULT_NODE_SIZE, 2);
-            }))
+            .attr('d', d3.symbol().size((d) =>  Math.PI * Math.pow(size(d.size) || CONST.DEFAULT_NODE_SIZE, 2)))
             .style(tocolor, (d) => {
                 if (d && d.color) {
                     return d.color;
                 }
                 return isNumber(d.score) && d.score >= 0 ? color(d.score) : CONST.DEFAULT_NODE_COLOR;
             })
-            .style('stroke-width', CONST.STROKE_THICKNESS).style(towhite, 'white');
+            .style('stroke-width', CONST.STROKE_THICKNESS)
+            .style(towhite, 'white');
 
         text = g.selectAll('.text').data(graph.nodes).enter().append('text').attr('dy', '.35em').style('font-size', CONST.DEFAULT_TEXT_SIZE + 'px');
 
         if (CONST.TEXT_CENTER) {
-            text.text((d) => {
-                return d.id;
-            }).style('text-anchor', 'middle');
+            text.text((d) => d.id).style('text-anchor', 'middle');
         } else {
-            text.attr('dx', (d) => {
-                return ( size(d.size) || CONST.DEFAULT_NODE_SIZE) ;
-            }).text((d) => {
-                return d[CONST.LABEL_PROPERTY] ? '\u2002' + d[CONST.LABEL_PROPERTY] : '\u2002' + d.id;
-            });
+            text.attr('dx', (d) => size(d.size) || CONST.DEFAULT_NODE_SIZE)
+                .text((d) => d[CONST.LABEL_PROPERTY] ? '\u2002' + d[CONST.LABEL_PROPERTY] : '\u2002' + d.id);
         }
+
+        // @TODO: Not working. Force is not yet created with the correct parameters
+        /* simulation API
+        alpha
+        alphaDecay
+        alphaMin
+        alphaTarget
+        find
+        (x, y, radius)
+        force
+        nodes
+        on
+        restart()
+        stop()
+        tick
+        tick()
+        velocityDecay
+         */
+        var simulation = d3.forceSimulation()
+            .force('link', d3.forceLink().id(function(d) { return d.id; }))
+            .force('charge', d3.forceManyBody())
+            .force('center', d3.forceCenter(CONST.WIDTH, CONST.HEIGHT));
+
+        simulation.nodes(graph.nodes).on('tick', tick);
+        simulation.force('link').links(graph.links);
 
         return (
             <div>
