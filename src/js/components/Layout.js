@@ -8,9 +8,9 @@ export default class Layout extends React.Component {
         const graphProps = {
             data: graphMock.graph,
             config: {
-                STROKE_THICKNESS: 2,
-                LABEL_PROPERTY: 'uid',
-                DEFAULT_NODE_COLOR: '#ae13e4'
+                strokeThickness: 2,
+                labelProperty: 'uid',
+                defaultNodeColor: 'yellow'
             }
         };
 

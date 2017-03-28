@@ -67,17 +67,17 @@ export default class Graph extends React.Component {
         // END - Drag & Drop ----------------------------------------
 
         console.log(d3);
-        let color = d3.scaleLinear().domain([config.MIN_SCORE, (config.MIN_SCORE + config.MAX_SCORE) / 2, config.MAX_SCORE]).range(['lime', 'yellow', 'red']);
+        let color = d3.scaleLinear().domain([config.minScore, (config.minScore + config.maxScore) / 2, config.maxscore]).range(['lime', 'yellow', 'red']);
         let size = d3.scalePow().exponent(1).domain([1, 100]).range([8, 24]);
         // New force API since d3 4.0.0 ...
-        // let force = d3.force().gravity(.05).linkDistance(100).charge(-100).size([config.WIDTH, config.HEIGHT]);
+        // let force = d3.force().gravity(.05).linkDistance(100).charge(-100).size([config.width, config.height]);
         // @TODO: Missing width and height on svg
         let svg = d3.select('body').append('svg');
-        let zoom = d3.zoom().scaleExtent([config.MIN_ZOOM, config.MAX_ZOOM]);
+        let zoom = d3.zoom().scaleExtent([config.minZoom, config.maxZoom]);
 
         svg.style('cursor', 'move');
-        svg.style('width', config.WIDTH);
-        svg.style('height', config.HEIGHT);
+        svg.style('width', config.width);
+        svg.style('height', config.height);
         svg.style('border', '1px solid black');
         let g = svg.append('g');
 
@@ -96,13 +96,13 @@ export default class Graph extends React.Component {
         }
 
         function strokeStyle(d) {
-            return isNumber(d.score) && d.score >= 0 ? color(d.score) : config.DEFAULT_LINK_COLOR;
+            return isNumber(d.score) && d.score >= 0 ? color(d.score) : config.defaultLinkColor;
         }
 
         link = g.selectAll('.link')
                 .data(graph.links)
                 .enter()
-                .append('line').attr('class', 'link').style('stroke-width', config.STROKE_THICKNESS).style('stroke', strokeStyle);
+                .append('line').attr('class', 'link').style('stroke-width', config.strokeThickness).style('stroke', strokeStyle);
 
         const customNodeDrag = d3.drag()
                                 .on('start', dragstart)
@@ -111,7 +111,7 @@ export default class Graph extends React.Component {
 
         node = g.selectAll('.node').data(graph.nodes).enter().append('g').attr('class', 'node').call(customNodeDrag);
 
-        if (config.OUTLINE) {
+        if (config.outline) {
             tocolor = 'stroke';
             towhite = 'fill';
         }
@@ -119,23 +119,23 @@ export default class Graph extends React.Component {
         // @TODO: Missing shape type (shape) attribute on d3.symbol
         circle = node
             .append('path')
-            .attr('d', d3.symbol().size((d) =>  Math.PI * Math.pow(size(d.size) || config.DEFAULT_NODE_SIZE, 2)))
+            .attr('d', d3.symbol().size((d) =>  Math.PI * Math.pow(size(d.size) || config.defaultNodeSize, 2)))
             .style(tocolor, (d) => {
                 if (d && d.color) {
                     return d.color;
                 }
-                return isNumber(d.score) && d.score >= 0 ? color(d.score) : config.DEFAULT_NODE_COLOR;
+                return isNumber(d.score) && d.score >= 0 ? color(d.score) : config.defaultNodeColor;
             })
-            .style('stroke-width', config.STROKE_THICKNESS)
+            .style('stroke-width', config.strokeThickness)
             .style(towhite, 'white');
 
-        text = g.selectAll('.text').data(graph.nodes).enter().append('text').attr('dy', '.35em').style('font-size', config.DEFAULT_TEXT_SIZE + 'px');
+        text = g.selectAll('.text').data(graph.nodes).enter().append('text').attr('dy', '.35em').style('font-size', config.defaultTextSize + 'px');
 
-        if (config.TEXT_CENTER) {
+        if (config.textCenter) {
             text.text((d) => d.id).style('text-anchor', 'middle');
         } else {
-            text.attr('dx', (d) => size(d.size) || config.DEFAULT_NODE_SIZE)
-                .text((d) => d[config.LABEL_PROPERTY] ? '\u2002' + d[config.LABEL_PROPERTY] : '\u2002' + d.id);
+            text.attr('dx', (d) => size(d.size) || config.defaultNodeSize)
+                .text((d) => d[config.labelProperty] ? '\u2002' + d[config.labelProperty] : '\u2002' + d.id);
         }
 
         // @TODO: Not working. Force is not yet created with the correct parameters
@@ -158,7 +158,7 @@ export default class Graph extends React.Component {
         var simulation = d3.forceSimulation()
             .force('link', d3.forceLink().id(function(d) { return d.id; }))
             .force('charge', d3.forceManyBody())
-            .force('center', d3.forceCenter(config.WIDTH, config.HEIGHT));
+            .force('center', d3.forceCenter(config.width, config.height));
 
         simulation.nodes(graph.nodes).on('tick', tick);
         simulation.force('link').links(graph.links);
