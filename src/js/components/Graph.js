@@ -49,6 +49,42 @@ export default class Graph extends React.Component {
             });
         }
 
+        /**
+         * Converts a string that specifies a symbol into a concrete instance
+         * of d3 symbol.
+         * {@link https://github.com/d3/d3-shape/blob/master/README.md#symbol}
+         * @param  {string} [typeName=CONST.SYMBOLS.CIRCLE] - the string that specifies the symbol type.
+         * @return {Object} concrete instance of d3 symbol.
+         */
+        function convertTypeToD3Symbol(typeName=CONST.SYMBOLS.DIAMOND) {
+            switch (typeName) {
+                case CONST.SYMBOLS.CIRCLE:
+                    return d3.symbolCircle;
+                case CONST.SYMBOLS.CROSS:
+                    return d3.symbolCross;
+                case CONST.SYMBOLS.DIAMOND:
+                    return d3.symbolDiamond;
+                case CONST.SYMBOLS.SQUARE:
+                    return d3.symbolSquare;
+                case CONST.SYMBOLS.STAR:
+                    return d3.symbolStar;
+                case CONST.SYMBOLS.TRIANGLE:
+                    return d3.symbolTriangle;
+                case CONST.SYMBOLS.WYE:
+                    return d3.symbolWye;
+            }
+        }
+
+        function buildSvgSymbol(config) {
+            return d3.symbol()
+                     .type((d) => convertTypeToD3Symbol(d.type))
+                     .size((d) => Math.PI * Math.pow(size(d.size) || config.defaultNodeSize, 2));
+        }
+
+        function strokeStyle(d) {
+            return isNumber(d.score) && d.score >= 0 ? color(d.score) : config.defaultLinkColor;
+        }
+
         /*----------------------------------------
             Drag & Drop
          ----------------------------------------*/
@@ -71,9 +107,10 @@ export default class Graph extends React.Component {
                 d.fy = null;
             }
         }
+
         /*----------------------------------------*/
 
-        let circle;
+        //let circle;
         let link;
         let linkedByIndex = {};
         let node;
@@ -97,19 +134,12 @@ export default class Graph extends React.Component {
             }
         }
 
-        function strokeStyle(d) {
-            return isNumber(d.score) && d.score >= 0 ? color(d.score) : config.defaultLinkColor;
-        }
-
         link = g.selectAll('.link')
                 .data(graph.links)
                 .enter()
                 .append('line').attr('class', 'link').style('stroke-width', config.strokeThickness).style('stroke', strokeStyle);
 
-        const customNodeDrag = d3.drag()
-                                .on('start', dragstart)
-                                .on('drag', dragmove)
-                                .on('end', dragend);
+        const customNodeDrag = d3.drag().on('start', dragstart).on('drag', dragmove).on('end', dragend);
 
         node = g.selectAll('.node').data(graph.nodes).enter().append('g').attr('class', 'node').call(customNodeDrag);
 
@@ -118,47 +148,7 @@ export default class Graph extends React.Component {
             towhite = 'fill';
         }
 
-        /**
-         * Converts a string that specifies a symbol into a concrete instance
-         * of d3 symbol.
-         * {@link https://github.com/d3/d3-shape/blob/master/README.md#symbol}
-         * @param  {string} [typeName=CONST.SYMBOLS.CIRCLE] - the string that specifies the symbol type.
-         * @return {Object} concrete instance of d3 symbol.
-         */
-        function convertTypeToD3Symbol(typeName=CONST.SYMBOLS.DIAMOND) {
-            switch (typeName) {
-                case CONST.SYMBOLS.CIRCLE:
-                return d3.symbolCircle;
-                break;
-                case CONST.SYMBOLS.CROSS:
-                return d3.symbolCross;
-                break;
-                case CONST.SYMBOLS.DIAMOND:
-                return d3.symbolDiamond;
-                break;
-                case CONST.SYMBOLS.SQUARE:
-                return d3.symbolSquare;
-                break;
-                case CONST.SYMBOLS.STAR:
-                return d3.symbolStar;
-                break;
-                case CONST.SYMBOLS.TRIANGLE:
-                return d3.symbolTriangle;
-                break;
-                case CONST.SYMBOLS.WYE:
-                return d3.symbolWye;
-                break;
-            }
-        }
-
-        function buildSvgSymbol(config) {
-            return d3.symbol()
-                     .type((d) => convertTypeToD3Symbol(d.type))
-                     .size((d) => Math.PI * Math.pow(size(d.size) || config.defaultNodeSize, 2));
-        }
-
-        circle = node
-            .append('path')
+        node.append('path')
             .attr('d', buildSvgSymbol(config))
             .style(tocolor, (d) => {
                 if (d && d.color) {
@@ -180,7 +170,6 @@ export default class Graph extends React.Component {
 
         const forceX = d3.forceX(config.width / 2).strength(.05);
         const forceY = d3.forceY(config.height / 2).strength(.05);
-
         const simulation = d3.forceSimulation();
 
         simulation.force('link', d3.forceLink().distance(() => CONST.LINK_IDEAL_DISTANCE))
