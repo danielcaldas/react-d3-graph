@@ -17,6 +17,7 @@
         "babel-preset-stage-0": "latest",
         "css-loader": "latest",
         "d3": "^4.7.4",
+        "html-webpack-plugin": "^2.28.0",
         "lodash": "latest",
         "react": "latest",
         "react-dom": "latest",

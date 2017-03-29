@@ -1,31 +1,30 @@
 import React from 'react';
 import * as d3 from 'd3';
-import { has as _has } from 'lodash';
+import { has as _has, merge as _merge } from 'lodash';
 
 import CONST from './const';
-import graphMock from '../../mock';
+import DEFAULT_CONFIG from './graph.config';
 
 export default class Graph extends React.Component {
     constructor(props) {
         super(props);
-
-        // State needs to be designed
-        this.state = {
-            focusNode: undefined,
-            highlightNode: undefined,
-            forceStop: false
-        };
-
-        this.linkedByIndex = {};
     }
 
     render() {
-        // Helper functions -----------------------------------
+        let graph = _has(this, 'props.data') && this.props.data || {};
+        let config = DEFAULT_CONFIG;
+        if (_has(this, 'props.config')) {
+            config = _merge(config, this.props.config);
+        }
+
+        /*----------------------------------------
+            Some helper functions
+        ----------------------------------------*/
         function isNumber(n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
         }
 
-        const tick = () => {
+        function tick() {
             node.attr('transform', function(d) {
                 return 'translate(' + d.x + ',' + d.y + ')';
             });
@@ -48,73 +47,64 @@ export default class Graph extends React.Component {
             }).attr('cy', function(d) {
                 return d.y;
             });
-        };
+        }
 
-        // START - Drag & Drop ----------------------------------------
-        const dragstart = (d, i) => {
-            force.stop()
-        };
+        /*----------------------------------------
+            Drag & Drop
+         ----------------------------------------*/
+        function dragstart(d) {
+            if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
 
-        const dragmove = (d, i) => {
-            d.px += d3.event.dx;
-            d.py += d3.event.dy;
-            d.x += d3.event.dx;
-            d.y += d3.event.dy;
-            tick();
-        };
+        function dragmove(d) {
+            d.fx = d3.event.x;
+            d.fy = d3.event.y;
+        }
 
-        const dragend = (d, i) => {
-            d.fixed = true;
-            tick();
-            // This line will automatically make nodes rearrange when we drag and drop some node
-            // force.resume();
-        };
-        // END - Drag & Drop ----------------------------------------
-        // ----------------------------------------------------
+        function dragend(d) {
+            // if (!d3.event.active) simulation.alphaTarget(0);
+            // Set this to null and you will see dragged node trying to comeback to initial position
+            if (!config.nodeFixedAfterDropped) {
+                d.fx = null;
+                d.fy = null;
+            }
+        }
+        /*----------------------------------------*/
 
-        console.log(d3);
-        let color = d3.scaleLinear().domain([CONST.MIN_SCORE, (CONST.MIN_SCORE + CONST.MAX_SCORE) / 2, CONST.MAX_SCORE]).range(['lime', 'yellow', 'red']);
-        let size = d3.scalePow().exponent(1).domain([1, 100]).range([8, 24]);
-        // New force API since d3 4.0.0 ...
-        // let force = d3.force().gravity(.05).linkDistance(100).charge(-100).size([CONST.WIDTH, CONST.HEIGHT]);
-        // @TODO: Missing width and height on svg
-        let svg = d3.select('body').append('svg');
-        let zoom = d3.zoom().scaleExtent([CONST.MIN_ZOOM, CONST.MAX_ZOOM]);
-
-        svg.style('cursor', 'move');
-        svg.style('width', CONST.WIDTH);
-        svg.style('height', CONST.HEIGHT);
-        let g = svg.append('g');
-
-        let graph = graphMock && graphMock.graph;
         let circle;
-        let text;
         let link;
+        let linkedByIndex = {};
         let node;
+        let text;
         let tocolor = 'fill';
         let towhite = 'stroke';
 
-        let linkedByIndex = {};
+        let color = d3.scaleLinear().domain([config.minScore, (config.minScore + config.maxScore) / 2, config.maxscore]).range(['lime', 'yellow', 'red']);
+        let size = d3.scalePow().exponent(1).domain([1, 100]).range([8, 24]);
+        let svg = d3.select('body').append('svg');
+
+        svg.style('cursor', 'move');
+        svg.style('width', config.width);
+        svg.style('height', config.height);
+        svg.style('border', '1px solid black');
+        let g = svg.append('g');
+
         if (_has(graph, 'links')) {
             for (let d of graph.links) {
                 linkedByIndex[`${d.source},${d.target}`] = true
             }
         }
 
-        // @TODO: Not working. Force is not yet created with the correct parameters
-        var force = d3.forceSimulation(graph.nodes)
-                    .force('charge', d3.forceManyBody())
-                    .force('link', d3.forceLink(graph.links))
-                    .force('center', d3.forceCenter());
-
         function strokeStyle(d) {
-            return isNumber(d.score) && d.score >= 0 ? color(d.score) : CONST.DEFAULT_LINK_COLOR;
+            return isNumber(d.score) && d.score >= 0 ? color(d.score) : config.defaultLinkColor;
         }
 
         link = g.selectAll('.link')
                 .data(graph.links)
                 .enter()
-                .append('line').attr('class', 'link').style('stroke-width', CONST.STROKE_THICKNESS).style('stroke', strokeStyle);
+                .append('line').attr('class', 'link').style('stroke-width', config.strokeThickness).style('stroke', strokeStyle);
 
         const customNodeDrag = d3.drag()
                                 .on('start', dragstart)
@@ -123,44 +113,86 @@ export default class Graph extends React.Component {
 
         node = g.selectAll('.node').data(graph.nodes).enter().append('g').attr('class', 'node').call(customNodeDrag);
 
-        if (CONST.OUTLINE) {
+        if (config.outline) {
             tocolor = 'stroke';
             towhite = 'fill';
         }
 
-        // @TODO: Missing shape type (shape) attribute on d3.symbol
+        /**
+         * Converts a string that specifies a symbol into a concrete instance
+         * of d3 symbol.
+         * {@link https://github.com/d3/d3-shape/blob/master/README.md#symbol}
+         * @param  {string} [typeName=CONST.SYMBOLS.CIRCLE] - the string that specifies the symbol type.
+         * @return {Object} concrete instance of d3 symbol.
+         */
+        function convertTypeToD3Symbol(typeName=CONST.SYMBOLS.DIAMOND) {
+            switch (typeName) {
+                case CONST.SYMBOLS.CIRCLE:
+                return d3.symbolCircle;
+                break;
+                case CONST.SYMBOLS.CROSS:
+                return d3.symbolCross;
+                break;
+                case CONST.SYMBOLS.DIAMOND:
+                return d3.symbolDiamond;
+                break;
+                case CONST.SYMBOLS.SQUARE:
+                return d3.symbolSquare;
+                break;
+                case CONST.SYMBOLS.STAR:
+                return d3.symbolStar;
+                break;
+                case CONST.SYMBOLS.TRIANGLE:
+                return d3.symbolTriangle;
+                break;
+                case CONST.SYMBOLS.WYE:
+                return d3.symbolWye;
+                break;
+            }
+        }
+
+        function buildSvgSymbol(config) {
+            return d3.symbol()
+                     .type((d) => convertTypeToD3Symbol(d.type))
+                     .size((d) => Math.PI * Math.pow(size(d.size) || config.defaultNodeSize, 2));
+        }
+
         circle = node
             .append('path')
-            .attr('d', d3.symbol().size((d) => {
-                    return Math.PI * Math.pow(size(d.size) || CONST.DEFAULT_NODE_SIZE, 2);
-            }))
+            .attr('d', buildSvgSymbol(config))
             .style(tocolor, (d) => {
                 if (d && d.color) {
                     return d.color;
                 }
-                return isNumber(d.score) && d.score >= 0 ? color(d.score) : CONST.DEFAULT_NODE_COLOR;
+                return isNumber(d.score) && d.score >= 0 ? color(d.score) : config.defaultNodeColor;
             })
-            .style('stroke-width', CONST.STROKE_THICKNESS).style(towhite, 'white');
+            .style('stroke-width', config.strokeThickness)
+            .style(towhite, 'white');
 
-        text = g.selectAll('.text').data(graph.nodes).enter().append('text').attr('dy', '.35em').style('font-size', CONST.DEFAULT_TEXT_SIZE + 'px');
+        text = g.selectAll('.text').data(graph.nodes).enter().append('text').attr('dy', '.35em').style('font-size', config.defaultTextSize + 'px');
 
-        if (CONST.TEXT_CENTER) {
-            text.text((d) => {
-                return d.id;
-            }).style('text-anchor', 'middle');
+        if (config.textCenter) {
+            text.text((d) => d.id).style('text-anchor', 'middle');
         } else {
-            text.attr('dx', (d) => {
-                return ( size(d.size) || CONST.DEFAULT_NODE_SIZE) ;
-            }).text((d) => {
-                return d[CONST.LABEL_PROPERTY] ? '\u2002' + d[CONST.LABEL_PROPERTY] : '\u2002' + d.id;
-            });
+            text.attr('dx', (d) => size(d.size) || config.defaultNodeSize)
+                .text((d) => d[config.labelProperty] ? '\u2002' + d[config.labelProperty] : '\u2002' + d.id);
         }
 
+        const forceX = d3.forceX(config.width / 2).strength(.05);
+        const forceY = d3.forceY(config.height / 2).strength(.05);
+
+        const simulation = d3.forceSimulation();
+
+        simulation.force('link', d3.forceLink().distance(() => CONST.LINK_IDEAL_DISTANCE))
+        .force('charge', d3.forceManyBody().strength(CONST.FORCE_IDEAL_STRENGTH))
+        .force('x', forceX)
+        .force('y', forceY);
+
+        simulation.nodes(graph.nodes).on('tick', tick);
+        simulation.force('link').links(graph.links);
+
         return (
-            <div>
-                <h4>An svg graph is rendered below</h4>
-                <g />
-            </div>
+            <g/>
         );
     }
 }
