@@ -48,21 +48,40 @@ export default class Graph extends React.Component {
         }
 
         // START - Drag & Drop ----------------------------------------
+        // function dragstart(d) {
+        //     // simulation.stop();
+        // }
+        //
+        // function dragmove(d) {
+        //     d.px += d3.event.dx;
+        //     d.py += d3.event.dy;
+        //     d.x += d3.event.dx;
+        //     d.y += d3.event.dy;
+        //     tick();
+        // }
+        //
+        // function dragend(d) {
+        //     // d.fixed = true;
+        //     tick();
+        // }
         function dragstart(d) {
-            simulation.stop();
+            if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
         }
 
         function dragmove(d) {
-            d.px += d3.event.dx;
-            d.py += d3.event.dy;
-            d.x += d3.event.dx;
-            d.y += d3.event.dy;
-            tick();
+            d.fx = d3.event.x;
+            d.fy = d3.event.y;
         }
 
         function dragend(d) {
-            d.fixed = true;
-            tick();
+            // if (!d3.event.active) simulation.alphaTarget(0);
+            // Set this to null and you will see dragged node trying to comeback to initial position
+            if (!config.nodeFixedAfterDropped) {
+                d.fx = null;
+                d.fy = null;
+            }
         }
         // END - Drag & Drop ----------------------------------------
 
@@ -138,7 +157,6 @@ export default class Graph extends React.Component {
                 .text((d) => d[config.labelProperty] ? '\u2002' + d[config.labelProperty] : '\u2002' + d.id);
         }
 
-        // @TODO: Not working. Force is not yet created with the correct parameters
         /* simulation API
         alpha
         alphaDecay
@@ -155,10 +173,11 @@ export default class Graph extends React.Component {
         tick()
         velocityDecay
          */
+        // @TODO: Not working. The speed of the nodes is not yet the same as in the first POC.
         var simulation = d3.forceSimulation()
             .force('link', d3.forceLink().id(function(d) { return d.id; }))
             .force('charge', d3.forceManyBody())
-            .force('center', d3.forceCenter(config.width, config.height));
+            .force('center', d3.forceCenter(config.width / 2, config.height / 2));
 
         simulation.nodes(graph.nodes).on('tick', tick);
         simulation.force('link').links(graph.links);

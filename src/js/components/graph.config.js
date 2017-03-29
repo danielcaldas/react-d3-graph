@@ -3,7 +3,7 @@ export default {
     defaultNodeColor: '#d3d3d3',
     defaultNodeSize: 8,
     defaultTextSize: 10,
-    height: 500,
+    height: 800,
     highlightColor: 'blue',
     highlightOpacity: 0.1,
     labelProperty: 'uid',
@@ -14,8 +14,9 @@ export default {
     maxZoom: 7,
     minScore: 0,
     minZoom: 0.1,
+    nodeFixedAfterDropped: true,
     outline: false,
     strokeThickness: 1.5,
     textCenter: false,
-    width: 800
+    width: 1400
 };
