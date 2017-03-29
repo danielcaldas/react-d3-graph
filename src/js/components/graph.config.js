@@ -2,8 +2,9 @@ export default {
     defaultLinkColor: '#a9a9a9',
     defaultNodeColor: '#d3d3d3',
     defaultNodeSize: 8,
+    defaultNodeSymbolType: 'circle',
     defaultTextSize: 10,
-    height: 800,
+    height: 500,
     highlightColor: 'blue',
     highlightOpacity: 0.1,
     labelProperty: 'uid',
@@ -18,5 +19,5 @@ export default {
     outline: false,
     strokeThickness: 1.5,
     textCenter: false,
-    width: 1400
+    width: 960
 };

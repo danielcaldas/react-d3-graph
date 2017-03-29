@@ -10,7 +10,8 @@ export default class Layout extends React.Component {
             config: {
                 strokeThickness: 1,
                 labelProperty: 'uid',
-                defaultNodeColor: 'yellow'
+                defaultNodeColor: 'red',
+                outline: false
             }
         };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import * as d3 from 'd3';
 import { has as _has, merge as _merge } from 'lodash';
 
+import CONST from './const';
 import DEFAULT_CONFIG from './graph.config';
 
 export default class Graph extends React.Component {
@@ -10,14 +11,15 @@ export default class Graph extends React.Component {
     }
 
     render() {
-        // Assigining passed properties
         let graph = _has(this, 'props.data') && this.props.data || {};
         let config = DEFAULT_CONFIG;
         if (_has(this, 'props.config')) {
             config = _merge(config, this.props.config);
         }
 
-        // Helper functions -----------------------------------
+        /*----------------------------------------
+            Some helper functions
+        ----------------------------------------*/
         function isNumber(n) {
             return !isNaN(parseFloat(n)) && isFinite(n);
         }
@@ -47,23 +49,9 @@ export default class Graph extends React.Component {
             });
         }
 
-        // START - Drag & Drop ----------------------------------------
-        // function dragstart(d) {
-        //     // simulation.stop();
-        // }
-        //
-        // function dragmove(d) {
-        //     d.px += d3.event.dx;
-        //     d.py += d3.event.dy;
-        //     d.x += d3.event.dx;
-        //     d.y += d3.event.dy;
-        //     tick();
-        // }
-        //
-        // function dragend(d) {
-        //     // d.fixed = true;
-        //     tick();
-        // }
+        /*----------------------------------------
+            Drag & Drop
+         ----------------------------------------*/
         function dragstart(d) {
             if (!d3.event.active) simulation.alphaTarget(0.3).restart();
             d.fx = d.x;
@@ -83,16 +71,19 @@ export default class Graph extends React.Component {
                 d.fy = null;
             }
         }
-        // END - Drag & Drop ----------------------------------------
+        /*----------------------------------------*/
 
-        console.log(d3);
+        let circle;
+        let link;
+        let linkedByIndex = {};
+        let node;
+        let text;
+        let tocolor = 'fill';
+        let towhite = 'stroke';
+
         let color = d3.scaleLinear().domain([config.minScore, (config.minScore + config.maxScore) / 2, config.maxscore]).range(['lime', 'yellow', 'red']);
         let size = d3.scalePow().exponent(1).domain([1, 100]).range([8, 24]);
-        // New force API since d3 4.0.0 ...
-        // let force = d3.force().gravity(.05).linkDistance(100).charge(-100).size([config.width, config.height]);
-        // @TODO: Missing width and height on svg
         let svg = d3.select('body').append('svg');
-        let zoom = d3.zoom().scaleExtent([config.minZoom, config.maxZoom]);
 
         svg.style('cursor', 'move');
         svg.style('width', config.width);
@@ -100,14 +91,6 @@ export default class Graph extends React.Component {
         svg.style('border', '1px solid black');
         let g = svg.append('g');
 
-        let circle;
-        let text;
-        let link;
-        let node;
-        let tocolor = 'fill';
-        let towhite = 'stroke';
-
-        let linkedByIndex = {};
         if (_has(graph, 'links')) {
             for (let d of graph.links) {
                 linkedByIndex[`${d.source},${d.target}`] = true
@@ -135,10 +118,48 @@ export default class Graph extends React.Component {
             towhite = 'fill';
         }
 
-        // @TODO: Missing shape type (shape) attribute on d3.symbol
+        /**
+         * Converts a string that specifies a symbol into a concrete instance
+         * of d3 symbol.
+         * {@link https://github.com/d3/d3-shape/blob/master/README.md#symbol}
+         * @param  {string} [typeName=CONST.SYMBOLS.CIRCLE] - the string that specifies the symbol type.
+         * @return {Object} concrete instance of d3 symbol.
+         */
+        function convertTypeToD3Symbol(typeName=CONST.SYMBOLS.DIAMOND) {
+            switch (typeName) {
+                case CONST.SYMBOLS.CIRCLE:
+                return d3.symbolCircle;
+                break;
+                case CONST.SYMBOLS.CROSS:
+                return d3.symbolCross;
+                break;
+                case CONST.SYMBOLS.DIAMOND:
+                return d3.symbolDiamond;
+                break;
+                case CONST.SYMBOLS.SQUARE:
+                return d3.symbolSquare;
+                break;
+                case CONST.SYMBOLS.STAR:
+                return d3.symbolStar;
+                break;
+                case CONST.SYMBOLS.TRIANGLE:
+                return d3.symbolTriangle;
+                break;
+                case CONST.SYMBOLS.WYE:
+                return d3.symbolWye;
+                break;
+            }
+        }
+
+        function buildSvgSymbol(config) {
+            return d3.symbol()
+                     .type((d) => convertTypeToD3Symbol(d.type))
+                     .size((d) => Math.PI * Math.pow(size(d.size) || config.defaultNodeSize, 2));
+        }
+
         circle = node
             .append('path')
-            .attr('d', d3.symbol().size((d) =>  Math.PI * Math.pow(size(d.size) || config.defaultNodeSize, 2)))
+            .attr('d', buildSvgSymbol(config))
             .style(tocolor, (d) => {
                 if (d && d.color) {
                     return d.color;
@@ -157,27 +178,15 @@ export default class Graph extends React.Component {
                 .text((d) => d[config.labelProperty] ? '\u2002' + d[config.labelProperty] : '\u2002' + d.id);
         }
 
-        /* simulation API
-        alpha
-        alphaDecay
-        alphaMin
-        alphaTarget
-        find
-        (x, y, radius)
-        force
-        nodes
-        on
-        restart()
-        stop()
-        tick
-        tick()
-        velocityDecay
-         */
-        // @TODO: Not working. The speed of the nodes is not yet the same as in the first POC.
-        var simulation = d3.forceSimulation()
-            .force('link', d3.forceLink().id(function(d) { return d.id; }))
-            .force('charge', d3.forceManyBody())
-            .force('center', d3.forceCenter(config.width / 2, config.height / 2));
+        const forceX = d3.forceX(config.width / 2).strength(.05);
+        const forceY = d3.forceY(config.height / 2).strength(.05);
+
+        const simulation = d3.forceSimulation();
+
+        simulation.force('link', d3.forceLink().distance(() => CONST.LINK_IDEAL_DISTANCE))
+        .force('charge', d3.forceManyBody().strength(CONST.FORCE_IDEAL_STRENGTH))
+        .force('x', forceX)
+        .force('y', forceY);
 
         simulation.nodes(graph.nodes).on('tick', tick);
         simulation.force('link').links(graph.links);
