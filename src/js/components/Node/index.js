@@ -72,7 +72,7 @@ export default class Node extends React.Component {
          const radius = config.defaultNodeSize;
 
          const d = {
-             id: this.props.id,
+             id: nodeProps.id,
              uid: 'some node'
          };
 
@@ -114,13 +114,13 @@ export default class Node extends React.Component {
         };
 
         let textProps = {
-            dy: '2.1em',
+            dy: '.35em',
             dx: dx,
             style: textStyle
         };
 
         return (
-            <g id='1' className='node' transform={`translate(${cx},${cy})`} cx={cx} cy={cy} onClick={this.clickNode} onMouseOver={this.mouseOverNode}>
+            <g id={d.id.toString()} className='node' transform={`translate(${cx},${cy})`} cx={cx} cy={cy} onClick={this.clickNode} onMouseOver={this.mouseOverNode}>
                 <path {...pathProps}/>
                 <text {...textProps}>{labelText}</text>
             </g>
