@@ -13,7 +13,7 @@ export default class Layout extends React.Component {
             config: {
                 strokeThickness: 1,
                 labelProperty: 'uid',
-                defaultNodeColor: 'red',
+                defaultNodeColor: 'yellow',
                 outline: false
             }
         };
@@ -24,9 +24,7 @@ export default class Layout extends React.Component {
             <div>
                 <h1>react-d3-graph</h1>
                 <h2>Work in progress</h2>
-                <svg width='600' height='500'>
-                    <Graph {...graphProps}/>
-                </svg>
+                <Graph {...graphProps}/>
             </div>
         );
     }

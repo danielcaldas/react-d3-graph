@@ -59,19 +59,20 @@ export default class Node extends React.Component {
 
          */
         const config = this.props.config;
+        const nodeProps = this.props.node;
                 // path.arc(x, y, radius, startAngle, endAngle[, anticlockwise])
          /*----------------------------------------
             From above
          ----------------------------------------*/
-         const cx = '435.04960405472997';
-         const cy = '19.85853539086998';
+         const cx = nodeProps.x.toString();
+         const cy = nodeProps.y.toString();
 
          const pathX = 0;
          const pathY = 20;
          const radius = config.defaultNodeSize;
 
          const d = {
-             id: 1,
+             id: this.props.id,
              uid: 'some node'
          };
 
