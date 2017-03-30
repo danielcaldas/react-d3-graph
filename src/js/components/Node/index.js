@@ -68,7 +68,7 @@ export default class Node extends React.Component {
          const cy = nodeProps.y.toString();
 
          const pathX = 0;
-         const pathY = 20;
+         const pathY = 0;
          const radius = config.defaultNodeSize;
 
          const d = {
