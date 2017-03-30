@@ -2,7 +2,7 @@ import React from 'react';
 import * as d3 from 'd3';
 
 import CONST from './const';
-import DEFAULT_CONFIG from '../graph.config';
+import DEFAULT_CONFIG from '../Graph/graph.config';
 
 export default class Node extends React.Component {
     constructor(props) {

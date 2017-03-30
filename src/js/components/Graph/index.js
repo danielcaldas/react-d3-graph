@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import { has as _has, merge as _merge } from 'lodash';
 
 import CONST from './const';
-import DEFAULT_CONFIG from './graph.config';
+import DEFAULT_CONFIG from '../Graph/graph.config';
 
 export default class Graph extends React.Component {
     constructor(props) {
