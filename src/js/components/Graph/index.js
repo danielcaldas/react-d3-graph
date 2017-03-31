@@ -12,7 +12,7 @@ import Link from '../Link/';
 export default class Graph extends React.Component {
     constructor(props) {
         super(props);
-        console.log('constructor');
+        // console.log('constructor');
 
         let graph = _has(this, 'props.data') && this.props.data || {};
         let config = DEFAULT_CONFIG;
@@ -21,34 +21,10 @@ export default class Graph extends React.Component {
         }
 
         // @TODO: state
-        let nodesCoords = {};
+        let coords = {};
 
-        const nodes = graph.nodes.map(d => {
-            const props = {
-                node: d,
-                config
-            };
-
-            nodesCoords[d.id] = {x: d.x, y: d.y};
-
-            return <Node key={d.id.toString()} {...props} />;
-        });
-
-        const links = graph.links.map(l => {
-            const key = `${l.source},${l.target}`;
-
-            // @TODO: state
-            const props = {
-                link: {
-                    x1: nodesCoords[l.source].x.toString(),
-                    y1: nodesCoords[l.source].y.toString(),
-                    x2: nodesCoords[l.target].x.toString(),
-                    y2: nodesCoords[l.target].y.toString()
-                },
-                config
-            };
-
-            return <Link key={key} {...props} />;
+        graph.nodes.forEach(d => {
+            coords[d.id] = {x: d.x, y: d.y};
         });
 
         const forceX = d3.forceX(config.width / 2).strength(.05);
@@ -61,11 +37,12 @@ export default class Graph extends React.Component {
         .force('y', forceY);
 
         this.state = {
-            paused: true,
+            graphRendered: false,
+            paused: false,
             config,
-            nodes,
-            nodesCoords,
-            links,
+            nodes: graph.nodes,
+            coords,
+            links: graph.links,
             static: {
                 simulation
             }
@@ -73,43 +50,83 @@ export default class Graph extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log('shouldComponentUpdate', nextProps, nextState);
-        return this.state.paused;
+        // console.log('shouldComponentUpdate', nextProps, nextState);
+        return !this.state.paused;
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps', nextProps);
+        // console.log('componentWillReceiveProps', nextProps);
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log('componentDidUpdate', prevProps, prevState);
+        // console.log('componentDidUpdate', prevProps, prevState);
     }
 
     componentWillMount() {
-        console.log('componentWillMount');
+        // console.log('componentWillMount');
     }
 
     componentDidMount() {
-        console.log('componentDidMount');
-        this.setState({
-            paused: false
-        });
+        // console.log('componentDidMount');
+        // console.log('Nodes', this.state.nodes.length);
+        // console.log('Links', this.state.links.length);
+
+        if (!this.state.graphRendered) {
+            this.state.static.simulation.nodes(this.state.nodes).on('tick', this.tick);
+            this.state.static.simulation.force('link').links(this.state.links);
+
+            this.setState({
+                ...this.state,
+                graphRendered: true
+            });
+        }
     }
 
     pausePlay = () => {
         this.setState({
+            ...this.state,
             paused: !this.state.paused
         });
     }
 
     tick = () => {
-        console.log('tick');
+        if (!this.state.paused) {
+            // console.log('tick');
+            // let coords = {};
+            // this.state.nodes.forEach(d => {
+            //     coords[d.id] = {x: d.x, y: d.y};
+            // });
+            // // console.log(coords[0]);
+            this.forceUpdate();
+        }
     }
 
     render() {
-        // @TODO
-        // this.state.static.simulation.nodes(this.state.nodes).on('tick', this.tick);
-        // this.state.static.simulation.force('link').links(this.state.links);
+        const nodes = this.state.nodes.map(d => {
+            const props = {
+                node: d,
+                config: this.state.config
+            };
+
+            return <Node key={d.id.toString()} {...props} />;
+        });
+
+        const links = this.state.links.map(l => {
+            const key = `${l.source.id || l.source},${l.target.id || l.target}`;
+
+            // @TODO: state
+            const props = {
+                link: {
+                    x1: l.source.x || this.state.coords[l.source].x.toString(),
+                    y1: l.source.y || this.state.coords[l.source].y.toString(),
+                    x2: l.target.x || this.state.coords[l.target].x.toString(),
+                    y2: l.target.y || this.state.coords[l.target].y.toString()
+                },
+                config: this.state.config
+            };
+
+            return <Link key={key} {...props} />;
+        });
 
         const svgStyle = {
             border: '1px solid black',
@@ -117,16 +134,13 @@ export default class Graph extends React.Component {
             width: this.state.config.width
         };
 
-        console.log('Nodes', this.state.nodes.length);
-        console.log('Links', this.state.links.length);
-
         return (
             <div>
                 <button onClick={this.pausePlay}>Pause/Play propagation</button>
                 <svg style={svgStyle}>
                     <g id='graph-container'>
-                        {this.state.links}
-                        {this.state.nodes}
+                        {links}
+                        {nodes}
                     </g>
                 </svg>
             </div>
