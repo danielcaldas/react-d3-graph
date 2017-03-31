@@ -12,7 +12,6 @@ import Link from '../Link/';
 export default class Graph extends React.Component {
     constructor(props) {
         super(props);
-        // console.log('constructor');
 
         let graph = _has(this, 'props.data') && this.props.data || {};
         let config = DEFAULT_CONFIG;
@@ -104,8 +103,13 @@ export default class Graph extends React.Component {
     render() {
         const nodes = this.state.nodes.map(d => {
             const props = {
-                node: d,
-                config: this.state.config
+                cx: d.x.toString(),
+                cy: d.y.toString(),
+                id: d.id.toString(),
+                label: d[this.state.config.labelProperty] || d.id.toString(),
+                labelTextSize: this.state.config.defaultTextSize,
+                nodeLabelTextCenter: false,
+                radius: d.size || this.state.config.defaultNodeSize
             };
 
             return <Node key={d.id.toString()} {...props} />;

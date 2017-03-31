@@ -16,8 +16,8 @@ export default {
     minScore: 0,
     minZoom: 0.1,
     nodeFixedAfterDropped: true,
+    nodeLabelTextCenter: false,
     outline: false,
     strokeThickness: 1.5,
-    textCenter: false,
     width: 960
 };
