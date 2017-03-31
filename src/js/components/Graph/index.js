@@ -81,7 +81,14 @@ export default class Graph extends React.Component {
         }
     }
 
-    pausePlay = () => {
+    /**
+    * simulation.restart() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L80]
+    * imulation.stop() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L84]
+    * @return {[type]} [description]
+    */
+    pauseOrPlaySimulation = () => {
+        this.state.paused ? this.state.static.simulation.restart() : this.state.static.simulation.stop();
+
         this.setState({
             ...this.state,
             paused: !this.state.paused
@@ -139,7 +146,7 @@ export default class Graph extends React.Component {
 
         return (
             <div>
-                <button onClick={this.pausePlay}>Pause/Play propagation</button>
+                <button onClick={this.pauseOrPlaySimulation}>Pause/Play propagation</button>
                 <svg style={svgStyle}>
                     <g id='graph-container'>
                         {links}
