@@ -125,8 +125,7 @@ export default class Graph extends React.Component {
                     y1: l.source.y || this.state.coords[l.source].y.toString(),
                     x2: l.target.x || this.state.coords[l.target].x.toString(),
                     y2: l.target.y || this.state.coords[l.target].y.toString()
-                },
-                config: this.state.config
+                }
             };
 
             return <Link key={key} {...props} />;
