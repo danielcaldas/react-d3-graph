@@ -1,3 +1,7 @@
 import { combineReducers } from 'redux';
 
-export default combineReducers({});
+import graph from './graph.reducer';
+
+export default combineReducers({
+    graph
+});

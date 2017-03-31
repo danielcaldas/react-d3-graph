@@ -18,7 +18,7 @@ export default class Layout extends React.Component {
             }
         };
 
-        const nodeProps = { config: config};
+        const nodeProps = { config: config };
 
         return (
             <div>
