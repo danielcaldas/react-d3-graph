@@ -1,6 +1,6 @@
 import React from 'react';
 import * as d3 from 'd3';
-import { has as _has, merge as _merge } from 'lodash';
+import * as _ from 'lodash';
 
 import CONST from './const';
 import DEFAULT_CONFIG from '../Graph/config';
@@ -11,14 +11,15 @@ export default class Graph extends React.Component {
     constructor(props) {
         super(props);
 
-        let graph = _has(this, 'props.data') && this.props.data || {};
+        let graph = _.has(this, 'props.data') && this.props.data || {};
         let config = DEFAULT_CONFIG;
-        if (_has(this, 'props.config')) {
-            config = _merge(config, this.props.config);
+        if (_.has(this, 'props.config')) {
+            config = _.merge(config, this.props.config);
         }
 
+        // @TODO: coords will eventually disapear since it is only a reconstruction
+        // of nodes for access convenience (mapping ids and coords key value pair)
         let coords = {};
-
         graph.nodes.forEach(d => coords[d.id] = {x: d.x, y: d.y});
 
         // @TODO: forceX and forceY configurable
@@ -67,6 +68,34 @@ export default class Graph extends React.Component {
 
         // Graph zoom and drag&drop all network
         d3.select(`#${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([1 / 2, 8]).on('zoom', this.zoomed));
+
+        const customNodeDrag = d3.drag()
+                                .on('start', this.onDragStart)
+                                .on('drag', this.onDragMove);
+
+        d3.selectAll('.node').call(customNodeDrag);
+    }
+
+    // @TODO: Do proper set up of graph state or whatever before starting dragging
+    onDragStart = (e,id) => {
+        console.log('onDragStart');
+    }
+
+    // @TODO: This code does not lives up to my quality standards
+    onDragMove = (e, id) => {
+        // @TODO: I dare u to find a more uneficient way to do this!
+        let draggedNode = _.find(this.state.nodes, d => d.id === id);
+
+        draggedNode.x += d3.event.dx;
+        draggedNode.y += d3.event.dy;
+
+        // let nodes = Object.assign([], this.state.nodes);
+        //
+        // nodes[id] = draggedNode;
+
+        this.setState({
+            ...this.state
+        });
     }
 
     zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);

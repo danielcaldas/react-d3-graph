@@ -58,26 +58,6 @@ export default class Node extends React.Component {
         console.log('the mouse is over the node');
     }
 
-    dragstart = (d, i) => {
-        force.stop() // stops the force auto positioning before you start dragging
-    }
-
-    dragmove = (d, i) => {
-        // console.log(d3.event);
-        this.setState({
-            ...this.state,
-            cx: d3.event.subject.x + d3.event.dx,
-            cy: d3.event.subject.y + d3.event.dy
-        });
-    }
-
-    dragend = (d, i) => {
-        d.fixed = true; // of course set the node to fixed so the force doesn't include the node in its auto positioning stuff
-        tick();
-        // This line will automatically make nodes rearrange when we drag and drop some node
-        // force.resume(); ???
-    }
-
     componentDidMount() {
         // ReactDOM.findDOMNode(this.refs.node)
         d3.select('.node').call(d3.drag()

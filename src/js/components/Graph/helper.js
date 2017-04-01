@@ -3,18 +3,21 @@ import React from 'react';
 import Link from '../Link/';
 import Node from '../Node/';
 
+// @TODO: Remove all non sense calls to toString() method
 function buildGraph(nodes, links, coords, config) {
     return {
-        nodes: buildNodes(nodes, config),
+        nodes: buildNodes(nodes, coords, config),
         links: buildLinks(links, coords)
     };
 }
 
 function buildLinks(links, coords) {
+    console.log('buildLinks');
     return links.map(l => {
         const key = `${l.source.id || l.source},${l.target.id || l.target}`;
 
         // @TODO: state
+        // @TODO: improve this fallback cases also in nodes
         const props = {
             link: {
                 x1: l.source.x || coords[l.source].x.toString(),
@@ -28,11 +31,12 @@ function buildLinks(links, coords) {
     });
 }
 
-function buildNodes(nodes, config) {
+function buildNodes(nodes, coords, config) {
+    console.log('buildNodes');
     return nodes.map(d => {
         const props = {
-            cx: d.x.toString(),
-            cy: d.y.toString(),
+            cx: d.x.toString(),//coords[d.id].x.toString() || d.x.toString(),
+            cy: d.y.toString(),// coords[d.id].y.toString() || d.y.toString(),
             id: d.id.toString(),
             label: d[config.labelProperty] || d.id.toString(),
             labelTextSize: config.defaultTextSize,
