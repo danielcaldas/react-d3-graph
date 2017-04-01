@@ -13,52 +13,38 @@ export default class Graph extends React.Component {
 
         let graph = _.has(this, 'props.data') && this.props.data || {};
         let config = DEFAULT_CONFIG;
+        // @TODO: The configs must be spreaded by component, use react component defaultProps for this
         if (_.has(this, 'props.config')) {
             config = _.merge(config, this.props.config);
         }
 
         // @TODO: coords will eventually disapear since it is only a reconstruction
         // of nodes for access convenience (mapping ids and coords key value pair)
-        let coords = {};
+        // @TODO: meanwhile i searched on previous code version and observed that this coords
+        // a similar data structure will be needed to check link connections e.g linkedByIndex
+        const coords = {};
         graph.nodes.forEach(d => coords[d.id] = {x: d.x, y: d.y});
 
         // @TODO: forceX and forceY configurable
         const forceX = d3.forceX(config.width / 2).strength(.06);
         const forceY = d3.forceY(config.height / 2).strength(.06);
-        const simulation = d3.forceSimulation();
 
-        simulation.force('link', d3.forceLink().distance(() => CONST.LINK_IDEAL_DISTANCE))
+        const simulation = d3.forceSimulation().force('link', d3.forceLink().distance(() => CONST.LINK_IDEAL_DISTANCE))
                 .force('charge', d3.forceManyBody().strength(CONST.FORCE_IDEAL_STRENGTH))
                 .force('x', forceX)
-                .force('y', forceY);
+                .force('y', forceY)
+                .on('end', console.log('end simulation'));
 
         this.state = {
             paused: false,
             config,
             nodes: graph.nodes,
-            coords,
             links: graph.links,
             static: {
+                coords,
                 simulation
             }
         };
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        // console.log('shouldComponentUpdate', nextProps, nextState);
-        return !this.state.paused;
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // console.log('componentWillReceiveProps', nextProps);
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        // console.log('componentDidUpdate', prevProps, prevState);
-    }
-
-    componentWillMount() {
-        // console.log('componentWillMount');
     }
 
     componentDidMount() {
@@ -77,25 +63,28 @@ export default class Graph extends React.Component {
     }
 
     // @TODO: Do proper set up of graph state or whatever before starting dragging
-    onDragStart = (e,id) => {
+    onDragStart = (_e, id) => {
         console.log('onDragStart');
     }
 
     // @TODO: This code does not lives up to my quality standards
-    onDragMove = (e, id) => {
+    onDragMove = (_e, id) => {
+        // if (!d3.event.active) simulation.alphaTarget(0.3).restart();
         // @TODO: I dare u to find a more uneficient way to do this!
         let draggedNode = _.find(this.state.nodes, d => d.id === id);
 
         draggedNode.x += d3.event.dx;
         draggedNode.y += d3.event.dy;
 
+
         // let nodes = Object.assign([], this.state.nodes);
         //
         // nodes[id] = draggedNode;
 
-        this.setState({
-            ...this.state
-        });
+        // this.setState({
+        //     ...this.state
+        // });
+        this.tick();
     }
 
     zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
@@ -115,17 +104,15 @@ export default class Graph extends React.Component {
     }
 
     tick = () => {
-        if (!this.state.paused) {
-            // @TODO: Optimize this call
-            this.forceUpdate();
-        }
+        console.log('tick');
+        this.forceUpdate();
     }
 
     render() {
         const { nodes, links } = GraphHelper.buildGraph(
             this.state.nodes,
             this.state.links,
-            this.state.coords,
+            this.state.static.coords,
             this.state.config
         );
 

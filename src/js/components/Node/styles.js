@@ -5,6 +5,7 @@ export default {
         opacity: 1
     },
     pathStyle: {
+        cursor: 'pointer',
         fill: 'rgb(85, 247, 250)',
         strokeWidth: 1.5,
         stroke: 'white',

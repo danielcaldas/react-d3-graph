@@ -49,21 +49,13 @@ export default class Node extends React.Component {
     // shouldComponentUpdate(nextProps, nextState)
 
     // @TODO this is a callback
-    clickNode() {
-        console.log('you clicked the node');
+    clickNode = () => {
+        console.log('you clicked the node', this.state.id);
     }
 
     // @TODO this is a callback
-    mouseOverNode() {
-        console.log('the mouse is over the node');
-    }
-
-    componentDidMount() {
-        // ReactDOM.findDOMNode(this.refs.node)
-        d3.select('.node').call(d3.drag()
-        .on("start", this.dragstart)
-        .on("drag", this.dragmove)
-        .on("end", this.dragend));
+    mouseOverNode = () => {
+        console.log('the mouse is over the node', this.state.id);
     }
 
     render() {

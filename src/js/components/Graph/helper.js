@@ -11,6 +11,7 @@ function buildGraph(nodes, links, coords, config) {
     };
 }
 
+// @TODO: This payload of links is huge. Check how the nodes are being passed
 function buildLinks(links, coords) {
     console.log('buildLinks');
     return links.map(l => {
