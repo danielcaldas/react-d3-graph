@@ -20,18 +20,16 @@ export default class Graph extends React.Component {
         // @TODO: state
         let coords = {};
 
-        graph.nodes.forEach(d => {
-            coords[d.id] = {x: d.x, y: d.y};
-        });
+        graph.nodes.forEach(d => coords[d.id] = {x: d.x, y: d.y});
 
         const forceX = d3.forceX(config.width / 2).strength(.05);
         const forceY = d3.forceY(config.height / 2).strength(.05);
         const simulation = d3.forceSimulation();
 
         simulation.force('link', d3.forceLink().distance(() => CONST.LINK_IDEAL_DISTANCE))
-        .force('charge', d3.forceManyBody().strength(CONST.FORCE_IDEAL_STRENGTH))
-        .force('x', forceX)
-        .force('y', forceY);
+                .force('charge', d3.forceManyBody().strength(CONST.FORCE_IDEAL_STRENGTH))
+                .force('x', forceX)
+                .force('y', forceY);
 
         this.state = {
             graphRenderedFirstTime: false,
@@ -72,7 +70,7 @@ export default class Graph extends React.Component {
             this.state.static.simulation.nodes(this.state.nodes).on('tick', this.tick);
             this.state.static.simulation.force('link').links(this.state.links);
 
-
+            // Graph zoom and drag&drop all network
             const svg = d3.select(`#${CONST.GRAPH_WRAPPER_ID}`);
             const transform = d3.zoomIdentity;
             svg.call(d3.zoom().scaleExtent([1 / 2, 8]).on('zoom', this.zoomed));
@@ -130,10 +128,10 @@ export default class Graph extends React.Component {
         };
 
         return (
-            <div id='graph-wrapper'>
+            <div id={CONST.GRAPH_WRAPPER_ID}>
                 <button onClick={this.pauseOrPlaySimulation}>Pause/Play propagation</button>
                 <svg style={svgStyle}>
-                    <g id='graph-container-zoomable'>
+                    <g id={CONST.GRAPH_CONTAINER_ID}>
                         {links}
                         {nodes}
                     </g>

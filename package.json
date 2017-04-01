@@ -15,7 +15,6 @@
         "babel-preset-es2015": "latest",
         "babel-preset-react": "latest",
         "babel-preset-stage-0": "latest",
-        "css-loader": "latest",
         "d3": "^4.7.4",
         "eslint": "^3.18.0",
         "eslint-config-recommended": "^1.5.0",
