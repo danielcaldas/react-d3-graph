@@ -38,7 +38,6 @@ export default class Node extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.cx !== this.props.cx || nextProps.cy !== this.props.cy) {
             this.setState({
-                ...this.state,
                 cx: nextProps.cx,
                 cy: nextProps.cy
             });

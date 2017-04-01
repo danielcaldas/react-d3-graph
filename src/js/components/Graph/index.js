@@ -47,7 +47,7 @@ export default class Graph extends React.Component {
     }
 
     componentDidMount() {
-        this.state.static.simulation.nodes(this.state.nodes).on('tick', this.tick);
+        this.state.static.simulation.nodes(this.state.nodes).on('tick', this._tick);
 
         const forceLink = d3.forceLink(this.state.links)
                             .distance(CONST.LINK_IDEAL_DISTANCE)
@@ -56,23 +56,23 @@ export default class Graph extends React.Component {
         this.state.static.simulation.force('link', forceLink);
 
         // Graph zoom and drag&drop all network
-        d3.select(`#${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([1 / 2, 8]).on('zoom', this.zoomed));
+        d3.select(`#${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([1 / 2, 8]).on('zoom', this._zoomed));
 
         const customNodeDrag = d3.drag()
-                                .on('start', this.onDragStart)
-                                .on('drag', this.onDragMove)
-                                .on('end', this.onDragEnd);
+                                .on('start', this._onDragStart)
+                                .on('drag', this._onDragMove)
+                                .on('end', this._onDragEnd);
 
         d3.selectAll('.node').call(customNodeDrag);
     }
 
     // @TODO: Do proper set up of graph state or whatever before starting dragging
-    onDragStart = (_e, id) => {
+    _onDragStart = (_e, id) => {
         this.state.static.simulation.stop();
     }
 
     // @TODO: This code does not lives up to my quality standards
-    onDragMove = (_e, id) => {
+    _onDragMove = (_e, id) => {
         // @TODO: Should state be altered like this?
         // @TODO: I dare u to find a more uneficient way to do this!
         let draggedNode = _.find(this.state.nodes, d => d.id === id);
@@ -84,14 +84,14 @@ export default class Graph extends React.Component {
         draggedNode.fx = draggedNode.x;
         draggedNode.fy = draggedNode.y;
 
-        this.tick();
+        this._tick();
     }
 
-    onDragEnd = (_e, id) => {
+    _onDragEnd = (_e, id) => {
         this.state.static.simulation.alphaTarget(0.05).restart();
     }
 
-    zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
+    _zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
 
     /**
     * simulation.restart() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L80]
@@ -102,18 +102,18 @@ export default class Graph extends React.Component {
         this.state.paused ? this.state.static.simulation.restart() : this.state.static.simulation.stop();
 
         this.setState({
-            ...this.state,
             paused: !this.state.paused
         });
     }
 
-    tick = () => {
-        // console.log('tick');
+    _tick = () => {
+        // console.log('tick', this.state.nodes[0].x, Date.now());
         this.forceUpdate();
     }
 
+    // @TODO: Just for demo purposes, in future remove from component
     unStickFixedNodes = () => {
-        // .map onlu returns shallow clone of nodes
+        // .map only returns shallow clone of nodes
         let nodes = this.state.nodes.map(d => {
             if (d.fx && d.fy) {
                 Reflect.deleteProperty(d, 'fx');
@@ -123,7 +123,6 @@ export default class Graph extends React.Component {
         });
 
         this.setState({
-            ...this.state,
             nodes
         });
     }

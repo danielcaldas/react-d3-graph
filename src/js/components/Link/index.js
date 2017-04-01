@@ -13,7 +13,6 @@ export default class Link extends React.Component {
             || nextProps.x2 !== this.props.x2
             || nextProps.y2 !== this.props.y2) {
             this.setState({
-                ...this.state,
                 x1: nextProps.x1,
                 y1: nextProps.y1,
                 x2: nextProps.x2,
