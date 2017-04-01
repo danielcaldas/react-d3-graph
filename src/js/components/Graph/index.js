@@ -75,11 +75,20 @@ export default class Graph extends React.Component {
             this.state.static.simulation.nodes(this.state.nodes).on('tick', this.tick);
             this.state.static.simulation.force('link').links(this.state.links);
 
+
+            const svg = d3.select(`#${CONST.GRAPH_WRAPPER_ID}`);
+            const transform = d3.zoomIdentity;
+            svg.call(d3.zoom().scaleExtent([1 / 2, 8]).on('zoom', this.zoomed));
+
             this.setState({
                 ...this.state,
                 graphRenderedFirstTime: true
             });
         }
+    }
+
+    zoomed = () => {
+        d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
     }
 
     /**
@@ -123,10 +132,10 @@ export default class Graph extends React.Component {
         };
 
         return (
-            <div>
+            <div id='graph-wrapper'>
                 <button onClick={this.pauseOrPlaySimulation}>Pause/Play propagation</button>
                 <svg style={svgStyle}>
-                    <g id='graph-container'>
+                    <g id='graph-container-zoomable'>
                         {links}
                         {nodes}
                     </g>
