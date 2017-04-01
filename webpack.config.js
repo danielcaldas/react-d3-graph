@@ -6,7 +6,7 @@ var path = require('path');
 module.exports = {
     context: path.join(__dirname, 'src'),
     devtool: debug ? 'source-map' : null,
-    entry: './js/client.js',
+    entry: './js/app.js',
     output: {
         path: __dirname + '/dist/',
         filename: 'rd3g.bundle.js'

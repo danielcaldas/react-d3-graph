@@ -3,11 +3,9 @@ import * as d3 from 'd3';
 import { has as _has, merge as _merge } from 'lodash';
 
 import CONST from './const';
-import DEFAULT_CONFIG from '../Graph/graph.config';
+import DEFAULT_CONFIG from '../Graph/config';
 
-import Node from '../Node/';
-import Link from '../Link/';
-import GraphHelper from './graph.helper';
+import GraphHelper from './helper';
 
 export default class Graph extends React.Component {
     constructor(props) {
@@ -127,7 +125,8 @@ export default class Graph extends React.Component {
         const svgStyle = {
             border: '1px solid black',
             height: this.state.config.height,
-            width: this.state.config.width
+            width: '100%',
+            marginTop: '25px'
         };
 
         return (

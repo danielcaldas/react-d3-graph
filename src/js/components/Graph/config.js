@@ -19,5 +19,5 @@ export default {
     nodeLabelTextCenter: false,
     outline: false,
     strokeThickness: 1.5,
-    width: 960
+    width: 1000
 };

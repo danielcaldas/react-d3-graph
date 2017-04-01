@@ -6,14 +6,14 @@ import {
   Link
 } from 'react-router-dom';
 
-import Layout from './components/Layout';
+import Demo from './components/Demo';
 
 const app = document.getElementById('app');
 
 ReactDOM.render(
     <Router>
         <div>
-            <Route path='/' component={Layout}/>
+            <Route path='/' component={Demo}/>
         </div>
      </Router>
     , app);

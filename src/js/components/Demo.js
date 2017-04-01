@@ -1,10 +1,7 @@
 import React from 'react';
 
-import graphMock from '../../mock';
-
 import Graph from './Graph/';
-import Node from './Node/';
-import config from './Graph/graph.config';
+import graphMock from '../../mock';
 
 export default class Layout extends React.Component {
     render() {
@@ -18,12 +15,10 @@ export default class Layout extends React.Component {
             }
         };
 
-        const nodeProps = { config: config };
-
         return (
             <div>
                 <h1>react-d3-graph</h1>
-                <h2>Work in progress</h2>
+                <h2>Work in progress <span>🔨👷</span></h2>
                 <Graph {...graphProps}/>
             </div>
         );
