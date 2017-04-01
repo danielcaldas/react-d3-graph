@@ -17,13 +17,13 @@ export default class Graph extends React.Component {
             config = _merge(config, this.props.config);
         }
 
-        // @TODO: state
         let coords = {};
 
         graph.nodes.forEach(d => coords[d.id] = {x: d.x, y: d.y});
 
-        const forceX = d3.forceX(config.width / 2).strength(.05);
-        const forceY = d3.forceY(config.height / 2).strength(.05);
+        // @TODO: forceX and forceY configurable
+        const forceX = d3.forceX(config.width / 2).strength(.06);
+        const forceY = d3.forceY(config.height / 2).strength(.06);
         const simulation = d3.forceSimulation();
 
         simulation.force('link', d3.forceLink().distance(() => CONST.LINK_IDEAL_DISTANCE))
@@ -82,9 +82,7 @@ export default class Graph extends React.Component {
         }
     }
 
-    zoomed = () => {
-        d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
-    }
+    zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
 
     /**
     * simulation.restart() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L80]
@@ -102,12 +100,7 @@ export default class Graph extends React.Component {
 
     tick = () => {
         if (!this.state.paused) {
-            // console.log('tick');
-            // let coords = {};
-            // this.state.nodes.forEach(d => {
-            //     coords[d.id] = {x: d.x, y: d.y};
-            // });
-            // // console.log(coords[0]);
+            // @TODO: Optimize this call
             this.forceUpdate();
         }
     }
