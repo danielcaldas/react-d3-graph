@@ -13,7 +13,6 @@ function buildGraph(nodes, links, coords, config) {
 
 // @TODO: This payload of links is huge. Check how the nodes are being passed
 function buildLinks(links, coords) {
-    console.log('buildLinks');
     return links.map(l => {
         const key = `${l.source.id || l.source},${l.target.id || l.target}`;
 
@@ -33,7 +32,6 @@ function buildLinks(links, coords) {
 }
 
 function buildNodes(nodes, coords, config) {
-    console.log('buildNodes');
     return nodes.map(d => {
         const props = {
             cx: d.x.toString(),//coords[d.id].x.toString() || d.x.toString(),

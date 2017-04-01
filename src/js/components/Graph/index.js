@@ -29,11 +29,10 @@ export default class Graph extends React.Component {
         const forceX = d3.forceX(config.width / 2).strength(.06);
         const forceY = d3.forceY(config.height / 2).strength(.06);
 
-        const simulation = d3.forceSimulation().force('link', d3.forceLink().distance(() => CONST.LINK_IDEAL_DISTANCE))
+        const simulation = d3.forceSimulation()
                 .force('charge', d3.forceManyBody().strength(CONST.FORCE_IDEAL_STRENGTH))
                 .force('x', forceX)
-                .force('y', forceY)
-                .on('end', console.log('end simulation'));
+                .force('y', forceY);
 
         this.state = {
             paused: false,
@@ -48,43 +47,48 @@ export default class Graph extends React.Component {
     }
 
     componentDidMount() {
-        // Start simulation forces
         this.state.static.simulation.nodes(this.state.nodes).on('tick', this.tick);
-        this.state.static.simulation.force('link').links(this.state.links);
+
+        const forceLink = d3.forceLink(this.state.links)
+                            .distance(CONST.LINK_IDEAL_DISTANCE)
+                            .strength(1);
+
+        this.state.static.simulation.force('link', forceLink);
 
         // Graph zoom and drag&drop all network
         d3.select(`#${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([1 / 2, 8]).on('zoom', this.zoomed));
 
         const customNodeDrag = d3.drag()
                                 .on('start', this.onDragStart)
-                                .on('drag', this.onDragMove);
+                                .on('drag', this.onDragMove)
+                                .on('end', this.onDragEnd);
 
         d3.selectAll('.node').call(customNodeDrag);
     }
 
     // @TODO: Do proper set up of graph state or whatever before starting dragging
     onDragStart = (_e, id) => {
-        console.log('onDragStart');
+        this.state.static.simulation.stop();
     }
 
     // @TODO: This code does not lives up to my quality standards
     onDragMove = (_e, id) => {
-        // if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        // @TODO: Should state be altered like this?
         // @TODO: I dare u to find a more uneficient way to do this!
         let draggedNode = _.find(this.state.nodes, d => d.id === id);
 
         draggedNode.x += d3.event.dx;
         draggedNode.y += d3.event.dy;
 
+        // Set nodes fixing coords fx and fy
+        draggedNode.fx = draggedNode.x;
+        draggedNode.fy = draggedNode.y;
 
-        // let nodes = Object.assign([], this.state.nodes);
-        //
-        // nodes[id] = draggedNode;
-
-        // this.setState({
-        //     ...this.state
-        // });
         this.tick();
+    }
+
+    onDragEnd = (_e, id) => {
+        this.state.static.simulation.alphaTarget(0.05).restart();
     }
 
     zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
@@ -104,8 +108,24 @@ export default class Graph extends React.Component {
     }
 
     tick = () => {
-        console.log('tick');
+        // console.log('tick');
         this.forceUpdate();
+    }
+
+    unStickFixedNodes = () => {
+        // .map onlu returns shallow clone of nodes
+        let nodes = this.state.nodes.map(d => {
+            if (d.fx && d.fy) {
+                Reflect.deleteProperty(d, 'fx');
+                Reflect.deleteProperty(d, 'fy');
+            }
+            return d;
+        });
+
+        this.setState({
+            ...this.state,
+            nodes
+        });
     }
 
     render() {
@@ -126,6 +146,7 @@ export default class Graph extends React.Component {
         return (
             <div id={CONST.GRAPH_WRAPPER_ID}>
                 <button onClick={this.pauseOrPlaySimulation}>Pause/Play propagation</button>
+                <button onClick={this.unStickFixedNodes}>Unstick nodes</button>
                 <svg style={svgStyle}>
                     <g id={CONST.GRAPH_CONTAINER_ID}>
                         {links}
