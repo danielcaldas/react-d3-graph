@@ -5,7 +5,6 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import { Provider } from 'react-redux';
 
 import Layout from './components/Layout';
 

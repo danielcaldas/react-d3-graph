@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import * as d3 from 'd3';
 import { has as _has, merge as _merge } from 'lodash';
 

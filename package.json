@@ -25,7 +25,6 @@
         "lodash": "latest",
         "react": "latest",
         "react-dom": "latest",
-        "react-redux": "latest",
         "react-router-dom": "^4.0.0",
         "react-spinkit": "^2.1.1",
         "redux": "latest",
