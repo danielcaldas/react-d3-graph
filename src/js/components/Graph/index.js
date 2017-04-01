@@ -32,7 +32,6 @@ export default class Graph extends React.Component {
                 .force('y', forceY);
 
         this.state = {
-            graphRenderedFirstTime: false,
             paused: false,
             config,
             nodes: graph.nodes,
@@ -62,24 +61,12 @@ export default class Graph extends React.Component {
     }
 
     componentDidMount() {
-        // console.log('componentDidMount');
-        // console.log('Nodes', this.state.nodes.length);
-        // console.log('Links', this.state.links.length);
+        // Start simulation forces
+        this.state.static.simulation.nodes(this.state.nodes).on('tick', this.tick);
+        this.state.static.simulation.force('link').links(this.state.links);
 
-        if (!this.state.graphRenderedFirstTime) {
-            this.state.static.simulation.nodes(this.state.nodes).on('tick', this.tick);
-            this.state.static.simulation.force('link').links(this.state.links);
-
-            // Graph zoom and drag&drop all network
-            const svg = d3.select(`#${CONST.GRAPH_WRAPPER_ID}`);
-            const transform = d3.zoomIdentity;
-            svg.call(d3.zoom().scaleExtent([1 / 2, 8]).on('zoom', this.zoomed));
-
-            this.setState({
-                ...this.state,
-                graphRenderedFirstTime: true
-            });
-        }
+        // Graph zoom and drag&drop all network
+        d3.select(`#${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([1 / 2, 8]).on('zoom', this.zoomed));
     }
 
     zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);

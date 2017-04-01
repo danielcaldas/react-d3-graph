@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
 
 import CONST from './const';
@@ -57,6 +58,34 @@ export default class Node extends React.Component {
         console.log('the mouse is over the node');
     }
 
+    dragstart = (d, i) => {
+        force.stop() // stops the force auto positioning before you start dragging
+    }
+
+    dragmove = (d, i) => {
+        // console.log(d3.event);
+        this.setState({
+            ...this.state,
+            cx: d3.event.subject.x + d3.event.dx,
+            cy: d3.event.subject.y + d3.event.dy
+        });
+    }
+
+    dragend = (d, i) => {
+        d.fixed = true; // of course set the node to fixed so the force doesn't include the node in its auto positioning stuff
+        tick();
+        // This line will automatically make nodes rearrange when we drag and drop some node
+        // force.resume(); ???
+    }
+
+    componentDidMount() {
+        // ReactDOM.findDOMNode(this.refs.node)
+        d3.select('.node').call(d3.drag()
+        .on("start", this.dragstart)
+        .on("drag", this.dragmove)
+        .on("end", this.dragend));
+    }
+
     render() {
         const gProps = {
             id: this.props.id,
@@ -65,11 +94,11 @@ export default class Node extends React.Component {
             cx: this.state.cx,
             cy: this.state.cy,
             onClick: this.clickNode,
-            onMouseOver: this.mouseOverNode,
+            onMouseOver: this.mouseOverNode
         };
 
         return (
-            <g  {...gProps}>
+            <g {...gProps}>
                 <path {...this.state.pathProps}/>
                 <text {...this.state.textProps}>{this.props.label}</text>
             </g>
