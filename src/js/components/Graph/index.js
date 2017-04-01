@@ -8,6 +8,7 @@ import DEFAULT_CONFIG from '../Graph/graph.config';
 
 import Node from '../Node/';
 import Link from '../Link/';
+import GraphHelper from './graph.helper';
 
 export default class Graph extends React.Component {
     constructor(props) {
@@ -36,7 +37,7 @@ export default class Graph extends React.Component {
         .force('y', forceY);
 
         this.state = {
-            graphRendered: false,
+            graphRenderedFirstTime: false,
             paused: false,
             config,
             nodes: graph.nodes,
@@ -70,13 +71,13 @@ export default class Graph extends React.Component {
         // console.log('Nodes', this.state.nodes.length);
         // console.log('Links', this.state.links.length);
 
-        if (!this.state.graphRendered) {
+        if (!this.state.graphRenderedFirstTime) {
             this.state.static.simulation.nodes(this.state.nodes).on('tick', this.tick);
             this.state.static.simulation.force('link').links(this.state.links);
 
             this.setState({
                 ...this.state,
-                graphRendered: true
+                graphRenderedFirstTime: true
             });
         }
     }
@@ -108,35 +109,12 @@ export default class Graph extends React.Component {
     }
 
     render() {
-        const nodes = this.state.nodes.map(d => {
-            const props = {
-                cx: d.x.toString(),
-                cy: d.y.toString(),
-                id: d.id.toString(),
-                label: d[this.state.config.labelProperty] || d.id.toString(),
-                labelTextSize: this.state.config.defaultTextSize,
-                nodeLabelTextCenter: false,
-                radius: d.size || this.state.config.defaultNodeSize
-            };
-
-            return <Node key={d.id.toString()} {...props} />;
-        });
-
-        const links = this.state.links.map(l => {
-            const key = `${l.source.id || l.source},${l.target.id || l.target}`;
-
-            // @TODO: state
-            const props = {
-                link: {
-                    x1: l.source.x || this.state.coords[l.source].x.toString(),
-                    y1: l.source.y || this.state.coords[l.source].y.toString(),
-                    x2: l.target.x || this.state.coords[l.target].x.toString(),
-                    y2: l.target.y || this.state.coords[l.target].y.toString()
-                }
-            };
-
-            return <Link key={key} {...props} />;
-        });
+        const { nodes, links } = GraphHelper.buildGraph(
+            this.state.nodes,
+            this.state.links,
+            this.state.coords,
+            this.state.config
+        );
 
         const svgStyle = {
             border: '1px solid black',
