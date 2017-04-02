@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import * as d3 from 'd3';
 
 import CONST from './const';
@@ -44,7 +43,7 @@ export default class Node extends React.Component {
         }
     }
 
-    // @TODO
+    // @TODO: Check if component needs update
     // shouldComponentUpdate(nextProps, nextState)
 
     // @TODO this is a callback

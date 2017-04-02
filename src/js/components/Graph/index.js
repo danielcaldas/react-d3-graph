@@ -1,6 +1,5 @@
 import React from 'react';
 import * as d3 from 'd3';
-import * as _ from 'lodash';
 
 import CONST from './const';
 import DEFAULT_CONFIG from '../Graph/config';
@@ -11,11 +10,12 @@ export default class Graph extends React.Component {
     constructor(props) {
         super(props);
 
-        let graph = _.has(this, 'props.data') && this.props.data || {};
+        let graph = this.props.data || {};
         let config = DEFAULT_CONFIG;
+
         // @TODO: The configs must be spreaded by component, use react component defaultProps for this
-        if (_.has(this, 'props.config')) {
-            config = _.merge(config, this.props.config);
+        if (this.props.config) {
+            Object.assign(config, this.props.config)
         }
 
         // @TODO: coords will eventually disapear since it is only a reconstruction
@@ -67,15 +67,16 @@ export default class Graph extends React.Component {
     }
 
     // @TODO: Do proper set up of graph state or whatever before starting dragging
-    _onDragStart = (_e, id) => {
-        this.state.static.simulation.stop();
-    }
+    _onDragStart = (_e, id) => this.state.static.simulation.stop();
 
     // @TODO: This code does not lives up to my quality standards
     _onDragMove = (_e, id) => {
         // @TODO: Should state be altered like this?
         // @TODO: I dare u to find a more uneficient way to do this!
-        let draggedNode = _.find(this.state.nodes, d => d.id === id);
+
+        // This is where d3 and react bind
+        // @TODO: See performance of Array find.
+        let draggedNode = this.state.nodes.find(d => d.id === id);
 
         draggedNode.x += d3.event.dx;
         draggedNode.y += d3.event.dy;
@@ -87,9 +88,7 @@ export default class Graph extends React.Component {
         this._tick();
     }
 
-    _onDragEnd = (_e, id) => {
-        this.state.static.simulation.alphaTarget(0.05).restart();
-    }
+    _onDragEnd = (_e, id) => this.state.static.simulation.alphaTarget(0.05).restart();
 
     _zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
 
@@ -106,10 +105,7 @@ export default class Graph extends React.Component {
         });
     }
 
-    _tick = () => {
-        // console.log('tick', this.state.nodes[0].x, Date.now());
-        this.forceUpdate();
-    }
+    _tick = () => this.forceUpdate();
 
     // @TODO: Just for demo purposes, in future remove from component
     unStickFixedNodes = () => {
@@ -142,6 +138,7 @@ export default class Graph extends React.Component {
             marginTop: '25px'
         };
 
+        // @TODO: Buttons in upper component
         return (
             <div id={CONST.GRAPH_WRAPPER_ID}>
                 <button onClick={this.pauseOrPlaySimulation}>Pause/Play propagation</button>
