@@ -4,9 +4,9 @@ import Link from '../Link/';
 import Node from '../Node/';
 
 // @TODO: Remove all non sense calls to toString() method
-function buildGraph(nodes, links, coords, config) {
+function buildGraph(nodes, nodeCallbacks, links, coords, config) {
     return {
-        nodes: buildNodes(nodes, coords, config),
+        nodes: buildNodes(nodes, nodeCallbacks, coords, config),
         links: buildLinks(links, coords)
     };
 }
@@ -31,7 +31,7 @@ function buildLinks(links, coords) {
     });
 }
 
-function buildNodes(nodes, coords, config) {
+function buildNodes(nodes, nodeCallbacks, coords, config) {
     return nodes.map(d => {
         const props = {
             cx: d.x.toString(),//coords[d.id].x.toString() || d.x.toString(),
@@ -40,7 +40,9 @@ function buildNodes(nodes, coords, config) {
             label: d[config.labelProperty] || d.id.toString(),
             labelTextSize: config.defaultTextSize,
             nodeLabelTextCenter: false,
-            radius: d.size || config.defaultNodeSize
+            radius: d.size || config.defaultNodeSize,
+            onClickNode: nodeCallbacks.onClickNode,
+            onMouseOverNode: nodeCallbacks.onMouseOverNode
         };
 
         return <Node key={d.id} {...props} />;

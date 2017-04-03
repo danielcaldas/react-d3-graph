@@ -29,6 +29,8 @@ export default class Node extends React.Component {
             id: this.props.id,
             cx: this.props.cx.toString(),
             cy: this.props.cy.toString(),
+            onMouseOverNode: this.props.onMouseOverNode,
+            onClickNode: this.props.onClickNode,
             pathProps,
             textProps
         };
@@ -46,14 +48,18 @@ export default class Node extends React.Component {
     // @TODO: Check if component needs update
     // shouldComponentUpdate(nextProps, nextState)
 
-    // @TODO this is a callback
-    clickNode = () => {
-        console.log('you clicked the node', this.state.id);
+    // @TODO Should the callback have node data? Or pass only id to parent component?
+    handleOnClickNode = () => {
+        if (this.state.onClickNode) {
+            this.state.onClickNode(this.state.id);
+        }
     }
 
-    // @TODO this is a callback
-    mouseOverNode = () => {
-        console.log('the mouse is over the node', this.state.id);
+    // @TODO this is a callback? default behavior is highlight first degree connections
+    handleOnMouseOverNode = () => {
+        if (this.state.onMouseOverNode) {
+            this.state.onMouseOverNode(this.state.id);
+        }
     }
 
     render() {
@@ -63,8 +69,8 @@ export default class Node extends React.Component {
             transform: `translate(${this.state.cx},${this.state.cy})`,
             cx: this.state.cx,
             cy: this.state.cy,
-            onClick: this.clickNode,
-            onMouseOver: this.mouseOverNode
+            onClick: this.handleOnClickNode,
+            onMouseOver: this.handleOnMouseOverNode
         };
 
         return (
