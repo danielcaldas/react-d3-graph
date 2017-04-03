@@ -48,14 +48,22 @@ export default class Node extends React.Component {
     // @TODO: Check if component needs update
     // shouldComponentUpdate(nextProps, nextState)
 
-    // @TODO Should the callback have node data? Or pass only id to parent component?
+    /**
+     * This function delegates the action of node click to the parent component. It only passes
+     * as argument the id of the clicked node to the callback function (for that it is mandatory that each node
+     * has a unique id for proper action handling accessing node data in the graph data structure if needed).
+     * @return {undefined}
+     */
     handleOnClickNode = () => {
         if (this.state.onClickNode) {
             this.state.onClickNode(this.state.id);
         }
     }
 
-    // @TODO this is a callback? default behavior is highlight first degree connections
+    /**
+     * This functions calls a callback that will handle the event of mouse over some node in the graph.
+     * @return {undefined}
+     */
     handleOnMouseOverNode = () => {
         if (this.state.onMouseOverNode) {
             this.state.onMouseOverNode(this.state.id);

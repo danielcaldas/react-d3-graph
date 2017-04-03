@@ -123,18 +123,19 @@ export default class Graph extends React.Component {
         });
     }
 
+    // Event handlers
     onClickNode = (node) => console.log('you clicked on node with id', node);
+
+    onClickLink = (source, target) => console.log('you click in the connection between node', source, 'and', target);
 
     onMouseOverNode = (node) => console.log('mouse is over node with id', node);
 
     render() {
         const { nodes, links } = GraphHelper.buildGraph(
             this.state.nodes,
-            {
-                onClickNode: this.onClickNode,
-                onMouseOverNode: this.onMouseOverNode
-            },
+            { onClickNode: this.onClickNode, onMouseOverNode: this.onMouseOverNode },
             this.state.links,
+            { onClickLink: this.onClickLink },
             this.state.static.coords,
             this.state.config
         );
