@@ -2,27 +2,24 @@ import React from 'react';
 import * as d3 from 'd3';
 
 import CONST from './const';
-import STYLES from './styles';
 
 export default class Node extends React.Component {
     constructor(props) {
         super(props);
 
+        // @TODO: Pass this onto parent component to not instatiate a d3.path for each node if possible.
          const context = d3.path();
          context.arc(0, 0, this.props.radius, CONST.ARC.START_ANGLE, CONST.ARC.END_ANGLE);
 
          // @TODO: Check for labelTextCenter property for centering text
-
-         // @TODO: Make path style fill or outline
-         const pathProps = {
-             d: context,
-             style: STYLES.pathStyle
-         };
-
          const textProps = {
              dy: '.35em',
              dx: this.props.labelTextSize,
-             style: STYLES.textStyle
+             style: {
+                 fontSize: '10px',
+                 fontWeight: 'normal',
+                 opacity: 1
+             }
          };
 
         this.state = {
@@ -31,8 +28,8 @@ export default class Node extends React.Component {
             cy: this.props.cy.toString(),
             onMouseOverNode: this.props.onMouseOverNode,
             onClickNode: this.props.onClickNode,
-            pathProps,
-            textProps
+            textProps,
+            context
         };
     }
 
@@ -81,9 +78,21 @@ export default class Node extends React.Component {
             onMouseOver: this.handleOnMouseOverNode
         };
 
+        // @TODO: all properties are passed by the parent component
+        // TIP: Obtain a cool node when set the fill property as white a other color for the border
+        // it will seem like the node is more like a ring.
+        const pathProps = {
+            d: this.state.context, // @TODO: prop
+            cursor: 'pointer',
+            fill: 'white', // @TODO: prop
+            strokeWidth: 1.5, // @TODO: prop
+            stroke: 'green', // @TODO: prop
+            opacity: 1 // @TODO: prop
+        };
+
         return (
             <g {...gProps}>
-                <path {...this.state.pathProps}/>
+                <path {...pathProps}/>
                 <text {...this.state.textProps}>{this.props.label}</text>
             </g>
         );
