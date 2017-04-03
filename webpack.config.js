@@ -1,6 +1,5 @@
 var debug = process.env.NODE_ENV !== 'production';
 var webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 
 module.exports = {
@@ -15,7 +14,7 @@ module.exports = {
         rules: [
             {
                 test: /\.jsx?$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /node_modules/,
                 loader: 'babel-loader',
                 options: {
                     presets: ['react', [ 'es2015', { modules: false } ], 'stage-0'],
@@ -25,9 +24,7 @@ module.exports = {
         ]
     },
     plugins: debug ? [] : [
-        new HtmlWebpackPlugin({ title: 'Tree-shaking' }),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
     ],
 };
