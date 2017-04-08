@@ -85,7 +85,7 @@ export default class Node extends React.Component {
         return (
             <g {...gProps}>
                 <path {...pathProps}/>
-                <text {...textProps}>{this.props.label}</text>
+                {this.props.renderLabel && <text {...textProps}>{this.props.label}</text>}
             </g>
         );
     }

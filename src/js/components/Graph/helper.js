@@ -47,6 +47,7 @@ function buildNodes(nodes, nodeCallbacks, coords, config) {
             fill: d.color || config.node.color,
             id: d.id.toString(),
             label: d[config.node.labelProperty] || d.id.toString(),
+            renderLabel: config.node.renderLabel,
             fontSize: config.node.fontSize,
             labelTextDx,
             cursor: config.node.mouseCursor,

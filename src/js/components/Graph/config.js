@@ -6,17 +6,18 @@ export default {
     width: 1000,
     staticGraph: false, // @TODO: When fixed graph is true do not apply d3 forces and stuff just render the graph as it is
     node: {
+        color: '#d3d3d3',
+        fontSize: 10, // in px
         highlightColor: 'blue',
         highlightOpacity: 0.1,
         labelProperty: 'id',
-        color: '#d3d3d3',
         mouseCursor: 'pointer',
         opacity: 1,
+        renderLabel: true,
         size: 200,
         strokeColor: 'none',
         strokeWidth: 1.5,
-        symbolType: 'circle',
-        fontSize: 10 // in px
+        symbolType: 'circle'
     },
     link: {
         color: '#a9a9a9',

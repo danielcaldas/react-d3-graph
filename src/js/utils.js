@@ -15,7 +15,7 @@ function merge(o1, o2, deepth=0) {
     for (let k of Object.keys(o1)) {
         const nestedO = o2[k] && typeof o2[k] === 'object' && typeof o1[k] === 'object' && deepth < MAX_DEPTH;
 
-        o[k] = nestedO ? merge(o1[k], o2[k], deepth + 1) : o[k] = o2[k] ? o2[k] : o1[k];
+        o[k] = nestedO ? merge(o1[k], o2[k], deepth + 1) : o2.hasOwnProperty(k) ? o2[k] : o1[k];
     }
 
     return o;

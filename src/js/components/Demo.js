@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Graph from './Graph/';
-import graphMock from '../../mock.xl';
+import graphMock from '../../mock';
 
 export default class Layout extends React.Component {
     render() {
@@ -11,13 +11,11 @@ export default class Layout extends React.Component {
                 link: {
                     color: 'green',
                     strokeWidth: 0.8,
-                    opacity: 0.1
+                    opacity: 1
                 },
                 node: {
-                    strokeColor: 'yellow',
-                    strokeWidth: '2',
                     labelProperty: 'uid',
-                    fontSize: 14
+                    strokeColor: 'none'
                 }
             }
         };
