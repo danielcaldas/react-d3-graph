@@ -43,7 +43,8 @@ function buildNodes(nodes, nodeCallbacks, coords, config) {
             label: d[config.labelProperty] || d.id.toString(),
             labelTextSize: config.defaultTextSize,
             nodeLabelTextCenter: false,
-            radius: d.size || config.defaultNodeSize,
+            size: d.size || config.defaultNodeSize,
+            type: d.type || 'circle', // @TODO: Hardcoded circle string
             onClickNode: nodeCallbacks.onClickNode,
             onMouseOverNode: nodeCallbacks.onMouseOverNode
         };

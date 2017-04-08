@@ -2,14 +2,15 @@ import React from 'react';
 import * as d3 from 'd3';
 
 import CONST from './const';
+import NodeHelper from './helper';
 
 export default class Node extends React.Component {
     constructor(props) {
         super(props);
 
         // @TODO: Pass this onto parent component to not instatiate a d3.path for each node if possible.
-         const context = d3.path();
-         context.arc(0, 0, this.props.radius, CONST.ARC.START_ANGLE, CONST.ARC.END_ANGLE);
+
+        const context = NodeHelper.buildSvgSymbol(this.props.size, this.props.type);
 
          // @TODO: Check for labelTextCenter property for centering text
          const textProps = {

@@ -1,7 +1,7 @@
 export default {
     defaultLinkColor: '#a9a9a9',
     defaultNodeColor: '#d3d3d3',
-    defaultNodeSize: 8,
+    defaultNodeSize: 150,
     defaultNodeSymbolType: 'circle',
     defaultTextSize: 10,
     graphAutomaticArrangeOnNodeDrag: false,
