@@ -6,8 +6,8 @@ import Node from '../Node/';
 // @TODO: Remove all non sense calls to toString() method
 function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, coords, config) {
     return {
-        nodes: buildNodes(nodes, nodeCallbacks, coords, config),
-        links: buildLinks(links, linkCallbacks, coords, config)
+        links: buildLinks(links, linkCallbacks, coords, config),
+        nodes: buildNodes(nodes, nodeCallbacks, coords, config)
     };
 }
 
@@ -25,9 +25,9 @@ function buildLinks(links, linkCallbacks, coords, config) {
             y1: l.source.y || coords[l.source] && coords[l.source].y && coords[l.source].y.toString() || '0',
             x2: l.target.x || coords[l.target] && coords[l.target].x && coords[l.target].x.toString() || '0',
             y2: l.target.y || coords[l.target] && coords[l.target].y && coords[l.target].y.toString() || '0',
-            strokeWidth: config.linkStrokeWidth,
-            stroke: config.linkColor,
-            opacity: config.linkOpacity,
+            strokeWidth: config.link.strokeWidth,
+            stroke: config.link.color,
+            opacity: config.link.opacity,
             onClickLink: linkCallbacks.onClickLink
         };
 
@@ -36,25 +36,27 @@ function buildLinks(links, linkCallbacks, coords, config) {
 }
 
 function buildNodes(nodes, nodeCallbacks, coords, config) {
-    const labelTextDx = (90 * config.textSize) / 1000; // @TODO: When config is finished remove harcoded values
+    // @TODO: Many of this attributes are calculated only once, thus being more effecient to calculate them
+    // on a config time or something similar!
+    const labelTextDx = (90 * config.node.fontSize) / 1000; // @TODO: When config is finished remove harcoded values
 
     return nodes.map(d => {
         const props = {
             cx: d && d.x && d.x.toString() || '0',
             cy: d && d.y && d.y.toString() || '0',
-            fill: d.color || config.nodeColor,
+            fill: d.color || config.node.color,
             id: d.id.toString(),
-            label: d[config.labelProperty] || d.id.toString(),
-            labelTextSize: config.textSize,
+            label: d[config.node.labelProperty] || d.id.toString(),
+            fontSize: config.node.fontSize,
             labelTextDx,
-            cursor: config.nodeMouseCursor,
+            cursor: config.node.mouseCursor,
             onClickNode: nodeCallbacks.onClickNode,
             onMouseOverNode: nodeCallbacks.onMouseOverNode,
-            opacity: config.nodeOpacity,
-            size: d.size || config.nodeSize,
-            stroke: config.nodeStrokeColor,
-            strokeWidth: config.nodeStrokeWidth,
-            type: d.type || config.nodeSymbolType
+            opacity: config.node.opacity,
+            size: d.size || config.node.size,
+            stroke: config.node.strokeColor,
+            strokeWidth: config.node.strokeWidth,
+            type: d.type || config.node.symbolType
         };
 
         return <Node key={d.id} {...props} />;

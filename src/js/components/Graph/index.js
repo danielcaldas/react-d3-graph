@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import CONST from './const';
 import DEFAULT_CONFIG from '../Graph/config';
 
+import Utils from '../../utils';
 import GraphHelper from './helper';
 
 export default class Graph extends React.Component {
@@ -11,12 +12,7 @@ export default class Graph extends React.Component {
         super(props);
 
         let graph = this.props.data || {};
-        let config = DEFAULT_CONFIG;
-
-        // @TODO: The configs must be spreaded by component, use react component defaultProps for this
-        if (this.props.config) {
-            Object.assign(config, this.props.config)
-        }
+        let config = Utils.merge(DEFAULT_CONFIG, this.props.config);
 
         // @TODO: coords will eventually disapear since it is only a reconstruction
         // of nodes for access convenience (mapping ids and coords key value pair)
@@ -81,14 +77,16 @@ export default class Graph extends React.Component {
         draggedNode.x += d3.event.dx;
         draggedNode.y += d3.event.dy;
 
-        // Set nodes fixing coords fx and fy
-        draggedNode.fx = draggedNode.x;
-        draggedNode.fy = draggedNode.y;
+        if (this.state.config.nodeFixedAfterDropped) {
+            // Set nodes fixing coords fx and fy
+            draggedNode.fx = draggedNode.x;
+            draggedNode.fy = draggedNode.y;
+        }
 
         this._tick();
     }
 
-    _onDragEnd = (_e, id) => this.state.config.graphAutomaticArrangeOnNodeDrag
+    _onDragEnd = (_e, id) => this.state.config.automaticRearrangeAfterDropNode
                             && this.state.static.simulation.alphaTarget(0.05).restart();
 
     _zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);

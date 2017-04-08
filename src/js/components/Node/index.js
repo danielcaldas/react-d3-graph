@@ -76,7 +76,7 @@ export default class Node extends React.Component {
             dy: CONST.NODE_LABEL_DY,
             dx: `${this.props.labelTextDx}em`, // @TODO: This value is being poorly calculated
             style: {
-                fontSize: `${this.props.labelTextSize}px`,
+                fontSize: `${this.props.fontSize}px`,
                 fontWeight: CONST.FONT_WEIGHT,
                 opacity: this.props.opacity
             }

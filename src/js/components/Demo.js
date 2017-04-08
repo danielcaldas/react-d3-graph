@@ -8,10 +8,15 @@ export default class Layout extends React.Component {
         const graphProps = {
             data: graphMock.graph,
             config: {
-                linkStrokeWidth: 1.2,
-                labelProperty: 'uid',
-                nodeColor: 'white',
-                textSize: 10
+                nodeFixedAfterDropped: false,
+                link: {
+                    color: 'red',
+                    strokeWidth: 1
+                },
+                node: {
+                    strokeColor: 'none',
+                    labelProperty: 'uid'
+                }
             }
         };
 
