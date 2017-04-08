@@ -1,7 +1,5 @@
 import React from 'react';
 
-import STYLES from './styles';
-
 export default class Link extends React.Component {
     constructor(props) {
         super(props);
@@ -43,10 +41,16 @@ export default class Link extends React.Component {
     }
 
     render() {
+        const lineStyle = {
+            strokeWidth: '1.5',
+            stroke: 'rgb(169, 169, 169)',
+            opacity: 1
+        };
+
         const lineProps = {
             className: 'link',
             onClick: this.handleOnClickLink,
-            style: STYLES.lineStyle,
+            style: lineStyle,
             x1: this.state.x1,
             x2: this.state.x2,
             y1: this.state.y1,
