@@ -8,7 +8,7 @@ export default {
     height: 500,
     highlightColor: 'blue',
     highlightOpacity: 0.1,
-    labelProperty: 'uid',
+    labelProperty: 'id',
     maxBaseNodeSize: 36,
     maxScore: 1,
     maxStroke: 4.5,

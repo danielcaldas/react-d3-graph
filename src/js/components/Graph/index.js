@@ -23,7 +23,7 @@ export default class Graph extends React.Component {
         // @TODO: meanwhile i searched on previous code version and observed that this coords
         // a similar data structure will be needed to check link connections e.g linkedByIndex
         const coords = {};
-        graph.nodes.forEach(d => coords[d.id] = {x: d.x, y: d.y});
+        graph.nodes.forEach(d => coords[d.id] = {x: d.x || 0, y: d.y || 0});
 
         // @TODO: forceX and forceY configurable
         const forceX = d3.forceX(config.width / 2).strength(.06);

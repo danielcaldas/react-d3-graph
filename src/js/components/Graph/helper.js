@@ -21,10 +21,10 @@ function buildLinks(links, linkCallbacks, coords, config) {
         const props = {
             source: l.source.id || l.source,
             target: l.target.id || l.target,
-            x1: l.source.x || coords[l.source].x.toString(),
-            y1: l.source.y || coords[l.source].y.toString(),
-            x2: l.target.x || coords[l.target].x.toString(),
-            y2: l.target.y || coords[l.target].y.toString(),
+            x1: l.source.x || coords[l.source] && coords[l.source].x && coords[l.source].x.toString() || '0',
+            y1: l.source.y || coords[l.source] && coords[l.source].y && coords[l.source].y.toString() || '0',
+            x2: l.target.x || coords[l.target] && coords[l.target].x && coords[l.target].x.toString() || '0',
+            y2: l.target.y || coords[l.target] && coords[l.target].y && coords[l.target].y.toString() || '0',
             strokeWidth: config.linkStrokeWidth,
             stroke: config.defaultLinkColor,
             opacity: config.linkOpacity,
@@ -40,8 +40,8 @@ function buildNodes(nodes, nodeCallbacks, coords, config) {
 
     return nodes.map(d => {
         const props = {
-            cx: d.x.toString(),
-            cy: d.y.toString(),
+            cx: d && d.x && d.x.toString() || '0',
+            cy: d && d.y && d.y.toString() || '0',
             fill: d.color || config.defaultNodeColor,
             id: d.id.toString(),
             label: d[config.labelProperty] || d.id.toString(),
