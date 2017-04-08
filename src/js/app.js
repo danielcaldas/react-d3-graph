@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
-  Route,
-  Link
+  Link,
+  Route
 } from 'react-router-dom';
 
 import Demo from './components/Demo';

@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Graph from './Graph/';
 import graphMock from '../../mock';
+
+import Graph from './Graph/';
 
 export default class Layout extends React.Component {
     render() {

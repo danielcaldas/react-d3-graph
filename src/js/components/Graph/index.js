@@ -1,11 +1,12 @@
 import React from 'react';
+
 import * as d3 from 'd3';
 
 import CONST from './const';
 import DEFAULT_CONFIG from '../Graph/config';
 
-import Utils from '../../utils';
 import GraphHelper from './helper';
+import Utils from '../../utils';
 
 // @TODO: When node dragged out of bouds the graph gets repainted
 export default class Graph extends React.Component {
