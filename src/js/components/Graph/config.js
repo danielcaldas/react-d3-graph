@@ -4,6 +4,7 @@ export default {
     defaultNodeSize: 8,
     defaultNodeSymbolType: 'circle',
     defaultTextSize: 10,
+    graphAutomaticArrangeOnNodeDrag: false,
     height: 500,
     highlightColor: 'blue',
     highlightOpacity: 0.1,

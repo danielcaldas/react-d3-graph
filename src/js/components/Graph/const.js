@@ -1,8 +1,8 @@
 export default {
-    FORCE_IDEAL_STRENGTH: -80,
+    FORCE_IDEAL_STRENGTH: -100,
     GRAPH_CONTAINER_ID: 'graph-container-zoomable',
     GRAPH_WRAPPER_ID: 'graph-wrapper',
-    LINK_IDEAL_DISTANCE: 100, // @TODO: Expose as configurable
+    LINK_IDEAL_DISTANCE: 120, // @TODO: Expose as configurable
     SYMBOLS: {
         CIRCLE: 'circle',
         CROSS: 'cross',

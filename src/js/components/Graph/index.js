@@ -88,7 +88,8 @@ export default class Graph extends React.Component {
         this._tick();
     }
 
-    _onDragEnd = (_e, id) => this.state.static.simulation.alphaTarget(0.05).restart();
+    _onDragEnd = (_e, id) => this.state.config.graphAutomaticArrangeOnNodeDrag
+                            && this.state.static.simulation.alphaTarget(0.05).restart();
 
     _zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
 
@@ -117,6 +118,8 @@ export default class Graph extends React.Component {
             }
             return d;
         });
+
+        this.state.static.simulation.alphaTarget(0.05).restart();
 
         this.setState({
             nodes
