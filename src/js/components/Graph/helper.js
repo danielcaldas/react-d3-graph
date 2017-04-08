@@ -7,26 +7,27 @@ import Node from '../Node/';
 function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, coords, config) {
     return {
         nodes: buildNodes(nodes, nodeCallbacks, coords, config),
-        links: buildLinks(links, linkCallbacks, coords)
+        links: buildLinks(links, linkCallbacks, coords, config)
     };
 }
 
 // @TODO: This payload of links is huge. Check how the nodes are being passed
-function buildLinks(links, linkCallbacks, coords) {
+function buildLinks(links, linkCallbacks, coords, config) {
     return links.map(l => {
         const key = `${l.source.id || l.source},${l.target.id || l.target}`;
 
         // @TODO: state
         // @TODO: improve this fallback cases also in nodes
         const props = {
-            link: {
-                source: l.source.id || l.source,
-                target: l.target.id || l.target,
-                x1: l.source.x || coords[l.source].x.toString(),
-                y1: l.source.y || coords[l.source].y.toString(),
-                x2: l.target.x || coords[l.target].x.toString(),
-                y2: l.target.y || coords[l.target].y.toString()
-            },
+            source: l.source.id || l.source,
+            target: l.target.id || l.target,
+            x1: l.source.x || coords[l.source].x.toString(),
+            y1: l.source.y || coords[l.source].y.toString(),
+            x2: l.target.x || coords[l.target].x.toString(),
+            y2: l.target.y || coords[l.target].y.toString(),
+            strokeWidth: config.linkStrokeWidth,
+            stroke: config.defaultLinkColor,
+            opacity: config.linkOpacity,
             onClickLink: linkCallbacks.onClickLink
         };
 

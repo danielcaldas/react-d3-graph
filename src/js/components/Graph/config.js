@@ -16,12 +16,12 @@ export default {
     minScore: 0,
     minZoom: 0.1,
     nodeFixedAfterDropped: true,
-    nodeOpacity: 1,
     nodeStrokeColor: 'green',
     nodeStrokeWidth: 1.5,
     nodeMouseCursor: 'pointer',
     nodeOpacity: 1,
     nodeLabelDefaultDx: 85,
-    strokeThickness: 1.5,
+    linkStrokeWidth: 1.5,
+    linkOpacity: 1,
     width: 1000
 };
