@@ -30,7 +30,6 @@ export default class Graph extends React.Component {
                 .force('y', forceY);
 
         this.state = {
-            paused: false,
             config,
             nodes: graph.nodes,
             links: graph.links,
@@ -107,8 +106,7 @@ export default class Graph extends React.Component {
         this.state.static.simulation.alphaTarget(0.05).restart();
 
         this.setState({
-            nodes,
-            paused: false
+            nodes
         });
     }
 
