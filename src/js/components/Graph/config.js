@@ -1,15 +1,16 @@
 export default {
     automaticRearrangeAfterDropNode: false, // Very expensive for dense graphs, this will start a new force ...
     height: 500,
+    highlightOpacity: 0.1, // for all elements: nodes, text and links
     maxZoom: 8,
     minZoom: 0.5,
-    width: 1000,
     staticGraph: false,
+    width: 1000,
     node: {
         color: '#d3d3d3',
         fontSize: 10, // in px
         highlightColor: 'blue',
-        highlightOpacity: 0.1,
+
         labelProperty: 'id',
         mouseCursor: 'pointer',
         opacity: 1,

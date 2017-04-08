@@ -1,4 +1,5 @@
 export default {
+    COORDS_SEPARATOR: ',',
     FORCE_IDEAL_STRENGTH: -100,
     FORCE_X: 0.06,
     FORCE_Y: 0.06,

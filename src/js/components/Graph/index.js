@@ -18,8 +18,10 @@ export default class Graph extends React.Component {
 
         // @TODO: meanwhile i searched on previous code version and observed that this coords
         // a similar data structure will be needed to check link connections e.g linkedByIndex
-        const coords = {};
-        graph.nodes.forEach(d => coords[d.id] = {x: d.x || 0, y: d.y || 0});
+        const coords = GraphHelper.buildNodeCoords(graph.nodes);
+        const linkedByIndex = GraphHelper.mapLinksByNodeIds(graph.links);
+
+        console.log(linkedByIndex);
 
         const forceX = d3.forceX(config.width / 2).strength(CONST.FORCE_X);
         const forceY = d3.forceY(config.height / 2).strength(CONST.FORCE_Y);
@@ -125,12 +127,19 @@ export default class Graph extends React.Component {
 
     onClickLink = (source, target) => console.log('you click in the connection between node', source, 'and', target);
 
-    onMouseOverNode = (node) => console.log('mouse is over node with id', node);
+    onMouseOverNode = (node) => {
+
+        console.log('mouse is over node with id', node);
+    }
+
+    onMouseOut = (node) => {
+        console.log('mouse is out of node with id', node);
+    }
 
     render() {
         const { nodes, links } = GraphHelper.buildGraph(
             this.state.nodes,
-            { onClickNode: this.onClickNode, onMouseOverNode: this.onMouseOverNode },
+            { onClickNode: this.onClickNode, onMouseOverNode: this.onMouseOverNode, onMouseOut: this.onMouseOut},
             this.state.links,
             { onClickLink: this.onClickLink },
             this.state.static.coords,

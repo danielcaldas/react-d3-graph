@@ -45,19 +45,21 @@ function buildNodes(nodes, nodeCallbacks, coords, config) {
 
     return nodes.map(d => {
         const props = {
+            className: CONST.NODE_CLASS_NAME,
+            cursor: config.node.mouseCursor,
             cx: d && d.x && d.x.toString() || '0',
             cy: d && d.y && d.y.toString() || '0',
-            className: CONST.NODE_CLASS_NAME,
             fill: d.color || config.node.color,
+            fontSize: config.node.fontSize,
+            highlightColor: config.node.highlightColor,
             id: d.id.toString(),
             label: d[config.node.labelProperty] || d.id.toString(),
-            renderLabel: config.node.renderLabel,
-            fontSize: config.node.fontSize,
             labelTextDx,
-            cursor: config.node.mouseCursor,
             onClickNode: nodeCallbacks.onClickNode,
             onMouseOverNode: nodeCallbacks.onMouseOverNode,
+            onMouseOut: nodeCallbacks.onMouseOut,
             opacity: config.node.opacity,
+            renderLabel: config.node.renderLabel,
             size: d.size || config.node.size,
             stroke: config.node.strokeColor,
             strokeWidth: config.node.strokeWidth,
@@ -68,6 +70,38 @@ function buildNodes(nodes, nodeCallbacks, coords, config) {
     });
 }
 
+function _buildLinkKey(link) {
+    return `${link.source}${CONST.COORDS_SEPARATOR}${link.target}`;
+}
+
+function _buildLinkKeyFromNodes(n1, n2) {
+    return `${n1.id}${CONST.COORDS_SEPARATOR}${n2.id}`;
+}
+
+function buildNodeCoords(nodes) {
+    const coords = {};
+
+    nodes.forEach(d => coords[d.id] = {x: d.x || 0, y: d.y || 0});
+
+    return coords;
+}
+
+function mapLinksByNodeIds(links) {
+    const linkedByIndex = {};
+
+    links.forEach(d => linkedByIndex[_buildLinkKey(d)] = true);
+
+    return linkedByIndex;
+}
+
+function isConnected(linkedByIndex, n1, n2) {
+    return n1.id === n2.id
+        || linkedByIndex[_buildLinkKeyFromNodes(n1,n2)]
+        || linkedByIndex[_buildLinkKeyFromNodes(n2,n1)];
+}
+
 export default {
-    buildGraph
+    buildGraph,
+    buildNodeCoords,
+    mapLinksByNodeIds
 };
