@@ -11,5 +11,7 @@ export default {
         STAR: 'star',
         TRIANGLE: 'triangle',
         WYE: 'wye'
-    }
-}
+    },
+    FONT_WEIGHT: 'normal',
+    NODE_LABEL_DY: '.35em'
+};

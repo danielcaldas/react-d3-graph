@@ -3,7 +3,7 @@ export default {
     defaultNodeColor: '#d3d3d3',
     defaultNodeSize: 150,
     defaultNodeSymbolType: 'circle',
-    defaultTextSize: 10,
+    defaultTextSize: 10, // in px
     graphAutomaticArrangeOnNodeDrag: false,
     height: 500,
     highlightColor: 'blue',
@@ -12,13 +12,16 @@ export default {
     maxBaseNodeSize: 36,
     maxScore: 1,
     maxStroke: 4.5,
-    maxTextSize: 24,
     maxZoom: 7,
     minScore: 0,
     minZoom: 0.1,
     nodeFixedAfterDropped: true,
-    nodeLabelTextCenter: false,
-    outline: false,
+    nodeOpacity: 1,
+    nodeStrokeColor: 'green',
+    nodeStrokeWidth: 1.5,
+    nodeMouseCursor: 'pointer',
+    nodeOpacity: 1,
+    nodeLabelDefaultDx: 85,
     strokeThickness: 1.5,
     width: 1000
 };

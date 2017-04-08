@@ -9,27 +9,12 @@ export default class Node extends React.Component {
         super(props);
 
         // @TODO: Pass this onto parent component to not instatiate a d3.path for each node if possible.
-
         const context = NodeHelper.buildSvgSymbol(this.props.size, this.props.type);
-
-         // @TODO: Check for labelTextCenter property for centering text
-         const textProps = {
-             dy: '.35em',
-             dx: this.props.labelTextSize,
-             style: {
-                 fontSize: '10px',
-                 fontWeight: 'normal',
-                 opacity: 1
-             }
-         };
 
         this.state = {
             id: this.props.id,
             cx: this.props.cx.toString(),
             cy: this.props.cy.toString(),
-            onMouseOverNode: this.props.onMouseOverNode,
-            onClickNode: this.props.onClickNode,
-            textProps,
             context
         };
     }
@@ -83,18 +68,30 @@ export default class Node extends React.Component {
         // TIP: Obtain a cool node when set the fill property as white a other color for the border
         // it will seem like the node is more like a ring.
         const pathProps = {
-            d: this.state.context, // @TODO: prop
-            cursor: 'pointer',
-            fill: 'white', // @TODO: prop
-            strokeWidth: 1.5, // @TODO: prop
-            stroke: 'green', // @TODO: prop
-            opacity: 1 // @TODO: prop
+            d: this.state.context,
+            cursor: this.props.mouseCursor,
+            fill: this.props.fill,
+            strokeWidth: this.props.strokeWidth,
+            stroke: this.props.stroke,
+            opacity: this.props.opacity
+        };
+
+        // @TODO: Check for labelTextCenter property for centering text
+        // @TODO: dx and dy calculated by me, expose fontSize and fontWeight
+        const textProps = {
+            dy: CONST.NODE_LABEL_DY,
+            dx: `${this.props.labelTextDx}em`,
+            style: {
+                fontSize: `${this.props.labelTextSize}px`,
+                fontWeight: CONST.FONT_WEIGHT,
+                opacity: this.props.opacity
+            }
         };
 
         return (
             <g {...gProps}>
                 <path {...pathProps}/>
-                <text {...this.state.textProps}>{this.props.label}</text>
+                <text {...textProps}>{this.props.label}</text>
             </g>
         );
     }

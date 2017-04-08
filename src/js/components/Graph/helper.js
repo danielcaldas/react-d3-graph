@@ -39,14 +39,18 @@ function buildNodes(nodes, nodeCallbacks, coords, config) {
         const props = {
             cx: d.x.toString(),//coords[d.id].x.toString() || d.x.toString(),
             cy: d.y.toString(),// coords[d.id].y.toString() || d.y.toString(),
+            fill: d.color || config.defaultNodeColor,
             id: d.id.toString(),
             label: d[config.labelProperty] || d.id.toString(),
             labelTextSize: config.defaultTextSize,
-            nodeLabelTextCenter: false,
-            size: d.size || config.defaultNodeSize,
-            type: d.type || 'circle', // @TODO: Hardcoded circle string
+            labelTextDx: (90 * config.defaultTextSize) / 1000, // @TODO: When config is finished remove harcoded values
             onClickNode: nodeCallbacks.onClickNode,
-            onMouseOverNode: nodeCallbacks.onMouseOverNode
+            onMouseOverNode: nodeCallbacks.onMouseOverNode,
+            opacity: config.nodeOpacity,
+            size: d.size || config.defaultNodeSize,
+            stroke: config.nodeStrokeColor,
+            strokeWidth: config.nodeStrokeWidth,
+            type: d.type || config.defaultNodeSymbolType
         };
 
         return <Node key={d.id} {...props} />;
