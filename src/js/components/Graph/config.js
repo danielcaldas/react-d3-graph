@@ -4,7 +4,7 @@ export default {
     maxZoom: 8,
     minZoom: 0.5,
     width: 1000,
-    staticGraph: false, // @TODO: When fixed graph is true do not apply d3 forces and stuff just render the graph as it is
+    staticGraph: false,
     node: {
         color: '#d3d3d3',
         fontSize: 10, // in px

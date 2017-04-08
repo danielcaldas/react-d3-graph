@@ -7,6 +7,7 @@ import DEFAULT_CONFIG from '../Graph/config';
 import Utils from '../../utils';
 import GraphHelper from './helper';
 
+// @TODO: When node dragged out of bouds the graph gets repainted
 export default class Graph extends React.Component {
     constructor(props) {
         super(props);
@@ -41,27 +42,29 @@ export default class Graph extends React.Component {
     }
 
     componentDidMount() {
-        this.state.static.simulation.nodes(this.state.nodes).on('tick', this._tick);
+        if (!this.state.config.staticGraph) {
+            this.state.static.simulation.nodes(this.state.nodes).on('tick', this._tick);
 
-        const forceLink = d3.forceLink(this.state.links)
-                            .distance(CONST.LINK_IDEAL_DISTANCE)
-                            .strength(1);
+            const forceLink = d3.forceLink(this.state.links)
+                                .distance(CONST.LINK_IDEAL_DISTANCE)
+                                .strength(1);
 
-        this.state.static.simulation.force('link', forceLink);
+            this.state.static.simulation.force('link', forceLink);
+
+            const customNodeDrag = d3.drag()
+                                    .on('start', this._onDragStart)
+                                    .on('drag', this._onDragMove)
+                                    .on('end', this._onDragEnd);
+
+            d3.selectAll('.node').call(customNodeDrag);
+        }
 
         // Graph zoom and drag&drop all network
         d3.select(`#${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom]).on('zoom', this._zoomed));
-
-        const customNodeDrag = d3.drag()
-                                .on('start', this._onDragStart)
-                                .on('drag', this._onDragMove)
-                                .on('end', this._onDragEnd);
-
-        d3.selectAll('.node').call(customNodeDrag);
     }
 
     // @TODO: Do proper set up of graph state or whatever before starting dragging
-    _onDragStart = (_e, id) => this.state.static.simulation.stop();
+    _onDragStart = (_e, id) => !this.state.config.staticGraph && this.state.static.simulation.stop();
 
     // @TODO: This code does not lives up to my quality standards
     _onDragMove = (_e, id) => {
@@ -79,10 +82,11 @@ export default class Graph extends React.Component {
         draggedNode.fx = draggedNode.x;
         draggedNode.fy = draggedNode.y;
 
-        this._tick();
+        !this.state.config.staticGraph && this._tick();
     }
 
-    _onDragEnd = (_e, id) => this.state.config.automaticRearrangeAfterDropNode
+    _onDragEnd = (_e, id) => !this.state.config.staticGraph
+                            && this.state.config.automaticRearrangeAfterDropNode
                             && this.state.static.simulation.alphaTarget(0.05).restart();
 
     _zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);

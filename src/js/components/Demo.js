@@ -8,6 +8,7 @@ export default class Layout extends React.Component {
         const graphProps = {
             data: graphMock.graph,
             config: {
+                minZoom: 0.01,
                 link: {
                     color: 'green',
                     strokeWidth: 0.8,
