@@ -1,3 +1,5 @@
+const MAX_DEPTH = 3;
+
 /**
  * This function merges two objects o1 and o2, where o2 properties override existent o1 properties, and
  * if o2 doesn't posses some o1 property the function will fallback to the o1 property.
@@ -7,7 +9,6 @@
  * @return {Object} Object that is the result of merging o1 and o2, being o2 properties prioritray overriding
  * existent o1 properties.
  */
-const MAX_DEPTH = 3;
 function merge(o1, o2, deepth=0) {
     let o = {};
 

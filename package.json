@@ -16,6 +16,7 @@
         "babel-preset-react": "latest",
         "babel-preset-stage-0": "latest",
         "d3": "^4.7.4",
+        "documentation": "^4.0.0-beta.18",
         "eslint": "^3.18.0",
         "eslint-config-recommended": "^1.5.0",
         "eslint-plugin-promise": "^3.5.0",
@@ -37,6 +38,7 @@
     "devDependencies": {},
     "scripts": {
         "dev": "./node_modules/.bin/webpack-dev-server -d --content-base src --inline --hot --port 3002",
+        "docs": "node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o docs && node_modules/documentation/bin/documentation.js build src/**/*.js -f md > DOCUMENTATION.md",
         "lint": "node_modules/eslint/bin/eslint.js --config=./.eslintrc.js ./src/js/**/*.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     }
