@@ -12,10 +12,9 @@ export default class Node extends React.Component {
         const context = NodeHelper.buildSvgSymbol(this.props.size, this.props.type);
 
         this.state = {
-            id: this.props.id,
             cx: this.props.cx.toString(),
             cy: this.props.cy.toString(),
-            context
+            context // @TODO: Remove context from state
         };
     }
 
@@ -38,8 +37,8 @@ export default class Node extends React.Component {
      * @return {undefined}
      */
     handleOnClickNode = () => {
-        if (this.state.onClickNode) {
-            this.state.onClickNode(this.state.id);
+        if (this.props.onClickNode) {
+            this.props.onClickNode(this.props.id);
         }
     }
 
@@ -48,8 +47,8 @@ export default class Node extends React.Component {
      * @return {undefined}
      */
     handleOnMouseOverNode = () => {
-        if (this.state.onMouseOverNode) {
-            this.state.onMouseOverNode(this.state.id);
+        if (this.props.onMouseOverNode) {
+            this.props.onMouseOverNode(this.props.id);
         }
     }
 
@@ -64,9 +63,6 @@ export default class Node extends React.Component {
             onMouseOver: this.handleOnMouseOverNode
         };
 
-        // @TODO: all properties are passed by the parent component
-        // TIP: Obtain a cool node when set the fill property as white a other color for the border
-        // it will seem like the node is more like a ring.
         const pathProps = {
             d: this.state.context,
             cursor: this.props.mouseCursor,
@@ -76,11 +72,9 @@ export default class Node extends React.Component {
             opacity: this.props.opacity
         };
 
-        // @TODO: Check for labelTextCenter property for centering text
-        // @TODO: dx and dy calculated by me, expose fontSize and fontWeight
         const textProps = {
             dy: CONST.NODE_LABEL_DY,
-            dx: `${this.props.labelTextDx}em`,
+            dx: `${this.props.labelTextDx}em`, // @TODO: This value is being poorly calculated
             style: {
                 fontSize: `${this.props.labelTextSize}px`,
                 fontWeight: CONST.FONT_WEIGHT,

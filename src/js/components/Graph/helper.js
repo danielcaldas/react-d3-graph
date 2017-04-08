@@ -35,15 +35,17 @@ function buildLinks(links, linkCallbacks, coords) {
 }
 
 function buildNodes(nodes, nodeCallbacks, coords, config) {
+    const labelTextDx = (90 * config.defaultTextSize) / 1000; // @TODO: When config is finished remove harcoded values
+
     return nodes.map(d => {
         const props = {
-            cx: d.x.toString(),//coords[d.id].x.toString() || d.x.toString(),
-            cy: d.y.toString(),// coords[d.id].y.toString() || d.y.toString(),
+            cx: d.x.toString(),
+            cy: d.y.toString(),
             fill: d.color || config.defaultNodeColor,
             id: d.id.toString(),
             label: d[config.labelProperty] || d.id.toString(),
             labelTextSize: config.defaultTextSize,
-            labelTextDx: (90 * config.defaultTextSize) / 1000, // @TODO: When config is finished remove harcoded values
+            labelTextDx,
             onClickNode: nodeCallbacks.onClickNode,
             onMouseOverNode: nodeCallbacks.onMouseOverNode,
             opacity: config.nodeOpacity,

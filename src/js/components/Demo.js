@@ -11,7 +11,7 @@ export default class Layout extends React.Component {
                 strokeThickness: 1,
                 labelProperty: 'uid',
                 defaultNodeColor: 'white',
-                defaultTextSize: 8
+                defaultTextSize: 10
             }
         };
 
