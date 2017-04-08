@@ -1,5 +1,7 @@
 import React from 'react';
 
+import CONST from './const';
+
 import Link from '../Link/';
 import Node from '../Node/';
 
@@ -27,6 +29,7 @@ function buildLinks(links, linkCallbacks, coords, config) {
             y2: l.target.y || coords[l.target] && coords[l.target].y && coords[l.target].y.toString() || '0',
             strokeWidth: config.link.strokeWidth,
             stroke: config.link.color,
+            className: CONST.LINK_CLASS_NAME,
             opacity: config.link.opacity,
             onClickLink: linkCallbacks.onClickLink
         };
@@ -44,6 +47,7 @@ function buildNodes(nodes, nodeCallbacks, coords, config) {
         const props = {
             cx: d && d.x && d.x.toString() || '0',
             cy: d && d.y && d.y.toString() || '0',
+            className: CONST.NODE_CLASS_NAME,
             fill: d.color || config.node.color,
             id: d.id.toString(),
             label: d[config.node.labelProperty] || d.id.toString(),

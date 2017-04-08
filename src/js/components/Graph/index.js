@@ -20,9 +20,8 @@ export default class Graph extends React.Component {
         const coords = {};
         graph.nodes.forEach(d => coords[d.id] = {x: d.x || 0, y: d.y || 0});
 
-        // @TODO: forceX and forceY configurable
-        const forceX = d3.forceX(config.width / 2).strength(.06);
-        const forceY = d3.forceY(config.height / 2).strength(.06);
+        const forceX = d3.forceX(config.width / 2).strength(CONST.FORCE_X);
+        const forceY = d3.forceY(config.height / 2).strength(CONST.FORCE_Y);
 
         const simulation = d3.forceSimulation()
                 .force('charge', d3.forceManyBody().strength(CONST.FORCE_IDEAL_STRENGTH))
@@ -48,7 +47,7 @@ export default class Graph extends React.Component {
                                 .distance(CONST.LINK_IDEAL_DISTANCE)
                                 .strength(1);
 
-            this.state.static.simulation.force('link', forceLink);
+            this.state.static.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
 
             const customNodeDrag = d3.drag()
                                     .on('start', this._onDragStart)
