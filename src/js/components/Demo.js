@@ -10,8 +10,8 @@ export default class Layout extends React.Component {
             config: {
                 linkStrokeWidth: 1.2,
                 labelProperty: 'uid',
-                defaultNodeColor: 'white',
-                defaultTextSize: 10
+                nodeColor: 'white',
+                textSize: 10
             }
         };
 

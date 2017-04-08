@@ -56,7 +56,7 @@ export default class Graph extends React.Component {
         this.state.static.simulation.force('link', forceLink);
 
         // Graph zoom and drag&drop all network
-        d3.select(`#${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([1 / 2, 8]).on('zoom', this._zoomed));
+        d3.select(`#${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom]).on('zoom', this._zoomed));
 
         const customNodeDrag = d3.drag()
                                 .on('start', this._onDragStart)
@@ -122,7 +122,8 @@ export default class Graph extends React.Component {
         this.state.static.simulation.alphaTarget(0.05).restart();
 
         this.setState({
-            nodes
+            nodes,
+            paused: false
         });
     }
 

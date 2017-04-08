@@ -65,7 +65,7 @@ export default class Node extends React.Component {
 
         const pathProps = {
             d: this.state.context,
-            cursor: this.props.mouseCursor,
+            cursor: this.props.cursor,
             fill: this.props.fill,
             strokeWidth: this.props.strokeWidth,
             stroke: this.props.stroke,

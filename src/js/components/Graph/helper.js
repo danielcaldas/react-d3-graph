@@ -26,7 +26,7 @@ function buildLinks(links, linkCallbacks, coords, config) {
             x2: l.target.x || coords[l.target] && coords[l.target].x && coords[l.target].x.toString() || '0',
             y2: l.target.y || coords[l.target] && coords[l.target].y && coords[l.target].y.toString() || '0',
             strokeWidth: config.linkStrokeWidth,
-            stroke: config.defaultLinkColor,
+            stroke: config.linkColor,
             opacity: config.linkOpacity,
             onClickLink: linkCallbacks.onClickLink
         };
@@ -36,24 +36,25 @@ function buildLinks(links, linkCallbacks, coords, config) {
 }
 
 function buildNodes(nodes, nodeCallbacks, coords, config) {
-    const labelTextDx = (90 * config.defaultTextSize) / 1000; // @TODO: When config is finished remove harcoded values
+    const labelTextDx = (90 * config.textSize) / 1000; // @TODO: When config is finished remove harcoded values
 
     return nodes.map(d => {
         const props = {
             cx: d && d.x && d.x.toString() || '0',
             cy: d && d.y && d.y.toString() || '0',
-            fill: d.color || config.defaultNodeColor,
+            fill: d.color || config.nodeColor,
             id: d.id.toString(),
             label: d[config.labelProperty] || d.id.toString(),
-            labelTextSize: config.defaultTextSize,
+            labelTextSize: config.textSize,
             labelTextDx,
+            cursor: config.nodeMouseCursor,
             onClickNode: nodeCallbacks.onClickNode,
             onMouseOverNode: nodeCallbacks.onMouseOverNode,
             opacity: config.nodeOpacity,
-            size: d.size || config.defaultNodeSize,
+            size: d.size || config.nodeSize,
             stroke: config.nodeStrokeColor,
             strokeWidth: config.nodeStrokeWidth,
-            type: d.type || config.defaultNodeSymbolType
+            type: d.type || config.nodeSymbolType
         };
 
         return <Node key={d.id} {...props} />;
