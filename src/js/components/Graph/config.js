@@ -1,11 +1,10 @@
 export default {
-    automaticRearrangeAfterDropNode: false,
+    automaticRearrangeAfterDropNode: false, // Very expensive for dense graphs, this will start a new force ...
     height: 500,
     maxZoom: 8,
     minZoom: 0.5,
-    nodeFixedAfterDropped: true,
     width: 1000,
-    fixedGraph: false, // @TODO: When fixed graph is true do not apply d3 forces and stuff just render the graph as it is
+    staticGraph: false, // @TODO: When fixed graph is true do not apply d3 forces and stuff just render the graph as it is
     node: {
         highlightColor: 'blue',
         highlightOpacity: 0.1,
@@ -14,7 +13,7 @@ export default {
         mouseCursor: 'pointer',
         opacity: 1,
         size: 200,
-        strokeColor: 'green',
+        strokeColor: 'none',
         strokeWidth: 1.5,
         symbolType: 'circle',
         fontSize: 10 // in px

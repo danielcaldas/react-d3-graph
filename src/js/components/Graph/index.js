@@ -14,8 +14,6 @@ export default class Graph extends React.Component {
         let graph = this.props.data || {};
         let config = Utils.merge(DEFAULT_CONFIG, this.props.config);
 
-        // @TODO: coords will eventually disapear since it is only a reconstruction
-        // of nodes for access convenience (mapping ids and coords key value pair)
         // @TODO: meanwhile i searched on previous code version and observed that this coords
         // a similar data structure will be needed to check link connections e.g linkedByIndex
         const coords = {};
@@ -77,11 +75,9 @@ export default class Graph extends React.Component {
         draggedNode.x += d3.event.dx;
         draggedNode.y += d3.event.dy;
 
-        if (this.state.config.nodeFixedAfterDropped) {
-            // Set nodes fixing coords fx and fy
-            draggedNode.fx = draggedNode.x;
-            draggedNode.fy = draggedNode.y;
-        }
+        // Set nodes fixing coords fx and fy
+        draggedNode.fx = draggedNode.x;
+        draggedNode.fy = draggedNode.y;
 
         this._tick();
     }
@@ -90,19 +86,6 @@ export default class Graph extends React.Component {
                             && this.state.static.simulation.alphaTarget(0.05).restart();
 
     _zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
-
-    /**
-    * simulation.restart() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L80]
-    * imulation.stop() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L84]
-    * @return {[type]} [description]
-    */
-    pauseOrPlaySimulation = () => {
-        this.state.paused ? this.state.static.simulation.restart() : this.state.static.simulation.stop();
-
-        this.setState({
-            paused: !this.state.paused
-        });
-    }
 
     _tick = () => this.forceUpdate();
 
@@ -124,6 +107,16 @@ export default class Graph extends React.Component {
             paused: false
         });
     }
+
+    /**
+    * simulation.stop() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L84]
+    */
+    pauseSimulation = () => this.state.static.simulation.stop();
+
+    /**
+     * simulation.restart() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L80]
+     */
+    restartSimulation = () => this.state.static.simulation.restart();
 
     // Event handlers
     onClickNode = (node) => console.log('you clicked on node with id', node);
@@ -152,7 +145,8 @@ export default class Graph extends React.Component {
         // @TODO: Buttons in upper component
         return (
             <div id={CONST.GRAPH_WRAPPER_ID}>
-                <button onClick={this.pauseOrPlaySimulation}>Pause/Play propagation</button>
+                <button onClick={this.restartSimulation}>▶️</button>
+                <button onClick={this.pauseSimulation}>⏸</button>
                 <button onClick={this.unStickFixedNodes}>Unstick nodes</button>
                 <svg style={svgStyle}>
                     <g id={CONST.GRAPH_CONTAINER_ID}>

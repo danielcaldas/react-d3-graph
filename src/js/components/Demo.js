@@ -1,21 +1,23 @@
 import React from 'react';
 
 import Graph from './Graph/';
-import graphMock from '../../mock';
+import graphMock from '../../mock.xl';
 
 export default class Layout extends React.Component {
     render() {
         const graphProps = {
             data: graphMock.graph,
             config: {
-                nodeFixedAfterDropped: false,
                 link: {
-                    color: 'red',
-                    strokeWidth: 1
+                    color: 'green',
+                    strokeWidth: 0.8,
+                    opacity: 0.1
                 },
                 node: {
-                    strokeColor: 'none',
-                    labelProperty: 'uid'
+                    strokeColor: 'yellow',
+                    strokeWidth: '2',
+                    labelProperty: 'uid',
+                    fontSize: 14
                 }
             }
         };
