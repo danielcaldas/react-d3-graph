@@ -21,6 +21,13 @@ function merge(o1, o2, deepth=0) {
     return o;
 }
 
+function throwErr(component, msg) {
+    const error = `react-d3-graph :: ${component} :: ${msg}`;
+
+    throw Error(error);
+}
+
 export default {
-    merge
+    merge,
+    throwErr
 };

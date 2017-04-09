@@ -3,7 +3,8 @@ import React from 'react';
 import * as d3 from 'd3';
 
 import CONST from './const';
-import DEFAULT_CONFIG from '../Graph/config';
+import DEFAULT_CONFIG from './config';
+import ERRORS from '../../err';
 
 import GraphHelper from './helper';
 import Utils from '../../utils';
@@ -13,13 +14,18 @@ export default class Graph extends React.Component {
     constructor(props) {
         super(props);
 
+        if (!this.props.id) {
+            throw Utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
+        }
+
         let graph = this.props.data || {};
-        let config = Utils.merge(DEFAULT_CONFIG, this.props.config);
-        let nodes = GraphHelper.initializeNodes(graph.nodes);
+        let config = Utils.merge(DEFAULT_CONFIG, this.props.config || {});
+        let {nodes, indexMapping} = GraphHelper.initializeNodes(graph.nodes);
         let links = GraphHelper.initializeLinks(graph.links); // Matrix of graph connections
 
-        this.simulation = GraphHelper.createForceSimulation(config.width, config.height);
         this.config = config;
+        this.indexMapping = indexMapping;
+        this.simulation = GraphHelper.createForceSimulation(config.width, config.height);
 
         // Disposable once component is mounted
         this.links = graph.links;
@@ -37,6 +43,7 @@ export default class Graph extends React.Component {
             this.simulation.nodes(this.nodes).on('tick', this._tick);
 
             const forceLink = d3.forceLink(this.links)
+                                .id(l => l.id)
                                 .distance(CONST.LINK_IDEAL_DISTANCE)
                                 .strength(1);
 
@@ -47,11 +54,11 @@ export default class Graph extends React.Component {
                                     .on('drag', this._onDragMove)
                                     .on('end', this._onDragEnd);
 
-            d3.selectAll('.node').call(customNodeDrag);
+            d3.select(`#${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
         }
 
         // Graph zoom and drag&drop all network
-        d3.select(`#${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([this.config.minZoom, this.config.maxZoom]).on('zoom', this._zoomed));
+        d3.select(`#${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([this.config.minZoom, this.config.maxZoom]).on('zoom', this._zoomed));
 
         Reflect.deleteProperty(this, 'nodes');
         Reflect.deleteProperty(this, 'links');
@@ -59,23 +66,23 @@ export default class Graph extends React.Component {
 
     _tick = () => this.setState(this.state || {});
 
-    _zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
+    _zoomed = () => d3.selectAll(`#${this.props.id}-${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
 
     /*--------------------------------------------------
         Drag & Drop
      --------------------------------------------------*/
     _onDragStart = () => !this.config.staticGraph && this.simulation.stop();
 
-    _onDragMove = (_, id) => {
-        // This is where d3 and react bind
-        let draggedNode = this.state.nodes[id];
+    _onDragMove = (_, index) => {
+        // This is where d3 and react bind;
+        let draggedNode = this.state.nodes[this.indexMapping[index]];
 
         draggedNode.x += d3.event.dx;
         draggedNode.y += d3.event.dy;
 
         // Set nodes fixing coords fx and fy
-        draggedNode.fx = draggedNode.x;
-        draggedNode.fy = draggedNode.y;
+        draggedNode['fx'] = draggedNode.x;
+        draggedNode['fy'] = draggedNode.y;
 
         !this.config.staticGraph && this._tick();
     }
@@ -88,24 +95,24 @@ export default class Graph extends React.Component {
     /*--------------------------------------------------
         Event Handlers
      --------------------------------------------------*/
-    onMouseOverNode = (node) => {
-        this.props.onMouseOverNode && this.props.onMouseOverNode(node);
+    onMouseOverNode = (index) => {
+        this.props.onMouseOverNode && this.props.onMouseOverNode(index);
 
-        this.config.highlightBehavior && this._setHighlighted(node, true);
+        this.config.highlightBehavior && this._setHighlighted(index, true);
     }
 
-    onMouseOutNode = (node) => {
-        this.props.onMouseOutNode && this.props.onMouseOutNode(node);
+    onMouseOutNode = (index) => {
+        this.props.onMouseOutNode && this.props.onMouseOutNode(index);
 
-        this.config.highlightBehavior && this._setHighlighted(node, false);
+        this.config.highlightBehavior && this._setHighlighted(index, false);
     }
 
-    _setHighlighted(nodeId, value) {
+    _setHighlighted(index, value) {
         this.state.nodeHighlighted = value;
-        this.state.nodes[nodeId].highlighted = value;
+        this.state.nodes[index].highlighted = value;
 
-        if (this.state.links[nodeId]) {
-            Object.keys(this.state.links[nodeId]).forEach(k => {
+        if (this.state.links[index]) {
+            Object.keys(this.state.links[index]).forEach(k => {
                 this.state.nodes[k].highlighted = value;
             });
         }
@@ -115,20 +122,17 @@ export default class Graph extends React.Component {
     /*--------------------------------------------------*/
 
     resetNodesPositions = () => {
-        let nodes = Object.values(this.state.nodes).map(d => {
-            if (d.fx && d.fy) {
-                Reflect.deleteProperty(d, 'fx');
-                Reflect.deleteProperty(d, 'fy');
+        Object.values(this.state.nodes).forEach(node => {
+            if (node.fx && node.fy) {
+                Reflect.deleteProperty(node, 'fx');
+                Reflect.deleteProperty(node, 'fy');
             }
-            return d;
         });
 
         // @TODO: hardcoded alpha target
         this.simulation.alphaTarget(0.08).restart();
 
-        this.setState({
-            nodes
-        });
+        this.setState(this.state || {});
     }
 
     /**
@@ -157,9 +161,9 @@ export default class Graph extends React.Component {
         };
 
         return (
-            <div id={CONST.GRAPH_WRAPPER_ID}>
+            <div id={`${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`}>
                 <svg style={svgStyle}>
-                    <g id={CONST.GRAPH_CONTAINER_ID}>
+                    <g id={`${this.props.id}-${CONST.GRAPH_CONTAINER_ID}`}>
                         {links}
                         {nodes}
                     </g>

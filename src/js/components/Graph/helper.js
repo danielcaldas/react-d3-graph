@@ -65,11 +65,11 @@ function buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHighl
         const n = adjacents.length;
 
         for (let j=0; j < n; j++) {
-            const k = adjacents[j];
+            const target = adjacents[j];
 
-            if (nodes[k]) {
-                const key = `${node.id}${CONST.COORDS_SEPARATOR}${j}`;
-                const props = buildLinkProps(node.id, k, x1, y1, nodes, config, linkCallbacks, someNodeHighlighted);
+            if (nodes[target]) {
+                const key = `${node.id}${CONST.COORDS_SEPARATOR}${target}`;
+                const props = buildLinkProps(node.id, target, x1, y1, nodes, config, linkCallbacks, someNodeHighlighted);
 
                 linksComponents.push(<Link key={key} {...props} />);
             }
@@ -115,15 +115,24 @@ function createForceSimulation(width, height) {
 
 function initializeNodes(graphNodes) {
     let nodes = {};
+    let indexMapping = {};
+    let index = 0;
 
     graphNodes.forEach(n => {
         n['highlighted'] = false;
         if (!n.hasOwnProperty('x')) n['x'] = 0;
         if (!n.hasOwnProperty('y')) n['y'] = 0;
+
         nodes[n.id.toString()] = n;
+        indexMapping[index] = n.id;
+
+        index++;
     });
 
-    return nodes;
+    return {
+        nodes,
+        indexMapping
+    };
 }
 
 function initializeLinks(graphLinks) {
@@ -133,10 +142,12 @@ function initializeLinks(graphLinks) {
         if (!links[l.source]) {
             links[l.source] = {};
         }
+
         if (!links[l.target]) {
             links[l.target] = {};
         }
-        links[l.source][l.target] = true;
+
+        links[l.source][l.target] = links[l.target][l.source] = true;
     });
 
     return links;

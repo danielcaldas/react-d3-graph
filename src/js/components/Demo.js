@@ -1,6 +1,6 @@
 import React from 'react';
 
-import graphMock from '../../mock';
+import graphMock from '../../miserables';
 
 import Graph from './Graph/';
 
@@ -27,7 +27,8 @@ export default class Layout extends React.Component {
     render() {
         const width = window.innerWidth - 50;
         const graphProps = {
-            data: graphMock.graph,
+            id: 'graph',
+            data: graphMock.graph || graphMock,
             config: {
                 width,
                 highlightOpacity: 0.12,
