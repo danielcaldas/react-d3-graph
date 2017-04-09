@@ -9,7 +9,6 @@ import GraphHelper from './helper';
 import Utils from '../../utils';
 
 // @TODO: When node dragged out of bouds the graph gets repainted
-// @TODO: Unify ids decide whether they are strings or int values
 export default class Graph extends React.Component {
     constructor(props) {
         super(props);
@@ -92,19 +91,13 @@ export default class Graph extends React.Component {
     onMouseOverNode = (node) => {
         this.props.onMouseOverNode && this.props.onMouseOverNode(node);
 
-        if (this.config.highlightBehavior) {
-            const nodeId = parseInt(node, 10);
-            this._setHighlighted(nodeId, true);
-        }
+        this.config.highlightBehavior && this._setHighlighted(node, true);
     }
 
     onMouseOutNode = (node) => {
         this.props.onMouseOutNode && this.props.onMouseOutNode(node);
 
-        if (this.config.highlightBehavior) {
-            const nodeId = parseInt(node, 10);
-            this._setHighlighted(nodeId, false);
-        }
+        this.config.highlightBehavior && this._setHighlighted(node, false);
     }
 
     _setHighlighted(nodeId, value) {
@@ -112,7 +105,7 @@ export default class Graph extends React.Component {
         this.state.nodes[nodeId].highlighted = value;
 
         if (this.state.links[nodeId]) {
-            Object.keys(this.state.links[nodeId]).map(k => parseInt(k, 10)).forEach(k => {
+            Object.keys(this.state.links[nodeId]).forEach(k => {
                 this.state.nodes[k].highlighted = value;
             });
         }

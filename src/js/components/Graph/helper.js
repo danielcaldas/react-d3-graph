@@ -7,7 +7,6 @@ import CONST from './const';
 import Link from '../Link/';
 import Node from '../Node/';
 
-// @TODO: Remove all non sense calls to toString() method
 function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNodeHighlighted) {
     let linksComponents = [];
     let nodesComponents = [];
@@ -36,13 +35,13 @@ function buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
     return {
         className: CONST.NODE_CLASS_NAME,
         cursor: config.node.mouseCursor,
-        cx: node && node.x && node.x.toString() || '0',
-        cy: node && node.y && node.y.toString() || '0',
+        cx: node && node.x || '0',
+        cy: node && node.y || '0',
         fill,
         fontSize: node.highlighted ? config.node.highlightFontSize : config.node.fontSize,
         fontWeight: node.highlighted ? config.node.highlightFontWeight : config.node.fontWeight,
-        id: node.id.toString(),
-        label: node[config.node.labelProperty] || node.id.toString(),
+        id: node.id,
+        label: node[config.node.labelProperty] || node.id,
         onClickNode: nodeCallbacks.onClickNode,
         onMouseOverNode: nodeCallbacks.onMouseOverNode,
         onMouseOut: nodeCallbacks.onMouseOut,
@@ -62,7 +61,7 @@ function buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHighl
         const x1 = node && node.x || '0';
         const y1 = node && node.y || '0';
 
-        const adjacents = Object.keys(links[node.id]).map(k => parseInt(k, 10));
+        const adjacents = Object.keys(links[node.id]);
         const n = adjacents.length;
 
         for (let j=0; j < n; j++) {
@@ -119,7 +118,9 @@ function initializeNodes(graphNodes) {
 
     graphNodes.forEach(n => {
         n['highlighted'] = false;
-        nodes[n.id] = n;
+        if (!n.hasOwnProperty('x')) n['x'] = 0;
+        if (!n.hasOwnProperty('y')) n['y'] = 0;
+        nodes[n.id.toString()] = n;
     });
 
     return nodes;

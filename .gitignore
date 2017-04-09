@@ -69,5 +69,6 @@ dist/
 
 src/mock.js
 src/mock.xl.js
+src/miserables.js
 DOCUMENTATION.md
 docs
