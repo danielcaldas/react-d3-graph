@@ -19,10 +19,11 @@ export default class Layout extends React.Component {
     }
 
     render() {
+        const width = window.innerWidth - 50;
         const graphProps = {
             data: graphMock.graph,
             config: {
-                width: window.outerWidth,
+                width,
                 highlightOpacity: 0.12,
                 highlightBehavior: true,
                 node: {
@@ -42,11 +43,22 @@ export default class Layout extends React.Component {
             onMouseOutNode: this.onMouseOutNode
         };
 
+        const graphWrapperStyle = {
+            border: '1px solid black',
+            marginTop: '25px',
+            width
+        };
+
         return (
             <div>
                 <h1>react-d3-graph</h1>
                 <h2>Work in progress <span>🔨👷</span></h2>
-                <Graph {...graphProps}/>
+                <button>▶️</button>
+                <button>⏸</button>
+                <button>Unstick nodes</button>
+                <div style={graphWrapperStyle}>
+                    <Graph {...graphProps}/>
+                </div>
             </div>
         );
     }

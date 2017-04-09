@@ -82,6 +82,13 @@ export default class Graph extends React.Component {
         Reflect.deleteProperty(this, 'links');
     }
 
+    _tick = () => this.setState(this.state || {});
+
+    _zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
+
+    /*--------------------------------------------------
+        Drag & Drop
+     --------------------------------------------------*/
     _onDragStart = (_e, id) => !this.config.staticGraph && this.simulation.stop();
 
     _onDragMove = (_e, id) => {
@@ -101,40 +108,7 @@ export default class Graph extends React.Component {
     _onDragEnd = (_e, id) => !this.config.staticGraph
                             && this.config.automaticRearrangeAfterDropNode
                             && this.simulation.alphaTarget(0.05).restart();
-
-    _zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
-
-    _tick = () => this.setState(this.state || {});
-
-    // @TODO: Just for demo purposes, in future remove from component
-    // @TODO: Or maybe this will be usefull in order to provide a method to reset nodes positions
-    // still... the user can reset the Graph component for that
-    unStickFixedNodes = () => {
-        // .map only returns shallow clone of nodes
-        let nodes = Object.values(this.state.nodes).map(d => {
-            if (d.fx && d.fy) {
-                Reflect.deleteProperty(d, 'fx');
-                Reflect.deleteProperty(d, 'fy');
-            }
-            return d;
-        });
-
-        this.simulation.alphaTarget(0.08).restart();
-
-        this.setState({
-            nodes
-        });
-    }
-
-    /**
-    * simulation.stop() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L84]
-    */
-    pauseSimulation = () => this.simulation.stop();
-
-    /**
-     * simulation.restart() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L80]
-     */
-    restartSimulation = () => this.simulation.restart();
+    /*--------------------------------------------------*/
 
     /*--------------------------------------------------
         Event Handlers
@@ -169,6 +143,34 @@ export default class Graph extends React.Component {
 
         this.setState(this.state || {});
     }
+    /*--------------------------------------------------*/
+
+    resetNodesPositions = () => {
+        let nodes = Object.values(this.state.nodes).map(d => {
+            if (d.fx && d.fy) {
+                Reflect.deleteProperty(d, 'fx');
+                Reflect.deleteProperty(d, 'fy');
+            }
+            return d;
+        });
+
+        // @TODO: hardcoded alpha target
+        this.simulation.alphaTarget(0.08).restart();
+
+        this.setState({
+            nodes
+        });
+    }
+
+    /**
+    * simulation.stop() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L84]
+    */
+    pauseSimulation = () => this.simulation.stop();
+
+    /**
+     * simulation.restart() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L80]
+     */
+    restartSimulation = () => this.simulation.restart();
 
     render() {
         const { nodes, links } = GraphHelper.buildGraph(
@@ -181,18 +183,12 @@ export default class Graph extends React.Component {
         );
 
         const svgStyle = {
-            border: '1px solid black',
             height: this.config.height,
-            width: this.config.width,
-            marginTop: '25px'
+            width: this.config.width
         };
 
-        // @TODO: Buttons in upper component
         return (
             <div id={CONST.GRAPH_WRAPPER_ID}>
-                <button onClick={this.restartSimulation}>▶️</button>
-                <button onClick={this.pauseSimulation}>⏸</button>
-                <button onClick={this.unStickFixedNodes}>Unstick nodes</button>
                 <svg style={svgStyle}>
                     <g id={CONST.GRAPH_CONTAINER_ID}>
                         {links}

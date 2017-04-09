@@ -1,8 +1,8 @@
 export default {
     automaticRearrangeAfterDropNode: false, // Very expensive for dense graphs, this will start a new force ...
     height: 450,
-    highlightOpacity: 1, // for all elements: nodes, text and links
     highlightBehavior: false,
+    highlightOpacity: 1, // For all elements: nodes, text and links
     maxZoom: 8,
     minZoom: 0.5,
     staticGraph: false,
