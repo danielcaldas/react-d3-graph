@@ -1,6 +1,6 @@
 import React from 'react';
 
-import graphMock from '../../miserables';
+import graphMock from '../../mock/miserables';
 
 import Graph from './Graph/';
 
@@ -31,16 +31,21 @@ export default class Layout extends React.Component {
             data: graphMock.graph || graphMock,
             config: {
                 width,
+                height: 600,
                 highlightOpacity: 0.12,
                 highlightBehavior: true,
                 node: {
-                    color: 'green',
+                    color: '#4286f4',
+                    highlightFontSize: 14,
                     highlightFontWeight: 'bold',
-                    highlightStrokeColor: 'blue',
-                    labelProperty: 'uid'
+                    highlightStrokeColor: '#8f41f4',
+                    highlightStrokeWidth: 2,
+                    labelProperty: 'uid',
+                    size: 100,
+                    strokeColor: 'white'
                 },
                 link: {
-                    highlightColor: 'blue',
+                    highlightColor: '#8f41f4',
                     strokeWidth: 1
                 }
             },
