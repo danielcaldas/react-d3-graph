@@ -1,4 +1,4 @@
-var debug = process.env.NODE_ENV !== 'production';
+var dev = process.env.NODE_ENV !== 'production';
 var webpack = require('webpack');
 var path = require('path');
 
@@ -7,7 +7,7 @@ var path = require('path');
 
 module.exports = {
     context: path.join(__dirname, 'src'),
-    devtool: debug ? 'source-map' : null,
+    devtool: dev ? 'source-map' : null,
     entry: './js/app.js',
     output: {
         path: __dirname + '/dist/',
@@ -26,7 +26,7 @@ module.exports = {
             }
         ]
     },
-    plugins: debug ? [] : [
+    plugins: dev ? [] : [
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
     ],
