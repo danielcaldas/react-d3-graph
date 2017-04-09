@@ -6,7 +6,7 @@ import Link from '../Link/';
 import Node from '../Node/';
 
 // @TODO: Remove all non sense calls to toString() method
-function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, coords, config, someNodeHighlighted) {
+function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNodeHighlighted) {
     // @TODO: Many of this attributes are calculated only once, thus being more effecient to calculate them
     // on a config time or something similar!
 
@@ -14,10 +14,9 @@ function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, coords, config, 
     let nodesComponents = [];
 
     for (let node of Object.values(nodes)) {
-        const d = node;
         const props = buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted);
 
-        nodesComponents.push(<Node key={d.id} {...props} />);
+        nodesComponents.push(<Node key={node.id} {...props} />);
 
         linksComponents = linksComponents.concat(buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHighlighted));
     }
@@ -57,7 +56,6 @@ function buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
     };
 }
 
-// @TODO: This payload of links is huge. Check how the nodes are being passed
 function buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHighlighted) {
     let linksComponents = [];
 
@@ -105,15 +103,6 @@ function buildLinkProps(source, target, x1, y1, nodes, config, linkCallbacks, so
     };
 }
 
-function buildNodeCoords(nodes) {
-    const coords = {};
-
-    nodes.forEach(d => coords[d.id] = {x: d.x || 0, y: d.y || 0});
-
-    return coords;
-}
-
 export default {
-    buildGraph,
-    buildNodeCoords
+    buildGraph
 };

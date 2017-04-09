@@ -18,9 +18,7 @@ export default class Graph extends React.Component {
         let config = Utils.merge(DEFAULT_CONFIG, this.props.config);
 
         let nodes = {};
-        let links = {}; // Matrix of graph connections
-
-        const coords = GraphHelper.buildNodeCoords(graph.nodes);
+        let links = {};  // Matrix of graph connections
 
         graph.nodes.forEach(d => {
             d['highlighted'] = false;
@@ -46,7 +44,6 @@ export default class Graph extends React.Component {
                 .force('y', forceY);
 
         this.simulation = simulation;
-        this.coords = coords;
         this.config = config;
 
         // Disposable once component is mounted
@@ -85,17 +82,10 @@ export default class Graph extends React.Component {
         Reflect.deleteProperty(this, 'links');
     }
 
-    // @TODO: Do proper set up of graph state or whatever before starting dragging
     _onDragStart = (_e, id) => !this.config.staticGraph && this.simulation.stop();
 
-    // @TODO: This code does not lives up to my quality standards
     _onDragMove = (_e, id) => {
-        // @TODO: Should state be altered like this?
-        // @TODO: I dare u to find a more uneficient way to do this!
-
         // This is where d3 and react bind
-        // @TODO: See performance of Array find.
-        // let draggedNode = this.state.nodes.find(d => d.id === id);
         let draggedNode = this.state.nodes[id];
 
         draggedNode.x += d3.event.dx;
@@ -117,6 +107,8 @@ export default class Graph extends React.Component {
     _tick = () => this.forceUpdate();
 
     // @TODO: Just for demo purposes, in future remove from component
+    // @TODO: Or maybe this will be usefull in order to provide a method to reset nodes positions
+    // still... the user can reset the Graph component for that
     unStickFixedNodes = () => {
         // .map only returns shallow clone of nodes
         let nodes = Object.values(this.state.nodes).map(d => {
@@ -180,7 +172,6 @@ export default class Graph extends React.Component {
             { onClickNode: this.onClickNode, onMouseOverNode: this.onMouseOverNode, onMouseOut: this.onMouseOut},
             this.state.links,
             { onClickLink: this.onClickLink },
-            this.coords,
             this.config,
             this.state.nodeHighlighted
         );
