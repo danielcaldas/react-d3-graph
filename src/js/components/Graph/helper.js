@@ -1,5 +1,7 @@
 import React from 'react';
 
+import * as d3 from 'd3';
+
 import CONST from './const';
 
 import Link from '../Link/';
@@ -100,6 +102,48 @@ function buildLinkProps(source, target, x1, y1, nodes, config, linkCallbacks, so
     };
 }
 
+function createForceSimulation(width, height) {
+    const forceX = d3.forceX(width / 2).strength(CONST.FORCE_X);
+    const forceY = d3.forceY(height / 2).strength(CONST.FORCE_Y);
+
+    const simulation = d3.forceSimulation()
+            .force('charge', d3.forceManyBody().strength(CONST.FORCE_IDEAL_STRENGTH))
+            .force('x', forceX)
+            .force('y', forceY);
+
+    return simulation;
+}
+
+function initializeNodes(graphNodes) {
+    let nodes = {};
+
+    graphNodes.forEach(n => {
+        n['highlighted'] = false;
+        nodes[n.id] = n;
+    });
+
+    return nodes;
+}
+
+function initializeLinks(graphLinks) {
+    let links = {};
+
+    graphLinks.forEach(l => {
+        if (!links[l.source]) {
+            links[l.source] = {};
+        }
+        if (!links[l.target]) {
+            links[l.target] = {};
+        }
+        links[l.source][l.target] = true;
+    });
+
+    return links;
+}
+
 export default {
-    buildGraph
+    buildGraph,
+    createForceSimulation,
+    initializeLinks,
+    initializeNodes
 };

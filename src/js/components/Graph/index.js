@@ -16,34 +16,10 @@ export default class Graph extends React.Component {
 
         let graph = this.props.data || {};
         let config = Utils.merge(DEFAULT_CONFIG, this.props.config);
+        let nodes = GraphHelper.initializeNodes(graph.nodes);
+        let links = GraphHelper.initializeLinks(graph.links); // Matrix of graph connections
 
-        let nodes = {};
-        let links = {};  // Matrix of graph connections
-
-        graph.nodes.forEach(d => {
-            d['highlighted'] = false;
-            nodes[d.id] = d;
-        });
-
-        graph.links.forEach(d => {
-            if (!links[d.source]) {
-                links[d.source] = {};
-            }
-            if (!links[d.target]) {
-                links[d.target] = {};
-            }
-            links[d.source][d.target] = true;
-        });
-
-        const forceX = d3.forceX(config.width / 2).strength(CONST.FORCE_X);
-        const forceY = d3.forceY(config.height / 2).strength(CONST.FORCE_Y);
-
-        const simulation = d3.forceSimulation()
-                .force('charge', d3.forceManyBody().strength(CONST.FORCE_IDEAL_STRENGTH))
-                .force('x', forceX)
-                .force('y', forceY);
-
-        this.simulation = simulation;
+        this.simulation = GraphHelper.createForceSimulation(config.width, config.height);
         this.config = config;
 
         // Disposable once component is mounted
