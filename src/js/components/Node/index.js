@@ -1,7 +1,5 @@
 import React from 'react';
 
-import * as d3 from 'd3';
-
 import CONST from './const';
 
 import NodeHelper from './helper';
@@ -13,7 +11,7 @@ export default class Node extends React.Component {
         this.symbol = NodeHelper.buildSvgSymbol(this.props.size, this.props.type);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps) {
         return nextProps.cx !== this.props.cx || nextProps.cy !== this.props.cy
               || nextProps.opacity !== this.props.opacity
               || nextProps.fill !== this.props.fill

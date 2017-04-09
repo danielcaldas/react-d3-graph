@@ -7,9 +7,6 @@ import Node from '../Node/';
 
 // @TODO: Remove all non sense calls to toString() method
 function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNodeHighlighted) {
-    // @TODO: Many of this attributes are calculated only once, thus being more effecient to calculate them
-    // on a config time or something similar!
-
     let linksComponents = [];
     let nodesComponents = [];
 

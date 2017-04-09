@@ -10,12 +10,12 @@ export default class Layout extends React.Component {
 
     onClickLink = (source, target) => window.alert(`clicked link between ${source} and ${target}`);
 
-    onMouseOverNode = (node) => {
-        console.log('mouse over node', node);
+    onMouseOverNode = () => {
+        // Do something with the node identifier ...
     }
 
-    onMouseOutNode = (node) => {
-        console.log('mouse out the node', node);
+    onMouseOutNode = () => {
+        // Do something with the node identifier ...
     }
 
     pauseGraphSimulation = () => this.refs.graph.pauseSimulation();

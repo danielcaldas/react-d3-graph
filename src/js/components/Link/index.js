@@ -5,7 +5,7 @@ export default class Link extends React.Component {
         super(props);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps) {
         return nextProps.x1 !== this.props.x1 || nextProps.y1 !== this.props.y1
             || nextProps.x2 !== this.props.x2 || nextProps.y2 !== this.props.y2
             || nextProps.opacity !== this.props.opacity

@@ -89,9 +89,9 @@ export default class Graph extends React.Component {
     /*--------------------------------------------------
         Drag & Drop
      --------------------------------------------------*/
-    _onDragStart = (_e, id) => !this.config.staticGraph && this.simulation.stop();
+    _onDragStart = () => !this.config.staticGraph && this.simulation.stop();
 
-    _onDragMove = (_e, id) => {
+    _onDragMove = (_, id) => {
         // This is where d3 and react bind
         let draggedNode = this.state.nodes[id];
 
@@ -105,9 +105,9 @@ export default class Graph extends React.Component {
         !this.config.staticGraph && this._tick();
     }
 
-    _onDragEnd = (_e, id) => !this.config.staticGraph
-                            && this.config.automaticRearrangeAfterDropNode
-                            && this.simulation.alphaTarget(0.05).restart();
+    _onDragEnd = () => !this.config.staticGraph
+                        && this.config.automaticRearrangeAfterDropNode
+                        && this.simulation.alphaTarget(0.05).restart();
     /*--------------------------------------------------*/
 
     /*--------------------------------------------------
@@ -135,7 +135,7 @@ export default class Graph extends React.Component {
         this.state.nodeHighlighted = value;
         this.state.nodes[nodeId].highlighted = value;
 
-        if (this.state.links[nodeId]) {
+        if (this.state.links[nodeId]) {
             Object.keys(this.state.links[nodeId]).map(k => parseInt(k, 10)).forEach(k => {
                 this.state.nodes[k].highlighted = value;
             });

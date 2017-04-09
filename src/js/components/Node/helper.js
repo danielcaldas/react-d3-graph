@@ -30,8 +30,8 @@ function _convertTypeToD3Symbol(typeName) {
 
 function buildSvgSymbol(size=80, symbolTypeDesc=CONST.SYMBOLS.CIRCLE) {
     return d3.symbol()
-            .size((_) => size)
-            .type((_) => _convertTypeToD3Symbol(symbolTypeDesc))(); // @TODO: Strange behavior d3.Symbol ret function
+            .size(() => size)
+            .type(() => _convertTypeToD3Symbol(symbolTypeDesc))(); // @TODO: Strange behavior d3.Symbol ret function
 }
 
 export default {
