@@ -9,7 +9,7 @@ import GraphHelper from './helper';
 import Utils from '../../utils';
 
 // @TODO: When node dragged out of bouds the graph gets repainted
-// @TODO: unify ids decide whether they are strings or int values
+// @TODO: Unify ids decide whether they are strings or int values
 export default class Graph extends React.Component {
     constructor(props) {
         super(props);
@@ -104,7 +104,7 @@ export default class Graph extends React.Component {
 
     _zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
 
-    _tick = () => this.forceUpdate();
+    _tick = () => this.setState(this.state || {});
 
     // @TODO: Just for demo purposes, in future remove from component
     // @TODO: Or maybe this will be usefull in order to provide a method to reset nodes positions
@@ -137,20 +137,24 @@ export default class Graph extends React.Component {
     restartSimulation = () => this.simulation.restart();
 
     /*--------------------------------------------------
-        Event Handlers (@TODO: expose as a Graph component callback, they will disapear from here)
+        Event Handlers
      --------------------------------------------------*/
-    onClickNode = (node) => window.alert(`clicked node ${node}`);
-
-    onClickLink = (source, target) => window.alert(`clicked link between ${source} and ${target}`);
-
     onMouseOverNode = (node) => {
-        const nodeId = parseInt(node, 10);
-        this._setHighlighted(nodeId, true);
+        this.props.onMouseOverNode && this.props.onMouseOverNode(node);
+
+        if (this.config.highlightBehavior) {
+            const nodeId = parseInt(node, 10);
+            this._setHighlighted(nodeId, true);
+        }
     }
 
-    onMouseOut = (node) => {
-        const nodeId = parseInt(node, 10);
-        this._setHighlighted(nodeId, false);
+    onMouseOutNode = (node) => {
+        this.props.onMouseOutNode && this.props.onMouseOutNode(node);
+
+        if (this.config.highlightBehavior) {
+            const nodeId = parseInt(node, 10);
+            this._setHighlighted(nodeId, false);
+        }
     }
 
     _setHighlighted(nodeId, value) {
@@ -163,15 +167,15 @@ export default class Graph extends React.Component {
             });
         }
 
-        this.forceUpdate();
+        this.setState(this.state || {});
     }
 
     render() {
         const { nodes, links } = GraphHelper.buildGraph(
             this.state.nodes,
-            { onClickNode: this.onClickNode, onMouseOverNode: this.onMouseOverNode, onMouseOut: this.onMouseOut},
+            { onClickNode: this.props.onClickNode, onMouseOverNode: this.onMouseOverNode, onMouseOut: this.onMouseOutNode},
             this.state.links,
-            { onClickLink: this.onClickLink },
+            { onClickLink: this.props.onClickLink },
             this.config,
             this.state.nodeHighlighted
         );
