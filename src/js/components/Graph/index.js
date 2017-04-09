@@ -144,21 +144,21 @@ export default class Graph extends React.Component {
      */
     restartSimulation = () => this.simulation.restart();
 
-    // Event handlers
-    onClickNode = (node) => console.log('you clicked on node with id', node);
+    /*--------------------------------------------------
+        Event Handlers (@TODO: expose as a Graph component callback, they will disapear from here)
+     --------------------------------------------------*/
+    onClickNode = (node) => window.alert(`clicked node ${node}`);
 
-    onClickLink = (source, target) => console.log('you click in the connection between node', source, 'and', target);
+    onClickLink = (source, target) => window.alert(`clicked link between ${source} and ${target}`);
 
     onMouseOverNode = (node) => {
         const nodeId = parseInt(node, 10);
         this._setHighlighted(nodeId, true);
-        console.log('mouse is over node with id', node);
     }
 
     onMouseOut = (node) => {
         const nodeId = parseInt(node, 10);
         this._setHighlighted(nodeId, false);
-        console.log('mouse is out of node with id', node);
     }
 
     _setHighlighted(nodeId, value) {
