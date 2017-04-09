@@ -11,7 +11,7 @@ export default {
         color: '#d3d3d3',
         fontSize: 10, // in px
         fontWeight: 'normal',
-        highlightColor: '#d3d3d3',
+        highlightColor: 'SAME',
         highlightFontSize: 12,
         highlightFontWeight: 'bold',
         highlightStrokeColor: 'blue',

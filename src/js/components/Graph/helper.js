@@ -9,14 +9,13 @@ import Node from '../Node/';
 function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, coords, config, someNodeHighlighted) {
     // @TODO: Many of this attributes are calculated only once, thus being more effecient to calculate them
     // on a config time or something similar!
-    const labelTextDx = (90 * config.node.fontSize) / 1000; // @TODO: When config is finished remove harcoded values
 
     let linksComponents = [];
     let nodesComponents = [];
 
     for (let node of Object.values(nodes)) {
         const d = node;
-        const props = buildNodeProps(node, config, labelTextDx, nodeCallbacks, someNodeHighlighted);
+        const props = buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted);
 
         nodesComponents.push(<Node key={d.id} {...props} />);
 
@@ -29,24 +28,27 @@ function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, coords, config, 
     };
 }
 
-function buildNodeProps(node, config, labelTextDx, nodeCallbacks, someNodeHighlighted) {
+function buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
+    const opacity = someNodeHighlighted ? (node.highlighted ? config.node.opacity : config.highlightOpacity) : config.node.opacity;
+
+    const fill = node.highlighted ?
+                (config.node.highlightColor === CONST.KEYWORDS.SAME ? (node.color || config.node.color) : node.highlightColor)
+                : (node.color || config.node.color);
+
     return {
         className: CONST.NODE_CLASS_NAME,
         cursor: config.node.mouseCursor,
         cx: node && node.x && node.x.toString() || '0',
         cy: node && node.y && node.y.toString() || '0',
-        fill: node.highlighted ?
-            (config.node.highlightColor === CONST.KEYWORDS.SAME ? (node.color || config.node.color) : node.highlightColor)
-            : (node.color || config.node.color),
+        fill,
         fontSize: node.highlighted ? config.node.highlightFontSize : config.node.fontSize,
         fontWeight: node.highlighted ? config.node.highlightFontWeight : config.node.fontWeight,
         id: node.id.toString(),
         label: node[config.node.labelProperty] || node.id.toString(),
-        labelTextDx,
         onClickNode: nodeCallbacks.onClickNode,
         onMouseOverNode: nodeCallbacks.onMouseOverNode,
         onMouseOut: nodeCallbacks.onMouseOut,
-        opacity: someNodeHighlighted ? (node.highlighted ? config.node.opacity : config.highlightOpacity) : config.node.opacity,
+        opacity,
         renderLabel: config.node.renderLabel,
         size: node.size || config.node.size,
         stroke: node.highlighted ? config.node.highlightStrokeColor : config.node.strokeColor,

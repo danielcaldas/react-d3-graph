@@ -61,7 +61,7 @@ export default class Node extends React.Component {
         };
 
         const textProps = {
-            dx: `${this.props.labelTextDx}em`, // @TODO: This value is being poorly calculated
+            dx: CONST.NODE_LABEL_DX,
             dy: CONST.NODE_LABEL_DY,
             fontSize: this.props.fontSize,
             fontWeight: this.props.fontWeight,
