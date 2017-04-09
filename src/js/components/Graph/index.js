@@ -9,6 +9,7 @@ import GraphHelper from './helper';
 import Utils from '../../utils';
 
 // @TODO: When node dragged out of bouds the graph gets repainted
+// @TODO: unify ids decide whether they are strings or int values
 export default class Graph extends React.Component {
     constructor(props) {
         super(props);
@@ -16,12 +17,25 @@ export default class Graph extends React.Component {
         let graph = this.props.data || {};
         let config = Utils.merge(DEFAULT_CONFIG, this.props.config);
 
-        // @TODO: meanwhile i searched on previous code version and observed that this coords
-        // a similar data structure will be needed to check link connections e.g linkedByIndex
-        const coords = GraphHelper.buildNodeCoords(graph.nodes);
-        const linkedByIndex = GraphHelper.mapLinksByNodeIds(graph.links);
+        let nodes = {};
+        let links = {}; // Matrix of graph connections
 
-        console.log(linkedByIndex);
+        const coords = GraphHelper.buildNodeCoords(graph.nodes);
+
+        graph.nodes.forEach(d => {
+            d['highlighted'] = false;
+            nodes[d.id] = d;
+        });
+
+        graph.links.forEach(d => {
+            if (!links[d.source]) {
+                links[d.source] = {};
+            }
+            if (!links[d.target]) {
+                links[d.target] = {};
+            }
+            links[d.source][d.target] = true;
+        });
 
         const forceX = d3.forceX(config.width / 2).strength(CONST.FORCE_X);
         const forceY = d3.forceY(config.height / 2).strength(CONST.FORCE_Y);
@@ -31,26 +45,30 @@ export default class Graph extends React.Component {
                 .force('x', forceX)
                 .force('y', forceY);
 
+        this.simulation = simulation;
+        this.coords = coords;
+        this.config = config;
+
+        // Disposable once component is mounted
+        this.links = graph.links;
+        this.nodes = graph.nodes;
+
         this.state = {
-            config,
-            nodes: graph.nodes,
-            links: graph.links,
-            static: {
-                coords,
-                simulation
-            }
+            links,
+            nodes,
+            nodeHighlighted: false
         };
     }
 
     componentDidMount() {
-        if (!this.state.config.staticGraph) {
-            this.state.static.simulation.nodes(this.state.nodes).on('tick', this._tick);
+        if (!this.config.staticGraph) {
+            this.simulation.nodes(this.nodes).on('tick', this._tick);
 
-            const forceLink = d3.forceLink(this.state.links)
+            const forceLink = d3.forceLink(this.links)
                                 .distance(CONST.LINK_IDEAL_DISTANCE)
                                 .strength(1);
 
-            this.state.static.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
+            this.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
 
             const customNodeDrag = d3.drag()
                                     .on('start', this._onDragStart)
@@ -61,11 +79,14 @@ export default class Graph extends React.Component {
         }
 
         // Graph zoom and drag&drop all network
-        d3.select(`#${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom]).on('zoom', this._zoomed));
+        d3.select(`#${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([this.config.minZoom, this.config.maxZoom]).on('zoom', this._zoomed));
+
+        Reflect.deleteProperty(this, 'nodes');
+        Reflect.deleteProperty(this, 'links');
     }
 
     // @TODO: Do proper set up of graph state or whatever before starting dragging
-    _onDragStart = (_e, id) => !this.state.config.staticGraph && this.state.static.simulation.stop();
+    _onDragStart = (_e, id) => !this.config.staticGraph && this.simulation.stop();
 
     // @TODO: This code does not lives up to my quality standards
     _onDragMove = (_e, id) => {
@@ -74,7 +95,8 @@ export default class Graph extends React.Component {
 
         // This is where d3 and react bind
         // @TODO: See performance of Array find.
-        let draggedNode = this.state.nodes.find(d => d.id === id);
+        // let draggedNode = this.state.nodes.find(d => d.id === id);
+        let draggedNode = this.state.nodes[id];
 
         draggedNode.x += d3.event.dx;
         draggedNode.y += d3.event.dy;
@@ -83,12 +105,12 @@ export default class Graph extends React.Component {
         draggedNode.fx = draggedNode.x;
         draggedNode.fy = draggedNode.y;
 
-        !this.state.config.staticGraph && this._tick();
+        !this.config.staticGraph && this._tick();
     }
 
-    _onDragEnd = (_e, id) => !this.state.config.staticGraph
-                            && this.state.config.automaticRearrangeAfterDropNode
-                            && this.state.static.simulation.alphaTarget(0.05).restart();
+    _onDragEnd = (_e, id) => !this.config.staticGraph
+                            && this.config.automaticRearrangeAfterDropNode
+                            && this.simulation.alphaTarget(0.05).restart();
 
     _zoomed = () => d3.selectAll(`#${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
 
@@ -97,7 +119,7 @@ export default class Graph extends React.Component {
     // @TODO: Just for demo purposes, in future remove from component
     unStickFixedNodes = () => {
         // .map only returns shallow clone of nodes
-        let nodes = this.state.nodes.map(d => {
+        let nodes = Object.values(this.state.nodes).map(d => {
             if (d.fx && d.fy) {
                 Reflect.deleteProperty(d, 'fx');
                 Reflect.deleteProperty(d, 'fy');
@@ -105,7 +127,7 @@ export default class Graph extends React.Component {
             return d;
         });
 
-        this.state.static.simulation.alphaTarget(0.05).restart();
+        this.simulation.alphaTarget(0.08).restart();
 
         this.setState({
             nodes
@@ -115,12 +137,12 @@ export default class Graph extends React.Component {
     /**
     * simulation.stop() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L84]
     */
-    pauseSimulation = () => this.state.static.simulation.stop();
+    pauseSimulation = () => this.simulation.stop();
 
     /**
      * simulation.restart() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L80]
      */
-    restartSimulation = () => this.state.static.simulation.restart();
+    restartSimulation = () => this.simulation.restart();
 
     // Event handlers
     onClickNode = (node) => console.log('you clicked on node with id', node);
@@ -128,12 +150,28 @@ export default class Graph extends React.Component {
     onClickLink = (source, target) => console.log('you click in the connection between node', source, 'and', target);
 
     onMouseOverNode = (node) => {
-
+        const nodeId = parseInt(node, 10);
+        this._setHighlighted(nodeId, true);
         console.log('mouse is over node with id', node);
     }
 
     onMouseOut = (node) => {
+        const nodeId = parseInt(node, 10);
+        this._setHighlighted(nodeId, false);
         console.log('mouse is out of node with id', node);
+    }
+
+    _setHighlighted(nodeId, value) {
+        this.state.nodeHighlighted = value;
+        this.state.nodes[nodeId].highlighted = value;
+
+        if (this.state.links[nodeId]) {
+            Object.keys(this.state.links[nodeId]).map(k => parseInt(k, 10)).forEach(k => {
+                this.state.nodes[k].highlighted = value;
+            });
+        }
+
+        this.forceUpdate();
     }
 
     render() {
@@ -142,13 +180,14 @@ export default class Graph extends React.Component {
             { onClickNode: this.onClickNode, onMouseOverNode: this.onMouseOverNode, onMouseOut: this.onMouseOut},
             this.state.links,
             { onClickLink: this.onClickLink },
-            this.state.static.coords,
-            this.state.config
+            this.coords,
+            this.config,
+            this.state.nodeHighlighted
         );
 
         const svgStyle = {
             border: '1px solid black',
-            height: this.state.config.height,
+            height: this.config.height,
             width: '100%',
             marginTop: '25px'
         };

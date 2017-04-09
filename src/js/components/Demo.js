@@ -1,6 +1,6 @@
 import React from 'react';
 
-import graphMock from '../../mock';
+import graphMock from '../../mock.xl';
 
 import Graph from './Graph/';
 
@@ -10,12 +10,14 @@ export default class Layout extends React.Component {
             data: graphMock.graph,
             config: {
                 minZoom: 0.01,
+                highlightOpacity: 0.12,
                 link: {
                     color: 'green',
                     strokeWidth: 0.8,
                     opacity: 1
                 },
                 node: {
+                    highlightColor: 'SAME',
                     labelProperty: 'uid',
                     strokeColor: 'none'
                 }

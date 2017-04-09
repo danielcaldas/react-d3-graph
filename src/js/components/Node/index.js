@@ -14,7 +14,11 @@ export default class Node extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.cx !== this.props.cx || nextProps.cy !== this.props.cy;
+        return nextProps.cx !== this.props.cx || nextProps.cy !== this.props.cy
+              || nextProps.opacity !== this.props.opacity
+              || nextProps.fill !== this.props.fill
+              || nextProps.fontWeight !== this.props.fontWeight
+              || nextProps.fontSize !== this.props.fontSize;
     }
 
     /**
@@ -60,7 +64,8 @@ export default class Node extends React.Component {
             dx: `${this.props.labelTextDx}em`, // @TODO: This value is being poorly calculated
             dy: CONST.NODE_LABEL_DY,
             fontSize: this.props.fontSize,
-            fontWeight: this.props.fontWeight
+            fontWeight: this.props.fontWeight,
+            opacity: this.props.opacity
         };
 
         return (

@@ -6,76 +6,97 @@ import Link from '../Link/';
 import Node from '../Node/';
 
 // @TODO: Remove all non sense calls to toString() method
-function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, coords, config) {
-    return {
-        links: buildLinks(links, linkCallbacks, coords, config),
-        nodes: buildNodes(nodes, nodeCallbacks, coords, config)
-    };
-}
-
-// @TODO: This payload of links is huge. Check how the nodes are being passed
-function buildLinks(links, linkCallbacks, coords, config) {
-    return links.map(l => {
-        const key = `${l.source.id || l.source},${l.target.id || l.target}`;
-
-        // @TODO: state
-        // @TODO: improve this fallback cases also in nodes
-        const props = {
-            source: l.source.id || l.source,
-            target: l.target.id || l.target,
-            x1: l.source.x || coords[l.source] && coords[l.source].x && coords[l.source].x.toString() || '0',
-            y1: l.source.y || coords[l.source] && coords[l.source].y && coords[l.source].y.toString() || '0',
-            x2: l.target.x || coords[l.target] && coords[l.target].x && coords[l.target].x.toString() || '0',
-            y2: l.target.y || coords[l.target] && coords[l.target].y && coords[l.target].y.toString() || '0',
-            strokeWidth: config.link.strokeWidth,
-            stroke: config.link.color,
-            className: CONST.LINK_CLASS_NAME,
-            opacity: config.link.opacity,
-            onClickLink: linkCallbacks.onClickLink
-        };
-
-        return <Link key={key} {...props} />;
-    });
-}
-
-function buildNodes(nodes, nodeCallbacks, coords, config) {
+function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, coords, config, someNodeHighlighted) {
     // @TODO: Many of this attributes are calculated only once, thus being more effecient to calculate them
     // on a config time or something similar!
     const labelTextDx = (90 * config.node.fontSize) / 1000; // @TODO: When config is finished remove harcoded values
 
-    return nodes.map(d => {
-        const props = {
-            className: CONST.NODE_CLASS_NAME,
-            cursor: config.node.mouseCursor,
-            cx: d && d.x && d.x.toString() || '0',
-            cy: d && d.y && d.y.toString() || '0',
-            fill: d.color || config.node.color,
-            fontSize: config.node.fontSize,
-            highlightColor: config.node.highlightColor,
-            id: d.id.toString(),
-            label: d[config.node.labelProperty] || d.id.toString(),
-            labelTextDx,
-            onClickNode: nodeCallbacks.onClickNode,
-            onMouseOverNode: nodeCallbacks.onMouseOverNode,
-            onMouseOut: nodeCallbacks.onMouseOut,
-            opacity: config.node.opacity,
-            renderLabel: config.node.renderLabel,
-            size: d.size || config.node.size,
-            stroke: config.node.strokeColor,
-            strokeWidth: config.node.strokeWidth,
-            type: d.type || config.node.symbolType
-        };
+    let linksComponents = [];
+    let nodesComponents = [];
 
-        return <Node key={d.id} {...props} />;
-    });
+    for (let node of Object.values(nodes)) {
+        const d = node;
+        const props = buildNodeProps(node, config, labelTextDx, nodeCallbacks, someNodeHighlighted);
+
+        nodesComponents.push(<Node key={d.id} {...props} />);
+
+        linksComponents = linksComponents.concat(buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHighlighted));
+    }
+
+    return {
+        nodes: nodesComponents,
+        links: linksComponents
+    };
 }
 
-function _buildLinkKey(link) {
-    return `${link.source}${CONST.COORDS_SEPARATOR}${link.target}`;
+function buildNodeProps(node, config, labelTextDx, nodeCallbacks, someNodeHighlighted) {
+    return {
+        className: CONST.NODE_CLASS_NAME,
+        cursor: config.node.mouseCursor,
+        cx: node && node.x && node.x.toString() || '0',
+        cy: node && node.y && node.y.toString() || '0',
+        fill: node.highlighted ?
+            (config.node.highlightColor === CONST.KEYWORDS.SAME ? (node.color || config.node.color) : node.highlightColor)
+            : (node.color || config.node.color),
+        fontSize: node.highlighted ? config.node.highlightFontSize : config.node.fontSize,
+        fontWeight: node.highlighted ? config.node.highlightFontWeight : config.node.fontWeight,
+        id: node.id.toString(),
+        label: node[config.node.labelProperty] || node.id.toString(),
+        labelTextDx,
+        onClickNode: nodeCallbacks.onClickNode,
+        onMouseOverNode: nodeCallbacks.onMouseOverNode,
+        onMouseOut: nodeCallbacks.onMouseOut,
+        opacity: someNodeHighlighted ? (node.highlighted ? config.node.opacity : config.highlightOpacity) : config.node.opacity,
+        renderLabel: config.node.renderLabel,
+        size: node.size || config.node.size,
+        stroke: node.highlighted ? config.node.highlightStrokeColor : config.node.strokeColor,
+        strokeWidth: node.highlighted ? config.node.highlightStrokeWidth : config.node.strokeWidth,
+        type: node.type || config.node.symbolType
+    };
 }
 
-function _buildLinkKeyFromNodes(n1, n2) {
-    return `${n1.id}${CONST.COORDS_SEPARATOR}${n2.id}`;
+// @TODO: This payload of links is huge. Check how the nodes are being passed
+function buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHighlighted) {
+    let linksComponents = [];
+
+    if (links[node.id]) {
+        const x1 = node && node.x || '0';
+        const y1 = node && node.y || '0';
+
+        const adjacents = Object.keys(links[node.id]).map(k => parseInt(k, 10));
+        const n = adjacents.length;
+
+        for (let j=0; j < n; j++) {
+            const k = adjacents[j];
+
+            if (nodes[k]) {
+                const key = `${node.id}${CONST.COORDS_SEPARATOR}${j}`;
+                const props = buildLinkProps(node.id, k, x1, y1, nodes, config, linkCallbacks, someNodeHighlighted);
+
+                linksComponents.push(<Link key={key} {...props} />);
+            }
+        }
+    }
+
+    return linksComponents;
+}
+
+function buildLinkProps(source, target, x1, y1, nodes, config, linkCallbacks, someNodeHighlighted) {
+    const opacity = someNodeHighlighted ? (nodes[source].highlighted && nodes[target].highlighted) ? config.link.opacity : config.highlightOpacity : config.link.opacity;
+
+    return {
+        source,
+        target,
+        x1,
+        y1,
+        x2: nodes[target] && nodes[target].x || '0',
+        y2: nodes[target] && nodes[target].y || '0',
+        strokeWidth: config.link.strokeWidth,
+        stroke: config.link.color,
+        className: CONST.LINK_CLASS_NAME,
+        opacity,
+        onClickLink: linkCallbacks.onClickLink
+    };
 }
 
 function buildNodeCoords(nodes) {
@@ -86,22 +107,7 @@ function buildNodeCoords(nodes) {
     return coords;
 }
 
-function mapLinksByNodeIds(links) {
-    const linkedByIndex = {};
-
-    links.forEach(d => linkedByIndex[_buildLinkKey(d)] = true);
-
-    return linkedByIndex;
-}
-
-function isConnected(linkedByIndex, n1, n2) {
-    return n1.id === n2.id
-        || linkedByIndex[_buildLinkKeyFromNodes(n1,n2)]
-        || linkedByIndex[_buildLinkKeyFromNodes(n2,n1)];
-}
-
 export default {
     buildGraph,
-    buildNodeCoords,
-    mapLinksByNodeIds
+    buildNodeCoords
 };
