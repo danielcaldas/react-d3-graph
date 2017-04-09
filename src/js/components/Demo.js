@@ -8,7 +8,20 @@ export default class Layout extends React.Component {
     render() {
         const graphProps = {
             data: graphMock.graph,
-            config: {}
+            config: {
+                width: window.outerWidth,
+                highlightOpacity: 0.12,
+                node: {
+                    color: 'green',
+                    highlightFontWeight: 'bold',
+                    highlightStrokeColor: 'blue',
+                    labelProperty: 'uid'
+                },
+                link: {
+                    highlightColor: 'blue',
+                    strokeWidth: 1
+                }
+            }
         };
 
         return (

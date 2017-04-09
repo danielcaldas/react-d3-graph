@@ -86,6 +86,10 @@ function buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHighl
 function buildLinkProps(source, target, x1, y1, nodes, config, linkCallbacks, someNodeHighlighted) {
     const opacity = someNodeHighlighted ? (nodes[source].highlighted && nodes[target].highlighted) ? config.link.opacity : config.highlightOpacity : config.link.opacity;
 
+    const stroke = (nodes[source].highlighted && nodes[target].highlighted) ?
+                (config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color : config.link.highlightColor)
+                : config.link.color;
+
     return {
         source,
         target,
@@ -94,7 +98,7 @@ function buildLinkProps(source, target, x1, y1, nodes, config, linkCallbacks, so
         x2: nodes[target] && nodes[target].x || '0',
         y2: nodes[target] && nodes[target].y || '0',
         strokeWidth: config.link.strokeWidth,
-        stroke: config.link.color,
+        stroke,
         className: CONST.LINK_CLASS_NAME,
         opacity,
         onClickLink: linkCallbacks.onClickLink

@@ -188,7 +188,7 @@ export default class Graph extends React.Component {
         const svgStyle = {
             border: '1px solid black',
             height: this.config.height,
-            width: '100%',
+            width: this.config.width,
             marginTop: '25px'
         };
 

@@ -6,7 +6,6 @@ export default {
     minZoom: 0.5,
     staticGraph: false,
     width: 800,
-    highlightBehavior: 'HIGHLIGHT_NODE',
     node: {
         color: '#d3d3d3',
         fontSize: 10, // in px
@@ -27,6 +26,7 @@ export default {
     },
     link: {
         color: '#d3d3d3',
+        highlightColor: '#d3d3d3',
         opacity: 1,
         strokeWidth: 1.5
     }
