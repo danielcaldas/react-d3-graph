@@ -41,6 +41,7 @@ export default class Node extends React.Component {
 
     render() {
         const gProps = {
+            className: this.props.className,
             cx: this.props.cx,
             cy: this.props.cy,
             id: this.props.id,
@@ -48,7 +49,6 @@ export default class Node extends React.Component {
         };
 
         const pathProps = {
-            className: this.props.className,
             cursor: this.props.cursor,
             d: this.symbol,
             fill: this.props.fill,

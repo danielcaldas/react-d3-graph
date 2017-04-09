@@ -18,6 +18,12 @@ export default class Layout extends React.Component {
         console.log('mouse out the node', node);
     }
 
+    pauseGraphSimulation = () => this.refs.graph.pauseSimulation();
+
+    restartGraphSimulation = () => this.refs.graph.restartSimulation();
+
+    resetNodesPositions = () => this.refs.graph.resetNodesPositions();
+
     render() {
         const width = window.innerWidth - 50;
         const graphProps = {
@@ -53,11 +59,11 @@ export default class Layout extends React.Component {
             <div>
                 <h1>react-d3-graph</h1>
                 <h2>Work in progress <span>🔨👷</span></h2>
-                <button>▶️</button>
-                <button>⏸</button>
-                <button>Unstick nodes</button>
+                <button onClick={this.restartGraphSimulation}>▶️</button>
+                <button onClick={this.pauseGraphSimulation}>⏸</button>
+                <button onClick={this.resetNodesPositions}>Unstick nodes</button>
                 <div style={graphWrapperStyle}>
-                    <Graph {...graphProps}/>
+                    <Graph ref='graph' {...graphProps}/>
                 </div>
             </div>
         );
