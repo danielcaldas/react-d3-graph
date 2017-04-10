@@ -66,8 +66,7 @@ dist/
 
 # End of https://www.gitignore.io/api/node
 
-
-src/mock/mock.js
-src/mock/mock.xl.js
+sandbox/mock/mock.js
+sandbox/mock/mock.xl.js
 DOCUMENTATION.md
 docs

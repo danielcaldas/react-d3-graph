@@ -1,10 +1,10 @@
 import React from 'react';
 
-import graphMock from '../../mock/miserables';
+import graphMock from './mock/miserables';
 
-import Graph from './Graph/';
+import { Graph } from '../src';
 
-export default class Layout extends React.Component {
+export default class Sandbox extends React.Component {
 
     onClickNode = (id) => window.alert(`clicked node ${id}`);
 
@@ -25,6 +25,7 @@ export default class Layout extends React.Component {
     resetNodesPositions = () => this.refs.graph.resetNodesPositions();
 
     render() {
+        console.log(Graph);
         const width = window.innerWidth - 50;
         const graphProps = {
             id: 'graph',
