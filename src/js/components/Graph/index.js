@@ -9,7 +9,6 @@ import ERRORS from '../../err';
 import GraphHelper from './helper';
 import Utils from '../../utils';
 
-// @TODO: When node dragged out of bouds the graph gets repainted
 export default class Graph extends React.Component {
     constructor(props) {
         super(props);

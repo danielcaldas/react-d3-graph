@@ -34,18 +34,19 @@
         "url": "git+https://github.com/danielcaldas/react-d3-graph.git"
     },
     "keywords": [
-        "d3js",
         "d3-visualization",
-        "react",
-        "javascript",
+        "d3js",
         "graphs",
-        "visualization",
+        "javascript",
         "networks",
+        "react",
         "social-network-analysis",
-        "social-network-graph"
+        "social-network-graph",
+        "visualization"
     ],
     "scripts": {
         "dev": "node_modules/.bin/webpack-dev-server -d --content-base src --inline --hot --port 3002",
+        "dist": "webpack -p",
         "docs": "node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o docs && node_modules/documentation/bin/documentation.js build src/**/*.js -f md > DOCUMENTATION.md",
         "lint": "node_modules/eslint/bin/eslint.js --config=.eslintrc.js \"src/**/*.js\"",
         "test": "echo \"Error: no test specified\" && exit 1"
