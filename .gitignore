@@ -61,11 +61,10 @@ typings/
 # dotenv environment variables file
 .env
 
-# PROJECT configurations
-dist/
-
 # End of https://www.gitignore.io/api/node
 
+# PROJECT configurations
+dist/
 sandbox/mock/mock.js
 sandbox/mock/mock.xl.js
 DOCUMENTATION.md

@@ -25,7 +25,6 @@ export default class Sandbox extends React.Component {
     resetNodesPositions = () => this.refs.graph.resetNodesPositions();
 
     render() {
-        console.log(Graph);
         const width = window.innerWidth - 50;
         const graphProps = {
             id: 'graph',
