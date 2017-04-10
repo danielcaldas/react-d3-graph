@@ -1,15 +1,15 @@
 export default {
-    automaticRearrangeAfterDropNode: false, // Very expensive for dense graphs, this will start a new force ...
+    automaticRearrangeAfterDropNode: false,
     height: 450,
     highlightBehavior: false,
-    highlightOpacity: 1, // For all elements: nodes, text and links
+    highlightOpacity: 1,
     maxZoom: 8,
     minZoom: 0.5,
     staticGraph: false,
     width: 800,
     node: {
         color: '#d3d3d3',
-        fontSize: 10, // in px
+        fontSize: 10,
         fontWeight: 'normal',
         highlightColor: 'SAME',
         highlightFontSize: 10,
