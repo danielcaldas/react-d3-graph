@@ -25,6 +25,7 @@
         "eslint-plugin-standard": "2.1.1",
         "html-webpack-plugin": "2.28.0",
         "react-dom": "15.4.2",
+        "react-jsonschema-form": "^0.46.0",
         "react-router-dom": "4.0.0",
         "webpack": "2.3.2",
         "webpack-dev-server": "2.4.2"

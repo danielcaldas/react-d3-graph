@@ -1,10 +1,42 @@
 import React from 'react';
 
-import graphMock from './mock/miserables';
+import Form from 'react-jsonschema-form';
 
 import { Graph } from '../src';
+import graphMock from './mock/miserables';
+import style from './style';
+import defaultConfig from '../src/components/Graph/config';
 
 export default class Sandbox extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.schemaProps = {};
+        this._generateFormSchema(defaultConfig, '');
+
+        this.state = {
+            config: defaultConfig
+        };
+    }
+
+    /**
+     * Separate this functions. Place them in another file.
+     */
+    _formMap(k,v) {
+        return {
+            title: k,
+            type: typeof v,
+            'default': v
+        };
+    }
+
+    _generateFormSchema(o, rootSpreadProp) {
+        for(let k of Object.keys(o)) {
+            const kk = rootSpreadProp ? `${rootSpreadProp}.${k}` : k;
+            typeof o[k] === 'object' ? this._generateFormSchema(o[kk], kk)
+                                    : this.schemaProps[kk] = this._formMap(kk, o[k]);
+        }
+    }
 
     onClickNode = (id) => window.alert(`clicked node ${id}`);
 
@@ -24,41 +56,51 @@ export default class Sandbox extends React.Component {
 
     resetNodesPositions = () => this.refs.graph.resetNodesPositions();
 
+    _setValue(obj,access,value){
+        if (typeof(access)=='string'){
+            access = access.split('.');
+        }
+        if (access.length > 1){
+            this._setValue(obj[access.shift()],access,value);
+        }else{
+            obj[access[0]] = value;
+        }
+    }
+
+    refreshGraph = (data) => {
+        let config = {node: {}, link:{}}; // @TODO: Improve this hardcoded object with node and link
+
+        for(let k of Object.keys(data.formData)) {
+            this._setValue(config, k, data.formData[k]);
+        }
+
+        this.setState({
+            config
+        });
+    }
+
     render() {
-        const width = window.innerWidth - 50;
+        console.log('render');
+        // react-jsonschema schemas
+        const schema = {
+            title: 'react d3!!! graph!!! :D',
+            type: 'object',
+            properties: this.schemaProps
+        };
+
+        const uiSchema = {
+            height: {'ui:readonly': 'true'},
+            width: {'ui:readonly': 'true'}
+        };
+
         const graphProps = {
             id: 'graph',
-            data: graphMock.graph || graphMock,
-            config: {
-                width,
-                height: 600,
-                highlightOpacity: 0.12,
-                highlightBehavior: true,
-                node: {
-                    color: '#4286f4',
-                    highlightFontSize: 14,
-                    highlightFontWeight: 'bold',
-                    highlightStrokeColor: '#8f41f4',
-                    highlightStrokeWidth: 2,
-                    labelProperty: 'uid',
-                    size: 100,
-                    strokeColor: 'white'
-                },
-                link: {
-                    highlightColor: '#8f41f4',
-                    strokeWidth: 1
-                }
-            },
+            data: graphMock.graph || graphMock, // @TODO: Remove nonsense fallback
+            config: this.state.config,
             onClickNode: this.onClickNode,
             onClickLink: this.onClickLink,
             onMouseOverNode: this.onMouseOverNode,
             onMouseOutNode: this.onMouseOutNode
-        };
-
-        const graphWrapperStyle = {
-            border: '1px solid black',
-            marginTop: '25px',
-            width
         };
 
         return (
@@ -68,9 +110,17 @@ export default class Sandbox extends React.Component {
                 <button onClick={this.restartGraphSimulation}>▶️</button>
                 <button onClick={this.pauseGraphSimulation}>⏸</button>
                 <button onClick={this.resetNodesPositions}>Unstick nodes</button>
-                <div style={graphWrapperStyle}>
-                    <Graph ref='graph' {...graphProps}/>
+                <div style={style.container}>
+                    <div style={style.graphWrapperStyle}>
+                        <Graph key={'uniqueId'} ref='graph' {...graphProps}/>
+                    </div>
+                    <div style={style.formContainer}>
+                        <Form schema={schema}
+                            uiSchema={uiSchema}
+                            onSubmit={this.refreshGraph} />
+                    </div>
                 </div>
+                <div style={style.clear}></div>
             </div>
         );
     }
