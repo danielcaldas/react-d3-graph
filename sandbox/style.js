@@ -10,7 +10,9 @@ const container = {
 };
 
 const formContainer = {
-    float: 'right'
+    float: 'right',
+    maxHeight: '500px',
+    overflow: 'scroll'
 };
 
 const clear = {

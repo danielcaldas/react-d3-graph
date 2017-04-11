@@ -14,8 +14,22 @@ export default class Sandbox extends React.Component {
         this.schemaProps = {};
         this._generateFormSchema(defaultConfig, '');
 
+        const schema = {
+            title: 'react-d3-graph',
+            type: 'object',
+            properties: this.schemaProps
+        };
+
+        const uiSchema = {
+            height: {'ui:readonly': 'true'},
+            width: {'ui:readonly': 'true'}
+        };
+
+        this.uiSchema = uiSchema;
+
         this.state = {
-            config: defaultConfig
+            config: defaultConfig,
+            schema
         };
     }
 
@@ -71,7 +85,10 @@ export default class Sandbox extends React.Component {
         let config = {node: {}, link:{}}; // @TODO: Improve this hardcoded object with node and link
 
         for(let k of Object.keys(data.formData)) {
+            // Set value mapping correctly for config object of react-d3-graph
             this._setValue(config, k, data.formData[k]);
+            // Set new values for schema of jsonform
+            this.state.schema.properties[k].default = data.formData[k]
         }
 
         this.setState({
@@ -80,19 +97,6 @@ export default class Sandbox extends React.Component {
     }
 
     render() {
-        console.log('render');
-        // react-jsonschema schemas
-        const schema = {
-            title: 'react d3!!! graph!!! :D',
-            type: 'object',
-            properties: this.schemaProps
-        };
-
-        const uiSchema = {
-            height: {'ui:readonly': 'true'},
-            width: {'ui:readonly': 'true'}
-        };
-
         const graphProps = {
             id: 'graph',
             data: graphMock.graph || graphMock, // @TODO: Remove nonsense fallback
@@ -112,11 +116,11 @@ export default class Sandbox extends React.Component {
                 <button onClick={this.resetNodesPositions}>Unstick nodes</button>
                 <div style={style.container}>
                     <div style={style.graphWrapperStyle}>
-                        <Graph key={'uniqueId'} ref='graph' {...graphProps}/>
+                        <Graph ref='graph' {...graphProps}/>
                     </div>
                     <div style={style.formContainer}>
-                        <Form schema={schema}
-                            uiSchema={uiSchema}
+                        <Form schema={this.state.schema}
+                            uiSchema={this.uiSchema}
                             onSubmit={this.refreshGraph} />
                     </div>
                 </div>
