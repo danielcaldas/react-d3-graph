@@ -3,7 +3,7 @@ import React from 'react';
 import Form from 'react-jsonschema-form';
 
 import { Graph } from '../src';
-import graphMock from './mock/miserables';
+import graphMock from './mock/mock';
 import style from './style';
 import defaultConfig from '../src/components/Graph/config';
 
@@ -15,7 +15,7 @@ export default class Sandbox extends React.Component {
         this._generateFormSchema(defaultConfig, '');
 
         const schema = {
-            title: 'react-d3-graph',
+            title: 'Play around and tune your config',
             type: 'object',
             properties: this.schemaProps
         };
@@ -109,7 +109,6 @@ export default class Sandbox extends React.Component {
 
         return (
             <div>
-                <h1>react-d3-graph</h1>
                 <h2>Work in progress <span>🔨👷</span></h2>
                 <button onClick={this.restartGraphSimulation}>▶️</button>
                 <button onClick={this.pauseGraphSimulation}>⏸</button>
@@ -125,6 +124,8 @@ export default class Sandbox extends React.Component {
                     </div>
                 </div>
                 <div style={style.clear}></div>
+                <h4>Graph data</h4>
+                <pre style={style.preStyle}>{JSON.stringify(graphMock, null, 2)}</pre>
             </div>
         );
     }

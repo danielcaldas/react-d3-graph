@@ -6,12 +6,12 @@ const graphWrapperStyle = {
 };
 
 const container = {
-    width: '100%'
+    width: '80%'
 };
 
 const formContainer = {
-    float: 'right',
     maxHeight: '500px',
+    maxWidth: '250px',
     overflow: 'scroll'
 };
 
@@ -19,9 +19,16 @@ const clear = {
     clear: 'both'
 };
 
+const preStyle = {
+    width: '60%',
+    maxHeight: '350px',
+    overflow: 'scroll'
+};
+
 export default {
     graphWrapperStyle,
     container,
     formContainer,
-    clear
+    clear,
+    preStyle
 };
