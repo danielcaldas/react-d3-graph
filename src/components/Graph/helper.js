@@ -28,9 +28,11 @@ function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNode
 function buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
     const opacity = someNodeHighlighted ? (node.highlighted ? config.node.opacity : config.highlightOpacity) : config.node.opacity;
 
-    const fill = node.highlighted ?
-                (config.node.highlightColor === CONST.KEYWORDS.SAME ? (node.color || config.node.color) : node.highlightColor)
-                : (node.color || config.node.color);
+    let fill = node.color || config.node.color;
+
+    if (node.highlighted && config.node.highlightColor !== CONST.KEYWORDS.SAME) {
+        fill = config.node.highlightColor;
+    }
 
     return {
         className: CONST.NODE_CLASS_NAME,

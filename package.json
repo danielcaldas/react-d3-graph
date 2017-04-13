@@ -47,7 +47,7 @@
     ],
     "scripts": {
         "dev": "node_modules/.bin/webpack-dev-server -d --content-base sandbox --inline --hot --port 3002",
-        "dist": "webpack --config webpack.config.prod.js -p --display-modules",
+        "dist": "webpack --config webpack.config.dist.js -p --display-modules",
         "docs": "node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o docs && node_modules/documentation/bin/documentation.js build src/**/*.js -f md > DOCUMENTATION.md",
         "lint": "node_modules/eslint/bin/eslint.js --config=.eslintrc.js \"src/**/*.js\"",
         "test": "echo \"Error: no test specified\" && exit 1"
