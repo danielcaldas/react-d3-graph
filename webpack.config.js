@@ -6,7 +6,7 @@ module.exports = {
     devtool: 'source-map',
     entry: './index.js',
     output: {
-        path: __dirname + '/dist/',
+        path: __dirname + '/sandbox/',
         filename: 'rd3g.sandbox.bundle.js'
     },
     module: {

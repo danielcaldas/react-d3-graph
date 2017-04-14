@@ -65,7 +65,7 @@ typings/
 
 # PROJECT configurations
 dist/
-sandbox/mock/mock.js
-sandbox/mock/mock.xl.js
 DOCUMENTATION.md
 docs
+sandbox/rd3g.sandbox.bundle.js
+sandbox/rd3g.sandbox.bundle.js.map

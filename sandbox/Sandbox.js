@@ -4,7 +4,7 @@ import Form from 'react-jsonschema-form';
 
 import defaultConfig from '../src/components/Graph/config';
 import { Graph } from '../src';
-import mock from './mock/miserables';
+import mock from './miserables';
 import style from './style';
 import Utils from './utils';
 
