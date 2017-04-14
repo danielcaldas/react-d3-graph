@@ -3,9 +3,9 @@ const MAX_DEPTH = 3;
 /**
  * This function merges two objects o1 and o2, where o2 properties override existent o1 properties, and
  * if o2 doesn't posses some o1 property the function will fallback to the o1 property.
- * @param {Object} o1 - object
- * @param {Object} o2 - object that will override o1 properties
- * @param {int} deepth - the deepth at which we are merging the object
+ * @param {Object} o1 - object.
+ * @param {Object} o2 - object that will override o1 properties.
+ * @param {int} deepth - the deepth at which we are merging the object.
  * @return {Object} Object that is the result of merging o1 and o2, being o2 properties prioritray overriding
  * existent o1 properties.
  */

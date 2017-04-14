@@ -75,6 +75,9 @@ export default class Graph extends React.Component {
 
     componentDidUpdate = () => {
         this._zoomConfig();
+
+        // If the property staticGraph was activated we want to stop possible ongoing simulation
+        this.state.config.staticGraph && this.simulation.stop();
     }
 
     _zoomConfig = () => {

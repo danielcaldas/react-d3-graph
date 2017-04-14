@@ -7,8 +7,6 @@ import NodeHelper from './helper';
 export default class Node extends React.Component {
     constructor(props) {
         super(props);
-
-        this.symbol = NodeHelper.buildSvgSymbol(this.props.size, this.props.type);
     }
 
     shouldComponentUpdate(nextProps) {
@@ -16,7 +14,12 @@ export default class Node extends React.Component {
               || nextProps.opacity !== this.props.opacity
               || nextProps.fill !== this.props.fill
               || nextProps.fontWeight !== this.props.fontWeight
-              || nextProps.fontSize !== this.props.fontSize;
+              || nextProps.fontSize !== this.props.fontSize
+              || nextProps.label !== this.props.label
+              || nextProps.cursor !== this.props.cursor
+              || nextProps.size !== this.props.size
+              || nextProps.type !== this.props.type
+              || nextProps.renderLabel !== this.props.renderLabel;
     }
 
     /**
@@ -48,7 +51,7 @@ export default class Node extends React.Component {
 
         const pathProps = {
             cursor: this.props.cursor,
-            d: this.symbol,
+            d: NodeHelper.buildSvgSymbol(this.props.size, this.props.type),
             fill: this.props.fill,
             onClick: this.handleOnClickNode,
             onMouseOut: this.handleOnMouseOut,
