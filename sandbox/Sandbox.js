@@ -2,17 +2,17 @@ import React from 'react';
 
 import Form from 'react-jsonschema-form';
 
-import { Graph } from '../src';
-import graphMock from './mock/miserables';
-import style from './style';
 import defaultConfig from '../src/components/Graph/config';
+import { Graph } from '../src';
+import mock from './mock/miserables';
+import style from './style';
+import Utils from './utils';
 
 export default class Sandbox extends React.Component {
     constructor(props) {
         super(props);
 
-        this.schemaProps = {};
-        this._generateFormSchema(defaultConfig, '');
+        this.schemaProps = Utils.generateFormSchema(defaultConfig, '', {});
 
         const schema = {
             title: 'Play around and tune your config',
@@ -33,25 +33,6 @@ export default class Sandbox extends React.Component {
         };
     }
 
-    /**
-     * Separate this functions. Place them in another file.
-     */
-    _formMap(k,v) {
-        return {
-            title: k,
-            type: typeof v,
-            'default': v
-        };
-    }
-
-    _generateFormSchema(o, rootSpreadProp) {
-        for(let k of Object.keys(o)) {
-            const kk = rootSpreadProp ? `${rootSpreadProp}.${k}` : k;
-            typeof o[k] === 'object' ? this._generateFormSchema(o[kk], kk)
-                                    : this.schemaProps[kk] = this._formMap(kk, o[k]);
-        }
-    }
-
     onClickNode = (id) => window.alert(`clicked node ${id}`);
 
     onClickLink = (source, target) => window.alert(`clicked link between ${source} and ${target}`);
@@ -70,23 +51,12 @@ export default class Sandbox extends React.Component {
 
     resetNodesPositions = () => this.refs.graph.resetNodesPositions();
 
-    _setValue(obj,access,value){
-        if (typeof(access)=='string'){
-            access = access.split('.');
-        }
-        if (access.length > 1){
-            this._setValue(obj[access.shift()],access,value);
-        }else{
-            obj[access[0]] = value;
-        }
-    }
-
     refreshGraph = (data) => {
-        let config = {node: {}, link:{}}; // @TODO: Improve this hardcoded object with node and link
+        let config = {};
 
         for(let k of Object.keys(data.formData)) {
             // Set value mapping correctly for config object of react-d3-graph
-            this._setValue(config, k, data.formData[k]);
+            Utils.setValue(config, k, data.formData[k]);
             // Set new values for schema of jsonform
             this.state.schema.properties[k].default = data.formData[k]
         }
@@ -99,7 +69,7 @@ export default class Sandbox extends React.Component {
     render() {
         const graphProps = {
             id: 'graph',
-            data: graphMock.graph || graphMock, // @TODO: Remove nonsense fallback
+            data: mock,
             config: this.state.config,
             onClickNode: this.onClickNode,
             onClickLink: this.onClickLink,
@@ -125,7 +95,7 @@ export default class Sandbox extends React.Component {
                 </div>
                 <div style={style.clear}></div>
                 <h4>Graph data</h4>
-                <pre style={style.preStyle}>{JSON.stringify(graphMock, null, 2)}</pre>
+                <pre style={style.preStyle}>{JSON.stringify(mock, null, 2)}</pre>
             </div>
         );
     }
