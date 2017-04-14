@@ -1,34 +1,47 @@
-const graphWrapperStyle = {
-    border: '1px solid black',
-    float: 'left',
-    marginTop: '25px',
-    width: '70%'
-};
-
-const container = {
-    width: '80%'
-};
-
-const formContainer = {
-    maxHeight: '500px',
-    maxWidth: '250px',
-    overflow: 'scroll'
+const btnContainer = {
+    margin: '10px'
 };
 
 const clear = {
     clear: 'both'
 };
 
-const preStyle = {
-    width: '60%',
-    maxHeight: '350px',
+const container = {
+    width: '100%'
+};
+
+const formContainer = {
+    height: '400px',
     overflow: 'scroll'
 };
 
+const graphWrapperStyle = {
+    border: '1px dashed black',
+    float: 'left',
+    margin: '15px 100px 0 10px'
+};
+
+const preConfigStyle = {
+    width: '320px',
+    maxHeight: '250px',
+    overflow: 'scroll',
+    margin: '25px 0 0 10px',
+};
+
+const preStyle = {
+    width: '320px',
+    maxHeight: '250px',
+    overflow: 'scroll',
+    margin: '25px 0 0 10px',
+    float: 'left'
+};
+
 export default {
-    graphWrapperStyle,
+    btnContainer,
+    clear,
     container,
     formContainer,
-    clear,
+    graphWrapperStyle,
+    preConfigStyle,
     preStyle
 };

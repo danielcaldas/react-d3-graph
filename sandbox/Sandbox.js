@@ -7,6 +7,7 @@ import { Graph } from '../src';
 import mock from './miserables';
 import style from './style';
 import Utils from './utils';
+import ReactD3GraphUtils from  '../src/utils';
 
 export default class Sandbox extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ export default class Sandbox extends React.Component {
         this.schemaProps = Utils.generateFormSchema(defaultConfig, '', {});
 
         const schema = {
-            title: 'Play around and tune your config',
+            title: 'Graph configurations',
             type: 'object',
             properties: this.schemaProps
         };
@@ -29,6 +30,7 @@ export default class Sandbox extends React.Component {
 
         this.state = {
             config: defaultConfig,
+            generatedConfig: {},
             schema
         };
     }
@@ -51,18 +53,37 @@ export default class Sandbox extends React.Component {
 
     resetNodesPositions = () => this.refs.graph.resetNodesPositions();
 
-    refreshGraph = (data) => {
+    _buildGraphConfig = (data) => {
         let config = {};
+        let schemaPropsValues = {};
 
         for(let k of Object.keys(data.formData)) {
             // Set value mapping correctly for config object of react-d3-graph
             Utils.setValue(config, k, data.formData[k]);
             // Set new values for schema of jsonform
-            this.state.schema.properties[k].default = data.formData[k]
+            schemaPropsValues[k] = {};
+            schemaPropsValues[k]['default'] = data.formData[k]
         }
+
+        return {config, schemaPropsValues};
+    }
+
+    refreshGraph = (data) => {
+        const {config, schemaPropsValues} = this._buildGraphConfig(data);
+
+        this.state.schema.properties = ReactD3GraphUtils.merge(this.state.schema.properties, schemaPropsValues);
 
         this.setState({
             config
+        });
+    }
+
+    // Generate graph configuration file ready to use!
+    onSubmit = (data) => {
+        const {config, schemaPropsValues} = this._buildGraphConfig(data);
+
+        this.setState({
+            generatedConfig: config
         });
     }
 
@@ -77,12 +98,17 @@ export default class Sandbox extends React.Component {
             onMouseOutNode: this.onMouseOutNode
         };
 
+        const btnStyle = {
+            cursor: this.state.config.staticGraph ? 'not-allowed' : 'pointer'
+        };
+
         return (
             <div>
-                <h2>Work in progress <span>🔨👷</span></h2>
-                <button onClick={this.restartGraphSimulation}>▶️</button>
-                <button onClick={this.pauseGraphSimulation}>⏸</button>
-                <button onClick={this.resetNodesPositions}>Unstick nodes</button>
+                <div style={style.btnContainer}>
+                    <button onClick={this.restartGraphSimulation} style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
+                    <button onClick={this.pauseGraphSimulation} style={btnStyle} disabled={this.state.config.staticGraph}>⏸</button>
+                    <button onClick={this.resetNodesPositions} style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
+                </div>
                 <div style={style.container}>
                     <div style={style.graphWrapperStyle}>
                         <Graph ref='graph' {...graphProps}/>
@@ -90,12 +116,18 @@ export default class Sandbox extends React.Component {
                     <div style={style.formContainer}>
                         <Form schema={this.state.schema}
                             uiSchema={this.uiSchema}
-                            onChange={this.refreshGraph} />
+                            onChange={this.refreshGraph}
+                            onSubmit={this.onSubmit} />
                     </div>
                 </div>
                 <div style={style.clear}></div>
-                <h4>Graph data</h4>
-                <pre style={style.preStyle}>{JSON.stringify(mock, null, 2)}</pre>
+                <div>
+                    <h4>Graph data</h4>
+                    <pre style={style.preStyle}>{JSON.stringify(mock, null, 2)}</pre>
+                </div>
+                <div>
+                    <pre style={style.preConfigStyle}>{JSON.stringify(this.state.generatedConfig, null, 2)}</pre>
+                </div>
             </div>
         );
     }
