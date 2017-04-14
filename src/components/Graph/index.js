@@ -138,29 +138,32 @@ export default class Graph extends React.Component {
     }
     /*--------------------------------------------------*/
 
+
     resetNodesPositions = () => {
-        Object.values(this.state.nodes).forEach(node => {
-            if (node.fx && node.fy) {
-                Reflect.deleteProperty(node, 'fx');
-                Reflect.deleteProperty(node, 'fy');
-            }
-        });
+        if (!this.state.config.staticGraph) {
+            Object.values(this.state.nodes).forEach(node => {
+                if (node.fx && node.fy) {
+                    Reflect.deleteProperty(node, 'fx');
+                    Reflect.deleteProperty(node, 'fy');
+                }
+            });
 
-        // @TODO: hardcoded alpha target
-        this.simulation.alphaTarget(0.08).restart();
+            // @TODO: hardcoded alpha target
+            this.simulation.alphaTarget(0.08).restart();
 
-        this.setState(this.state || {});
+            this.setState(this.state || {});
+        }
     }
 
     /**
     * simulation.stop() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L84]
     */
-    pauseSimulation = () => this.simulation.stop();
+    pauseSimulation = () => !this.state.config.staticGraph && this.simulation.stop();
 
     /**
      * simulation.restart() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L80]
      */
-    restartSimulation = () => this.simulation.restart();
+    restartSimulation = () => !this.state.config.staticGraph && this.simulation.restart();
 
     render() {
         const { nodes, links } = GraphHelper.buildGraph(
