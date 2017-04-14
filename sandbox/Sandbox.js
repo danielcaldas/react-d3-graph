@@ -3,7 +3,7 @@ import React from 'react';
 import Form from 'react-jsonschema-form';
 
 import { Graph } from '../src';
-import graphMock from './mock/mock';
+import graphMock from './mock/miserables';
 import style from './style';
 import defaultConfig from '../src/components/Graph/config';
 
@@ -120,7 +120,7 @@ export default class Sandbox extends React.Component {
                     <div style={style.formContainer}>
                         <Form schema={this.state.schema}
                             uiSchema={this.uiSchema}
-                            onSubmit={this.refreshGraph} />
+                            onChange={this.refreshGraph} />
                     </div>
                 </div>
                 <div style={style.clear}></div>

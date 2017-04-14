@@ -67,10 +67,18 @@ export default class Graph extends React.Component {
         }
 
         // Graph zoom and drag&drop all network
-        d3.select(`#${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom]).on('zoom', this._zoomed));
+        this._zoomConfig();
 
         Reflect.deleteProperty(this, 'nodes');
         Reflect.deleteProperty(this, 'links');
+    }
+
+    componentDidUpdate = () => {
+        this._zoomConfig();
+    }
+
+    _zoomConfig = () => {
+        d3.select(`#${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom]).on('zoom', this._zoomed));
     }
 
     _tick = () => this.setState(this.state || {});
