@@ -126,6 +126,7 @@ export default class Sandbox extends React.Component {
                     <pre style={style.preStyle}>{JSON.stringify(mock, null, 2)}</pre>
                 </div>
                 <div>
+                    <h4>Graph configuration file</h4>
                     <pre style={style.preConfigStyle}>{JSON.stringify(this.state.generatedConfig, null, 2)}</pre>
                 </div>
             </div>

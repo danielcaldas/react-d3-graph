@@ -94,17 +94,19 @@ export default class Graph extends React.Component {
     _onDragStart = () => !this.state.config.staticGraph && this.simulation.stop();
 
     _onDragMove = (_, index) => {
-        // This is where d3 and react bind;
-        let draggedNode = this.state.nodes[this.indexMapping[index]];
+        if (!this.state.config.staticGraph) {
+            // This is where d3 and react bind
+            let draggedNode = this.state.nodes[this.indexMapping[index]];
 
-        draggedNode.x += d3.event.dx;
-        draggedNode.y += d3.event.dy;
+            draggedNode.x += d3.event.dx;
+            draggedNode.y += d3.event.dy;
 
-        // Set nodes fixing coords fx and fy
-        draggedNode['fx'] = draggedNode.x;
-        draggedNode['fy'] = draggedNode.y;
+            // Set nodes fixing coords fx and fy
+            draggedNode['fx'] = draggedNode.x;
+            draggedNode['fy'] = draggedNode.y;
 
-        !this.state.config.staticGraph && this._tick();
+            this._tick();
+        }
     }
 
     _onDragEnd = () => !this.state.config.staticGraph
