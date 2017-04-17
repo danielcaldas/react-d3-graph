@@ -22,7 +22,6 @@ export default class Graph extends React.Component {
         let {nodes, indexMapping} = GraphHelper.initializeNodes(graph.nodes);
         let links = GraphHelper.initializeLinks(graph.links); // Matrix of graph connections
 
-        this.config = config;
         this.indexMapping = indexMapping;
         this.simulation = GraphHelper.createForceSimulation(config.width, config.height);
 
@@ -31,14 +30,25 @@ export default class Graph extends React.Component {
         this.nodes = graph.nodes;
 
         this.state = {
+            config,
             links,
             nodes,
             nodeHighlighted: false
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        const config = Utils.merge(DEFAULT_CONFIG, nextProps.config || {});
+
+        if (JSON.stringify(config) !== JSON.stringify(this.state.config)) {
+            this.setState({
+                config
+            });
+        }
+    }
+
     componentDidMount() {
-        if (!this.config.staticGraph) {
+        if (!this.state.config.staticGraph) {
             this.simulation.nodes(this.nodes).on('tick', this._tick);
 
             const forceLink = d3.forceLink(this.links)
@@ -57,10 +67,21 @@ export default class Graph extends React.Component {
         }
 
         // Graph zoom and drag&drop all network
-        d3.select(`#${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([this.config.minZoom, this.config.maxZoom]).on('zoom', this._zoomed));
+        this._zoomConfig();
 
         Reflect.deleteProperty(this, 'nodes');
         Reflect.deleteProperty(this, 'links');
+    }
+
+    componentDidUpdate = () => {
+        this._zoomConfig();
+
+        // If the property staticGraph was activated we want to stop possible ongoing simulation
+        this.state.config.staticGraph && this.simulation.stop();
+    }
+
+    _zoomConfig = () => {
+        d3.select(`#${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom]).on('zoom', this._zoomed));
     }
 
     _tick = () => this.setState(this.state || {});
@@ -70,24 +91,26 @@ export default class Graph extends React.Component {
     /*--------------------------------------------------
         Drag & Drop
      --------------------------------------------------*/
-    _onDragStart = () => !this.config.staticGraph && this.simulation.stop();
+    _onDragStart = () => !this.state.config.staticGraph && this.simulation.stop();
 
     _onDragMove = (_, index) => {
-        // This is where d3 and react bind;
-        let draggedNode = this.state.nodes[this.indexMapping[index]];
+        if (!this.state.config.staticGraph) {
+            // This is where d3 and react bind
+            let draggedNode = this.state.nodes[this.indexMapping[index]];
 
-        draggedNode.x += d3.event.dx;
-        draggedNode.y += d3.event.dy;
+            draggedNode.x += d3.event.dx;
+            draggedNode.y += d3.event.dy;
 
-        // Set nodes fixing coords fx and fy
-        draggedNode['fx'] = draggedNode.x;
-        draggedNode['fy'] = draggedNode.y;
+            // Set nodes fixing coords fx and fy
+            draggedNode['fx'] = draggedNode.x;
+            draggedNode['fy'] = draggedNode.y;
 
-        !this.config.staticGraph && this._tick();
+            this._tick();
+        }
     }
 
-    _onDragEnd = () => !this.config.staticGraph
-                        && this.config.automaticRearrangeAfterDropNode
+    _onDragEnd = () => !this.state.config.staticGraph
+                        && this.state.config.automaticRearrangeAfterDropNode
                         && this.simulation.alphaTarget(0.05).restart();
     /*--------------------------------------------------*/
 
@@ -97,13 +120,13 @@ export default class Graph extends React.Component {
     onMouseOverNode = (index) => {
         this.props.onMouseOverNode && this.props.onMouseOverNode(index);
 
-        this.config.highlightBehavior && this._setHighlighted(index, true);
+        this.state.config.highlightBehavior && this._setHighlighted(index, true);
     }
 
     onMouseOutNode = (index) => {
         this.props.onMouseOutNode && this.props.onMouseOutNode(index);
 
-        this.config.highlightBehavior && this._setHighlighted(index, false);
+        this.state.config.highlightBehavior && this._setHighlighted(index, false);
     }
 
     _setHighlighted(index, value) {
@@ -120,29 +143,32 @@ export default class Graph extends React.Component {
     }
     /*--------------------------------------------------*/
 
+
     resetNodesPositions = () => {
-        Object.values(this.state.nodes).forEach(node => {
-            if (node.fx && node.fy) {
-                Reflect.deleteProperty(node, 'fx');
-                Reflect.deleteProperty(node, 'fy');
-            }
-        });
+        if (!this.state.config.staticGraph) {
+            Object.values(this.state.nodes).forEach(node => {
+                if (node.fx && node.fy) {
+                    Reflect.deleteProperty(node, 'fx');
+                    Reflect.deleteProperty(node, 'fy');
+                }
+            });
 
-        // @TODO: hardcoded alpha target
-        this.simulation.alphaTarget(0.08).restart();
+            // @TODO: hardcoded alpha target
+            this.simulation.alphaTarget(0.08).restart();
 
-        this.setState(this.state || {});
+            this.setState(this.state || {});
+        }
     }
 
     /**
     * simulation.stop() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L84]
     */
-    pauseSimulation = () => this.simulation.stop();
+    pauseSimulation = () => !this.state.config.staticGraph && this.simulation.stop();
 
     /**
      * simulation.restart() [https://github.com/d3/d3-force/blob/master/src/simulation.js#L80]
      */
-    restartSimulation = () => this.simulation.restart();
+    restartSimulation = () => !this.state.config.staticGraph && this.simulation.restart();
 
     render() {
         const { nodes, links } = GraphHelper.buildGraph(
@@ -150,13 +176,13 @@ export default class Graph extends React.Component {
             { onClickNode: this.props.onClickNode, onMouseOverNode: this.onMouseOverNode, onMouseOut: this.onMouseOutNode},
             this.state.links,
             { onClickLink: this.props.onClickLink },
-            this.config,
+            this.state.config,
             this.state.nodeHighlighted
         );
 
         const svgStyle = {
-            height: this.config.height,
-            width: this.config.width
+            height: this.state.config.height,
+            width: this.state.config.width
         };
 
         return (

@@ -1,6 +1,6 @@
 export default {
     automaticRearrangeAfterDropNode: false,
-    height: 450,
+    height: 400,
     highlightBehavior: false,
     highlightOpacity: 1,
     maxZoom: 8,
@@ -11,11 +11,6 @@ export default {
         color: '#d3d3d3',
         fontSize: 10,
         fontWeight: 'normal',
-        highlightColor: 'SAME',
-        highlightFontSize: 10,
-        highlightFontWeight: 'normal',
-        highlightStrokeColor: 'none',
-        highlightStrokeWidth: 1.5,
         labelProperty: 'id',
         mouseCursor: 'pointer',
         opacity: 1,
@@ -23,12 +18,18 @@ export default {
         size: 200,
         strokeColor: 'none',
         strokeWidth: 1.5,
-        symbolType: 'circle'
+        symbolType: 'circle',
+        highlightColor: 'SAME',
+        highlightFontSize: 10,
+        highlightFontWeight: 'normal',
+        highlightStrokeColor: 'none',
+        highlightStrokeWidth: 1.5
     },
     link: {
         color: '#d3d3d3',
-        highlightColor: '#d3d3d3',
         opacity: 1,
-        strokeWidth: 1.5
+        semanticStrokeWidth: false,
+        strokeWidth: 1.5,
+        highlightColor: '#d3d3d3'
     }
 };

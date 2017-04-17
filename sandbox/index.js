@@ -5,14 +5,14 @@ import {
   Route
 } from 'react-router-dom';
 
-import Demo from './components/Demo';
+import Sandbox from './Sandbox';
 
 const app = document.getElementById('app');
 
 ReactDOM.render(
     <Router>
         <div>
-            <Route path='/' component={Demo}/>
+            <Route path='/' component={Sandbox}/>
         </div>
-     </Router>
+    </Router>
     , app);

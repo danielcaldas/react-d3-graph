@@ -44,3 +44,11 @@ export default {
     }
 };
 ```
+
+## TODOs
+This are some ideas to further development:
+- Expose a graph property **background-color** that is applied to the svg graph container.
+
+## Contributions
+Contributions are welcome fell free to submit new features or simply grab something from
+the above TODO list.
