@@ -28,6 +28,7 @@ export default {
     link: {
         color: '#d3d3d3',
         opacity: 1,
+        semanticStrokeWidth: true,
         strokeWidth: 1.5,
         highlightColor: '#d3d3d3'
     }

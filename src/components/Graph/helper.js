@@ -71,7 +71,7 @@ function buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHighl
 
             if (nodes[target]) {
                 const key = `${node.id}${CONST.COORDS_SEPARATOR}${target}`;
-                const props = buildLinkProps(node.id, target, x1, y1, nodes, config, linkCallbacks, someNodeHighlighted);
+                const props = buildLinkProps(node.id, target, x1, y1, nodes, links, config, linkCallbacks, someNodeHighlighted);
 
                 linksComponents.push(<Link key={key} {...props} />);
             }
@@ -81,12 +81,19 @@ function buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHighl
     return linksComponents;
 }
 
-function buildLinkProps(source, target, x1, y1, nodes, config, linkCallbacks, someNodeHighlighted) {
+function buildLinkProps(source, target, x1, y1, nodes, links, config, linkCallbacks, someNodeHighlighted) {
     const opacity = someNodeHighlighted ? (nodes[source].highlighted && nodes[target].highlighted) ? config.link.opacity : config.highlightOpacity : config.link.opacity;
 
     const stroke = (nodes[source].highlighted && nodes[target].highlighted) ?
                 (config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color : config.link.highlightColor)
                 : config.link.color;
+
+    const linkValue = links[source][target] || links[target][source];
+    let strokeWidth = config.link.strokeWidth;
+
+    if (config.link.semanticStrokeWidth) {
+        strokeWidth += (linkValue * strokeWidth) / 10;
+    }
 
     return {
         source,
@@ -95,7 +102,7 @@ function buildLinkProps(source, target, x1, y1, nodes, config, linkCallbacks, so
         y1,
         x2: nodes[target] && nodes[target].x || '0',
         y2: nodes[target] && nodes[target].y || '0',
-        strokeWidth: config.link.strokeWidth,
+        strokeWidth,
         stroke,
         className: CONST.LINK_CLASS_NAME,
         opacity,
@@ -149,7 +156,8 @@ function initializeLinks(graphLinks) {
             links[l.target] = {};
         }
 
-        links[l.source][l.target] = links[l.target][l.source] = true;
+        // @TODO: If the graph is directed this should not happen
+        links[l.source][l.target] = links[l.target][l.source] = l.value || 1;
     });
 
     return links;

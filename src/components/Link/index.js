@@ -9,9 +9,9 @@ export default class Link extends React.Component {
         return nextProps.x1 !== this.props.x1 || nextProps.y1 !== this.props.y1
             || nextProps.x2 !== this.props.x2 || nextProps.y2 !== this.props.y2
             || nextProps.opacity !== this.props.opacity
-            || nextProps.color !== this.props.color
             || nextProps.stroke !== this.props.stroke
-            || nextProps.strokeWidth !== this.props.strokeWidth;
+            || nextProps.strokeWidth !== this.props.strokeWidth
+            || nextProps.semanticStrokeWidth !== this.props.semanticStrokeWidth;
     }
 
     /**

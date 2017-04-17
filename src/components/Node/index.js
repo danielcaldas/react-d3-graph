@@ -19,7 +19,9 @@ export default class Node extends React.Component {
               || nextProps.cursor !== this.props.cursor
               || nextProps.size !== this.props.size
               || nextProps.type !== this.props.type
-              || nextProps.renderLabel !== this.props.renderLabel;
+              || nextProps.renderLabel !== this.props.renderLabel
+              || nextProps.stroke !== this.props.stroke
+              || nextProps.strokeWidth !== this.props.strokeWidth;
     }
 
     /**
