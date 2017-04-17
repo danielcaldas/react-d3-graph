@@ -2,10 +2,11 @@ import React from 'react';
 
 import Form from 'react-jsonschema-form';
 
+import './styles.css';
+
 import defaultConfig from '../src/components/Graph/config';
 import { Graph } from '../src';
 import mock from './miserables';
-import style from './style';
 import Utils from './utils';
 import ReactD3GraphUtils from  '../src/utils';
 
@@ -13,12 +14,11 @@ export default class Sandbox extends React.Component {
     constructor(props) {
         super(props);
 
-        this.schemaProps = Utils.generateFormSchema(defaultConfig, '', {});
+        const schemaProps = Utils.generateFormSchema(defaultConfig, '', {});
 
         const schema = {
-            title: 'Graph configurations',
             type: 'object',
-            properties: this.schemaProps
+            properties: schemaProps
         };
 
         const uiSchema = {
@@ -87,6 +87,25 @@ export default class Sandbox extends React.Component {
         });
     }
 
+    onClickSubmit = () => {
+        // Hack for allow submit button to live outside jsonform
+        document.body.querySelector('.invisible-button').click();
+    }
+
+    resetGraphConfig = () => {
+        const schemaProps = Utils.generateFormSchema(defaultConfig, '', {});
+
+        const schema = {
+            type: 'object',
+            properties: schemaProps
+        };
+
+        this.setState({
+            config: defaultConfig,
+            schema
+        });
+    }
+
     render() {
         const graphProps = {
             id: 'graph',
@@ -103,33 +122,46 @@ export default class Sandbox extends React.Component {
         };
 
         return (
-            <div>
-                <div style={style.btnContainer}>
-                    <button onClick={this.restartGraphSimulation} style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
-                    <button onClick={this.pauseGraphSimulation} style={btnStyle} disabled={this.state.config.staticGraph}>⏸</button>
-                    <button onClick={this.resetNodesPositions} style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
+            <div className='container'>
+                <div className='container__graph'>
+                    <button onClick={this.restartGraphSimulation} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
+                    <button onClick={this.pauseGraphSimulation} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>⏸️</button>
+                    <button onClick={this.resetNodesPositions} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
+                    <Graph ref='graph' {...graphProps}/>
                 </div>
-                <div style={style.container}>
-                    <div style={style.graphWrapperStyle}>
-                        <Graph ref='graph' {...graphProps}/>
-                    </div>
-                    <div style={style.formContainer}>
-                        <Form schema={this.state.schema}
-                            uiSchema={this.uiSchema}
-                            onChange={this.refreshGraph}
-                            onSubmit={this.onSubmit} />
-                    </div>
+                <div className='container__form'>
+                    <h4>Graph configurations</h4>
+                    <Form className='form-wrapper'
+                        schema={this.state.schema}
+                        uiSchema={this.uiSchema}
+                        onChange={this.refreshGraph}
+                        onSubmit={this.onSubmit}>
+                        <button className='invisible-button' type='submit'></button>
+                    </Form>
+                    <button className='submit-button btn btn-primary' onClick={this.onClickSubmit}>Generate config</button>
+                    <button className='reset-button btn btn-danger' onClick={this.resetGraphConfig}>Reset config</button>
                 </div>
-                <div style={style.clear}></div>
-                <div>
+                <div className='container__graph-config'>
+                    <h4>Your config</h4>
+                    <JSONContainer data={this.state.generatedConfig} />
+                </div>
+                <div className='container__graph-data'>
                     <h4>Graph data</h4>
-                    <pre style={style.preStyle}>{JSON.stringify(mock, null, 2)}</pre>
-                </div>
-                <div>
-                    <h4>Graph configuration file</h4>
-                    <pre style={style.preConfigStyle}>{JSON.stringify(this.state.generatedConfig, null, 2)}</pre>
+                    <JSONContainer data={mock} />
                 </div>
             </div>
+        );
+    }
+}
+
+class JSONContainer extends React.Component {
+    shouldComponentUpdate(nextProps, nextState) {
+        return JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data);
+    }
+
+    render() {
+        return (
+            <pre className='json-data-container'>{JSON.stringify(this.props.data, null, 2)}</pre>
         );
     }
 }

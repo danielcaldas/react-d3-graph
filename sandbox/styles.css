@@ -1,0 +1,61 @@
+* {box-sizing: border-box;}
+.container {
+  margin: 4px;
+  overflow: hidden;
+  position: fixed;
+}
+
+.container > div {
+  padding: 1em;
+}.container {
+  display: grid;
+  grid-template-columns: repeat(3, 2fr);
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.container__graph {
+    grid-column: 1 / 5;
+    grid-row: 1 / 2;
+
+    border: 1px dashed black;
+}
+
+.container__graph-data {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+.container__graph-config {
+    grid-column: 2 / 5;
+    grid-row: 2 / 3;
+}
+
+.container__form {
+    grid-column: 5/ 6;
+    grid-row: 1 / 4;
+}
+
+.form-wrapper {
+    overflow-y: scroll;
+    max-height: 600px;
+}
+
+.json-data-container {
+    max-height: 250px;
+    overflow: scroll;
+}
+
+.submit-button {
+    margin-top: 22px;
+}
+
+.reset-button {
+    margin-top: 22px;
+    margin-left: 8px;
+}
+
+.invisible-button {
+    background: transparent;
+    border: none !important;
+    font-size:0;
+}
