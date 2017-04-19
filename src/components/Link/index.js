@@ -11,6 +11,7 @@ export default class Link extends React.Component {
             || nextProps.opacity !== this.props.opacity
             || nextProps.stroke !== this.props.stroke
             || nextProps.strokeWidth !== this.props.strokeWidth
+            || nextProps.color !== this.props.color
             || nextProps.semanticStrokeWidth !== this.props.semanticStrokeWidth;
     }
 

@@ -46,8 +46,16 @@ export default {
 ```
 
 ## TODOs
-This are some ideas to further development:
-- Expose a graph property **background-color** that is applied to the svg graph container.
+This consists in a list of ideas for further development:
+- Expose a graph property **background-color** that is applied to the svg graph container;
+- Expose d3-force values as configurable such as **alphaTarget** simulation value;
+- Improve opacity/highlightBehavior strategy maybe use a global *background: rgba(...)* value and then set a higher
+value on selected nodes;
+- At the moment highlightBehavior is highlighting the mouse hovered node, its 1st degree connections and their 1st
+degree connections. Make **highlightBehaviorDegree** which consists in a *step value* on the depth that we wish to highlight.
+
+#### Sanbox/Playground
+- Improve page layout (optimize space).
 
 ## Contributions
 Contributions are welcome fell free to submit new features or simply grab something from
