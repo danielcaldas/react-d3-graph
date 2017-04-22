@@ -93,6 +93,8 @@ export default class Sandbox extends React.Component {
     }
 
     resetGraphConfig = () => {
+        const generatedConfig = {};
+
         const schemaProps = Utils.generateFormSchema(defaultConfig, '', {});
 
         const schema = {
@@ -102,6 +104,7 @@ export default class Sandbox extends React.Component {
 
         this.setState({
             config: defaultConfig,
+            generatedConfig,
             schema
         });
     }
