@@ -90,5 +90,18 @@ describe('Utils', () => {
 
         o2.b.g = 'tests';
         expect(Utils.isEqual(o1, o2)).toBe(false);
+        o2.b.g = 'test';
+
+        // isEqual will evaluate until certain depth
+        // but since objects still the same we expect the result to be true
+        o1.b.g = o2.b; // circular object
+        o2.b.g = o2.b;
+        expect(Utils.isEqual(o1, o2)).toBe(true);
+        o2.b.g = 'test';
+        o1.b.g = 'test';
+
+        o1.b.g = o2.b; // circular object
+        o2.b.g = o2;
+        expect(Utils.isEqual(o1, o2)).toBe(false);
     });
 });
