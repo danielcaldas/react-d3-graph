@@ -163,7 +163,6 @@ class JSONContainer extends React.Component {
     }
 
     render() {
-        console.log('render json container');
         return (
             <pre className='json-data-container'>{JSON.stringify(this.props.data, null, 2)}</pre>
         );
