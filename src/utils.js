@@ -21,30 +21,43 @@ function merge(o1, o2, _deepth=0) {
     return o;
 }
 
+/**
+ * Checks whether or not a certain object is empty.
+ * NOTE: If the passed parameter is not an object the method return false.
+ * @param  {object}  o - object whom emptininess we want to check.
+ * @return {boolean} true if the given object is in fact and object and is empty.
+ */
 function isObjectEmpty(o) {
-    return o && typeof o === 'object' && !Object.keys(o).length;
+    return !!o && typeof o === 'object' && !Object.keys(o).length;
 }
 
 function compareObjects(o1, o2, _deepth=0) {
-    for (let k of Object.keys(o1)) {
-        const nestedO = o2.hasOwnProperty(k) && typeof o2[k] === 'object'
-                                            && typeof o1[k] === 'object'
-                                            && o1[k] !== null
-                                            && o2[k] !== null
-                                            && _deepth < MAX_DEPTH;
 
-        if (nestedO && !isObjectEmpty(o1[k]) && !isObjectEmpty(o2[k])) {
-            compareObjects(o1[k], o2[k], _deepth + 1);
+    let diffs = [];
+
+    for (let k of Object.keys(o1)) {
+        const nestedO = _isPropertyNestedObject(o1, k) && _isPropertyNestedObject(o2, k);
+
+        if (nestedO) {
+            diffs.push(compareObjects(o1[k], o2[k], _deepth + 1));
         } else {
             const r = isObjectEmpty(o1[k]) && isObjectEmpty(o2[k]) || o2.hasOwnProperty(k) && o2[k] === o1[k];
 
-            if (r === false) {
-                return r;
+            diffs.push(r);
+
+            if (!r) {
+                break;
             }
         }
     }
 
-    return true;
+    return diffs.indexOf(false) === -1;
+}
+
+function _isPropertyNestedObject(o, k) {
+    return o.hasOwnProperty(k) && typeof o[k] === 'object'
+                                        && o[k] !== null
+                                        && !isObjectEmpty(o[k]);
 }
 
 function throwErr(component, msg) {

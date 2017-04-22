@@ -16,9 +16,13 @@ module.exports = {
     "rules": {
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
-        "semi": "error",
+        "camelcase": "error",
+        "max-len": ["error", 120, 4, { "ignoreComments": true }],
         "max-lines": ["error", {"max": 250, "skipComments": true}],
-        "max-len": ["error", 120, 4, { "ignoreComments": true }]
+        "newline-after-var": ["error", "always"],
+        "no-nested-ternary": "error",
+        "no-useless-constructor": "error",
+        "semi": "error"
     },
     "globals": {
         "document": true,

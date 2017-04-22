@@ -10,7 +10,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import Link from '../src/components/Link';
 
-test.skip('Link sample', () => {
+test('Link sample', () => {
     const mockCallback = jest.fn();
     const link = shallow(
         <Link x1='2' y1='2' x2='4' y2='4' opacity='1' stroke='red' strokeWidth='2' onClickLink={mockCallback}/>
@@ -19,13 +19,17 @@ test.skip('Link sample', () => {
     expect(mockCallback).toBeCalled();
 });
 
-test.skip('isObjectEmpty', () => {
-    expect(Utils.isObjectEmpty({ a: 1, b: 2})).toBe(false);
-
+test('isObjectEmpty', () => {
+    expect(Utils.isObjectEmpty({ a: 1, b: {}})).toBe(false);
+    expect(Utils.isObjectEmpty({ a: 1 })).toBe(false);
+    expect(Utils.isObjectEmpty(null)).toBe(false);
+    expect(Utils.isObjectEmpty(undefined)).toBe(false);
+    expect(Utils.isObjectEmpty(0)).toBe(false);
+    expect(Utils.isObjectEmpty('test')).toBe(false);
     expect(Utils.isObjectEmpty({})).toBe(true);
 });
 
-test.only('isObjectEqual', () => {
+test('isObjectEqual', () => {
     const o1 = {
         a:1,
         b:{
@@ -39,7 +43,12 @@ test.only('isObjectEqual', () => {
             i: {},
             j: {
                 k: null,
-                l: 'test'
+                l: 'test',
+                m: {
+                    n: {
+                        o: 1
+                    }
+                }
             }
         }
     };
@@ -57,48 +66,40 @@ test.only('isObjectEqual', () => {
             i: {},
             j: {
                 k: null,
-                l: 'test'
+                l: 'test',
+                m: {
+                    n: {
+                        o: 1
+                    }
+                }
             }
         }
     };
 
-    // expect(Utils.compareObjects(o1, o2)).toBe(true);
-    //
+    expect(Utils.compareObjects(o1, o2)).toBe(true);
+
     o2.b.j.k = undefined;
     expect(Utils.compareObjects(o1, o2)).toBe(false);
     o2.b.j.k = null;
 
+    o2.b.j.m.n.o = '1';
+    expect(Utils.compareObjects(o1, o2)).toBe(false);
+    o2.b.j.m.n.o = 1;
 
-    // o2.b.c.e = 'tests';
-    // expect(Utils.compareObjects(o1, o2)).toBe(false);
-    // o2.b.c.e = 'test';
-    //
-    // o1.b.i = false;
-    // expect(Utils.compareObjects(o1, o2)).toBe(false);
-    // o1.b.i = {};
-    //
-    // expect(Utils.compareObjects(o1, o2)).toBe(true);
-    //
-    // o1.a = false;
-    // expect(Utils.compareObjects(o1, o2)).toBe(false);
-    // o1.a = 1;
+    o2.b.c.e = 'tests';
+    expect(Utils.compareObjects(o1, o2)).toBe(false);
+    o2.b.c.e = 'test';
+
+    o1.b.i = false;
+    expect(Utils.compareObjects(o1, o2)).toBe(false);
+    o1.b.i = {};
+
+    expect(Utils.compareObjects(o1, o2)).toBe(true);
+
+    o1.a = false;
+    expect(Utils.compareObjects(o1, o2)).toBe(false);
+    o1.a = 1;
+
+    o2.b.g = 'tests';
+    expect(Utils.compareObjects(o1, o2)).toBe(false);
 });
-/*
-
-import React from 'react';
-import {shallow} from 'enzyme';
-import CheckboxWithLabel from '../CheckboxWithLabel';
-
-test('CheckboxWithLabel changes the text after click', () => {
-  // Render a checkbox with label in the document
-  const checkbox = shallow(
-    <CheckboxWithLabel labelOn="On" labelOff="Off" />
-  );
-
-  expect(checkbox.text()).toEqual('Off');
-
-  checkbox.find('input').simulate('change');
-
-  expect(checkbox.text()).toEqual('On');
-});
- */
