@@ -93,6 +93,18 @@ describe('Utils', () => {
             expect(Utils.isEqual(that.o1, that.o2)).toBe(true);
         });
 
+        test('should return false when o2 is an empty object but o1 is not', () => {
+            expect(Utils.isEqual(that.o1, {})).toBe(false);
+        });
+
+        test('should return false when o1 is an empty object but o2 is not', () => {
+            expect(Utils.isEqual({}, that.o2)).toBe(false);
+        });
+
+        test('should return true when both objects are empty', () => {
+            expect(Utils.isEqual({}, {})).toBe(true);
+        });
+
         test('should return false when: o2.b.j.k = undefined', () => {
             that.o2.b.j.k = undefined;
             expect(Utils.isEqual(that.o1, that.o2)).toBe(false);

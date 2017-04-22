@@ -26,6 +26,10 @@ function isEqual(o1, o2, _depth=0) {
         return true;
     }
 
+    if (isObjectEmpty(o1) && !isObjectEmpty(o2) || !isObjectEmpty(o1) && isObjectEmpty(o2)) {
+        return false;
+    }
+
     for (let k of Object.keys(o1)) {
         const nestedO = _isPropertyNestedObject(o1, k) && _isPropertyNestedObject(o2, k);
 

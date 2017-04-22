@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 
 import Node from '../src/components/Node';
 
-describe.only('Node Component', () => {
+describe('Node Component', () => {
     let that = {};
 
     beforeEach(() => {
