@@ -64,7 +64,7 @@ function isObjectEmpty(o) {
  * @return {Object} object that is the result of merging o1 and o2, being o2 properties priority overriding
  * existent o1 properties.
  */
-function merge(o1, o2, _depth=0) {
+function merge(o1={}, o2={}, _depth=0) {
     let o = {};
 
     for (let k of Object.keys(o1)) {
