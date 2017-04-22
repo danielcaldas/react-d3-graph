@@ -1,25 +1,12 @@
 import Utils from '../src/utils';
 
-test('merge 2 objects', () => {
+test('Utils.merge', () => {
   const o = Utils.merge({a: 1, b:2}, {b:3, d:4});
 
   expect(o).toEqual({a:1,b:3});
 });
 
-import React from 'react';
-import {shallow} from 'enzyme';
-import Link from '../src/components/Link';
-
-test('Link sample', () => {
-    const mockCallback = jest.fn();
-    const link = shallow(
-        <Link x1='2' y1='2' x2='4' y2='4' opacity='1' stroke='red' strokeWidth='2' onClickLink={mockCallback}/>
-    );
-    link.instance().handleOnClickLink();
-    expect(mockCallback).toBeCalled();
-});
-
-test('isObjectEmpty', () => {
+test('Utils.isObjectEmpty', () => {
     expect(Utils.isObjectEmpty({ a: 1, b: {}})).toBe(false);
     expect(Utils.isObjectEmpty({ a: 1 })).toBe(false);
     expect(Utils.isObjectEmpty(null)).toBe(false);
@@ -29,7 +16,7 @@ test('isObjectEmpty', () => {
     expect(Utils.isObjectEmpty({})).toBe(true);
 });
 
-test('isObjectEqual', () => {
+test('Utils.isEqual', () => {
     const o1 = {
         a:1,
         b:{
