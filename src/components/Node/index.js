@@ -9,6 +9,7 @@ export default class Node extends React.Component {
         super(props);
     }
 
+    // Properties more likely to mutate are evaluated first to take advantage of short-circuit evaluation
     shouldComponentUpdate(nextProps) {
         return nextProps.cx !== this.props.cx || nextProps.cy !== this.props.cy
               || nextProps.opacity !== this.props.opacity
@@ -40,7 +41,7 @@ export default class Node extends React.Component {
      * Handle mouse out node event.
      * @return {undefined}
      */
-    handleOnMouseOut = () => this.props.onMouseOut && this.props.onMouseOut(this.props.id);
+    handleOnMouseOutNode = () => this.props.onMouseOut && this.props.onMouseOut(this.props.id);
 
     render() {
         const gProps = {
@@ -56,7 +57,7 @@ export default class Node extends React.Component {
             d: NodeHelper.buildSvgSymbol(this.props.size, this.props.type),
             fill: this.props.fill,
             onClick: this.handleOnClickNode,
-            onMouseOut: this.handleOnMouseOut,
+            onMouseOut: this.handleOnMouseOutNode,
             onMouseOver: this.handleOnMouseOverNode,
             opacity: this.props.opacity,
             stroke: this.props.stroke,

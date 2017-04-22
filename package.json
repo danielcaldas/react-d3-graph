@@ -31,7 +31,6 @@
         "babel-preset-stage-0": "6.16.0",
         "css-loader": "0.28.0",
         "documentation": "4.0.0-beta.18",
-        "enzyme": "2.8.2",
         "eslint": "3.18.0",
         "eslint-config-recommended": "1.5.0",
         "eslint-plugin-promise": "3.5.0",

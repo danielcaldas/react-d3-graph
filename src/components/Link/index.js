@@ -5,6 +5,7 @@ export default class Link extends React.Component {
         super(props);
     }
 
+    // Properties more likely to mutate are evaluated first to take advantage of short-circuit evaluation
     shouldComponentUpdate(nextProps) {
         return nextProps.x1 !== this.props.x1 || nextProps.y1 !== this.props.y1
             || nextProps.x2 !== this.props.x2 || nextProps.y2 !== this.props.y2

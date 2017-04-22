@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 
 import Link from '../src/components/Link';
 
-describe.only('Link Component', () => {
+describe('Link Component', () => {
     let that = {};
 
     beforeEach(() => {
