@@ -37,12 +37,10 @@ export default class Graph extends React.Component {
         };
     }
 
-    // @TODO: Remove comparision via JSON.stringify
-    // There are some deep compare implementations outthere in the internet.
     componentWillReceiveProps(nextProps) {
         const config = Utils.merge(DEFAULT_CONFIG, nextProps.config || {});
 
-        if (JSON.stringify(config) !== JSON.stringify(this.state.config)) {
+        if (Utils.isEqual(this.state.config, config) === false) {
             this.setState({
                 config
             });

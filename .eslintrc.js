@@ -22,7 +22,8 @@ module.exports = {
         "newline-after-var": ["error", "always"],
         "no-nested-ternary": "error",
         "no-useless-constructor": "error",
-        "semi": "error"
+        "semi": "error",
+        "space-after-keywords": "error"
     },
     "globals": {
         "document": true,

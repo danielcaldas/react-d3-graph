@@ -31,7 +31,7 @@ function isObjectEmpty(o) {
     return !!o && typeof o === 'object' && !Object.keys(o).length;
 }
 
-function compareObjects(o1, o2, _deepth=0) {
+function isEqual(o1, o2, _deepth=0) {
 
     let diffs = [];
 
@@ -39,7 +39,7 @@ function compareObjects(o1, o2, _deepth=0) {
         const nestedO = _isPropertyNestedObject(o1, k) && _isPropertyNestedObject(o2, k);
 
         if (nestedO) {
-            diffs.push(compareObjects(o1[k], o2[k], _deepth + 1));
+            diffs.push(isEqual(o1[k], o2[k], _deepth + 1));
         } else {
             const r = isObjectEmpty(o1[k]) && isObjectEmpty(o2[k]) || o2.hasOwnProperty(k) && o2[k] === o1[k];
 
@@ -67,7 +67,7 @@ function throwErr(component, msg) {
 }
 
 export default {
-    compareObjects,
+    isEqual,
     isObjectEmpty,
     merge,
     throwErr

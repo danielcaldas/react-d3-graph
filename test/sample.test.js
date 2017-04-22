@@ -76,30 +76,30 @@ test('isObjectEqual', () => {
         }
     };
 
-    expect(Utils.compareObjects(o1, o2)).toBe(true);
+    expect(Utils.isEqual(o1, o2)).toBe(true);
 
     o2.b.j.k = undefined;
-    expect(Utils.compareObjects(o1, o2)).toBe(false);
+    expect(Utils.isEqual(o1, o2)).toBe(false);
     o2.b.j.k = null;
 
     o2.b.j.m.n.o = '1';
-    expect(Utils.compareObjects(o1, o2)).toBe(false);
+    expect(Utils.isEqual(o1, o2)).toBe(false);
     o2.b.j.m.n.o = 1;
 
     o2.b.c.e = 'tests';
-    expect(Utils.compareObjects(o1, o2)).toBe(false);
+    expect(Utils.isEqual(o1, o2)).toBe(false);
     o2.b.c.e = 'test';
 
     o1.b.i = false;
-    expect(Utils.compareObjects(o1, o2)).toBe(false);
+    expect(Utils.isEqual(o1, o2)).toBe(false);
     o1.b.i = {};
 
-    expect(Utils.compareObjects(o1, o2)).toBe(true);
+    expect(Utils.isEqual(o1, o2)).toBe(true);
 
     o1.a = false;
-    expect(Utils.compareObjects(o1, o2)).toBe(false);
+    expect(Utils.isEqual(o1, o2)).toBe(false);
     o1.a = 1;
 
     o2.b.g = 'tests';
-    expect(Utils.compareObjects(o1, o2)).toBe(false);
+    expect(Utils.isEqual(o1, o2)).toBe(false);
 });
