@@ -11,7 +11,8 @@
         "dist:sandbox": "webpack --config webpack.config.js -p --display-modules",
         "docs": "node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o docs && node_modules/documentation/bin/documentation.js build src/**/*.js -f md > DOCUMENTATION.md",
         "lint": "node_modules/eslint/bin/eslint.js --config=.eslintrc.js \"src/**/*.js\"",
-        "test": "jest --verbose"
+        "test": "jest --verbose --coverage",
+        "test:watch": "jest --verbose --watchAll"
     },
     "dependencies": {
         "d3": "4.7.4",

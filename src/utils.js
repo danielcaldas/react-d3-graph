@@ -32,7 +32,6 @@ function isObjectEmpty(o) {
 }
 
 function isEqual(o1, o2, _deepth=0) {
-
     let diffs = [];
 
     for (let k of Object.keys(o1)) {
@@ -55,9 +54,7 @@ function isEqual(o1, o2, _deepth=0) {
 }
 
 function _isPropertyNestedObject(o, k) {
-    return o.hasOwnProperty(k) && typeof o[k] === 'object'
-                                        && o[k] !== null
-                                        && !isObjectEmpty(o[k]);
+    return o.hasOwnProperty(k) && typeof o[k] === 'object' && o[k] !== null && !isObjectEmpty(o[k]);
 }
 
 function throwErr(component, msg) {
