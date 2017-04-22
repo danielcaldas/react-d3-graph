@@ -7,14 +7,27 @@ import CONST from './const';
 import Link from '../Link/';
 import Node from '../Node/';
 
-function _buildLinkProps(source, target, x1, y1, nodes, links, config, linkCallbacks, someNodeHighlighted) {
-    const opacity = someNodeHighlighted ? (nodes[source].highlighted && nodes[target].highlighted) ? config.link.opacity : config.highlightOpacity : config.link.opacity;
+function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted) {
+    const x1 = nodes[source] && nodes[source].x || '0';
+    const y1 = nodes[source] && nodes[source].y || '0';
+    const x2 = nodes[target] && nodes[target].x || '0';
+    const y2 = nodes[target] && nodes[target].y || '0';
+    let opacity = config.link.opacity;
 
-    const stroke = (nodes[source].highlighted && nodes[target].highlighted) ?
-    (config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color : config.link.highlightColor)
-    : config.link.color;
+    if (someNodeHighlighted) {
+        opacity = (nodes[source].highlighted && nodes[target].highlighted) ? config.link.opacity
+                                                                           : config.highlightOpacity;
+    }
+
+    let stroke = config.link.color;
+
+    if (config.link.highlightColor === CONST.KEYWORDS.SAME) {
+        stroke = (nodes[source].highlighted && nodes[target].highlighted) ? config.link.color
+                                                                          : config.link.highlightColor;
+    }
 
     const linkValue = links[source][target] || links[target][source];
+
     let strokeWidth = config.link.strokeWidth;
 
     if (config.link.semanticStrokeWidth) {
@@ -26,8 +39,8 @@ function _buildLinkProps(source, target, x1, y1, nodes, links, config, linkCallb
         target,
         x1,
         y1,
-        x2: nodes[target] && nodes[target].x || '0',
-        y2: nodes[target] && nodes[target].y || '0',
+        x2,
+        y2,
         strokeWidth,
         stroke,
         className: CONST.LINK_CLASS_NAME,
@@ -36,22 +49,20 @@ function _buildLinkProps(source, target, x1, y1, nodes, links, config, linkCallb
     };
 }
 
-function _buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHighlighted) {
+function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHighlighted) {
     let linksComponents = [];
 
-    if (links[node.id]) {
-        const x1 = node && node.x || '0';
-        const y1 = node && node.y || '0';
-
-        const adjacents = Object.keys(links[node.id]);
+    if (links[nodeId]) {
+        const adjacents = Object.keys(links[nodeId]);
         const n = adjacents.length;
 
         for (let j=0; j < n; j++) {
+            const source = nodeId;
             const target = adjacents[j];
 
             if (nodes[target]) {
-                const key = `${node.id}${CONST.COORDS_SEPARATOR}${target}`;
-                const props = _buildLinkProps(node.id, target, x1, y1, nodes, links, config, linkCallbacks, someNodeHighlighted);
+                const key = `${nodeId}${CONST.COORDS_SEPARATOR}${target}`;
+                const props = _buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted);
 
                 linksComponents.push(<Link key={key} {...props} />);
             }
@@ -62,7 +73,11 @@ function _buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHigh
 }
 
 function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
-    const opacity = someNodeHighlighted ? (node.highlighted ? config.node.opacity : config.highlightOpacity) : config.node.opacity;
+    let opacity = config.node.opacity;
+
+    if (someNodeHighlighted) {
+        opacity = node.highlighted ? config.node.opacity : config.highlightOpacity;
+    }
 
     let fill = node.color || config.node.color;
 
@@ -101,7 +116,9 @@ function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNode
 
         nodesComponents.push(<Node key={node.id} {...props} />);
 
-        linksComponents = linksComponents.concat(_buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHighlighted));
+        linksComponents = linksComponents.concat(
+            _buildNodeLinks(node.id, nodes, links, config, linkCallbacks, someNodeHighlighted)
+        );
     }
 
     return {

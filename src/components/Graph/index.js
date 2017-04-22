@@ -80,9 +80,9 @@ export default class Graph extends React.Component {
         this.state.config.staticGraph && this.simulation.stop();
     }
 
-    _zoomConfig = () => {
-        d3.select(`#${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom]).on('zoom', this._zoomed));
-    }
+    _zoomConfig = () => d3.select(`#${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`)
+                            .call(d3.zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
+                            .on('zoom', this._zoomed));
 
     _tick = () => this.setState(this.state || {});
 
@@ -173,7 +173,11 @@ export default class Graph extends React.Component {
     render() {
         const { nodes, links } = GraphHelper.buildGraph(
             this.state.nodes,
-            { onClickNode: this.props.onClickNode, onMouseOverNode: this.onMouseOverNode, onMouseOut: this.onMouseOutNode},
+            {
+                onClickNode: this.props.onClickNode,
+                onMouseOverNode: this.onMouseOverNode,
+                onMouseOut: this.onMouseOutNode
+            },
             this.state.links,
             { onClickLink: this.props.onClickLink },
             this.state.config,

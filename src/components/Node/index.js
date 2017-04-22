@@ -5,10 +5,6 @@ import CONST from './const';
 import NodeHelper from './helper';
 
 export default class Node extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     // Properties more likely to mutate are evaluated first to take advantage of short-circuit evaluation
     shouldComponentUpdate(nextProps) {
         return nextProps.cx !== this.props.cx || nextProps.cy !== this.props.cy
