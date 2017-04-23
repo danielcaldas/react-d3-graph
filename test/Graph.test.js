@@ -31,7 +31,7 @@ describe.only('Graph Component', () => {
             <Graph id='graphId' data={graphMock} config={that.config}/>
         );
 
-        that.tree = that.link.toJSON();
+        that.tree = that.graph.toJSON();
     });
 
     test('should be properly rendered', () => {

@@ -111,13 +111,13 @@ function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNode
     let linksComponents = [];
     let nodesComponents = [];
 
-    for (let node of Object.values(nodes)) {
-        const props = _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted);
+    for (let nodeId in nodes) {
+        const props = _buildNodeProps(nodes[nodeId], config, nodeCallbacks, someNodeHighlighted);
 
-        nodesComponents.push(<Node key={node.id} {...props} />);
+        nodesComponents.push(<Node key={nodeId} {...props} />);
 
         linksComponents = linksComponents.concat(
-            _buildNodeLinks(node.id, nodes, links, config, linkCallbacks, someNodeHighlighted)
+            _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHighlighted)
         );
     }
 

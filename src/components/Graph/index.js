@@ -146,12 +146,14 @@ export default class Graph extends React.Component {
 
     resetNodesPositions = () => {
         if (!this.state.config.staticGraph) {
-            Object.values(this.state.nodes).forEach(node => {
+            for (let nodeId in this.state.nodes) {
+                let node = this.state.nodes[nodeId];
+
                 if (node.fx && node.fy) {
                     Reflect.deleteProperty(node, 'fx');
                     Reflect.deleteProperty(node, 'fy');
                 }
-            });
+            }
 
             // @TODO: hardcoded alpha target
             this.simulation.alphaTarget(0.08).restart();
