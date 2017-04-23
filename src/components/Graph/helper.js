@@ -1,4 +1,8 @@
-/** @module helper */
+/**
+ * @module helper
+ * @description
+ * Offers a series of methods that isolate logic of Graph component.
+ */
 import React from 'react';
 
 import * as d3 from 'd3';
@@ -12,13 +16,11 @@ import Node from '../Node/';
  * Build some Link properties based on given parameters.
  * @param  {string} source - the id of the source node (from).
  * @param  {string} target - the id of the target node (to).
- * @param  {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
- * @param  {Object.<string, Object>} links - an object containing a matrix of connections of the graph, for each nodeId,
- *                                           there is an Object that maps adjacent nodes ids (string)
- *                                           and their values (number).
- * @param  {Object} config - an object containg rd3g consumer defined configurations [LINK README] for the graph.
- * @param  {function[]} linkCallbacks - array of callbacks for used defined event handler for link interactions.
- * @param  {boolean} someNodeHighlighted - this value is true when some node on the graph is highlighted.
+ * @param  {Object.<string, Object>} nodes - same as {@link #buildGraph|nodes in buildGraph}.
+ * @param  {Object.<string, Object>} links - same as {@link #buildGraph|links in buildGraph}.
+ * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @param  {function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
+ * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
  * @return {Object} returns an object that aggregates all props for creating respective Link component instance.
  * @memberof helper
  */
@@ -66,14 +68,14 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, so
 }
 
 /**
- * Build some Node properties based on given parameters.
- * @param  {string} nodeId - the id of the node to whom we want to generate properties.
- * @param  {Object.<string, Object>} nodes - same as {@link #_buildlinkprops|nodes in _buildLinkProps}.
- * @param  {[type]} links               [description]
- * @param  {[type]} config              [description]
- * @param  {[type]} linkCallbacks       [description]
- * @param  {[type]} someNodeHighlighted [description]
- * @return {[type]}                     [description]
+ * Build Link components for a given node.
+ * @param  {string} nodeId - the id of the node to whom Link components will be generated.
+ * @param  {Object.<string, Object>} nodes - same as {@link #buildGraph|nodes in buildGraph}.
+ * @param  {Object.<string, Object>} links - same as {@link #buildGraph|links in buildGraph}.
+ * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @param  {function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
+ * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
+ * @return {Object[]} returns the generated array of Link components.
  * @memberof helper
  */
 function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHighlighted) {
@@ -99,6 +101,15 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHi
     return linksComponents;
 }
 
+/**
+ * Build some Node properties based on given parameters.
+ * @param  {Object} node - the node object for whom we will generate properties.
+ * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @param  {function[]} nodeCallbacks - same as {@link #buildGraph|nodeCallbacks in buildGraph}.
+ * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
+ * @return {Object} returns object that contain Link props ready to be feeded to the Link component.
+ * @memberof helper
+ */
 function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
     let opacity = config.node.opacity;
 
@@ -134,6 +145,20 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
     };
 }
 
+/**
+ * Method that actually is exported an consumed by Graph component in order to build all Nodes and Link
+ * components.
+ * @param  {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
+ * @param  {function[]} nodeCallbacks - array of callbacks for used defined event handler for node interactions.
+ * @param  {Object.<string, Object>} links - an object containing a matrix of connections of the graph, for each nodeId,
+ * there is an Object that maps adjacent nodes ids (string) and their values (number).
+ * @param  {function[]} linkCallbacks - array of callbacks for used defined event handler for link interactions.
+ * @param  {Object} config - an object containg rd3g consumer defined configurations [LINK README] for the graph.
+ * @param  {boolean} someNodeHighlighted - this value is true when some node on the graph is highlighted.
+ * @return {Object} returns an object containg the generated nodes and links that form the graph. The result is
+ * returned in a way that can be consumed by es6 **destructuring assignment**.
+ * @memberof helper
+ */
 function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNodeHighlighted) {
     let linksComponents = [];
     let nodesComponents = [];
@@ -154,6 +179,15 @@ function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNode
     };
 }
 
+/**
+ * Create d3 forceSimulation to be applied on the graph.<br/>
+ * <a href="https://github.com/d3/d3-force#forceSimulation" target="_blank">https://github.com/d3/d3-force#forceSimulation</a><br/>
+ * <a href="https://github.com/d3/d3-force#simulation_force" target="_blank">https://github.com/d3/d3-force#simulation_force</a><br/>
+ * @param  {number} width - the width of the container area of the graph.
+ * @param  {number} height - the height of the container area of the graph.
+ * @return {Object} returns the simulation instance to be consumed.
+ * @memberof helper
+ */
 function createForceSimulation(width, height) {
     const forceX = d3.forceX(width / 2).strength(CONST.FORCE_X);
     const forceY = d3.forceY(height / 2).strength(CONST.FORCE_Y);
@@ -166,6 +200,16 @@ function createForceSimulation(width, height) {
     return simulation;
 }
 
+/**
+ * Receives a matrix of the graph with the links source and target as concrete node instances and it transforms it
+ * in a lightweight matrix containing only links with source and target being strings representative of some node id
+ * and the respective link value (if non existant will default to 1).
+ * @param  {Object[]} graphLinks - an array of all graph links but all the links contain the source and target nodes
+ * objects.
+ * @return {Object.<string, Object>} an object containing a matrix of connections of the graph, for each nodeId,
+ * there is an object that maps adjacent nodes ids (string) and their values (number).
+ * @memberof helper
+ */
 function initializeLinks(graphLinks) {
     let links = {};
 
@@ -185,6 +229,15 @@ function initializeLinks(graphLinks) {
     return links;
 }
 
+/**
+ * Method that initialize graph nodes provided by rd3g consumer and adds additional default mandatory properties
+ * that are optional for the user. Also it generates an index mapping, this maps nodes ids the their index in the array
+ * of nodes. This is needed because d3 callbacks such as node click and link click return the index of the node.
+ * @param  {Object[]} graphNodes - the array of nodes provided by the rd3g consumer.
+ * @return {Object} returns the nodes ready to be used within rd3g with additional properties such as x, y
+ * and highlighted values. Returns also the index mapping object of type Object.<number, string>.
+ * @memberof helper
+ */
 function initializeNodes(graphNodes) {
     let nodes = {};
     let indexMapping = {};
