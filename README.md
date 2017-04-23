@@ -1,5 +1,9 @@
 # react-d3-graph
-Interactive and configurable graphs with react and d3 effortlessly
+Interactive and configurable graphs with react and d3 effortlessly.
+
+## Playground
+Here a live playground (https://danielcaldas.github.io/react-d3-graph/sandbox/index.html) page where you can interactively config your own graph,
+and generate the configuration data structure ready to use! :sunglasses:
 
 ## Compatibility
 - Node version >= 4.7.0
