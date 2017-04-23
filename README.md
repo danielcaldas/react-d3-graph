@@ -1,4 +1,4 @@
-# react-d3-graph
+# react-d3-graph &middot; [![Build Status](https://travis-ci.com/danielcaldas/react-d3-graph.svg?token=fb6uSENok5Y3gSSi5yjE&branch=master)](https://travis-ci.com/danielcaldas/react-d3-graph)
 Interactive and configurable graphs with react and d3 effortlessly.
 
 ## Playground
