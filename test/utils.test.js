@@ -37,13 +37,13 @@ describe('Utils', () => {
     });
 
     test('isObjectEmpty', () => {
-        expect(Utils.isObjectEmpty({ a: 1, b: {}})).toBe(false);
-        expect(Utils.isObjectEmpty({ a: 1 })).toBe(false);
-        expect(Utils.isObjectEmpty(null)).toBe(false);
-        expect(Utils.isObjectEmpty(undefined)).toBe(false);
-        expect(Utils.isObjectEmpty(0)).toBe(false);
-        expect(Utils.isObjectEmpty('test')).toBe(false);
-        expect(Utils.isObjectEmpty({})).toBe(true);
+        expect(Utils.isObjectEmpty({ a: 1, b: {}})).toEqual(false);
+        expect(Utils.isObjectEmpty({ a: 1 })).toEqual(false);
+        expect(Utils.isObjectEmpty(null)).toEqual(false);
+        expect(Utils.isObjectEmpty(undefined)).toEqual(false);
+        expect(Utils.isObjectEmpty(0)).toEqual(false);
+        expect(Utils.isObjectEmpty('test')).toEqual(false);
+        expect(Utils.isObjectEmpty({})).toEqual(true);
     });
 
     describe('isEqual', () => {
@@ -90,49 +90,49 @@ describe('Utils', () => {
         });
 
         test('should return true if no modifications are performed', () => {
-            expect(Utils.isEqual(that.o1, that.o2)).toBe(true);
+            expect(Utils.isEqual(that.o1, that.o2)).toEqual(true);
         });
 
         test('should return false when o2 is an empty object but o1 is not', () => {
-            expect(Utils.isEqual(that.o1, {})).toBe(false);
+            expect(Utils.isEqual(that.o1, {})).toEqual(false);
         });
 
         test('should return false when o1 is an empty object but o2 is not', () => {
-            expect(Utils.isEqual({}, that.o2)).toBe(false);
+            expect(Utils.isEqual({}, that.o2)).toEqual(false);
         });
 
         test('should return true when both objects are empty', () => {
-            expect(Utils.isEqual({}, {})).toBe(true);
+            expect(Utils.isEqual({}, {})).toEqual(true);
         });
 
         test('should return false when: o2.b.j.k = undefined', () => {
             that.o2.b.j.k = undefined;
-            expect(Utils.isEqual(that.o1, that.o2)).toBe(false);
+            expect(Utils.isEqual(that.o1, that.o2)).toEqual(false);
         });
 
         test('should return false when: o2.b.j.m.n.o = "1"', () => {
             that.o2.b.j.m.n.o = '1';
-            expect(Utils.isEqual(that.o1, that.o2)).toBe(false);
+            expect(Utils.isEqual(that.o1, that.o2)).toEqual(false);
         });
 
         test('should return false when: o2.b.c.e = "tests"', () => {
             that.o2.b.c.e = 'tests';
-            expect(Utils.isEqual(that.o1, that.o2)).toBe(false);
+            expect(Utils.isEqual(that.o1, that.o2)).toEqual(false);
         });
 
         test('should return false when: o1.b.i = false', () => {
             that.o1.b.i = false;
-            expect(Utils.isEqual(that.o1, that.o2)).toBe(false);
+            expect(Utils.isEqual(that.o1, that.o2)).toEqual(false);
         });
 
         test('should return false when: o1.a = false', () => {
             that.o1.a = false;
-            expect(Utils.isEqual(that.o1, that.o2)).toBe(false);
+            expect(Utils.isEqual(that.o1, that.o2)).toEqual(false);
         });
 
         test('should return false when: o2.b.g = "tests"', () => {
             that.o2.b.g = 'tests';
-            expect(Utils.isEqual(that.o1, that.o2)).toBe(false);
+            expect(Utils.isEqual(that.o1, that.o2)).toEqual(false);
         });
 
         test('should return true when: o1.b.g = o2.b and o2.b.g = o2.b (circular structure)', () => {
@@ -140,13 +140,13 @@ describe('Utils', () => {
             // but since objects still the same we expect the result to be true
             that.o1.b.g = that.o2.b;
             that.o2.b.g = that.o2.b;
-            expect(Utils.isEqual(that.o1, that.o2)).toBe(true);
+            expect(Utils.isEqual(that.o1, that.o2)).toEqual(true);
         });
 
         test('should return true when: o1.b.g = o2.b and o2.b.g = o2 (circular structure)', () => {
             that.o1.b.g = that.o2.b;
             that.o2.b.g = that.o2;
-            expect(Utils.isEqual(that.o1, that.o2)).toBe(false);
+            expect(Utils.isEqual(that.o1, that.o2)).toEqual(false);
         });
     });
 });

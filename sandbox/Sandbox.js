@@ -133,7 +133,7 @@ export default class Sandbox extends React.Component {
                     <Graph ref='graph' {...graphProps}/>
                 </div>
                 <div className='container__form'>
-                    <h4>Graph configurations</h4>
+                    <h4>react-d3-graph configurations</h4>
                     <Form className='form-wrapper'
                         schema={this.state.schema}
                         uiSchema={this.uiSchema}
