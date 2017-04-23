@@ -12,6 +12,7 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, so
     const y1 = nodes[source] && nodes[source].y || '0';
     const x2 = nodes[target] && nodes[target].x || '0';
     const y2 = nodes[target] && nodes[target].y || '0';
+
     let opacity = config.link.opacity;
 
     if (someNodeHighlighted) {
@@ -21,9 +22,9 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, so
 
     let stroke = config.link.color;
 
-    if (config.link.highlightColor === CONST.KEYWORDS.SAME) {
-        stroke = (nodes[source].highlighted && nodes[target].highlighted) ? config.link.color
-                                                                          : config.link.highlightColor;
+    if (nodes[source].highlighted && nodes[target].highlighted) {
+        stroke = config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color
+                                                                    : config.link.highlightColor;
     }
 
     const linkValue = links[source][target] || links[target][source];
