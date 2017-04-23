@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link Component should be properly rendered 1`] = `
+<line
+  className={undefined}
+  onClick={[Function]}
+  style={
+    Object {
+      "opacity": "1",
+      "stroke": "red",
+      "strokeWidth": "2",
+    }
+  }
+  x1="2"
+  x2="4"
+  y1="2"
+  y2="4"
+/>
+`;

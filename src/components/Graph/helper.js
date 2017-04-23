@@ -7,26 +7,78 @@ import CONST from './const';
 import Link from '../Link/';
 import Node from '../Node/';
 
-function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNodeHighlighted) {
-    let linksComponents = [];
-    let nodesComponents = [];
+function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted) {
+    const x1 = nodes[source] && nodes[source].x || '0';
+    const y1 = nodes[source] && nodes[source].y || '0';
+    const x2 = nodes[target] && nodes[target].x || '0';
+    const y2 = nodes[target] && nodes[target].y || '0';
 
-    for (let node of Object.values(nodes)) {
-        const props = buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted);
+    let opacity = config.link.opacity;
 
-        nodesComponents.push(<Node key={node.id} {...props} />);
+    if (someNodeHighlighted) {
+        opacity = (nodes[source].highlighted && nodes[target].highlighted) ? config.link.opacity
+                                                                           : config.highlightOpacity;
+    }
 
-        linksComponents = linksComponents.concat(buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHighlighted));
+    let stroke = config.link.color;
+
+    if (nodes[source].highlighted && nodes[target].highlighted) {
+        stroke = config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color
+                                                                    : config.link.highlightColor;
+    }
+
+    const linkValue = links[source][target] || links[target][source];
+
+    let strokeWidth = config.link.strokeWidth;
+
+    if (config.link.semanticStrokeWidth) {
+        strokeWidth += (linkValue * strokeWidth) / 10;
     }
 
     return {
-        nodes: nodesComponents,
-        links: linksComponents
+        source,
+        target,
+        x1,
+        y1,
+        x2,
+        y2,
+        strokeWidth,
+        stroke,
+        className: CONST.LINK_CLASS_NAME,
+        opacity,
+        onClickLink: linkCallbacks.onClickLink
     };
 }
 
-function buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
-    const opacity = someNodeHighlighted ? (node.highlighted ? config.node.opacity : config.highlightOpacity) : config.node.opacity;
+function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHighlighted) {
+    let linksComponents = [];
+
+    if (links[nodeId]) {
+        const adjacents = Object.keys(links[nodeId]);
+        const n = adjacents.length;
+
+        for (let j=0; j < n; j++) {
+            const source = nodeId;
+            const target = adjacents[j];
+
+            if (nodes[target]) {
+                const key = `${nodeId}${CONST.COORDS_SEPARATOR}${target}`;
+                const props = _buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted);
+
+                linksComponents.push(<Link key={key} {...props} />);
+            }
+        }
+    }
+
+    return linksComponents;
+}
+
+function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
+    let opacity = config.node.opacity;
+
+    if (someNodeHighlighted) {
+        opacity = node.highlighted ? config.node.opacity : config.highlightOpacity;
+    }
 
     let fill = node.color || config.node.color;
 
@@ -56,57 +108,23 @@ function buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
     };
 }
 
-function buildNodeLinks(node, nodes, links, config, linkCallbacks, someNodeHighlighted) {
+function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNodeHighlighted) {
     let linksComponents = [];
+    let nodesComponents = [];
 
-    if (links[node.id]) {
-        const x1 = node && node.x || '0';
-        const y1 = node && node.y || '0';
+    for (let nodeId in nodes) {
+        const props = _buildNodeProps(nodes[nodeId], config, nodeCallbacks, someNodeHighlighted);
 
-        const adjacents = Object.keys(links[node.id]);
-        const n = adjacents.length;
+        nodesComponents.push(<Node key={nodeId} {...props} />);
 
-        for (let j=0; j < n; j++) {
-            const target = adjacents[j];
-
-            if (nodes[target]) {
-                const key = `${node.id}${CONST.COORDS_SEPARATOR}${target}`;
-                const props = buildLinkProps(node.id, target, x1, y1, nodes, links, config, linkCallbacks, someNodeHighlighted);
-
-                linksComponents.push(<Link key={key} {...props} />);
-            }
-        }
-    }
-
-    return linksComponents;
-}
-
-function buildLinkProps(source, target, x1, y1, nodes, links, config, linkCallbacks, someNodeHighlighted) {
-    const opacity = someNodeHighlighted ? (nodes[source].highlighted && nodes[target].highlighted) ? config.link.opacity : config.highlightOpacity : config.link.opacity;
-
-    const stroke = (nodes[source].highlighted && nodes[target].highlighted) ?
-                (config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color : config.link.highlightColor)
-                : config.link.color;
-
-    const linkValue = links[source][target] || links[target][source];
-    let strokeWidth = config.link.strokeWidth;
-
-    if (config.link.semanticStrokeWidth) {
-        strokeWidth += (linkValue * strokeWidth) / 10;
+        linksComponents = linksComponents.concat(
+            _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHighlighted)
+        );
     }
 
     return {
-        source,
-        target,
-        x1,
-        y1,
-        x2: nodes[target] && nodes[target].x || '0',
-        y2: nodes[target] && nodes[target].y || '0',
-        strokeWidth,
-        stroke,
-        className: CONST.LINK_CLASS_NAME,
-        opacity,
-        onClickLink: linkCallbacks.onClickLink
+        nodes: nodesComponents,
+        links: linksComponents
     };
 }
 
@@ -120,6 +138,25 @@ function createForceSimulation(width, height) {
             .force('y', forceY);
 
     return simulation;
+}
+
+function initializeLinks(graphLinks) {
+    let links = {};
+
+    graphLinks.forEach(l => {
+        if (!links[l.source]) {
+            links[l.source] = {};
+        }
+
+        if (!links[l.target]) {
+            links[l.target] = {};
+        }
+
+        // @TODO: If the graph is directed this should be adapted
+        links[l.source][l.target] = links[l.target][l.source] = l.value || 1;
+    });
+
+    return links;
 }
 
 function initializeNodes(graphNodes) {
@@ -142,25 +179,6 @@ function initializeNodes(graphNodes) {
         nodes,
         indexMapping
     };
-}
-
-function initializeLinks(graphLinks) {
-    let links = {};
-
-    graphLinks.forEach(l => {
-        if (!links[l.source]) {
-            links[l.source] = {};
-        }
-
-        if (!links[l.target]) {
-            links[l.target] = {};
-        }
-
-        // @TODO: If the graph is directed this should not happen
-        links[l.source][l.target] = links[l.target][l.source] = l.value || 1;
-    });
-
-    return links;
 }
 
 export default {

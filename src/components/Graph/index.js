@@ -40,7 +40,7 @@ export default class Graph extends React.Component {
     componentWillReceiveProps(nextProps) {
         const config = Utils.merge(DEFAULT_CONFIG, nextProps.config || {});
 
-        if (JSON.stringify(config) !== JSON.stringify(this.state.config)) {
+        if (Utils.isEqual(this.state.config, config) === false) {
             this.setState({
                 config
             });
@@ -80,9 +80,9 @@ export default class Graph extends React.Component {
         this.state.config.staticGraph && this.simulation.stop();
     }
 
-    _zoomConfig = () => {
-        d3.select(`#${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`).call(d3.zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom]).on('zoom', this._zoomed));
-    }
+    _zoomConfig = () => d3.select(`#${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`)
+                            .call(d3.zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
+                            .on('zoom', this._zoomed));
 
     _tick = () => this.setState(this.state || {});
 
@@ -146,12 +146,14 @@ export default class Graph extends React.Component {
 
     resetNodesPositions = () => {
         if (!this.state.config.staticGraph) {
-            Object.values(this.state.nodes).forEach(node => {
+            for (let nodeId in this.state.nodes) {
+                let node = this.state.nodes[nodeId];
+
                 if (node.fx && node.fy) {
                     Reflect.deleteProperty(node, 'fx');
                     Reflect.deleteProperty(node, 'fy');
                 }
-            });
+            }
 
             // @TODO: hardcoded alpha target
             this.simulation.alphaTarget(0.08).restart();
@@ -173,7 +175,11 @@ export default class Graph extends React.Component {
     render() {
         const { nodes, links } = GraphHelper.buildGraph(
             this.state.nodes,
-            { onClickNode: this.props.onClickNode, onMouseOverNode: this.onMouseOverNode, onMouseOut: this.onMouseOutNode},
+            {
+                onClickNode: this.props.onClickNode,
+                onMouseOverNode: this.onMouseOverNode,
+                onMouseOut: this.onMouseOutNode
+            },
             this.state.links,
             { onClickLink: this.props.onClickLink },
             this.state.config,

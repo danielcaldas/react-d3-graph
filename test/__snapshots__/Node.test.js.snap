@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Node Component should be properly rendered 1`] = `
+<g
+  className={undefined}
+  cx={undefined}
+  cy={undefined}
+  id={undefined}
+  transform="translate(undefined,undefined)"
+>
+  <path
+    cursor="pointer"
+    d="M6.180387232371033,0A6.180387232371033,6.180387232371033,0,1,1,-6.180387232371033,0A6.180387232371033,6.180387232371033,0,1,1,6.180387232371033,0"
+    fill="black"
+    onClick={[Function]}
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
+    opacity="1"
+    stroke="red"
+    strokeWidth="2"
+  />
+  <text
+    dx=".90em"
+    dy=".35em"
+    fontSize="12"
+    fontWeight="bold"
+    opacity="1"
+  >
+    text
+  </text>
+</g>
+`;

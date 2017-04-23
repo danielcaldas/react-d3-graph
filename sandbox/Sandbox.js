@@ -93,6 +93,8 @@ export default class Sandbox extends React.Component {
     }
 
     resetGraphConfig = () => {
+        const generatedConfig = {};
+
         const schemaProps = Utils.generateFormSchema(defaultConfig, '', {});
 
         const schema = {
@@ -102,6 +104,7 @@ export default class Sandbox extends React.Component {
 
         this.setState({
             config: defaultConfig,
+            generatedConfig,
             schema
         });
     }
@@ -109,7 +112,7 @@ export default class Sandbox extends React.Component {
     render() {
         const graphProps = {
             id: 'graph',
-            data: mock,
+            data: JSON.parse(JSON.stringify(mock)),
             config: this.state.config,
             onClickNode: this.onClickNode,
             onClickLink: this.onClickLink,
@@ -130,7 +133,7 @@ export default class Sandbox extends React.Component {
                     <Graph ref='graph' {...graphProps}/>
                 </div>
                 <div className='container__form'>
-                    <h4>Graph configurations</h4>
+                    <h4>react-d3-graph configurations</h4>
                     <Form className='form-wrapper'
                         schema={this.state.schema}
                         uiSchema={this.uiSchema}
@@ -143,11 +146,11 @@ export default class Sandbox extends React.Component {
                 </div>
                 <div className='container__graph-config'>
                     <h4>Your config</h4>
-                    <JSONContainer data={this.state.generatedConfig} />
+                    <JSONContainer data={this.state.generatedConfig} staticData={false} />
                 </div>
                 <div className='container__graph-data'>
                     <h4>Graph data</h4>
-                    <JSONContainer data={mock} />
+                    <JSONContainer data={mock} staticData={true}/>
                 </div>
             </div>
         );
@@ -156,7 +159,7 @@ export default class Sandbox extends React.Component {
 
 class JSONContainer extends React.Component {
     shouldComponentUpdate(nextProps, nextState) {
-        return JSON.stringify(nextProps.data) !== JSON.stringify(this.props.data);
+        return !this.props.staticData && !ReactD3GraphUtils.isEqual(nextProps.data, this.props.data);
     }
 
     render() {
