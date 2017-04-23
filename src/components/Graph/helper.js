@@ -1,3 +1,4 @@
+/** @module helper */
 import React from 'react';
 
 import * as d3 from 'd3';
@@ -7,6 +8,20 @@ import CONST from './const';
 import Link from '../Link/';
 import Node from '../Node/';
 
+/**
+ * Build some Link properties based on given parameters.
+ * @param  {string} source - the id of the source node (from).
+ * @param  {string} target - the id of the target node (to).
+ * @param  {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
+ * @param  {Object.<string, Object>} links - an object containing a matrix of connections of the graph, for each nodeId,
+ *                                           there is an Object that maps adjacent nodes ids (string)
+ *                                           and their values (number).
+ * @param  {Object} config - an object containg rd3g consumer defined configurations [LINK README] for the graph.
+ * @param  {function[]} linkCallbacks - array of callbacks for used defined event handler for link interactions.
+ * @param  {boolean} someNodeHighlighted - this value is true when some node on the graph is highlighted.
+ * @return {Object} returns an object that aggregates all props for creating respective Link component instance.
+ * @memberof helper
+ */
 function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted) {
     const x1 = nodes[source] && nodes[source].x || '0';
     const y1 = nodes[source] && nodes[source].y || '0';
@@ -50,6 +65,17 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, so
     };
 }
 
+/**
+ * Build some Node properties based on given parameters.
+ * @param  {string} nodeId - the id of the node to whom we want to generate properties.
+ * @param  {Object.<string, Object>} nodes - same as {@link #_buildlinkprops|nodes in _buildLinkProps}.
+ * @param  {[type]} links               [description]
+ * @param  {[type]} config              [description]
+ * @param  {[type]} linkCallbacks       [description]
+ * @param  {[type]} someNodeHighlighted [description]
+ * @return {[type]}                     [description]
+ * @memberof helper
+ */
 function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHighlighted) {
     let linksComponents = [];
 

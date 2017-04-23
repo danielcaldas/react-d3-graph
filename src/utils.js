@@ -1,3 +1,10 @@
+/**
+ * @module utils
+ * @description
+ * Offers a series of generic methods for object manipulation, and other operations
+ * that are common across rd3g such as error logging.
+ */
+
 // This variable assures that recursive methods such as merge and isEqual do not fall on
 // circular JSON structure evaluation.
 const MAX_DEPTH = 5;
@@ -7,6 +14,7 @@ const MAX_DEPTH = 5;
  * @param  {Object} o - the object.
  * @param  {number|string} k - the object property.
  * @return {boolean} returns true if o[k] is an non empty object.
+ * @memberof utils
  */
 function _isPropertyNestedObject(o, k) {
     return o.hasOwnProperty(k) && typeof o[k] === 'object' && o[k] !== null && !isObjectEmpty(o[k]);
@@ -17,7 +25,8 @@ function _isPropertyNestedObject(o, k) {
  * @param  {Object} o1 - one of the objects to be compared.
  * @param  {Object} o2 - second object to compare with first.
  * @param  {number} [_depth=0] - this parameter serves only for internal usage.
- * @return {boolean} returns true if o1 and o2 have exactly the same content, or are exactly the same object (reference).
+ * @memberof utils
+ * @return {boolean} returns true if o1 and o2 have exactly the same content, or are exactly the same object reference.
  */
 function isEqual(o1, o2, _depth=0) {
     let diffs = [];
@@ -54,6 +63,7 @@ function isEqual(o1, o2, _depth=0) {
  * NOTE: If the passed parameter is not an object the method return false.
  * @param  {Object}  o - object whom emptiness we want to check.
  * @return {boolean} true if the given object is n ft and object and is empty.
+ * @memberof utils
  */
 function isObjectEmpty(o) {
     return !!o && typeof o === 'object' && !Object.keys(o).length;
@@ -64,7 +74,8 @@ function isObjectEmpty(o) {
  * if o2 doesn't posses some o1 property the function will fallback to the o1 property.
  * @param  {Object} o1 - object.
  * @param  {Object} o2 - object that will override o1 properties.
- * @param  {int} depth - the depth at which we are merging the object.
+ * @memberof utils
+ * @param  {int} [_depth=0] - the depth at which we are merging the object.
  * @return {Object} object that is the result of merging o1 and o2, being o2 properties priority overriding
  * existent o1 properties.
  */
@@ -89,6 +100,7 @@ function merge(o1={}, o2={}, _depth=0) {
  * @param  {string} component - the name of the component where the error is to be thrown.
  * @param  {string} msg - the message contain a more detailed explanation about the error.
  * @return {Error} the thrown error.
+ * @memberof utils
  */
 function throwErr(component, msg) {
     const error = `react-d3-graph :: ${component} :: ${msg}`;
