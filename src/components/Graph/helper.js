@@ -123,6 +123,12 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
         fill = config.node.highlightColor;
     }
 
+    let stroke = config.node.strokeColor;
+
+    if (node.highlighted && config.node.highlightStrokeColor !== CONST.KEYWORDS.SAME) {
+        stroke = config.node.highlightStrokeColor;
+    }
+
     return {
         className: CONST.NODE_CLASS_NAME,
         cursor: config.node.mouseCursor,
@@ -139,7 +145,7 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
         opacity,
         renderLabel: config.node.renderLabel,
         size: node.size || config.node.size,
-        stroke: node.highlighted ? config.node.highlightStrokeColor : config.node.strokeColor,
+        stroke,
         strokeWidth: node.highlighted ? config.node.highlightStrokeWidth : config.node.strokeWidth,
         type: node.type || config.node.symbolType
     };

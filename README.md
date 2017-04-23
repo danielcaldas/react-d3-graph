@@ -3,7 +3,7 @@ Interactive and configurable graphs with react and d3 effortlessly.
 
 ## Playground
 Here a live playground (https://danielcaldas.github.io/react-d3-graph/sandbox/index.html) page where you can interactively config your own graph,
-and generate the configuration data structure ready to use! :sunglasses:
+and generate a ready to use configuration! :sunglasses:
 
 ## Compatibility
 - Node version >= 4.7.0
@@ -56,7 +56,12 @@ This consists in a list of ideas for further development:
 - Improve opacity/highlightBehavior strategy maybe use a global *background: rgba(...)* value and then set a higher
 value on selected nodes;
 - At the moment highlightBehavior is highlighting the mouse hovered node, its 1st degree connections and their 1st
-degree connections. Make **highlightBehaviorDegree** which consists in a *step value* on the depth that we wish to highlight.
+degree connections. Make **highlightBehaviorDegree** which consists in a *step value* on the depth that we wish to highlight;
+- Semantic node size. Have a property value in each node that then is used along side config.nodeSize property
+to calculate effective node size in run time;
+- Improve semanticStrokeWidth calculation;
+- On Graph instantiation do a check on all config properties. If there is a "bad property" (name or value) throw
+a custom error (property error checking).
 
 #### Sanbox/Playground
 - Improve page layout (optimize space).
