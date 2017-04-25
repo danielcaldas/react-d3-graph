@@ -15,9 +15,9 @@ import React from 'react';
  *     x2=22
  *     y2=22
  *     strokeWidth=1.5
- *     stroke='green',
- *     className='link',
- *     opacity=1,
+ *     stroke='green'
+ *     className='link'
+ *     opacity=1
  *     onClickLink={onClickLink} />
  */
 export default class Link extends React.Component {

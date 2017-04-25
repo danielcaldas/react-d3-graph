@@ -1,5 +1,5 @@
 /**
- * @module Link/helper
+ * @module Node/helper
  * @description
  * Some methods that help no the process of rendering a node.
  */
@@ -13,7 +13,7 @@ import CONST from './const';
  * {@link https://github.com/d3/d3-shape/blob/master/README.md#symbol}
  * @param  {string} typeName - the string that specifies the symbol type (should be one of {@link #node-symbol-type|node.symbolType}).
  * @return {Object} concrete instance of d3 symbol.
- * @memberof Link/helper
+ * @memberof Node/helper
  */
 function _convertTypeToD3Symbol(typeName) {
     switch (typeName) {
@@ -31,6 +31,8 @@ function _convertTypeToD3Symbol(typeName) {
             return d3.symbolTriangle;
         case CONST.SYMBOLS.WYE:
             return d3.symbolWye;
+        default:
+            return d3.symbolTriangle;
     }
 }
 
@@ -40,7 +42,7 @@ function _convertTypeToD3Symbol(typeName) {
  * @param  {string} [symbolTypeDesc='circle'] - the string containing the type of symbol that we want to build
  * (should be one of {@link #node-symbol-type|node.symbolType}).
  * @return {Object} concrete instance of d3 symbol.
- * @memberof Link/helper
+ * @memberof Node/helper
  */
 function buildSvgSymbol(size=80, symbolTypeDesc=CONST.SYMBOLS.CIRCLE) {
     return d3.symbol()
