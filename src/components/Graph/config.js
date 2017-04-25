@@ -1,5 +1,5 @@
 /**
- * *This is certainly the only piece of documentation that you will need.*<br/><br/>
+ * *This is certainly the only extra piece of documentation that you will ever need.*<br/><br/>
  * Here you can consult a detailed description of each graph configurable property as well as the default values
  * that each of that property assume.
  *
@@ -64,7 +64,7 @@
  *   - 'triangle'
  *   - 'wye'
  *
- * **[note]** react-d3-graph will map this values to d3 symbols ({@link https://github.com/d3/d3-shape#symbols|https://github.com/d3/d3-shape#symbols})
+ * **[note]** react-d3-graph will map this values to d3 symbols ({@link https://github.com/d3/d3-shape#symbols})
  * @param {string} [node.highlightColor='SAME'] - color for all highlighted nodes (use string 'SAME' if you
  * want the node to keep its color in highlighted state).
  * @param {number} [node.highlightFontSize=10] - node.fontSize in highlighted state.

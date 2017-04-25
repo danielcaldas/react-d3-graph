@@ -61,7 +61,9 @@ degree connections. Make **highlightBehaviorDegree** which consists in a *step v
 to calculate effective node size in run time;
 - Improve semanticStrokeWidth calculation;
 - On Graph instantiation do a check on all config properties. If there is a "bad property" (name or value) throw
-a custom error (property error checking).
+a custom error (property error checking);
+- Path highlight - highlight a certain set of links and nodes (use case: highlight shortest path between two given nodes);
+- Link mouseover with highlight behavior highlights the intervenient nodes.
 
 #### Sanbox/Playground
 - Improve page layout (optimize space).

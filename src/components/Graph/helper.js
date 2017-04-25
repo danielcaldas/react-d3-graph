@@ -1,5 +1,5 @@
 /**
- * @module helper
+ * @module Graph/helper
  * @description
  * Offers a series of methods that isolate logic of Graph component.
  */
@@ -22,7 +22,7 @@ import Node from '../Node/';
  * @param  {function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
  * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
  * @return {Object} returns an object that aggregates all props for creating respective Link component instance.
- * @memberof helper
+ * @memberof Graph/helper
  */
 function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted) {
     const x1 = nodes[source] && nodes[source].x || '0';
@@ -76,7 +76,7 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, so
  * @param  {function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
  * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
  * @return {Object[]} returns the generated array of Link components.
- * @memberof helper
+ * @memberof Graph/helper
  */
 function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHighlighted) {
     let linksComponents = [];
@@ -108,7 +108,7 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHi
  * @param  {function[]} nodeCallbacks - same as {@link #buildGraph|nodeCallbacks in buildGraph}.
  * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
  * @return {Object} returns object that contain Link props ready to be feeded to the Link component.
- * @memberof helper
+ * @memberof Graph/helper
  */
 function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
     let opacity = config.node.opacity;
@@ -163,7 +163,7 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
  * @param  {boolean} someNodeHighlighted - this value is true when some node on the graph is highlighted.
  * @return {Object} returns an object containg the generated nodes and links that form the graph. The result is
  * returned in a way that can be consumed by es6 **destructuring assignment**.
- * @memberof helper
+ * @memberof Graph/helper
  */
 function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNodeHighlighted) {
     let linksComponents = [];
@@ -192,7 +192,7 @@ function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNode
  * @param  {number} width - the width of the container area of the graph.
  * @param  {number} height - the height of the container area of the graph.
  * @return {Object} returns the simulation instance to be consumed.
- * @memberof helper
+ * @memberof Graph/helper
  */
 function createForceSimulation(width, height) {
     const forceX = d3.forceX(width / 2).strength(CONST.FORCE_X);
@@ -214,7 +214,7 @@ function createForceSimulation(width, height) {
  * objects.
  * @return {Object.<string, Object>} an object containing a matrix of connections of the graph, for each nodeId,
  * there is an object that maps adjacent nodes ids (string) and their values (number).
- * @memberof helper
+ * @memberof Graph/helper
  */
 function initializeLinks(graphLinks) {
     let links = {};
@@ -228,7 +228,7 @@ function initializeLinks(graphLinks) {
             links[l.target] = {};
         }
 
-        // @TODO: If the graph is directed this should be adapted
+        // @todo: If the graph is directed this should be adapted
         links[l.source][l.target] = links[l.target][l.source] = l.value || 1;
     });
 
@@ -242,7 +242,7 @@ function initializeLinks(graphLinks) {
  * @param  {Object[]} graphNodes - the array of nodes provided by the rd3g consumer.
  * @return {Object} returns the nodes ready to be used within rd3g with additional properties such as x, y
  * and highlighted values. Returns also the index mapping object of type Object.<number, string>.
- * @memberof helper
+ * @memberof Graph/helper
  */
 function initializeNodes(graphNodes) {
     let nodes = {};
