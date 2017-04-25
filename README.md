@@ -1,65 +1,95 @@
 # react-d3-graph &middot; [![Build Status](https://travis-ci.com/danielcaldas/react-d3-graph.svg?token=fb6uSENok5Y3gSSi5yjE&branch=master)](https://travis-ci.com/danielcaldas/react-d3-graph)
 Interactive and configurable graphs with react and d3 effortlessly.
 
+![react-d3-graph gif sample][https://github.com/danielcaldas/react-d3-graph/tree/master/sandbox/rd3g.gif]
+
 ## Playground
 Here a live playground (https://danielcaldas.github.io/react-d3-graph/sandbox/index.html) page where you can interactively config your own graph,
-and generate the configuration data structure ready to use! :sunglasses:
+and generate a ready to use configuration! :sunglasses:
+
+## Documentation
+Full documentation [here](https://github.com/danielcaldas/docs/index.html).
 
 ## Compatibility
-- Node version >= 4.7.0
-- npm3
+- Node version **>=6.9.5**
+- React version **15.5.0**
+- d3 version **4.7.4**
 
-## Notes
-- Obtain a cool node when set the fill property as white a other color for the border. It will seem like the node is more like a ring.
-- Default configuration:
+## Usage sample
+Graph component is the main component for react-d3-graph components, its interface allows its user
+to build the graph once the user provides the data, configuration (optional) and callback interactions (also optional).
+The code for the live example (<https://danielcaldas.github.io/react-d3-graph/sandbox/index.html>)
+can be consulted here <https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/Sandbox.js>
+
 ```javascript
-export default {
-    automaticRearrangeAfterDropNode: false, // Very expensive for dense graph
-    height: 450,
-    highlightBehavior: false,
-    highlightOpacity: 1, // For all elements: nodes, text and links
-    maxZoom: 8,
-    minZoom: 0.5,
-    staticGraph: false,
-    width: 800,
+// Graph payload (with minimalist structure)
+const data = {
+    nodes: [
+      {id: 'Harry'},
+      {id: 'Sally'},
+      {id: 'Alice'}
+    ],
+    links: [
+        {source: 'Harry', target: 'Sally'},
+        {source: 'Harry', target: 'Alice'},
+    ]
+};
+
+// The graph configuration
+const myConfig = {
+    highlightBehavior: true,
     node: {
-        color: '#d3d3d3',
-        fontSize: 10, // in px
-        fontWeight: 'normal',
-        highlightColor: 'SAME',
-        highlightFontSize: 10,
-        highlightFontWeight: 'normal',
-        highlightStrokeColor: 'none',
-        highlightStrokeWidth: 1.5,
-        labelProperty: 'id',
-        mouseCursor: 'pointer',
-        opacity: 1,
-        renderLabel: true,
-        size: 200,
-        strokeColor: 'none',
-        strokeWidth: 1.5,
-        symbolType: 'circle'
+        color: 'lightgreen',
+        size: 120,
+        highlightStrokeColor: 'blue'
     },
     link: {
-        color: '#d3d3d3',
-        highlightColor: '#d3d3d3',
-        opacity: 1,
-        strokeWidth: 1.5
+        highlightColor: 'lightblue'
     }
 };
+
+// Graph event callbacks
+const onClickNode = function(nodeId) {
+     window.alert('Clicked node', nodeId);
+};
+
+const onMouseOverNode = function(nodeId) {
+     window.alert('Mouse over node', nodeId);
+};
+
+const onMouseOutNode = function(nodeId) {
+     window.alert('Mouse out node', nodeId);
+};
+
+const onClickLink = function(source, target) {
+     window.alert(`Clicked link between ${source} and ${target}`);
+};
+
+<Graph
+     id='graph-id' // id is mandatory, if no id is defined rd3g will throw an error
+     data={data}
+     config={myConfig}
+     onClickNode={onClickNode}
+     onClickLink={onClickLink}
+     onMouseOverNode={onMouseOverNode}
+     onMouseOutNode={onMouseOutNode} />
 ```
 
 ## TODOs
-This consists in a list of ideas for further development:
+This consists in a list of ideas for further developments:
 - Expose a graph property **background-color** that is applied to the svg graph container;
 - Expose d3-force values as configurable such as **alphaTarget** simulation value;
 - Improve opacity/highlightBehavior strategy maybe use a global *background: rgba(...)* value and then set a higher
 value on selected nodes;
 - At the moment highlightBehavior is highlighting the mouse hovered node, its 1st degree connections and their 1st
-degree connections. Make **highlightBehaviorDegree** which consists in a *step value* on the depth that we wish to highlight.
-
-#### Sanbox/Playground
-- Improve page layout (optimize space).
+degree connections. Make **highlightBehaviorDegree** which consists in a *step value* on the depth that we wish to highlight;
+- Semantic node size. Have a property value in each node that then is used along side config.nodeSize property
+to calculate effective node size in run time;
+- Improve semanticStrokeWidth calculation;
+- On Graph instantiation do a check on all config properties. If there is a "bad property" (name or value) throw
+a custom error (property error checking);
+- Path highlight - highlight a certain set of links and nodes (use case: highlight shortest path between two given nodes);
+- Link mouseover with highlight behavior highlights the intervenient nodes.
 
 ## Contributions
 Contributions are welcome fell free to submit new features or simply grab something from

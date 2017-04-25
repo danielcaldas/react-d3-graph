@@ -4,23 +4,41 @@ import CONST from './const';
 
 import NodeHelper from './helper';
 
+/**
+ * Node component is responsible for encapsulating node render.
+ * @example
+ * const onClickNode = function(nodeId) {
+ *      window.alert('Clicked node', nodeId);
+ * };
+ *
+ * const onMouseOverNode = function(nodeId) {
+ *      window.alert('Mouse over node', nodeId);
+ * };
+ *
+ * const onMouseOutNode = function(nodeId) {
+ *      window.alert('Mouse out node', nodeId);
+ * };
+ *
+ * <Node
+ *     id='nodeId'
+ *     cx=22
+ *     cy=22
+ *     fill='green'
+ *     fontSize=10
+ *     fontWeight='normal'
+ *     label='label text'
+ *     opacity=1
+ *     renderLabel=true
+ *     size=200
+ *     stroke='none'
+ *     strokeWidth=1.5
+ *     type='square'
+ *     className='node'
+ *     onClickNode={onClickNode}
+ *     onMouseOverNode={onMouseOverNode}
+ *     onMouseOutNode={onMouseOutNode} />
+ */
 export default class Node extends React.Component {
-    // Properties more likely to mutate are evaluated first to take advantage of short-circuit evaluation
-    shouldComponentUpdate(nextProps) {
-        return nextProps.cx !== this.props.cx || nextProps.cy !== this.props.cy
-              || nextProps.opacity !== this.props.opacity
-              || nextProps.fill !== this.props.fill
-              || nextProps.fontWeight !== this.props.fontWeight
-              || nextProps.fontSize !== this.props.fontSize
-              || nextProps.label !== this.props.label
-              || nextProps.cursor !== this.props.cursor
-              || nextProps.size !== this.props.size
-              || nextProps.type !== this.props.type
-              || nextProps.renderLabel !== this.props.renderLabel
-              || nextProps.stroke !== this.props.stroke
-              || nextProps.strokeWidth !== this.props.strokeWidth;
-    }
-
     /**
      * Handle click on the node.
      * @return {undefined}
@@ -38,6 +56,22 @@ export default class Node extends React.Component {
      * @return {undefined}
      */
     handleOnMouseOutNode = () => this.props.onMouseOut && this.props.onMouseOut(this.props.id);
+
+    shouldComponentUpdate(nextProps) {
+        // Properties more likely to mutate are evaluated first to take advantage of short-circuit evaluation
+        return nextProps.cx !== this.props.cx || nextProps.cy !== this.props.cy
+              || nextProps.opacity !== this.props.opacity
+              || nextProps.fill !== this.props.fill
+              || nextProps.fontWeight !== this.props.fontWeight
+              || nextProps.fontSize !== this.props.fontSize
+              || nextProps.label !== this.props.label
+              || nextProps.cursor !== this.props.cursor
+              || nextProps.size !== this.props.size
+              || nextProps.type !== this.props.type
+              || nextProps.renderLabel !== this.props.renderLabel
+              || nextProps.stroke !== this.props.stroke
+              || nextProps.strokeWidth !== this.props.strokeWidth;
+    }
 
     render() {
         const gProps = {

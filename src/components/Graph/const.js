@@ -9,7 +9,7 @@ export default {
         SAME: 'SAME'
     },
     LINK_CLASS_NAME: 'link',
-    LINK_IDEAL_DISTANCE: 100, // @TODO: Expose as configurable,
+    LINK_IDEAL_DISTANCE: 100, // @todo: Expose as configurable,
     NODE_CLASS_NAME: 'node',
     SYMBOLS: {
         CIRCLE: 'circle',
