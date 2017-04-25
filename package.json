@@ -1,6 +1,6 @@
 {
     "name": "react-d3-graph",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "React component to build interactive and configurable graphs with d3 effortlessly",
     "author": "Daniel Caldas",
     "license": "MIT",
@@ -9,6 +9,7 @@
         "dist": "node_modules/.bin/npm-run-all --parallel dist:*",
         "dist:rd3g": "rm -rf dist/ && webpack --config webpack.config.dist.js -p --display-modules",
         "dist:sandbox": "webpack --config webpack.config.js -p",
+        "dist:transpile": "./node_modules/babel-cli/bin/babel.js -d lib src",
         "docs": "node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o gen-docs && node_modules/documentation/bin/documentation.js build src/**/*.js -f md > gen-docs/DOCUMENTATION.md",
         "docs:lint": "node_modules/documentation/bin/documentation.js lint src/**/*.js",
         "docs:watch": "node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o gen-docs --watch",
@@ -22,6 +23,7 @@
         "react": "^15.5.0"
     },
     "devDependencies": {
+        "babel-cli": "^6.24.1",
         "babel-core": "6.24.0",
         "babel-jest": "19.0.0",
         "babel-loader": "6.4.1",
@@ -53,6 +55,7 @@
     "engines": {
         "node": ">=6.9.5"
     },
+    "main": "lib/index.js",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/danielcaldas/react-d3-graph.git"

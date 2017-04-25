@@ -22,6 +22,8 @@ The code for the live example (<https://danielcaldas.github.io/react-d3-graph/sa
 can be consulted here <https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/Sandbox.js>
 
 ```javascript
+import { Graph } from 'react-d3-graph';
+
 // Graph payload (with minimalist structure)
 const data = {
     nodes: [

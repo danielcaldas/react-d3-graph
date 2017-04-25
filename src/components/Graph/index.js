@@ -15,6 +15,8 @@ import Utils from '../../utils';
  * The code for the live example (https://danielcaldas.github.io/react-d3-graph/sandbox/index.html)
  * can be consulted here https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/Sandbox.js
  * @example
+ * import { Graph } from 'react-d3-graph';
+ *
  * // Graph payload (with minimalist structure)
  * const data = {
  *     nodes: [
@@ -132,7 +134,7 @@ export default class Graph extends React.Component {
      * {@link https://github.com/d3/d3-zoom#zoom}
      * @return {undefined}
      */
-    _zoomConfig = () => d3.select(`#${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`)
+    _zoomConfig = () => d3.select(`#${this.id}-${CONST.GRAPH_WRAPPER_ID}`)
                             .call(d3.zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
                             .on('zoom', this._zoomed));
 
@@ -140,7 +142,7 @@ export default class Graph extends React.Component {
      * Handler for 'zoom' event within zoom config.
      * @return {Object} returns the transformed elements within the svg graph area.
      */
-    _zoomed = () => d3.selectAll(`#${this.props.id}-${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
+    _zoomed = () => d3.selectAll(`#${this.id}-${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
 
     /**
      * Handles mouse out node event.
@@ -212,6 +214,7 @@ export default class Graph extends React.Component {
         let {nodes, indexMapping} = GraphHelper.initializeNodes(graph.nodes);
         let links = GraphHelper.initializeLinks(graph.links); // Matrix of graph connections
 
+        this.id = this.props.id.replace(/ /g, '_');
         this.indexMapping = indexMapping;
         this.simulation = GraphHelper.createForceSimulation(config.width, config.height);
 
@@ -253,7 +256,7 @@ export default class Graph extends React.Component {
                                     .on('drag', this._onDragMove)
                                     .on('end', this._onDragEnd);
 
-            d3.select(`#${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
+            d3.select(`#${this.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
         }
 
         // Graph zoom and drag&drop all network
@@ -291,9 +294,9 @@ export default class Graph extends React.Component {
         };
 
         return (
-            <div id={`${this.props.id}-${CONST.GRAPH_WRAPPER_ID}`}>
+            <div id={`${this.id}-${CONST.GRAPH_WRAPPER_ID}`}>
                 <svg style={svgStyle}>
-                    <g id={`${this.props.id}-${CONST.GRAPH_CONTAINER_ID}`}>
+                    <g id={`${this.id}-${CONST.GRAPH_CONTAINER_ID}`}>
                         {links}
                         {nodes}
                     </g>

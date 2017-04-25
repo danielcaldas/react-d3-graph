@@ -1,4 +1,5 @@
 .babelrc
+.DS_Store
 .eslintrc.js
 .git
 .gitignore
@@ -8,6 +9,7 @@ docs
 gen-docs
 package.json
 sandbox
+src
 test
 webpack.config.dist.js
 webpack.config.js
