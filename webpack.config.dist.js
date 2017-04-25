@@ -1,9 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 
-// https://medium.freecodecamp.com/tree-shaking-es6-modules-in-webpack-2-1add6672f31b
-// http://moduscreate.com/optimizing-react-es6-webpack-production-build/
-
 module.exports = {
     context: path.join(__dirname, 'src'),
     entry: './index.js',

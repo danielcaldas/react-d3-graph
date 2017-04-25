@@ -7,7 +7,7 @@
     "scripts": {
         "dev": "node_modules/.bin/webpack-dev-server -d --content-base sandbox --inline --hot --port 3002",
         "dist": "node_modules/.bin/npm-run-all --parallel dist:*",
-        "dist:rd3g": "webpack --config webpack.config.dist.js -p --display-modules",
+        "dist:rd3g": "rm -rf dist/ && webpack --config webpack.config.dist.js -p --display-modules",
         "dist:sandbox": "webpack --config webpack.config.js -p",
         "docs": "node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o gen-docs && node_modules/documentation/bin/documentation.js build src/**/*.js -f md > gen-docs/DOCUMENTATION.md",
         "docs:lint": "node_modules/documentation/bin/documentation.js lint src/**/*.js",
