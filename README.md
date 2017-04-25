@@ -1,14 +1,14 @@
 # react-d3-graph &middot; [![Build Status](https://travis-ci.com/danielcaldas/react-d3-graph.svg?token=fb6uSENok5Y3gSSi5yjE&branch=master)](https://travis-ci.com/danielcaldas/react-d3-graph)
 Interactive and configurable graphs with react and d3 effortlessly.
 
-![react-d3-graph gif sample][https://github.com/danielcaldas/react-d3-graph/tree/master/sandbox/rd3g.gif]
+![react-d3-graph gif sample](https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/rd3g.gif?raw=true)
 
 ## Playground
 Here a live playground (https://danielcaldas.github.io/react-d3-graph/sandbox/index.html) page where you can interactively config your own graph,
 and generate a ready to use configuration! :sunglasses:
 
 ## Documentation
-Full documentation [here](https://github.com/danielcaldas/docs/index.html).
+Full documentation [here](https://danielcaldas.github.io/react-d3-graph/docs/index.html).
 
 ## Compatibility
 - Node version **>=6.9.5**
