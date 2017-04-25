@@ -1,0 +1,3403 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>react-d3-graph  | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+</head>
+<body class='documentation'>
+  <div class='max-width-4 mx-auto'>
+    <div class='clearfix md-mxn2'>
+      <div class='fixed xs-hide fix-3 overflow-auto max-height-100'>
+        <div class='py1 px2'>
+          <h2>react-d3-graph</h2>
+          <h3 class='mb0 no-anchor'>v0.0.1</h3>
+          <div class='mb1'><code></code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block input'
+            type='text' />
+          <div id='toc'>
+            <ul class='list-reset h5 py1-ul'>
+
+
+                <li><a
+                  href='#config'
+                  class="">
+                  config
+
+                </a>
+
+                </li>
+
+
+                <li><a
+                  href='#graphhelper'
+                  class=" toggle-sibling">
+                  Graph/helper
+                  <span class='icon'>▸</span>
+                </a>
+
+                <div class='toggle-target display-none'>
+
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+
+                      <li><a
+                        href='#Graph/helper_buildLinkProps'
+                        class='regular pre-open'>
+                        ._buildLinkProps
+                      </a></li>
+
+                      <li><a
+                        href='#Graph/helper_buildNodeLinks'
+                        class='regular pre-open'>
+                        ._buildNodeLinks
+                      </a></li>
+
+                      <li><a
+                        href='#Graph/helper_buildNodeProps'
+                        class='regular pre-open'>
+                        ._buildNodeProps
+                      </a></li>
+
+                      <li><a
+                        href='#Graph/helperbuildGraph'
+                        class='regular pre-open'>
+                        .buildGraph
+                      </a></li>
+
+                      <li><a
+                        href='#Graph/helpercreateForceSimulation'
+                        class='regular pre-open'>
+                        .createForceSimulation
+                      </a></li>
+
+                      <li><a
+                        href='#Graph/helperinitializeLinks'
+                        class='regular pre-open'>
+                        .initializeLinks
+                      </a></li>
+
+                      <li><a
+                        href='#Graph/helperinitializeNodes'
+                        class='regular pre-open'>
+                        .initializeNodes
+                      </a></li>
+
+                    </ul>
+
+
+
+                </div>
+
+                </li>
+
+
+                <li><a
+                  href='#graph'
+                  class=" toggle-sibling">
+                  Graph
+                  <span class='icon'>▸</span>
+                </a>
+
+                <div class='toggle-target display-none'>
+
+
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+
+                      <li><a
+                        href='#Graph#_onDragEnd'
+                        class='regular pre-open'>
+                        #_onDragEnd
+                      </a></li>
+
+                      <li><a
+                        href='#Graph#_onDragMove'
+                        class='regular pre-open'>
+                        #_onDragMove
+                      </a></li>
+
+                      <li><a
+                        href='#Graph#_onDragStart'
+                        class='regular pre-open'>
+                        #_onDragStart
+                      </a></li>
+
+                      <li><a
+                        href='#Graph#_setHighlighted'
+                        class='regular pre-open'>
+                        #_setHighlighted
+                      </a></li>
+
+                      <li><a
+                        href='#Graph#_tick'
+                        class='regular pre-open'>
+                        #_tick
+                      </a></li>
+
+                      <li><a
+                        href='#Graph#_zoomConfig'
+                        class='regular pre-open'>
+                        #_zoomConfig
+                      </a></li>
+
+                      <li><a
+                        href='#Graph#_zoomed'
+                        class='regular pre-open'>
+                        #_zoomed
+                      </a></li>
+
+                      <li><a
+                        href='#Graph#onMouseOutNode'
+                        class='regular pre-open'>
+                        #onMouseOutNode
+                      </a></li>
+
+                      <li><a
+                        href='#Graph#onMouseOverNode'
+                        class='regular pre-open'>
+                        #onMouseOverNode
+                      </a></li>
+
+                      <li><a
+                        href='#Graph#pauseSimulation'
+                        class='regular pre-open'>
+                        #pauseSimulation
+                      </a></li>
+
+                      <li><a
+                        href='#Graph#resetNodesPositions'
+                        class='regular pre-open'>
+                        #resetNodesPositions
+                      </a></li>
+
+                      <li><a
+                        href='#Graph#restartSimulation'
+                        class='regular pre-open'>
+                        #restartSimulation
+                      </a></li>
+
+                    </ul>
+
+
+                </div>
+
+                </li>
+
+
+                <li><a
+                  href='#link'
+                  class=" toggle-sibling">
+                  Link
+                  <span class='icon'>▸</span>
+                </a>
+
+                <div class='toggle-target display-none'>
+
+
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+
+                      <li><a
+                        href='#Link#handleOnClickLink'
+                        class='regular pre-open'>
+                        #handleOnClickLink
+                      </a></li>
+
+                    </ul>
+
+
+                </div>
+
+                </li>
+
+
+                <li><a
+                  href='#nodehelper'
+                  class=" toggle-sibling">
+                  Node/helper
+                  <span class='icon'>▸</span>
+                </a>
+
+                <div class='toggle-target display-none'>
+
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+
+                      <li><a
+                        href='#Node/helper_convertTypeToD3Symbol'
+                        class='regular pre-open'>
+                        ._convertTypeToD3Symbol
+                      </a></li>
+
+                      <li><a
+                        href='#Node/helperbuildSvgSymbol'
+                        class='regular pre-open'>
+                        .buildSvgSymbol
+                      </a></li>
+
+                    </ul>
+
+
+
+                </div>
+
+                </li>
+
+
+                <li><a
+                  href='#node'
+                  class=" toggle-sibling">
+                  Node
+                  <span class='icon'>▸</span>
+                </a>
+
+                <div class='toggle-target display-none'>
+
+
+                    <ul class='list-reset py1-ul pl1'>
+                      <li class='h5'><span>Instance members</span></li>
+
+                      <li><a
+                        href='#Node#handleOnClickNode'
+                        class='regular pre-open'>
+                        #handleOnClickNode
+                      </a></li>
+
+                      <li><a
+                        href='#Node#handleOnMouseOverNode'
+                        class='regular pre-open'>
+                        #handleOnMouseOverNode
+                      </a></li>
+
+                      <li><a
+                        href='#Node#handleOnMouseOutNode'
+                        class='regular pre-open'>
+                        #handleOnMouseOutNode
+                      </a></li>
+
+                    </ul>
+
+
+                </div>
+
+                </li>
+
+
+                <li><a
+                  href='#utils'
+                  class=" toggle-sibling">
+                  utils
+                  <span class='icon'>▸</span>
+                </a>
+
+                <div class='toggle-target display-none'>
+
+                  <ul class='list-reset py1-ul pl1'>
+                    <li class='h5'><span>Static members</span></li>
+
+                      <li><a
+                        href='#utils_isPropertyNestedObject'
+                        class='regular pre-open'>
+                        ._isPropertyNestedObject
+                      </a></li>
+
+                      <li><a
+                        href='#utilsisEqual'
+                        class='regular pre-open'>
+                        .isEqual
+                      </a></li>
+
+                      <li><a
+                        href='#utilsisObjectEmpty'
+                        class='regular pre-open'>
+                        .isObjectEmpty
+                      </a></li>
+
+                      <li><a
+                        href='#utilsmerge'
+                        class='regular pre-open'>
+                        .merge
+                      </a></li>
+
+                      <li><a
+                        href='#utilsthrowErr'
+                        class='regular pre-open'>
+                        .throwErr
+                      </a></li>
+
+                    </ul>
+
+
+
+                </div>
+
+                </li>
+
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='http://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div class='fix-margin-3'>
+
+
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+  <div class='clearfix'>
+
+    <h3 class='fl m0' id='config'>
+      config
+    </h3>
+
+
+  </div>
+
+
+  <p><em>This is certainly the only extra piece of documentation that you will ever need.</em><br/><br/>
+Here you can consult a detailed description of each graph configurable property as well as the default values
+that each of that property assume.</p>
+<p><strong>Note about granularity</strong><br/>
+Some of the properties listed in the <a href="#node-section">Node section</a> are marked with 🔍🔍🔍. This means that this properties
+have a higher level of granularity. These properties can be defined in the graph payload at a node level. (sample payload below)</p>
+<pre class='hljs'><span class="hljs-keyword">const</span> graph = {
+    <span class="hljs-attr">nodes</span>: [
+        {
+            <span class="hljs-attr">id</span>: <span class="hljs-string">'id'</span>,
+            <span class="hljs-attr">color</span>: <span class="hljs-string">'red'</span>,   <span class="hljs-comment">// only this node will be red</span>
+            size: <span class="hljs-number">300</span>,      <span class="hljs-comment">// only this node will have size 300</span>
+            type: <span class="hljs-string">'diamond'</span> <span class="hljs-comment">// only this node will have 'diamond' shape</span>
+        }
+    ],
+    <span class="hljs-attr">links</span>: [...]
+};</pre>
+<h2>Graph global configurations</h2>
+
+
+  <div class='pre p1 fill-light mt0'>config</div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>automaticRearrangeAfterDropNode</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?
+            = <code>false</code>)</code>
+	    when true performing a node drag and drop should automatically
+rearrange all nodes positions based on new position of dragged node (note:
+<strong>staticGraph</strong>
+ should be false).
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>height</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?
+            = <code>400</code>)</code>
+	    the height of the (svg) area where the graph will be rendered.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>highlightBehavior</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?
+            = <code>false</code>)</code>
+	    when user mouse hovers a node that node and adjacent common
+connections will be highlighted. All the remaining nodes and links assume opacity value equal to
+<strong>highlightOpacity</strong>
+.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>highlightOpacity</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?
+            = <code>1</code>)</code>
+	    this value is used to highlight nodes in the network. The lower
+the value the more the less highlighted nodes will be visible (related to
+<strong>highlightBehavior</strong>
+).
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>maxZoom</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?
+            = <code>8</code>)</code>
+	    max zoom that can be performed against the graph.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>minZoom</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?
+            = <code>0.1</code>)</code>
+	    min zoom that can be performed against the graph.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>staticGraph</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?
+            = <code>false</code>)</code>
+	    when setting this value to true the graph will be completely static, thus
+all forces and drag events upon nodes will be disabled.
+<strong>Plus</strong>
+, if this value is true the nodes will be rendered
+in the provided
+<strong>x and y coordinates</strong>
+, no coordinates will be calculated by react-d3-graph.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>width</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?
+            = <code>800</code>)</code>
+	    the width of the (svg) area where the graph will be rendered.
+
+<br/>
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>node</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    node object is explained in next section.
+<h2 id="node-section">Node level configurations</h2>
+
+          </div>
+
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.color</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?</code>
+
+                    (default <code>&#39;#d3d3d3&#39;</code>)
+                  </td>
+                  <td class='break-word'><span>🔍🔍🔍 this is the color that will be applied to the node if no
+<strong>color property</strong>
+
+is found inside the node itself (yes
+<strong>you can pass a property 'color' inside the node and that color will override the
+this default one</strong>
+).
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.fontSize</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?</code>
+
+                    (default <code>10</code>)
+                  </td>
+                  <td class='break-word'><span><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control">font-size</a>
+
+property for all nodes' labels.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.fontWeight</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?</code>
+
+                    (default <code>&#39;normal&#39;</code>)
+                  </td>
+                  <td class='break-word'><span><a href="https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control">font-weight</a>
+
+property for all nodes' labels.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.labelProperty</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?</code>
+
+                    (default <code>&#39;id&#39;</code>)
+                  </td>
+                  <td class='break-word'><span>this is the node property that will be used in runtime to
+fetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set
+node.labelProperty to be
+<strong>'firstName'</strong>
+.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.mouseCursor</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?</code>
+
+                    (default <code>&#39;pointer&#39;</code>)
+                  </td>
+                  <td class='break-word'><span><a href="https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control">cursor</a>
+
+property for when some node is mouse hovered.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.opacity</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?</code>
+
+                    (default <code>1</code>)
+                  </td>
+                  <td class='break-word'><span>by default all nodes will have this opacity value.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.renderLabel</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?</code>
+
+                    (default <code>true</code>)
+                  </td>
+                  <td class='break-word'><span>when set to false no labels will appear along side nodes in the
+graph.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.size</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?</code>
+
+                    (default <code>200</code>)
+                  </td>
+                  <td class='break-word'><span>🔍🔍🔍 defines the size of all nodes.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.strokeColor</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?</code>
+
+                    (default <code>&#39;none&#39;</code>)
+                  </td>
+                  <td class='break-word'><span>color for the stroke of each node.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.strokeWidth</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?</code>
+
+                    (default <code>1.5</code>)
+                  </td>
+                  <td class='break-word'><span>the width of the all node strokes.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.symbolType</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?</code>
+
+                    (default <code>&#39;circle&#39;</code>)
+                  </td>
+                  <td class='break-word'><span>🔍🔍🔍 the
+<span id='node-symbol-type'>
+shape
+</span>
+ of the node.
+Use the following values under a property
+<strong>type</strong>
+ inside each node (nodes may have different types, same as colors):
+<ul>
+<li>'circle'</li>
+<li>'cross'</li>
+<li>'diamond'</li>
+<li>'square'</li>
+<li>'star'</li>
+<li>'triangle'</li>
+<li>'wye'</li>
+</ul>
+<p><strong>[note]</strong> react-d3-graph will map this values to d3 symbols (<a href="https://github.com/d3/d3-shape#symbols">https://github.com/d3/d3-shape#symbols</a>)</p>
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.highlightColor</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?</code>
+
+                    (default <code>&#39;SAME&#39;</code>)
+                  </td>
+                  <td class='break-word'><span>color for all highlighted nodes (use string 'SAME' if you
+want the node to keep its color in highlighted state).
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.highlightFontSize</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?</code>
+
+                    (default <code>10</code>)
+                  </td>
+                  <td class='break-word'><span>node.fontSize in highlighted state.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.highlightFontWeight</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?</code>
+
+                    (default <code>&#39;normal&#39;</code>)
+                  </td>
+                  <td class='break-word'><span>node.fontWeight in highlighted state.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.highlightStrokeColor</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?</code>
+
+                    (default <code>&#39;SAME&#39;</code>)
+                  </td>
+                  <td class='break-word'><span>node.strokeColor in highlighted state.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>node.highlightStrokeWidth</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?</code>
+
+                    (default <code>1.5</code>)
+                  </td>
+                  <td class='break-word'><span>node.strokeWidth in highlighted state.
+
+<br/>
+</span></td>
+                </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>link</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    link object is explained in the next section.
+<h2>Link level configurations</h2>
+
+          </div>
+
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>link.color</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?</code>
+
+                    (default <code>&#39;#d3d3d3&#39;</code>)
+                  </td>
+                  <td class='break-word'><span>the color for links.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>link.opacity</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?</code>
+
+                    (default <code>1</code>)
+                  </td>
+                  <td class='break-word'><span>the default opacity value for links.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>link.semanticStrokeWidth</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?</code>
+
+                    (default <code>false</code>)
+                  </td>
+                  <td class='break-word'><span>when set to true all links will have
+
+<em>"semantic width"</em>
+, this means that the width of the connections will be proportional to the value of each link.
+This is how link strokeWidth will be calculated:
+<pre class='hljs'>strokeWidth += (linkValue * strokeWidth) / 10;</pre>
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>link.strokeWidth</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?</code>
+
+                    (default <code>1.5</code>)
+                  </td>
+                  <td class='break-word'><span>strokeWidth for all links.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>link.highlightColor</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?</code>
+
+                    (default <code>&#39;#d3d3d3&#39;</code>)
+                  </td>
+                  <td class='break-word'><span>links color in highlight state.
+</span></td>
+                </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+
+
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// A simple config that uses some properties</span>
+<span class="hljs-keyword">const</span> myConfig = {
+    <span class="hljs-attr">highlightBehavior</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">node</span>: {
+        <span class="hljs-attr">color</span>: <span class="hljs-string">'lightgreen'</span>,
+        <span class="hljs-attr">size</span>: <span class="hljs-number">120</span>,
+        <span class="hljs-attr">highlightStrokeColor</span>: <span class="hljs-string">'blue'</span>
+    },
+    <span class="hljs-attr">link</span>: {
+        <span class="hljs-attr">highlightColor</span>: <span class="hljs-string">'lightblue'</span>
+    }
+};</pre>
+
+
+
+
+
+
+
+
+</section>
+
+
+
+
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+  <div class='clearfix'>
+
+    <h3 class='fl m0' id='graphhelper'>
+      Graph/helper
+    </h3>
+
+
+  </div>
+
+
+  <p>Offers a series of methods that isolate logic of Graph component.</p>
+
+
+  <div class='pre p1 fill-light mt0'>Graph/helper</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+
+    <div class='border-bottom' id='Graph/helper_buildLinkProps'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Build some Link properties based on given parameters.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_buildLinkProps(source: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, target: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, nodes: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, links: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, config: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, linkCallbacks: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>>, someNodeHighlighted: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    the id of the source node (from).
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>target</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    the id of the target node (to).
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>nodes</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
+	    same as
+<a href="#buildGraph">nodes in buildGraph</a>
+.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>links</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
+	    same as
+<a href="#buildGraph">links in buildGraph</a>
+.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    same as
+<a href="#buildGraph">config in buildGraph</a>
+.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>linkCallbacks</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>>)</code>
+	    same as
+<a href="#buildGraph">linkCallbacks in buildGraph</a>
+.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>someNodeHighlighted</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
+	    same as
+<a href="#buildGraph">someNodeHighlighted in buildGraph</a>
+.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        returns an object that aggregates all props for creating respective Link component instance.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph/helper_buildNodeLinks'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHighlighted)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Build Link components for a given node.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_buildNodeLinks(nodeId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, nodes: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, links: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, config: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, linkCallbacks: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>>, someNodeHighlighted: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>nodeId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    the id of the node to whom Link components will be generated.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>nodes</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
+	    same as
+<a href="#buildGraph">nodes in buildGraph</a>
+.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>links</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
+	    same as
+<a href="#buildGraph">links in buildGraph</a>
+.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    same as
+<a href="#buildGraph">config in buildGraph</a>
+.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>linkCallbacks</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>>)</code>
+	    same as
+<a href="#buildGraph">linkCallbacks in buildGraph</a>
+.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>someNodeHighlighted</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
+	    same as
+<a href="#buildGraph">someNodeHighlighted in buildGraph</a>
+.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></code>:
+        returns the generated array of Link components.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph/helper_buildNodeProps'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Build some Node properties based on given parameters.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_buildNodeProps(node: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, config: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, nodeCallbacks: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>>, someNodeHighlighted: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>node</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    the node object for whom we will generate properties.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    same as
+<a href="#buildGraph">config in buildGraph</a>
+.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>nodeCallbacks</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>>)</code>
+	    same as
+<a href="#buildGraph">nodeCallbacks in buildGraph</a>
+.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>someNodeHighlighted</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
+	    same as
+<a href="#buildGraph">someNodeHighlighted in buildGraph</a>
+.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        returns object that contain Link props ready to be feeded to the Link component.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph/helperbuildGraph'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNodeHighlighted)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Method that actually is exported an consumed by Graph component in order to build all Nodes and Link
+components.</p>
+
+
+  <div class='pre p1 fill-light mt0'>buildGraph(nodes: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, nodeCallbacks: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>>, links: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, linkCallbacks: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>>, config: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, someNodeHighlighted: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>nodes</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
+	    an object containing all nodes mapped by their id.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>nodeCallbacks</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>>)</code>
+	    array of callbacks for used defined event handler for node interactions.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>links</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
+	    an object containing a matrix of connections of the graph, for each nodeId,
+there is an Object that maps adjacent nodes ids (string) and their values (number).
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>linkCallbacks</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">function</a>>)</code>
+	    array of callbacks for used defined event handler for link interactions.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>config</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    an object containg rd3g consumer defined configurations
+[
+LINK README
+]
+ for the graph.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>someNodeHighlighted</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
+	    this value is true when some node on the graph is highlighted.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        returns an object containg the generated nodes and links that form the graph. The result is
+returned in a way that can be consumed by es6
+<strong>destructuring assignment</strong>
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph/helpercreateForceSimulation'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>createForceSimulation(width, height)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Create d3 forceSimulation to be applied on the graph.<br/>
+<a href="https://github.com/d3/d3-force#forceSimulation" target="_blank">https://github.com/d3/d3-force#forceSimulation</a><br/>
+<a href="https://github.com/d3/d3-force#simulation_force" target="_blank">https://github.com/d3/d3-force#simulation_force</a><br/></p>
+
+
+  <div class='pre p1 fill-light mt0'>createForceSimulation(width: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, height: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>width</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    the width of the container area of the graph.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>height</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    the height of the container area of the graph.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        returns the simulation instance to be consumed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph/helperinitializeLinks'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>initializeLinks(graphLinks)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Receives a matrix of the graph with the links source and target as concrete node instances and it transforms it
+in a lightweight matrix containing only links with source and target being strings representative of some node id
+and the respective link value (if non existant will default to 1).</p>
+
+
+  <div class='pre p1 fill-light mt0'>initializeLinks(graphLinks: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>graphLinks</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
+	    an array of all graph links but all the links contain the source and target nodes
+objects.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></code>:
+        an object containing a matrix of connections of the graph, for each nodeId,
+there is an object that maps adjacent nodes ids (string) and their values (number).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph/helperinitializeNodes'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>initializeNodes(graphNodes)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Method that initialize graph nodes provided by rd3g consumer and adds additional default mandatory properties
+that are optional for the user. Also it generates an index mapping, this maps nodes ids the their index in the array
+of nodes. This is needed because d3 callbacks such as node click and link click return the index of the node.</p>
+
+
+  <div class='pre p1 fill-light mt0'>initializeNodes(graphNodes: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>graphNodes</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
+	    the array of nodes provided by the rd3g consumer.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        returns the nodes ready to be used within rd3g with additional properties such as x, y
+and highlighted values. Returns also the index mapping object of type Object.&#x3C;number, string>.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+</section>
+
+
+
+
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+  <div class='clearfix'>
+
+    <h3 class='fl m0' id='graph'>
+      Graph
+    </h3>
+
+
+  </div>
+
+
+  <p>Graph component is the main component for react-d3-graph components, its interface allows its user
+to build the graph once the user provides the data, configuration (optional) and callback interactions (also optional).
+The code for the live example (<a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html">https://danielcaldas.github.io/react-d3-graph/sandbox/index.html</a>)
+can be consulted here <a href="https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/Sandbox.js">https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/Sandbox.js</a></p>
+
+
+  <div class='pre p1 fill-light mt0'>new Graph()</div>
+
+
+    <p>
+      Extends
+
+        React.Component
+
+    </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+
+
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-comment">// Graph payload (with minimalist structure)</span>
+<span class="hljs-keyword">const</span> data = {
+    <span class="hljs-attr">nodes</span>: [
+      {<span class="hljs-attr">id</span>: <span class="hljs-string">'Harry'</span>},
+      {<span class="hljs-attr">id</span>: <span class="hljs-string">'Sally'</span>},
+      {<span class="hljs-attr">id</span>: <span class="hljs-string">'Alice'</span>}
+    ],
+    <span class="hljs-attr">links</span>: [
+        {<span class="hljs-attr">source</span>: <span class="hljs-string">'Harry'</span>, <span class="hljs-attr">target</span>: <span class="hljs-string">'Sally'</span>},
+        {<span class="hljs-attr">source</span>: <span class="hljs-string">'Harry'</span>, <span class="hljs-attr">target</span>: <span class="hljs-string">'Alice'</span>},
+    ]
+};
+
+<span class="hljs-comment">// The graph configuration</span>
+<span class="hljs-keyword">const</span> myConfig = {
+    <span class="hljs-attr">highlightBehavior</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">node</span>: {
+        <span class="hljs-attr">color</span>: <span class="hljs-string">'lightgreen'</span>,
+        <span class="hljs-attr">size</span>: <span class="hljs-number">120</span>,
+        <span class="hljs-attr">highlightStrokeColor</span>: <span class="hljs-string">'blue'</span>
+    },
+    <span class="hljs-attr">link</span>: {
+        <span class="hljs-attr">highlightColor</span>: <span class="hljs-string">'lightblue'</span>
+    }
+};
+
+<span class="hljs-comment">// Graph event callbacks</span>
+<span class="hljs-keyword">const</span> onClickNode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeId</span>) </span>{
+     <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">'Clicked node'</span>, nodeId);
+};
+
+<span class="hljs-keyword">const</span> onMouseOverNode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeId</span>) </span>{
+     <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">'Mouse over node'</span>, nodeId);
+};
+
+<span class="hljs-keyword">const</span> onMouseOutNode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeId</span>) </span>{
+     <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">'Mouse out node'</span>, nodeId);
+};
+
+<span class="hljs-keyword">const</span> onClickLink = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">source, target</span>) </span>{
+     <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">`Clicked link between <span class="hljs-subst">${source}</span> and <span class="hljs-subst">${target}</span>`</span>);
+};
+
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Graph</span>
+     <span class="hljs-attr">id</span>=<span class="hljs-string">'graph-id'</span> // <span class="hljs-attr">id</span> <span class="hljs-attr">is</span> <span class="hljs-attr">mandatory</span>, <span class="hljs-attr">if</span> <span class="hljs-attr">no</span> <span class="hljs-attr">id</span> <span class="hljs-attr">is</span> <span class="hljs-attr">defined</span> <span class="hljs-attr">rd3g</span> <span class="hljs-attr">will</span> <span class="hljs-attr">throw</span> <span class="hljs-attr">an</span> <span class="hljs-attr">error</span>
+     <span class="hljs-attr">data</span>=<span class="hljs-string">{data}</span>
+     <span class="hljs-attr">config</span>=<span class="hljs-string">{myConfig}</span>
+     <span class="hljs-attr">onClickNode</span>=<span class="hljs-string">{onClickNode}</span>
+     <span class="hljs-attr">onClickLink</span>=<span class="hljs-string">{onClickLink}</span>
+     <span class="hljs-attr">onMouseOverNode</span>=<span class="hljs-string">{onMouseOverNode}</span>
+     <span class="hljs-attr">onMouseOutNode</span>=<span class="hljs-string">{onMouseOutNode}</span> /&gt;</span></span></pre>
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+
+    <div class='border-bottom' id='Graph#_onDragEnd'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_onDragEnd</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Handles d3 drag 'end' event.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_onDragEnd</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#_onDragMove'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_onDragMove</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Handles d3 'drag' event.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_onDragMove</div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>_</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    event.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>index</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    index of the node that is being dragged.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#_onDragStart'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_onDragStart</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Handles d3 drag 'start' event.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_onDragStart</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#_setHighlighted'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_setHighlighted</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Sets nodes and links highlighted value.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_setHighlighted</div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>index</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    the index of the node to highlight (and its adjacent).
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
+	    the highlight value to be set (true or false).
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#_tick'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_tick</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>The tick function simply calls React set state in order to update component and render nodes
+along time as d3 calculates new node positioning.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_tick</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#_zoomConfig'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_zoomConfig</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Configures zoom upon graph with default or user provided values.<br/>
+<a href="https://github.com/d3/d3-zoom#zoom">https://github.com/d3/d3-zoom#zoom</a></p>
+
+
+  <div class='pre p1 fill-light mt0'>_zoomConfig</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#_zoomed'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_zoomed</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Handler for 'zoom' event within zoom config.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_zoomed</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        returns the transformed elements within the svg graph area.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#onMouseOutNode'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>onMouseOutNode</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Handles mouse out node event.</p>
+
+
+  <div class='pre p1 fill-light mt0'>onMouseOutNode</div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>index</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    index of the mouse hovered node.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#onMouseOverNode'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>onMouseOverNode</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Handles mouse over node event.</p>
+
+
+  <div class='pre p1 fill-light mt0'>onMouseOverNode</div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>index</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    index of the mouse hovered node.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#pauseSimulation'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>pauseSimulation</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Calls d3 simulation.stop().<br/>
+<a href="https://github.com/d3/d3-force#simulation_stop">https://github.com/d3/d3-force#simulation_stop</a></p>
+
+
+  <div class='pre p1 fill-light mt0'>pauseSimulation</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#resetNodesPositions'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>resetNodesPositions</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>This method resets all nodes fixed positions by deleting the properties fx (fixed x)
+and fy (fixed y). Next a simulation is triggered in order to force nodes to go back
+to their original positions (or at least new positions according to the d3 force parameters).</p>
+
+
+  <div class='pre p1 fill-light mt0'>resetNodesPositions</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#restartSimulation'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>restartSimulation</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Calls d3 simulation.restart().<br/>
+<a href="https://github.com/d3/d3-force#simulation_restart">https://github.com/d3/d3-force#simulation_restart</a></p>
+
+
+  <div class='pre p1 fill-light mt0'>restartSimulation</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+  <div class='clearfix'>
+
+    <h3 class='fl m0' id='link'>
+      Link
+    </h3>
+
+
+  </div>
+
+
+  <p>Link component is responsible for encapsulating link render.</p>
+
+
+  <div class='pre p1 fill-light mt0'>new Link()</div>
+
+
+    <p>
+      Extends
+
+        React.Component
+
+    </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+
+
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> onClickLink = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">source, target</span>) </span>{
+     <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">`Clicked link between <span class="hljs-subst">${source}</span> and <span class="hljs-subst">${target}</span>`</span>);
+};
+
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Link</span>
+    <span class="hljs-attr">source</span>=<span class="hljs-string">'idSourceNode'</span>
+    <span class="hljs-attr">target</span>=<span class="hljs-string">'idTargetNode'</span>
+    <span class="hljs-attr">x1</span>=<span class="hljs-string">22</span>
+    <span class="hljs-attr">y1</span>=<span class="hljs-string">22</span>
+    <span class="hljs-attr">x2</span>=<span class="hljs-string">22</span>
+    <span class="hljs-attr">y2</span>=<span class="hljs-string">22</span>
+    <span class="hljs-attr">strokeWidth</span>=<span class="hljs-string">1.5</span>
+    <span class="hljs-attr">stroke</span>=<span class="hljs-string">'green'</span>
+    <span class="hljs-attr">className</span>=<span class="hljs-string">'link'</span>
+    <span class="hljs-attr">opacity</span>=<span class="hljs-string">1</span>
+    <span class="hljs-attr">onClickLink</span>=<span class="hljs-string">{onClickLink}</span> /&gt;</span></span></pre>
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+
+    <div class='border-bottom' id='Link#handleOnClickLink'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>handleOnClickLink</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Handle link click event.</p>
+
+
+  <div class='pre p1 fill-light mt0'>handleOnClickLink</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+  <div class='clearfix'>
+
+    <h3 class='fl m0' id='nodehelper'>
+      Node/helper
+    </h3>
+
+
+  </div>
+
+
+  <p>Some methods that help no the process of rendering a node.</p>
+
+
+  <div class='pre p1 fill-light mt0'>Node/helper</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+
+    <div class='border-bottom' id='Node/helper_convertTypeToD3Symbol'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_convertTypeToD3Symbol(typeName)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Converts a string that specifies a symbol into a concrete instance
+of d3 symbol.<br/>
+<a href="https://github.com/d3/d3-shape/blob/master/README.md#symbol">https://github.com/d3/d3-shape/blob/master/README.md#symbol</a></p>
+
+
+  <div class='pre p1 fill-light mt0'>_convertTypeToD3Symbol(typeName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>typeName</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    the string that specifies the symbol type (should be one of
+<a href="#node-symbol-type">node.symbolType</a>
+).
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        concrete instance of d3 symbol.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Node/helperbuildSvgSymbol'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>buildSvgSymbol(size = 80, symbolTypeDesc = 'circle')</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Build a d3 svg symbol based on passed symbol and symbol type.</p>
+
+
+  <div class='pre p1 fill-light mt0'>buildSvgSymbol(size: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?, symbolTypeDesc: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>size</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?
+            = <code>80</code>)</code>
+	    the size of the symbol.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>symbolTypeDesc</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?
+            = <code>&#39;circle&#39;</code>)</code>
+	    the string containing the type of symbol that we want to build
+(should be one of
+<a href="#node-symbol-type">node.symbolType</a>
+).
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        concrete instance of d3 symbol.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+</section>
+
+
+
+
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+  <div class='clearfix'>
+
+    <h3 class='fl m0' id='node'>
+      Node
+    </h3>
+
+
+  </div>
+
+
+  <p>Node component is responsible for encapsulating node render.</p>
+
+
+  <div class='pre p1 fill-light mt0'>new Node()</div>
+
+
+    <p>
+      Extends
+
+        React.Component
+
+    </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Example</div>
+
+
+      <pre class='p1 overflow-auto round fill-light'><span class="hljs-keyword">const</span> onClickNode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeId</span>) </span>{
+     <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">'Clicked node'</span>, nodeId);
+};
+
+<span class="hljs-keyword">const</span> onMouseOverNode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeId</span>) </span>{
+     <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">'Mouse over node'</span>, nodeId);
+};
+
+<span class="hljs-keyword">const</span> onMouseOutNode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeId</span>) </span>{
+     <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">'Mouse out node'</span>, nodeId);
+};
+
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Node</span>
+    <span class="hljs-attr">id</span>=<span class="hljs-string">'nodeId'</span>
+    <span class="hljs-attr">cx</span>=<span class="hljs-string">22</span>
+    <span class="hljs-attr">cy</span>=<span class="hljs-string">22</span>
+    <span class="hljs-attr">fill</span>=<span class="hljs-string">'green'</span>
+    <span class="hljs-attr">fontSize</span>=<span class="hljs-string">10</span>
+    <span class="hljs-attr">fontWeight</span>=<span class="hljs-string">'normal'</span>
+    <span class="hljs-attr">label</span>=<span class="hljs-string">'label text'</span>
+    <span class="hljs-attr">opacity</span>=<span class="hljs-string">1</span>
+    <span class="hljs-attr">renderLabel</span>=<span class="hljs-string">true</span>
+    <span class="hljs-attr">size</span>=<span class="hljs-string">200</span>
+    <span class="hljs-attr">stroke</span>=<span class="hljs-string">'none'</span>
+    <span class="hljs-attr">strokeWidth</span>=<span class="hljs-string">1.5</span>
+    <span class="hljs-attr">type</span>=<span class="hljs-string">'square'</span>
+    <span class="hljs-attr">className</span>=<span class="hljs-string">'node'</span>
+    <span class="hljs-attr">onClickNode</span>=<span class="hljs-string">{onClickNode}</span>
+    <span class="hljs-attr">onMouseOverNode</span>=<span class="hljs-string">{onMouseOverNode}</span>
+    <span class="hljs-attr">onMouseOutNode</span>=<span class="hljs-string">{onMouseOutNode}</span> /&gt;</span></span></pre>
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Instance Members</div>
+    <div class="clearfix">
+
+    <div class='border-bottom' id='Node#handleOnClickNode'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>handleOnClickNode</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Handle click on the node.</p>
+
+
+  <div class='pre p1 fill-light mt0'>handleOnClickNode</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Node#handleOnMouseOverNode'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>handleOnMouseOverNode</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Handle mouse over node event.</p>
+
+
+  <div class='pre p1 fill-light mt0'>handleOnMouseOverNode</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Node#handleOnMouseOutNode'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>handleOnMouseOutNode</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Handle mouse out node event.</p>
+
+
+  <div class='pre p1 fill-light mt0'>handleOnMouseOutNode</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+            <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+  <div class='clearfix'>
+
+    <h3 class='fl m0' id='utils'>
+      utils
+    </h3>
+
+
+  </div>
+
+
+  <p>Offers a series of generic methods for object manipulation, and other operations
+that are common across rd3g such as error logging.</p>
+
+
+  <div class='pre p1 fill-light mt0'>utils</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Static Members</div>
+    <div class="clearfix">
+
+    <div class='border-bottom' id='utils_isPropertyNestedObject'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_isPropertyNestedObject(o, k)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Checks whether a certain object property is from object type and is a non empty object.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_isPropertyNestedObject(o: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, k: (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>o</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    the object.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>k</span> <code class='quiet'>((<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>))</code>
+	    the object property.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
+        returns true if o
+[
+k
+]
+ is an non empty object.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='utilsisEqual'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>isEqual(o1, o2, _depth = 0)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Generic deep comparison between javascript simple or complex objects.</p>
+
+
+  <div class='pre p1 fill-light mt0'>isEqual(o1: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, o2: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, _depth: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>o1</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    one of the objects to be compared.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>o2</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    second object to compare with first.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>_depth</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?
+            = <code>0</code>)</code>
+	    this parameter serves only for internal usage.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
+        returns true if o1 and o2 have exactly the same content, or are exactly the same object reference.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='utilsisObjectEmpty'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>isObjectEmpty(o)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Checks whether or not a certain object is empty.
+NOTE: If the passed parameter is not an object the method return false.</p>
+
+
+  <div class='pre p1 fill-light mt0'>isObjectEmpty(o: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>o</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    object whom emptiness we want to check.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
+        true if the given object is n ft and object and is empty.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='utilsmerge'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>merge(o1?, o2?, _depth = 0)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>This function merges two objects o1 and o2, where o2 properties override existent o1 properties, and
+if o2 doesn't posses some o1 property the function will fallback to the o1 property.</p>
+
+
+  <div class='pre p1 fill-light mt0'>merge(o1: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>?= {}, o2: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>?= {}, _depth: int?): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>o1</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>?= {})</code>
+	    object.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>o2</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>?= {})</code>
+	    object that will override o1 properties.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>_depth</span> <code class='quiet'>(int?
+            = <code>0</code>)</code>
+	    the depth at which we are merging the object.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        object that is the result of merging o1 and o2, being o2 properties priority overriding
+existent o1 properties.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='utilsthrowErr'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>throwErr(component, msg)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Helper function for customized error logging.</p>
+
+
+  <div class='pre p1 fill-light mt0'>throwErr(component: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, msg: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>component</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    the name of the component where the error is to be thrown.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>msg</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    the message contain a more detailed explanation about the error.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></code>:
+        the thrown error.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+</section>
+
+
+
+      </div>
+    </div>
+  </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>

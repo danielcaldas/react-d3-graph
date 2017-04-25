@@ -5,7 +5,7 @@
  *
  * **Note about granularity**<br/>
  * Some of the properties listed in the {@link #node-section|Node section} are marked with 🔍🔍🔍. This means that this properties
- * have a higher level of granularity. These properties can be defined at a node level. (sample payload below)
+ * have a higher level of granularity. These properties can be defined in the graph payload at a node level. (sample payload below)
  * ```javascript
  * const graph = {
  *     nodes: [
@@ -35,6 +35,7 @@
  * in the provided **x and y coordinates**, no coordinates will be calculated by react-d3-graph.
  * @param {number} [width=800] - the width of the (svg) area where the graph will be rendered.
  * <br/>
+ * @param {Object} node node object is explained in next section.
  * <h2 id="node-section">Node level configurations</h2>
  * @param {string} [node.color='#d3d3d3'] - 🔍🔍🔍 this is the color that will be applied to the node if no **color property**
  * is found inside the node itself (yes **you can pass a property 'color' inside the node and that color will override the
@@ -72,6 +73,7 @@
  * @param {string} [node.highlightStrokeColor='SAME'] - node.strokeColor in highlighted state.
  * @param {number} [node.highlightStrokeWidth=1.5] - node.strokeWidth in highlighted state.
  * <br/>
+ * @param {Object} link link object is explained in the next section.
  * <h2>Link level configurations</h2>
  * @param {string} [link.color='#d3d3d3'] - the color for links.
  * @param {number} [link.opacity=1] - the default opacity value for links.
@@ -79,7 +81,7 @@
  * *"semantic width"*, this means that the width of the connections will be proportional to the value of each link.
  * This is how link strokeWidth will be calculated:
  * ```javascript
- * strokeWidth += (linkValue * strokeWidth) / 10; // Graph/helper.js l.52
+ * strokeWidth += (linkValue * strokeWidth) / 10;
  * ```
  * @param {number} [link.strokeWidth=1.5] - strokeWidth for all links.
  * @param {string} [link.highlightColor='#d3d3d3'] - links color in highlight state.
