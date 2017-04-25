@@ -54,7 +54,7 @@
  * @param {number} [node.size=200] - 🔍🔍🔍 defines the size of all nodes.
  * @param {string} [node.strokeColor='none'] - color for the stroke of each node.
  * @param {number} [node.strokeWidth=1.5] - the width of the all node strokes.
- * @param {string} [node.symbolType='circle'] - 🔍🔍🔍 the shape of the node.
+ * @param {string} [node.symbolType='circle'] - 🔍🔍🔍 the <span id='node-symbol-type'>shape</span> of the node.
  * Use the following values under a property **type** inside each node (nodes may have different types, same as colors):
  *   - 'circle'
  *   - 'cross'

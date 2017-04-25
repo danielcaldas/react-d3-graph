@@ -5,8 +5,8 @@ import CONST from './const';
 import NodeHelper from './helper';
 
 export default class Node extends React.Component {
-    // Properties more likely to mutate are evaluated first to take advantage of short-circuit evaluation
     shouldComponentUpdate(nextProps) {
+        // Properties more likely to mutate are evaluated first to take advantage of short-circuit evaluation
         return nextProps.cx !== this.props.cx || nextProps.cy !== this.props.cy
               || nextProps.opacity !== this.props.opacity
               || nextProps.fill !== this.props.fill
