@@ -15,6 +15,12 @@ Full documentation [here](https://danielcaldas.github.io/react-d3-graph/docs/ind
 - React version **15.5.0**
 - d3 version **4.7.4**
 
+## Install
+```bash
+npm install react-d3-graph // using npm
+yarn add react-d3-graph // using yarn
+```
+
 ## Usage sample
 Graph component is the main component for react-d3-graph components, its interface allows its user
 to build the graph once the user provides the data, configuration (optional) and callback interactions (also optional).
