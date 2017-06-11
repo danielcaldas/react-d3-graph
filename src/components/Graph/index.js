@@ -145,6 +145,31 @@ export default class Graph extends React.Component {
     _zoomed = () => d3.selectAll(`#${this.id}-${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
 
     /**
+     * Processes nodes and links to be rendered
+     */
+    _processNodesAndLinks = () => {
+        let graph = this.props.data || {};
+        let config = Utils.merge(DEFAULT_CONFIG, this.props.config || {});
+        let {nodes, indexMapping} = GraphHelper.initializeNodes(graph.nodes);
+        let links = GraphHelper.initializeLinks(graph.links); // Matrix of graph connections
+
+        this.id = this.props.id.replace(/ /g, '_');
+        this.indexMapping = indexMapping;
+        this.simulation = GraphHelper.createForceSimulation(config.width, config.height);
+
+        // Disposable once component is mounted
+        this.links = graph.links;
+        this.nodes = graph.nodes;
+
+        this.state = {
+            config,
+            links,
+            nodes,
+            nodeHighlighted: false
+        };
+    }
+
+    /**
      * Handles mouse out node event.
      * @param  {number} index - index of the mouse hovered node.
      * @return {undefined}
@@ -209,25 +234,7 @@ export default class Graph extends React.Component {
             throw Utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
         }
 
-        let graph = this.props.data || {};
-        let config = Utils.merge(DEFAULT_CONFIG, this.props.config || {});
-        let {nodes, indexMapping} = GraphHelper.initializeNodes(graph.nodes);
-        let links = GraphHelper.initializeLinks(graph.links); // Matrix of graph connections
-
-        this.id = this.props.id.replace(/ /g, '_');
-        this.indexMapping = indexMapping;
-        this.simulation = GraphHelper.createForceSimulation(config.width, config.height);
-
-        // Disposable once component is mounted
-        this.links = graph.links;
-        this.nodes = graph.nodes;
-
-        this.state = {
-            config,
-            links,
-            nodes,
-            nodeHighlighted: false
-        };
+        this._processNodesAndLinks();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -272,6 +279,8 @@ export default class Graph extends React.Component {
 
         // If the property staticGraph was activated we want to stop possible ongoing simulation
         this.state.config.staticGraph && this.simulation.stop();
+
+        this._processNodesAndLinks();
     }
 
     render() {
