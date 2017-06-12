@@ -6,9 +6,11 @@ import './styles.css';
 
 import defaultConfig from '../src/components/Graph/config';
 import { Graph } from '../src';
-import mock from './miserables';
+import data from './data';
 import Utils from './utils';
 import ReactD3GraphUtils from  '../src/utils';
+
+const VICTIM_ID = 'Drone';
 
 export default class Sandbox extends React.Component {
     constructor(props) {
@@ -31,13 +33,14 @@ export default class Sandbox extends React.Component {
         this.state = {
             config: defaultConfig,
             generatedConfig: {},
-            schema
+            schema,
+            data
         };
     }
 
-    onClickNode = (id) => window.alert(`clicked node ${id}`);
+    onClickNode = (id) => window.alert(`Clicked node ${id}`);
 
-    onClickLink = (source, target) => window.alert(`clicked link between ${source} and ${target}`);
+    onClickLink = (source, target) => window.alert(`Clicked link between ${source} and ${target}`);
 
     onMouseOverNode = () => {
         // Do something with the node identifier ...
@@ -47,11 +50,45 @@ export default class Sandbox extends React.Component {
         // Do something with the node identifier ...
     }
 
+    /**
+     * Pause ongoing animations.
+     */
     pauseGraphSimulation = () => this.refs.graph.pauseSimulation();
 
+    /**
+     * Play stopped animations.
+     */
     restartGraphSimulation = () => this.refs.graph.restartSimulation();
 
+    /**
+     * If you have moved nodes you will have them restore theire positions
+     * when you call resetNodesPositions.
+     */
     resetNodesPositions = () => this.refs.graph.resetNodesPositions();
+
+    /**
+     * Append a new node to VICTIM_ID (that is an id of an already existent node)
+     */
+    onClickAddNode = () => {
+        const newNode = `Node ${this.state.data.nodes.length}`;
+        this.state.data.nodes.push({id: newNode});
+        this.state.data.links.push({
+            source: newNode,
+            target: VICTIM_ID
+        });
+
+        this.setState({
+            data: this.state.data
+        });
+    }
+
+    /**
+     * ==============================================================
+     * The methods below (**besides render method) is Sandbox specific it will not
+     * be usefull in any way to your application in terms
+     * of integrating react-d3-graph in your app.
+     * ==============================================================
+     */
 
     _buildGraphConfig = (data) => {
         let config = {};
@@ -112,7 +149,7 @@ export default class Sandbox extends React.Component {
     render() {
         const graphProps = {
             id: 'graph',
-            data: JSON.parse(JSON.stringify(mock)),
+            data: this.state.data,
             config: this.state.config,
             onClickNode: this.onClickNode,
             onClickLink: this.onClickLink,
@@ -130,6 +167,7 @@ export default class Sandbox extends React.Component {
                     <button onClick={this.restartGraphSimulation} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
                     <button onClick={this.pauseGraphSimulation} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>⏸️</button>
                     <button onClick={this.resetNodesPositions} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
+                    <button onClick={this.onClickAddNode} className='btn btn-default' style={btnStyle}>+</button>
                     <Graph ref='graph' {...graphProps}/>
                 </div>
                 <div className='container__form'>
@@ -150,7 +188,7 @@ export default class Sandbox extends React.Component {
                 </div>
                 <div className='container__graph-data'>
                     <h4>Graph data</h4>
-                    <JSONContainer data={mock} staticData={true}/>
+                    <JSONContainer data={this.state.data} staticData={true}/>
                 </div>
             </div>
         );
