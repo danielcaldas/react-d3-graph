@@ -246,7 +246,7 @@ function initializeLinks(graphLinks) {
  */
 function initializeNodes(graphNodes) {
     let nodes = {};
-    let indexMapping = {};
+    let nodeIndexMapping = {};
     let index = 0;
 
     graphNodes.forEach(n => {
@@ -255,14 +255,14 @@ function initializeNodes(graphNodes) {
         if (!n.hasOwnProperty('y')) n['y'] = 0;
 
         nodes[n.id.toString()] = n;
-        indexMapping[index] = n.id;
+        nodeIndexMapping[index] = n.id;
 
         index++;
     });
 
     return {
         nodes,
-        indexMapping
+        nodeIndexMapping
     };
 }
 

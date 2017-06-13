@@ -86,7 +86,7 @@ export default class Graph extends React.Component {
     _onDragMove = (_, index) => {
         if (!this.state.config.staticGraph) {
             // This is where d3 and react bind
-            let draggedNode = this.state.nodes[this.indexMapping[index]];
+            let draggedNode = this.state.nodes[this.state.nodeIndexMapping[index]];
 
             draggedNode.x += d3.event.dx;
             draggedNode.y += d3.event.dy;
@@ -209,20 +209,23 @@ export default class Graph extends React.Component {
         }
 
         let graph = this.props.data || {};
+
         let config = Utils.merge(DEFAULT_CONFIG, this.props.config || {});
-        let {nodes, indexMapping} = GraphHelper.initializeNodes(graph.nodes);
+
+        let {nodes, nodeIndexMapping} = GraphHelper.initializeNodes(graph.nodes);
         let links = GraphHelper.initializeLinks(graph.links); // Matrix of graph connections
+        const {nodes: d3Nodes, links: d3Links} = graph;
 
         this.id = this.props.id.replace(/ /g, '_');
-        this.indexMapping = indexMapping;
         this.simulation = GraphHelper.createForceSimulation(config.width, config.height);
 
         this.state = {
             config,
+            nodeIndexMapping,
             links,
-            d3Links: graph.links,
+            d3Links,
             nodes,
-            d3Nodes: graph.nodes,
+            d3Nodes,
             nodeHighlighted: false
         };
     }
