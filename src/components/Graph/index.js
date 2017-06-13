@@ -176,7 +176,6 @@ export default class Graph extends React.Component {
      * This method resets all nodes fixed positions by deleting the properties fx (fixed x)
      * and fy (fixed y). Next a simulation is triggered in order to force nodes to go back
      * to their original positions (or at least new positions according to the d3 force parameters).
-     * @return {undefined}
      */
     resetNodesPositions = () => {
         if (!this.state.config.staticGraph) {
@@ -189,7 +188,7 @@ export default class Graph extends React.Component {
                 }
             }
 
-            // @todo: hardcoded alpha target
+            // @TODO: hardcoded alpha target
             this.simulation.alphaTarget(0.08).restart();
 
             this.setState(this.state || {});
@@ -218,14 +217,12 @@ export default class Graph extends React.Component {
         this.indexMapping = indexMapping;
         this.simulation = GraphHelper.createForceSimulation(config.width, config.height);
 
-        // Disposable once component is mounted
-        this.links = graph.links;
-        this.nodes = graph.nodes;
-
         this.state = {
             config,
             links,
+            d3Links: graph.links,
             nodes,
+            d3Nodes: graph.nodes,
             nodeHighlighted: false
         };
     }
@@ -242,9 +239,9 @@ export default class Graph extends React.Component {
 
     componentDidMount() {
         if (!this.state.config.staticGraph) {
-            this.simulation.nodes(this.nodes).on('tick', this._tick);
+            this.simulation.nodes(this.state.d3Nodes).on('tick', this._tick);
 
-            const forceLink = d3.forceLink(this.links)
+            const forceLink = d3.forceLink(this.state.d3Links)
                                 .id(l => l.id)
                                 .distance(CONST.LINK_IDEAL_DISTANCE)
                                 .strength(1);

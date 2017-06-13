@@ -228,7 +228,7 @@ function initializeLinks(graphLinks) {
             links[l.target] = {};
         }
 
-        // @todo: If the graph is directed this should be adapted
+        // @TODO: If the graph is directed this should be adapted
         links[l.source][l.target] = links[l.target][l.source] = l.value || 1;
     });
 
