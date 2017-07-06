@@ -201,14 +201,8 @@ export default class Graph extends React.Component {
      */
     restartSimulation = () => !this.state.config.staticGraph && this.state.simulation.restart();
 
-    constructor(props) {
-        super(props);
-
-        if (!this.props.id) {
-            throw Utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
-        }
-
-        let graph = this.props.data || {};
+    _initializeGraphState(data) {
+        let graph = data || {};
 
         let config = Utils.merge(DEFAULT_CONFIG, this.props.config || {});
 
@@ -219,7 +213,7 @@ export default class Graph extends React.Component {
         const id = this.props.id.replace(/ /g, '_');
         const simulation = GraphHelper.createForceSimulation(config.width, config.height);
 
-        this.state = {
+        return {
             id,
             config,
             nodeIndexMapping,
@@ -228,37 +222,63 @@ export default class Graph extends React.Component {
             nodes,
             d3Nodes,
             nodeHighlighted: false,
-            simulation
+            simulation,
+            graphDataChanged: false
         };
+    }
+
+    constructor(props) {
+        super(props);
+
+        if (!this.props.id) {
+            throw Utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
+        }
+
+        this.state = this._initializeGraphState(this.props.data);
     }
 
     componentWillReceiveProps(nextProps) {
         const config = Utils.merge(DEFAULT_CONFIG, nextProps.config || {});
 
+        // check whether new configs has been passed
         if (!Utils.isEqual(this.state.config, config)) {
             this.setState({
                 config
             });
         }
+
+        // check whether new data has been passed
+        if (!Utils.isEqual({nodes: this.props.data.nodes, graph: this.props.data.links}, nextProps.data)) {
+            const state = this._initializeGraphState(nextProps.data);
+
+            this.setState({
+                ...state,
+                graphDataChanged: true
+            });
+        }
+    }
+
+    _graphForcesConfig() {
+        this.state.simulation.nodes(this.state.d3Nodes).on('tick', this._tick);
+
+        const forceLink = d3.forceLink(this.state.d3Links)
+                            .id(l => l.id)
+                            .distance(CONST.LINK_IDEAL_DISTANCE)
+                            .strength(1);
+
+        this.state.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
+
+        const customNodeDrag = d3.drag()
+                                .on('start', this._onDragStart)
+                                .on('drag', this._onDragMove)
+                                .on('end', this._onDragEnd);
+
+        d3.select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
     }
 
     componentDidMount() {
         if (!this.state.config.staticGraph) {
-            this.state.simulation.nodes(this.state.d3Nodes).on('tick', this._tick);
-
-            const forceLink = d3.forceLink(this.state.d3Links)
-                                .id(l => l.id)
-                                .distance(CONST.LINK_IDEAL_DISTANCE)
-                                .strength(1);
-
-            this.state.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
-
-            const customNodeDrag = d3.drag()
-                                    .on('start', this._onDragStart)
-                                    .on('drag', this._onDragMove)
-                                    .on('end', this._onDragEnd);
-
-            d3.select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
+            this._graphForcesConfig();
         }
 
         // Graph zoom and drag&drop all network
@@ -271,6 +291,10 @@ export default class Graph extends React.Component {
 
         // If the property staticGraph was activated we want to stop possible ongoing simulation
         this.state.config.staticGraph && this.state.simulation.stop();
+
+        if (!this.state.config.staticGraph && this.state.graphDataChanged) {
+            this._graphForcesConfig();
+        }
     }
 
     render() {
