@@ -227,6 +227,27 @@ export default class Graph extends React.Component {
         };
     }
 
+    /**
+     * Sets d3 tick function and configures other d3 stuff such as forces and drag events.
+     */
+    _graphForcesConfig() {
+        this.state.simulation.nodes(this.state.d3Nodes).on('tick', this._tick);
+
+        const forceLink = d3.forceLink(this.state.d3Links)
+                            .id(l => l.id)
+                            .distance(CONST.LINK_IDEAL_DISTANCE)
+                            .strength(1);
+
+        this.state.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
+
+        const customNodeDrag = d3.drag()
+                                .on('start', this._onDragStart)
+                                .on('drag', this._onDragMove)
+                                .on('end', this._onDragEnd);
+
+        d3.select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
+    }
+
     constructor(props) {
         super(props);
 
@@ -258,33 +279,6 @@ export default class Graph extends React.Component {
         }
     }
 
-    _graphForcesConfig() {
-        this.state.simulation.nodes(this.state.d3Nodes).on('tick', this._tick);
-
-        const forceLink = d3.forceLink(this.state.d3Links)
-                            .id(l => l.id)
-                            .distance(CONST.LINK_IDEAL_DISTANCE)
-                            .strength(1);
-
-        this.state.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
-
-        const customNodeDrag = d3.drag()
-                                .on('start', this._onDragStart)
-                                .on('drag', this._onDragMove)
-                                .on('end', this._onDragEnd);
-
-        d3.select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
-    }
-
-    componentDidMount() {
-        if (!this.state.config.staticGraph) {
-            this._graphForcesConfig();
-        }
-
-        // Graph zoom and drag&drop all network
-        this._zoomConfig();
-    }
-
     componentDidUpdate() {
         // If some zoom config changed we want to apply possible new values for maxZoom and minZoom
         this._zoomConfig();
@@ -295,6 +289,15 @@ export default class Graph extends React.Component {
         if (!this.state.config.staticGraph && this.state.graphDataChanged) {
             this._graphForcesConfig();
         }
+    }
+
+    componentDidMount() {
+        if (!this.state.config.staticGraph) {
+            this._graphForcesConfig();
+        }
+
+        // Graph zoom and drag&drop all network
+        this._zoomConfig();
     }
 
     render() {
