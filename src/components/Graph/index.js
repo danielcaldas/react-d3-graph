@@ -266,24 +266,14 @@ export default class Graph extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        const state = this._initializeGraphState(nextProps.data);
         const config = Utils.merge(DEFAULT_CONFIG, nextProps.config || {});
 
-        // check whether new configs has been passed
-        if (!Utils.isEqual(this.state.config, config)) {
-            this.setState({
-                config
-            });
-        }
-
-        // check whether new data has been passed
-        if (!Utils.isEqual({nodes: this.props.data.nodes, graph: this.props.data.links}, nextProps.data)) {
-            const state = this._initializeGraphState(nextProps.data);
-
-            this.setState({
-                ...state,
-                graphDataChanged: true
-            });
-        }
+        this.setState({
+            ...state,
+            config,
+            graphDataChanged: true
+        });
     }
 
     componentDidUpdate() {
