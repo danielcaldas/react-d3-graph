@@ -6,7 +6,7 @@ import './styles.css';
 
 import defaultConfig from '../src/components/Graph/config';
 import { Graph } from '../src';
-import mock from './miserables';
+import data from './data';
 import Utils from './utils';
 import ReactD3GraphUtils from  '../src/utils';
 
@@ -31,13 +31,14 @@ export default class Sandbox extends React.Component {
         this.state = {
             config: defaultConfig,
             generatedConfig: {},
-            schema
+            schema,
+            data
         };
     }
 
-    onClickNode = (id) => window.alert(`clicked node ${id}`);
+    onClickNode = (id) => window.alert(`Clicked node ${id}`);
 
-    onClickLink = (source, target) => window.alert(`clicked link between ${source} and ${target}`);
+    onClickLink = (source, target) => window.alert(`Clicked link between ${source} and ${target}`);
 
     onMouseOverNode = () => {
         // Do something with the node identifier ...
@@ -47,11 +48,77 @@ export default class Sandbox extends React.Component {
         // Do something with the node identifier ...
     }
 
+    /**
+     * Pause ongoing animations.
+     */
     pauseGraphSimulation = () => this.refs.graph.pauseSimulation();
 
+    /**
+     * Play stopped animations.
+     */
     restartGraphSimulation = () => this.refs.graph.restartSimulation();
 
+    /**
+     * If you have moved nodes you will have them restore theire positions
+     * when you call resetNodesPositions.
+     */
     resetNodesPositions = () => this.refs.graph.resetNodesPositions();
+
+    /**
+     * Append a new node.
+     */
+    onClickAddNode = () => {
+        if (this.state.data.nodes && this.state.data.nodes.length) {
+            const maxIndex = this.state.data.nodes.length - 1;
+            const minIndex = 0;
+            const i = Math.floor(Math.random() * (maxIndex - minIndex + 1) + minIndex);
+            const id = this.state.data.nodes[i].id;
+            const newNode = `Node ${this.state.data.nodes.length}`;
+
+            this.state.data.nodes.push({id: newNode});
+            this.state.data.links.push({
+                source: newNode,
+                target: id
+            });
+
+            this.setState({
+                data: this.state.data
+            });
+        } else {
+            // 1st node
+            this.setState({
+                nodes: [
+                    {id: 'Node 1'}
+                ]
+            });
+        }
+    }
+
+    /**
+     * Remove a node
+     */
+    onClickRemoveNode = () => {
+        if (this.state.data.nodes && this.state.data.nodes.length) {
+            const id = this.state.data.nodes[0].id;
+            const nodes = this.state.data.nodes.splice(0, 1);
+            const links = this.state.data.links.filter(l => l.source !== id && l.target !== id);
+
+            this.setState({
+                nodes,
+                links
+            });
+        } else {
+            alert('No more nodes to remove!');
+        }
+    }
+
+    /**
+     * ==============================================================
+     * The methods below (**besides render method) is Sandbox specific it will not
+     * be usefull in any way to your application in terms
+     * of integrating react-d3-graph in your app.
+     * ==============================================================
+     */
 
     _buildGraphConfig = (data) => {
         let config = {};
@@ -112,7 +179,7 @@ export default class Sandbox extends React.Component {
     render() {
         const graphProps = {
             id: 'graph',
-            data: JSON.parse(JSON.stringify(mock)),
+            data: this.state.data,
             config: this.state.config,
             onClickNode: this.onClickNode,
             onClickLink: this.onClickLink,
@@ -130,6 +197,8 @@ export default class Sandbox extends React.Component {
                     <button onClick={this.restartGraphSimulation} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
                     <button onClick={this.pauseGraphSimulation} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>⏸️</button>
                     <button onClick={this.resetNodesPositions} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
+                    <button onClick={this.onClickAddNode} className='btn btn-default' style={btnStyle}>+</button>
+                    <button onClick={this.onClickRemoveNode} className='btn btn-default' style={btnStyle}>-</button>
                     <Graph ref='graph' {...graphProps}/>
                 </div>
                 <div className='container__form'>
@@ -149,8 +218,8 @@ export default class Sandbox extends React.Component {
                     <JSONContainer data={this.state.generatedConfig} staticData={false} />
                 </div>
                 <div className='container__graph-data'>
-                    <h4>Graph data</h4>
-                    <JSONContainer data={mock} staticData={true}/>
+                    <h4>Initial Graph data</h4>
+                    <JSONContainer data={this.state.data} staticData={true}/>
                 </div>
             </div>
         );

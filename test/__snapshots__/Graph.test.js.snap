@@ -606,7 +606,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -634,7 +634,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -662,7 +662,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -690,7 +690,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -718,7 +718,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -746,7 +746,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -774,7 +774,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -802,7 +802,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -830,7 +830,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -858,7 +858,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -886,7 +886,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -914,7 +914,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -942,7 +942,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -970,7 +970,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -998,7 +998,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -1026,7 +1026,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -1054,7 +1054,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -1082,7 +1082,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -1110,7 +1110,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >
@@ -1138,7 +1138,7 @@ exports[`Graph Component should be properly rendered 1`] = `
         <text
           dx=".90em"
           dy=".35em"
-          fontSize={10}
+          fontSize={8}
           fontWeight="normal"
           opacity={1}
         >

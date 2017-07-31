@@ -220,16 +220,19 @@ function initializeLinks(graphLinks) {
     let links = {};
 
     graphLinks.forEach(l => {
-        if (!links[l.source]) {
-            links[l.source] = {};
+        const source = l.source.id || l.source;
+        const target = l.target.id || l.target;
+
+        if (!links[source]) {
+            links[source] = {};
         }
 
-        if (!links[l.target]) {
-            links[l.target] = {};
+        if (!links[target]) {
+            links[target] = {};
         }
 
-        // @todo: If the graph is directed this should be adapted
-        links[l.source][l.target] = links[l.target][l.source] = l.value || 1;
+        // @TODO: If the graph is directed this should be adapted
+        links[source][target] = links[target][source] = l.value || 1;
     });
 
     return links;
@@ -246,7 +249,7 @@ function initializeLinks(graphLinks) {
  */
 function initializeNodes(graphNodes) {
     let nodes = {};
-    let indexMapping = {};
+    let nodeIndexMapping = {};
     let index = 0;
 
     graphNodes.forEach(n => {
@@ -255,14 +258,14 @@ function initializeNodes(graphNodes) {
         if (!n.hasOwnProperty('y')) n['y'] = 0;
 
         nodes[n.id.toString()] = n;
-        indexMapping[index] = n.id;
+        nodeIndexMapping[index] = n.id;
 
         index++;
     });
 
     return {
         nodes,
-        indexMapping
+        nodeIndexMapping
     };
 }
 

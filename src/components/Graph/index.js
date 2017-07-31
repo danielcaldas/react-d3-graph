@@ -75,7 +75,7 @@ export default class Graph extends React.Component {
      */
     _onDragEnd = () => !this.state.config.staticGraph
                         && this.state.config.automaticRearrangeAfterDropNode
-                        && this.simulation.alphaTarget(0.05).restart();
+                        && this.state.simulation.alphaTarget(0.05).restart();
 
     /**
      * Handles d3 'drag' event.
@@ -86,7 +86,7 @@ export default class Graph extends React.Component {
     _onDragMove = (_, index) => {
         if (!this.state.config.staticGraph) {
             // This is where d3 and react bind
-            let draggedNode = this.state.nodes[this.indexMapping[index]];
+            let draggedNode = this.state.nodes[this.state.nodeIndexMapping[index]];
 
             draggedNode.x += d3.event.dx;
             draggedNode.y += d3.event.dy;
@@ -102,7 +102,7 @@ export default class Graph extends React.Component {
     /**
      * Handles d3 drag 'start' event.
      */
-    _onDragStart = () => !this.state.config.staticGraph && this.simulation.stop();
+    _onDragStart = () => !this.state.config.staticGraph && this.state.simulation.stop();
 
     /**
      * Sets nodes and links highlighted value.
@@ -134,7 +134,7 @@ export default class Graph extends React.Component {
      * {@link https://github.com/d3/d3-zoom#zoom}
      * @return {undefined}
      */
-    _zoomConfig = () => d3.select(`#${this.id}-${CONST.GRAPH_WRAPPER_ID}`)
+    _zoomConfig = () => d3.select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`)
                             .call(d3.zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
                             .on('zoom', this._zoomed));
 
@@ -142,7 +142,7 @@ export default class Graph extends React.Component {
      * Handler for 'zoom' event within zoom config.
      * @return {Object} returns the transformed elements within the svg graph area.
      */
-    _zoomed = () => d3.selectAll(`#${this.id}-${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
+    _zoomed = () => d3.selectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
 
     /**
      * Handles mouse out node event.
@@ -170,13 +170,12 @@ export default class Graph extends React.Component {
     * Calls d3 simulation.stop().<br/>
     * {@link https://github.com/d3/d3-force#simulation_stop}
     */
-    pauseSimulation = () => !this.state.config.staticGraph && this.simulation.stop();
+    pauseSimulation = () => !this.state.config.staticGraph && this.state.simulation.stop();
 
     /**
      * This method resets all nodes fixed positions by deleting the properties fx (fixed x)
      * and fy (fixed y). Next a simulation is triggered in order to force nodes to go back
      * to their original positions (or at least new positions according to the d3 force parameters).
-     * @return {undefined}
      */
     resetNodesPositions = () => {
         if (!this.state.config.staticGraph) {
@@ -189,8 +188,8 @@ export default class Graph extends React.Component {
                 }
             }
 
-            // @todo: hardcoded alpha target
-            this.simulation.alphaTarget(0.08).restart();
+            // @TODO: hardcoded alpha target
+            this.state.simulation.alphaTarget(0.08).restart();
 
             this.setState(this.state || {});
         }
@@ -200,7 +199,61 @@ export default class Graph extends React.Component {
      * Calls d3 simulation.restart().<br/>
      * {@link https://github.com/d3/d3-force#simulation_restart}
      */
-    restartSimulation = () => !this.state.config.staticGraph && this.simulation.restart();
+    restartSimulation = () => !this.state.config.staticGraph && this.state.simulation.restart();
+
+    /**
+     * Incapsulates common procedures to initialize graph.
+     * @param  {Object} data
+     * @param {Array.<Object>} data.nodes - nodes of the graph to be created.
+     * @param {Array.<Object>} data.links - links that connect data.nodes.
+     * @returns {Object}
+     */
+    _initializeGraphState(data) {
+        let graph = data || {};
+
+        let config = Utils.merge(DEFAULT_CONFIG, this.props.config || {});
+
+        let {nodes, nodeIndexMapping} = GraphHelper.initializeNodes(graph.nodes);
+        let links = GraphHelper.initializeLinks(graph.links); // Matrix of graph connections
+        const {nodes: d3Nodes, links: d3Links} = graph;
+
+        const id = this.props.id.replace(/ /g, '_');
+        const simulation = GraphHelper.createForceSimulation(config.width, config.height);
+
+        return {
+            id,
+            config,
+            nodeIndexMapping,
+            links,
+            d3Links,
+            nodes,
+            d3Nodes,
+            nodeHighlighted: false,
+            simulation,
+            graphDataChanged: false
+        };
+    }
+
+    /**
+     * Sets d3 tick function and configures other d3 stuff such as forces and drag events.
+     */
+    _graphForcesConfig() {
+        this.state.simulation.nodes(this.state.d3Nodes).on('tick', this._tick);
+
+        const forceLink = d3.forceLink(this.state.d3Links)
+                            .id(l => l.id)
+                            .distance(CONST.LINK_IDEAL_DISTANCE)
+                            .strength(1);
+
+        this.state.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
+
+        const customNodeDrag = d3.drag()
+                                .on('start', this._onDragStart)
+                                .on('drag', this._onDragMove)
+                                .on('end', this._onDragEnd);
+
+        d3.select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
+    }
 
     constructor(props) {
         super(props);
@@ -209,61 +262,18 @@ export default class Graph extends React.Component {
             throw Utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
         }
 
-        let graph = this.props.data || {};
-        let config = Utils.merge(DEFAULT_CONFIG, this.props.config || {});
-        let {nodes, indexMapping} = GraphHelper.initializeNodes(graph.nodes);
-        let links = GraphHelper.initializeLinks(graph.links); // Matrix of graph connections
-
-        this.id = this.props.id.replace(/ /g, '_');
-        this.indexMapping = indexMapping;
-        this.simulation = GraphHelper.createForceSimulation(config.width, config.height);
-
-        // Disposable once component is mounted
-        this.links = graph.links;
-        this.nodes = graph.nodes;
-
-        this.state = {
-            config,
-            links,
-            nodes,
-            nodeHighlighted: false
-        };
+        this.state = this._initializeGraphState(this.props.data);
     }
 
     componentWillReceiveProps(nextProps) {
+        const state = this._initializeGraphState(nextProps.data);
         const config = Utils.merge(DEFAULT_CONFIG, nextProps.config || {});
 
-        if (!Utils.isEqual(this.state.config, config)) {
-            this.setState({
-                config
-            });
-        }
-    }
-
-    componentDidMount() {
-        if (!this.state.config.staticGraph) {
-            this.simulation.nodes(this.nodes).on('tick', this._tick);
-
-            const forceLink = d3.forceLink(this.links)
-                                .id(l => l.id)
-                                .distance(CONST.LINK_IDEAL_DISTANCE)
-                                .strength(1);
-
-            this.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
-
-            const customNodeDrag = d3.drag()
-                                    .on('start', this._onDragStart)
-                                    .on('drag', this._onDragMove)
-                                    .on('end', this._onDragEnd);
-
-            d3.select(`#${this.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
-        }
-
-        // Graph zoom and drag&drop all network
-        this._zoomConfig();
-
-        Reflect.deleteProperty(this, 'nodes');
-        Reflect.deleteProperty(this, 'links');
+        this.setState({
+            ...state,
+            config,
+            graphDataChanged: true
+        });
     }
 
     componentDidUpdate() {
@@ -271,7 +281,21 @@ export default class Graph extends React.Component {
         this._zoomConfig();
 
         // If the property staticGraph was activated we want to stop possible ongoing simulation
-        this.state.config.staticGraph && this.simulation.stop();
+        this.state.config.staticGraph && this.state.simulation.stop();
+
+        if (!this.state.config.staticGraph && this.state.graphDataChanged) {
+            this._graphForcesConfig();
+            this.state.graphDataChanged = false;
+        }
+    }
+
+    componentDidMount() {
+        if (!this.state.config.staticGraph) {
+            this._graphForcesConfig();
+        }
+
+        // Graph zoom and drag&drop all network
+        this._zoomConfig();
     }
 
     render() {
@@ -294,9 +318,9 @@ export default class Graph extends React.Component {
         };
 
         return (
-            <div id={`${this.id}-${CONST.GRAPH_WRAPPER_ID}`}>
+            <div id={`${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`}>
                 <svg style={svgStyle}>
-                    <g id={`${this.id}-${CONST.GRAPH_CONTAINER_ID}`}>
+                    <g id={`${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`}>
                         {links}
                         {nodes}
                     </g>
