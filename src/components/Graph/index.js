@@ -201,6 +201,13 @@ export default class Graph extends React.Component {
      */
     restartSimulation = () => !this.state.config.staticGraph && this.state.simulation.restart();
 
+    /**
+     * Incapsulates common procedures to initialize graph.
+     * @param  {Object} data
+     * @param {Array.<Object>} data.nodes - nodes of the graph to be created.
+     * @param {Array.<Object>} data.links - links that connect data.nodes.
+     * @returns {Object}
+     */
     _initializeGraphState(data) {
         let graph = data || {};
 
