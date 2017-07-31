@@ -83,22 +83,6 @@ const onClickLink = function(source, target) {
      onMouseOutNode={onMouseOutNode} />
 ```
 
-## TODOs
-This consists in a list of ideas for further developments:
-- Expose a graph property **background-color** that is applied to the svg graph container;
-- Expose d3-force values as configurable such as **alphaTarget** simulation value;
-- Improve opacity/highlightBehavior strategy maybe use a global *background: rgba(...)* value and then set a higher
-value on selected nodes;
-- At the moment highlightBehavior is highlighting the mouse hovered node, its 1st degree connections and their 1st
-degree connections. Make **highlightBehaviorDegree** which consists in a *step value* on the depth that we wish to highlight;
-- Semantic node size. Have a property value in each node that then is used along side config.nodeSize property
-to calculate effective node size in run time;
-- Improve semanticStrokeWidth calculation;
-- On Graph instantiation do a check on all config properties. If there is a "bad property" (name or value) throw
-a custom error (property error checking);
-- Path highlight - highlight a certain set of links and nodes (use case: highlight shortest path between two given nodes);
-- Link mouseover with highlight behavior highlights the intervenient nodes.
-
 ## Contributions
 Contributions are welcome fell free to submit new features or simply grab something from
 the above TODO list.
