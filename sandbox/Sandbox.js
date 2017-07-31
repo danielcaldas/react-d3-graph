@@ -10,8 +10,6 @@ import data from './data';
 import Utils from './utils';
 import ReactD3GraphUtils from  '../src/utils';
 
-const VICTIM_ID = 'Drone';
-
 export default class Sandbox extends React.Component {
     constructor(props) {
         super(props);
@@ -67,19 +65,51 @@ export default class Sandbox extends React.Component {
     resetNodesPositions = () => this.refs.graph.resetNodesPositions();
 
     /**
-     * Append a new node to VICTIM_ID (that is an id of an already existent node)
+     * Append a new node.
      */
     onClickAddNode = () => {
-        const newNode = `Node ${this.state.data.nodes.length}`;
-        this.state.data.nodes.push({id: newNode});
-        this.state.data.links.push({
-            source: newNode,
-            target: VICTIM_ID
-        });
+        if (this.state.data.nodes && this.state.data.nodes.length) {
+            const maxIndex = this.state.data.nodes.length - 1;
+            const minIndex = 0;
+            const i = Math.floor(Math.random() * (maxIndex - minIndex + 1) + minIndex);
+            const id = this.state.data.nodes[i].id;
+            const newNode = `Node ${this.state.data.nodes.length}`;
 
-        this.setState({
-            data: this.state.data
-        });
+            this.state.data.nodes.push({id: newNode});
+            this.state.data.links.push({
+                source: newNode,
+                target: id
+            });
+
+            this.setState({
+                data: this.state.data
+            });
+        } else {
+            // 1st node
+            this.setState({
+                nodes: [
+                    {id: 'Node 1'}
+                ]
+            });
+        }
+    }
+
+    /**
+     * Remove a node
+     */
+    onClickRemoveNode = () => {
+        if (this.state.data.nodes && this.state.data.nodes.length) {
+            const id = this.state.data.nodes[0].id;
+            const nodes = this.state.data.nodes.splice(0, 1);
+            const links = this.state.data.links.filter(l => l.source !== id && l.target !== id);
+
+            this.setState({
+                nodes,
+                links
+            });
+        } else {
+            alert('No more nodes to remove!');
+        }
     }
 
     /**
@@ -168,6 +198,7 @@ export default class Sandbox extends React.Component {
                     <button onClick={this.pauseGraphSimulation} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>⏸️</button>
                     <button onClick={this.resetNodesPositions} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
                     <button onClick={this.onClickAddNode} className='btn btn-default' style={btnStyle}>+</button>
+                    <button onClick={this.onClickRemoveNode} className='btn btn-default' style={btnStyle}>-</button>
                     <Graph ref='graph' {...graphProps}/>
                 </div>
                 <div className='container__form'>
@@ -187,7 +218,7 @@ export default class Sandbox extends React.Component {
                     <JSONContainer data={this.state.generatedConfig} staticData={false} />
                 </div>
                 <div className='container__graph-data'>
-                    <h4>Graph data</h4>
+                    <h4>Initial Graph data</h4>
                     <JSONContainer data={this.state.data} staticData={true}/>
                 </div>
             </div>
