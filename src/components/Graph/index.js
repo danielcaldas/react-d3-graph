@@ -285,6 +285,7 @@ export default class Graph extends React.Component {
 
         if (!this.state.config.staticGraph && this.state.graphDataChanged) {
             this._graphForcesConfig();
+            this.state.graphDataChanged = false;
         }
     }
 
