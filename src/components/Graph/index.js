@@ -280,15 +280,13 @@ export default class Graph extends React.Component {
     }
 
     componentDidUpdate() {
-        // If some zoom config changed we want to apply possible new values for maxZoom and minZoom
-        this._zoomConfig();
-
         // If the property staticGraph was activated we want to stop possible ongoing simulation
         this.state.config.staticGraph && this.state.simulation.stop();
 
         if (!this.state.config.staticGraph && this.state.propsUpdated) {
-            this._graphForcesConfig();
             this.state.propsUpdated = false;
+            this._zoomConfig();
+            this._graphForcesConfig();
             this.restartSimulation();
         }
     }
