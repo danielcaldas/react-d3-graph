@@ -230,7 +230,7 @@ export default class Graph extends React.Component {
             d3Nodes,
             nodeHighlighted: false,
             simulation,
-            graphDataChanged: false
+            propsUpdated: false
         };
     }
 
@@ -269,10 +269,13 @@ export default class Graph extends React.Component {
         const state = this._initializeGraphState(nextProps.data);
         const config = Utils.merge(DEFAULT_CONFIG, nextProps.config || {});
 
+        // In order to properly update graph data we need to pause eventual d3 ongoing animations
+        this.pauseSimulation();
+
         this.setState({
             ...state,
             config,
-            graphDataChanged: true
+            propsUpdated: true
         });
     }
 
@@ -283,10 +286,10 @@ export default class Graph extends React.Component {
         // If the property staticGraph was activated we want to stop possible ongoing simulation
         this.state.config.staticGraph && this.state.simulation.stop();
 
-        if (!this.state.config.staticGraph && this.state.graphDataChanged) {
+        if (!this.state.config.staticGraph && this.state.propsUpdated) {
             this._graphForcesConfig();
-            // FIXME: Do not call graphForcesConfig inside componentDidUpdate
-            this.state.graphDataChanged = false;
+            this.state.propsUpdated = false;
+            this.restartSimulation();
         }
     }
 
