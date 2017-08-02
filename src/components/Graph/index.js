@@ -209,9 +209,12 @@ export default class Graph extends React.Component {
      * @returns {Object}
      */
     _initializeGraphState(data) {
-        let graph = data || {};
+        let graph = {
+            nodes: data.nodes.map(n => Object.assign({}, n)),
+            links: data.links.map(l => Object.assign({}, l))
+        } || {};
 
-        let config = Utils.merge(DEFAULT_CONFIG, this.props.config || {});
+        let config = Object.assign({}, Utils.merge(DEFAULT_CONFIG, this.props.config || {}));
 
         let {nodes, nodeIndexMapping} = GraphHelper.initializeNodes(graph.nodes);
         let links = GraphHelper.initializeLinks(graph.links); // Matrix of graph connections
@@ -230,7 +233,7 @@ export default class Graph extends React.Component {
             d3Nodes,
             nodeHighlighted: false,
             simulation,
-            graphDataUpdated: false,
+            newGraphElements: false,
             configUpdated: false
         };
     }
@@ -267,18 +270,23 @@ export default class Graph extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const state = this._initializeGraphState(nextProps.data);
+        const newGraphElements = nextProps.data.nodes.length !== this.state.d3Nodes.length || nextProps.data.links.length !== this.state.d3Links.length;
+
+        if (newGraphElements && nextProps.config.staticGraph) {
+            throw Utils.throwErr(this.constructor.name, ERRORS.STATIC_GRAPH_DATA_UPDATE);
+        }
+
         const configUpdated = Utils.isDeepEqual(nextProps.config, this.state.config);
+        const state = newGraphElements ? this._initializeGraphState(nextProps.data) : this.state;
         const config = Utils.merge(DEFAULT_CONFIG, nextProps.config || {});
 
         // In order to properly update graph data we need to pause eventual d3 ongoing animations
-        this.pauseSimulation();
+        newGraphElements && this.pauseSimulation();
 
         this.setState({
             ...state,
             config,
-            // @TODO: Check for graph data updates
-            graphDataUpdated: true,
+            newGraphElements,
             configUpdated
         });
     }
@@ -287,10 +295,10 @@ export default class Graph extends React.Component {
         // If the property staticGraph was activated we want to stop possible ongoing simulation
         this.state.config.staticGraph && this.state.simulation.stop();
 
-        if (!this.state.config.staticGraph && this.state.graphDataUpdated) {
+        if (!this.state.config.staticGraph && this.state.newGraphElements) {
             this._graphForcesConfig();
             this.restartSimulation();
-            this.state.graphDataUpdated = false;
+            this.state.newGraphElements = false;
         }
 
         if (this.state.configUpdated) {
