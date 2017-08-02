@@ -228,7 +228,7 @@ export default class Sandbox extends React.Component {
 
 class JSONContainer extends React.Component {
     shouldComponentUpdate(nextProps, nextState) {
-        return !this.props.staticData && !ReactD3GraphUtils.isEqual(nextProps.data, this.props.data);
+        return !this.props.staticData && !ReactD3GraphUtils.isDeepEqual(nextProps.data, this.props.data);
     }
 
     render() {
