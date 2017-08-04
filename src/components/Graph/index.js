@@ -209,10 +209,20 @@ export default class Graph extends React.Component {
      * @returns {Object}
      */
     _initializeGraphState(data) {
-        let graph = {
-            nodes: data.nodes.map(n => Object.assign({}, n)),
-            links: data.links.map(l => Object.assign({}, l))
-        } || {};
+        let graph;
+
+        if (this.state && this.state.nodes && this.state.links && this.state.nodeIndexMapping) {
+            // absorve existent positining
+            graph = {
+                nodes: data.nodes.map(n => Object.assign({}, n, this.state.nodes[n.id])),
+                links: data.links.map(l => Object.assign({}, l, this.state.links[l.id]))
+            };
+        } else {
+            graph = {
+                nodes: data.nodes.map(n => Object.assign({}, n)),
+                links: data.links.map(l => Object.assign({}, l))
+            };
+        }
 
         let config = Object.assign({}, Utils.merge(DEFAULT_CONFIG, this.props.config || {}));
 
@@ -270,7 +280,8 @@ export default class Graph extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const newGraphElements = nextProps.data.nodes.length !== this.state.d3Nodes.length || nextProps.data.links.length !== this.state.d3Links.length;
+        const newGraphElements = nextProps.data.nodes.length !== this.state.d3Nodes.length
+                              || nextProps.data.links.length !== this.state.d3Links.length;
 
         if (newGraphElements && nextProps.config.staticGraph) {
             throw Utils.throwErr(this.constructor.name, ERRORS.STATIC_GRAPH_DATA_UPDATE);
