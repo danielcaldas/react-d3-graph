@@ -5,7 +5,7 @@
  * that are common across rd3g such as error logging.
  */
 
-// This variable assures that recursive methods such as merge and isEqual do not fall on
+// This variable assures that recursive methods such as merge and isDeepEqual do not fall on
 // circular JSON structure evaluation.
 const MAX_DEPTH = 5;
 
@@ -28,7 +28,7 @@ function _isPropertyNestedObject(o, k) {
  * @memberof utils
  * @return {boolean} returns true if o1 and o2 have exactly the same content, or are exactly the same object reference.
  */
-function isEqual(o1, o2, _depth=0) {
+function isDeepEqual(o1, o2, _depth=0) {
     let diffs = [];
 
     if (_depth === 0 && o1 === o2) {
@@ -43,7 +43,7 @@ function isEqual(o1, o2, _depth=0) {
         const nestedO = _isPropertyNestedObject(o1, k) && _isPropertyNestedObject(o2, k);
 
         if (nestedO && _depth < MAX_DEPTH) {
-            diffs.push(isEqual(o1[k], o2[k], _depth + 1));
+            diffs.push(isDeepEqual(o1[k], o2[k], _depth + 1));
         } else {
             const r = isObjectEmpty(o1[k]) && isObjectEmpty(o2[k]) || o2.hasOwnProperty(k) && o2[k] === o1[k];
 
@@ -70,6 +70,7 @@ function isObjectEmpty(o) {
 }
 
 /**
+ * @TODO: Support for arrays?
  * This function merges two objects o1 and o2, where o2 properties override existent o1 properties, and
  * if o2 doesn't posses some o1 property the function will fallback to the o1 property.
  * @param  {Object} o1 - object.
@@ -109,7 +110,7 @@ function throwErr(component, msg) {
 }
 
 export default {
-    isEqual,
+    isDeepEqual,
     isObjectEmpty,
     merge,
     throwErr

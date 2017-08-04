@@ -202,6 +202,21 @@ export default class Graph extends React.Component {
     restartSimulation = () => !this.state.config.staticGraph && this.state.simulation.restart();
 
     /**
+     * Some integraty validations on links and nodes structure.
+     * @param  {Object} data
+     */
+    _validateGraphData(data) {
+        data.links.forEach(l => {
+            if (!data.nodes.find(n => n.id === l.source)) {
+                Utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
+            }
+            if (!data.nodes.find(n => n.id === l.target)) {
+                Utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
+            }
+        });
+    }
+
+    /**
      * Incapsulates common procedures to initialize graph.
      * @param  {Object} data
      * @param {Array.<Object>} data.nodes - nodes of the graph to be created.
@@ -209,14 +224,29 @@ export default class Graph extends React.Component {
      * @returns {Object}
      */
     _initializeGraphState(data) {
-        let graph = data || {};
+        this._validateGraphData(data);
 
-        let config = Utils.merge(DEFAULT_CONFIG, this.props.config || {});
+        let graph;
 
+        if (this.state && this.state.nodes && this.state.links && this.state.nodeIndexMapping) {
+            // absorve existent positining
+            graph = {
+                nodes: data.nodes.map(n => Object.assign({}, n, this.state.nodes[n.id])),
+                links: {}
+            };
+        } else {
+            graph = {
+                nodes: data.nodes.map(n => Object.assign({}, n)),
+                links: {}
+            };
+        }
+
+        graph.links = data.links.map(l => Object.assign({}, l));
+
+        let config = Object.assign({}, Utils.merge(DEFAULT_CONFIG, this.props.config || {}));
         let {nodes, nodeIndexMapping} = GraphHelper.initializeNodes(graph.nodes);
         let links = GraphHelper.initializeLinks(graph.links); // Matrix of graph connections
         const {nodes: d3Nodes, links: d3Links} = graph;
-
         const id = this.props.id.replace(/ /g, '_');
         const simulation = GraphHelper.createForceSimulation(config.width, config.height);
 
@@ -230,7 +260,8 @@ export default class Graph extends React.Component {
             d3Nodes,
             nodeHighlighted: false,
             simulation,
-            graphDataChanged: false
+            newGraphElements: false,
+            configUpdated: false
         };
     }
 
@@ -259,33 +290,48 @@ export default class Graph extends React.Component {
         super(props);
 
         if (!this.props.id) {
-            throw Utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
+            Utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
         }
 
         this.state = this._initializeGraphState(this.props.data);
     }
 
     componentWillReceiveProps(nextProps) {
-        const state = this._initializeGraphState(nextProps.data);
+        const newGraphElements = nextProps.data.nodes.length !== this.state.d3Nodes.length
+                              || nextProps.data.links.length !== this.state.d3Links.length;
+
+        if (newGraphElements && nextProps.config.staticGraph) {
+            Utils.throwErr(this.constructor.name, ERRORS.STATIC_GRAPH_DATA_UPDATE);
+        }
+
+        const configUpdated = Utils.isDeepEqual(nextProps.config, this.state.config);
+        const state = newGraphElements ? this._initializeGraphState(nextProps.data) : this.state;
         const config = Utils.merge(DEFAULT_CONFIG, nextProps.config || {});
+
+        // In order to properly update graph data we need to pause eventual d3 ongoing animations
+        newGraphElements && this.pauseSimulation();
 
         this.setState({
             ...state,
             config,
-            graphDataChanged: true
+            newGraphElements,
+            configUpdated
         });
     }
 
     componentDidUpdate() {
-        // If some zoom config changed we want to apply possible new values for maxZoom and minZoom
-        this._zoomConfig();
-
         // If the property staticGraph was activated we want to stop possible ongoing simulation
         this.state.config.staticGraph && this.state.simulation.stop();
 
-        if (!this.state.config.staticGraph && this.state.graphDataChanged) {
+        if (!this.state.config.staticGraph && this.state.newGraphElements) {
             this._graphForcesConfig();
-            this.state.graphDataChanged = false;
+            this.restartSimulation();
+            this.state.newGraphElements = false;
+        }
+
+        if (this.state.configUpdated) {
+            this._zoomConfig();
+            this.state.configUpdated = false;
         }
     }
 

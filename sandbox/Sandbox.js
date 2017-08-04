@@ -86,11 +86,14 @@ export default class Sandbox extends React.Component {
             });
         } else {
             // 1st node
-            this.setState({
+            const data = {
                 nodes: [
                     {id: 'Node 1'}
-                ]
-            });
+                ],
+                links: []
+            };
+
+            this.setState({ data });
         }
     }
 
@@ -100,13 +103,11 @@ export default class Sandbox extends React.Component {
     onClickRemoveNode = () => {
         if (this.state.data.nodes && this.state.data.nodes.length) {
             const id = this.state.data.nodes[0].id;
-            const nodes = this.state.data.nodes.splice(0, 1);
+            this.state.data.nodes.splice(0, 1);
             const links = this.state.data.links.filter(l => l.source !== id && l.target !== id);
+            const data = { nodes: this.state.data.nodes, links };
 
-            this.setState({
-                nodes,
-                links
-            });
+            this.setState({ data });
         } else {
             alert('No more nodes to remove!');
         }
@@ -199,6 +200,7 @@ export default class Sandbox extends React.Component {
                     <button onClick={this.resetNodesPositions} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
                     <button onClick={this.onClickAddNode} className='btn btn-default' style={btnStyle}>+</button>
                     <button onClick={this.onClickRemoveNode} className='btn btn-default' style={btnStyle}>-</button>
+                    <br/><b>Nodes: </b> {this.state.data.nodes.length}, <b>Links: </b> {this.state.data.links.length}
                     <Graph ref='graph' {...graphProps}/>
                 </div>
                 <div className='container__form'>
@@ -228,7 +230,7 @@ export default class Sandbox extends React.Component {
 
 class JSONContainer extends React.Component {
     shouldComponentUpdate(nextProps, nextState) {
-        return !this.props.staticData && !ReactD3GraphUtils.isEqual(nextProps.data, this.props.data);
+        return !this.props.staticData && !ReactD3GraphUtils.isDeepEqual(nextProps.data, this.props.data);
     }
 
     render() {
