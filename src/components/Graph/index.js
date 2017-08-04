@@ -102,7 +102,7 @@ export default class Graph extends React.Component {
     /**
      * Handles d3 drag 'start' event.
      */
-    _onDragStart = () => !this.state.config.staticGraph && this.state.simulation.stop();
+    _onDragStart = () => this.pauseSimulation();
 
     /**
      * Sets nodes and links highlighted value.
