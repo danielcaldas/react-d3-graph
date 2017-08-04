@@ -202,6 +202,21 @@ export default class Graph extends React.Component {
     restartSimulation = () => !this.state.config.staticGraph && this.state.simulation.restart();
 
     /**
+     * Some integraty validations on links and nodes structure.
+     * @param  {Object} data
+     */
+    _validateGraphData(data) {
+        data.links.forEach(l => {
+            if (!data.nodes.find(n => n.id === l.source)) {
+                Utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
+            }
+            if (!data.nodes.find(n => n.id === l.target)) {
+                Utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
+            }
+        });
+    }
+
+    /**
      * Incapsulates common procedures to initialize graph.
      * @param  {Object} data
      * @param {Array.<Object>} data.nodes - nodes of the graph to be created.
@@ -209,27 +224,29 @@ export default class Graph extends React.Component {
      * @returns {Object}
      */
     _initializeGraphState(data) {
+        this._validateGraphData(data);
+
         let graph;
 
         if (this.state && this.state.nodes && this.state.links && this.state.nodeIndexMapping) {
             // absorve existent positining
             graph = {
                 nodes: data.nodes.map(n => Object.assign({}, n, this.state.nodes[n.id])),
-                links: data.links.map(l => Object.assign({}, l, this.state.links[l.id]))
+                links: {}
             };
         } else {
             graph = {
                 nodes: data.nodes.map(n => Object.assign({}, n)),
-                links: data.links.map(l => Object.assign({}, l))
+                links: {}
             };
         }
 
-        let config = Object.assign({}, Utils.merge(DEFAULT_CONFIG, this.props.config || {}));
+        graph.links = data.links.map(l => Object.assign({}, l));
 
+        let config = Object.assign({}, Utils.merge(DEFAULT_CONFIG, this.props.config || {}));
         let {nodes, nodeIndexMapping} = GraphHelper.initializeNodes(graph.nodes);
         let links = GraphHelper.initializeLinks(graph.links); // Matrix of graph connections
         const {nodes: d3Nodes, links: d3Links} = graph;
-
         const id = this.props.id.replace(/ /g, '_');
         const simulation = GraphHelper.createForceSimulation(config.width, config.height);
 
@@ -273,7 +290,7 @@ export default class Graph extends React.Component {
         super(props);
 
         if (!this.props.id) {
-            throw Utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
+            Utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
         }
 
         this.state = this._initializeGraphState(this.props.data);
@@ -284,7 +301,7 @@ export default class Graph extends React.Component {
                               || nextProps.data.links.length !== this.state.d3Links.length;
 
         if (newGraphElements && nextProps.config.staticGraph) {
-            throw Utils.throwErr(this.constructor.name, ERRORS.STATIC_GRAPH_DATA_UPDATE);
+            Utils.throwErr(this.constructor.name, ERRORS.STATIC_GRAPH_DATA_UPDATE);
         }
 
         const configUpdated = Utils.isDeepEqual(nextProps.config, this.state.config);

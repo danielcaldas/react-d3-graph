@@ -199,6 +199,7 @@ export default class Sandbox extends React.Component {
                     <button onClick={this.resetNodesPositions} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
                     <button onClick={this.onClickAddNode} className='btn btn-default' style={btnStyle}>+</button>
                     <button onClick={this.onClickRemoveNode} className='btn btn-default' style={btnStyle}>-</button>
+                    <br/><b>Nodes: </b> {this.state.data.nodes.length}, <b>Links: </b> {this.state.data.links.length}
                     <Graph ref='graph' {...graphProps}/>
                 </div>
                 <div className='container__form'>
