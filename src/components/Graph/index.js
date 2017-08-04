@@ -207,7 +207,7 @@ export default class Graph extends React.Component {
      */
     _validateGraphData(data) {
         data.links.forEach(l => {
-            if (!data.nodes.find(n => n.id === l.source)) {
+            if (!data.nodes.find(n => n.id === l.source)) {
                 Utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
             }
             if (!data.nodes.find(n => n.id === l.target)) {
@@ -300,7 +300,7 @@ export default class Graph extends React.Component {
         const newGraphElements = nextProps.data.nodes.length !== this.state.d3Nodes.length
                               || nextProps.data.links.length !== this.state.d3Links.length;
 
-        if (newGraphElements && nextProps.config.staticGraph) {
+        if (newGraphElements && nextProps.config.staticGraph) {
             Utils.throwErr(this.constructor.name, ERRORS.STATIC_GRAPH_DATA_UPDATE);
         }
 

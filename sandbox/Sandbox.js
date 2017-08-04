@@ -86,11 +86,14 @@ export default class Sandbox extends React.Component {
             });
         } else {
             // 1st node
-            this.setState({
+            const data = {
                 nodes: [
                     {id: 'Node 1'}
-                ]
-            });
+                ],
+                links: []
+            };
+
+            this.setState({ data });
         }
     }
 
@@ -100,13 +103,11 @@ export default class Sandbox extends React.Component {
     onClickRemoveNode = () => {
         if (this.state.data.nodes && this.state.data.nodes.length) {
             const id = this.state.data.nodes[0].id;
-            const nodes = this.state.data.nodes.splice(0, 1);
+            this.state.data.nodes.splice(0, 1);
             const links = this.state.data.links.filter(l => l.source !== id && l.target !== id);
+            const data = { nodes: this.state.data.nodes, links };
 
-            this.setState({
-                nodes,
-                links
-            });
+            this.setState({ data });
         } else {
             alert('No more nodes to remove!');
         }
