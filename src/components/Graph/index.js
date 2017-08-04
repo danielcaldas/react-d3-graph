@@ -102,7 +102,7 @@ export default class Graph extends React.Component {
     /**
      * Handles d3 drag 'start' event.
      */
-    _onDragStart = () => !this.state.config.staticGraph && this.state.simulation.stop();
+    _onDragStart = () => this.pauseSimulation();
 
     /**
      * Sets nodes and links highlighted value.
@@ -120,7 +120,7 @@ export default class Graph extends React.Component {
             });
         }
 
-        this.setState(this.state || {});
+        this._tick();
     }
 
     /**
@@ -191,7 +191,7 @@ export default class Graph extends React.Component {
             // @TODO: hardcoded alpha target
             this.state.simulation.alphaTarget(0.08).restart();
 
-            this.setState(this.state || {});
+            this._tick();
         }
     }
 
@@ -304,7 +304,7 @@ export default class Graph extends React.Component {
             Utils.throwErr(this.constructor.name, ERRORS.STATIC_GRAPH_DATA_UPDATE);
         }
 
-        const configUpdated = Utils.isDeepEqual(nextProps.config, this.state.config);
+        const configUpdated = !Utils.isDeepEqual(nextProps.config, this.state.config);
         const state = newGraphElements ? this._initializeGraphState(nextProps.data) : this.state;
         const config = Utils.merge(DEFAULT_CONFIG, nextProps.config || {});
 
