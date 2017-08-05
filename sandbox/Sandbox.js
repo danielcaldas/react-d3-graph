@@ -71,15 +71,21 @@ export default class Sandbox extends React.Component {
         if (this.state.data.nodes && this.state.data.nodes.length) {
             const maxIndex = this.state.data.nodes.length - 1;
             const minIndex = 0;
-            const i = Math.floor(Math.random() * (maxIndex - minIndex + 1) + minIndex);
-            const id = this.state.data.nodes[i].id;
+            let i = Math.floor(Math.random() * (maxIndex - minIndex + 1) + minIndex);
+            let nLinks = Math.floor(Math.random() * (5 - minIndex + 1) + minIndex);
             const newNode = `Node ${this.state.data.nodes.length}`;
 
             this.state.data.nodes.push({id: newNode});
-            this.state.data.links.push({
-                source: newNode,
-                target: id
-            });
+
+            while (this.state.data.nodes[i] && this.state.data.nodes[i].id && nLinks) {
+                this.state.data.links.push({
+                    source: newNode,
+                    target: this.state.data.nodes[i].id
+                });
+
+                i++;
+                nLinks--;
+            }
 
             this.setState({
                 data: this.state.data
