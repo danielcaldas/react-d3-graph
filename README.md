@@ -84,5 +84,4 @@ const onClickLink = function(source, target) {
 ```
 
 ## Contributions
-Contributions are welcome fell free to submit new features or simply grab something from
-the above TODO list.
+Contributions are welcome fell free to submit new ideas/features.
