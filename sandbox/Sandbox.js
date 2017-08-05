@@ -211,7 +211,13 @@ export default class Sandbox extends React.Component {
                     </div>
                 </div>
                 <div className='container__form'>
-                    <h4><a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">react-d3-graph</a> configurations </h4>
+                    <h4>
+                        <a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">react-d3-graph</a>
+                    </h4>
+                    <h4>
+                        <a href="https://danielcaldas.github.io/react-d3-graph/docs/index.html" target="_blank">docs</a>
+                    </h4>
+                    <h3>Configurations</h3>
                     <Form className='form-wrapper'
                         schema={this.state.schema}
                         uiSchema={this.uiSchema}
