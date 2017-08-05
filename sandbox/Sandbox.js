@@ -200,11 +200,15 @@ export default class Sandbox extends React.Component {
                     <button onClick={this.resetNodesPositions} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
                     <button onClick={this.onClickAddNode} className='btn btn-default' style={btnStyle}>+</button>
                     <button onClick={this.onClickRemoveNode} className='btn btn-default' style={btnStyle}>-</button>
-                    <br/><b>Nodes: </b> {this.state.data.nodes.length}, <b>Links: </b> {this.state.data.links.length}
-                    <Graph ref='graph' {...graphProps}/>
+                    <span className='container__graph-info'>
+                        <b>Nodes: </b> {this.state.data.nodes.length} | <b>Links: </b> {this.state.data.links.length}
+                    </span>
+                    <div className='container__graph-area'>
+                        <Graph ref='graph' {...graphProps}/>
+                    </div>
                 </div>
                 <div className='container__form'>
-                    <h4><a href="https://github.com/danielcaldas/react-d3-graph" target="_blank"><img width="40" height="40" src="https://a248.e.akamai.net/assets.github.com/images/icons/emoji/octocat.png"></img> react-d3-graph</a> configurations </h4>
+                    <h4><a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">react-d3-graph</a> configurations </h4>
                     <Form className='form-wrapper'
                         schema={this.state.schema}
                         uiSchema={this.uiSchema}
@@ -220,7 +224,7 @@ export default class Sandbox extends React.Component {
                     <JSONContainer data={this.state.generatedConfig} staticData={false} />
                 </div>
                 <div className='container__graph-data'>
-                    <h4>Initial Graph data</h4>
+                    <h4>Initial Graph Data</h4>
                     <JSONContainer data={this.state.data} staticData={true}/>
                 </div>
             </div>
