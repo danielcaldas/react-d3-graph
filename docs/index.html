@@ -3,7 +3,7 @@
 <head>
   <meta charset='utf-8' />
   <title>react-d3-graph | Documentation</title>
-  <meta name='viewport' content='wiodth=device-width,initial-scale=1'>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
   <link href='assets/github.css' type='text/css' rel='stylesheet' />
@@ -15,7 +15,7 @@
         <div class='py1 px2'>
           <h2>react-d3-graph</h2>
           <i class="icon-github"></i>
-          <h3 class='mb0 no-anchor'>v0.0.2</h3>
+          <h3 class='mb0 no-anchor'>v0.1.0</h3>
           <h3>Quick Links</h3>
           <h4><a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">GitHub Repo</a></h4>
           <h4><a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html" target="_blank">Live Demo</a></h4>
@@ -187,6 +187,24 @@
                         #restartSimulation
                       </a></li>
 
+                      <li><a
+                        href='#Graph#_validateGraphData'
+                        class='regular pre-open'>
+                        #_validateGraphData
+                      </a></li>
+
+                      <li><a
+                        href='#Graph#_initializeGraphState'
+                        class='regular pre-open'>
+                        #_initializeGraphState
+                      </a></li>
+
+                      <li><a
+                        href='#Graph#_graphForcesConfig'
+                        class='regular pre-open'>
+                        #_graphForcesConfig
+                      </a></li>
+
                     </ul>
 
 
@@ -313,9 +331,9 @@
                       </a></li>
 
                       <li><a
-                        href='#utilsisEqual'
+                        href='#utilsisDeepEqual'
                         class='regular pre-open'>
-                        .isEqual
+                        .isDeepEqual
                       </a></li>
 
                       <li><a
@@ -2282,14 +2300,6 @@ to their original positions (or at least new positions according to the d3 force
 
 
 
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
-
-
-
-
-
-
 
 
 
@@ -2321,6 +2331,205 @@ to their original positions (or at least new positions according to the d3 force
 
 
   <div class='pre p1 fill-light mt0'>restartSimulation</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#_validateGraphData'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_validateGraphData(data)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Some integraty validations on links and nodes structure.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_validateGraphData(data: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>data</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#_initializeGraphState'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_initializeGraphState(data)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Incapsulates common procedures to initialize graph.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_initializeGraphState(data: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>data</span> <code class='quiet'>(<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+
+          </div>
+
+          <table class='mt1 mb2 fixed-table h5 col-12'>
+            <colgroup>
+              <col width='30%' />
+              <col width='70%' />
+            </colgroup>
+            <thead>
+              <tr class='bold fill-light'>
+                <th>Name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody class='mt1'>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>data.nodes</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></code>
+                  </td>
+                  <td class='break-word'><span>nodes of the graph to be created.
+</span></td>
+                </tr>
+
+                <tr>
+                  <td class='break-word'><span class='code bold'>data.links</span> <code class='quiet'><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></code>
+                  </td>
+                  <td class='break-word'><span>links that connect data.nodes.
+</span></td>
+                </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='Graph#_graphForcesConfig'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_graphForcesConfig()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Sets d3 tick function and configures other d3 stuff such as forces and drag events.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_graphForcesConfig()</div>
 
 
 
@@ -2584,7 +2793,7 @@ of d3 symbol.<br/>
 
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
-        concrete instance of d3 symbol.
+        concrete instance of d3 symbol (defaults to circle).
 
 
 
@@ -3071,11 +3280,11 @@ k
       </div>
     </div>
 
-    <div class='border-bottom' id='utilsisEqual'>
+    <div class='border-bottom' id='utilsisDeepEqual'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>isEqual(o1, o2, _depth = 0)</span>
+            <span class='code strong strong truncate'>isDeepEqual(o1, o2, _depth = 0)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -3086,7 +3295,7 @@ k
   <p>Generic deep comparison between javascript simple or complex objects.</p>
 
 
-  <div class='pre p1 fill-light mt0'>isEqual(o1: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, o2: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, _depth: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
+  <div class='pre p1 fill-light mt0'>isDeepEqual(o1: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, o2: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, _depth: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>?): <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
 
 
 

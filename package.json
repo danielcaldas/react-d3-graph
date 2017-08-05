@@ -1,6 +1,6 @@
 {
     "name": "react-d3-graph",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "description": "React component to build interactive and configurable graphs with d3 effortlessly",
     "author": "Daniel Caldas",
     "license": "MIT",

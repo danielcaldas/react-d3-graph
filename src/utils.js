@@ -70,7 +70,6 @@ function isObjectEmpty(o) {
 }
 
 /**
- * @TODO: Support for arrays?
  * This function merges two objects o1 and o2, where o2 properties override existent o1 properties, and
  * if o2 doesn't posses some o1 property the function will fallback to the o1 property.
  * @param  {Object} o1 - object.
@@ -81,6 +80,7 @@ function isObjectEmpty(o) {
  * existent o1 properties.
  */
 function merge(o1={}, o2={}, _depth=0) {
+    // @TODO: Support for arrays
     let o = {};
 
     for (let k of Object.keys(o1)) {
