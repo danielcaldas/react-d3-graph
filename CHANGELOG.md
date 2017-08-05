@@ -1,5 +1,19 @@
 # Change Log
 
+## [0.1.0](https://github.com/danielcaldas/react-d3-graph/tree/0.1.0) (2017-08-05)
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.0.2...0.1.0)
+
+**Implemented enhancements:**
+
+- Adding nodes? [\#7](https://github.com/danielcaldas/react-d3-graph/issues/7)
+
+**Merged pull requests:**
+
+- Refactor/sandbox improvements [\#12](https://github.com/danielcaldas/react-d3-graph/pull/12) ([danielcaldas](https://github.com/danielcaldas))
+- Fix/default node symbol [\#11](https://github.com/danielcaldas/react-d3-graph/pull/11) ([danielcaldas](https://github.com/danielcaldas))
+- Fix/not call graph configs inside component did update [\#10](https://github.com/danielcaldas/react-d3-graph/pull/10) ([danielcaldas](https://github.com/danielcaldas))
+- Refactor/update graph data [\#9](https://github.com/danielcaldas/react-d3-graph/pull/9) ([danielcaldas](https://github.com/danielcaldas))
+
 ## [0.0.2](https://github.com/danielcaldas/react-d3-graph/tree/0.0.2) (2017-04-25)
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.0.1...0.0.2)
 
