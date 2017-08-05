@@ -24,6 +24,10 @@
     margin-left: 12px;
 }
 
+.btn-margin-left {
+    margin-left: 4px;
+}
+
 .container__graph-area {
     max-width: 800px;
     max-height: 400px;

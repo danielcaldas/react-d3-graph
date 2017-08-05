@@ -136,6 +136,8 @@ export default class Sandbox extends React.Component {
         return {config, schemaPropsValues};
     }
 
+    refresh = () => location.reload();
+
     refreshGraph = (data) => {
         const {config, schemaPropsValues} = this._buildGraphConfig(data);
 
@@ -195,11 +197,12 @@ export default class Sandbox extends React.Component {
         return (
             <div className='container'>
                 <div className='container__graph'>
-                    <button onClick={this.restartGraphSimulation} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
-                    <button onClick={this.pauseGraphSimulation} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>⏸️</button>
-                    <button onClick={this.resetNodesPositions} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
-                    <button onClick={this.onClickAddNode} className='btn btn-default' style={btnStyle}>+</button>
-                    <button onClick={this.onClickRemoveNode} className='btn btn-default' style={btnStyle}>-</button>
+                    <button onClick={this.restartGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
+                    <button onClick={this.pauseGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>⏸️</button>
+                    <button onClick={this.refresh} className='btn btn-default btn-margin-left' style={btnStyle}>🔄</button>
+                    <button onClick={this.resetNodesPositions} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
+                    <button onClick={this.onClickAddNode} className='btn btn-default btn-margin-left' style={btnStyle}>+</button>
+                    <button onClick={this.onClickRemoveNode} className='btn btn-default btn-margin-left' style={btnStyle}>-</button>
                     <span className='container__graph-info'>
                         <b>Nodes: </b> {this.state.data.nodes.length} | <b>Links: </b> {this.state.data.links.length}
                     </span>
