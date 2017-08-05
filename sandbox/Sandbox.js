@@ -71,15 +71,21 @@ export default class Sandbox extends React.Component {
         if (this.state.data.nodes && this.state.data.nodes.length) {
             const maxIndex = this.state.data.nodes.length - 1;
             const minIndex = 0;
-            const i = Math.floor(Math.random() * (maxIndex - minIndex + 1) + minIndex);
-            const id = this.state.data.nodes[i].id;
+            let i = Math.floor(Math.random() * (maxIndex - minIndex + 1) + minIndex);
+            let nLinks = Math.floor(Math.random() * (5 - minIndex + 1) + minIndex);
             const newNode = `Node ${this.state.data.nodes.length}`;
 
             this.state.data.nodes.push({id: newNode});
-            this.state.data.links.push({
-                source: newNode,
-                target: id
-            });
+
+            while (this.state.data.nodes[i] && this.state.data.nodes[i].id && nLinks) {
+                this.state.data.links.push({
+                    source: newNode,
+                    target: this.state.data.nodes[i].id
+                });
+
+                i++;
+                nLinks--;
+            }
 
             this.setState({
                 data: this.state.data
@@ -135,6 +141,8 @@ export default class Sandbox extends React.Component {
 
         return {config, schemaPropsValues};
     }
+
+    refresh = () => location.reload();
 
     refreshGraph = (data) => {
         const {config, schemaPropsValues} = this._buildGraphConfig(data);
@@ -195,16 +203,27 @@ export default class Sandbox extends React.Component {
         return (
             <div className='container'>
                 <div className='container__graph'>
-                    <button onClick={this.restartGraphSimulation} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
-                    <button onClick={this.pauseGraphSimulation} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>⏸️</button>
-                    <button onClick={this.resetNodesPositions} className='btn btn-default' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
-                    <button onClick={this.onClickAddNode} className='btn btn-default' style={btnStyle}>+</button>
-                    <button onClick={this.onClickRemoveNode} className='btn btn-default' style={btnStyle}>-</button>
-                    <br/><b>Nodes: </b> {this.state.data.nodes.length}, <b>Links: </b> {this.state.data.links.length}
-                    <Graph ref='graph' {...graphProps}/>
+                    <button onClick={this.restartGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
+                    <button onClick={this.pauseGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>⏸️</button>
+                    <button onClick={this.refresh} className='btn btn-default btn-margin-left' style={btnStyle}>🔄</button>
+                    <button onClick={this.resetNodesPositions} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
+                    <button onClick={this.onClickAddNode} className='btn btn-default btn-margin-left' style={btnStyle}>+</button>
+                    <button onClick={this.onClickRemoveNode} className='btn btn-default btn-margin-left' style={btnStyle}>-</button>
+                    <span className='container__graph-info'>
+                        <b>Nodes: </b> {this.state.data.nodes.length} | <b>Links: </b> {this.state.data.links.length}
+                    </span>
+                    <div className='container__graph-area'>
+                        <Graph ref='graph' {...graphProps}/>
+                    </div>
                 </div>
                 <div className='container__form'>
-                    <h4><a href="https://github.com/danielcaldas/react-d3-graph" target="_blank"><img width="40" height="40" src="https://a248.e.akamai.net/assets.github.com/images/icons/emoji/octocat.png"></img> react-d3-graph</a> configurations </h4>
+                    <h4>
+                        <a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">react-d3-graph</a>
+                    </h4>
+                    <h4>
+                        <a href="https://danielcaldas.github.io/react-d3-graph/docs/index.html" target="_blank">docs</a>
+                    </h4>
+                    <h3>Configurations</h3>
                     <Form className='form-wrapper'
                         schema={this.state.schema}
                         uiSchema={this.uiSchema}
@@ -220,7 +239,7 @@ export default class Sandbox extends React.Component {
                     <JSONContainer data={this.state.generatedConfig} staticData={false} />
                 </div>
                 <div className='container__graph-data'>
-                    <h4>Initial Graph data</h4>
+                    <h4>Initial Graph Data</h4>
                     <JSONContainer data={this.state.data} staticData={true}/>
                 </div>
             </div>

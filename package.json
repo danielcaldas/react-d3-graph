@@ -5,6 +5,7 @@
     "author": "Daniel Caldas",
     "license": "MIT",
     "scripts": {
+        "check": "npm run lint && npm run test",
         "dev": "node_modules/.bin/webpack-dev-server -d --content-base sandbox --inline --hot --port 3002",
         "dist": "node_modules/.bin/npm-run-all --parallel dist:*",
         "dist:rd3g": "rm -rf dist/ && webpack --config webpack.config.dist.js -p --display-modules",
