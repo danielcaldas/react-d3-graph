@@ -142,7 +142,15 @@ export default class Graph extends React.Component {
      * Handler for 'zoom' event within zoom config.
      * @return {Object} returns the transformed elements within the svg graph area.
      */
-    _zoomed = () => d3.selectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr('transform', d3.event.transform);
+    _zoomed = () => {
+        const transform = d3.event.transform;
+
+        d3.selectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr('transform', transform);
+
+        this.setState({
+            transform: transform.k
+        });
+    }
 
     /**
      * Handles mouse out node event.
@@ -224,9 +232,9 @@ export default class Graph extends React.Component {
      * @returns {Object}
      */
     _initializeGraphState(data) {
-        this._validateGraphData(data);
-
         let graph;
+
+        this._validateGraphData(data);
 
         if (this.state && this.state.nodes && this.state.links && this.state.nodeIndexMapping) {
             // absorve existent positining
@@ -261,7 +269,8 @@ export default class Graph extends React.Component {
             nodeHighlighted: false,
             simulation,
             newGraphElements: false,
-            configUpdated: false
+            configUpdated: false,
+            transform: 1
         };
     }
 
@@ -355,7 +364,8 @@ export default class Graph extends React.Component {
             this.state.links,
             { onClickLink: this.props.onClickLink },
             this.state.config,
-            this.state.nodeHighlighted
+            this.state.nodeHighlighted,
+            this.state.transform
         );
 
         const svgStyle = {
