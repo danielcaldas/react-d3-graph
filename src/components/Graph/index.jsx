@@ -147,9 +147,7 @@ export default class Graph extends React.Component {
 
         d3.selectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr('transform', transform);
 
-        this.setState({
-            transform: transform.k
-        });
+        this.state.config.panAndZoom && this.setState({ transform: transform.k });
     }
 
     /**
@@ -320,11 +318,14 @@ export default class Graph extends React.Component {
         // In order to properly update graph data we need to pause eventual d3 ongoing animations
         newGraphElements && this.pauseSimulation();
 
+        const transform = nextProps.config.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
+
         this.setState({
             ...state,
             config,
             newGraphElements,
-            configUpdated
+            configUpdated,
+            transform
         });
     }
 
