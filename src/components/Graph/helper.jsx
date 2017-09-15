@@ -21,6 +21,7 @@ import Node from '../Node/';
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @param  {function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
  * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
+ * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @return {Object} returns an object that aggregates all props for creating respective Link component instance.
  * @memberof Graph/helper
  */
@@ -75,6 +76,7 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, so
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @param  {function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
  * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
+ * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @return {Object[]} returns the generated array of Link components.
  * @memberof Graph/helper
  */
@@ -107,6 +109,7 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHi
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @param  {function[]} nodeCallbacks - same as {@link #buildGraph|nodeCallbacks in buildGraph}.
  * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
+ * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @return {Object} returns object that contain Link props ready to be feeded to the Link component.
  * @memberof Graph/helper
  */
@@ -132,6 +135,8 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted, trans
     const t = 1 / transform;
     const nodeSize = node.size || config.node.size;
     const fontSize = node.highlighted ? config.node.highlightFontSize : config.node.fontSize;
+    // label offset in order to the font and node size
+    const dx = (fontSize * t) + (nodeSize / 100) + 1.5;
 
     return {
         className: CONST.NODE_CLASS_NAME,
@@ -140,6 +145,7 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted, trans
         cy: node && node.y || '0',
         fill,
         fontSize: fontSize * t,
+        dx,
         fontWeight: node.highlighted ? config.node.highlightFontWeight : config.node.fontWeight,
         id: node.id,
         label: node[config.node.labelProperty] || node.id,
@@ -165,6 +171,7 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted, trans
  * @param  {function[]} linkCallbacks - array of callbacks for used defined event handler for link interactions.
  * @param  {Object} config - an object containg rd3g consumer defined configurations [LINK README] for the graph.
  * @param  {boolean} someNodeHighlighted - this value is true when some node on the graph is highlighted.
+ * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @return {Object} returns an object containg the generated nodes and links that form the graph. The result is
  * returned in a way that can be consumed by es6 **destructuring assignment**.
  * @memberof Graph/helper
