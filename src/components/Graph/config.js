@@ -30,6 +30,8 @@
  * the value the more the less highlighted nodes will be visible (related to **highlightBehavior**).
  * @param {number} [maxZoom=8] - max zoom that can be performed against the graph.
  * @param {number} [minZoom=0.1] - min zoom that can be performed against the graph.
+ * @param {boolean} [panAndZoom=false] - pan and zoom effect when performing zoom in the graph,
+ * a similar example may be consulted {@link https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39|here}.
  * @param {boolean} [staticGraph=false] - when setting this value to true the graph will be completely static, thus
  * all forces and drag events upon nodes will be disabled. **Plus**, if this value is true the nodes will be rendered
  * in the provided **x and y coordinates**, no coordinates will be calculated by react-d3-graph.
@@ -107,6 +109,7 @@ export default {
     highlightOpacity: 1,
     maxZoom: 8,
     minZoom: 0.5,
+    panAndZoom: false,
     staticGraph: false,
     width: 800,
     node: {
