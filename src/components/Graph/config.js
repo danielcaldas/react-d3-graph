@@ -3,6 +3,9 @@
  * Here you can consult a detailed description of each graph configurable property as well as the default values
  * that each of that property assume.
  *
+ * **Note about performance**<br/>
+ * Some of the properties have a major performance impact when toggled when rendering graphs of medium or large dimensions.
+ * These properties are marked with 🚅🚅🚅. (⭐ **tip** *to have smoother interactions you may want to set *staticGraph* to true*)
  * **Note about granularity**<br/>
  * Some of the properties listed in the {@link #node-section|Node section} are marked with 🔍🔍🔍. This means that this properties
  * have a higher level of granularity. These properties can be defined in the graph payload at a node level. (sample payload below)
@@ -21,16 +24,16 @@
  * ```
  *
  * <h2>Graph global configurations</h2>
- * @param {boolean} [automaticRearrangeAfterDropNode=false] - when true performing a node drag and drop should automatically
+ * @param {boolean} [automaticRearrangeAfterDropNode=false] - 🚅🚅🚅 when true performing a node drag and drop should automatically
  * rearrange all nodes positions based on new position of dragged node (note: **staticGraph** should be false).
  * @param {number} [height=400] - the height of the (svg) area where the graph will be rendered.
- * @param {boolean} [highlightBehavior=false] - when user mouse hovers a node that node and adjacent common
+ * @param {boolean} [highlightBehavior=false] - 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
  * connections will be highlighted. All the remaining nodes and links assume opacity value equal to **highlightOpacity**.
  * @param {number} [highlightOpacity=1] - this value is used to highlight nodes in the network. The lower
  * the value the more the less highlighted nodes will be visible (related to **highlightBehavior**).
  * @param {number} [maxZoom=8] - max zoom that can be performed against the graph.
  * @param {number} [minZoom=0.1] - min zoom that can be performed against the graph.
- * @param {boolean} [panAndZoom=false] - pan and zoom effect when performing zoom in the graph,
+ * @param {boolean} [panAndZoom=false] - 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
  * a similar example may be consulted {@link https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39|here}.
  * @param {boolean} [staticGraph=false] - when setting this value to true the graph will be completely static, thus
  * all forces and drag events upon nodes will be disabled. **Plus**, if this value is true the nodes will be rendered
@@ -87,6 +90,8 @@
  * ```
  * @param {number} [link.strokeWidth=1.5] - strokeWidth for all links.
  * @param {string} [link.highlightColor='#d3d3d3'] - links color in highlight state.
+ *
+ * Sorry for the long table, here is a potato 🥔.
  *
  * @example
  * // A simple config that uses some properties
