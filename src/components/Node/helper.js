@@ -3,7 +3,16 @@
  * @description
  * Some methods that help no the process of rendering a node.
  */
-import * as d3 from 'd3';
+import {
+    symbolCircle,
+    symbolCross,
+    symbolDiamond,
+    symbolSquare,
+    symbolStar,
+    symbolTriangle,
+    symbolWye,
+    symbol
+} from 'd3-shape';
 
 import CONST from './const';
 
@@ -18,21 +27,21 @@ import CONST from './const';
 function _convertTypeToD3Symbol(typeName) {
     switch (typeName) {
         case CONST.SYMBOLS.CIRCLE:
-            return d3.symbolCircle;
+            return symbolCircle;
         case CONST.SYMBOLS.CROSS:
-            return d3.symbolCross;
+            return symbolCross;
         case CONST.SYMBOLS.DIAMOND:
-            return d3.symbolDiamond;
+            return symbolDiamond;
         case CONST.SYMBOLS.SQUARE:
-            return d3.symbolSquare;
+            return symbolSquare;
         case CONST.SYMBOLS.STAR:
-            return d3.symbolStar;
+            return symbolStar;
         case CONST.SYMBOLS.TRIANGLE:
-            return d3.symbolTriangle;
+            return symbolTriangle;
         case CONST.SYMBOLS.WYE:
-            return d3.symbolWye;
+            return symbolWye;
         default:
-            return d3.symbolCircle;
+            return symbolCircle;
     }
 }
 
@@ -45,9 +54,9 @@ function _convertTypeToD3Symbol(typeName) {
  * @memberof Node/helper
  */
 function buildSvgSymbol(size=80, symbolTypeDesc=CONST.SYMBOLS.CIRCLE) {
-    return d3.symbol()
+    return symbol()
             .size(() => size)
-            .type(() => _convertTypeToD3Symbol(symbolTypeDesc))(); // @todo: Strange behavior d3.Symbol ret function
+            .type(() => _convertTypeToD3Symbol(symbolTypeDesc))(); // @todo: Strange behavior Symbol ret function
 }
 
 export default {
