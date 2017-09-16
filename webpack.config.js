@@ -4,7 +4,7 @@ const webpack = require('webpack');
 module.exports = {
     context: path.join(__dirname, 'sandbox'),
     devtool: 'source-map',
-    entry: './index.js',
+    entry: './index.jsx',
     output: {
         path: __dirname + '/sandbox/',
         filename: 'rd3g.sandbox.bundle.js'
@@ -25,5 +25,8 @@ module.exports = {
                 }
             }
         ]
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
     }
 };

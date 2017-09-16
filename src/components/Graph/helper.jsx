@@ -21,10 +21,11 @@ import Node from '../Node/';
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @param  {function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
  * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
+ * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @return {Object} returns an object that aggregates all props for creating respective Link component instance.
  * @memberof Graph/helper
  */
-function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted) {
+function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted, transform) {
     const x1 = nodes[source] && nodes[source].x || '0';
     const y1 = nodes[source] && nodes[source].y || '0';
     const x2 = nodes[target] && nodes[target].x || '0';
@@ -46,7 +47,7 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, so
 
     const linkValue = links[source][target] || links[target][source];
 
-    let strokeWidth = config.link.strokeWidth;
+    let strokeWidth = config.link.strokeWidth * (1 / transform);
 
     if (config.link.semanticStrokeWidth) {
         strokeWidth += (linkValue * strokeWidth) / 10;
@@ -75,10 +76,11 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, so
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @param  {function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
  * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
+ * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @return {Object[]} returns the generated array of Link components.
  * @memberof Graph/helper
  */
-function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHighlighted) {
+function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHighlighted, transform) {
     let linksComponents = [];
 
     if (links[nodeId]) {
@@ -91,7 +93,7 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHi
 
             if (nodes[target]) {
                 const key = `${nodeId}${CONST.COORDS_SEPARATOR}${target}`;
-                const props = _buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted);
+                const props = _buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted, transform);
 
                 linksComponents.push(<Link key={key} {...props} />);
             }
@@ -107,10 +109,11 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHi
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @param  {function[]} nodeCallbacks - same as {@link #buildGraph|nodeCallbacks in buildGraph}.
  * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
+ * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @return {Object} returns object that contain Link props ready to be feeded to the Link component.
  * @memberof Graph/helper
  */
-function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
+function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted, transform) {
     let opacity = config.node.opacity;
 
     if (someNodeHighlighted) {
@@ -129,13 +132,20 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
         stroke = config.node.highlightStrokeColor;
     }
 
+    const t = 1 / transform;
+    const nodeSize = node.size || config.node.size;
+    const fontSize = node.highlighted ? config.node.highlightFontSize : config.node.fontSize;
+    // label offset in order to the font and node size
+    const dx = (fontSize * t) + (nodeSize / 100) + 1.5;
+
     return {
         className: CONST.NODE_CLASS_NAME,
         cursor: config.node.mouseCursor,
         cx: node && node.x || '0',
         cy: node && node.y || '0',
         fill,
-        fontSize: node.highlighted ? config.node.highlightFontSize : config.node.fontSize,
+        fontSize: fontSize * t,
+        dx,
         fontWeight: node.highlighted ? config.node.highlightFontWeight : config.node.fontWeight,
         id: node.id,
         label: node[config.node.labelProperty] || node.id,
@@ -144,7 +154,7 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
         onMouseOut: nodeCallbacks.onMouseOut,
         opacity,
         renderLabel: config.node.renderLabel,
-        size: node.size || config.node.size,
+        size: nodeSize * t,
         stroke,
         strokeWidth: node.highlighted ? config.node.highlightStrokeWidth : config.node.strokeWidth,
         type: node.type || config.node.symbolType
@@ -161,21 +171,22 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted) {
  * @param  {function[]} linkCallbacks - array of callbacks for used defined event handler for link interactions.
  * @param  {Object} config - an object containg rd3g consumer defined configurations [LINK README] for the graph.
  * @param  {boolean} someNodeHighlighted - this value is true when some node on the graph is highlighted.
+ * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @return {Object} returns an object containg the generated nodes and links that form the graph. The result is
  * returned in a way that can be consumed by es6 **destructuring assignment**.
  * @memberof Graph/helper
  */
-function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNodeHighlighted) {
+function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNodeHighlighted, transform) {
     let linksComponents = [];
     let nodesComponents = [];
 
     for (let nodeId in nodes) {
-        const props = _buildNodeProps(nodes[nodeId], config, nodeCallbacks, someNodeHighlighted);
+        const props = _buildNodeProps(nodes[nodeId], config, nodeCallbacks, someNodeHighlighted, transform);
 
         nodesComponents.push(<Node key={nodeId} {...props} />);
 
         linksComponents = linksComponents.concat(
-            _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHighlighted)
+            _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHighlighted, transform)
         );
     }
 
