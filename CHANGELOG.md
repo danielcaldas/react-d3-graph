@@ -1,5 +1,14 @@
 # Change Log
 
+## [0.2.0](https://github.com/danielcaldas/react-d3-graph/tree/0.2.0) (2017-09-16)
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.1.0...0.2.0)
+
+**Merged pull requests:**
+
+- Refactor/d3 tree shaking [\#16](https://github.com/danielcaldas/react-d3-graph/pull/16) ([danielcaldas](https://github.com/danielcaldas))
+- Generate bundle stats with webpack visualizer [\#15](https://github.com/danielcaldas/react-d3-graph/pull/15) ([danielcaldas](https://github.com/danielcaldas))
+- Feature/pan and zoom [\#14](https://github.com/danielcaldas/react-d3-graph/pull/14) ([danielcaldas](https://github.com/danielcaldas))
+
 ## [0.1.0](https://github.com/danielcaldas/react-d3-graph/tree/0.1.0) (2017-08-05)
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.0.2...0.1.0)
 
