@@ -25,6 +25,7 @@ import NodeHelper from './helper';
  *     cy=22
  *     fill='green'
  *     fontSize=10
+ *     dx=90
  *     fontWeight='normal'
  *     label='label text'
  *     opacity=1
