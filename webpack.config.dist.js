@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const Visualizer = require('webpack-visualizer-plugin');
 
 module.exports = {
     context: path.join(__dirname, 'src'),
@@ -26,6 +27,7 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin()
+        new webpack.optimize.UglifyJsPlugin(),
+        new Visualizer({ filename: '../gen-docs/stats.html' })
     ]
 };
