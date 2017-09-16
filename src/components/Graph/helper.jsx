@@ -5,7 +5,12 @@
  */
 import React from 'react';
 
-import * as d3 from 'd3';
+import {
+    forceX as d3ForceX,
+    forceY as d3ForceY,
+    forceSimulation as d3ForceSimulation,
+    forceManyBody as d3ForceManyBody
+} from 'd3-force';
 
 import CONST from './const';
 
@@ -206,13 +211,13 @@ function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNode
  * @memberof Graph/helper
  */
 function createForceSimulation(width, height) {
-    const forceX = d3.forceX(width / 2).strength(CONST.FORCE_X);
-    const forceY = d3.forceY(height / 2).strength(CONST.FORCE_Y);
+    const frx = d3ForceX(width / 2).strength(CONST.FORCE_X);
+    const fry = d3ForceY(height / 2).strength(CONST.FORCE_Y);
 
-    const simulation = d3.forceSimulation()
-            .force('charge', d3.forceManyBody().strength(CONST.FORCE_IDEAL_STRENGTH))
-            .force('x', forceX)
-            .force('y', forceY);
+    const simulation = d3ForceSimulation()
+            .force('charge', d3ForceManyBody().strength(CONST.FORCE_IDEAL_STRENGTH))
+            .force('x', frx)
+            .force('y', fry);
 
     return simulation;
 }

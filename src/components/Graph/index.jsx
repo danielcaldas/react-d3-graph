@@ -1,6 +1,13 @@
 import React from 'react';
 
-import * as d3 from 'd3';
+import { drag as d3Drag } from 'd3-drag';
+import { forceLink as d3ForceLink } from 'd3-force';
+import {
+    select as d3Select,
+    selectAll as d3SelectAll,
+    event as d3Event
+} from 'd3-selection';
+import { zoom as d3Zoom } from 'd3-zoom';
 
 import CONST from './const';
 import DEFAULT_CONFIG from './config';
@@ -88,8 +95,8 @@ export default class Graph extends React.Component {
             // This is where d3 and react bind
             let draggedNode = this.state.nodes[this.state.nodeIndexMapping[index]];
 
-            draggedNode.x += d3.event.dx;
-            draggedNode.y += d3.event.dy;
+            draggedNode.x += d3Event.dx;
+            draggedNode.y += d3Event.dy;
 
             // Set nodes fixing coords fx and fy
             draggedNode['fx'] = draggedNode.x;
@@ -134,8 +141,8 @@ export default class Graph extends React.Component {
      * {@link https://github.com/d3/d3-zoom#zoom}
      * @return {undefined}
      */
-    _zoomConfig = () => d3.select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`)
-                            .call(d3.zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
+    _zoomConfig = () => d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`)
+                            .call(d3Zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
                             .on('zoom', this._zoomed));
 
     /**
@@ -143,9 +150,9 @@ export default class Graph extends React.Component {
      * @return {Object} returns the transformed elements within the svg graph area.
      */
     _zoomed = () => {
-        const transform = d3.event.transform;
+        const transform = d3Event.transform;
 
-        d3.selectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr('transform', transform);
+        d3SelectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr('transform', transform);
 
         this.state.config.panAndZoom && this.setState({ transform: transform.k });
     }
@@ -278,19 +285,19 @@ export default class Graph extends React.Component {
     _graphForcesConfig() {
         this.state.simulation.nodes(this.state.d3Nodes).on('tick', this._tick);
 
-        const forceLink = d3.forceLink(this.state.d3Links)
+        const forceLink = d3ForceLink(this.state.d3Links)
                             .id(l => l.id)
                             .distance(CONST.LINK_IDEAL_DISTANCE)
                             .strength(1);
 
         this.state.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
 
-        const customNodeDrag = d3.drag()
+        const customNodeDrag = d3Drag()
                                 .on('start', this._onDragStart)
                                 .on('drag', this._onDragMove)
                                 .on('end', this._onDragEnd);
 
-        d3.select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
+        d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
     }
 
     constructor(props) {
