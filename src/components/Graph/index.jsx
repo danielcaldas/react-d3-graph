@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { drag as d3Drag } from 'd3-drag';
 import { forceLink as d3ForceLink } from 'd3-force';
 import {
@@ -6,7 +8,6 @@ import {
     event as d3Event
 } from 'd3-selection';
 import { zoom as d3Zoom } from 'd3-zoom';
-import React from 'react';
 
 import CONST from './const';
 import DEFAULT_CONFIG from './config';

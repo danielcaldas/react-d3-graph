@@ -4,14 +4,14 @@
  * Some methods that help no the process of rendering a node.
  */
 import {
-    symbolCircle,
-    symbolCross,
-    symbolDiamond,
-    symbolSquare,
-    symbolStar,
-    symbolTriangle,
-    symbolWye,
-    symbol
+    symbolCircle as d3SymbolCircle,
+    symbolCross as d3SymbolCross,
+    symbolDiamond as d3SymbolDiamond,
+    symbolSquare as d3SymbolSquare,
+    symbolStar as d3SymbolStar,
+    symbolTriangle as d3SymbolTriangle,
+    symbolWye as d3SymbolWye,
+    symbol as d3Symbol
 } from 'd3-shape';
 
 import CONST from './const';
@@ -27,21 +27,21 @@ import CONST from './const';
 function _convertTypeToD3Symbol(typeName) {
     switch (typeName) {
         case CONST.SYMBOLS.CIRCLE:
-            return symbolCircle;
+            return d3SymbolCircle;
         case CONST.SYMBOLS.CROSS:
-            return symbolCross;
+            return d3SymbolCross;
         case CONST.SYMBOLS.DIAMOND:
-            return symbolDiamond;
+            return d3SymbolDiamond;
         case CONST.SYMBOLS.SQUARE:
-            return symbolSquare;
+            return d3SymbolSquare;
         case CONST.SYMBOLS.STAR:
-            return symbolStar;
+            return d3SymbolStar;
         case CONST.SYMBOLS.TRIANGLE:
-            return symbolTriangle;
+            return d3SymbolTriangle;
         case CONST.SYMBOLS.WYE:
-            return symbolWye;
+            return d3SymbolWye;
         default:
-            return symbolCircle;
+            return d3SymbolCircle;
     }
 }
 
@@ -54,7 +54,7 @@ function _convertTypeToD3Symbol(typeName) {
  * @memberof Node/helper
  */
 function buildSvgSymbol(size=80, symbolTypeDesc=CONST.SYMBOLS.CIRCLE) {
-    return symbol()
+    return d3Symbol()
             .size(() => size)
             .type(() => _convertTypeToD3Symbol(symbolTypeDesc))(); // @todo: Strange behavior Symbol ret function
 }
