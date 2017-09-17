@@ -27,16 +27,6 @@ export default class Link extends React.Component {
      */
     handleOnClickLink = () => this.props.onClickLink && this.props.onClickLink(this.props.source, this.props.target);
 
-    shouldComponentUpdate(nextProps) {
-        // Properties more likely to mutate are evaluated first to take advantage of short-circuit evaluation
-        return nextProps.x1 !== this.props.x1 || nextProps.y1 !== this.props.y1
-            || nextProps.x2 !== this.props.x2 || nextProps.y2 !== this.props.y2
-            || nextProps.opacity !== this.props.opacity
-            || nextProps.stroke !== this.props.stroke
-            || nextProps.strokeWidth !== this.props.strokeWidth
-            || nextProps.color !== this.props.color;
-    }
-
     render() {
         const lineStyle = {
             strokeWidth: this.props.strokeWidth,
