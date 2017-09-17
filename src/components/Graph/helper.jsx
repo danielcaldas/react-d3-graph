@@ -140,8 +140,8 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted, trans
     const t = 1 / transform;
     const nodeSize = node.size || config.node.size;
     const fontSize = node.highlighted ? config.node.highlightFontSize : config.node.fontSize;
-    // label offset in order to the font and node size
     const dx = (fontSize * t) + (nodeSize / 100) + 1.5;
+    const strokeWidth = node.highlighted ? config.node.highlightStrokeWidth : config.node.strokeWidth;
 
     return {
         className: CONST.NODE_CLASS_NAME,
@@ -161,7 +161,7 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted, trans
         renderLabel: config.node.renderLabel,
         size: nodeSize * t,
         stroke,
-        strokeWidth: node.highlighted ? config.node.highlightStrokeWidth : config.node.strokeWidth,
+        strokeWidth: strokeWidth * t,
         type: node.type || config.node.symbolType
     };
 }
