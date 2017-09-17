@@ -14,7 +14,7 @@
         "docs": "npm run docs:lint && node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o gen-docs && node_modules/documentation/bin/documentation.js build src/**/*.js -f md > gen-docs/DOCUMENTATION.md",
         "docs:lint": "node_modules/documentation/bin/documentation.js lint src/**/*.js",
         "docs:watch": "node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o gen-docs --watch",
-        "lint": "node_modules/eslint/bin/eslint.js --config=.eslintrc.js \"src/**/*.js\"",
+        "lint": "node_modules/eslint/bin/eslint.js --config=.eslintrc.js \"src/**/*.js*\"",
         "test": "jest --verbose --coverage",
         "test:clean": "jest --no-cache --updateSnapshot --verbose --coverage",
         "test:watch": "jest --verbose --watchAll"
