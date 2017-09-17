@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.2.1](https://github.com/danielcaldas/react-d3-graph/tree/0.2.1) (2017-09-17)
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.2.0...0.2.1)
+
+**Merged pull requests:**
+
+- Fix/remove node link scu methods [\#18](https://github.com/danielcaldas/react-d3-graph/pull/18) ([danielcaldas](https://github.com/danielcaldas))
+- Calc proper value for node strokeWith when applying pan&zoom [\#17](https://github.com/danielcaldas/react-d3-graph/pull/17) ([danielcaldas](https://github.com/danielcaldas))
+
 ## [0.2.0](https://github.com/danielcaldas/react-d3-graph/tree/0.2.0) (2017-09-16)
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.1.0...0.2.0)
 
