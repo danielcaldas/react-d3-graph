@@ -98,7 +98,16 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHi
 
             if (nodes[target]) {
                 const key = `${nodeId}${CONST.COORDS_SEPARATOR}${target}`;
-                const props = _buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted, transform);
+                const props = _buildLinkProps(
+                    source,
+                    target,
+                    nodes,
+                    links,
+                    config,
+                    linkCallbacks,
+                    someNodeHighlighted,
+                    transform
+                );
 
                 linksComponents.push(<Link key={key} {...props} />);
             }

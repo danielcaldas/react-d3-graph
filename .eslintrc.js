@@ -25,7 +25,7 @@ module.exports = {
         "camelcase": "error",
         "keyword-spacing": "error",
         "max-len": ["error", 120, 4, { "ignoreComments": true }],
-        "max-lines": ["error", {"max": 250, "skipComments": true}],
+        "max-lines": ["error", {"max": 300, "skipComments": true}],
         "newline-after-var": ["error", "always"],
         "no-nested-ternary": "error",
         "no-useless-constructor": "error",

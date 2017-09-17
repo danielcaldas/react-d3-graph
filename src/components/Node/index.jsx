@@ -58,22 +58,6 @@ export default class Node extends React.Component {
      */
     handleOnMouseOutNode = () => this.props.onMouseOut && this.props.onMouseOut(this.props.id);
 
-    shouldComponentUpdate(nextProps) {
-        // Properties more likely to mutate are evaluated first to take advantage of short-circuit evaluation
-        return nextProps.cx !== this.props.cx || nextProps.cy !== this.props.cy
-              || nextProps.opacity !== this.props.opacity
-              || nextProps.fill !== this.props.fill
-              || nextProps.fontWeight !== this.props.fontWeight
-              || nextProps.fontSize !== this.props.fontSize
-              || nextProps.label !== this.props.label
-              || nextProps.cursor !== this.props.cursor
-              || nextProps.size !== this.props.size
-              || nextProps.type !== this.props.type
-              || nextProps.renderLabel !== this.props.renderLabel
-              || nextProps.stroke !== this.props.stroke
-              || nextProps.strokeWidth !== this.props.strokeWidth;
-    }
-
     render() {
         const gProps = {
             className: this.props.className,
