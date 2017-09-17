@@ -53,7 +53,7 @@ function _convertTypeToD3Symbol(typeName) {
  * @return {Object} concrete instance of d3 symbol.
  * @memberof Node/helper
  */
-function buildSvgSymbol(size=80, symbolTypeDesc=CONST.SYMBOLS.CIRCLE) {
+function buildSvgSymbol(size=CONST.DEFAULT_NODE_SIZE, symbolTypeDesc=CONST.SYMBOLS.CIRCLE) {
     return d3Symbol()
             .size(() => size)
             .type(() => _convertTypeToD3Symbol(symbolTypeDesc))(); // @todo: Strange behavior Symbol ret function
