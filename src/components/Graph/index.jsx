@@ -88,7 +88,6 @@ export default class Graph extends React.Component {
      * Handles d3 'drag' event.
      * @param  {Object} _ - event.
      * @param  {number} index - index of the node that is being dragged.
-     * @return {undefined}
      */
     _onDragMove = (_, index) => {
         if (!this.state.config.staticGraph) {
@@ -115,7 +114,6 @@ export default class Graph extends React.Component {
      * Sets nodes and links highlighted value.
      * @param  {number} index - the index of the node to highlight (and its adjacent).
      * @param  {boolean} value - the highlight value to be set (true or false).
-     * @return {undefined}
      */
     _setHighlighted = (index, value) => {
         this.state.nodeHighlighted = value;
@@ -139,7 +137,6 @@ export default class Graph extends React.Component {
     /**
      * Configures zoom upon graph with default or user provided values.<br/>
      * {@link https://github.com/d3/d3-zoom#zoom}
-     * @return {undefined}
      */
     _zoomConfig = () => d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`)
                             .call(d3Zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
@@ -160,7 +157,6 @@ export default class Graph extends React.Component {
     /**
      * Handles mouse out node event.
      * @param  {number} index - index of the mouse hovered node.
-     * @return {undefined}
      */
     onMouseOutNode = (index) => {
         this.props.onMouseOutNode && this.props.onMouseOutNode(index);
@@ -171,7 +167,6 @@ export default class Graph extends React.Component {
     /**
      * Handles mouse over node event.
      * @param  {number} index - index of the mouse hovered node.
-     * @return {undefined}
      */
     onMouseOverNode = (index) => {
         this.props.onMouseOverNode && this.props.onMouseOverNode(index);

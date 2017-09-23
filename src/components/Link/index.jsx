@@ -23,7 +23,6 @@ import React from 'react';
 export default class Link extends React.Component {
     /**
      * Handle link click event.
-     * @return {undefined}
      */
     handleOnClickLink = () => this.props.onClickLink && this.props.onClickLink(this.props.source, this.props.target);
 
