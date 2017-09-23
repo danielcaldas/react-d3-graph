@@ -86,10 +86,10 @@ export default class Graph extends React.Component {
 
     /**
      * Handles d3 'drag' event.
-     * @param  {Object} _ - event.
+     * @param  {Object} ev - event.
      * @param  {number} index - index of the node that is being dragged.
      */
-    _onDragMove = (_, index) => {
+    _onDragMove = (ev, index) => {
         if (!this.state.config.staticGraph) {
             // This is where d3 and react bind
             let draggedNode = this.state.nodes[this.state.nodeIndexMapping[index]];
