@@ -214,6 +214,7 @@ export default class Graph extends React.Component {
      * @param  {Object} data
      */
     _validateGraphData(data) {
+        // @TODO: Move function to helper.jsx
         data.links.forEach(l => {
             if (!data.nodes.find(n => n.id === l.source)) {
                 Utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
