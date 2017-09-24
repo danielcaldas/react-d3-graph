@@ -13,7 +13,7 @@ const MAX_DEPTH = 5;
  * Checks whether a certain object property is from object type and is a non empty object.
  * @param  {Object} o - the object.
  * @param  {number|string} k - the object property.
- * @return {boolean} returns true if o[k] is an non empty object.
+ * @returns {boolean} returns true if o[k] is an non empty object.
  * @memberof utils
  */
 function _isPropertyNestedObject(o, k) {
@@ -26,7 +26,7 @@ function _isPropertyNestedObject(o, k) {
  * @param  {Object} o2 - second object to compare with first.
  * @param  {number} [_depth=0] - this parameter serves only for internal usage.
  * @memberof utils
- * @return {boolean} returns true if o1 and o2 have exactly the same content, or are exactly the same object reference.
+ * @returns {boolean} returns true if o1 and o2 have exactly the same content, or are exactly the same object reference.
  */
 function isDeepEqual(o1, o2, _depth=0) {
     let diffs = [];
@@ -62,7 +62,7 @@ function isDeepEqual(o1, o2, _depth=0) {
  * Checks whether or not a certain object is empty.
  * NOTE: If the passed parameter is not an object the method return false.
  * @param  {Object}  o - object whom emptiness we want to check.
- * @return {boolean} true if the given object is n ft and object and is empty.
+ * @returns {boolean} true if the given object is n ft and object and is empty.
  * @memberof utils
  */
 function isObjectEmpty(o) {
@@ -76,7 +76,7 @@ function isObjectEmpty(o) {
  * @param  {Object} o2 - object that will override o1 properties.
  * @memberof utils
  * @param  {int} [_depth=0] - the depth at which we are merging the object.
- * @return {Object} object that is the result of merging o1 and o2, being o2 properties priority overriding
+ * @returns {Object} object that is the result of merging o1 and o2, being o2 properties priority overriding
  * existent o1 properties.
  */
 function merge(o1={}, o2={}, _depth=0) {
@@ -100,7 +100,7 @@ function merge(o1={}, o2={}, _depth=0) {
  * Helper function for customized error logging.
  * @param  {string} component - the name of the component where the error is to be thrown.
  * @param  {string} msg - the message contain a more detailed explanation about the error.
- * @return {Error} the thrown error.
+ * @returns {Error} the thrown error.
  * @memberof utils
  */
 function throwErr(component, msg) {
