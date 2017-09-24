@@ -13,7 +13,7 @@ var o=Object.getOwnPropertySymbols,i=Object.prototype.hasOwnProperty,a=Object.pr
  *
  * @param {string} eventNameSuffix Event name, e.g. "click".
  * @param {?boolean} capture Check if the capture phase is supported.
- * @return {boolean} True if the event is supported.
+ * @returns {boolean} True if the event is supported.
  * @internal
  * @license Modernizr 3.0.0pre (Custom Build) | MIT
  */

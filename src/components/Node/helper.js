@@ -21,7 +21,7 @@ import CONST from './const';
  * of d3 symbol.<br/>
  * {@link https://github.com/d3/d3-shape/blob/master/README.md#symbol}
  * @param  {string} typeName - the string that specifies the symbol type (should be one of {@link #node-symbol-type|node.symbolType}).
- * @return {Object} concrete instance of d3 symbol (defaults to circle).
+ * @returns {Object} concrete instance of d3 symbol (defaults to circle).
  * @memberof Node/helper
  */
 function _convertTypeToD3Symbol(typeName) {
@@ -50,13 +50,13 @@ function _convertTypeToD3Symbol(typeName) {
  * @param  {number} [size=80] - the size of the symbol.
  * @param  {string} [symbolTypeDesc='circle'] - the string containing the type of symbol that we want to build
  * (should be one of {@link #node-symbol-type|node.symbolType}).
- * @return {Object} concrete instance of d3 symbol.
+ * @returns {Object} concrete instance of d3 symbol.
  * @memberof Node/helper
  */
 function buildSvgSymbol(size=CONST.DEFAULT_NODE_SIZE, symbolTypeDesc=CONST.SYMBOLS.CIRCLE) {
     return d3Symbol()
             .size(() => size)
-            .type(() => _convertTypeToD3Symbol(symbolTypeDesc))(); // @todo: Strange behavior Symbol ret function
+            .type(() => _convertTypeToD3Symbol(symbolTypeDesc))(); //@TODO: Strange behavior Symbol ret function
 }
 
 export default {
