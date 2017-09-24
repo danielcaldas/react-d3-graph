@@ -275,18 +275,20 @@ function initializeLinks(graphLinks) {
 function initializeNodes(graphNodes) {
     let nodes = {};
     let nodeIndexMapping = {};
-    let index = 0;
 
-    graphNodes.forEach(n => {
-        n['highlighted'] = false;
-        if (!n.hasOwnProperty('x')) n['x'] = 0;
-        if (!n.hasOwnProperty('y')) n['y'] = 0;
+    const n = graphNodes.length;
 
-        nodes[n.id.toString()] = n;
-        nodeIndexMapping[index] = n.id;
+    for (let i=0; i < n; i++) {
+        const node = graphNodes[i];
 
-        index++;
-    });
+        node['highlighted'] = false;
+
+        if (!n.hasOwnProperty('x')) { node['x'] = 0 };
+        if (!n.hasOwnProperty('y')) { node['y'] = 0 };
+
+        nodes[node.id.toString()] = node;
+        nodeIndexMapping[i] = node.id;
+    }
 
     return {
         nodes,

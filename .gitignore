@@ -70,3 +70,4 @@ coverage
 sandbox/rd3g.sandbox.bundle.js.map
 gen-docs
 .DS_Store
+sandbox/data.xl.js
