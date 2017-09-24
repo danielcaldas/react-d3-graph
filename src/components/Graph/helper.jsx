@@ -24,7 +24,7 @@ import Node from '../Node/';
  * @param  {Object.<string, Object>} nodes - same as {@link #buildGraph|nodes in buildGraph}.
  * @param  {Object.<string, Object>} links - same as {@link #buildGraph|links in buildGraph}.
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
- * @param  {function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
+ * @param  {Function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
  * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object} returns an object that aggregates all props for creating respective Link component instance.
@@ -79,7 +79,7 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, so
  * @param  {Object.<string, Object>} nodes - same as {@link #buildGraph|nodes in buildGraph}.
  * @param  {Object.<string, Object>} links - same as {@link #buildGraph|links in buildGraph}.
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
- * @param  {function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
+ * @param  {Function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
  * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object[]} returns the generated array of Link components.
@@ -121,7 +121,7 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHi
  * Build some Node properties based on given parameters.
  * @param  {Object} node - the node object for whom we will generate properties.
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
- * @param  {function[]} nodeCallbacks - same as {@link #buildGraph|nodeCallbacks in buildGraph}.
+ * @param  {Function[]} nodeCallbacks - same as {@link #buildGraph|nodeCallbacks in buildGraph}.
  * @param  {boolean} someNodeHighlighted - same as {@link #buildGraph|someNodeHighlighted in buildGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object} returns object that contain Link props ready to be feeded to the Link component.
@@ -179,10 +179,10 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted, trans
  * Method that actually is exported an consumed by Graph component in order to build all Nodes and Link
  * components.
  * @param  {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
- * @param  {function[]} nodeCallbacks - array of callbacks for used defined event handler for node interactions.
+ * @param  {Function[]} nodeCallbacks - array of callbacks for used defined event handler for node interactions.
  * @param  {Object.<string, Object>} links - an object containing a matrix of connections of the graph, for each nodeId,
  * there is an Object that maps adjacent nodes ids (string) and their values (number).
- * @param  {function[]} linkCallbacks - array of callbacks for used defined event handler for link interactions.
+ * @param  {Function[]} linkCallbacks - array of callbacks for used defined event handler for link interactions.
  * @param  {Object} config - an object containg rd3g consumer defined configurations [LINK README] for the graph.
  * @param  {boolean} someNodeHighlighted - this value is true when some node on the graph is highlighted.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
