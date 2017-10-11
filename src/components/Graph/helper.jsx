@@ -213,7 +213,7 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted, trans
 function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNodeHighlighted, transform) {
     let linksComponents = [];
     let nodesComponents = [];
-    console.log(links);
+
     for (let i = 0, keys = Object.keys(nodes), n = keys.length; i < n; i++) {
         const nodeId = keys[i];
 
@@ -301,8 +301,8 @@ function initializeNodes(graphNodes) {
 
         node['highlighted'] = false;
 
-        if (!n.hasOwnProperty('x')) { node['x'] = 0 };
-        if (!n.hasOwnProperty('y')) { node['y'] = 0 };
+        if (!n.hasOwnProperty('x')) { node['x'] = 0; }
+        if (!n.hasOwnProperty('y')) { node['y'] = 0; }
 
         nodes[node.id.toString()] = node;
         nodeIndexMapping[i] = node.id;
