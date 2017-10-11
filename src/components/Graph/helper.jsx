@@ -171,7 +171,7 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted, trans
         size: nodeSize * t,
         stroke,
         strokeWidth: strokeWidth * t,
-        type: node.type || config.node.symbolType
+        type: node.symbolType || config.node.symbolType
     };
 }
 
