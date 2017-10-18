@@ -63,11 +63,11 @@ typings/
 
 # End of https://www.gitignore.io/api/node
 
-# PROJECT configurations
+# Project stuff
 dist
 lib
 coverage
 sandbox/rd3g.sandbox.bundle.js.map
 gen-docs
 .DS_Store
-sandbox/data.xl.js
+**/.DS_Store

@@ -148,5 +148,17 @@ describe('Utils', () => {
             that.o2.b.g = that.o2;
             expect(Utils.isDeepEqual(that.o1, that.o2)).toEqual(false);
         });
+
+        test('should return true when o1.b.g and o2.b.g are arrays with the same elements', () => {
+            that.o1.b.g = [1, 2, 3];
+            that.o2.b.g = [1, 2, 3];
+            expect(Utils.isDeepEqual(that.o1, that.o2)).toEqual(true);
+        });
+
+        test('should return false when o1.b.g and o2.b.g are arrays with the different elements', () => {
+            that.o1.b.g = [1, 2, '3'];
+            that.o2.b.g = [1, 2, 3];
+            expect(Utils.isDeepEqual(that.o1, that.o2)).toEqual(false);
+        });
     });
 });
