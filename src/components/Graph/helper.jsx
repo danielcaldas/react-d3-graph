@@ -182,6 +182,8 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted, trans
  * @param  {Function[]} nodeCallbacks - array of callbacks for used defined event handler for node interactions.
  * @param  {Object.<string, Object>} links - an object containing a matrix of connections of the graph, for each nodeId,
  * there is an Object that maps adjacent nodes ids (string) and their values (number).
+ * ```javascript
+ *  // links example
  *  {
  *     "Androsynth": {
  *         "Chenjesu": 1,
@@ -202,6 +204,7 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted, trans
  *     },
  *     ...
  *  }
+ * ```
  * @param  {Function[]} linkCallbacks - array of callbacks for used defined event handler for link interactions.
  * @param  {Object} config - an object containg rd3g consumer defined configurations [LINK README] for the graph.
  * @param  {boolean} someNodeHighlighted - this value is true when some node on the graph is highlighted.
