@@ -8,7 +8,7 @@ describe('Utils', () => {
             that.o = {
                 a:1,
                 b:{
-                    c:{ d: false, e: 'test', f: 12 },
+                    c:{ d: [1, 2, {m: 'test'}], e: 'test', f: 12 },
                     j: {
                         k: null,
                         l: 'test',
@@ -18,19 +18,19 @@ describe('Utils', () => {
         });
 
         test('should merge properly: r.a should be 2 and r.b.c.d should true', () => {
-            const r = Utils.merge(that.o, { a:2, b: { c: { d: true } } });
+            const r = Utils.merge(that.o, { a:2, b: { c: { d: [1, 2, {m: 'override'}] } } });
 
             expect(r.a).toEqual(2);
-            expect(r.b.c.d).toEqual(true);
             expect(r.b.c.e).toEqual('test');
             expect(r.b.c.f).toEqual(12);
+            expect(r.b.c.d).toEqual([1, 2, {m: 'override'}]);
         });
 
         test('should merge properly: o2 is undefined', () => {
             const r = Utils.merge(that.o, undefined);
 
             expect(r.a).toEqual(1);
-            expect(r.b.c.d).toEqual(false);
+            expect(r.b.c.d).toEqual([1, 2, {m: 'test'}]);
             expect(r.b.c.e).toEqual('test');
             expect(r.b.c.f).toEqual(12);
         });
@@ -146,6 +146,18 @@ describe('Utils', () => {
         test('should return true when: o1.b.g = o2.b and o2.b.g = o2 (circular structure)', () => {
             that.o1.b.g = that.o2.b;
             that.o2.b.g = that.o2;
+            expect(Utils.isDeepEqual(that.o1, that.o2)).toEqual(false);
+        });
+
+        test('should return true when o1.b.g and o2.b.g are arrays with the same elements', () => {
+            that.o1.b.g = [1, 2, 3];
+            that.o2.b.g = [1, 2, 3];
+            expect(Utils.isDeepEqual(that.o1, that.o2)).toEqual(true);
+        });
+
+        test('should return false when o1.b.g and o2.b.g are arrays with the different elements', () => {
+            that.o1.b.g = [1, 2, '3'];
+            that.o2.b.g = [1, 2, 3];
             expect(Utils.isDeepEqual(that.o1, that.o2)).toEqual(false);
         });
     });

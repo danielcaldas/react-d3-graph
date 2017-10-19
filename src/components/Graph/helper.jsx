@@ -50,7 +50,7 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, so
                                                                     : config.link.highlightColor;
     }
 
-    const linkValue = links[source][target] || links[target][source];
+    const linkValue = links[source][target] || links[target][source] || 1;
 
     let strokeWidth = config.link.strokeWidth * (1 / transform);
 
@@ -182,6 +182,29 @@ function _buildNodeProps(node, config, nodeCallbacks, someNodeHighlighted, trans
  * @param  {Function[]} nodeCallbacks - array of callbacks for used defined event handler for node interactions.
  * @param  {Object.<string, Object>} links - an object containing a matrix of connections of the graph, for each nodeId,
  * there is an Object that maps adjacent nodes ids (string) and their values (number).
+ * ```javascript
+ *  // links example
+ *  {
+ *     "Androsynth": {
+ *         "Chenjesu": 1,
+ *         "Ilwrath": 1,
+ *         "Mycon": 1,
+ *         "Spathi": 1,
+ *         "Umgah": 1,
+ *         "VUX": 1,
+ *         "Guardian": 1
+ *     },
+ *     "Chenjesu": {
+ *         "Androsynth": 1,
+ *         "Mycon": 1,
+ *         "Spathi": 1,
+ *         "Umgah": 1,
+ *         "VUX": 1,
+ *         "Broodhmome": 1
+ *     },
+ *     ...
+ *  }
+ * ```
  * @param  {Function[]} linkCallbacks - array of callbacks for used defined event handler for link interactions.
  * @param  {Object} config - an object containg rd3g consumer defined configurations [LINK README] for the graph.
  * @param  {boolean} someNodeHighlighted - this value is true when some node on the graph is highlighted.
@@ -194,7 +217,9 @@ function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, someNode
     let linksComponents = [];
     let nodesComponents = [];
 
-    for (let nodeId in nodes) {
+    for (let i = 0, keys = Object.keys(nodes), n = keys.length; i < n; i++) {
+        const nodeId = keys[i];
+
         const props = _buildNodeProps(nodes[nodeId], config, nodeCallbacks, someNodeHighlighted, transform);
 
         nodesComponents.push(<Node key={nodeId} {...props} />);
@@ -223,12 +248,10 @@ function createForceSimulation(width, height) {
     const frx = d3ForceX(width / 2).strength(CONST.FORCE_X);
     const fry = d3ForceY(height / 2).strength(CONST.FORCE_Y);
 
-    const simulation = d3ForceSimulation()
+    return d3ForceSimulation()
             .force('charge', d3ForceManyBody().strength(CONST.FORCE_IDEAL_STRENGTH))
             .force('x', frx)
             .force('y', fry);
-
-    return simulation;
 }
 
 /**
@@ -242,9 +265,7 @@ function createForceSimulation(width, height) {
  * @memberof Graph/helper
  */
 function initializeLinks(graphLinks) {
-    let links = {};
-
-    graphLinks.forEach(l => {
+    return graphLinks.reduce((links, l) => {
         const source = l.source.id || l.source;
         const target = l.target.id || l.target;
 
@@ -258,9 +279,9 @@ function initializeLinks(graphLinks) {
 
         // @TODO: If the graph is directed this should be adapted
         links[source][target] = links[target][source] = l.value || 1;
-    });
 
-    return links;
+        return links;
+    }, {});
 }
 
 /**
@@ -275,23 +296,22 @@ function initializeLinks(graphLinks) {
 function initializeNodes(graphNodes) {
     let nodes = {};
     let nodeIndexMapping = {};
-    let index = 0;
 
-    graphNodes.forEach(n => {
-        n['highlighted'] = false;
-        if (!n.hasOwnProperty('x')) n['x'] = 0;
-        if (!n.hasOwnProperty('y')) n['y'] = 0;
+    const n = graphNodes.length;
 
-        nodes[n.id.toString()] = n;
-        nodeIndexMapping[index] = n.id;
+    for (let i=0; i < n; i++) {
+        const node = graphNodes[i];
 
-        index++;
-    });
+        node['highlighted'] = false;
 
-    return {
-        nodes,
-        nodeIndexMapping
-    };
+        if (!n.hasOwnProperty('x')) { node['x'] = 0; }
+        if (!n.hasOwnProperty('y')) { node['y'] = 0; }
+
+        nodes[node.id.toString()] = node;
+        nodeIndexMapping[i] = node.id;
+    }
+
+    return { nodes, nodeIndexMapping };
 }
 
 export default {

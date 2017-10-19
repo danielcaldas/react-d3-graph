@@ -7,7 +7,7 @@
 
 // This variable assures that recursive methods such as merge and isDeepEqual do not fall on
 // circular JSON structure evaluation.
-const MAX_DEPTH = 5;
+const MAX_DEPTH = 20;
 
 /**
  * Checks whether a certain object property is from object type and is a non empty object.
@@ -71,7 +71,7 @@ function isObjectEmpty(o) {
 
 /**
  * This function merges two objects o1 and o2, where o2 properties override existent o1 properties, and
- * if o2 doesn't posses some o1 property the function will fallback to the o1 property.
+ * if o2 doesn't posses some o1 property the fallback will be the o1 property.
  * @param  {Object} o1 - object.
  * @param  {Object} o2 - object that will override o1 properties.
  * @memberof utils
@@ -80,14 +80,17 @@ function isObjectEmpty(o) {
  * existent o1 properties.
  */
 function merge(o1={}, o2={}, _depth=0) {
-    // @TODO: Support for arrays
     let o = {};
 
     for (let k of Object.keys(o1)) {
-        const nestedO = o2[k] && typeof o2[k] === 'object' && typeof o1[k] === 'object' && _depth < MAX_DEPTH;
+        const nestedO = !!(o2[k] && typeof o2[k] === 'object' && typeof o1[k] === 'object' && _depth < MAX_DEPTH);
 
         if (nestedO) {
-            o[k] = merge(o1[k], o2[k], _depth + 1);
+            const r = merge(o1[k], o2[k], _depth + 1);
+
+            o[k] = (o1[k].hasOwnProperty('length') && o2[k].hasOwnProperty('length'))
+                    ? Object.keys(r).map((rk) => r[rk])
+                    : r;
         } else {
             o[k] = o2.hasOwnProperty(k) ? o2[k] : o1[k];
         }
