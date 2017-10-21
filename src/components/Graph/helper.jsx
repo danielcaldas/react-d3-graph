@@ -31,10 +31,10 @@ import Node from '../Node/';
  * @memberof Graph/helper
  */
 function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted, transform) {
-    const x1 = nodes[source] && nodes[source].x || '0';
-    const y1 = nodes[source] && nodes[source].y || '0';
-    const x2 = nodes[target] && nodes[target].x || '0';
-    const y2 = nodes[target] && nodes[target].y || '0';
+    const x1 = nodes[source] && nodes[source].x || 0;
+    const y1 = nodes[source] && nodes[source].y || 0;
+    const x2 = nodes[target] && nodes[target].x || 0;
+    const y2 = nodes[target] && nodes[target].y || 0;
 
     let opacity = config.link.opacity;
 
@@ -304,8 +304,8 @@ function initializeNodes(graphNodes) {
 
         node['highlighted'] = false;
 
-        if (!n.hasOwnProperty('x')) { node['x'] = 0; }
-        if (!n.hasOwnProperty('y')) { node['y'] = 0; }
+        if (!node.hasOwnProperty('x')) { node['x'] = 0; }
+        if (!node.hasOwnProperty('y')) { node['y'] = 0; }
 
         nodes[node.id.toString()] = node;
         nodeIndexMapping[i] = node.id;
