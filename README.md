@@ -1,4 +1,4 @@
-# react-d3-graph &middot; [![Build Status](https://travis-ci.com/danielcaldas/react-d3-graph.svg?token=fb6uSENok5Y3gSSi5yjE&branch=master)](https://travis-ci.com/danielcaldas/react-d3-graph) [![npm version](https://img.shields.io/badge/npm-v0.2.1-blue.svg)](https://www.npmjs.com/package/react-d3-graph) [![npm stats](https://img.shields.io/badge/downloads->600-brightgreen.svg)](https://npm-stat.com/) [![probot enabled](https://img.shields.io/badge/probot:stale-enabled-yellow.svg)](https://probot.github.io/)
+# react-d3-graph &middot; [![Build Status](https://travis-ci.org/danielcaldas/react-d3-graph.svg?branch=master)](https://travis-ci.org/danielcaldas/react-d3-graph) [![npm version](https://img.shields.io/badge/npm-v0.2.1-blue.svg)](https://www.npmjs.com/package/react-d3-graph) [![npm stats](https://img.shields.io/badge/downloads->600-brightgreen.svg)](https://npm-stat.com/) [![probot enabled](https://img.shields.io/badge/probot:stale-enabled-yellow.svg)](https://probot.github.io/)
 [:book:](https://danielcaldas.github.io/react-d3-graph/docs/index.html)
 
 ### *Interactive and configurable graphs with react and d3 effortlessly*
