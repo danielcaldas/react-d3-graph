@@ -29,27 +29,11 @@ export default class Sandbox extends React.Component {
         this.uiSchema = uiSchema;
 
         this.state = {
-            config: defaultConfig,
+            config: {}, // Override initial configs here. e.g: {staticGraph: true}
             generatedConfig: {},
             schema,
-            data: { nodes: this._decorateGraphNodesWithInitialPositioning(data.nodes), links: data.links }
+            data
         };
-    }
-
-    /**
-     * This function decorates nodes and links with positions. The motivation
-     * for this function its to set `config.staticGraph` to true on the first render
-     * call, and to get nodes and links statically set to their initial positions.
-     * @param  {Object} nodes nodes and links with minimalist structure
-     * @return {Object} the graph where now nodes containing (x,y) coords.
-     */
-    _decorateGraphNodesWithInitialPositioning = (nodes) => {
-        return nodes.map(n => ({
-            id: n.id,
-            x: Math.floor(Math.random() * 500),
-            y: Math.floor(Math.random() * 500),
-            symbolType: n.symbolType || 'circle'
-        }));
     }
 
     onClickNode = (id) => window.alert(`Clicked node ${id}`);
@@ -137,7 +121,7 @@ export default class Sandbox extends React.Component {
 
     /**
      * ==============================================================
-     * The methods below (**besides render method) is Sandbox specific it will not
+     * The methods below (besides render method) is Sandbox specific it will not
      * be usefull in any way to your application in terms
      * of integrating react-d3-graph in your app.
      * ==============================================================
@@ -201,11 +185,36 @@ export default class Sandbox extends React.Component {
         });
     }
 
+    /**
+     * This function decorates nodes and links with positions. The motivation
+     * for this function its to set `config.staticGraph` to true on the first render
+     * call, and to get nodes and links statically set to their initial positions.
+     * @param  {Object} nodes nodes and links with minimalist structure.
+     * @return {Object} the graph where now nodes containing (x,y) coords.
+     */
+    decorateGraphNodesWithInitialPositioning = (nodes) => {
+        return nodes.map(n => ({
+            id: n.id,
+            x: Math.floor(Math.random() * 500),
+            y: Math.floor(Math.random() * 500),
+            symbolType: n.symbolType || 'circle'
+        }));
+    }
+
     render() {
+        // This does not happens in this sandbox scenario running time, but if we set staticGraph config
+        // to true in the constructor
+        const data = this.state.config.staticGraph ?
+        {
+            nodes: this.decorateGraphNodesWithInitialPositioning(this.state.data.nodes),
+            links: this.state.data.links
+        }
+        : this.state.data;
+
         const graphProps = {
             id: 'graph',
-            data: this.state.data,
-            config: Object.assign(this.state.config, {staticGraph: true}),
+            data,
+            config: this.state.config,
             onClickNode: this.onClickNode,
             onClickLink: this.onClickLink,
             onMouseOverNode: this.onMouseOverNode,
@@ -216,6 +225,7 @@ export default class Sandbox extends React.Component {
             cursor: this.state.config.staticGraph ? 'not-allowed' : 'pointer'
         };
 
+        // @TODO: Only show configs that differ from default ones in "Your config" box
         return (
             <div className='container'>
                 <div className='container__graph'>
