@@ -14,7 +14,9 @@
         "docs": "npm run docs:lint && node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o gen-docs && node_modules/documentation/bin/documentation.js build src/**/*.js -f md > gen-docs/DOCUMENTATION.md",
         "docs:lint": "node_modules/documentation/bin/documentation.js lint src/**/*.js",
         "docs:watch": "node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o gen-docs --watch",
-        "lint": "node_modules/eslint/bin/eslint.js --config=.eslintrc.js \"src/**/*.js*\"",
+        "lint": "npm run lint:src && npm run lint:test",
+        "lint:src": "node_modules/eslint/bin/eslint.js --config=.eslintrc.js \"src/**/*.js*\"",
+        "lint:test": "node_modules/eslint/bin/eslint.js --config=.eslintrc.test.config.js \"test/**/*.test.js\"",
         "test": "jest --verbose --coverage",
         "test:clean": "jest --no-cache --updateSnapshot --verbose --coverage",
         "test:watch": "jest --verbose --watchAll"
@@ -39,6 +41,7 @@
         "documentation": "5.3.2",
         "eslint": "3.18.0",
         "eslint-config-recommended": "1.5.0",
+        "eslint-plugin-jest": "21.2.0",
         "eslint-plugin-promise": "3.5.0",
         "eslint-plugin-standard": "2.1.1",
         "html-webpack-plugin": "2.30.1",
