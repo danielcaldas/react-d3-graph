@@ -31,6 +31,7 @@ import Node from '../Node/';
  * @memberof Graph/helper
  */
 function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, someNodeHighlighted, transform) {
+    // FIXME: Default is of string type number should be considered
     const x1 = nodes[source] && nodes[source].x || '0';
     const y1 = nodes[source] && nodes[source].y || '0';
     const x2 = nodes[target] && nodes[target].x || '0';
@@ -98,6 +99,8 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, someNodeHi
 
             if (nodes[target]) {
                 const key = `${nodeId}${CONST.COORDS_SEPARATOR}${target}`;
+                // FIXME: Instead of assignment and desctruturing inside .push the props should directly get
+                // the results from the call to _buildLinkProps
                 const props = _buildLinkProps(
                     source,
                     target,

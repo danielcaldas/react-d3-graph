@@ -32,8 +32,24 @@ export default class Sandbox extends React.Component {
             config: defaultConfig,
             generatedConfig: {},
             schema,
-            data
+            data: { nodes: this._decorateGraphNodesWithInitialPositioning(data.nodes), links: data.links }
         };
+    }
+
+    /**
+     * This function decorates nodes and links with positions. The motivation
+     * for this function its to set `config.staticGraph` to true on the first render
+     * call, and to get nodes and links statically set to their initial positions.
+     * @param  {Object} nodes nodes and links with minimalist structure
+     * @return {Object} the graph where now nodes containing (x,y) coords.
+     */
+    _decorateGraphNodesWithInitialPositioning = (nodes) => {
+        return nodes.map(n => ({
+            id: n.id,
+            x: Math.floor(Math.random() * 500),
+            y: Math.floor(Math.random() * 500),
+            symbolType: n.symbolType || 'circle'
+        }));
     }
 
     onClickNode = (id) => window.alert(`Clicked node ${id}`);
@@ -189,7 +205,7 @@ export default class Sandbox extends React.Component {
         const graphProps = {
             id: 'graph',
             data: this.state.data,
-            config: this.state.config,
+            config: Object.assign(this.state.config, {staticGraph: true}),
             onClickNode: this.onClickNode,
             onClickLink: this.onClickLink,
             onMouseOverNode: this.onMouseOverNode,
