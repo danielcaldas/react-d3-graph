@@ -1,5 +1,20 @@
 # Change Log
 
+## [0.3.0](https://github.com/danielcaldas/react-d3-graph/tree/0.3.0) (2017-10-21)
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.2.1...0.3.0)
+
+**Implemented enhancements and Fixed bugs:**
+
+- Squeezing if "staticGraph": true [\#24](https://github.com/danielcaldas/react-d3-graph/issues/24), props to [scoutrul](https://github.com/scoutrul) for reporting this issue.
+
+**Merged pull requests:**
+
+- Fix/set initial static graph [\#26](https://github.com/danielcaldas/react-d3-graph/pull/26) ([danielcaldas](https://github.com/danielcaldas))
+- Refactor/general improvements [\#22](https://github.com/danielcaldas/react-d3-graph/pull/22) ([danielcaldas](https://github.com/danielcaldas))
+- Fix typo node.stype -\> node.symbolType [\#21](https://github.com/danielcaldas/react-d3-graph/pull/21) ([danielcaldas](https://github.com/danielcaldas))
+- Bump several dependencies to latest. New yarn.lock [\#20](https://github.com/danielcaldas/react-d3-graph/pull/20) ([danielcaldas](https://github.com/danielcaldas))
+- Refactor/documentation revisited [\#19](https://github.com/danielcaldas/react-d3-graph/pull/19) ([danielcaldas](https://github.com/danielcaldas))
+
 ## [0.2.1](https://github.com/danielcaldas/react-d3-graph/tree/0.2.1) (2017-09-17)
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.2.0...0.2.1)
 
