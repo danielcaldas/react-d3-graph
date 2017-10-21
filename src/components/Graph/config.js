@@ -39,8 +39,9 @@
  * @param {boolean} [panAndZoom=false] - 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
  * a similar functionality may be consulted {@link https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39|here}.
  * @param {boolean} [staticGraph=false] - when setting this value to true the graph will be completely static, thus
- * all forces and drag events upon nodes will produce not effect. **Plus**, if this value is true the nodes will be
- * rendered with the initial provided **x and y coordinates**, no coordinates will be calculated by react-d3-graph.
+ * all forces and drag events upon nodes will produce not effect. Note that, if this value is true the nodes will be
+ * rendered with the initial provided **x and y coordinates** (links positions will be automatically set
+ * from the given nodes positions by rd3g), no coordinates will be calculated by rd3g or subjacent d3 modules.
  * @param {number} [width=800] - the width of the (svg) area where the graph will be rendered.
  * <br/>
  * @param {Object} node node object is explained in next section.
