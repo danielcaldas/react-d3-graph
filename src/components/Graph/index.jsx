@@ -13,8 +13,8 @@ import CONST from './const';
 import DEFAULT_CONFIG from './config';
 import ERRORS from '../../err';
 
-import GraphHelper from './helper';
-import Utils from '../../utils';
+import graphHelper from './helper';
+import utils from '../../utils';
 
 // Some d3 constant values
 const D3_CONST = {
@@ -223,10 +223,10 @@ export default class Graph extends React.Component {
         // @TODO: Move function to helper.jsx
         data.links.forEach(l => {
             if (!data.nodes.find(n => n.id === l.source)) {
-                Utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
+                utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
             }
             if (!data.nodes.find(n => n.id === l.target)) {
-                Utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
+                utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
             }
         });
     }
@@ -258,12 +258,12 @@ export default class Graph extends React.Component {
 
         graph.links = data.links.map(l => Object.assign({}, l));
 
-        let config = Object.assign({}, Utils.merge(DEFAULT_CONFIG, this.props.config || {}));
-        let {nodes, nodeIndexMapping} = GraphHelper.initializeNodes(graph.nodes);
-        let links = GraphHelper.initializeLinks(graph.links); // Matrix of graph connections
+        let config = Object.assign({}, utils.merge(DEFAULT_CONFIG, this.props.config || {}));
+        let {nodes, nodeIndexMapping} = graphHelper.initializeNodes(graph.nodes);
+        let links = graphHelper.initializeLinks(graph.links); // Matrix of graph connections
         const {nodes: d3Nodes, links: d3Links} = graph;
         const id = this.props.id.replace(/ /g, '_');
-        const simulation = GraphHelper.createForceSimulation(config.width, config.height);
+        const simulation = graphHelper.createForceSimulation(config.width, config.height);
 
         return {
             id,
@@ -306,7 +306,7 @@ export default class Graph extends React.Component {
         super(props);
 
         if (!this.props.id) {
-            Utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
+            utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
         }
 
         this.state = this._initializeGraphState(this.props.data);
@@ -317,12 +317,12 @@ export default class Graph extends React.Component {
                               || nextProps.data.links.length !== this.state.d3Links.length;
 
         if (newGraphElements && nextProps.config.staticGraph) {
-            Utils.throwErr(this.constructor.name, ERRORS.STATIC_GRAPH_DATA_UPDATE);
+            utils.throwErr(this.constructor.name, ERRORS.STATIC_GRAPH_DATA_UPDATE);
         }
 
-        const configUpdated = !Utils.isDeepEqual(nextProps.config, this.state.config);
+        const configUpdated = !utils.isDeepEqual(nextProps.config, this.state.config);
         const state = newGraphElements ? this._initializeGraphState(nextProps.data) : this.state;
-        const config = Utils.merge(DEFAULT_CONFIG, nextProps.config || {});
+        const config = utils.merge(DEFAULT_CONFIG, nextProps.config || {});
 
         // In order to properly update graph data we need to pause eventual d3 ongoing animations
         newGraphElements && this.pauseSimulation();
@@ -368,7 +368,7 @@ export default class Graph extends React.Component {
     }
 
     render() {
-        const { nodes, links } = GraphHelper.buildGraph(
+        const { nodes, links } = graphHelper.buildGraph(
             this.state.nodes,
             {
                 onClickNode: this.props.onClickNode,

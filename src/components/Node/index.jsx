@@ -2,7 +2,7 @@ import React from 'react';
 
 import CONST from './const';
 
-import NodeHelper from './helper';
+import nodeHelper from './helper';
 
 /**
  * Node component is responsible for encapsulating node render.
@@ -66,7 +66,7 @@ export default class Node extends React.Component {
 
         const pathProps = {
             cursor: this.props.cursor,
-            d: NodeHelper.buildSvgSymbol(this.props.size, this.props.type),
+            d: nodeHelper.buildSvgSymbol(this.props.size, this.props.type),
             fill: this.props.fill,
             onClick: this.handleOnClickNode,
             onMouseOut: this.handleOnMouseOutNode,
