@@ -32,7 +32,8 @@ export default class Sandbox extends React.Component {
             config: {}, // Override initial configs here. e.g: {staticGraph: true}
             generatedConfig: {},
             schema,
-            data
+            data,
+            fullScreen: false
         };
     }
 
@@ -49,14 +50,23 @@ export default class Sandbox extends React.Component {
     }
 
     /**
-     * Pause ongoing animations.
+     * Sets on/off fullscreen visualization mode.
      */
-    pauseGraphSimulation = () => this.refs.graph.pauseSimulation();
+    onToggleFullScreen = () => {
+        const fullScreen = !this.state.fullScreen;
+
+        this.setState({ fullScreen });
+    }
 
     /**
      * Play stopped animations.
      */
     restartGraphSimulation = () => this.refs.graph.restartSimulation();
+
+    /**
+     * Pause ongoing animations.
+     */
+    pauseGraphSimulation = () => this.refs.graph.pauseSimulation();
 
     /**
      * If you have moved nodes you will have them restore theire positions
@@ -142,8 +152,6 @@ export default class Sandbox extends React.Component {
         return {config, schemaPropsValues};
     }
 
-    refresh = () => location.reload();
-
     refreshGraph = (data) => {
         const {config, schemaPropsValues} = this._buildGraphConfig(data);
 
@@ -225,51 +233,65 @@ export default class Sandbox extends React.Component {
             cursor: this.state.config.staticGraph ? 'not-allowed' : 'pointer'
         };
 
-        // @TODO: Only show configs that differ from default ones in "Your config" box
-        return (
-            <div className='container'>
-                <div className='container__graph'>
-                    <button onClick={this.restartGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
-                    <button onClick={this.pauseGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>⏸️</button>
-                    <button onClick={this.refresh} className='btn btn-default btn-margin-left' style={btnStyle}>🔄</button>
-                    <button onClick={this.resetNodesPositions} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
-                    <button onClick={this.onClickAddNode} className='btn btn-default btn-margin-left' style={btnStyle}>+</button>
-                    <button onClick={this.onClickRemoveNode} className='btn btn-default btn-margin-left' style={btnStyle}>-</button>
-                    <span className='container__graph-info'>
-                        <b>Nodes: </b> {this.state.data.nodes.length} | <b>Links: </b> {this.state.data.links.length}
-                    </span>
-                    <div className='container__graph-area'>
-                        <Graph ref='graph' {...graphProps}/>
+        if (this.state.fullScreen) {
+            graphProps.config = Object.assign({}, graphProps.config, {
+                height: window.innerHeight,
+                width: window.innerWidth,
+            });
+
+            return (
+                <div>
+                    <span class='cross-icon' onClick={this.onToggleFullScreen}>❌</span>
+                    <Graph ref='graph' {...graphProps}/>
+                </div>
+            );
+        } else {
+            // @TODO: Only show configs that differ from default ones in "Your config" box
+            return (
+                <div className='container'>
+                    <div className='container__graph'>
+                        <button onClick={this.onToggleFullScreen} className='btn btn-default btn-margin-left'>Fullscreen</button>
+                        <button onClick={this.restartGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
+                        <button onClick={this.pauseGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>⏸️</button>
+                        <button onClick={this.resetNodesPositions} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
+                        <button onClick={this.onClickAddNode} className='btn btn-default btn-margin-left' style={btnStyle}>+</button>
+                        <button onClick={this.onClickRemoveNode} className='btn btn-default btn-margin-left' style={btnStyle}>-</button>
+                        <span className='container__graph-info'>
+                            <b>Nodes: </b> {this.state.data.nodes.length} | <b>Links: </b> {this.state.data.links.length}
+                        </span>
+                        <div className='container__graph-area'>
+                            <Graph ref='graph' {...graphProps}/>
+                        </div>
+                    </div>
+                    <div className='container__form'>
+                        <h4>
+                            <a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">react-d3-graph</a>
+                        </h4>
+                        <h4>
+                            <a href="https://danielcaldas.github.io/react-d3-graph/docs/index.html" target="_blank">docs</a>
+                        </h4>
+                        <h3>Configurations</h3>
+                        <Form className='form-wrapper'
+                            schema={this.state.schema}
+                            uiSchema={this.uiSchema}
+                            onChange={this.refreshGraph}
+                            onSubmit={this.onSubmit}>
+                            <button className='invisible-button' type='submit'></button>
+                        </Form>
+                        <button className='submit-button btn btn-primary' onClick={this.onClickSubmit}>Generate config</button>
+                        <button className='reset-button btn btn-danger' onClick={this.resetGraphConfig}>Reset config</button>
+                    </div>
+                    <div className='container__graph-config'>
+                        <h4>Your config</h4>
+                        <JSONContainer data={this.state.generatedConfig} staticData={false} />
+                    </div>
+                    <div className='container__graph-data'>
+                        <h4>Initial Graph Data</h4>
+                        <JSONContainer data={this.state.data} staticData={true}/>
                     </div>
                 </div>
-                <div className='container__form'>
-                    <h4>
-                        <a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">react-d3-graph</a>
-                    </h4>
-                    <h4>
-                        <a href="https://danielcaldas.github.io/react-d3-graph/docs/index.html" target="_blank">docs</a>
-                    </h4>
-                    <h3>Configurations</h3>
-                    <Form className='form-wrapper'
-                        schema={this.state.schema}
-                        uiSchema={this.uiSchema}
-                        onChange={this.refreshGraph}
-                        onSubmit={this.onSubmit}>
-                        <button className='invisible-button' type='submit'></button>
-                    </Form>
-                    <button className='submit-button btn btn-primary' onClick={this.onClickSubmit}>Generate config</button>
-                    <button className='reset-button btn btn-danger' onClick={this.resetGraphConfig}>Reset config</button>
-                </div>
-                <div className='container__graph-config'>
-                    <h4>Your config</h4>
-                    <JSONContainer data={this.state.generatedConfig} staticData={false} />
-                </div>
-                <div className='container__graph-data'>
-                    <h4>Initial Graph Data</h4>
-                    <JSONContainer data={this.state.data} staticData={true}/>
-                </div>
-            </div>
-        );
+            );
+        }
     }
 }
 

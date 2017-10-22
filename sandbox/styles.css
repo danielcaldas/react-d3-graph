@@ -54,6 +54,10 @@
     min-width: 400px;
 }
 
+.cross-icon:hover {
+    cursor: pointer;
+}
+
 .form-wrapper {
     overflow-y: scroll;
     max-height: 70vh;
