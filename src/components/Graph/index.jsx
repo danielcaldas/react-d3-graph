@@ -363,6 +363,10 @@ export default class Graph extends React.Component {
         this._zoomConfig();
     }
 
+    componentWillUnmount() {
+        this.state.simulation.stop();
+    }
+
     render() {
         const { nodes, links } = GraphHelper.buildGraph(
             this.state.nodes,
