@@ -54,6 +54,10 @@
     min-width: 400px;
 }
 
+.cross-icon {
+    padding-right: 8px;
+}
+
 .cross-icon:hover {
     cursor: pointer;
 }
