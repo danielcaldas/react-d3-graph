@@ -10,6 +10,10 @@ import data from './data';
 import Utils from './utils';
 import ReactD3GraphUtils from  '../src/utils';
 
+/**
+ * This is a sample integration of react-d3-graph, in this particular case all the rd3g config properties
+ * will be exposed in a form in order to allow on the fly graph configuration.
+ */
 export default class Sandbox extends React.Component {
     constructor(props) {
         super(props);
@@ -29,10 +33,11 @@ export default class Sandbox extends React.Component {
         this.uiSchema = uiSchema;
 
         this.state = {
-            config: {}, // Override initial configs here. e.g: {staticGraph: true}
+            config: {}, // NOTE: Override initial configs here. e.g: {staticGraph: true}
             generatedConfig: {},
             schema,
-            data
+            data,
+            fullscreen: false
         };
     }
 
@@ -40,23 +45,28 @@ export default class Sandbox extends React.Component {
 
     onClickLink = (source, target) => window.alert(`Clicked link between ${source} and ${target}`);
 
-    onMouseOverNode = () => {
-        // Do something with the node identifier ...
-    }
+    onMouseOverNode = (id) => console.info(`Do something when mouse is over node (${id})`);
 
-    onMouseOutNode = () => {
-        // Do something with the node identifier ...
-    }
+    onMouseOutNode = (id) => console.info(`Do something when mouse is out of node (${id})`);
 
     /**
-     * Pause ongoing animations.
+     * Sets on/off fullscreen visualization mode.
      */
-    pauseGraphSimulation = () => this.refs.graph.pauseSimulation();
+    onToggleFullScreen = () => {
+        const fullscreen = !this.state.fullscreen;
+
+        this.setState({ fullscreen });
+    }
 
     /**
      * Play stopped animations.
      */
     restartGraphSimulation = () => this.refs.graph.restartSimulation();
+
+    /**
+     * Pause ongoing animations.
+     */
+    pauseGraphSimulation = () => this.refs.graph.pauseSimulation();
 
     /**
      * If you have moved nodes you will have them restore theire positions
@@ -65,7 +75,7 @@ export default class Sandbox extends React.Component {
     resetNodesPositions = () => this.refs.graph.resetNodesPositions();
 
     /**
-     * Append a new node.
+     * Append a new node with some randomness.
      */
     onClickAddNode = () => {
         if (this.state.data.nodes && this.state.data.nodes.length) {
@@ -104,7 +114,7 @@ export default class Sandbox extends React.Component {
     }
 
     /**
-     * Remove a node
+     * Remove a node.
      */
     onClickRemoveNode = () => {
         if (this.state.data.nodes && this.state.data.nodes.length) {
@@ -118,14 +128,6 @@ export default class Sandbox extends React.Component {
             alert('No more nodes to remove!');
         }
     }
-
-    /**
-     * ==============================================================
-     * The methods below (besides render method) is Sandbox specific it will not
-     * be usefull in any way to your application in terms
-     * of integrating react-d3-graph in your app.
-     * ==============================================================
-     */
 
     _buildGraphConfig = (data) => {
         let config = {};
@@ -142,8 +144,6 @@ export default class Sandbox extends React.Component {
         return {config, schemaPropsValues};
     }
 
-    refresh = () => location.reload();
-
     refreshGraph = (data) => {
         const {config, schemaPropsValues} = this._buildGraphConfig(data);
 
@@ -154,7 +154,9 @@ export default class Sandbox extends React.Component {
         });
     }
 
-    // Generate graph configuration file ready to use!
+    /**
+     * Generate graph configuration file ready to use!
+     */
     onSubmit = (data) => {
         const {config, schemaPropsValues} = this._buildGraphConfig(data);
 
@@ -201,9 +203,37 @@ export default class Sandbox extends React.Component {
         }));
     }
 
+    /**
+     * Build common piece of the interface that contains some interactions such as
+     * fullscreen, play/pause, + and - buttons.
+     */
+    buildCommonInteractionsPanel = () => {
+        const btnStyle = {
+            cursor: this.state.config.staticGraph ? 'not-allowed' : 'pointer'
+        };
+
+        const fullscreen = this.state.fullscreen ?
+            (<span className='cross-icon' onClick={this.onToggleFullScreen}>❌</span>)
+            : (<button onClick={this.onToggleFullScreen} className='btn btn-default btn-margin-left'>Fullscreen</button>);
+
+        return (
+            <div>
+                {fullscreen}
+                <button onClick={this.restartGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
+                <button onClick={this.pauseGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>⏸️</button>
+                <button onClick={this.resetNodesPositions} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
+                <button onClick={this.onClickAddNode} className='btn btn-default btn-margin-left' style={btnStyle}>+</button>
+                <button onClick={this.onClickRemoveNode} className='btn btn-default btn-margin-left' style={btnStyle}>-</button>
+                <span className='container__graph-info'>
+                    <b>Nodes: </b> {this.state.data.nodes.length} | <b>Links: </b> {this.state.data.links.length}
+                </span>
+            </div>
+        );
+    }
+
     render() {
         // This does not happens in this sandbox scenario running time, but if we set staticGraph config
-        // to true in the constructor
+        // to true in the constructor we will provide nodes with initial positions
         const data = this.state.config.staticGraph ?
         {
             nodes: this.decorateGraphNodesWithInitialPositioning(this.state.data.nodes),
@@ -221,55 +251,57 @@ export default class Sandbox extends React.Component {
             onMouseOutNode: this.onMouseOutNode
         };
 
-        const btnStyle = {
-            cursor: this.state.config.staticGraph ? 'not-allowed' : 'pointer'
-        };
+        if (this.state.fullscreen) {
+            graphProps.config = Object.assign({}, graphProps.config, {
+                height: window.innerHeight,
+                width: window.innerWidth,
+            });
 
-        // @TODO: Only show configs that differ from default ones in "Your config" box
-        return (
-            <div className='container'>
-                <div className='container__graph'>
-                    <button onClick={this.restartGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
-                    <button onClick={this.pauseGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>⏸️</button>
-                    <button onClick={this.refresh} className='btn btn-default btn-margin-left' style={btnStyle}>🔄</button>
-                    <button onClick={this.resetNodesPositions} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
-                    <button onClick={this.onClickAddNode} className='btn btn-default btn-margin-left' style={btnStyle}>+</button>
-                    <button onClick={this.onClickRemoveNode} className='btn btn-default btn-margin-left' style={btnStyle}>-</button>
-                    <span className='container__graph-info'>
-                        <b>Nodes: </b> {this.state.data.nodes.length} | <b>Links: </b> {this.state.data.links.length}
-                    </span>
-                    <div className='container__graph-area'>
-                        <Graph ref='graph' {...graphProps}/>
+            return (
+                <div>
+                    {this.buildCommonInteractionsPanel()}
+                    <Graph ref='graph' {...graphProps}/>
+                </div>
+            );
+        } else {
+            // @TODO: Only show configs that differ from default ones in "Your config" box
+            return (
+                <div className='container'>
+                    <div className='container__graph'>
+                        {this.buildCommonInteractionsPanel()}
+                        <div className='container__graph-area'>
+                            <Graph ref='graph' {...graphProps}/>
+                        </div>
+                    </div>
+                    <div className='container__form'>
+                        <h4>
+                            <a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">react-d3-graph</a>
+                        </h4>
+                        <h4>
+                            <a href="https://danielcaldas.github.io/react-d3-graph/docs/index.html" target="_blank">docs</a>
+                        </h4>
+                        <h3>Configurations</h3>
+                        <Form className='form-wrapper'
+                            schema={this.state.schema}
+                            uiSchema={this.uiSchema}
+                            onChange={this.refreshGraph}
+                            onSubmit={this.onSubmit}>
+                            <button className='invisible-button' type='submit'></button>
+                        </Form>
+                        <button className='submit-button btn btn-primary' onClick={this.onClickSubmit}>Generate config</button>
+                        <button className='reset-button btn btn-danger' onClick={this.resetGraphConfig}>Reset config</button>
+                    </div>
+                    <div className='container__graph-config'>
+                        <h4>Your config</h4>
+                        <JSONContainer data={this.state.generatedConfig} staticData={false} />
+                    </div>
+                    <div className='container__graph-data'>
+                        <h4>Initial Graph Data</h4>
+                        <JSONContainer data={this.state.data} staticData={true}/>
                     </div>
                 </div>
-                <div className='container__form'>
-                    <h4>
-                        <a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">react-d3-graph</a>
-                    </h4>
-                    <h4>
-                        <a href="https://danielcaldas.github.io/react-d3-graph/docs/index.html" target="_blank">docs</a>
-                    </h4>
-                    <h3>Configurations</h3>
-                    <Form className='form-wrapper'
-                        schema={this.state.schema}
-                        uiSchema={this.uiSchema}
-                        onChange={this.refreshGraph}
-                        onSubmit={this.onSubmit}>
-                        <button className='invisible-button' type='submit'></button>
-                    </Form>
-                    <button className='submit-button btn btn-primary' onClick={this.onClickSubmit}>Generate config</button>
-                    <button className='reset-button btn btn-danger' onClick={this.resetGraphConfig}>Reset config</button>
-                </div>
-                <div className='container__graph-config'>
-                    <h4>Your config</h4>
-                    <JSONContainer data={this.state.generatedConfig} staticData={false} />
-                </div>
-                <div className='container__graph-data'>
-                    <h4>Initial Graph Data</h4>
-                    <JSONContainer data={this.state.data} staticData={true}/>
-                </div>
-            </div>
-        );
+            );
+        }
     }
 }
 
