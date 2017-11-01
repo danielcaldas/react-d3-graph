@@ -11,11 +11,6 @@
 ## Documentation :book:
 Full documentation [here](https://danielcaldas.github.io/react-d3-graph/docs/index.html).
 
-## Compatibility
-- Node version **6.9.x**
-- React version **15.6.1**
-- d3 version **4.10.2**
-
 ## Install
 [![https://nodei.co/npm/YOUR-MODULE-NAME.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/react-d3-graph.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/react-d3-graph)
 

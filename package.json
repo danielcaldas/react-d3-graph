@@ -58,7 +58,7 @@
         "webpack-visualizer-plugin": "0.1.11"
     },
     "engines": {
-        "node": "6.9.x"
+        "node": ">=6.9.5"
     },
     "main": "lib/index.js",
     "repository": {
