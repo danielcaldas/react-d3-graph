@@ -17,9 +17,9 @@
  *     nodes: [
  *         {
  *             id: 'id',
- *             color: 'red',   // only this node will be red
- *             size: 300,      // only this node will have size 300
- *             type: 'diamond' // only this node will have 'diamond' shape
+ *             color: 'red',         // only this node will be red
+ *             size: 300,            // only this node will have size 300
+ *             symbolType: 'diamond' // only this node will have 'diamond' shape
  *         }
  *     ],
  *     links: [...]
