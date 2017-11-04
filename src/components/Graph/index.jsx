@@ -123,7 +123,7 @@ export default class Graph extends React.Component {
      * @param  {boolean} value - the highlight value to be set (true or false).
      */
     _setHighlighted = (index, value) => {
-        this.state.nodeHighlighted = value;
+        this.state.highlightedNode = value ? index : '';
         this.state.nodes[index].highlighted = value;
 
         if (this.state.links[index]) {
@@ -273,7 +273,7 @@ export default class Graph extends React.Component {
             d3Links,
             nodes,
             d3Nodes,
-            nodeHighlighted: false,
+            highlightedNode: '',
             simulation,
             newGraphElements: false,
             configUpdated: false,
@@ -378,7 +378,7 @@ export default class Graph extends React.Component {
             this.state.links,
             { onClickLink: this.props.onClickLink },
             this.state.config,
-            this.state.nodeHighlighted,
+            this.state.highlightedNode,
             this.state.transform
         );
 
