@@ -41,9 +41,19 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, hi
     // degree 0 - only overed node is highlighted
     // degree 1 - node and 1st degree neighbours are highlighted
     // degree 2 - node 1st and 2nd degree neighbours are highlighted
-    // degree N - ?
+    // degree N - ? how can we achieve this without messing with Graph/index.jsx _setHighlighted function?
 
-    const mainNodeParticipates = source === highlightedNode || target === highlightedNode;
+    let mainNodeParticipates;
+
+    switch (config.highlightDegree) {
+        // case 0: ?
+        case 2:
+            mainNodeParticipates = true;
+            break;
+        default: // 1
+            mainNodeParticipates = source === highlightedNode || target === highlightedNode;
+            break;
+    }
 
     // degree 1 sample
     if (highlightedNode) {

@@ -115,6 +115,7 @@ export default {
     automaticRearrangeAfterDropNode: false,
     height: 400,
     highlightBehavior: true,
+    highlightDegree: 2,
     highlightOpacity: 0.1,
     maxZoom: 8,
     minZoom: 0.5,
