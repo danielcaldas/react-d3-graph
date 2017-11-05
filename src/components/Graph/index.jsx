@@ -126,7 +126,8 @@ export default class Graph extends React.Component {
         this.state.highlightedNode = value ? index : '';
         this.state.nodes[index].highlighted = value;
 
-        if (this.state.links[index]) {
+        // when highlightDegree is 0 we want only to highlight selected node
+        if (this.state.links[index] && this.state.config.highlightDegree !== 0) {
             Object.keys(this.state.links[index]).forEach(k => {
                 this.state.nodes[k].highlighted = value;
             });
