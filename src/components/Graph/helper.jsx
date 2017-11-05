@@ -219,8 +219,8 @@ function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, transform
  *  }
  * ```
  * @param  {Function[]} linkCallbacks - array of callbacks for used defined event handler for link interactions.
- * @param  {Object} config - an object containg rd3g consumer defined configurations [LINK README] for the graph.
- * @param  {string} highlightedNode - this value is true when some node on the graph is highlighted.
+ * @param  {Object} config - an object containg rd3g consumer defined configurations {@link #config config} for the graph.
+ * @param  {string} highlightedNode - this value contains a string that represents the some currently highlighted node.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object} returns an object containg the generated nodes and links that form the graph. The result is
  * returned in a way that can be consumed by es6 **destructuring assignment**.
@@ -315,7 +315,7 @@ function initializeNodes(graphNodes) {
     for (let i=0; i < n; i++) {
         const node = graphNodes[i];
 
-        node['highlighted'] = false;
+        node.highlighted = false;
 
         if (!node.hasOwnProperty('x')) { node['x'] = 0; }
         if (!node.hasOwnProperty('y')) { node['y'] = 0; }
