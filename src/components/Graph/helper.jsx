@@ -131,6 +131,27 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlighte
 }
 
 /**
+ * Get the correct node opacity in order to the config context and also the currently highlited node.
+ * @param  {Object} node - the node object for whom we will generate properties.
+ * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
+ * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @returns {number} the opacity value for the given node.
+ */
+function _getNodeOpacity(node, highlightedNode, config) {
+    let opacity;
+
+    if (highlightedNode && config.highlightDegree === 0) {
+        opacity = (node.id === highlightedNode && node.highlighted) ? config.node.opacity : config.highlightOpacity;
+    } else if (highlightedNode) {
+        opacity = node.highlighted ? config.node.opacity : config.highlightOpacity;
+    } else {
+        opacity = config.node.opacity;
+    }
+
+    return opacity;
+}
+
+/**
  * Build some Node properties based on given parameters.
  * @param  {Object} node - the node object for whom we will generate properties.
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
@@ -141,11 +162,7 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlighte
  * @memberof Graph/helper
  */
 function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, transform) {
-    let opacity = config.node.opacity;
-
-    if (highlightedNode) {
-        opacity = node.highlighted ? config.node.opacity : config.highlightOpacity;
-    }
+    const opacity = _getNodeOpacity(node, highlightedNode, config);
 
     let fill = node.color || config.node.color;
 
