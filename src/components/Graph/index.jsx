@@ -26,8 +26,8 @@ const D3_CONST = {
 /**
  * Graph component is the main component for react-d3-graph components, its interface allows its user
  * to build the graph once the user provides the data, configuration (optional) and callback interactions (also optional).
- * The code for the live example (https://danielcaldas.github.io/react-d3-graph/sandbox/index.html)
- * can be consulted here https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/Sandbox.js
+ * The code for the [live example](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html)
+ * can be consulted [here](https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/Sandbox.jsx)
  * @example
  * import { Graph } from 'react-d3-graph';
  *
@@ -123,10 +123,11 @@ export default class Graph extends React.Component {
      * @param  {boolean} value - the highlight value to be set (true or false).
      */
     _setHighlighted = (index, value) => {
-        this.state.nodeHighlighted = value;
+        this.state.highlightedNode = value ? index : '';
         this.state.nodes[index].highlighted = value;
 
-        if (this.state.links[index]) {
+        // when highlightDegree is 0 we want only to highlight selected node
+        if (this.state.links[index] && this.state.config.highlightDegree !== 0) {
             Object.keys(this.state.links[index]).forEach(k => {
                 this.state.nodes[k].highlighted = value;
             });
@@ -273,7 +274,7 @@ export default class Graph extends React.Component {
             d3Links,
             nodes,
             d3Nodes,
-            nodeHighlighted: false,
+            highlightedNode: '',
             simulation,
             newGraphElements: false,
             configUpdated: false,
@@ -322,7 +323,7 @@ export default class Graph extends React.Component {
 
         const configUpdated = !utils.isDeepEqual(nextProps.config, this.state.config);
         const state = newGraphElements ? this._initializeGraphState(nextProps.data) : this.state;
-        const config = utils.merge(DEFAULT_CONFIG, nextProps.config || {});
+        const config = configUpdated ? utils.merge(DEFAULT_CONFIG, nextProps.config || {}) : this.state.config;
 
         // In order to properly update graph data we need to pause eventual d3 ongoing animations
         newGraphElements && this.pauseSimulation();
@@ -378,7 +379,7 @@ export default class Graph extends React.Component {
             this.state.links,
             { onClickLink: this.props.onClickLink },
             this.state.config,
-            this.state.nodeHighlighted,
+            this.state.highlightedNode,
             this.state.transform
         );
 
