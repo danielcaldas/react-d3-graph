@@ -26,8 +26,8 @@ const D3_CONST = {
 /**
  * Graph component is the main component for react-d3-graph components, its interface allows its user
  * to build the graph once the user provides the data, configuration (optional) and callback interactions (also optional).
- * The code for the live example (https://danielcaldas.github.io/react-d3-graph/sandbox/index.html)
- * can be consulted here https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/Sandbox.js
+ * The code for the [live example](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html)
+ * can be consulted [here](https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/Sandbox.jsx)
  * @example
  * import { Graph } from 'react-d3-graph';
  *
