@@ -131,11 +131,12 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlighte
 }
 
 /**
- * Get the correct node opacity in order to the config context and also the currently highlited node.
+ * Get the correct node opacity in order to properly make decisions based on context such as currently highlited node.
  * @param  {Object} node - the node object for whom we will generate properties.
  * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @returns {number} the opacity value for the given node.
+ * @memberof Graph/helper
  */
 function _getNodeOpacity(node, highlightedNode, config) {
     let opacity;
