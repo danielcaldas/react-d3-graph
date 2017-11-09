@@ -217,56 +217,6 @@ export default class Graph extends React.Component {
     restartSimulation = () => !this.state.config.staticGraph && this.state.simulation.restart();
 
     /**
-     * Incapsulates common procedures to initialize graph.
-     * @param  {Object} data
-     * @param {Array.<Object>} data.nodes - nodes of the graph to be created.
-     * @param {Array.<Object>} data.links - links that connect data.nodes.
-     * @returns {Object}
-     */
-    _initializeGraphState(data) {
-        let graph;
-
-        graphHelper.validateGraphData(data);
-
-        if (this.state && this.state.nodes && this.state.links && this.state.nodeIndexMapping) {
-            // absorve existent positining
-            graph = {
-                nodes: data.nodes.map(n => Object.assign({}, n, this.state.nodes[n.id])),
-                links: {}
-            };
-        } else {
-            graph = {
-                nodes: data.nodes.map(n => Object.assign({}, n)),
-                links: {}
-            };
-        }
-
-        graph.links = data.links.map(l => Object.assign({}, l));
-
-        let config = Object.assign({}, utils.merge(DEFAULT_CONFIG, this.props.config || {}));
-        let {nodes, nodeIndexMapping} = graphHelper.initializeNodes(graph.nodes);
-        let links = graphHelper.initializeLinks(graph.links); // Matrix of graph connections
-        const {nodes: d3Nodes, links: d3Links} = graph;
-        const id = this.props.id.replace(/ /g, '_');
-        const simulation = graphHelper.createForceSimulation(config.width, config.height);
-
-        return {
-            id,
-            config,
-            nodeIndexMapping,
-            links,
-            d3Links,
-            nodes,
-            d3Nodes,
-            highlightedNode: '',
-            simulation,
-            newGraphElements: false,
-            configUpdated: false,
-            transform: 1
-        };
-    }
-
-    /**
      * Sets d3 tick function and configures other d3 stuff such as forces and drag events.
      */
     _graphForcesConfig() {
@@ -294,7 +244,7 @@ export default class Graph extends React.Component {
             utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
         }
 
-        this.state = this._initializeGraphState(this.props.data);
+        this.state = graphHelper.initializeGraphState(this.props, this.state);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -306,7 +256,7 @@ export default class Graph extends React.Component {
         }
 
         const configUpdated = !utils.isDeepEqual(nextProps.config, this.state.config);
-        const state = newGraphElements ? this._initializeGraphState(nextProps.data) : this.state;
+        const state = newGraphElements ? graphHelper.initializeGraphState(nextProps.data, this.state) : this.state;
         const config = configUpdated ? utils.merge(DEFAULT_CONFIG, nextProps.config || {}) : this.state.config;
 
         // In order to properly update graph data we need to pause eventual d3 ongoing animations

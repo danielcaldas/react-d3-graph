@@ -13,6 +13,7 @@ import {
 } from 'd3-force';
 
 import CONST from './const';
+import DEFAULT_CONFIG from './config';
 import ERRORS from '../../err';
 
 import Link from '../Link/';
@@ -288,6 +289,55 @@ function createForceSimulation(width, height) {
 }
 
 /**
+ * Incapsulates common procedures to initialize graph.
+ * @param {Object} props - Graph component props.
+ * @param {Object} state - Graph component current state.
+ * @returns a fully (re)initialized graph state object.
+ */
+function initializeGraphState(props, state) {
+    let graph;
+
+    validateGraphData(props.data);
+
+    if (state && state.nodes && state.links && state.nodeIndexMapping) {
+        // absorve existent positining
+        graph = {
+            nodes: props.data.nodes.map(n => Object.assign({}, n, state.nodes[n.id])),
+            links: {}
+        };
+    } else {
+        graph = {
+            nodes: props.data.nodes.map(n => Object.assign({}, n)),
+            links: {}
+        };
+    }
+
+    graph.links = props.data.links.map(l => Object.assign({}, l));
+
+    let config = Object.assign({}, utils.merge(DEFAULT_CONFIG, props.config || {}));
+    let {nodes, nodeIndexMapping} = initializeNodes(graph.nodes);
+    let links = initializeLinks(graph.links); // Matrix of graph connections
+    const {nodes: d3Nodes, links: d3Links} = graph;
+    const id = props.id.replace(/ /g, '_');
+    const simulation = createForceSimulation(config.width, config.height);
+
+    return {
+        id,
+        config,
+        nodeIndexMapping,
+        links,
+        d3Links,
+        nodes,
+        d3Nodes,
+        highlightedNode: '',
+        simulation,
+        newGraphElements: false,
+        configUpdated: false,
+        transform: 1
+    };
+}
+
+/**
  * Receives a matrix of the graph with the links source and target as concrete node instances and it transforms it
  * in a lightweight matrix containing only links with source and target being strings representative of some node id
  * and the respective link value (if non existant will default to 1).
@@ -374,6 +424,7 @@ function validateGraphData(data) {
 export default {
     buildGraph,
     createForceSimulation,
+    initializeGraphState,
     initializeLinks,
     initializeNodes,
     validateGraphData
