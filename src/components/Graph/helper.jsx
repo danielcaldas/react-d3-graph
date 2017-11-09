@@ -348,8 +348,16 @@ function initializeNodes(graphNodes) {
 }
 
 /**
- * Some integraty validations on links and nodes structure.
+ * Some integraty validations on links and nodes structure. If some validation fails the function will
+ * throw an error.
+ * @typedef {Object} Link
+ * @property {string} source - the node id of the source in the link.
+ * @property {string} target - the node id of the target in the link.
+ * @typedef {Object} Node
+ * @property {string} id - the id of the node.
  * @param  {Object} data
+ * @param  {Array.<Link>} data.links - some array of connections.
+ * @param  {Array.<Node>} data.nodes - some array of nodes.
  * @memberof Graph/helper
  */
 function validateGraphData(data) {
