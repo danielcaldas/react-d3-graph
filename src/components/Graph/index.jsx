@@ -217,22 +217,6 @@ export default class Graph extends React.Component {
     restartSimulation = () => !this.state.config.staticGraph && this.state.simulation.restart();
 
     /**
-     * Some integraty validations on links and nodes structure.
-     * @param  {Object} data
-     */
-    _validateGraphData(data) {
-        // @TODO: Move function to helper.jsx
-        data.links.forEach(l => {
-            if (!data.nodes.find(n => n.id === l.source)) {
-                utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
-            }
-            if (!data.nodes.find(n => n.id === l.target)) {
-                utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
-            }
-        });
-    }
-
-    /**
      * Incapsulates common procedures to initialize graph.
      * @param  {Object} data
      * @param {Array.<Object>} data.nodes - nodes of the graph to be created.
@@ -242,7 +226,7 @@ export default class Graph extends React.Component {
     _initializeGraphState(data) {
         let graph;
 
-        this._validateGraphData(data);
+        graphHelper.validateGraphData(data);
 
         if (this.state && this.state.nodes && this.state.links && this.state.nodeIndexMapping) {
             // absorve existent positining

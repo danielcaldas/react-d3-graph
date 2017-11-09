@@ -13,9 +13,11 @@ import {
 } from 'd3-force';
 
 import CONST from './const';
+import ERRORS from '../../err';
 
 import Link from '../Link/';
 import Node from '../Node/';
+import utils from '../../utils';
 
 /**
  * Build some Link properties based on given parameters.
@@ -345,9 +347,26 @@ function initializeNodes(graphNodes) {
     return { nodes, nodeIndexMapping };
 }
 
+/**
+ * Some integraty validations on links and nodes structure.
+ * @param  {Object} data
+ * @memberof Graph/helper
+ */
+function validateGraphData(data) {
+    data.links.forEach(l => {
+        if (!data.nodes.find(n => n.id === l.source)) {
+            utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
+        }
+        if (!data.nodes.find(n => n.id === l.target)) {
+            utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
+        }
+    });
+}
+
 export default {
     buildGraph,
     createForceSimulation,
     initializeLinks,
-    initializeNodes
+    initializeNodes,
+    validateGraphData
 };
