@@ -1,3 +1,5 @@
+import CONST from '../../const';
+
 export default {
     COORDS_SEPARATOR: ',',
     FORCE_IDEAL_STRENGTH: -100, // @TODO: Expose as configurable,
@@ -10,13 +12,5 @@ export default {
     },
     LINK_CLASS_NAME: 'link',
     NODE_CLASS_NAME: 'node',
-    SYMBOLS: { // FIXME: Repeated SYMBOLS constant
-        CIRCLE: 'circle',
-        CROSS: 'cross',
-        DIAMOND: 'diamond',
-        SQUARE: 'square',
-        STAR: 'star',
-        TRIANGLE: 'triangle',
-        WYE: 'wye'
-    }
+    ...CONST
 };

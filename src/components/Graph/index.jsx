@@ -190,7 +190,7 @@ export default class Graph extends React.Component {
 
     /**
      * This method resets all nodes fixed positions by deleting the properties fx (fixed x)
-     * and fy (fixed y). Next a simulation is triggered in order to force nodes to go back
+     * and fy (fixed y). Following this, a simulation is triggered in order to force nodes to go back
      * to their original positions (or at least new positions according to the d3 force parameters).
      */
     resetNodesPositions = () => {
