@@ -32,6 +32,10 @@
  * @param {number} [height=400] - the height of the (svg) area where the graph will be rendered.
  * @param {boolean} [highlightBehavior=false] - 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
  * connections will be highlighted. All the remaining nodes and links assume opacity value equal to **highlightOpacity**.
+ * @param {number} [highlightDegree=1] - **Possible values: 0, 1 or 2**. This value represents the range of the
+ * highlight behavior when some node is highlighted. If the value is set to **0** only the selected node will be
+ * highlighted. If the value is set to **1** the selected node and his 1st degree connections will be highlighted. If
+ * the value is set to **2** the selected node will be highlighted as well as the 1st and 2nd common degree connections.
  * @param {number} [highlightOpacity=1] - this value is used to highlight nodes in the network. The lower
  * the value the more the less highlighted nodes will be visible (related to **highlightBehavior**).
  * @param {number} [maxZoom=8] - max zoom that can be performed against the graph.
@@ -115,7 +119,7 @@ export default {
     automaticRearrangeAfterDropNode: false,
     height: 400,
     highlightBehavior: true,
-    highlightDegree: 0,
+    highlightDegree: 1,
     highlightOpacity: 0.1,
     maxZoom: 8,
     minZoom: 0.5,
