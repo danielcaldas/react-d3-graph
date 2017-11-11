@@ -3,6 +3,17 @@
  * @description
  * Offers a series of methods that isolate logic of Graph component.
  */
+/**
+ * @typedef {Object} Link
+ * @property {string} source - the node id of the source in the link.
+ * @property {string} target - the node id of the target in the link.
+ * @memberof Graph/helper
+ */
+/**
+ * @typedef {Object} Node
+ * @property {string} id - the id of the node.
+ * @memberof Graph/helper
+ */
 import React from 'react';
 
 import {
@@ -290,40 +301,44 @@ function createForceSimulation(width, height) {
 
 /**
  * Incapsulates common procedures to initialize graph.
- * @param {Object} props - Graph component props.
- * @param {Object} state - Graph component current state.
+ * @param {Object} props - Graph component props, object that holds data, id and config.
+ * @param {Object} props.data - Data object holds links (array of **Link**) and nodes (array of **Node**).
+ * @param {string} props.id - the graph id.
+ * @param {Object} props.config - same as {@link #buildGraph|config in buildGraph}.
+ * @param {Object} state - Graph component current state (same format as returned object on this function).
  * @returns a fully (re)initialized graph state object.
+ * @memberof Graph/helper
  */
-function initializeGraphState(props, state) {
+function initializeGraphState({data, id, config}, state) {
     let graph;
 
-    validateGraphData(props.data);
+    validateGraphData(data);
 
     if (state && state.nodes && state.links && state.nodeIndexMapping) {
         // absorve existent positining
         graph = {
-            nodes: props.data.nodes.map(n => Object.assign({}, n, state.nodes[n.id])),
+            nodes: data.nodes.map(n => Object.assign({}, n, state.nodes[n.id])),
             links: {}
         };
     } else {
         graph = {
-            nodes: props.data.nodes.map(n => Object.assign({}, n)),
+            nodes: data.nodes.map(n => Object.assign({}, n)),
             links: {}
         };
     }
 
-    graph.links = props.data.links.map(l => Object.assign({}, l));
+    graph.links = data.links.map(l => Object.assign({}, l));
 
-    let config = Object.assign({}, utils.merge(DEFAULT_CONFIG, props.config || {}));
+    let newConfig = Object.assign({}, utils.merge(DEFAULT_CONFIG, config || {}));
     let {nodes, nodeIndexMapping} = initializeNodes(graph.nodes);
     let links = initializeLinks(graph.links); // Matrix of graph connections
     const {nodes: d3Nodes, links: d3Links} = graph;
-    const id = props.id.replace(/ /g, '_');
-    const simulation = createForceSimulation(config.width, config.height);
+    const formatedId = id.replace(/ /g, '_');
+    const simulation = createForceSimulation(newConfig.width, newConfig.height);
 
     return {
-        id,
-        config,
+        id: formatedId,
+        config: newConfig,
         nodeIndexMapping,
         links,
         d3Links,
@@ -400,14 +415,7 @@ function initializeNodes(graphNodes) {
 /**
  * Some integraty validations on links and nodes structure. If some validation fails the function will
  * throw an error.
- * @typedef {Object} Link
- * @property {string} source - the node id of the source in the link.
- * @property {string} target - the node id of the target in the link.
- * @typedef {Object} Node
- * @property {string} id - the id of the node.
- * @param  {Object} data
- * @param  {Array.<Link>} data.links - some array of connections.
- * @param  {Array.<Node>} data.nodes - some array of nodes.
+ * @param  {Object} data - Same as {@link #initializeGraphState|data in initializeGraphState}.
  * @memberof Graph/helper
  */
 function validateGraphData(data) {
