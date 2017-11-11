@@ -1,4 +1,4 @@
-import CONFIG from '../Graph/config';
+import CONFIG from '../graph/config';
 import CONST from '../../const';
 
 export default {

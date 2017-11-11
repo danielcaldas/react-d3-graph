@@ -27,8 +27,8 @@ import CONST from './const';
 import DEFAULT_CONFIG from './config';
 import ERRORS from '../../err';
 
-import Link from '../Link/';
-import Node from '../Node/';
+import Link from '../link/';
+import Node from '../node/';
 import utils from '../../utils';
 
 /**

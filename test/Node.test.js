@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Node from '../src/components/Node';
+import Node from '../src/components/node';
 
 describe('Node Component', () => {
     let that = {};

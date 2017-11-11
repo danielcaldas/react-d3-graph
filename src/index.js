@@ -1,6 +1,6 @@
-import Graph from './components/Graph';
-import Node from './components/Node';
-import Link from './components/Link';
+import Graph from './components/graph';
+import Node from './components/node';
+import Link from './components/link';
 
 export {
     Graph,
