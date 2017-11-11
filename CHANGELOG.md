@@ -1,5 +1,19 @@
 # Change Log
 
+## [0.4.0](https://github.com/danielcaldas/react-d3-graph/tree/0.4.0) (2017-11-11)
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.3.0...0.4.0)
+
+**Implemented enhancements:**
+
+- Node version [\#29](https://github.com/danielcaldas/react-d3-graph/issues/29)
+
+**Merged pull requests:**
+
+- Refactor/improve code structure [\#35](https://github.com/danielcaldas/react-d3-graph/pull/35) ([danielcaldas](https://github.com/danielcaldas))
+- Feature/highlight nodes degree [\#34](https://github.com/danielcaldas/react-d3-graph/pull/34) ([danielcaldas](https://github.com/danielcaldas))
+- Update node engine version in package.json [\#32](https://github.com/danielcaldas/react-d3-graph/pull/32) ([danielcaldas](https://github.com/danielcaldas))
+- Feature/sandbox improvements [\#27](https://github.com/danielcaldas/react-d3-graph/pull/27) ([danielcaldas](https://github.com/danielcaldas))
+
 ## [0.3.0](https://github.com/danielcaldas/react-d3-graph/tree/0.3.0) (2017-10-21)
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.2.1...0.3.0)
 
