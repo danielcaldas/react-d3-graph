@@ -37,7 +37,7 @@
  * highlighted. If the value is set to **1** the selected node and his 1st degree connections will be highlighted. If
  * the value is set to **2** the selected node will be highlighted as well as the 1st and 2nd common degree connections.
  * @param {number} [highlightOpacity=1] - this value is used to highlight nodes in the network. The lower
- * the value the more the less highlighted nodes will be visible (related to **highlightBehavior**).
+ * the value the more the less highlighted nodes will be visible (related to *highlightBehavior*).
  * @param {number} [maxZoom=8] - max zoom that can be performed against the graph.
  * @param {number} [minZoom=0.1] - min zoom that can be performed against the graph.
  * @param {boolean} [panAndZoom=false] - 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
@@ -48,7 +48,7 @@
  * from the given nodes positions by rd3g), no coordinates will be calculated by rd3g or subjacent d3 modules.
  * @param {number} [width=800] - the width of the (svg) area where the graph will be rendered.
  * <br/>
- * @param {Object} node node object is explained in next section.
+ * @param {Object} node node object is explained in next section. ⬇️
  * <h2 id="node-section">Node level configurations</h2>
  * @param {string} [node.color='#d3d3d3'] - 🔍🔍🔍 this is the color that will be applied to the node if no **color property**
  * is found inside the node itself (yes **you can pass a property 'color' inside the node and that color will override the
@@ -78,15 +78,15 @@
  *   - 'triangle'
  *   - 'wye'
  *
- * **[note]** react-d3-graph will map this values to d3 symbols ({@link https://github.com/d3/d3-shape#symbols})
+ * **[note]** react-d3-graph will map this values to [d3 symbols](https://github.com/d3/d3-shape#symbols)
  * @param {string} [node.highlightColor='SAME'] - color for all highlighted nodes (use string 'SAME' if you
  * want the node to keep its color in highlighted state).
- * @param {number} [node.highlightFontSize=10] - node.fontSize in highlighted state.
- * @param {string} [node.highlightFontWeight='normal'] - node.fontWeight in highlighted state.
- * @param {string} [node.highlightStrokeColor='SAME'] - node.strokeColor in highlighted state.
- * @param {number} [node.highlightStrokeWidth=1.5] - node.strokeWidth in highlighted state.
+ * @param {number} [node.highlightFontSize=10] - fontSize in highlighted state.
+ * @param {string} [node.highlightFontWeight='normal'] - fontWeight in highlighted state.
+ * @param {string} [node.highlightStrokeColor='SAME'] - strokeColor in highlighted state.
+ * @param {number} [node.highlightStrokeWidth=1.5] - strokeWidth in highlighted state.
  * <br/>
- * @param {Object} link link object is explained in the next section.
+ * @param {Object} link link object is explained in the next section. ⬇️
  * <h2>Link level configurations</h2>
  * @param {string} [link.color='#d3d3d3'] - the color for links.
  * @param {number} [link.opacity=1] - the default opacity value for links.
@@ -97,7 +97,7 @@
  * strokeWidth += (linkValue * strokeWidth) / 10;
  * ```
  * @param {number} [link.strokeWidth=1.5] - strokeWidth for all links.
- * @param {string} [link.highlightColor='#d3d3d3'] - links color in highlight state.
+ * @param {string} [link.highlightColor='#d3d3d3'] - links' color in highlight state.
  *
  * @example
  * // A simple config that uses some properties
