@@ -184,7 +184,7 @@ describe('Utils', () => {
 
         try {
             utils.throwErr(c, msg);
-        } catch(err) {
+        } catch (err) {
             expect(err.message).toEqual('react-d3-graph :: some component :: err message');
         }
     });
