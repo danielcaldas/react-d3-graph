@@ -256,7 +256,7 @@ export default class Graph extends React.Component {
         }
 
         const configUpdated = !utils.isDeepEqual(nextProps.config, this.state.config);
-        const state = newGraphElements ? graphHelper.initializeGraphState(nextProps.data, this.state) : this.state;
+        const state = newGraphElements ? graphHelper.initializeGraphState(nextProps, this.state) : this.state;
         const config = configUpdated ? utils.merge(DEFAULT_CONFIG, nextProps.config || {}) : this.state.config;
 
         // In order to properly update graph data we need to pause eventual d3 ongoing animations

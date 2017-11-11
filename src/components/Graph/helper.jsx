@@ -434,6 +434,5 @@ export default {
     createForceSimulation,
     initializeGraphState,
     initializeLinks,
-    initializeNodes,
-    validateGraphData
+    initializeNodes
 };
