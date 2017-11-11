@@ -89,6 +89,13 @@ describe('Utils', () => {
             };
         });
 
+        test('should return true if o1 and o2 references are the same', () => {
+            const o1 = {};
+            const o2 = o1;
+
+            expect(utils.isDeepEqual(o1, o2)).toEqual(true);
+        });
+
         test('should return true if no modifications are performed', () => {
             expect(utils.isDeepEqual(that.o1, that.o2)).toEqual(true);
         });
