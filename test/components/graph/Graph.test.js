@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Graph from '../src/components/graph';
+import Graph from '../../../src/components/graph';
 import graphMock from './graph.mock.js';
 
 describe('Graph Component', () => {
