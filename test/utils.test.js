@@ -34,6 +34,15 @@ describe('Utils', () => {
             expect(r.b.c.e).toEqual('test');
             expect(r.b.c.f).toEqual(12);
         });
+
+        test('should merge properly: o1 is null', () => {
+            const r = utils.merge(null, that.o);
+
+            expect(r.a).toEqual(1);
+            expect(r.b.c.d).toEqual([1, 2, {m: 'test'}]);
+            expect(r.b.c.e).toEqual('test');
+            expect(r.b.c.f).toEqual(12);
+        });
     });
 
     test('isObjectEmpty', () => {

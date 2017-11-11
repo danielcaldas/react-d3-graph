@@ -82,6 +82,10 @@ function isObjectEmpty(o) {
 function merge(o1={}, o2={}, _depth=0) {
     let o = {};
 
+    if (Object.keys(o1 || {}).length === 0) {
+        return (o2 && !isObjectEmpty(o2)) ? o2 : {};
+    }
+
     for (let k of Object.keys(o1)) {
         const nestedO = !!(o2[k] && typeof o2[k] === 'object' && typeof o1[k] === 'object' && _depth < MAX_DEPTH);
 
