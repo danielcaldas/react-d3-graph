@@ -4,7 +4,7 @@ import Form from 'react-jsonschema-form';
 
 import './styles.css';
 
-import defaultConfig from '../src/components/Graph/config';
+import defaultConfig from '../src/components/graph/config';
 import { Graph } from '../src';
 import data from './data';
 import Utils from './utils';

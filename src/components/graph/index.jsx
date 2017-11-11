@@ -190,7 +190,7 @@ export default class Graph extends React.Component {
 
     /**
      * This method resets all nodes fixed positions by deleting the properties fx (fixed x)
-     * and fy (fixed y). Next a simulation is triggered in order to force nodes to go back
+     * and fy (fixed y). Following this, a simulation is triggered in order to force nodes to go back
      * to their original positions (or at least new positions according to the d3 force parameters).
      */
     resetNodesPositions = () => {
@@ -215,72 +215,6 @@ export default class Graph extends React.Component {
      * {@link https://github.com/d3/d3-force#simulation_restart}
      */
     restartSimulation = () => !this.state.config.staticGraph && this.state.simulation.restart();
-
-    /**
-     * Some integraty validations on links and nodes structure.
-     * @param  {Object} data
-     */
-    _validateGraphData(data) {
-        // @TODO: Move function to helper.jsx
-        data.links.forEach(l => {
-            if (!data.nodes.find(n => n.id === l.source)) {
-                utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
-            }
-            if (!data.nodes.find(n => n.id === l.target)) {
-                utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
-            }
-        });
-    }
-
-    /**
-     * Incapsulates common procedures to initialize graph.
-     * @param  {Object} data
-     * @param {Array.<Object>} data.nodes - nodes of the graph to be created.
-     * @param {Array.<Object>} data.links - links that connect data.nodes.
-     * @returns {Object}
-     */
-    _initializeGraphState(data) {
-        let graph;
-
-        this._validateGraphData(data);
-
-        if (this.state && this.state.nodes && this.state.links && this.state.nodeIndexMapping) {
-            // absorve existent positining
-            graph = {
-                nodes: data.nodes.map(n => Object.assign({}, n, this.state.nodes[n.id])),
-                links: {}
-            };
-        } else {
-            graph = {
-                nodes: data.nodes.map(n => Object.assign({}, n)),
-                links: {}
-            };
-        }
-
-        graph.links = data.links.map(l => Object.assign({}, l));
-
-        let config = Object.assign({}, utils.merge(DEFAULT_CONFIG, this.props.config || {}));
-        let {nodes, nodeIndexMapping} = graphHelper.initializeNodes(graph.nodes);
-        let links = graphHelper.initializeLinks(graph.links); // Matrix of graph connections
-        const {nodes: d3Nodes, links: d3Links} = graph;
-        const id = this.props.id.replace(/ /g, '_');
-        const simulation = graphHelper.createForceSimulation(config.width, config.height);
-
-        return {
-            id,
-            config,
-            nodeIndexMapping,
-            links,
-            d3Links,
-            nodes,
-            d3Nodes,
-            highlightedNode: '',
-            simulation,
-            newGraphElements: false,
-            configUpdated: false,
-            transform: 1
-        };
-    }
 
     /**
      * Sets d3 tick function and configures other d3 stuff such as forces and drag events.
@@ -310,7 +244,7 @@ export default class Graph extends React.Component {
             utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
         }
 
-        this.state = this._initializeGraphState(this.props.data);
+        this.state = graphHelper.initializeGraphState(this.props, this.state);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -322,7 +256,7 @@ export default class Graph extends React.Component {
         }
 
         const configUpdated = !utils.isDeepEqual(nextProps.config, this.state.config);
-        const state = newGraphElements ? this._initializeGraphState(nextProps.data) : this.state;
+        const state = newGraphElements ? graphHelper.initializeGraphState(nextProps, this.state) : this.state;
         const config = configUpdated ? utils.merge(DEFAULT_CONFIG, nextProps.config || {}) : this.state.config;
 
         // In order to properly update graph data we need to pause eventual d3 ongoing animations
