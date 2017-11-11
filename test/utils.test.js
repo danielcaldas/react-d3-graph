@@ -177,4 +177,15 @@ describe('Utils', () => {
             expect(utils.isDeepEqual(that.o1, that.o2)).toEqual(false);
         });
     });
+
+    test('throwErr', () => {
+        const c = 'some component';
+        const msg = 'err message';
+
+        try {
+            utils.throwErr(c, msg);
+        } catch(err) {
+            expect(err.message).toEqual('react-d3-graph :: some component :: err message');
+        }
+    });
 });

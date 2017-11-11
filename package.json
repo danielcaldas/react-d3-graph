@@ -19,7 +19,7 @@
         "lint:test": "node_modules/eslint/bin/eslint.js --config=.eslintrc.test.config.js \"test/**/*.test.js\"",
         "test": "jest --verbose --coverage",
         "test:clean": "jest --no-cache --updateSnapshot --verbose --coverage",
-        "test:watch": "jest --verbose --watchAll"
+        "test:watch": "jest --verbose --coverage --watchAll"
     },
     "dependencies": {
         "d3": "4.10.2",
