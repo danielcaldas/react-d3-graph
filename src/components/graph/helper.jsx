@@ -147,7 +147,7 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlighte
 }
 
 /**
- * Get the correct node opacity in order to properly make decisions based on context such as currently highlited node.
+ * Get the correct node opacity in order to properly make decisions based on context such as currently highlighted node.
  * @param  {Object} node - the node object for whom we will generate properties.
  * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
@@ -253,10 +253,10 @@ function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, transform
  *  }
  * ```
  * @param  {Function[]} linkCallbacks - array of callbacks for used defined event handler for link interactions.
- * @param  {Object} config - an object containg rd3g consumer defined configurations {@link #config config} for the graph.
+ * @param  {Object} config - an object containing rd3g consumer defined configurations {@link #config config} for the graph.
  * @param  {string} highlightedNode - this value contains a string that represents the some currently highlighted node.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
- * @returns {Object} returns an object containg the generated nodes and links that form the graph. The result is
+ * @returns {Object} returns an object containing the generated nodes and links that form the graph. The result is
  * returned in a way that can be consumed by es6 **destructuring assignment**.
  * @memberof Graph/helper
  */
@@ -357,7 +357,7 @@ function initializeGraphState({data, id, config}, state) {
 /**
  * Receives a matrix of the graph with the links source and target as concrete node instances and it transforms it
  * in a lightweight matrix containing only links with source and target being strings representative of some node id
- * and the respective link value (if non existant will default to 1).
+ * and the respective link value (if non existent will default to 1).
  * @param  {Object[]} graphLinks - an array of all graph links but all the links contain the source and target nodes
  * objects.
  * @returns {Object.<string, Object>} an object containing a matrix of connections of the graph, for each nodeId,
@@ -415,7 +415,7 @@ function initializeNodes(graphNodes) {
 }
 
 /**
- * Some integraty validations on links and nodes structure. If some validation fails the function will
+ * Some integrity validations on links and nodes structure. If some validation fails the function will
  * throw an error.
  * @param  {Object} data - Same as {@link #initializeGraphState|data in initializeGraphState}.
  * @memberof Graph/helper
