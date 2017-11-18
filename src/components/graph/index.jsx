@@ -120,9 +120,9 @@ export default class Graph extends React.Component {
     /**
      * Sets nodes and links highlighted value.
      * @param  {number} index - the index of the node to highlight (and its adjacent).
-     * @param  {boolean} value - the highlight value to be set (true or false).
+     * @param  {boolean} [value=false] - the highlight value to be set (true or false).
      */
-    _setHighlighted = (index, value) => {
+    _setHighlighted = (index, value=false) => {
         this.state.highlightedNode = value ? index : '';
         this.state.nodes[index].highlighted = value;
 
@@ -190,6 +190,10 @@ export default class Graph extends React.Component {
         this.props.onMouseOutLink && this.props.onMouseOutLink(source, target);
 
         // this.state.config.highlightBehavior && this._setHighlighted(index, false);
+        if (this.state.config.highlightBehavior) {
+            this._setHighlighted(source, true);
+            this._setHighlighted(target, true);
+        }
     }
 
     /**
@@ -200,6 +204,10 @@ export default class Graph extends React.Component {
         this.props.onMouseOverLink && this.props.onMouseOverLink(source, target);
 
         // this.state.config.highlightBehavior && this._setHighlighted(index, true);
+        if (this.state.config.highlightBehavior) {
+            this._setHighlighted(source, true);
+            this._setHighlighted(target, true);
+        }
     }
 
     /**
