@@ -119,16 +119,16 @@ export default class Graph extends React.Component {
 
     /**
      * Sets nodes and links highlighted value.
-     * @param  {number} index - the index of the node to highlight (and its adjacent).
+     * @param  {string} id - the id of the node to highlight.
      * @param  {boolean} [value=false] - the highlight value to be set (true or false).
      */
-    _setHighlighted = (index, value=false) => {
-        this.state.highlightedNode = value ? index : '';
-        this.state.nodes[index].highlighted = value;
+    _setHighlighted = (id, value=false) => {
+        this.state.highlightedNode = value ? id : '';
+        this.state.nodes[id].highlighted = value;
 
         // when highlightDegree is 0 we want only to highlight selected node
-        if (this.state.links[index] && this.state.config.highlightDegree !== 0) {
-            Object.keys(this.state.links[index]).forEach(k => {
+        if (this.state.links[id] && this.state.config.highlightDegree !== 0) {
+            Object.keys(this.state.links[id]).forEach(k => {
                 this.state.nodes[k].highlighted = value;
             });
         }
