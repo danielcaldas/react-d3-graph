@@ -163,16 +163,6 @@ export default class Graph extends React.Component {
     }
 
     /**
-     * Handles mouse out node event.
-     * @param  {string} id - id of the node that participates in the event.
-     */
-    onMouseOutNode = (id) => {
-        this.props.onMouseOutNode && this.props.onMouseOutNode(id);
-
-        this.state.config.highlightBehavior && this._setHighlighted(id, false);
-    }
-
-    /**
      * Handles mouse over node event.
      * @param  {string} id - id of the node that participates in the event.
      */
@@ -183,19 +173,15 @@ export default class Graph extends React.Component {
     }
 
     /**
-     * Handles mouse out link event.
-     * @TODO
+     * Handles mouse out node event.
+     * @param  {string} id - id of the node that participates in the event.
      */
-    onMouseOutLink = (source, target) => {
-        this.props.onMouseOutLink && this.props.onMouseOutLink(source, target);
+    onMouseOutNode = (id) => {
+        this.props.onMouseOutNode && this.props.onMouseOutNode(id);
 
-        // this.state.config.highlightBehavior && this._setHighlighted(index, false);
-        if (this.state.config.highlightBehavior) {
-            this._setHighlighted(source, true);
-            this._setHighlighted(target, true);
-        }
+        this.state.config.highlightBehavior && this._setHighlighted(id, false);
     }
-
+    
     /**
      * Handles mouse over link event.
      * @TODO
@@ -207,6 +193,20 @@ export default class Graph extends React.Component {
         if (this.state.config.highlightBehavior) {
             this._setHighlighted(source, true);
             this._setHighlighted(target, true);
+        }
+    }
+
+    /**
+     * Handles mouse out link event.
+     * @TODO
+     */
+    onMouseOutLink = (source, target) => {
+        this.props.onMouseOutLink && this.props.onMouseOutLink(source, target);
+
+        // this.state.config.highlightBehavior && this._setHighlighted(index, false);
+        if (this.state.config.highlightBehavior) {
+            this._setHighlighted(source, false);
+            this._setHighlighted(target, false);
         }
     }
 
