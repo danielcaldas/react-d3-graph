@@ -183,6 +183,26 @@ export default class Graph extends React.Component {
     }
 
     /**
+     * Handles mouse out link event.
+     * @TODO
+     */
+    onMouseOutLink = (source, target) => {
+        this.props.onMouseOutLink && this.props.onMouseOutLink(source, target);
+
+        // this.state.config.highlightBehavior && this._setHighlighted(index, false);
+    }
+
+    /**
+     * Handles mouse over link event.
+     * @TODO
+     */
+    onMouseOverLink = (source, target) => {
+        this.props.onMouseOverLink && this.props.onMouseOverLink(source, target);
+
+        // this.state.config.highlightBehavior && this._setHighlighted(index, true);
+    }
+
+    /**
     * Calls d3 simulation.stop().<br/>
     * {@link https://github.com/d3/d3-force#simulation_stop}
     */
@@ -311,10 +331,10 @@ export default class Graph extends React.Component {
                 onMouseOut: this.onMouseOutNode
             },
             this.state.links,
-            { 
+            {
                 onClickLink: this.props.onClickLink,
-                onMouseOverLink: this.props.onMouseOverLink,
-                onMouseOutLink: this.props.onMouseOutLink
+                onMouseOverLink: this.onMouseOverLink,
+                onMouseOutLink: this.onMouseOutLink
             },
             this.state.config,
             this.state.highlightedNode,
