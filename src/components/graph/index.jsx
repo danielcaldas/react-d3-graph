@@ -164,22 +164,22 @@ export default class Graph extends React.Component {
 
     /**
      * Handles mouse out node event.
-     * @param  {number} index - index of the mouse hovered node.
+     * @param  {string} id - id of the node that participates in the event.
      */
-    onMouseOutNode = (index) => {
-        this.props.onMouseOutNode && this.props.onMouseOutNode(index);
+    onMouseOutNode = (id) => {
+        this.props.onMouseOutNode && this.props.onMouseOutNode(id);
 
-        this.state.config.highlightBehavior && this._setHighlighted(index, false);
+        this.state.config.highlightBehavior && this._setHighlighted(id, false);
     }
 
     /**
      * Handles mouse over node event.
-     * @param  {number} index - index of the mouse hovered node.
+     * @param  {string} id - id of the node that participates in the event.
      */
-    onMouseOverNode = (index) => {
-        this.props.onMouseOverNode && this.props.onMouseOverNode(index);
+    onMouseOverNode = (id) => {
+        this.props.onMouseOverNode && this.props.onMouseOverNode(id);
 
-        this.state.config.highlightBehavior && this._setHighlighted(index, true);
+        this.state.config.highlightBehavior && this._setHighlighted(id, true);
     }
 
     /**
