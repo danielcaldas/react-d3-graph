@@ -84,7 +84,7 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, hi
     if (config.link.semanticStrokeWidth) {
         strokeWidth += (linkValue * strokeWidth) / 10;
     }
-
+    
     return {
         source,
         target,
@@ -96,7 +96,9 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, hi
         stroke,
         className: CONST.LINK_CLASS_NAME,
         opacity,
-        onClickLink: linkCallbacks.onClickLink
+        onClickLink: linkCallbacks.onClickLink,
+        onMouseOverLink: linkCallbacks.onMouseOverLink,
+        onMouseOutLink: linkCallbacks.onMouseOutLink
     };
 }
 
@@ -261,7 +263,7 @@ function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, transform
 function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, highlightedNode, transform) {
     let linksComponents = [];
     let nodesComponents = [];
-
+    
     for (let i = 0, keys = Object.keys(nodes), n = keys.length; i < n; i++) {
         const nodeId = keys[i];
 
