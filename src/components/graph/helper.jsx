@@ -51,24 +51,25 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, hi
     const x2 = nodes[target] && nodes[target].x || 0;
     const y2 = nodes[target] && nodes[target].y || 0;
 
-    let opacity = config.link.opacity;
-    let mainNodeParticipates;
+    let mainNodeParticipates = false;
 
     switch (config.highlightDegree) {
         case 0:
-            break;
+        break;
         case 2:
-            mainNodeParticipates = true;
-            break;
+        mainNodeParticipates = true;
+        break;
         default: // 1st degree is the fallback behavior
-            mainNodeParticipates = source === highlightedNode || target === highlightedNode;
-            break;
+        mainNodeParticipates = source === highlightedNode || target === highlightedNode;
+        break;
     }
 
-    const highlight = (mainNodeParticipates && nodes[source].highlighted && nodes[target].highlighted) 
-                        || (source === (highlightedLink && highlightedLink.source) && target === (highlightedLink && highlightedLink.target));
+    const highlight = (mainNodeParticipates && nodes[source].highlighted && nodes[target].highlighted)
+                    || (source === (highlightedLink && highlightedLink.source) && target === (highlightedLink && highlightedLink.target));
 
-    if (highlightedNode || highlightedLink && highlightedLink.source) {
+    let opacity = config.link.opacity;
+
+    if (highlightedNode || (highlightedLink && highlightedLink.source)) {
         opacity = highlight ? config.link.opacity : config.highlightOpacity;
     }
 
@@ -79,11 +80,11 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, hi
                                                                     : config.link.highlightColor;
     }
 
-    const linkValue = links[source][target] || links[target][source] || 1;
-
     let strokeWidth = config.link.strokeWidth * (1 / transform);
 
     if (config.link.semanticStrokeWidth) {
+        const linkValue = links[source][target] || links[target][source] || 1;
+
         strokeWidth += (linkValue * strokeWidth) / 10;
     }
 
