@@ -81,7 +81,7 @@
  * **[note]** react-d3-graph will map this values to [d3 symbols](https://github.com/d3/d3-shape#symbols)
  * @param {string} [node.highlightColor='SAME'] - color for all highlighted nodes (use string 'SAME' if you
  * want the node to keep its color in highlighted state).
- * @param {number} [node.highlightFontSize=10] - fontSize in highlighted state.
+ * @param {number} [node.highlightFontSize=8] - fontSize in highlighted state.
  * @param {string} [node.highlightFontWeight='normal'] - fontWeight in highlighted state.
  * @param {string} [node.highlightStrokeColor='SAME'] - strokeColor in highlighted state.
  * @param {number} [node.highlightStrokeWidth=1.5] - strokeWidth in highlighted state.
@@ -118,11 +118,11 @@
 export default {
     automaticRearrangeAfterDropNode: false,
     height: 400,
-    highlightBehavior: true,
+    highlightBehavior: false,
     highlightDegree: 1,
-    highlightOpacity: 0.1,
+    highlightOpacity: 1,
     maxZoom: 8,
-    minZoom: 0.5,
+    minZoom: 0.1,
     panAndZoom: false,
     staticGraph: false,
     width: 800,
@@ -134,7 +134,7 @@ export default {
         mouseCursor: 'pointer',
         opacity: 1,
         renderLabel: true,
-        size: 80,
+        size: 200,
         strokeColor: 'none',
         strokeWidth: 1.5,
         symbolType: 'circle',
