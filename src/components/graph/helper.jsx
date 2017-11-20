@@ -40,11 +40,12 @@ import utils from '../../utils';
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @param  {Function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
  * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
+ * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object} returns an object that aggregates all props for creating respective Link component instance.
  * @memberof Graph/helper
  */
-function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, highlightedNode, transform) {
+function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
     const x1 = nodes[source] && nodes[source].x || 0;
     const y1 = nodes[source] && nodes[source].y || 0;
     const x2 = nodes[target] && nodes[target].x || 0;
@@ -84,7 +85,7 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, hi
     if (config.link.semanticStrokeWidth) {
         strokeWidth += (linkValue * strokeWidth) / 10;
     }
-    
+
     return {
         source,
         target,
@@ -110,11 +111,12 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, hi
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @param  {Function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
  * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
+ * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object[]} returns the generated array of Link components.
  * @memberof Graph/helper
  */
-function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlightedNode, transform) {
+function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
     let linksComponents = [];
 
     if (links[nodeId]) {
@@ -135,6 +137,7 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlighte
                     config,
                     linkCallbacks,
                     highlightedNode,
+                    highlightedLink,
                     transform
                 );
 
@@ -150,17 +153,20 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlighte
  * Get the correct node opacity in order to properly make decisions based on context such as currently highlighted node.
  * @param  {Object} node - the node object for whom we will generate properties.
  * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
+ * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @returns {number} the opacity value for the given node.
  * @memberof Graph/helper
  */
-function _getNodeOpacity(node, highlightedNode, config) {
+function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
+    const highlight = node.highlighted || node.id === (highlightedLink && highlightedLink.source) || node.id === (highlightedLink && highlightedLink.target);
+    const someNodeHighlighted = !!(highlightedNode || highlightedLink && highlightedLink.source && highlightedLink.target);
     let opacity;
 
-    if (highlightedNode && config.highlightDegree === 0) {
-        opacity = (node.id === highlightedNode && node.highlighted) ? config.node.opacity : config.highlightOpacity;
-    } else if (highlightedNode) {
-        opacity = node.highlighted ? config.node.opacity : config.highlightOpacity;
+    if (someNodeHighlighted && config.highlightDegree === 0) {
+        opacity = highlight ? config.node.opacity : config.highlightOpacity;
+    } else if (someNodeHighlighted) {
+        opacity = highlight ? config.node.opacity : config.highlightOpacity;
     } else {
         opacity = config.node.opacity;
     }
@@ -174,30 +180,31 @@ function _getNodeOpacity(node, highlightedNode, config) {
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @param  {Function[]} nodeCallbacks - same as {@link #buildGraph|nodeCallbacks in buildGraph}.
  * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
+ * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object} returns object that contain Link props ready to be feeded to the Link component.
  * @memberof Graph/helper
  */
-function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, transform) {
-    const opacity = _getNodeOpacity(node, highlightedNode, config);
-
+function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, highlightedLink, transform) {
+    const highlight = node.highlighted || (node.id === (highlightedLink && highlightedLink.source) || node.id === (highlightedLink && highlightedLink.target));
+    const opacity = _getNodeOpacity(node, highlightedNode, highlightedLink, config);
     let fill = node.color || config.node.color;
 
-    if (node.highlighted && config.node.highlightColor !== CONST.KEYWORDS.SAME) {
+    if (highlight && config.node.highlightColor !== CONST.KEYWORDS.SAME) {
         fill = config.node.highlightColor;
     }
 
     let stroke = config.node.strokeColor;
 
-    if (node.highlighted && config.node.highlightStrokeColor !== CONST.KEYWORDS.SAME) {
+    if (highlight && config.node.highlightStrokeColor !== CONST.KEYWORDS.SAME) {
         stroke = config.node.highlightStrokeColor;
     }
 
     const t = 1 / transform;
     const nodeSize = node.size || config.node.size;
-    const fontSize = node.highlighted ? config.node.highlightFontSize : config.node.fontSize;
+    const fontSize = highlight ? config.node.highlightFontSize : config.node.fontSize;
     const dx = (fontSize * t) + (nodeSize / 100) + 1.5;
-    const strokeWidth = node.highlighted ? config.node.highlightStrokeWidth : config.node.strokeWidth;
+    const strokeWidth = highlight ? config.node.highlightStrokeWidth : config.node.strokeWidth;
 
     return {
         className: CONST.NODE_CLASS_NAME,
@@ -207,7 +214,7 @@ function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, transform
         fill,
         fontSize: fontSize * t,
         dx,
-        fontWeight: node.highlighted ? config.node.highlightFontWeight : config.node.fontWeight,
+        fontWeight: highlight ? config.node.highlightFontWeight : config.node.fontWeight,
         id: node.id,
         label: node[config.node.labelProperty] || node.id,
         onClickNode: nodeCallbacks.onClickNode,
@@ -255,24 +262,27 @@ function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, transform
  * @param  {Function[]} linkCallbacks - array of callbacks for used defined event handler for link interactions.
  * @param  {Object} config - an object containing rd3g consumer defined configurations {@link #config config} for the graph.
  * @param  {string} highlightedNode - this value contains a string that represents the some currently highlighted node.
+ * @param  {Object} highlightedLink - this object contains a source and target property for a link that is highlighted at some point in time.
+ * @param  {string} highlightedLink.source - id of source node for highlighted link.
+ * @param  {string} highlightedLink.target - id of target node for highlighted link.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object} returns an object containing the generated nodes and links that form the graph. The result is
  * returned in a way that can be consumed by es6 **destructuring assignment**.
  * @memberof Graph/helper
  */
-function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, highlightedNode, transform) {
+function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, highlightedNode, highlightedLink, transform) {
     let linksComponents = [];
     let nodesComponents = [];
-    
+
     for (let i = 0, keys = Object.keys(nodes), n = keys.length; i < n; i++) {
         const nodeId = keys[i];
 
-        const props = _buildNodeProps(nodes[nodeId], config, nodeCallbacks, highlightedNode, transform);
+        const props = _buildNodeProps(nodes[nodeId], config, nodeCallbacks, highlightedNode, highlightedLink, transform);
 
         nodesComponents.push(<Node key={nodeId} {...props} />);
 
         linksComponents = linksComponents.concat(
-            _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlightedNode, transform)
+            _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform)
         );
     }
 

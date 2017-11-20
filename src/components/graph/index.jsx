@@ -181,7 +181,7 @@ export default class Graph extends React.Component {
 
         this.state.config.highlightBehavior && this._setHighlighted(id, false);
     }
-    
+
     /**
      * Handles mouse over link event.
      * @TODO
@@ -191,8 +191,9 @@ export default class Graph extends React.Component {
 
         // this.state.config.highlightBehavior && this._setHighlighted(index, true);
         if (this.state.config.highlightBehavior) {
-            this._setHighlighted(source, true);
-            this._setHighlighted(target, true);
+            this.state.highlightedLink = { source, target };
+
+            this._tick();
         }
     }
 
@@ -205,8 +206,9 @@ export default class Graph extends React.Component {
 
         // this.state.config.highlightBehavior && this._setHighlighted(index, false);
         if (this.state.config.highlightBehavior) {
-            this._setHighlighted(source, false);
-            this._setHighlighted(target, false);
+            this.state.highlightedLink = undefined;
+
+            this._tick();
         }
     }
 
@@ -346,6 +348,7 @@ export default class Graph extends React.Component {
             },
             this.state.config,
             this.state.highlightedNode,
+            this.state.highlightedLink,
             this.state.transform
         );
 
