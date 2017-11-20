@@ -32,7 +32,7 @@
  * @param {number} [height=400] - the height of the (svg) area where the graph will be rendered.
  * @param {boolean} [nodeHighlightBehavior=false] - 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
  * connections will be highlighted (depending on the *highlightDegree* value). All the remaining nodes and links assume opacity value equal to **highlightOpacity**.
- * @param {boolean} [linkHighlightBehavior] - 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior
+ * @param {boolean} [linkHighlightBehavior=false] - 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior
  * to *nodeHighlightBehavior* but for links (just for historical reference this property was introduced in *v1.0.0*).
  * @param {number} [highlightDegree=1] - **Possible values: 0, 1 or 2**. This value represents the range of the
  * highlight behavior when some node is highlighted. If the value is set to **0** only the selected node will be

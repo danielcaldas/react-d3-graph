@@ -4,6 +4,8 @@ exports[`Link Component should be properly rendered 1`] = `
 <line
   className={undefined}
   onClick={[Function]}
+  onMouseOut={[Function]}
+  onMouseOver={[Function]}
   style={
     Object {
       "opacity": "1",
