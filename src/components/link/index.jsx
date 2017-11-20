@@ -24,17 +24,20 @@ export default class Link extends React.Component {
     /**
      * Handle link click event.
      */
-    handleOnClickLink = () => this.props.onClickLink && this.props.onClickLink(this.props.source, this.props.target);
+    handleOnClickLink = () => this.props.onClickLink
+                            && this.props.onClickLink(this.props.source, this.props.target);
 
     /**
      * Handle mouse over link event.
      */
-    handleOnMouseOverLink = () => this.props.onMouseOverLink && this.props.onMouseOverLink(this.props.source, this.props.target);
+    handleOnMouseOverLink = () => this.props.onMouseOverLink 
+                            && this.props.onMouseOverLink(this.props.source, this.props.target);
 
     /**
      * Handle mouse out link event.
      */
-    handleOnMouseOutLink = () => this.props.onMouseOutLink && this.props.onMouseOutLink(this.props.source, this.props.target);
+    handleOnMouseOutLink = () => this.props.onMouseOutLink 
+                            && this.props.onMouseOutLink(this.props.source, this.props.target);
 
     render() {
         const lineStyle = {

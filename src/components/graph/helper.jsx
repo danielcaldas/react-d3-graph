@@ -45,7 +45,8 @@ import utils from '../../utils';
  * @returns {Object} returns an object that aggregates all props for creating respective Link component instance.
  * @memberof Graph/helper
  */
-function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
+function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, highlightedNode,
+     highlightedLink, transform) {
     const x1 = nodes[source] && nodes[source].x || 0;
     const y1 = nodes[source] && nodes[source].y || 0;
     const x2 = nodes[target] && nodes[target].x || 0;
@@ -64,8 +65,10 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, hi
         break;
     }
 
-    const highlight = (mainNodeParticipates && nodes[source].highlighted && nodes[target].highlighted)
-                    || (source === (highlightedLink && highlightedLink.source) && target === (highlightedLink && highlightedLink.target));
+    const reasonNode = mainNodeParticipates && nodes[source].highlighted && nodes[target].highlighted;
+    const reasonLink = source === (highlightedLink && highlightedLink.source) 
+                    && target === (highlightedLink && highlightedLink.target);
+    const highlight = reasonNode || reasonLink;
 
     let opacity = config.link.opacity;
 
@@ -161,8 +164,11 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlighte
  * @memberof Graph/helper
  */
 function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
-    const highlight = node.highlighted || node.id === (highlightedLink && highlightedLink.source) || node.id === (highlightedLink && highlightedLink.target);
-    const someNodeHighlighted = !!(highlightedNode || highlightedLink && highlightedLink.source && highlightedLink.target);
+    const highlight = node.highlighted
+                 || node.id === (highlightedLink && highlightedLink.source)
+                 || node.id === (highlightedLink && highlightedLink.target);
+    const someNodeHighlighted = !!(highlightedNode
+                        || highlightedLink && highlightedLink.source && highlightedLink.target);
     let opacity;
 
     if (someNodeHighlighted && config.highlightDegree === 0) {
@@ -188,7 +194,9 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
  * @memberof Graph/helper
  */
 function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, highlightedLink, transform) {
-    const highlight = node.highlighted || (node.id === (highlightedLink && highlightedLink.source) || node.id === (highlightedLink && highlightedLink.target));
+    const highlight = node.highlighted 
+                    || (node.id === (highlightedLink && highlightedLink.source)
+                    || node.id === (highlightedLink && highlightedLink.target));
     const opacity = _getNodeOpacity(node, highlightedNode, highlightedLink, config);
     let fill = node.color || config.node.color;
 
@@ -279,7 +287,8 @@ function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, highligh
     for (let i = 0, keys = Object.keys(nodes), n = keys.length; i < n; i++) {
         const nodeId = keys[i];
 
-        const props = _buildNodeProps(nodes[nodeId], config, nodeCallbacks, highlightedNode, highlightedLink, transform);
+        const props = _buildNodeProps(nodes[nodeId], config, nodeCallbacks,
+                                        highlightedNode, highlightedLink, transform);
 
         nodesComponents.push(<Node key={nodeId} {...props} />);
 
