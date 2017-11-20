@@ -46,7 +46,7 @@ const D3_CONST = {
  *
  * // The graph configuration
  * const myConfig = {
- *     highlightBehavior: true,
+ *     nodeHighlightBehavior: true,
  *     node: {
  *         color: 'lightgreen',
  *         size: 120,
@@ -122,7 +122,7 @@ export default class Graph extends React.Component {
      * @param  {string} id - the id of the node to highlight.
      * @param  {boolean} [value=false] - the highlight value to be set (true or false).
      */
-    _setHighlighted = (id, value=false) => {
+    _setNodeHighlightedValue = (id, value=false) => {
         this.state.highlightedNode = value ? id : '';
         this.state.nodes[id].highlighted = value;
 
@@ -169,7 +169,7 @@ export default class Graph extends React.Component {
     onMouseOverNode = (id) => {
         this.props.onMouseOverNode && this.props.onMouseOverNode(id);
 
-        this.state.config.highlightBehavior && this._setHighlighted(id, true);
+        this.state.config.nodeHighlightBehavior && this._setNodeHighlightedValue(id, true);
     }
 
     /**
@@ -179,7 +179,7 @@ export default class Graph extends React.Component {
     onMouseOutNode = (id) => {
         this.props.onMouseOutNode && this.props.onMouseOutNode(id);
 
-        this.state.config.highlightBehavior && this._setHighlighted(id, false);
+        this.state.config.nodeHighlightBehavior && this._setNodeHighlightedValue(id, false);
     }
 
     /**
@@ -189,8 +189,7 @@ export default class Graph extends React.Component {
     onMouseOverLink = (source, target) => {
         this.props.onMouseOverLink && this.props.onMouseOverLink(source, target);
 
-        // this.state.config.highlightBehavior && this._setHighlighted(index, true);
-        if (this.state.config.highlightBehavior) {
+        if (this.state.config.linkHighlightBehavior) {
             this.state.highlightedLink = { source, target };
 
             this._tick();
@@ -204,8 +203,7 @@ export default class Graph extends React.Component {
     onMouseOutLink = (source, target) => {
         this.props.onMouseOutLink && this.props.onMouseOutLink(source, target);
 
-        // this.state.config.highlightBehavior && this._setHighlighted(index, false);
-        if (this.state.config.highlightBehavior) {
+        if (this.state.config.linkHighlightBehavior) {
             this.state.highlightedLink = undefined;
 
             this._tick();

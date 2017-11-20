@@ -30,14 +30,16 @@
  * @param {boolean} [automaticRearrangeAfterDropNode=false] - 🚅🚅🚅 when true performing a node drag and drop should automatically
  * rearrange all nodes positions based on new position of dragged node (note: **staticGraph** should be false).
  * @param {number} [height=400] - the height of the (svg) area where the graph will be rendered.
- * @param {boolean} [highlightBehavior=false] - 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
- * connections will be highlighted. All the remaining nodes and links assume opacity value equal to **highlightOpacity**.
+ * @param {boolean} [nodeHighlightBehavior=false] - 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
+ * connections will be highlighted (depending on the *highlightDegree* value). All the remaining nodes and links assume opacity value equal to **highlightOpacity**.
+ * @param {boolean} [linkHighlightBehavior] - 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior
+ * to *nodeHighlightBehavior* but for links (just for historical reference this property was introduced in *v1.0.0*).
  * @param {number} [highlightDegree=1] - **Possible values: 0, 1 or 2**. This value represents the range of the
  * highlight behavior when some node is highlighted. If the value is set to **0** only the selected node will be
  * highlighted. If the value is set to **1** the selected node and his 1st degree connections will be highlighted. If
  * the value is set to **2** the selected node will be highlighted as well as the 1st and 2nd common degree connections.
  * @param {number} [highlightOpacity=1] - this value is used to highlight nodes in the network. The lower
- * the value the more the less highlighted nodes will be visible (related to *highlightBehavior*).
+ * the value the more the less highlighted nodes will be visible (related to *nodeHighlightBehavior*).
  * @param {number} [maxZoom=8] - max zoom that can be performed against the graph.
  * @param {number} [minZoom=0.1] - min zoom that can be performed against the graph.
  * @param {boolean} [panAndZoom=false] - 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
@@ -102,7 +104,7 @@
  * @example
  * // A simple config that uses some properties
  * const myConfig = {
- *     highlightBehavior: true,
+ *     nodeHighlightBehavior: true,
  *     node: {
  *         color: 'lightgreen',
  *         size: 120,
@@ -118,11 +120,12 @@
 export default {
     automaticRearrangeAfterDropNode: false,
     height: 400,
-    highlightBehavior: false,
     highlightDegree: 1,
     highlightOpacity: 1,
+    linkHighlightBehavior: false,
     maxZoom: 8,
     minZoom: 0.1,
+    nodeHighlightBehavior: false,
     panAndZoom: false,
     staticGraph: false,
     width: 800,
