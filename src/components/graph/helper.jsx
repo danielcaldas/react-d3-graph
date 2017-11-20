@@ -65,15 +65,16 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, hi
             break;
     }
 
-    if (highlightedNode) {
-        opacity = (mainNodeParticipates
-                && nodes[source].highlighted
-                && nodes[target].highlighted) ? config.link.opacity : config.highlightOpacity;
+    const highlight = (mainNodeParticipates && nodes[source].highlighted && nodes[target].highlighted) 
+                        || (source === (highlightedLink && highlightedLink.source) && target === (highlightedLink && highlightedLink.target));
+
+    if (highlightedNode || highlightedLink && highlightedLink.source) {
+        opacity = highlight ? config.link.opacity : config.highlightOpacity;
     }
 
     let stroke = config.link.color;
 
-    if (mainNodeParticipates && nodes[source].highlighted && nodes[target].highlighted) {
+    if (highlight) {
         stroke = config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color
                                                                     : config.link.highlightColor;
     }
