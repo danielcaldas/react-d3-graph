@@ -7,6 +7,14 @@ import React from 'react';
  *      window.alert(`Clicked link between ${source} and ${target}`);
  * };
  *
+ * const onMouseOverLink = function(source, target) {
+ *      window.alert(`Mouse over in link between ${source} and ${target}`);
+ * };
+ *
+ * const onMouseOutLink = function(source, target) {
+ *      window.alert(`Mouse out link between ${source} and ${target}`);
+ * };
+ *
  * <Link
  *     source='idSourceNode'
  *     target='idTargetNode'
@@ -18,7 +26,9 @@ import React from 'react';
  *     stroke='green'
  *     className='link'
  *     opacity=1
- *     onClickLink={onClickLink} />
+ *     onClickLink={onClickLink}
+ *     onMouseOverLink={onMouseOverLink}
+ *     onMouseOutLink={onMouseOutLink} />
  */
 export default class Link extends React.Component {
     /**
@@ -30,13 +40,13 @@ export default class Link extends React.Component {
     /**
      * Handle mouse over link event.
      */
-    handleOnMouseOverLink = () => this.props.onMouseOverLink 
+    handleOnMouseOverLink = () => this.props.onMouseOverLink
                             && this.props.onMouseOverLink(this.props.source, this.props.target);
 
     /**
      * Handle mouse out link event.
      */
-    handleOnMouseOutLink = () => this.props.onMouseOutLink 
+    handleOnMouseOutLink = () => this.props.onMouseOutLink
                             && this.props.onMouseOutLink(this.props.source, this.props.target);
 
     render() {
