@@ -73,7 +73,7 @@ export default class Sandbox extends React.Component {
     pauseGraphSimulation = () => this.refs.graph.pauseSimulation();
 
     /**
-     * If you have moved nodes you will have them restore theire positions
+     * If you have moved nodes you will have them restore theirs positions
      * when you call resetNodesPositions.
      */
     resetNodesPositions = () => this.refs.graph.resetNodesPositions();

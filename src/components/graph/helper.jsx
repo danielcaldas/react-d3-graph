@@ -323,7 +323,7 @@ function createForceSimulation(width, height) {
 }
 
 /**
- * Incapsulates common procedures to initialize graph.
+ * Encapsulates common procedures to initialize graph.
  * @param {Object} props - Graph component props, object that holds data, id and config.
  * @param {Object} props.data - Data object holds links (array of **Link**) and nodes (array of **Node**).
  * @param {string} props.id - the graph id.
@@ -338,7 +338,7 @@ function initializeGraphState({data, id, config}, state) {
     validateGraphData(data);
 
     if (state && state.nodes && state.links && state.nodeIndexMapping) {
-        // absorve existent positining
+        // absorb existent positioning
         graph = {
             nodes: data.nodes.map(n => Object.assign({}, n, state.nodes[n.id])),
             links: {}
