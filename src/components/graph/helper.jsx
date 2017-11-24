@@ -66,7 +66,7 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, hi
     }
 
     const reasonNode = mainNodeParticipates && nodes[source].highlighted && nodes[target].highlighted;
-    const reasonLink = source === (highlightedLink && highlightedLink.source) 
+    const reasonLink = source === (highlightedLink && highlightedLink.source)
                     && target === (highlightedLink && highlightedLink.target);
     const highlight = reasonNode || reasonLink;
 
@@ -194,7 +194,7 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
  * @memberof Graph/helper
  */
 function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, highlightedLink, transform) {
-    const highlight = node.highlighted 
+    const highlight = node.highlighted
                     || (node.id === (highlightedLink && highlightedLink.source)
                     || node.id === (highlightedLink && highlightedLink.target));
     const opacity = _getNodeOpacity(node, highlightedNode, highlightedLink, config);
@@ -440,16 +440,27 @@ function initializeNodes(graphNodes) {
  * throw an error.
  * @param  {Object} data - Same as {@link #initializeGraphState|data in initializeGraphState}.
  * @memberof Graph/helper
+ * @throws can throw the following error msg:
+ * INSUFFICIENT_DATA - msg if no nodes are provided
+ * INVALID_LINKS - if links point to nonexistent nodes
  */
 function validateGraphData(data) {
-    data.links.forEach(l => {
+    if (!data.nodes || !data.nodes.length) {
+        utils.throwErr('Graph', ERRORS.INSUFFICIENT_DATA);
+    }
+
+    const n = data.links.length;
+
+    for (let i=0; i < n; i++) {
+        const l = data.links[i];
+
         if (!data.nodes.find(n => n.id === l.source)) {
-            utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
+            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
         }
         if (!data.nodes.find(n => n.id === l.target)) {
-            utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
+            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
         }
-    });
+    }
 }
 
 export default {
