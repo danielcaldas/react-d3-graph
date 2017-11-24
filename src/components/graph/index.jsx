@@ -44,7 +44,8 @@ const D3_CONST = {
  *     ]
  * };
  *
- * // The graph configuration
+ * // The graph configuration, you only need to pass down properties
+ * // that you want to override, otherwise default will be used
  * const myConfig = {
  *     nodeHighlightBehavior: true,
  *     node: {
@@ -59,19 +60,27 @@ const D3_CONST = {
  *
  * // Graph event callbacks
  * const onClickNode = function(nodeId) {
- *      window.alert('Clicked node', nodeId);
+ *      window.alert('Clicked node ${nodeId}');
  * };
  *
  * const onMouseOverNode = function(nodeId) {
- *      window.alert('Mouse over node', nodeId);
+ *      window.alert(`Mouse over node ${nodeId}`);
  * };
  *
  * const onMouseOutNode = function(nodeId) {
- *      window.alert('Mouse out node', nodeId);
+ *      window.alert(`Mouse out node ${nodeId}`);
  * };
  *
  * const onClickLink = function(source, target) {
  *      window.alert(`Clicked link between ${source} and ${target}`);
+ * };
+ * 
+ * const onMouseOverLink = function(source, target) {
+ *      window.alert(`Mouse over in link between ${source} and ${target}`);
+ * };
+ *
+ * const onMouseOutLink = function(source, target) {
+ *      window.alert(`Mouse out link between ${source} and ${target}`);
  * };
  *
  * <Graph
@@ -81,7 +90,9 @@ const D3_CONST = {
  *      onClickNode={onClickNode}
  *      onClickLink={onClickLink}
  *      onMouseOverNode={onMouseOverNode}
- *      onMouseOutNode={onMouseOutNode} />
+ *      onMouseOutNode={onMouseOutNode}
+ *      onMouseOverLink={onMouseOverLink}
+ *      onMouseOutLink={onMouseOutLink}/>
  */
 export default class Graph extends React.Component {
     /**
@@ -184,7 +195,8 @@ export default class Graph extends React.Component {
 
     /**
      * Handles mouse over link event.
-     * @TODO
+     * @param  {string} source - id of the source node that participates in the event.
+     * @param  {string} target - id of the target node that participates in the event.
      */
     onMouseOverLink = (source, target) => {
         this.props.onMouseOverLink && this.props.onMouseOverLink(source, target);
@@ -198,7 +210,8 @@ export default class Graph extends React.Component {
 
     /**
      * Handles mouse out link event.
-     * @TODO
+     * @param  {string} source - id of the source node that participates in the event.
+     * @param  {string} target - id of the target node that participates in the event.
      */
     onMouseOutLink = (source, target) => {
         this.props.onMouseOutLink && this.props.onMouseOutLink(source, target);

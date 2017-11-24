@@ -98,7 +98,11 @@
  * ```javascript
  * strokeWidth += (linkValue * strokeWidth) / 10;
  * ```
- * @param {number} [link.strokeWidth=1.5] - strokeWidth for all links.
+ * @param {number} [link.strokeWidth=1.5] - strokeWidth for all links. By default the actual value is obtain by the
+ * following expression:
+ * ```javascript
+ * link.strokeWidth * (1 / transform); // transform is a zoom delta Δ value
+ * ```
  * @param {string} [link.highlightColor='#d3d3d3'] - links' color in highlight state.
  *
  * @example

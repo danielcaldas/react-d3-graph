@@ -329,7 +329,7 @@ function createForceSimulation(width, height) {
  * @param {string} props.id - the graph id.
  * @param {Object} props.config - same as {@link #buildGraph|config in buildGraph}.
  * @param {Object} state - Graph component current state (same format as returned object on this function).
- * @returns a fully (re)initialized graph state object.
+ * @returns {Object} a fully (re)initialized graph state object.
  * @memberof Graph/helper
  */
 function initializeGraphState({data, id, config}, state) {
