@@ -49,6 +49,10 @@ export default class Sandbox extends React.Component {
 
     onMouseOutNode = (id) => console.info(`Do something when mouse is out of node (${id})`);
 
+    onMouseOverLink = (source, target) => console.info(`Do something when mouse is over link between ${source} and ${target}`);
+
+    onMouseOutLink = (source, target) => console.info(`Do something when mouse is out of link between ${source} and ${target}`);
+
     /**
      * Sets on/off fullscreen visualization mode.
      */
@@ -69,7 +73,7 @@ export default class Sandbox extends React.Component {
     pauseGraphSimulation = () => this.refs.graph.pauseSimulation();
 
     /**
-     * If you have moved nodes you will have them restore theire positions
+     * If you have moved nodes you will have them restore theirs positions
      * when you call resetNodesPositions.
      */
     resetNodesPositions = () => this.refs.graph.resetNodesPositions();
@@ -248,7 +252,9 @@ export default class Sandbox extends React.Component {
             onClickNode: this.onClickNode,
             onClickLink: this.onClickLink,
             onMouseOverNode: this.onMouseOverNode,
-            onMouseOutNode: this.onMouseOutNode
+            onMouseOutNode: this.onMouseOutNode,
+            onMouseOverLink: this.onMouseOverLink,
+            onMouseOutLink: this.onMouseOutLink
         };
 
         if (this.state.fullscreen) {

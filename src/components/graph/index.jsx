@@ -44,9 +44,10 @@ const D3_CONST = {
  *     ]
  * };
  *
- * // The graph configuration
+ * // The graph configuration, you only need to pass down properties
+ * // that you want to override, otherwise default will be used
  * const myConfig = {
- *     highlightBehavior: true,
+ *     nodeHighlightBehavior: true,
  *     node: {
  *         color: 'lightgreen',
  *         size: 120,
@@ -59,19 +60,27 @@ const D3_CONST = {
  *
  * // Graph event callbacks
  * const onClickNode = function(nodeId) {
- *      window.alert('Clicked node', nodeId);
+ *      window.alert('Clicked node ${nodeId}');
  * };
  *
  * const onMouseOverNode = function(nodeId) {
- *      window.alert('Mouse over node', nodeId);
+ *      window.alert(`Mouse over node ${nodeId}`);
  * };
  *
  * const onMouseOutNode = function(nodeId) {
- *      window.alert('Mouse out node', nodeId);
+ *      window.alert(`Mouse out node ${nodeId}`);
  * };
  *
  * const onClickLink = function(source, target) {
  *      window.alert(`Clicked link between ${source} and ${target}`);
+ * };
+ * 
+ * const onMouseOverLink = function(source, target) {
+ *      window.alert(`Mouse over in link between ${source} and ${target}`);
+ * };
+ *
+ * const onMouseOutLink = function(source, target) {
+ *      window.alert(`Mouse out link between ${source} and ${target}`);
  * };
  *
  * <Graph
@@ -81,7 +90,9 @@ const D3_CONST = {
  *      onClickNode={onClickNode}
  *      onClickLink={onClickLink}
  *      onMouseOverNode={onMouseOverNode}
- *      onMouseOutNode={onMouseOutNode} />
+ *      onMouseOutNode={onMouseOutNode}
+ *      onMouseOverLink={onMouseOverLink}
+ *      onMouseOutLink={onMouseOutLink}/>
  */
 export default class Graph extends React.Component {
     /**
@@ -119,16 +130,16 @@ export default class Graph extends React.Component {
 
     /**
      * Sets nodes and links highlighted value.
-     * @param  {number} index - the index of the node to highlight (and its adjacent).
-     * @param  {boolean} value - the highlight value to be set (true or false).
+     * @param  {string} id - the id of the node to highlight.
+     * @param  {boolean} [value=false] - the highlight value to be set (true or false).
      */
-    _setHighlighted = (index, value) => {
-        this.state.highlightedNode = value ? index : '';
-        this.state.nodes[index].highlighted = value;
+    _setNodeHighlightedValue = (id, value=false) => {
+        this.state.highlightedNode = value ? id : '';
+        this.state.nodes[id].highlighted = value;
 
         // when highlightDegree is 0 we want only to highlight selected node
-        if (this.state.links[index] && this.state.config.highlightDegree !== 0) {
-            Object.keys(this.state.links[index]).forEach(k => {
+        if (this.state.links[id] && this.state.config.highlightDegree !== 0) {
+            Object.keys(this.state.links[id]).forEach(k => {
                 this.state.nodes[k].highlighted = value;
             });
         }
@@ -163,23 +174,53 @@ export default class Graph extends React.Component {
     }
 
     /**
-     * Handles mouse out node event.
-     * @param  {string} id - id of the node that participates in the event.
-     */
-    onMouseOutNode = (id) => {
-        this.props.onMouseOutNode && this.props.onMouseOutNode(id);
-
-        this.state.config.highlightBehavior && this._setHighlighted(id, false);
-    }
-
-    /**
      * Handles mouse over node event.
      * @param  {string} id - id of the node that participates in the event.
      */
     onMouseOverNode = (id) => {
         this.props.onMouseOverNode && this.props.onMouseOverNode(id);
 
-        this.state.config.highlightBehavior && this._setHighlighted(id, true);
+        this.state.config.nodeHighlightBehavior && this._setNodeHighlightedValue(id, true);
+    }
+
+    /**
+     * Handles mouse out node event.
+     * @param  {string} id - id of the node that participates in the event.
+     */
+    onMouseOutNode = (id) => {
+        this.props.onMouseOutNode && this.props.onMouseOutNode(id);
+
+        this.state.config.nodeHighlightBehavior && this._setNodeHighlightedValue(id, false);
+    }
+
+    /**
+     * Handles mouse over link event.
+     * @param  {string} source - id of the source node that participates in the event.
+     * @param  {string} target - id of the target node that participates in the event.
+     */
+    onMouseOverLink = (source, target) => {
+        this.props.onMouseOverLink && this.props.onMouseOverLink(source, target);
+
+        if (this.state.config.linkHighlightBehavior) {
+            this.state.highlightedLink = { source, target };
+
+            this._tick();
+        }
+    }
+
+    /**
+     * Handles mouse out link event.
+     * @param  {string} source - id of the source node that participates in the event.
+     * @param  {string} target - id of the target node that participates in the event.
+     */
+    onMouseOutLink = (source, target) => {
+        this.props.onMouseOutLink && this.props.onMouseOutLink(source, target);
+
+        if (this.state.config.linkHighlightBehavior) {
+            this.state.highlightedLink = undefined;
+
+            this._tick();
+        }
     }
 
     /**
@@ -311,9 +352,14 @@ export default class Graph extends React.Component {
                 onMouseOut: this.onMouseOutNode
             },
             this.state.links,
-            { onClickLink: this.props.onClickLink },
+            {
+                onClickLink: this.props.onClickLink,
+                onMouseOverLink: this.onMouseOverLink,
+                onMouseOutLink: this.onMouseOutLink
+            },
             this.state.config,
             this.state.highlightedNode,
+            this.state.highlightedLink,
             this.state.transform
         );
 

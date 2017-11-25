@@ -40,48 +40,54 @@ import utils from '../../utils';
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @param  {Function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
  * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
+ * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object} returns an object that aggregates all props for creating respective Link component instance.
  * @memberof Graph/helper
  */
-function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, highlightedNode, transform) {
+function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, highlightedNode,
+     highlightedLink, transform) {
     const x1 = nodes[source] && nodes[source].x || 0;
     const y1 = nodes[source] && nodes[source].y || 0;
     const x2 = nodes[target] && nodes[target].x || 0;
     const y2 = nodes[target] && nodes[target].y || 0;
 
-    let opacity = config.link.opacity;
-    let mainNodeParticipates;
+    let mainNodeParticipates = false;
 
     switch (config.highlightDegree) {
         case 0:
-            break;
+        break;
         case 2:
-            mainNodeParticipates = true;
-            break;
+        mainNodeParticipates = true;
+        break;
         default: // 1st degree is the fallback behavior
-            mainNodeParticipates = source === highlightedNode || target === highlightedNode;
-            break;
+        mainNodeParticipates = source === highlightedNode || target === highlightedNode;
+        break;
     }
 
-    if (highlightedNode) {
-        opacity = (mainNodeParticipates
-                && nodes[source].highlighted
-                && nodes[target].highlighted) ? config.link.opacity : config.highlightOpacity;
+    const reasonNode = mainNodeParticipates && nodes[source].highlighted && nodes[target].highlighted;
+    const reasonLink = source === (highlightedLink && highlightedLink.source)
+                    && target === (highlightedLink && highlightedLink.target);
+    const highlight = reasonNode || reasonLink;
+
+    let opacity = config.link.opacity;
+
+    if (highlightedNode || (highlightedLink && highlightedLink.source)) {
+        opacity = highlight ? config.link.opacity : config.highlightOpacity;
     }
 
     let stroke = config.link.color;
 
-    if (mainNodeParticipates && nodes[source].highlighted && nodes[target].highlighted) {
+    if (highlight) {
         stroke = config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color
                                                                     : config.link.highlightColor;
     }
 
-    const linkValue = links[source][target] || links[target][source] || 1;
-
     let strokeWidth = config.link.strokeWidth * (1 / transform);
 
     if (config.link.semanticStrokeWidth) {
+        const linkValue = links[source][target] || links[target][source] || 1;
+
         strokeWidth += (linkValue * strokeWidth) / 10;
     }
 
@@ -96,7 +102,9 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, hi
         stroke,
         className: CONST.LINK_CLASS_NAME,
         opacity,
-        onClickLink: linkCallbacks.onClickLink
+        onClickLink: linkCallbacks.onClickLink,
+        onMouseOverLink: linkCallbacks.onMouseOverLink,
+        onMouseOutLink: linkCallbacks.onMouseOutLink
     };
 }
 
@@ -108,11 +116,12 @@ function _buildLinkProps(source, target, nodes, links, config, linkCallbacks, hi
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @param  {Function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
  * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
+ * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object[]} returns the generated array of Link components.
  * @memberof Graph/helper
  */
-function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlightedNode, transform) {
+function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
     let linksComponents = [];
 
     if (links[nodeId]) {
@@ -133,6 +142,7 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlighte
                     config,
                     linkCallbacks,
                     highlightedNode,
+                    highlightedLink,
                     transform
                 );
 
@@ -145,20 +155,26 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlighte
 }
 
 /**
- * Get the correct node opacity in order to properly make decisions based on context such as currently highlited node.
+ * Get the correct node opacity in order to properly make decisions based on context such as currently highlighted node.
  * @param  {Object} node - the node object for whom we will generate properties.
  * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
+ * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @returns {number} the opacity value for the given node.
  * @memberof Graph/helper
  */
-function _getNodeOpacity(node, highlightedNode, config) {
+function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
+    const highlight = node.highlighted
+                 || node.id === (highlightedLink && highlightedLink.source)
+                 || node.id === (highlightedLink && highlightedLink.target);
+    const someNodeHighlighted = !!(highlightedNode
+                        || highlightedLink && highlightedLink.source && highlightedLink.target);
     let opacity;
 
-    if (highlightedNode && config.highlightDegree === 0) {
-        opacity = (node.id === highlightedNode && node.highlighted) ? config.node.opacity : config.highlightOpacity;
-    } else if (highlightedNode) {
-        opacity = node.highlighted ? config.node.opacity : config.highlightOpacity;
+    if (someNodeHighlighted && config.highlightDegree === 0) {
+        opacity = highlight ? config.node.opacity : config.highlightOpacity;
+    } else if (someNodeHighlighted) {
+        opacity = highlight ? config.node.opacity : config.highlightOpacity;
     } else {
         opacity = config.node.opacity;
     }
@@ -172,30 +188,33 @@ function _getNodeOpacity(node, highlightedNode, config) {
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @param  {Function[]} nodeCallbacks - same as {@link #buildGraph|nodeCallbacks in buildGraph}.
  * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
+ * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object} returns object that contain Link props ready to be feeded to the Link component.
  * @memberof Graph/helper
  */
-function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, transform) {
-    const opacity = _getNodeOpacity(node, highlightedNode, config);
-
+function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, highlightedLink, transform) {
+    const highlight = node.highlighted
+                    || (node.id === (highlightedLink && highlightedLink.source)
+                    || node.id === (highlightedLink && highlightedLink.target));
+    const opacity = _getNodeOpacity(node, highlightedNode, highlightedLink, config);
     let fill = node.color || config.node.color;
 
-    if (node.highlighted && config.node.highlightColor !== CONST.KEYWORDS.SAME) {
+    if (highlight && config.node.highlightColor !== CONST.KEYWORDS.SAME) {
         fill = config.node.highlightColor;
     }
 
     let stroke = config.node.strokeColor;
 
-    if (node.highlighted && config.node.highlightStrokeColor !== CONST.KEYWORDS.SAME) {
+    if (highlight && config.node.highlightStrokeColor !== CONST.KEYWORDS.SAME) {
         stroke = config.node.highlightStrokeColor;
     }
 
     const t = 1 / transform;
     const nodeSize = node.size || config.node.size;
-    const fontSize = node.highlighted ? config.node.highlightFontSize : config.node.fontSize;
+    const fontSize = highlight ? config.node.highlightFontSize : config.node.fontSize;
     const dx = (fontSize * t) + (nodeSize / 100) + 1.5;
-    const strokeWidth = node.highlighted ? config.node.highlightStrokeWidth : config.node.strokeWidth;
+    const strokeWidth = highlight ? config.node.highlightStrokeWidth : config.node.strokeWidth;
 
     return {
         className: CONST.NODE_CLASS_NAME,
@@ -205,7 +224,7 @@ function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, transform
         fill,
         fontSize: fontSize * t,
         dx,
-        fontWeight: node.highlighted ? config.node.highlightFontWeight : config.node.fontWeight,
+        fontWeight: highlight ? config.node.highlightFontWeight : config.node.fontWeight,
         id: node.id,
         label: node[config.node.labelProperty] || node.id,
         onClickNode: nodeCallbacks.onClickNode,
@@ -251,26 +270,30 @@ function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, transform
  *  }
  * ```
  * @param  {Function[]} linkCallbacks - array of callbacks for used defined event handler for link interactions.
- * @param  {Object} config - an object containg rd3g consumer defined configurations {@link #config config} for the graph.
+ * @param  {Object} config - an object containing rd3g consumer defined configurations {@link #config config} for the graph.
  * @param  {string} highlightedNode - this value contains a string that represents the some currently highlighted node.
+ * @param  {Object} highlightedLink - this object contains a source and target property for a link that is highlighted at some point in time.
+ * @param  {string} highlightedLink.source - id of source node for highlighted link.
+ * @param  {string} highlightedLink.target - id of target node for highlighted link.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
- * @returns {Object} returns an object containg the generated nodes and links that form the graph. The result is
+ * @returns {Object} returns an object containing the generated nodes and links that form the graph. The result is
  * returned in a way that can be consumed by es6 **destructuring assignment**.
  * @memberof Graph/helper
  */
-function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, highlightedNode, transform) {
+function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, highlightedNode, highlightedLink, transform) {
     let linksComponents = [];
     let nodesComponents = [];
 
     for (let i = 0, keys = Object.keys(nodes), n = keys.length; i < n; i++) {
         const nodeId = keys[i];
 
-        const props = _buildNodeProps(nodes[nodeId], config, nodeCallbacks, highlightedNode, transform);
+        const props = _buildNodeProps(nodes[nodeId], config, nodeCallbacks,
+                                        highlightedNode, highlightedLink, transform);
 
         nodesComponents.push(<Node key={nodeId} {...props} />);
 
         linksComponents = linksComponents.concat(
-            _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlightedNode, transform)
+            _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform)
         );
     }
 
@@ -300,13 +323,13 @@ function createForceSimulation(width, height) {
 }
 
 /**
- * Incapsulates common procedures to initialize graph.
+ * Encapsulates common procedures to initialize graph.
  * @param {Object} props - Graph component props, object that holds data, id and config.
  * @param {Object} props.data - Data object holds links (array of **Link**) and nodes (array of **Node**).
  * @param {string} props.id - the graph id.
  * @param {Object} props.config - same as {@link #buildGraph|config in buildGraph}.
  * @param {Object} state - Graph component current state (same format as returned object on this function).
- * @returns a fully (re)initialized graph state object.
+ * @returns {Object} a fully (re)initialized graph state object.
  * @memberof Graph/helper
  */
 function initializeGraphState({data, id, config}, state) {
@@ -315,7 +338,7 @@ function initializeGraphState({data, id, config}, state) {
     validateGraphData(data);
 
     if (state && state.nodes && state.links && state.nodeIndexMapping) {
-        // absorve existent positining
+        // absorb existent positioning
         graph = {
             nodes: data.nodes.map(n => Object.assign({}, n, state.nodes[n.id])),
             links: {}
@@ -355,7 +378,7 @@ function initializeGraphState({data, id, config}, state) {
 /**
  * Receives a matrix of the graph with the links source and target as concrete node instances and it transforms it
  * in a lightweight matrix containing only links with source and target being strings representative of some node id
- * and the respective link value (if non existant will default to 1).
+ * and the respective link value (if non existent will default to 1).
  * @param  {Object[]} graphLinks - an array of all graph links but all the links contain the source and target nodes
  * objects.
  * @returns {Object.<string, Object>} an object containing a matrix of connections of the graph, for each nodeId,
@@ -413,20 +436,31 @@ function initializeNodes(graphNodes) {
 }
 
 /**
- * Some integraty validations on links and nodes structure. If some validation fails the function will
+ * Some integrity validations on links and nodes structure. If some validation fails the function will
  * throw an error.
  * @param  {Object} data - Same as {@link #initializeGraphState|data in initializeGraphState}.
  * @memberof Graph/helper
+ * @throws can throw the following error msg:
+ * INSUFFICIENT_DATA - msg if no nodes are provided
+ * INVALID_LINKS - if links point to nonexistent nodes
  */
 function validateGraphData(data) {
-    data.links.forEach(l => {
+    if (!data.nodes || !data.nodes.length) {
+        utils.throwErr('Graph', ERRORS.INSUFFICIENT_DATA);
+    }
+
+    const n = data.links.length;
+
+    for (let i=0; i < n; i++) {
+        const l = data.links[i];
+
         if (!data.nodes.find(n => n.id === l.source)) {
-            utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
+            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
         }
         if (!data.nodes.find(n => n.id === l.target)) {
-            utils.throwErr(this.constructor.name, `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
+            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
         }
-    });
+    }
 }
 
 export default {

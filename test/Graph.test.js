@@ -14,7 +14,7 @@ describe('Graph Component', () => {
     that.config = {
         height: that.svgSize,
         width: that.svgSize,
-        highlightBehavior: true,
+        nodeHighlightBehavior: true,
         highlightOpacity: that.highlightOpacity,
         staticGraph: true,
         node: {

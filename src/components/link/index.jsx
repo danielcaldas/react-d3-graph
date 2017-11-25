@@ -7,6 +7,14 @@ import React from 'react';
  *      window.alert(`Clicked link between ${source} and ${target}`);
  * };
  *
+ * const onMouseOverLink = function(source, target) {
+ *      window.alert(`Mouse over in link between ${source} and ${target}`);
+ * };
+ *
+ * const onMouseOutLink = function(source, target) {
+ *      window.alert(`Mouse out link between ${source} and ${target}`);
+ * };
+ *
  * <Link
  *     source='idSourceNode'
  *     target='idTargetNode'
@@ -18,13 +26,28 @@ import React from 'react';
  *     stroke='green'
  *     className='link'
  *     opacity=1
- *     onClickLink={onClickLink} />
+ *     onClickLink={onClickLink}
+ *     onMouseOverLink={onMouseOverLink}
+ *     onMouseOutLink={onMouseOutLink} />
  */
 export default class Link extends React.Component {
     /**
      * Handle link click event.
      */
-    handleOnClickLink = () => this.props.onClickLink && this.props.onClickLink(this.props.source, this.props.target);
+    handleOnClickLink = () => this.props.onClickLink
+                            && this.props.onClickLink(this.props.source, this.props.target);
+
+    /**
+     * Handle mouse over link event.
+     */
+    handleOnMouseOverLink = () => this.props.onMouseOverLink
+                            && this.props.onMouseOverLink(this.props.source, this.props.target);
+
+    /**
+     * Handle mouse out link event.
+     */
+    handleOnMouseOutLink = () => this.props.onMouseOutLink
+                            && this.props.onMouseOutLink(this.props.source, this.props.target);
 
     render() {
         const lineStyle = {
@@ -36,6 +59,8 @@ export default class Link extends React.Component {
         const lineProps = {
             className: this.props.className,
             onClick: this.handleOnClickLink,
+            onMouseOut: this.handleOnMouseOutLink,
+            onMouseOver: this.handleOnMouseOverLink,
             style: lineStyle,
             x1: this.props.x1,
             x2: this.props.x2,
@@ -44,7 +69,7 @@ export default class Link extends React.Component {
         };
 
         return (
-            <line {...lineProps}/>
+            <line {...lineProps} />
         );
     }
 }
