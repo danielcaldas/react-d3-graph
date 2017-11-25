@@ -305,8 +305,9 @@ function buildGraph(nodes, nodeCallbacks, links, linkCallbacks, config, highligh
 
 /**
  * Create d3 forceSimulation to be applied on the graph.<br/>
- * <a href="https://github.com/d3/d3-force#forceSimulation" target="_blank">https://github.com/d3/d3-force#forceSimulation</a><br/>
- * <a href="https://github.com/d3/d3-force#simulation_force" target="_blank">https://github.com/d3/d3-force#simulation_force</a><br/>
+ * {@link https://github.com/d3/d3-force#forceSimulation|d3-force#forceSimulation}<br/>
+ * {@link https://github.com/d3/d3-force#simulation_force|d3-force#simulation_force}<br/>
+ * Wtf is a force? {@link https://github.com/d3/d3-force#forces| here}
  * @param  {number} width - the width of the container area of the graph.
  * @param  {number} height - the height of the container area of the graph.
  * @returns {Object} returns the simulation instance to be consumed.
