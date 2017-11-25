@@ -155,34 +155,6 @@ function _buildNodeLinks(nodeId, nodes, links, config, linkCallbacks, highlighte
 }
 
 /**
- * Get the correct node opacity in order to properly make decisions based on context such as currently highlighted node.
- * @param  {Object} node - the node object for whom we will generate properties.
- * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
- * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
- * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
- * @returns {number} the opacity value for the given node.
- * @memberof Graph/helper
- */
-function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
-    const highlight = node.highlighted
-                 || node.id === (highlightedLink && highlightedLink.source)
-                 || node.id === (highlightedLink && highlightedLink.target);
-    const someNodeHighlighted = !!(highlightedNode
-                        || highlightedLink && highlightedLink.source && highlightedLink.target);
-    let opacity;
-
-    if (someNodeHighlighted && config.highlightDegree === 0) {
-        opacity = highlight ? config.node.opacity : config.highlightOpacity;
-    } else if (someNodeHighlighted) {
-        opacity = highlight ? config.node.opacity : config.highlightOpacity;
-    } else {
-        opacity = config.node.opacity;
-    }
-
-    return opacity;
-}
-
-/**
  * Build some Node properties based on given parameters.
  * @param  {Object} node - the node object for whom we will generate properties.
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
@@ -237,6 +209,62 @@ function _buildNodeProps(node, config, nodeCallbacks, highlightedNode, highlight
         strokeWidth: strokeWidth * t,
         type: node.symbolType || config.node.symbolType
     };
+}
+
+/**
+ * Get the correct node opacity in order to properly make decisions based on context such as currently highlighted node.
+ * @param  {Object} node - the node object for whom we will generate properties.
+ * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
+ * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
+ * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @returns {number} the opacity value for the given node.
+ * @memberof Graph/helper
+ */
+function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
+    const highlight = node.highlighted
+                 || node.id === (highlightedLink && highlightedLink.source)
+                 || node.id === (highlightedLink && highlightedLink.target);
+    const someNodeHighlighted = !!(highlightedNode
+                        || highlightedLink && highlightedLink.source && highlightedLink.target);
+    let opacity;
+
+    if (someNodeHighlighted && config.highlightDegree === 0) {
+        opacity = highlight ? config.node.opacity : config.highlightOpacity;
+    } else if (someNodeHighlighted) {
+        opacity = highlight ? config.node.opacity : config.highlightOpacity;
+    } else {
+        opacity = config.node.opacity;
+    }
+
+    return opacity;
+}
+
+/**
+ * Some integrity validations on links and nodes structure. If some validation fails the function will
+ * throw an error.
+ * @param  {Object} data - Same as {@link #initializeGraphState|data in initializeGraphState}.
+ * @memberof Graph/helper
+ * @throws can throw the following error msg:
+ * INSUFFICIENT_DATA - msg if no nodes are provided
+ * INVALID_LINKS - if links point to nonexistent nodes
+ */
+function _validateGraphData(data) {
+    if (!data.nodes || !data.nodes.length) {
+        utils.throwErr('Graph', ERRORS.INSUFFICIENT_DATA);
+    }
+
+    const n = data.links.length;
+
+    for (let i=0; i < n; i++) {
+        const l = data.links[i];
+
+        if (!data.nodes.find(n => n.id === l.source)) {
+            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
+        }
+        if (!data.nodes.find(n => n.id === l.target)) {
+            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
+        }
+    }
 }
 
 /**
@@ -336,7 +364,7 @@ function createForceSimulation(width, height) {
 function initializeGraphState({data, id, config}, state) {
     let graph;
 
-    validateGraphData(data);
+    _validateGraphData(data);
 
     if (state && state.nodes && state.links) {
         // absorb existent positioning
@@ -430,34 +458,6 @@ function initializeNodes(graphNodes) {
     }
 
     return nodes;
-}
-
-/**
- * Some integrity validations on links and nodes structure. If some validation fails the function will
- * throw an error.
- * @param  {Object} data - Same as {@link #initializeGraphState|data in initializeGraphState}.
- * @memberof Graph/helper
- * @throws can throw the following error msg:
- * INSUFFICIENT_DATA - msg if no nodes are provided
- * INVALID_LINKS - if links point to nonexistent nodes
- */
-function validateGraphData(data) {
-    if (!data.nodes || !data.nodes.length) {
-        utils.throwErr('Graph', ERRORS.INSUFFICIENT_DATA);
-    }
-
-    const n = data.links.length;
-
-    for (let i=0; i < n; i++) {
-        const l = data.links[i];
-
-        if (!data.nodes.find(n => n.id === l.source)) {
-            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
-        }
-        if (!data.nodes.find(n => n.id === l.target)) {
-            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
-        }
-    }
 }
 
 export default {

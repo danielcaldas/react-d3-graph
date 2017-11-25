@@ -16,23 +16,23 @@ describe('Graph Helper', () => {
 
         d3ForceX.mockImplementation(() => {
             return {
-                strength: (value) => fr
+                strength: () => fr
             };
         });
         d3ForceY.mockImplementation(() => {
             return {
-                strength: (value) => fr
+                strength: () => fr
             };
         });
         d3ForceManyBody.mockImplementation(() => {
             return {
-                strength: (value) => fr
+                strength: () => fr
             };
         });
         forceStub.mockImplementation(() => {
             return {
                 force: forceStub
-            }
+            };
         });
         d3ForceSimulation.mockImplementation(() => {
             return {
