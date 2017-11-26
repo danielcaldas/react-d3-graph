@@ -55,8 +55,104 @@ describe('Graph Helper', () => {
     });
 
     describe('#initializeGraphState', () => {
+        /*
+        Missing stubs!
+        - initializeNodes
+        - initializeLinks
+        - merge
+        - createForceSimulation
+        */
         describe('when valid graph data is provided', () => {
-            // ...
+            describe('and received state was already initialized', () => {
+                test('should create graph structure absorbing stored nodes behavior in state obj', () => {
+                    const data = {
+                        nodes: [{id: 'A'}, {id: 'B'}, {id: 'C'}],
+                        links: [{source: 'A', target: 'B'}, {source: 'C', target: 'A'}]
+                    };
+                    const state = {
+                        nodes: {
+                            A: { x: 20, y: 40 },
+                            B: { x: 40, y: 60 }
+                        },
+                        links: 'links',
+                        nodeIndexMapping: 'nodeIndexMapping'
+                    };
+
+                    const newState = graphHelper.initializeGraphState({data, id: 'id', config: {}}, state);
+
+                    expect(newState.d3Nodes).toEqual(
+                        [{
+                            highlighted: false,
+                            id: 'A',
+                            x: 20,
+                            y: 40
+                        }, {
+                            highlighted: false,
+                            id: 'B',
+                            x: 40,
+                            y: 60
+                        }, {
+                            highlighted: false,
+                            id: 'C',
+                            x: 0,
+                            y: 0
+                        }]
+                    );
+                    expect(newState.d3Links).toEqual(
+                        [{
+                            source: 'A',
+                            target: 'B'
+                        }, {
+                            source: 'C',
+                            target: 'A'
+                        }]
+                    );
+                });
+            });
+
+            describe('and received state is empty', () => {
+                test('should create new graph structure with nodes and links', () => {
+                    const data = {
+                        nodes: [{id: 'A'}, {id: 'B'}, {id: 'C'}],
+                        links: [{source: 'A', target: 'B'}, {source: 'C', target: 'A'}]
+                    };
+                    const state = {};
+
+                    const newState = graphHelper.initializeGraphState({data, id: 'id', config: {}}, state);
+
+                    expect(newState.d3Nodes).toEqual(
+                        [{
+                            highlighted: false,
+                            id: 'A',
+                            x: 0,
+                            y: 0
+                        }, {
+                            highlighted: false,
+                            id: 'B',
+                            x: 0,
+                            y: 0
+                        }, {
+                            highlighted: false,
+                            id: 'C',
+                            x: 0,
+                            y: 0
+                        }]
+                    );
+                    expect(newState.d3Links).toEqual(
+                        [{
+                            source: 'A',
+                            target: 'B'
+                        }, {
+                            source: 'C',
+                            target: 'A'
+                        }]
+                    );
+                });
+            });
+
+            test('should return proper state object for given inputs', () => {
+                // ...
+            });
         });
 
         describe('when invalid graph data is provided', () => {
