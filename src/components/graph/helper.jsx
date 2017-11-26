@@ -259,10 +259,10 @@ function _validateGraphData(data) {
         const l = data.links[i];
 
         if (!data.nodes.find(n => n.id === l.source)) {
-            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - ${l.source} is not a valid node id`);
+            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - "${l.source}" is not a valid source node id`);
         }
         if (!data.nodes.find(n => n.id === l.target)) {
-            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - ${l.target} is not a valid node id`);
+            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - "${l.target}" is not a valid target node id`);
         }
     }
 }
