@@ -1,7 +1,7 @@
 import utils from '../src/utils';
 
 describe('Utils', () => {
-    describe('merge', () => {
+    describe('#merge', () => {
         let that = {};
 
         beforeEach(() => {
@@ -45,17 +45,19 @@ describe('Utils', () => {
         });
     });
 
-    test('isObjectEmpty', () => {
-        expect(utils.isObjectEmpty({ a: 1, b: {}})).toEqual(false);
-        expect(utils.isObjectEmpty({ a: 1 })).toEqual(false);
-        expect(utils.isObjectEmpty(null)).toEqual(false);
-        expect(utils.isObjectEmpty(undefined)).toEqual(false);
-        expect(utils.isObjectEmpty(0)).toEqual(false);
-        expect(utils.isObjectEmpty('test')).toEqual(false);
-        expect(utils.isObjectEmpty({})).toEqual(true);
+    describe('#isObjectEmpty', () => {
+        test('should properly check whether the object is empty or not', () => {
+            expect(utils.isObjectEmpty({ a: 1, b: {}})).toEqual(false);
+            expect(utils.isObjectEmpty({ a: 1 })).toEqual(false);
+            expect(utils.isObjectEmpty(null)).toEqual(false);
+            expect(utils.isObjectEmpty(undefined)).toEqual(false);
+            expect(utils.isObjectEmpty(0)).toEqual(false);
+            expect(utils.isObjectEmpty('test')).toEqual(false);
+            expect(utils.isObjectEmpty({})).toEqual(true);
+        });
     });
 
-    describe('isDeepEqual', () => {
+    describe('#isDeepEqual', () => {
         let that = {};
 
         beforeEach(() => {
@@ -178,14 +180,16 @@ describe('Utils', () => {
         });
     });
 
-    test('throwErr', () => {
-        const c = 'some component';
-        const msg = 'err message';
+    describe('#throwErr', () => {
+        test('should throw error', () => {
+            const c = 'some component';
+            const msg = 'err message';
 
-        try {
-            utils.throwErr(c, msg);
-        } catch (err) {
-            expect(err.message).toEqual('react-d3-graph :: some component :: err message');
-        }
+            try {
+                utils.throwErr(c, msg);
+            } catch (err) {
+                expect(err.message).toEqual('react-d3-graph :: some component :: err message');
+            }
+        });
     });
 });

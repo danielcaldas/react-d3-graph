@@ -439,8 +439,8 @@ function initializeGraphState({data, id, config}, state) {
     graph.links = data.links.map(l => Object.assign({}, l));
 
     let newConfig = Object.assign({}, utils.merge(DEFAULT_CONFIG, config || {}));
-    let nodes = initializeNodes(graph.nodes);
-    let links = initializeLinks(graph.links); // matrix of graph connections
+    let nodes = _initializeNodes(graph.nodes);
+    let links = _initializeLinks(graph.links); // matrix of graph connections
     const {nodes: d3Nodes, links: d3Links} = graph;
     const formatedId = id.replace(/ /g, '_');
     const simulation = createForceSimulation(newConfig.width, newConfig.height);
