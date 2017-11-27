@@ -240,6 +240,63 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
 }
 
 /**
+ * Receives a matrix of the graph with the links source and target as concrete node instances and it transforms it
+ * in a lightweight matrix containing only links with source and target being strings representative of some node id
+ * and the respective link value (if non existent will default to 1).
+ * @param  {Object[]} graphLinks - an array of all graph links but all the links contain the source and target nodes
+ * objects.
+ * @returns {Object.<string, Object>} an object containing a matrix of connections of the graph, for each nodeId,
+ * there is an object that maps adjacent nodes ids (string) and their values (number).
+ * @memberof Graph/helper
+ */
+function _initializeLinks(graphLinks) {
+    return graphLinks.reduce((links, l) => {
+        const source = l.source.id || l.source;
+        const target = l.target.id || l.target;
+
+        if (!links[source]) {
+            links[source] = {};
+        }
+
+        if (!links[target]) {
+            links[target] = {};
+        }
+
+        // @TODO: If the graph is directed this should be adapted
+        links[source][target] = links[target][source] = l.value || 1;
+
+        return links;
+    }, {});
+}
+
+/**
+ * Method that initialize graph nodes provided by rd3g consumer and adds additional default mandatory properties
+ * that are optional for the user. Also it generates an index mapping, this maps nodes ids the their index in the array
+ * of nodes. This is needed because d3 callbacks such as node click and link click return the index of the node.
+ * @param  {Object[]} graphNodes - the array of nodes provided by the rd3g consumer.
+ * @returns {Object} returns the nodes ready to be used within rd3g with additional properties such as x, y
+ * and highlighted values.
+ * @memberof Graph/helper
+ */
+function _initializeNodes(graphNodes) {
+    let nodes = {};
+    const n = graphNodes.length;
+
+    for (let i=0; i < n; i++) {
+        const node = graphNodes[i];
+
+        node.highlighted = false;
+
+        if (!node.hasOwnProperty('x')) { node['x'] = 0; }
+        if (!node.hasOwnProperty('y')) { node['y'] = 0; }
+
+        nodes[node.id.toString()] = node;
+    }
+
+    return nodes;
+}
+
+/**
  * Some integrity validations on links and nodes structure. If some validation fails the function will
  * throw an error.
  * @param  {Object} data - Same as {@link #initializeGraphState|data in initializeGraphState}.
@@ -403,67 +460,8 @@ function initializeGraphState({data, id, config}, state) {
     };
 }
 
-/**
- * Receives a matrix of the graph with the links source and target as concrete node instances and it transforms it
- * in a lightweight matrix containing only links with source and target being strings representative of some node id
- * and the respective link value (if non existent will default to 1).
- * @param  {Object[]} graphLinks - an array of all graph links but all the links contain the source and target nodes
- * objects.
- * @returns {Object.<string, Object>} an object containing a matrix of connections of the graph, for each nodeId,
- * there is an object that maps adjacent nodes ids (string) and their values (number).
- * @memberof Graph/helper
- */
-function initializeLinks(graphLinks) {
-    return graphLinks.reduce((links, l) => {
-        const source = l.source.id || l.source;
-        const target = l.target.id || l.target;
-
-        if (!links[source]) {
-            links[source] = {};
-        }
-
-        if (!links[target]) {
-            links[target] = {};
-        }
-
-        // @TODO: If the graph is directed this should be adapted
-        links[source][target] = links[target][source] = l.value || 1;
-
-        return links;
-    }, {});
-}
-
-/**
- * Method that initialize graph nodes provided by rd3g consumer and adds additional default mandatory properties
- * that are optional for the user. Also it generates an index mapping, this maps nodes ids the their index in the array
- * of nodes. This is needed because d3 callbacks such as node click and link click return the index of the node.
- * @param  {Object[]} graphNodes - the array of nodes provided by the rd3g consumer.
- * @returns {Object} returns the nodes ready to be used within rd3g with additional properties such as x, y
- * and highlighted values.
- * @memberof Graph/helper
- */
-function initializeNodes(graphNodes) {
-    let nodes = {};
-    const n = graphNodes.length;
-
-    for (let i=0; i < n; i++) {
-        const node = graphNodes[i];
-
-        node.highlighted = false;
-
-        if (!node.hasOwnProperty('x')) { node['x'] = 0; }
-        if (!node.hasOwnProperty('y')) { node['y'] = 0; }
-
-        nodes[node.id.toString()] = node;
-    }
-
-    return nodes;
-}
-
 export default {
     buildGraph,
     createForceSimulation,
-    initializeGraphState,
-    initializeLinks,
-    initializeNodes
+    initializeGraphState
 };
