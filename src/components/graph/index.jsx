@@ -106,8 +106,10 @@ export default class Graph extends React.Component {
      * Handles d3 'drag' event.
      * @param  {Object} ev - if not undefined it will contain event data.
      * @param  {number} index - index of the node that is being dragged.
-     * @param  {Array.<Object>} - array of d3 nodes. This list of nodes is provided by d3, each
+     * @param  {Array.<Object>} nodeList - array of d3 nodes. This list of nodes is provided by d3, each
      * node contains all information that was previously fed by rd3g.
+     *
+     * {@link https://github.com/d3/d3-drag/blob/master/README.md#drag_subject|more about d3 drag}
      */
     _onDragMove = (ev, index, nodeList) => {
         const id = nodeList[index].id;
