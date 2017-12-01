@@ -74,7 +74,7 @@ const D3_CONST = {
  * const onClickLink = function(source, target) {
  *      window.alert(`Clicked link between ${source} and ${target}`);
  * };
- * 
+ *
  * const onMouseOverLink = function(source, target) {
  *      window.alert(`Mouse over in link between ${source} and ${target}`);
  * };
@@ -104,18 +104,24 @@ export default class Graph extends React.Component {
 
     /**
      * Handles d3 'drag' event.
-     * @param  {Object} ev - event.
+     * @param  {Object} ev - if not undefined it will contain event data.
      * @param  {number} index - index of the node that is being dragged.
+     * @param  {Array.<Object>} nodeList - array of d3 nodes. This list of nodes is provided by d3, each
+     * node contains all information that was previously fed by rd3g.
+     *
+     * {@link https://github.com/d3/d3-drag/blob/master/README.md#drag_subject|more about d3 drag}
      */
-    _onDragMove = (ev, index) => {
+    _onDragMove = (ev, index, nodeList) => {
+        const id = nodeList[index].id;
+
         if (!this.state.config.staticGraph) {
-            // This is where d3 and react bind
-            let draggedNode = this.state.nodes[this.state.nodeIndexMapping[index]];
+            // this is where d3 and react bind
+            let draggedNode = this.state.nodes[id];
 
             draggedNode.x += d3Event.dx;
             draggedNode.y += d3Event.dy;
 
-            // Set nodes fixing coords fx and fy
+            // set nodes fixing coords fx and fy
             draggedNode['fx'] = draggedNode.x;
             draggedNode['fy'] = draggedNode.y;
 
@@ -300,7 +306,7 @@ export default class Graph extends React.Component {
         const state = newGraphElements ? graphHelper.initializeGraphState(nextProps, this.state) : this.state;
         const config = configUpdated ? utils.merge(DEFAULT_CONFIG, nextProps.config || {}) : this.state.config;
 
-        // In order to properly update graph data we need to pause eventual d3 ongoing animations
+        // in order to properly update graph data we need to pause eventual d3 ongoing animations
         newGraphElements && this.pauseSimulation();
 
         const transform = nextProps.config.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
@@ -315,7 +321,7 @@ export default class Graph extends React.Component {
     }
 
     componentDidUpdate() {
-        // If the property staticGraph was activated we want to stop possible ongoing simulation
+        // if the property staticGraph was activated we want to stop possible ongoing simulation
         this.state.config.staticGraph && this.state.simulation.stop();
 
         if (!this.state.config.staticGraph && this.state.newGraphElements) {
@@ -335,7 +341,7 @@ export default class Graph extends React.Component {
             this._graphForcesConfig();
         }
 
-        // Graph zoom and drag&drop all network
+        // graph zoom and drag&drop all network
         this._zoomConfig();
     }
 

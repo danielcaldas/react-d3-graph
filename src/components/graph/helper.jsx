@@ -337,7 +337,7 @@ function initializeGraphState({data, id, config}, state) {
 
     validateGraphData(data);
 
-    if (state && state.nodes && state.links && state.nodeIndexMapping) {
+    if (state && state.nodes && state.links) {
         // absorb existent positioning
         graph = {
             nodes: data.nodes.map(n => Object.assign({}, n, state.nodes[n.id])),
@@ -353,8 +353,8 @@ function initializeGraphState({data, id, config}, state) {
     graph.links = data.links.map(l => Object.assign({}, l));
 
     let newConfig = Object.assign({}, utils.merge(DEFAULT_CONFIG, config || {}));
-    let {nodes, nodeIndexMapping} = initializeNodes(graph.nodes);
-    let links = initializeLinks(graph.links); // Matrix of graph connections
+    let nodes = initializeNodes(graph.nodes);
+    let links = initializeLinks(graph.links); // matrix of graph connections
     const {nodes: d3Nodes, links: d3Links} = graph;
     const formatedId = id.replace(/ /g, '_');
     const simulation = createForceSimulation(newConfig.width, newConfig.height);
@@ -362,7 +362,6 @@ function initializeGraphState({data, id, config}, state) {
     return {
         id: formatedId,
         config: newConfig,
-        nodeIndexMapping,
         links,
         d3Links,
         nodes,
@@ -411,13 +410,11 @@ function initializeLinks(graphLinks) {
  * of nodes. This is needed because d3 callbacks such as node click and link click return the index of the node.
  * @param  {Object[]} graphNodes - the array of nodes provided by the rd3g consumer.
  * @returns {Object} returns the nodes ready to be used within rd3g with additional properties such as x, y
- * and highlighted values. Returns also the index mapping object of type Object.<number, string>.
+ * and highlighted values.
  * @memberof Graph/helper
  */
 function initializeNodes(graphNodes) {
     let nodes = {};
-    let nodeIndexMapping = {};
-
     const n = graphNodes.length;
 
     for (let i=0; i < n; i++) {
@@ -429,10 +426,9 @@ function initializeNodes(graphNodes) {
         if (!node.hasOwnProperty('y')) { node['y'] = 0; }
 
         nodes[node.id.toString()] = node;
-        nodeIndexMapping[i] = node.id;
     }
 
-    return { nodes, nodeIndexMapping };
+    return nodes;
 }
 
 /**
