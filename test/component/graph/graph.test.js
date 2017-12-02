@@ -36,10 +36,6 @@ describe('Graph Component', () => {
         that.tree = that.graph.toJSON();
     });
 
-    test('should be properly rendered', () => {
-        expect(that.tree).toMatchSnapshot();
-    });
-
     describe('when onMouseOverNode is called', () => {
         const nodeOffset = 1;
         const nodeAdjOffset = 2;

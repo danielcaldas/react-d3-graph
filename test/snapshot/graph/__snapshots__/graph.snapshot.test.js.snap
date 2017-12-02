@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Graph Component should be properly rendered 1`] = `
+exports[`Snapshot - Graph Component should match snapshot 1`] = `
 <div
   id="graphId-graph-wrapper"
 >
