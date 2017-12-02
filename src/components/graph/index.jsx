@@ -96,6 +96,27 @@ const D3_CONST = {
  */
 export default class Graph extends React.Component {
     /**
+     * Sets d3 tick function and configures other d3 stuff such as forces and drag events.
+     */
+    _graphForcesConfig() {
+        this.state.simulation.nodes(this.state.d3Nodes).on('tick', this._tick);
+
+        const forceLink = d3ForceLink(this.state.d3Links)
+                            .id(l => l.id)
+                            .distance(D3_CONST.LINK_IDEAL_DISTANCE)
+                            .strength(D3_CONST.FORCE_LINK_STRENGTH);
+
+        this.state.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
+
+        const customNodeDrag = d3Drag()
+                                .on('start', this._onDragStart)
+                                .on('drag', this._onDragMove)
+                                .on('end', this._onDragEnd);
+
+        d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
+    }
+
+    /**
      * Handles d3 drag 'end' event.
      */
     _onDragEnd = () => !this.state.config.staticGraph
@@ -262,27 +283,6 @@ export default class Graph extends React.Component {
      * {@link https://github.com/d3/d3-force#simulation_restart}
      */
     restartSimulation = () => !this.state.config.staticGraph && this.state.simulation.restart();
-
-    /**
-     * Sets d3 tick function and configures other d3 stuff such as forces and drag events.
-     */
-    _graphForcesConfig() {
-        this.state.simulation.nodes(this.state.d3Nodes).on('tick', this._tick);
-
-        const forceLink = d3ForceLink(this.state.d3Links)
-                            .id(l => l.id)
-                            .distance(D3_CONST.LINK_IDEAL_DISTANCE)
-                            .strength(D3_CONST.FORCE_LINK_STRENGTH);
-
-        this.state.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
-
-        const customNodeDrag = d3Drag()
-                                .on('start', this._onDragStart)
-                                .on('drag', this._onDragMove)
-                                .on('end', this._onDragEnd);
-
-        d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
-    }
 
     constructor(props) {
         super(props);
