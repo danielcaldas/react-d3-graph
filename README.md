@@ -3,7 +3,7 @@
 
 ### *Interactive and configurable graphs with react and d3 effortlessly*
 
-[![react-d3-graph gif sample](https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/rd3g.gif?raw=true)](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html)
+[![react-d3-graph gif sample](https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/rd3g_v2.gif?raw=true)](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html)
 
 ## Playground
 [Here a live playground](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html) page where you can interactively config your own graph, and generate a ready to use configuration! :sunglasses:
