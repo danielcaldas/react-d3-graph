@@ -1,4 +1,22 @@
 # Change Log
+## [1.0.0](https://github.com/danielcaldas/react-d3-graph/tree/1.0.0) (2017-12-02)
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.4.0...1.0.0)
+
+**Closed issues:**
+
+- How can I get onMouseOverLink event? [\#25](https://github.com/danielcaldas/react-d3-graph/issues/25)
+
+**Fixed bugs:**
+
+- Click one node but another one moves [\#41](https://github.com/danielcaldas/react-d3-graph/issues/41)
+
+**Merged pull requests:**
+
+- Fix/tests coverage [\#44](https://github.com/danielcaldas/react-d3-graph/pull/44) ([danielcaldas](https://github.com/danielcaldas))
+- Fix/on drag node handler [\#42](https://github.com/danielcaldas/react-d3-graph/pull/42) ([danielcaldas](https://github.com/danielcaldas))
+- Feature/on mouse over and out link [\#40](https://github.com/danielcaldas/react-d3-graph/pull/40) ([danielcaldas](https://github.com/danielcaldas))
+- Set proper defaults for Graph component config [\#39](https://github.com/danielcaldas/react-d3-graph/pull/39) ([danielcaldas](https://github.com/danielcaldas))
+- Fix semantics mouse over methods in Graph component [\#38](https://github.com/danielcaldas/react-d3-graph/pull/38) ([danielcaldas](https://github.com/danielcaldas))
 
 ## [0.4.0](https://github.com/danielcaldas/react-d3-graph/tree/0.4.0) (2017-11-11)
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.3.0...0.4.0)
@@ -17,9 +35,13 @@
 ## [0.3.0](https://github.com/danielcaldas/react-d3-graph/tree/0.3.0) (2017-10-21)
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.2.1...0.3.0)
 
-**Implemented enhancements and Fixed bugs:**
+**Implemented enhancements:**
 
-- Squeezing if "staticGraph": true [\#24](https://github.com/danielcaldas/react-d3-graph/issues/24), props to [scoutrul](https://github.com/scoutrul) for reporting this issue.
+- Squeezing if "staticGraph": true [\#24](https://github.com/danielcaldas/react-d3-graph/issues/24)
+
+**Fixed bugs:**
+
+- Squeezing if "staticGraph": true [\#24](https://github.com/danielcaldas/react-d3-graph/issues/24)
 
 **Merged pull requests:**
 
