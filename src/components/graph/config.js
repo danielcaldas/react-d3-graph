@@ -7,7 +7,7 @@
  * **Note about performance**<br/>
  * Some of the properties have a major performance impact when toggled while rendering graphs of medium or large dimensions (hundreds or thousand of elements).
  * These properties are marked with 🚅🚅🚅.<br/>
- * ⭐ **tip** *to achieve smoother interactions you may want to set **staticGraph** to **true** *<br/>
+ * ⭐ **tip** *to achieve smoother interactions you may want to provide a toggle to set **staticGraph** to **true** *<br/>
  * <br/>
  * **Note about granularity**<br/>
  * Some of the properties listed in the {@link #node-section|Node section} are marked with 🔍🔍🔍. This means that this properties

@@ -7,38 +7,42 @@
     -   [\_convertTypeToD3Symbol](#_converttypetod3symbol)
     -   [buildSvgSymbol](#buildsvgsymbol)
 -   [Graph](#graph)
+    -   [\_graphForcesConfig](#_graphforcesconfig)
     -   [\_onDragEnd](#_ondragend)
     -   [\_onDragMove](#_ondragmove)
     -   [\_onDragStart](#_ondragstart)
-    -   [\_setHighlighted](#_sethighlighted)
+    -   [\_setNodeHighlightedValue](#_setnodehighlightedvalue)
     -   [\_tick](#_tick)
     -   [\_zoomConfig](#_zoomconfig)
     -   [\_zoomed](#_zoomed)
-    -   [onMouseOutNode](#onmouseoutnode)
     -   [onMouseOverNode](#onmouseovernode)
+    -   [onMouseOutNode](#onmouseoutnode)
+    -   [onMouseOverLink](#onmouseoverlink)
+    -   [onMouseOutLink](#onmouseoutlink)
     -   [pauseSimulation](#pausesimulation)
     -   [resetNodesPositions](#resetnodespositions)
     -   [restartSimulation](#restartsimulation)
-    -   [\_graphForcesConfig](#_graphforcesconfig)
 -   [Graph/helper](#graphhelper)
     -   [Node](#node)
     -   [Link](#link)
     -   [\_buildLinkProps](#_buildlinkprops)
     -   [\_buildNodeLinks](#_buildnodelinks)
-    -   [\_getNodeOpacity](#_getnodeopacity)
     -   [\_buildNodeProps](#_buildnodeprops)
+    -   [\_getNodeOpacity](#_getnodeopacity)
+    -   [\_initializeLinks](#_initializelinks)
+    -   [\_initializeNodes](#_initializenodes)
+    -   [\_validateGraphData](#_validategraphdata)
     -   [buildGraph](#buildgraph)
     -   [createForceSimulation](#createforcesimulation)
     -   [initializeGraphState](#initializegraphstate)
-    -   [initializeLinks](#initializelinks)
-    -   [initializeNodes](#initializenodes)
-    -   [validateGraphData](#validategraphdata)
 -   [Node](#node-1)
     -   [handleOnClickNode](#handleonclicknode)
     -   [handleOnMouseOverNode](#handleonmouseovernode)
     -   [handleOnMouseOutNode](#handleonmouseoutnode)
 -   [Link](#link-1)
     -   [handleOnClickLink](#handleonclicklink)
+    -   [handleOnMouseOverLink](#handleonmouseoverlink)
+    -   [handleOnMouseOutLink](#handleonmouseoutlink)
 -   [utils](#utils)
     -   [\_isPropertyNestedObject](#_ispropertynestedobject)
     -   [isDeepEqual](#isdeepequal)
@@ -56,7 +60,7 @@ of those properties.
 **Note about performance**<br/>
 Some of the properties have a major performance impact when toggled while rendering graphs of medium or large dimensions (hundreds or thousand of elements).
 These properties are marked with 🚅🚅🚅.<br/>
-⭐ **tip** _to achieve smoother interactions you may want to set **staticGraph** to **true** _<br/>
+⭐ **tip** _to achieve smoother interactions you may want to provide a toggle to set **staticGraph** to **true** _<br/>
 <br/>
 **Note about granularity**<br/>
 Some of the properties listed in the [Node section](#node-section) are marked with 🔍🔍🔍. This means that this properties
@@ -83,14 +87,16 @@ const graph = {
 -   `automaticRearrangeAfterDropNode` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 🚅🚅🚅 when true performing a node drag and drop should automatically
     rearrange all nodes positions based on new position of dragged node (note: **staticGraph** should be false). (optional, default `false`)
 -   `height` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** the height of the (svg) area where the graph will be rendered. (optional, default `400`)
--   `highlightBehavior` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
-    connections will be highlighted. All the remaining nodes and links assume opacity value equal to **highlightOpacity**. (optional, default `false`)
+-   `nodeHighlightBehavior` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
+    connections will be highlighted (depending on the _highlightDegree_ value). All the remaining nodes and links assume opacity value equal to **highlightOpacity**. (optional, default `false`)
+-   `linkHighlightBehavior` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior
+    to _nodeHighlightBehavior_ but for links <small>(just for historical reference this property was introduced in **v1.0.0**)</small>. (optional, default `false`)
 -   `highlightDegree` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** **Possible values: 0, 1 or 2**. This value represents the range of the
     highlight behavior when some node is highlighted. If the value is set to **0** only the selected node will be
     highlighted. If the value is set to **1** the selected node and his 1st degree connections will be highlighted. If
     the value is set to **2** the selected node will be highlighted as well as the 1st and 2nd common degree connections. (optional, default `1`)
 -   `highlightOpacity` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** this value is used to highlight nodes in the network. The lower
-    the value the more the less highlighted nodes will be visible (related to _highlightBehavior_). (optional, default `1`)
+    the value the more the less highlighted nodes will be visible (related to _nodeHighlightBehavior_). (optional, default `1`)
 -   `maxZoom` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** max zoom that can be performed against the graph. (optional, default `8`)
 -   `minZoom` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** min zoom that can be performed against the graph. (optional, default `0.1`)
 -   `panAndZoom` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
@@ -130,7 +136,7 @@ const graph = {
         -   'wye'**[note]** react-d3-graph will map this values to [d3 symbols](https://github.com/d3/d3-shape#symbols) (optional, default `'circle'`)
     -   `node.highlightColor` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** color for all highlighted nodes (use string 'SAME' if you
         want the node to keep its color in highlighted state). (optional, default `'SAME'`)
-    -   `node.highlightFontSize` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** fontSize in highlighted state. (optional, default `10`)
+    -   `node.highlightFontSize` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** fontSize in highlighted state. (optional, default `8`)
     -   `node.highlightFontWeight` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** fontWeight in highlighted state. (optional, default `'normal'`)
     -   `node.highlightStrokeColor` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** strokeColor in highlighted state. (optional, default `'SAME'`)
     -   `node.highlightStrokeWidth` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** strokeWidth in highlighted state.
@@ -143,7 +149,10 @@ const graph = {
         This is how link strokeWidth will be calculated:```javascript
         strokeWidth += (linkValue * strokeWidth) / 10;
         ``` (optional, default `false`)
-    -   `link.strokeWidth` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** strokeWidth for all links. (optional, default `1.5`)
+    -   `link.strokeWidth` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** strokeWidth for all links. By default the actual value is obtain by the
+        following expression:```javascript
+        link.strokeWidth * (1 / transform); // transform is a zoom delta Δ value
+        ``` (optional, default `1.5`)
     -   `link.highlightColor` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** links' color in highlight state. (optional, default `'#d3d3d3'`)
 
 **Examples**
@@ -151,7 +160,7 @@ const graph = {
 ```javascript
 // A simple config that uses some properties
 const myConfig = {
-    highlightBehavior: true,
+    nodeHighlightBehavior: true,
     node: {
         color: 'lightgreen',
         size: 120,
@@ -211,7 +220,7 @@ can be consulted [here](https://github.com/danielcaldas/react-d3-graph/blob/mast
 ```javascript
 import { Graph } from 'react-d3-graph';
 
-// Graph payload (with minimalist structure)
+// graph payload (with minimalist structure)
 const data = {
     nodes: [
       {id: 'Harry'},
@@ -224,9 +233,10 @@ const data = {
     ]
 };
 
-// The graph configuration
+// the graph configuration, you only need to pass down properties
+// that you want to override, otherwise default ones will be used
 const myConfig = {
-    highlightBehavior: true,
+    nodeHighlightBehavior: true,
     node: {
         color: 'lightgreen',
         size: 120,
@@ -237,21 +247,29 @@ const myConfig = {
     }
 };
 
-// Graph event callbacks
+// graph event callbacks
 const onClickNode = function(nodeId) {
-     window.alert('Clicked node', nodeId);
+     window.alert('Clicked node ${nodeId}');
 };
 
 const onMouseOverNode = function(nodeId) {
-     window.alert('Mouse over node', nodeId);
+     window.alert(`Mouse over node ${nodeId}`);
 };
 
 const onMouseOutNode = function(nodeId) {
-     window.alert('Mouse out node', nodeId);
+     window.alert(`Mouse out node ${nodeId}`);
 };
 
 const onClickLink = function(source, target) {
      window.alert(`Clicked link between ${source} and ${target}`);
+};
+
+const onMouseOverLink = function(source, target) {
+     window.alert(`Mouse over in link between ${source} and ${target}`);
+};
+
+const onMouseOutLink = function(source, target) {
+     window.alert(`Mouse out link between ${source} and ${target}`);
 };
 
 <Graph
@@ -261,8 +279,14 @@ const onClickLink = function(source, target) {
      onClickNode={onClickNode}
      onClickLink={onClickLink}
      onMouseOverNode={onMouseOverNode}
-     onMouseOutNode={onMouseOutNode} />
+     onMouseOutNode={onMouseOutNode}
+     onMouseOverLink={onMouseOverLink}
+     onMouseOutLink={onMouseOutLink}/>
 ```
+
+### \_graphForcesConfig
+
+Sets d3 tick function and configures other d3 stuff such as forces and drag events.
 
 ### \_onDragEnd
 
@@ -274,21 +298,23 @@ Handles d3 'drag' event.
 
 **Parameters**
 
--   `ev` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** event.
+-   `ev` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** if not undefined it will contain event data.
 -   `index` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** index of the node that is being dragged.
+-   `nodeList` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** array of d3 nodes. This list of nodes is provided by d3, each
+    node contains all information that was previously fed by rd3g.[more about d3 drag](https://github.com/d3/d3-drag/blob/master/README.md#drag_subject)
 
 ### \_onDragStart
 
 Handles d3 drag 'start' event.
 
-### \_setHighlighted
+### \_setNodeHighlightedValue
 
 Sets nodes and links highlighted value.
 
 **Parameters**
 
--   `index` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** the index of the node to highlight (and its adjacent).
--   `value` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** the highlight value to be set (true or false).
+-   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** the id of the node to highlight.
+-   `value` **[boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)** the highlight value to be set (true or false). (optional, default `false`)
 
 ### \_tick
 
@@ -306,21 +332,39 @@ Handler for 'zoom' event within zoom config.
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** returns the transformed elements within the svg graph area.
 
-### onMouseOutNode
-
-Handles mouse out node event.
-
-**Parameters**
-
--   `index` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** index of the mouse hovered node.
-
 ### onMouseOverNode
 
 Handles mouse over node event.
 
 **Parameters**
 
--   `index` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** index of the mouse hovered node.
+-   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** id of the node that participates in the event.
+
+### onMouseOutNode
+
+Handles mouse out node event.
+
+**Parameters**
+
+-   `id` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** id of the node that participates in the event.
+
+### onMouseOverLink
+
+Handles mouse over link event.
+
+**Parameters**
+
+-   `source` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** id of the source node that participates in the event.
+-   `target` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** id of the target node that participates in the event.
+
+### onMouseOutLink
+
+Handles mouse out link event.
+
+**Parameters**
+
+-   `source` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** id of the source node that participates in the event.
+-   `target` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** id of the target node that participates in the event.
 
 ### pauseSimulation
 
@@ -337,10 +381,6 @@ to their original positions (or at least new positions according to the d3 force
 
 Calls d3 simulation.restart().<br/>
 <https://github.com/d3/d3-force#simulation_restart>
-
-### \_graphForcesConfig
-
-Sets d3 tick function and configures other d3 stuff such as forces and drag events.
 
 ## Graph/helper
 
@@ -376,6 +416,7 @@ Build some Link properties based on given parameters.
 -   `config` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** same as [config in buildGraph](#buildGraph).
 -   `linkCallbacks` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)>** same as [linkCallbacks in buildGraph](#buildGraph).
 -   `highlightedNode` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** same as [highlightedNode in buildGraph](#buildGraph).
+-   `highlightedLink` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** same as [highlightedLink in buildGraph](#buildGraph).
 -   `transform` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** value that indicates the amount of zoom transformation.
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** returns an object that aggregates all props for creating respective Link component instance.
@@ -392,21 +433,10 @@ Build Link components for a given node.
 -   `config` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** same as [config in buildGraph](#buildGraph).
 -   `linkCallbacks` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)>** same as [linkCallbacks in buildGraph](#buildGraph).
 -   `highlightedNode` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** same as [highlightedNode in buildGraph](#buildGraph).
+-   `highlightedLink` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** same as [highlightedLink in buildGraph](#buildGraph).
 -   `transform` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** value that indicates the amount of zoom transformation.
 
 Returns **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** returns the generated array of Link components.
-
-### \_getNodeOpacity
-
-Get the correct node opacity in order to properly make decisions based on context such as currently highlited node.
-
-**Parameters**
-
--   `node` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** the node object for whom we will generate properties.
--   `highlightedNode` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** same as [highlightedNode in buildGraph](#buildGraph).
--   `config` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** same as [config in buildGraph](#buildGraph).
-
-Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** the opacity value for the given node.
 
 ### \_buildNodeProps
 
@@ -418,9 +448,64 @@ Build some Node properties based on given parameters.
 -   `config` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** same as [config in buildGraph](#buildGraph).
 -   `nodeCallbacks` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)>** same as [nodeCallbacks in buildGraph](#buildGraph).
 -   `highlightedNode` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** same as [highlightedNode in buildGraph](#buildGraph).
+-   `highlightedLink` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** same as [highlightedLink in buildGraph](#buildGraph).
 -   `transform` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** value that indicates the amount of zoom transformation.
 
 Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** returns object that contain Link props ready to be feeded to the Link component.
+
+### \_getNodeOpacity
+
+Get the correct node opacity in order to properly make decisions based on context such as currently highlighted node.
+
+**Parameters**
+
+-   `node` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** the node object for whom we will generate properties.
+-   `highlightedNode` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** same as [highlightedNode in buildGraph](#buildGraph).
+-   `highlightedLink` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** same as [highlightedLink in buildGraph](#buildGraph).
+-   `config` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** same as [config in buildGraph](#buildGraph).
+
+Returns **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** the opacity value for the given node.
+
+### \_initializeLinks
+
+Receives a matrix of the graph with the links source and target as concrete node instances and it transforms it
+in a lightweight matrix containing only links with source and target being strings representative of some node id
+and the respective link value (if non existent will default to 1).
+
+**Parameters**
+
+-   `graphLinks` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** an array of all graph links but all the links contain the source and target nodes
+    objects.
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** an object containing a matrix of connections of the graph, for each nodeId,
+there is an object that maps adjacent nodes ids (string) and their values (number).
+
+### \_initializeNodes
+
+Method that initialize graph nodes provided by rd3g consumer and adds additional default mandatory properties
+that are optional for the user. Also it generates an index mapping, this maps nodes ids the their index in the array
+of nodes. This is needed because d3 callbacks such as node click and link click return the index of the node.
+
+**Parameters**
+
+-   `graphNodes` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** the array of nodes provided by the rd3g consumer.
+
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** returns the nodes ready to be used within rd3g with additional properties such as x, y
+and highlighted values.
+
+### \_validateGraphData
+
+Some integrity validations on links and nodes structure. If some validation fails the function will
+throw an error.
+
+**Parameters**
+
+-   `data` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Same as [data in initializeGraphState](#initializeGraphState).
+
+
+-   Throws **any** can throw the following error msg:
+    INSUFFICIENT_DATA - msg if no nodes are provided
+    INVALID_LINKS - if links point to nonexistent nodes
 
 ### buildGraph
 
@@ -456,18 +541,22 @@ components.
      }
     ```
 -   `linkCallbacks` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function)>** array of callbacks for used defined event handler for link interactions.
--   `config` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** an object containg rd3g consumer defined configurations [config](#config) for the graph.
+-   `config` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** an object containing rd3g consumer defined configurations [config](#config) for the graph.
 -   `highlightedNode` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** this value contains a string that represents the some currently highlighted node.
+-   `highlightedLink` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** this object contains a source and target property for a link that is highlighted at some point in time.
+    -   `highlightedLink.source` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** id of source node for highlighted link.
+    -   `highlightedLink.target` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** id of target node for highlighted link.
 -   `transform` **[number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)** value that indicates the amount of zoom transformation.
 
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** returns an object containg the generated nodes and links that form the graph. The result is
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** returns an object containing the generated nodes and links that form the graph. The result is
 returned in a way that can be consumed by es6 **destructuring assignment**.
 
 ### createForceSimulation
 
 Create d3 forceSimulation to be applied on the graph.<br/>
-<a href="https://github.com/d3/d3-force#forceSimulation" target="_blank">https&#x3A;//github.com/d3/d3-force#forceSimulation</a><br/>
-<a href="https://github.com/d3/d3-force#simulation_force" target="_blank">https&#x3A;//github.com/d3/d3-force#simulation_force</a><br/>
+[d3-force#forceSimulation](https://github.com/d3/d3-force#forceSimulation)<br/>
+[d3-force#simulation_force](https://github.com/d3/d3-force#simulation_force)<br/>
+Wtf is a force? [ here](https://github.com/d3/d3-force#forces)
 
 **Parameters**
 
@@ -478,7 +567,7 @@ Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refer
 
 ### initializeGraphState
 
-Incapsulates common procedures to initialize graph.
+Encapsulates common procedures to initialize graph.
 
 **Parameters**
 
@@ -488,43 +577,7 @@ Incapsulates common procedures to initialize graph.
     -   `props.config` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** same as [config in buildGraph](#buildGraph).
 -   `state` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Graph component current state (same format as returned object on this function).
 
-Returns **any** a fully (re)initialized graph state object.
-
-### initializeLinks
-
-Receives a matrix of the graph with the links source and target as concrete node instances and it transforms it
-in a lightweight matrix containing only links with source and target being strings representative of some node id
-and the respective link value (if non existant will default to 1).
-
-**Parameters**
-
--   `graphLinks` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** an array of all graph links but all the links contain the source and target nodes
-    objects.
-
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)&lt;[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String), [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** an object containing a matrix of connections of the graph, for each nodeId,
-there is an object that maps adjacent nodes ids (string) and their values (number).
-
-### initializeNodes
-
-Method that initialize graph nodes provided by rd3g consumer and adds additional default mandatory properties
-that are optional for the user. Also it generates an index mapping, this maps nodes ids the their index in the array
-of nodes. This is needed because d3 callbacks such as node click and link click return the index of the node.
-
-**Parameters**
-
--   `graphNodes` **[Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)&lt;[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)>** the array of nodes provided by the rd3g consumer.
-
-Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** returns the nodes ready to be used within rd3g with additional properties such as x, y
-and highlighted values. Returns also the index mapping object of type Object.&lt;number, string>.
-
-### validateGraphData
-
-Some integraty validations on links and nodes structure. If some validation fails the function will
-throw an error.
-
-**Parameters**
-
--   `data` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Same as [data in initializeGraphState](#initializeGraphState).
+Returns **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** a fully (re)initialized graph state object.
 
 ## Node
 
@@ -593,6 +646,14 @@ const onClickLink = function(source, target) {
      window.alert(`Clicked link between ${source} and ${target}`);
 };
 
+const onMouseOverLink = function(source, target) {
+     window.alert(`Mouse over in link between ${source} and ${target}`);
+};
+
+const onMouseOutLink = function(source, target) {
+     window.alert(`Mouse out link between ${source} and ${target}`);
+};
+
 <Link
     source='idSourceNode'
     target='idTargetNode'
@@ -604,12 +665,22 @@ const onClickLink = function(source, target) {
     stroke='green'
     className='link'
     opacity=1
-    onClickLink={onClickLink} />
+    onClickLink={onClickLink}
+    onMouseOverLink={onMouseOverLink}
+    onMouseOutLink={onMouseOutLink} />
 ```
 
 ### handleOnClickLink
 
 Handle link click event.
+
+### handleOnMouseOverLink
+
+Handle mouse over link event.
+
+### handleOnMouseOutLink
+
+Handle mouse out link event.
 
 ## utils
 

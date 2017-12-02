@@ -1,5 +1,5 @@
-# react-d3-graph &middot; [![Build Status](https://travis-ci.org/danielcaldas/react-d3-graph.svg?branch=master)](https://travis-ci.org/danielcaldas/react-d3-graph) [![npm version](https://img.shields.io/badge/npm-v0.4.0-blue.svg)](https://www.npmjs.com/package/react-d3-graph) [![npm stats](https://img.shields.io/badge/downloads-1k-brightgreen.svg)](https://npm-stat.com/charts.html?package=react-d3-graph&from=2017-04-25&to=2017-11-24) [![probot enabled](https://img.shields.io/badge/probot:stale-enabled-yellow.svg)](https://probot.github.io/)
-[:book:](https://danielcaldas.github.io/react-d3-graph/docs/index.html)
+# react-d3-graph &middot; [![Build Status](https://travis-ci.org/danielcaldas/react-d3-graph.svg?branch=master)](https://travis-ci.org/danielcaldas/react-d3-graph) [![npm version](https://img.shields.io/badge/npm-v1.0.0-blue.svg)](https://www.npmjs.com/package/react-d3-graph) [![npm stats](https://img.shields.io/badge/downloads-1k-brightgreen.svg)](https://npm-stat.com/charts.html?package=react-d3-graph&from=2017-04-25&to=2017-12-02) [![probot enabled](https://img.shields.io/badge/probot:stale-enabled-yellow.svg)](https://probot.github.io/)
+:book:  [1.0.0](https://danielcaldas.github.io/react-d3-graph/docs/index.html) | [0.4.0](https://danielcaldas.github.io/react-d3-graph/docs/0.4.0.html) | [0.3.0](https://danielcaldas.github.io/react-d3-graph/docs/0.3.0.html)
 
 ### *Interactive and configurable graphs with react and d3 effortlessly*
 
@@ -27,7 +27,7 @@ The code for the [live example](https://danielcaldas.github.io/react-d3-graph/sa
 ```javascript
 import { Graph } from 'react-d3-graph';
 
-// Graph payload (with minimalist structure)
+// graph payload (with minimalist structure)
 const data = {
     nodes: [
       {id: 'Harry'},
@@ -40,9 +40,10 @@ const data = {
     ]
 };
 
-// The graph configuration
+// the graph configuration, you only need to pass down properties
+// that you want to override, otherwise default ones will be used
 const myConfig = {
-    highlightBehavior: true,
+    nodeHighlightBehavior: true,
     node: {
         color: 'lightgreen',
         size: 120,
@@ -53,21 +54,29 @@ const myConfig = {
     }
 };
 
-// Graph event callbacks
+// graph event callbacks
 const onClickNode = function(nodeId) {
-     window.alert('Clicked node', nodeId);
+     window.alert('Clicked node ${nodeId}');
 };
 
 const onMouseOverNode = function(nodeId) {
-     window.alert('Mouse over node', nodeId);
+     window.alert(`Mouse over node ${nodeId}`);
 };
 
 const onMouseOutNode = function(nodeId) {
-     window.alert('Mouse out node', nodeId);
+     window.alert(`Mouse out node ${nodeId}`);
 };
 
 const onClickLink = function(source, target) {
      window.alert(`Clicked link between ${source} and ${target}`);
+};
+
+const onMouseOverLink = function(source, target) {
+     window.alert(`Mouse over in link between ${source} and ${target}`);
+};
+
+const onMouseOutLink = function(source, target) {
+     window.alert(`Mouse out link between ${source} and ${target}`);
 };
 
 <Graph
@@ -77,8 +86,14 @@ const onClickLink = function(source, target) {
      onClickNode={onClickNode}
      onClickLink={onClickLink}
      onMouseOverNode={onMouseOverNode}
-     onMouseOutNode={onMouseOutNode} />
+     onMouseOutNode={onMouseOutNode}
+     onMouseOverLink={onMouseOverLink}
+     onMouseOutLink={onMouseOutLink}/>
 ```
 
+## Roadmap :railway_track:
+Want to know what's ahead for react-d3-graph? Or simply curious on what comes next and stuff that is under development?
+Check [this trello board](https://trello.com/b/KrnmFXha/react-d3-graph) where everything related to react-d3-graph is managed.
+
 ## Contributions
-Contributions are welcome fell free to submit new ideas/features.
+Contributions are welcome fell free to submit new ideas/features, just open an issue or send me an email or something. If you are more a *hands on* person, just submit a pull request.

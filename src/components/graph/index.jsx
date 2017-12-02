@@ -31,7 +31,7 @@ const D3_CONST = {
  * @example
  * import { Graph } from 'react-d3-graph';
  *
- * // Graph payload (with minimalist structure)
+ * // graph payload (with minimalist structure)
  * const data = {
  *     nodes: [
  *       {id: 'Harry'},
@@ -44,8 +44,8 @@ const D3_CONST = {
  *     ]
  * };
  *
- * // The graph configuration, you only need to pass down properties
- * // that you want to override, otherwise default will be used
+ * // the graph configuration, you only need to pass down properties
+ * // that you want to override, otherwise default ones will be used
  * const myConfig = {
  *     nodeHighlightBehavior: true,
  *     node: {
@@ -58,7 +58,7 @@ const D3_CONST = {
  *     }
  * };
  *
- * // Graph event callbacks
+ * // graph event callbacks
  * const onClickNode = function(nodeId) {
  *      window.alert('Clicked node ${nodeId}');
  * };
