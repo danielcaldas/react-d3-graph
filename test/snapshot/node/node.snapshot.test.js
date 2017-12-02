@@ -1,9 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Node from '../src/components/node';
+import Node from '../../../src/components/node';
 
-describe('Node Component', () => {
+describe('Snapshot - Node Component', () => {
     let that = {};
 
     beforeEach(() => {
@@ -27,22 +27,7 @@ describe('Node Component', () => {
         that.tree = that.node.toJSON();
     });
 
-    test('should be properly rendered', () => {
+    test('should match snapshot', () => {
         expect(that.tree).toMatchSnapshot();
-    });
-
-    test('should call callback function when onClick is called', () => {
-        that.tree.children[0].props.onClick();
-        expect(that.clickCallback).toBeCalled();
-    });
-
-    test('should call callback function when onMouseOut is called', () => {
-        that.tree.children[0].props.onMouseOver();
-        expect(that.mouseOverCallback).toBeCalled();
-    });
-
-    test('should call callback function when onMouseOver is called', () => {
-        that.tree.children[0].props.onMouseOut();
-        expect(that.mouseOutCallback).toBeCalled();
     });
 });

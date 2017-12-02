@@ -1,9 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Link from '../src/components/link';
+import Link from '../../../src/components/link';
 
-describe('Link Component', () => {
+describe('Snapshot - Link Component', () => {
     let that = {};
 
     beforeEach(() => {
@@ -16,12 +16,7 @@ describe('Link Component', () => {
         that.tree = that.link.toJSON();
     });
 
-    test('should be properly rendered', () => {
+    test('should match snapshot', () => {
         expect(that.tree).toMatchSnapshot();
-    });
-
-    test('should call callback function when onClick is performed', () => {
-        that.tree.props.onClick();
-        expect(that.callbackMock).toBeCalled();
     });
 });

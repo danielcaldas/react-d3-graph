@@ -1,7 +1,7 @@
 import utils from '../src/utils';
 
 describe('Utils', () => {
-    describe('merge', () => {
+    describe('#merge', () => {
         let that = {};
 
         beforeEach(() => {
@@ -34,19 +34,30 @@ describe('Utils', () => {
             expect(r.b.c.e).toEqual('test');
             expect(r.b.c.f).toEqual(12);
         });
+
+        test('should merge properly: o1 is null', () => {
+            const r = utils.merge(null, that.o);
+
+            expect(r.a).toEqual(1);
+            expect(r.b.c.d).toEqual([1, 2, {m: 'test'}]);
+            expect(r.b.c.e).toEqual('test');
+            expect(r.b.c.f).toEqual(12);
+        });
     });
 
-    test('isObjectEmpty', () => {
-        expect(utils.isObjectEmpty({ a: 1, b: {}})).toEqual(false);
-        expect(utils.isObjectEmpty({ a: 1 })).toEqual(false);
-        expect(utils.isObjectEmpty(null)).toEqual(false);
-        expect(utils.isObjectEmpty(undefined)).toEqual(false);
-        expect(utils.isObjectEmpty(0)).toEqual(false);
-        expect(utils.isObjectEmpty('test')).toEqual(false);
-        expect(utils.isObjectEmpty({})).toEqual(true);
+    describe('#isObjectEmpty', () => {
+        test('should properly check whether the object is empty or not', () => {
+            expect(utils.isObjectEmpty({ a: 1, b: {}})).toEqual(false);
+            expect(utils.isObjectEmpty({ a: 1 })).toEqual(false);
+            expect(utils.isObjectEmpty(null)).toEqual(false);
+            expect(utils.isObjectEmpty(undefined)).toEqual(false);
+            expect(utils.isObjectEmpty(0)).toEqual(false);
+            expect(utils.isObjectEmpty('test')).toEqual(false);
+            expect(utils.isObjectEmpty({})).toEqual(true);
+        });
     });
 
-    describe('isDeepEqual', () => {
+    describe('#isDeepEqual', () => {
         let that = {};
 
         beforeEach(() => {
@@ -87,6 +98,13 @@ describe('Utils', () => {
                     }
                 }
             };
+        });
+
+        test('should return true if o1 and o2 references are the same', () => {
+            const o1 = {};
+            const o2 = o1;
+
+            expect(utils.isDeepEqual(o1, o2)).toEqual(true);
         });
 
         test('should return true if no modifications are performed', () => {
@@ -159,6 +177,19 @@ describe('Utils', () => {
             that.o1.b.g = [1, 2, '3'];
             that.o2.b.g = [1, 2, 3];
             expect(utils.isDeepEqual(that.o1, that.o2)).toEqual(false);
+        });
+    });
+
+    describe('#throwErr', () => {
+        test('should throw error', () => {
+            const c = 'some component';
+            const msg = 'err message';
+
+            try {
+                utils.throwErr(c, msg);
+            } catch (err) {
+                expect(err.message).toEqual('react-d3-graph :: some component :: err message');
+            }
         });
     });
 });

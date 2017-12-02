@@ -19,7 +19,7 @@
         "lint:test": "node_modules/eslint/bin/eslint.js --config=.eslintrc.test.config.js \"test/**/*.test.js\"",
         "test": "jest --verbose --coverage",
         "test:clean": "jest --no-cache --updateSnapshot --verbose --coverage",
-        "test:watch": "jest --verbose --watchAll"
+        "test:watch": "jest --verbose --coverage --watchAll"
     },
     "dependencies": {
         "d3": "4.10.2",
@@ -45,7 +45,7 @@
         "eslint-plugin-promise": "3.5.0",
         "eslint-plugin-standard": "2.1.1",
         "html-webpack-plugin": "2.30.1",
-        "jest": "21.1.0",
+        "jest": "21.3.0-beta.8",
         "npm-run-all": "4.1.1",
         "react-addons-test-utils": "15.6.0",
         "react-dom": "15.6.1",
