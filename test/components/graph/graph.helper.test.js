@@ -184,33 +184,35 @@ describe('Graph Helper', () => {
 
                 expect(newState).toEqual(
                     {
-                        config: {config: 'config'},
+                        config: {
+                            config: "config"
+                        },
                         configUpdated: false,
                         d3Links: [{
-                            source: 'A',
-                            target: 'B'
+                            source: "A",
+                            target: "B"
                         }, {
-                            source: 'C',
-                            target: 'A'
+                            source: "C",
+                            target: "A"
                         }],
                         d3Nodes: [{
                             highlighted: false,
-                            id: 'A',
+                            id: "A",
                             x: 20,
                             y: 40
                         }, {
                             highlighted: false,
-                            id: 'B',
+                            id: "B",
                             x: 40,
                             y: 60
                         }, {
                             highlighted: false,
-                            id: 'C',
+                            id: "C",
                             x: 0,
                             y: 0
                         }],
-                        highlightedNode: '',
-                        id: 'id',
+                        highlightedNode: "",
+                        id: "id",
                         links: {
                             A: {
                                 B: 1,
@@ -224,27 +226,22 @@ describe('Graph Helper', () => {
                             }
                         },
                         newGraphElements: false,
-                        nodeIndexMapping: {
-                            0: 'A',
-                            1: 'B',
-                            2: 'C'
-                        },
                         nodes: {
                             A: {
                                 highlighted: false,
-                                id: 'A',
+                                id: "A",
                                 x: 20,
                                 y: 40
                             },
                             B: {
                                 highlighted: false,
-                                id: 'B',
+                                id: "B",
                                 x: 40,
                                 y: 60
                             },
                             C: {
                                 highlighted: false,
-                                id: 'C',
+                                id: "C",
                                 x: 0,
                                 y: 0
                             }
