@@ -13,7 +13,8 @@ import CONST from './const';
 import DEFAULT_CONFIG from './config';
 import ERRORS from '../../err';
 
-import graphHelper from './helper';
+import * as graphRenderer from './graph.renderer';
+import * as graphHelper from './graph.helper';
 import utils from '../../utils';
 
 // Some d3 constant values
@@ -350,7 +351,7 @@ export default class Graph extends React.Component {
     }
 
     render() {
-        const { nodes, links } = graphHelper.buildGraph(
+        const { nodes, links } = graphRenderer.buildGraph(
             this.state.nodes,
             {
                 onClickNode: this.props.onClickNode,
