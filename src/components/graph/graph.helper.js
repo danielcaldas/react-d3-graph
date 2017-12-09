@@ -48,14 +48,14 @@ function _createForceSimulation(width, height) {
 }
 
 /**
-* Get the correct node opacity in order to properly make decisions based on context such as currently highlighted node.
-* @param  {Object} node - the node object for whom we will generate properties.
-* @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
-* @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
-* @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
-* @returns {number} the opacity value for the given node.
-* @memberof Graph/helper
-*/
+ * Get the correct node opacity in order to properly make decisions based on context such as currently highlighted node.
+ * @param  {Object} node - the node object for whom we will generate properties.
+ * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
+ * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
+ * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @returns {number} the opacity value for the given node.
+ * @memberof Graph/helper
+ */
 function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
    const highlight = node.highlighted
                 || node.id === (highlightedLink && highlightedLink.source)
@@ -76,15 +76,15 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
 }
 
 /**
-* Receives a matrix of the graph with the links source and target as concrete node instances and it transforms it
-* in a lightweight matrix containing only links with source and target being strings representative of some node id
-* and the respective link value (if non existent will default to 1).
-* @param  {Object[]} graphLinks - an array of all graph links but all the links contain the source and target nodes
-* objects.
-* @returns {Object.<string, Object>} an object containing a matrix of connections of the graph, for each nodeId,
-* there is an object that maps adjacent nodes ids (string) and their values (number).
-* @memberof Graph/helper
-*/
+ * Receives a matrix of the graph with the links source and target as concrete node instances and it transforms it
+ * in a lightweight matrix containing only links with source and target being strings representative of some node id
+ * and the respective link value (if non existent will default to 1).
+ * @param  {Object[]} graphLinks - an array of all graph links but all the links contain the source and target nodes
+ * objects.
+ * @returns {Object.<string, Object>} an object containing a matrix of connections of the graph, for each nodeId,
+ * there is an object that maps adjacent nodes ids (string) and their values (number).
+ * @memberof Graph/helper
+ */
 function _initializeLinks(graphLinks) {
    return graphLinks.reduce((links, l) => {
        const source = l.source.id || l.source;
@@ -106,14 +106,14 @@ function _initializeLinks(graphLinks) {
 }
 
 /**
-* Method that initialize graph nodes provided by rd3g consumer and adds additional default mandatory properties
-* that are optional for the user. Also it generates an index mapping, this maps nodes ids the their index in the array
-* of nodes. This is needed because d3 callbacks such as node click and link click return the index of the node.
-* @param  {Object[]} graphNodes - the array of nodes provided by the rd3g consumer.
-* @returns {Object} returns the nodes ready to be used within rd3g with additional properties such as x, y
-* and highlighted values.
-* @memberof Graph/helper
-*/
+ * Method that initialize graph nodes provided by rd3g consumer and adds additional default mandatory properties
+ * that are optional for the user. Also it generates an index mapping, this maps nodes ids the their index in the array
+ * of nodes. This is needed because d3 callbacks such as node click and link click return the index of the node.
+ * @param  {Object[]} graphNodes - the array of nodes provided by the rd3g consumer.
+ * @returns {Object} returns the nodes ready to be used within rd3g with additional properties such as x, y
+ * and highlighted values.
+ * @memberof Graph/helper
+ */
 function _initializeNodes(graphNodes) {
    let nodes = {};
    const n = graphNodes.length;
@@ -133,14 +133,14 @@ function _initializeNodes(graphNodes) {
 }
 
 /**
-* Some integrity validations on links and nodes structure. If some validation fails the function will
-* throw an error.
-* @param  {Object} data - Same as {@link #initializeGraphState|data in initializeGraphState}.
-* @memberof Graph/helper
-* @throws can throw the following error msg:
-* INSUFFICIENT_DATA - msg if no nodes are provided
-* INVALID_LINKS - if links point to nonexistent nodes
-*/
+ * Some integrity validations on links and nodes structure. If some validation fails the function will
+ * throw an error.
+ * @param  {Object} data - Same as {@link #initializeGraphState|data in initializeGraphState}.
+ * @memberof Graph/helper
+ * @throws can throw the following error msg:
+ * INSUFFICIENT_DATA - msg if no nodes are provided
+ * INVALID_LINKS - if links point to nonexistent nodes
+ */
 function _validateGraphData(data) {
    if (!data.nodes || !data.nodes.length) {
        utils.throwErr('Graph', ERRORS.INSUFFICIENT_DATA);
@@ -238,16 +238,16 @@ function buildLinkProps(source, target, nodes, links, config, linkCallbacks, hig
 }
 
 /**
-* Build some Node properties based on given parameters.
-* @param  {Object} node - the node object for whom we will generate properties.
-* @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
-* @param  {Function[]} nodeCallbacks - same as {@link #buildGraph|nodeCallbacks in buildGraph}.
-* @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
-* @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
-* @param  {number} transform - value that indicates the amount of zoom transformation.
-* @returns {Object} returns object that contain Link props ready to be feeded to the Link component.
-* @memberof Graph/helper
-*/
+ * Build some Node properties based on given parameters.
+ * @param  {Object} node - the node object for whom we will generate properties.
+ * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @param  {Function[]} nodeCallbacks - same as {@link #buildGraph|nodeCallbacks in buildGraph}.
+ * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
+ * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
+ * @param  {number} transform - value that indicates the amount of zoom transformation.
+ * @returns {Object} returns object that contain Link props ready to be feeded to the Link component.
+ * @memberof Graph/helper
+ */
 function buildNodeProps(node, config, nodeCallbacks, highlightedNode, highlightedLink, transform) {
    const highlight = node.highlighted
                    || (node.id === (highlightedLink && highlightedLink.source)
