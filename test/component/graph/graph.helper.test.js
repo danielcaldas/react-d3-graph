@@ -1,5 +1,7 @@
 import * as graphHelper from '../../../src/components/graph/graph.helper';
 
+import config from '../../../src/components/graph/config';
+
 jest.mock('../../../src/utils');
 import utils from '../../../src/utils';
 
@@ -12,6 +14,58 @@ import {
 } from 'd3-force';
 
 describe('Graph Helper', () => {
+    describe('#buildNodeProps', () => {
+        let that = {};
+
+        beforeEach(() => {
+            const nodeConfig = Object.assign({}, config.node);
+            const linkConfig = Object.assign({}, config.link);
+
+            that = {
+                config: { node: nodeConfig, link: linkConfig },
+                node: {
+                    id: 'id',
+                    x: 1,
+                    y: 2,
+                    color: 'green',
+                    highlighted: false,
+                    symbolType: undefined
+                }
+            };
+        });
+        describe('when node to build is the highlightedNode', () => {
+
+        });
+        describe('when node to build is the highlightedLink target (or source)', () => {
+            describe('and highlight degree is 0', () => {
+
+            });
+            describe('and highlight degree is bigger then 0', () => {
+
+            });
+        });
+        describe('when node to build is neither highlightedNode neither highlightedLink source/target', () => {
+            beforeEach(() => {
+                // set common node structure so that below we only override small stuff
+            });
+            describe('and config.node.highlightColor is "SAME"', () => {
+
+            });
+            describe('and config.node.highlightStrokeColor is "SAME"', () => {
+
+            });
+            describe('and config.node.labelProperty some label property (not id)', () => {
+
+            });
+            describe('and node has a self (node level) color', () => {
+
+            });
+            describe('and node has a self (node level) symbolType', () => {
+
+            });
+        });
+    });
+
     describe('#initializeGraphState', () => {
         describe('when valid graph data is provided', () => {
             beforeEach(() => {
