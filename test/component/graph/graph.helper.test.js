@@ -1,4 +1,4 @@
-import graphHelper from '../../../src/components/graph/helper';
+import * as graphHelper from '../../../src/components/graph/graph.helper';
 
 jest.mock('../../../src/utils');
 import utils from '../../../src/utils';
@@ -12,57 +12,18 @@ import {
 } from 'd3-force';
 
 describe('Graph Helper', () => {
-    describe('#createForceSimulation', () => {
-        test('should properly create d3 simulation object', () => {
-            const fr = 10;
-            const forceStub = jest.fn();
-    
-            d3ForceX.mockImplementation(() => {
-                return {
-                    strength: () => fr
-                };
-            });
-            d3ForceY.mockImplementation(() => {
-                return {
-                    strength: () => fr
-                };
-            });
-            d3ForceManyBody.mockImplementation(() => {
-                return {
-                    strength: () => fr
-                };
-            });
-            forceStub.mockImplementation(() => {
-                return {
-                    force: forceStub
-                };
-            });
-            d3ForceSimulation.mockImplementation(() => {
-                return {
-                    force: forceStub
-                };
-            });
-    
-            graphHelper.createForceSimulation(1000, 1000);
-    
-            expect(d3ForceX).toHaveBeenCalledWith(500);
-            expect(d3ForceY).toHaveBeenCalledWith(500);
-            expect(d3ForceSimulation).toHaveBeenCalledWith();
-            expect(forceStub).toHaveBeenCalledTimes(3);
-            expect(forceStub).toHaveBeenCalledWith('charge', fr);
-            expect(forceStub).toHaveBeenCalledWith('x', fr);
-            expect(forceStub).toHaveBeenLastCalledWith('y', fr);
-        });
-    });
-
     describe('#initializeGraphState', () => {
         describe('when valid graph data is provided', () => {
             beforeEach(() => {
-                utils.merge.mockImplementation(() => {
-                    return {
-                        config: 'config'
-                    };
-                });
+                const fr = 10;
+                const forceStub = jest.fn();
+
+                d3ForceX.mockImplementation(() => ({strength: () => fr}));
+                d3ForceY.mockImplementation(() => ({strength: () => fr}));
+                d3ForceManyBody.mockImplementation(() => ({strength: () => fr}));
+                forceStub.mockImplementation(() => ({force: forceStub}));
+                d3ForceSimulation.mockImplementation(() => ({force: forceStub}));
+                utils.merge.mockImplementation(() => ({config: 'config'}));
             });
 
             describe('and received state was already initialized', () => {
