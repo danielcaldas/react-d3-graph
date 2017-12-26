@@ -12,6 +12,9 @@
 /**
  * @typedef {Object} Node
  * @property {string} id - the id of the node.
+ * @property {string} [color] - color of the node (optional).
+ * @property {string} [size] - size of the node (optional).
+ * @property {string} [symbolType] - symbol type of the node (optional).
  * @memberof Graph/helper
  */
 import {
@@ -79,8 +82,7 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
  * Receives a matrix of the graph with the links source and target as concrete node instances and it transforms it
  * in a lightweight matrix containing only links with source and target being strings representative of some node id
  * and the respective link value (if non existent will default to 1).
- * @param  {Object[]} graphLinks - an array of all graph links but all the links contain the source and target nodes
- * objects.
+ * @param  {Array.<Link>} graphLinks - an array of all graph links.
  * @returns {Object.<string, Object>} an object containing a matrix of connections of the graph, for each nodeId,
  * there is an object that maps adjacent nodes ids (string) and their values (number).
  * @memberof Graph/helper
@@ -109,8 +111,8 @@ function _initializeLinks(graphLinks) {
  * Method that initialize graph nodes provided by rd3g consumer and adds additional default mandatory properties
  * that are optional for the user. Also it generates an index mapping, this maps nodes ids the their index in the array
  * of nodes. This is needed because d3 callbacks such as node click and link click return the index of the node.
- * @param  {Object[]} graphNodes - the array of nodes provided by the rd3g consumer.
- * @returns {Object} returns the nodes ready to be used within rd3g with additional properties such as x, y
+ * @param  {Array.<Node>} graphNodes - the array of nodes provided by the rd3g consumer.
+ * @returns {Object.<string, Object>} returns the nodes ready to be used within rd3g with additional properties such as x, y
  * and highlighted values.
  * @memberof Graph/helper
  */
