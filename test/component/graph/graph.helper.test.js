@@ -34,34 +34,104 @@ describe('Graph Helper', () => {
             };
         });
         describe('when node to build is the highlightedNode', () => {
+            test('should return node props with proper highlight values', () => {
+                that.node.highlighted = true;
+                Object.assign(that.config.node, {
+                    highlightColor: 'red',
+                    highlightFontSize: 12,
+                    highlightFontWeight: 'bold',
+                    highlightStrokeColor: 'yellow',
+                    highlightStrokeWidth: 2
+                });
+                const props = graphHelper.buildNodeProps(that.node, that.config, undefined, 'id', undefined, 1);
 
+                expect(props).toEqual({
+                    className: 'node',
+                    cursor: 'pointer',
+                    cx: 1,
+                    cy: 2,
+                    dx: 15.5,
+                    fill: 'red',
+                    fontSize: 12,
+                    fontWeight: 'bold',
+                    id: 'id',
+                    label: 'id',
+                    onClickNode: undefined,
+                    onMouseOut: undefined,
+                    onMouseOverNode: undefined,
+                    opacity: 1,
+                    renderLabel: true,
+                    size: 200,
+                    stroke: 'yellow',
+                    strokeWidth: 2,
+                    type: 'circle'
+                });
+            });
         });
         describe('when node to build is the highlightedLink target (or source)', () => {
             describe('and highlight degree is 0', () => {
+                test('should properly build node props ()', () => {
+                    that.config.highlightDegree = 0;
 
+                    const props = graphHelper.buildNodeProps(that.node, that.config, undefined, {
+                        source: 'some other id',
+                        target: 'id'
+                    }, undefined, 1);
+
+                    expect(props).toEqual({
+                        className: 'node',
+                        cursor: 'pointer',
+                        cx: 1,
+                        cy: 2,
+                        dx: 11.5,
+                        fill: 'green',
+                        fontSize: 8,
+                        fontWeight: 'normal',
+                        id: 'id',
+                        label: 'id',
+                        onClickNode: undefined,
+                        onMouseOut: undefined,
+                        onMouseOverNode: undefined,
+                        opacity: undefined,
+                        renderLabel: true,
+                        size: 200,
+                        stroke: 'none',
+                        strokeWidth: 1.5,
+                        type: 'circle'
+                    });
+                });
             });
             describe('and highlight degree is bigger then 0', () => {
+                test('should properly build node props', () => {
+                    that.config.highlightDegree = 2;
 
-            });
-        });
-        describe('when node to build is neither highlightedNode neither highlightedLink source/target', () => {
-            beforeEach(() => {
-                // set common node structure so that below we only override small stuff
-            });
-            describe('and config.node.highlightColor is "SAME"', () => {
+                    const props = graphHelper.buildNodeProps(that.node, that.config, undefined, {
+                        source: 'some other id',
+                        target: 'id'
+                    }, undefined, 1);
 
-            });
-            describe('and config.node.highlightStrokeColor is "SAME"', () => {
-
-            });
-            describe('and config.node.labelProperty some label property (not id)', () => {
-
-            });
-            describe('and node has a self (node level) color', () => {
-
-            });
-            describe('and node has a self (node level) symbolType', () => {
-
+                    expect(props).toEqual({
+                        className: 'node',
+                        cursor: 'pointer',
+                        cx: 1,
+                        cy: 2,
+                        dx: 11.5,
+                        fill: 'green',
+                        fontSize: 8,
+                        fontWeight: 'normal',
+                        id: 'id',
+                        label: 'id',
+                        onClickNode: undefined,
+                        onMouseOut: undefined,
+                        onMouseOverNode: undefined,
+                        opacity: undefined,
+                        renderLabel: true,
+                        size: 200,
+                        stroke: 'none',
+                        strokeWidth: 1.5,
+                        type: 'circle'
+                    });
+                });
             });
         });
     });

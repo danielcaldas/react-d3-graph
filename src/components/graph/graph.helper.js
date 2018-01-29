@@ -250,7 +250,7 @@ function buildLinkProps(source, target, nodes, links, config, linkCallbacks, hig
  * @returns {Object} returns object that contain Link props ready to be feeded to the Link component.
  * @memberof Graph/helper
  */
-function buildNodeProps(node, config, nodeCallbacks, highlightedNode, highlightedLink, transform) {
+function buildNodeProps(node, config, nodeCallbacks={}, highlightedNode, highlightedLink, transform) {
    const highlight = node.highlighted
                    || (node.id === (highlightedLink && highlightedLink.source)
                    || node.id === (highlightedLink && highlightedLink.target));
