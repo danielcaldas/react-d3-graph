@@ -142,6 +142,7 @@ function _initializeNodes(graphNodes) {
  * @throws can throw the following error msg:
  * INSUFFICIENT_DATA - msg if no nodes are provided
  * INVALID_LINKS - if links point to nonexistent nodes
+ * @returns {undefined}
  */
 function _validateGraphData(data) {
    if (!data.nodes || !data.nodes.length) {

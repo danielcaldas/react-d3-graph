@@ -98,6 +98,7 @@ const D3_CONST = {
 export default class Graph extends React.Component {
     /**
      * Sets d3 tick function and configures other d3 stuff such as forces and drag events.
+     * @returns {undefined}
      */
     _graphForcesConfig() {
         this.state.simulation.nodes(this.state.d3Nodes).on('tick', this._tick);
@@ -119,6 +120,7 @@ export default class Graph extends React.Component {
 
     /**
      * Handles d3 drag 'end' event.
+     * @returns {undefined}
      */
     _onDragEnd = () => !this.state.config.staticGraph
                         && this.state.config.automaticRearrangeAfterDropNode
@@ -126,12 +128,12 @@ export default class Graph extends React.Component {
 
     /**
      * Handles d3 'drag' event.
+     * {@link https://github.com/d3/d3-drag/blob/master/README.md#drag_subject|more about d3 drag}
      * @param  {Object} ev - if not undefined it will contain event data.
      * @param  {number} index - index of the node that is being dragged.
      * @param  {Array.<Object>} nodeList - array of d3 nodes. This list of nodes is provided by d3, each
      * node contains all information that was previously fed by rd3g.
-     *
-     * {@link https://github.com/d3/d3-drag/blob/master/README.md#drag_subject|more about d3 drag}
+     * @returns {undefined}
      */
     _onDragMove = (ev, index, nodeList) => {
         const id = nodeList[index].id;
@@ -153,6 +155,7 @@ export default class Graph extends React.Component {
 
     /**
      * Handles d3 drag 'start' event.
+     * @returns {undefined}
      */
     _onDragStart = () => this.pauseSimulation();
 
@@ -160,6 +163,7 @@ export default class Graph extends React.Component {
      * Sets nodes and links highlighted value.
      * @param  {string} id - the id of the node to highlight.
      * @param  {boolean} [value=false] - the highlight value to be set (true or false).
+     * @returns {undefined}
      */
     _setNodeHighlightedValue = (id, value=false) => {
         this.state.highlightedNode = value ? id : '';
@@ -178,12 +182,14 @@ export default class Graph extends React.Component {
     /**
      * The tick function simply calls React set state in order to update component and render nodes
      * along time as d3 calculates new node positioning.
+     * @returns {undefined}
      */
     _tick = () => this.setState(this.state || {});
 
     /**
      * Configures zoom upon graph with default or user provided values.<br/>
      * {@link https://github.com/d3/d3-zoom#zoom}
+     * @returns {undefined}
      */
     _zoomConfig = () => d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`)
                             .call(d3Zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
@@ -204,6 +210,7 @@ export default class Graph extends React.Component {
     /**
      * Handles mouse over node event.
      * @param  {string} id - id of the node that participates in the event.
+     * @returns {undefined}
      */
     onMouseOverNode = (id) => {
         this.props.onMouseOverNode && this.props.onMouseOverNode(id);
@@ -214,6 +221,7 @@ export default class Graph extends React.Component {
     /**
      * Handles mouse out node event.
      * @param  {string} id - id of the node that participates in the event.
+     * @returns {undefined}
      */
     onMouseOutNode = (id) => {
         this.props.onMouseOutNode && this.props.onMouseOutNode(id);
@@ -225,6 +233,7 @@ export default class Graph extends React.Component {
      * Handles mouse over link event.
      * @param  {string} source - id of the source node that participates in the event.
      * @param  {string} target - id of the target node that participates in the event.
+     * @returns {undefined}
      */
     onMouseOverLink = (source, target) => {
         this.props.onMouseOverLink && this.props.onMouseOverLink(source, target);
@@ -240,6 +249,7 @@ export default class Graph extends React.Component {
      * Handles mouse out link event.
      * @param  {string} source - id of the source node that participates in the event.
      * @param  {string} target - id of the target node that participates in the event.
+     * @returns {undefined}
      */
     onMouseOutLink = (source, target) => {
         this.props.onMouseOutLink && this.props.onMouseOutLink(source, target);
@@ -254,6 +264,7 @@ export default class Graph extends React.Component {
     /**
     * Calls d3 simulation.stop().<br/>
     * {@link https://github.com/d3/d3-force#simulation_stop}
+    * @returns {undefined}
     */
     pauseSimulation = () => !this.state.config.staticGraph && this.state.simulation.stop();
 
@@ -261,6 +272,7 @@ export default class Graph extends React.Component {
      * This method resets all nodes fixed positions by deleting the properties fx (fixed x)
      * and fy (fixed y). Following this, a simulation is triggered in order to force nodes to go back
      * to their original positions (or at least new positions according to the d3 force parameters).
+     * @returns {undefined}
      */
     resetNodesPositions = () => {
         if (!this.state.config.staticGraph) {
@@ -282,6 +294,7 @@ export default class Graph extends React.Component {
     /**
      * Calls d3 simulation.restart().<br/>
      * {@link https://github.com/d3/d3-force#simulation_restart}
+     * @returns {undefined}
      */
     restartSimulation = () => !this.state.config.staticGraph && this.state.simulation.restart();
 
