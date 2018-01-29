@@ -42,16 +42,19 @@ import nodeHelper from './helper';
 export default class Node extends React.Component {
     /**
      * Handle click on the node.
+     * @returns {undefined}
      */
     handleOnClickNode = () => this.props.onClickNode && this.props.onClickNode(this.props.id);
 
     /**
      * Handle mouse over node event.
+     * @returns {undefined}
      */
     handleOnMouseOverNode = () => this.props.onMouseOverNode && this.props.onMouseOverNode(this.props.id);
 
     /**
      * Handle mouse out node event.
+     * @returns {undefined}
      */
     handleOnMouseOutNode = () => this.props.onMouseOut && this.props.onMouseOut(this.props.id);
 

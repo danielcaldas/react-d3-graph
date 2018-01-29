@@ -1,4 +1,6 @@
-import graphHelper from '../../../src/components/graph/helper';
+import * as graphHelper from '../../../src/components/graph/graph.helper';
+
+import config from '../../../src/components/graph/config';
 
 jest.mock('../../../src/utils');
 import utils from '../../../src/utils';
@@ -12,57 +14,140 @@ import {
 } from 'd3-force';
 
 describe('Graph Helper', () => {
-    describe('#createForceSimulation', () => {
-        test('should properly create d3 simulation object', () => {
-            const fr = 10;
-            const forceStub = jest.fn();
-    
-            d3ForceX.mockImplementation(() => {
-                return {
-                    strength: () => fr
-                };
+    describe('#buildNodeProps', () => {
+        let that = {};
+
+        beforeEach(() => {
+            const nodeConfig = Object.assign({}, config.node);
+            const linkConfig = Object.assign({}, config.link);
+
+            that = {
+                config: { node: nodeConfig, link: linkConfig },
+                node: {
+                    id: 'id',
+                    x: 1,
+                    y: 2,
+                    color: 'green',
+                    highlighted: false,
+                    symbolType: undefined
+                }
+            };
+        });
+        describe('when node to build is the highlightedNode', () => {
+            test('should return node props with proper highlight values', () => {
+                that.node.highlighted = true;
+                Object.assign(that.config.node, {
+                    highlightColor: 'red',
+                    highlightFontSize: 12,
+                    highlightFontWeight: 'bold',
+                    highlightStrokeColor: 'yellow',
+                    highlightStrokeWidth: 2
+                });
+                const props = graphHelper.buildNodeProps(that.node, that.config, undefined, 'id', undefined, 1);
+
+                expect(props).toEqual({
+                    className: 'node',
+                    cursor: 'pointer',
+                    cx: 1,
+                    cy: 2,
+                    dx: 15.5,
+                    fill: 'red',
+                    fontSize: 12,
+                    fontWeight: 'bold',
+                    id: 'id',
+                    label: 'id',
+                    onClickNode: undefined,
+                    onMouseOut: undefined,
+                    onMouseOverNode: undefined,
+                    opacity: 1,
+                    renderLabel: true,
+                    size: 200,
+                    stroke: 'yellow',
+                    strokeWidth: 2,
+                    type: 'circle'
+                });
             });
-            d3ForceY.mockImplementation(() => {
-                return {
-                    strength: () => fr
-                };
+        });
+        describe('when node to build is the highlightedLink target (or source)', () => {
+            describe('and highlight degree is 0', () => {
+                test('should properly build node props ()', () => {
+                    that.config.highlightDegree = 0;
+
+                    const props = graphHelper.buildNodeProps(that.node, that.config, undefined, {
+                        source: 'some other id',
+                        target: 'id'
+                    }, undefined, 1);
+
+                    expect(props).toEqual({
+                        className: 'node',
+                        cursor: 'pointer',
+                        cx: 1,
+                        cy: 2,
+                        dx: 11.5,
+                        fill: 'green',
+                        fontSize: 8,
+                        fontWeight: 'normal',
+                        id: 'id',
+                        label: 'id',
+                        onClickNode: undefined,
+                        onMouseOut: undefined,
+                        onMouseOverNode: undefined,
+                        opacity: undefined,
+                        renderLabel: true,
+                        size: 200,
+                        stroke: 'none',
+                        strokeWidth: 1.5,
+                        type: 'circle'
+                    });
+                });
             });
-            d3ForceManyBody.mockImplementation(() => {
-                return {
-                    strength: () => fr
-                };
+            describe('and highlight degree is bigger then 0', () => {
+                test('should properly build node props', () => {
+                    that.config.highlightDegree = 2;
+
+                    const props = graphHelper.buildNodeProps(that.node, that.config, undefined, {
+                        source: 'some other id',
+                        target: 'id'
+                    }, undefined, 1);
+
+                    expect(props).toEqual({
+                        className: 'node',
+                        cursor: 'pointer',
+                        cx: 1,
+                        cy: 2,
+                        dx: 11.5,
+                        fill: 'green',
+                        fontSize: 8,
+                        fontWeight: 'normal',
+                        id: 'id',
+                        label: 'id',
+                        onClickNode: undefined,
+                        onMouseOut: undefined,
+                        onMouseOverNode: undefined,
+                        opacity: undefined,
+                        renderLabel: true,
+                        size: 200,
+                        stroke: 'none',
+                        strokeWidth: 1.5,
+                        type: 'circle'
+                    });
+                });
             });
-            forceStub.mockImplementation(() => {
-                return {
-                    force: forceStub
-                };
-            });
-            d3ForceSimulation.mockImplementation(() => {
-                return {
-                    force: forceStub
-                };
-            });
-    
-            graphHelper.createForceSimulation(1000, 1000);
-    
-            expect(d3ForceX).toHaveBeenCalledWith(500);
-            expect(d3ForceY).toHaveBeenCalledWith(500);
-            expect(d3ForceSimulation).toHaveBeenCalledWith();
-            expect(forceStub).toHaveBeenCalledTimes(3);
-            expect(forceStub).toHaveBeenCalledWith('charge', fr);
-            expect(forceStub).toHaveBeenCalledWith('x', fr);
-            expect(forceStub).toHaveBeenLastCalledWith('y', fr);
         });
     });
 
     describe('#initializeGraphState', () => {
         describe('when valid graph data is provided', () => {
             beforeEach(() => {
-                utils.merge.mockImplementation(() => {
-                    return {
-                        config: 'config'
-                    };
-                });
+                const fr = 10;
+                const forceStub = jest.fn();
+
+                d3ForceX.mockImplementation(() => ({strength: () => fr}));
+                d3ForceY.mockImplementation(() => ({strength: () => fr}));
+                d3ForceManyBody.mockImplementation(() => ({strength: () => fr}));
+                forceStub.mockImplementation(() => ({force: forceStub}));
+                d3ForceSimulation.mockImplementation(() => ({force: forceStub}));
+                utils.merge.mockImplementation(() => ({config: 'config'}));
             });
 
             describe('and received state was already initialized', () => {
