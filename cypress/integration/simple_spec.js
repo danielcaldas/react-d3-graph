@@ -1,3 +1,5 @@
+const SANDBOX_URL = Cypress.env('SANDBOX_URL');
+
 describe('Smoke tests', function () {
     it('should render graph with react-d3-graph in sandbox', function () {
         // stub window
@@ -6,7 +8,7 @@ describe('Smoke tests', function () {
         cy.on('window:alert', windowSpy);
 
         // go to sandbox
-        cy.visit('http://localhost:3002');
+        cy.visit(SANDBOX_URL);
 
         // add +10 random nodes to the graph
         for (let i = 0; i < 10; i++) {

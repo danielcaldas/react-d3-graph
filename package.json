@@ -20,7 +20,8 @@
         "test": "jest --verbose --coverage",
         "test:clean": "jest --no-cache --updateSnapshot --verbose --coverage",
         "test:watch": "jest --verbose --coverage --watchAll",
-        "functional": "cypress open"
+        "functional:local": "export CYPRESS_SANDBOX_URL=http://localhost:3002/ && cypress open",
+        "functional:remote": "export CYPRESS_SANDBOX_URL=https://danielcaldas.github.io/react-d3-graph/sandbox/index.html && cypress open"
     },
     "dependencies": {
         "d3": "4.10.2",
