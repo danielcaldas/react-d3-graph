@@ -72,3 +72,4 @@ gen-docs
 .DS_Store
 **/.DS_Store
 .vscode
+cypress/videos/

@@ -3,7 +3,10 @@ node_js:
     - "8.9.0"
 install:
     - yarn install
+before_script:
+    - npm start -- --silent &
 script:
     - npm run lint
     - npm run test
     - npm run dist:sandbox
+    - npm run functional
