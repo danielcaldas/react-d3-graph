@@ -28,6 +28,7 @@
         "react": "15.6.1"
     },
     "devDependencies": {
+        "@cypress/webpack-preprocessor": "1.1.3",
         "babel-cli": "6.26.0",
         "babel-core": "6.26.0",
         "babel-jest": "21.0.2",
@@ -36,7 +37,9 @@
         "babel-plugin-react-html-attrs": "2.0.0",
         "babel-plugin-transform-class-properties": "6.24.1",
         "babel-plugin-transform-decorators-legacy": "1.3.4",
+        "babel-polyfill": "6.26.0",
         "babel-preset-es2015": "6.24.1",
+        "babel-preset-es2017": "6.24.1",
         "babel-preset-react": "6.24.1",
         "babel-preset-stage-0": "6.24.1",
         "css-loader": "0.28.7",
