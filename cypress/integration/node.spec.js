@@ -1,7 +1,7 @@
 const NodePO = require('../common/page-objects/node.po');
 const SandboxPO = require('../common/page-objects/sandbox.po');
 const SANDBOX_URL = Cypress.env('SANDBOX_URL');
-const nodes = ['Androsynth', 'Chenjesu', 'Ilwrath', 'Mycon', 'Spathi', 'Umgah', 'VUX', 'Guardian', 'Broodhmome', 'Avenger', 'Podship', 'Eluder', 'Drone', 'Intruder'];
+let nodes = require('./../../sandbox/data').nodes.map(({id}) => id);
 
 describe('[rd3g-node] node tests', function () {
     before(function () {
