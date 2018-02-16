@@ -9,6 +9,7 @@ import { Graph } from '../src';
 import data from './data';
 import Utils from './utils';
 import ReactD3GraphUtils from  '../src/utils';
+import { JsonTree, ADD_DELTA_TYPE, REMOVE_DELTA_TYPE, UPDATE_DELTA_TYPE } from 'react-editable-json-tree';
 
 /**
  * This is a sample integration of react-d3-graph, in this particular case all the rd3g config properties
@@ -302,8 +303,10 @@ export default class Sandbox extends React.Component {
                         <JSONContainer data={this.state.generatedConfig} staticData={false} />
                     </div>
                     <div className='container__graph-data'>
-                        <h4>Initial Graph Data</h4>
-                        <JSONContainer data={this.state.data} staticData={true}/>
+                        <h4>Graph Data</h4>
+                        <div className='json-data-container'>
+                            <JsonTree data={this.state.data} />
+                        </div>
                     </div>
                 </div>
             );
@@ -312,7 +315,7 @@ export default class Sandbox extends React.Component {
 }
 
 class JSONContainer extends React.Component {
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps) {
         return !this.props.staticData && !ReactD3GraphUtils.isDeepEqual(nextProps.data, this.props.data);
     }
 
