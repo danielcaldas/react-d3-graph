@@ -184,7 +184,7 @@ export default class Graph extends React.Component {
      * along time as d3 calculates new node positioning.
      * @returns {undefined}
      */
-    _tick = () => this.setState(this.state || {});
+    _tick = (state={}) => this.setState(state);
 
     /**
      * Configures zoom upon graph with default or user provided values.<br/>
@@ -341,12 +341,12 @@ export default class Graph extends React.Component {
         if (!this.state.config.staticGraph && this.state.newGraphElements) {
             this._graphForcesConfig();
             this.restartSimulation();
-            this.state.newGraphElements = false;
+            this.setState({ newGraphElements: false });
         }
 
         if (this.state.configUpdated) {
             this._zoomConfig();
-            this.state.configUpdated = false;
+            this.setState({ configUpdated: false });
         }
     }
 
