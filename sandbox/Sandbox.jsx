@@ -9,7 +9,7 @@ import { Graph } from '../src';
 import data from './data';
 import Utils from './utils';
 import ReactD3GraphUtils from  '../src/utils';
-import { JsonTree, ADD_DELTA_TYPE, REMOVE_DELTA_TYPE, UPDATE_DELTA_TYPE } from 'react-editable-json-tree';
+import { JsonTree } from 'react-editable-json-tree';
 
 /**
  * This is a sample integration of react-d3-graph, in this particular case all the rd3g config properties
@@ -209,6 +209,13 @@ export default class Sandbox extends React.Component {
     }
 
     /**
+     * Update graph data each time an update is triggered
+     * by JsonTree
+     * @param {Object} data update graph data (nodes and links)
+     */
+    onGraphDataUpdate = (data) => this.setState({ data });
+
+    /**
      * Build common piece of the interface that contains some interactions such as
      * fullscreen, play/pause, + and - buttons.
      */
@@ -303,9 +310,9 @@ export default class Sandbox extends React.Component {
                         <JSONContainer data={this.state.generatedConfig} staticData={false} />
                     </div>
                     <div className='container__graph-data'>
-                        <h4>Graph Data</h4>
+                        <h4>Graph Data <small>(editable)</small></h4>
                         <div className='json-data-container'>
-                            <JsonTree data={this.state.data} />
+                            <JsonTree data={this.state.data} onFullyUpdate={this.onGraphDataUpdate}/>
                         </div>
                     </div>
                 </div>
