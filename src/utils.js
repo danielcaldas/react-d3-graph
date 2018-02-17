@@ -12,7 +12,7 @@ const MAX_DEPTH = 20;
 /**
  * Checks whether a certain object property is from object type and is a non empty object.
  * @param  {Object} o - the object.
- * @param  {number|string} k - the object property.
+ * @param  {string} k - the object property.
  * @returns {boolean} returns true if o[k] is an non empty object.
  * @memberof utils
  */
