@@ -63,8 +63,8 @@ describe('Utils', () => {
         beforeEach(() => {
             that.o1 = {
                 a:1,
-                b:{
-                    c:{ d: false, e: 'test', f: 12 },
+                b: {
+                    c: { d: false, e: 'test', f: 12 },
                     g: 'test',
                     h: undefined,
                     i: {},
@@ -74,7 +74,8 @@ describe('Utils', () => {
                         m: {
                             n: {
                                 o: 1
-                            }
+                            },
+                            p: [ { x: 1 }, { y: 2 } ]
                         }
                     }
                 }
@@ -82,8 +83,8 @@ describe('Utils', () => {
 
             that.o2 = {
                 a:1,
-                b:{
-                    c:{ d: false, e: 'test', f: 12 },
+                b: {
+                    c: { d: false, e: 'test', f: 12 },
                     g: 'test',
                     h: undefined,
                     i: {},
@@ -93,7 +94,8 @@ describe('Utils', () => {
                         m: {
                             n: {
                                 o: 1
-                            }
+                            },
+                            p: [ { x: 1 }, { y: 2 } ]
                         }
                     }
                 }
@@ -176,6 +178,16 @@ describe('Utils', () => {
         test('should return false when o1.b.g and o2.b.g are arrays with the different elements', () => {
             that.o1.b.g = [1, 2, '3'];
             that.o2.b.g = [1, 2, 3];
+            expect(utils.isDeepEqual(that.o1, that.o2)).toEqual(false);
+        });
+
+        test('should return false when o1.a.b.c and o2.a.b.c are objects with different number of properties', () => {
+            that.o2.b.c = { d: false, e: 'test', f: 12, ff: false };
+            expect(utils.isDeepEqual(that.o1, that.o2)).toEqual(false);
+        });
+
+        test('should return false when o1.b.j.m.p array\'s first object has different x value ', () => {
+            that.o1.b.j.m.p[0].x = 9000;
             expect(utils.isDeepEqual(that.o1, that.o2)).toEqual(false);
         });
     });

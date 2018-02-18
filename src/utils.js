@@ -39,7 +39,14 @@ function isDeepEqual(o1, o2, _depth=0) {
         return false;
     }
 
-    for (let k of Object.keys(o1)) {
+    const o1Keys = Object.keys(o1);
+    const o2Keys = Object.keys(o2);
+
+    if (o1Keys.length !== o2Keys.length) {
+        return false;
+    }
+
+    for (let k of o1Keys) {
         const nestedO = _isPropertyNestedObject(o1, k) && _isPropertyNestedObject(o2, k);
 
         if (nestedO && _depth < MAX_DEPTH) {
