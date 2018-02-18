@@ -127,8 +127,8 @@ function _initializeNodes(graphNodes) {
 
        node.highlighted = false;
 
-       if (!node.hasOwnProperty('x')) { node['x'] = 0; }
-       if (!node.hasOwnProperty('y')) { node['y'] = 0; }
+       if (!node.hasOwnProperty('x')) { node.x = 0; }
+       if (!node.hasOwnProperty('y')) { node.y = 0; }
 
        nodes[node.id.toString()] = node;
    }

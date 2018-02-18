@@ -23,7 +23,8 @@ module.exports = {
         "jest/no-focused-tests": "error",
         "jest/no-identical-title": "error",
         "jest/valid-expect": "error",
-        "max-len": ["error", 180, 4, { "ignoreComments": true }]
+        "max-len": ["error", 180, 4, { "ignoreComments": true }],
+        "max-lines": ["error", {"max": 800, "skipComments": true}],
     },
     "env": {
         "jest/globals": true

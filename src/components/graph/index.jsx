@@ -182,6 +182,7 @@ export default class Graph extends React.Component {
     /**
      * The tick function simply calls React set state in order to update component and render nodes
      * along time as d3 calculates new node positioning.
+     * @param {Object} state - new state to pass on.
      * @returns {undefined}
      */
     _tick = (state={}) => this.setState(state);

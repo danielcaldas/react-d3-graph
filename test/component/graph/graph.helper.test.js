@@ -2,7 +2,6 @@ import * as graphHelper from '../../../src/components/graph/graph.helper';
 
 import config from '../../../src/components/graph/config';
 
-jest.mock('../../../src/utils');
 import utils from '../../../src/utils';
 
 jest.mock('d3-force');
@@ -14,6 +13,13 @@ import {
 } from 'd3-force';
 
 describe('Graph Helper', () => {
+    beforeAll(() => {
+        utils.isDeepEqual = jest.fn();
+        utils.isObjectEmpty = jest.fn();
+        utils.merge = jest.fn();
+        utils.throwErr = jest.fn();
+    });
+
     describe('#buildNodeProps', () => {
         let that = {};
 
@@ -334,7 +340,21 @@ describe('Graph Helper', () => {
                         simulation: {
                             force: forceStub
                         },
-                        transform: 1
+                        transform: 1,
+                        nodesInputSnapshot: [{
+                            id: 'A'
+                        }, {
+                            id: 'B'
+                        }, {
+                            id: 'C'
+                        }],
+                        linksInputSnapshot: [{
+                            source: 'A',
+                            target: 'B'
+                        }, {
+                            source: 'C',
+                            target: 'A'
+                        }]
                     }
                 );
             });
