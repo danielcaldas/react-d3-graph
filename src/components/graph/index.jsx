@@ -310,15 +310,14 @@ export default class Graph extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const newGraphElements = nextProps.data.nodes.length !== this.state.nodesInputSnapshot.length
-                              || nextProps.data.links.length !== this.state.linksInputSnapshot.length
-                              || !utils.isDeepEqual(nextProps.data, {
+                                || nextProps.data.links.length !== this.state.linksInputSnapshot.length
+                                || !utils.isDeepEqual(nextProps.data, {
                                     nodes: this.state.nodesInputSnapshot,
                                     links: this.state.linksInputSnapshot,
                                 });
-
-        const configUpdated = !utils.isDeepEqual(nextProps.config, this.state.config);
+        const configUpdated = !utils.isObjectEmpty(nextProps.config)
+                            && !utils.isDeepEqual(nextProps.config, this.state.config);
         const state = newGraphElements ? graphHelper.initializeGraphState(nextProps, this.state) : this.state;
-        // FIXME: Check that nextProps.config is not an empty object!
         const config = configUpdated ? utils.merge(DEFAULT_CONFIG, nextProps.config || {}) : this.state.config;
 
         // in order to properly update graph data we need to pause eventual d3 ongoing animations
@@ -337,7 +336,7 @@ export default class Graph extends React.Component {
 
     componentDidUpdate() {
         // if the property staticGraph was activated we want to stop possible ongoing simulation
-        this.state.config.staticGraph && this.state.simulation.stop();
+        this.state.config.staticGraph && this.pauseSimulation();
 
         if (!this.state.config.staticGraph && this.state.newGraphElements) {
             this._graphForcesConfig();
@@ -361,7 +360,7 @@ export default class Graph extends React.Component {
     }
 
     componentWillUnmount() {
-        this.state.simulation.stop();
+        this.pauseSimulation();
     }
 
     render() {
