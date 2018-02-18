@@ -1,3 +1,5 @@
+/*global console*/
+/*eslint require-jsdoc: 0, valid-jsdoc: 0, no-console: 0*/
 import React from 'react';
 
 import Form from 'react-jsonschema-form';
@@ -50,9 +52,11 @@ export default class Sandbox extends React.Component {
 
     onMouseOutNode = (id) => console.info(`Do something when mouse is out of node (${id})`);
 
-    onMouseOverLink = (source, target) => console.info(`Do something when mouse is over link between ${source} and ${target}`);
+    onMouseOverLink = (source, target) => 
+        console.info(`Do something when mouse is over link between ${source} and ${target}`);
 
-    onMouseOutLink = (source, target) => console.info(`Do something when mouse is out of link between ${source} and ${target}`);
+    onMouseOutLink = (source, target) =>
+        console.info(`Do something when mouse is out of link between ${source} and ${target}`);
 
     /**
      * Sets on/off fullscreen visualization mode.
@@ -124,13 +128,14 @@ export default class Sandbox extends React.Component {
     onClickRemoveNode = () => {
         if (this.state.data.nodes && this.state.data.nodes.length) {
             const id = this.state.data.nodes[0].id;
+
             this.state.data.nodes.splice(0, 1);
             const links = this.state.data.links.filter(l => l.source !== id && l.target !== id);
             const data = { nodes: this.state.data.nodes, links };
 
             this.setState({ data });
         } else {
-            alert('No more nodes to remove!');
+            window.alert('No more nodes to remove!');
         }
     }
 
@@ -138,12 +143,12 @@ export default class Sandbox extends React.Component {
         let config = {};
         let schemaPropsValues = {};
 
-        for(let k of Object.keys(data.formData)) {
+        for (let k of Object.keys(data.formData)) {
             // Set value mapping correctly for config object of react-d3-graph
             Utils.setValue(config, k, data.formData[k]);
             // Set new values for schema of jsonform
             schemaPropsValues[k] = {};
-            schemaPropsValues[k]['default'] = data.formData[k]
+            schemaPropsValues[k]['default'] = data.formData[k];
         }
 
         return {config, schemaPropsValues};
@@ -163,11 +168,9 @@ export default class Sandbox extends React.Component {
      * Generate graph configuration file ready to use!
      */
     onSubmit = (data) => {
-        const {config, schemaPropsValues} = this._buildGraphConfig(data);
+        const { config } = this._buildGraphConfig(data);
 
-        this.setState({
-            generatedConfig: config
-        });
+        this.setState({ generatedConfig: config });
     }
 
     onClickSubmit = () => {
@@ -200,12 +203,12 @@ export default class Sandbox extends React.Component {
      * @return {Object} the graph where now nodes containing (x,y) coords.
      */
     decorateGraphNodesWithInitialPositioning = (nodes) => {
-        return nodes.map(n => ({
-            id: n.id,
-            x: Math.floor(Math.random() * 500),
-            y: Math.floor(Math.random() * 500),
-            symbolType: n.symbolType || 'circle'
-        }));
+        return nodes.map(n => (
+            Object.assign({}, n, {
+                x: n.x || Math.floor(Math.random() * 500),
+                y: n.y || Math.floor(Math.random() * 500)
+            })
+        ));
     }
 
     /**
@@ -226,7 +229,8 @@ export default class Sandbox extends React.Component {
 
         const fullscreen = this.state.fullscreen ?
             (<span className='cross-icon' onClick={this.onToggleFullScreen}>❌</span>)
-            : (<button onClick={this.onToggleFullScreen} className='btn btn-default btn-margin-left'>Fullscreen</button>);
+            : (<button onClick={this.onToggleFullScreen}
+                className='btn btn-default btn-margin-left'>Fullscreen</button>);
 
         return (
             <div>
@@ -246,12 +250,10 @@ export default class Sandbox extends React.Component {
     render() {
         // This does not happens in this sandbox scenario running time, but if we set staticGraph config
         // to true in the constructor we will provide nodes with initial positions
-        const data = this.state.config.staticGraph ?
-        {
+        const data = {
             nodes: this.decorateGraphNodesWithInitialPositioning(this.state.data.nodes),
             links: this.state.data.links
-        }
-        : this.state.data;
+        };
 
         const graphProps = {
             id: 'graph',
