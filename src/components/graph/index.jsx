@@ -182,9 +182,10 @@ export default class Graph extends React.Component {
     /**
      * The tick function simply calls React set state in order to update component and render nodes
      * along time as d3 calculates new node positioning.
+     * @param {Object} state - new state to pass on.
      * @returns {undefined}
      */
-    _tick = () => this.setState(this.state || {});
+    _tick = (state={}) => this.setState(state);
 
     /**
      * Configures zoom upon graph with default or user provided values.<br/>
@@ -266,7 +267,7 @@ export default class Graph extends React.Component {
     * {@link https://github.com/d3/d3-force#simulation_stop}
     * @returns {undefined}
     */
-    pauseSimulation = () => !this.state.config.staticGraph && this.state.simulation.stop();
+    pauseSimulation = () => this.state.simulation.stop();
 
     /**
      * This method resets all nodes fixed positions by deleting the properties fx (fixed x)
@@ -309,14 +310,14 @@ export default class Graph extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const newGraphElements = nextProps.data.nodes.length !== this.state.d3Nodes.length
-                              || nextProps.data.links.length !== this.state.d3Links.length;
-
-        if (newGraphElements && nextProps.config.staticGraph) {
-            utils.throwErr(this.constructor.name, ERRORS.STATIC_GRAPH_DATA_UPDATE);
-        }
-
-        const configUpdated = !utils.isDeepEqual(nextProps.config, this.state.config);
+        const newGraphElements = nextProps.data.nodes.length !== this.state.nodesInputSnapshot.length
+                                || nextProps.data.links.length !== this.state.linksInputSnapshot.length
+                                || !utils.isDeepEqual(nextProps.data, {
+                                    nodes: this.state.nodesInputSnapshot,
+                                    links: this.state.linksInputSnapshot,
+                                });
+        const configUpdated = !utils.isObjectEmpty(nextProps.config)
+                            && !utils.isDeepEqual(nextProps.config, this.state.config);
         const state = newGraphElements ? graphHelper.initializeGraphState(nextProps, this.state) : this.state;
         const config = configUpdated ? utils.merge(DEFAULT_CONFIG, nextProps.config || {}) : this.state.config;
 
@@ -336,17 +337,17 @@ export default class Graph extends React.Component {
 
     componentDidUpdate() {
         // if the property staticGraph was activated we want to stop possible ongoing simulation
-        this.state.config.staticGraph && this.state.simulation.stop();
+        this.state.config.staticGraph && this.pauseSimulation();
 
         if (!this.state.config.staticGraph && this.state.newGraphElements) {
             this._graphForcesConfig();
             this.restartSimulation();
-            this.state.newGraphElements = false;
+            this.setState({ newGraphElements: false });
         }
 
         if (this.state.configUpdated) {
             this._zoomConfig();
-            this.state.configUpdated = false;
+            this.setState({ configUpdated: false });
         }
     }
 
@@ -360,7 +361,7 @@ export default class Graph extends React.Component {
     }
 
     componentWillUnmount() {
-        this.state.simulation.stop();
+        this.pauseSimulation();
     }
 
     render() {

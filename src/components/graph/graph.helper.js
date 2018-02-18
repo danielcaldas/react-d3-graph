@@ -30,6 +30,8 @@ import ERRORS from '../../err';
 
 import utils from '../../utils';
 
+const NODE_PROPS_WHITELIST = ['id', 'highlighted', 'x', 'y', 'index', 'vy', 'vx'];
+
 /**
  * Create d3 forceSimulation to be applied on the graph.<br/>
  * {@link https://github.com/d3/d3-force#forceSimulation|d3-force#forceSimulation}<br/>
@@ -125,8 +127,8 @@ function _initializeNodes(graphNodes) {
 
        node.highlighted = false;
 
-       if (!node.hasOwnProperty('x')) { node['x'] = 0; }
-       if (!node.hasOwnProperty('y')) { node['y'] = 0; }
+       if (!node.hasOwnProperty('x')) { node.x = 0; }
+       if (!node.hasOwnProperty('y')) { node.y = 0; }
 
        nodes[node.id.toString()] = node;
    }
@@ -312,10 +314,16 @@ function initializeGraphState({data, id, config}, state) {
 
     _validateGraphData(data);
 
+    const nodesInputSnapshot = data.nodes.map(n => Object.assign({}, n));
+    const linksInputSnapshot = data.links.map(l => Object.assign({}, l));
+
     if (state && state.nodes && state.links) {
         // absorb existent positioning
         graph = {
-            nodes: data.nodes.map(n => Object.assign({}, n, state.nodes[n.id])),
+            nodes: data.nodes.map(n => state.nodes[n.id]
+                    ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
+                    : Object.assign({}, n)
+            ),
             links: {}
         };
     } else {
@@ -339,13 +347,15 @@ function initializeGraphState({data, id, config}, state) {
         config: newConfig,
         links,
         d3Links,
+        linksInputSnapshot,
         nodes,
         d3Nodes,
+        nodesInputSnapshot,
         highlightedNode: '',
         simulation,
         newGraphElements: false,
         configUpdated: false,
-        transform: 1
+        transform: 1,
     };
 }
 

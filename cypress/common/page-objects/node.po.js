@@ -1,3 +1,5 @@
+/*global cy*/
+
 /**
  * Page Object for interacting with Node component.
  * @param {string} id the id of the node.
