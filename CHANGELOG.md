@@ -1,14 +1,25 @@
 # Change Log
+
+## [1.0.1](https://github.com/danielcaldas/react-d3-graph/tree/1.0.1) (2018-02-18)
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/1.0.0...1.0.1)
+
+**Fixed bugs:**
+
+- Click one node but another one moves [\#41](https://github.com/danielcaldas/react-d3-graph/issues/41)
+
+**Merged pull requests:**
+
+- Fix/data updates static updates [\#52](https://github.com/danielcaldas/react-d3-graph/pull/52) ([danielcaldas](https://github.com/danielcaldas))
+- Feature/e2e testing [\#50](https://github.com/danielcaldas/react-d3-graph/pull/50) ([danielcaldas](https://github.com/danielcaldas))
+- Refactor/separation of concerns render + logic [\#49](https://github.com/danielcaldas/react-d3-graph/pull/49) ([danielcaldas](https://github.com/danielcaldas))
+- Fix/install [\#45](https://github.com/danielcaldas/react-d3-graph/pull/45) ([danielcaldas](https://github.com/danielcaldas))
+
 ## [1.0.0](https://github.com/danielcaldas/react-d3-graph/tree/1.0.0) (2017-12-02)
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/0.4.0...1.0.0)
 
 **Closed issues:**
 
 - How can I get onMouseOverLink event? [\#25](https://github.com/danielcaldas/react-d3-graph/issues/25)
-
-**Fixed bugs:**
-
-- Click one node but another one moves [\#41](https://github.com/danielcaldas/react-d3-graph/issues/41)
 
 **Merged pull requests:**
 
