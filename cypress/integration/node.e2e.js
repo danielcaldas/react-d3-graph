@@ -1,6 +1,8 @@
+/*global cy*/
+const SANDBOX_URL = Cypress.env('SANDBOX_URL');
+
 const NodePO = require('../common/page-objects/node.po');
 const SandboxPO = require('../common/page-objects/sandbox.po');
-const SANDBOX_URL = Cypress.env('SANDBOX_URL');
 let nodes = require('./../../sandbox/data').nodes.map(({id}) => id);
 
 describe('[rd3g-node] node tests', function () {
