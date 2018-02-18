@@ -266,7 +266,7 @@ export default class Graph extends React.Component {
     * {@link https://github.com/d3/d3-force#simulation_stop}
     * @returns {undefined}
     */
-    pauseSimulation = () => !this.state.config.staticGraph && this.state.simulation.stop();
+    pauseSimulation = () => this.state.simulation.stop();
 
     /**
      * This method resets all nodes fixed positions by deleting the properties fx (fixed x)
@@ -315,10 +315,6 @@ export default class Graph extends React.Component {
                                     nodes: this.state.nodesInputSnapshot,
                                     links: this.state.linksInputSnapshot,
                                 });
-
-        if (newGraphElements && nextProps.config.staticGraph) {
-            utils.throwErr(this.constructor.name, ERRORS.STATIC_GRAPH_DATA_UPDATE);
-        }
 
         const configUpdated = !utils.isDeepEqual(nextProps.config, this.state.config);
         const state = newGraphElements ? graphHelper.initializeGraphState(nextProps, this.state) : this.state;
