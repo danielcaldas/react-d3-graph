@@ -192,6 +192,30 @@ describe('Utils', () => {
         });
     });
 
+    describe('#pick', () => {
+        let that = {};
+
+        beforeEach(() => {
+            that.o = {
+                a: 1,
+                b: {
+                    j: {
+                        k: null,
+                        l: 'test',
+                    }
+                },
+                c: 'test',
+                f: 0
+            };
+        });
+
+        test('should pick given props and return expected object', () => {
+            const result = utils.pick(that.o, ['a', 'f', 'not a o prop']);
+
+            expect(result).toEqual({ a: 1, f: 0 });
+        });
+    });
+
     describe('#throwErr', () => {
         test('should throw error', () => {
             const c = 'some component';

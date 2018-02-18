@@ -111,6 +111,23 @@ function merge(o1={}, o2={}, _depth=0) {
 }
 
 /**
+ * Create new object from the inputted one only with the props passed
+ * in the props list.
+ * @param {Object} o - the object to pick props from.
+ * @param {Array.<string>} props - list of props that we want to pick from o.
+ * @returns {Object} the object resultant from the picking operation.
+ */
+function pick(o, props) {
+    return Object.keys(o).reduce((acc, k) => {
+        if (o.hasOwnProperty(k) && props.includes(k)) {
+            acc[k] = o[k];
+        }
+
+        return acc;
+    }, {});
+}
+
+/**
  * Helper function for customized error logging.
  * @param  {string} component - the name of the component where the error is to be thrown.
  * @param  {string} msg - the message contain a more detailed explanation about the error.
@@ -127,5 +144,6 @@ export default {
     isDeepEqual,
     isObjectEmpty,
     merge,
+    pick,
     throwErr
 };
