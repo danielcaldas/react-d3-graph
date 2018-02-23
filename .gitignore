@@ -70,7 +70,5 @@ coverage
 sandbox/rd3g.sandbox.bundle.js.map
 gen-docs
 .DS_Store
-**/.DS_Store
-.vscode
 cypress/videos/
 cypress/screenshots/
