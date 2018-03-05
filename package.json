@@ -1,37 +1,24 @@
 {
     "name": "react-d3-graph",
     "version": "1.0.1",
-    "description":
-        "React component to build interactive and configurable graphs with d3 effortlessly",
+    "description": "React component to build interactive and configurable graphs with d3 effortlessly",
     "author": "Daniel Caldas",
     "license": "MIT",
     "scripts": {
-        "check":
-            "npm run docs:lint && npm run lint && npm run test && npm run functional",
-        "dev":
-            "node_modules/.bin/webpack-dev-server -d --content-base sandbox --inline --hot --port 3002",
-        "dist:rd3g":
-            "rm -rf dist/ && webpack --config webpack.config.dist.js -p --display-modules",
+        "check": "npm run docs:lint && npm run lint && npm run test && npm run functional",
+        "dev": "node_modules/.bin/webpack-dev-server -d --content-base sandbox --inline --hot --port 3002",
+        "dist:rd3g": "rm -rf dist/ && webpack --config webpack.config.dist.js -p --display-modules",
         "dist:sandbox": "webpack --config webpack.config.js -p",
         "dist:transpile": "./node_modules/babel-cli/bin/babel.js -d lib src",
-        "dist":
-            "npm run check && node_modules/.bin/npm-run-all --parallel dist:*",
-        "docs:lint":
-            "node_modules/documentation/bin/documentation.js lint src/**/*.js",
-        "docs:watch":
-            "node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o gen-docs --watch",
-        "docs":
-            "npm run docs:lint && node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o gen-docs && node_modules/documentation/bin/documentation.js build src/**/*.js -f md > gen-docs/DOCUMENTATION.md",
-        "functional:local":
-            "export CYPRESS_SANDBOX_URL=http://localhost:3002/ && cypress open",
-        "functional:remote":
-            "export CYPRESS_SANDBOX_URL=https://danielcaldas.github.io/react-d3-graph/sandbox/index.html && cypress open",
-        "functional":
-            "export CYPRESS_SANDBOX_URL=http://127.0.0.1:8888 && cypress run",
-        "lint:src":
-            "node_modules/eslint/bin/eslint.js --config=.eslintrc.js \"src/**/*.js*\"",
-        "lint:test":
-            "node_modules/eslint/bin/eslint.js --config=.eslintrc.test.config.js \"test/**/*.test.js\"",
+        "dist": "npm run check && node_modules/.bin/npm-run-all --parallel dist:*",
+        "docs:lint": "node_modules/documentation/bin/documentation.js lint src/**/*.js",
+        "docs:watch": "node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o gen-docs --watch",
+        "docs": "npm run docs:lint && node_modules/documentation/bin/documentation.js build src/**/*.js -f html -o gen-docs && node_modules/documentation/bin/documentation.js build src/**/*.js -f md > gen-docs/DOCUMENTATION.md",
+        "functional:local": "export CYPRESS_SANDBOX_URL=http://localhost:3002/ && cypress open",
+        "functional:remote": "export CYPRESS_SANDBOX_URL=https://danielcaldas.github.io/react-d3-graph/sandbox/index.html && cypress open",
+        "functional": "export CYPRESS_SANDBOX_URL=http://127.0.0.1:8888 && cypress run",
+        "lint:src": "node_modules/eslint/bin/eslint.js --config=.eslintrc.js \"src/**/*.js*\"",
+        "lint:test": "node_modules/eslint/bin/eslint.js --config=.eslintrc.test.config.js \"test/**/*.test.js\"",
         "lint": "npm run lint:src && npm run lint:test",
         "precommit": "lint-staged",
         "start": "http-server ./sandbox/ -p 8888 -c-1",
@@ -40,7 +27,10 @@
         "test": "jest --verbose --coverage"
     },
     "lint-staged": {
-        "*.{js,json,css,md}": ["prettier --write", "git add"]
+        "*.{js,json,css,md}": [
+            "prettier --write",
+            "git add"
+        ]
     },
     "dependencies": {
         "d3": "4.10.2",
