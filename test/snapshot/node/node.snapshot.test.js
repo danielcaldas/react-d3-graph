@@ -12,16 +12,26 @@ describe('Snapshot - Node Component', () => {
         that.mouseOutCallback = jest.fn();
 
         that.node = renderer.create(
-            <Node x1='2' y1='2' x2='4' y2='4'
-                opacity='1' fill='black'
-                fontWeight='bold' fontSize='12' label='text'
-                cursor='pointer'
-                size='120' type='circle'
-                renderLabel='true'
-                stroke='red' strokeWidth='2'
+            <Node
+                x1="2"
+                y1="2"
+                x2="4"
+                y2="4"
+                opacity="1"
+                fill="black"
+                fontWeight="bold"
+                fontSize="12"
+                label="text"
+                cursor="pointer"
+                size="120"
+                type="circle"
+                renderLabel="true"
+                stroke="red"
+                strokeWidth="2"
                 onClickNode={that.clickCallback}
                 onMouseOverNode={that.mouseOverCallback}
-                onMouseOut={that.mouseOutCallback}/>
+                onMouseOut={that.mouseOutCallback}
+            />
         );
 
         that.tree = that.node.toJSON();

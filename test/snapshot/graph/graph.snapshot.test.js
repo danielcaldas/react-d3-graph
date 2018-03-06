@@ -30,7 +30,7 @@ describe('Snapshot - Graph Component', () => {
 
     beforeEach(() => {
         that.graph = renderer.create(
-            <Graph id='graphId' data={graphMock} config={that.config} onMouseOverNode={that.mouseOverNodeCallback}/>
+            <Graph id="graphId" data={graphMock} config={that.config} onMouseOverNode={that.mouseOverNodeCallback} />
         );
 
         that.tree = that.graph.toJSON();

@@ -20,10 +20,17 @@
         "lint:src": "node_modules/eslint/bin/eslint.js --config=.eslintrc.js \"src/**/*.js*\"",
         "lint:test": "node_modules/eslint/bin/eslint.js --config=.eslintrc.test.config.js \"test/**/*.test.js\"",
         "lint": "npm run lint:src && npm run lint:test",
+        "precommit": "lint-staged",
         "start": "http-server ./sandbox/ -p 8888 -c-1",
         "test:clean": "jest --no-cache --updateSnapshot --verbose --coverage",
         "test:watch": "jest --verbose --coverage --watchAll",
         "test": "jest --verbose --coverage"
+    },
+    "lint-staged": {
+        "*.{js,json,css,md}": [
+            "prettier --write",
+            "git add"
+        ]
     },
     "dependencies": {
         "d3": "4.10.2",
@@ -55,8 +62,11 @@
         "eslint-plugin-standard": "2.1.1",
         "html-webpack-plugin": "2.30.1",
         "http-server": "0.11.1",
+        "husky": "0.14.3",
         "jest": "21.3.0-beta.8",
+        "lint-staged": "7.0.0",
         "npm-run-all": "4.1.1",
+        "prettier": "1.11.1",
         "react-addons-test-utils": "15.6.0",
         "react-dom": "15.6.1",
         "react-editable-json-tree": "2.1.0",

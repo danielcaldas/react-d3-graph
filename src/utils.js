@@ -28,14 +28,14 @@ function _isPropertyNestedObject(o, k) {
  * @memberof utils
  * @returns {boolean} returns true if o1 and o2 have exactly the same content, or are exactly the same object reference.
  */
-function isDeepEqual(o1, o2, _depth=0) {
+function isDeepEqual(o1, o2, _depth = 0) {
     let diffs = [];
 
     if (_depth === 0 && o1 === o2) {
         return true;
     }
 
-    if (isObjectEmpty(o1) && !isObjectEmpty(o2) || !isObjectEmpty(o1) && isObjectEmpty(o2)) {
+    if ((isObjectEmpty(o1) && !isObjectEmpty(o2)) || (!isObjectEmpty(o1) && isObjectEmpty(o2))) {
         return false;
     }
 
@@ -52,7 +52,7 @@ function isDeepEqual(o1, o2, _depth=0) {
         if (nestedO && _depth < MAX_DEPTH) {
             diffs.push(isDeepEqual(o1[k], o2[k], _depth + 1));
         } else {
-            const r = isObjectEmpty(o1[k]) && isObjectEmpty(o2[k]) || o2.hasOwnProperty(k) && o2[k] === o1[k];
+            const r = (isObjectEmpty(o1[k]) && isObjectEmpty(o2[k])) || (o2.hasOwnProperty(k) && o2[k] === o1[k]);
 
             diffs.push(r);
 
@@ -86,11 +86,11 @@ function isObjectEmpty(o) {
  * @returns {Object} object that is the result of merging o1 and o2, being o2 properties priority overriding
  * existent o1 properties.
  */
-function merge(o1={}, o2={}, _depth=0) {
+function merge(o1 = {}, o2 = {}, _depth = 0) {
     let o = {};
 
     if (Object.keys(o1 || {}).length === 0) {
-        return (o2 && !isObjectEmpty(o2)) ? o2 : {};
+        return o2 && !isObjectEmpty(o2) ? o2 : {};
     }
 
     for (let k of Object.keys(o1)) {
@@ -99,9 +99,8 @@ function merge(o1={}, o2={}, _depth=0) {
         if (nestedO) {
             const r = merge(o1[k], o2[k], _depth + 1);
 
-            o[k] = (o1[k].hasOwnProperty('length') && o2[k].hasOwnProperty('length'))
-                    ? Object.keys(r).map((rk) => r[rk])
-                    : r;
+            o[k] =
+                o1[k].hasOwnProperty('length') && o2[k].hasOwnProperty('length') ? Object.keys(r).map(rk => r[rk]) : r;
         } else {
             o[k] = o2.hasOwnProperty(k) ? o2[k] : o1[k];
         }

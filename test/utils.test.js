@@ -6,31 +6,31 @@ describe('Utils', () => {
 
         beforeEach(() => {
             that.o = {
-                a:1,
-                b:{
-                    c:{ d: [1, 2, {m: 'test'}], e: 'test', f: 12 },
+                a: 1,
+                b: {
+                    c: { d: [1, 2, { m: 'test' }], e: 'test', f: 12 },
                     j: {
                         k: null,
-                        l: 'test',
+                        l: 'test'
                     }
                 }
             };
         });
 
         test('should merge properly: r.a should be 2 and r.b.c.d should true', () => {
-            const r = utils.merge(that.o, { a:2, b: { c: { d: [1, 2, {m: 'override'}] } } });
+            const r = utils.merge(that.o, { a: 2, b: { c: { d: [1, 2, { m: 'override' }] } } });
 
             expect(r.a).toEqual(2);
             expect(r.b.c.e).toEqual('test');
             expect(r.b.c.f).toEqual(12);
-            expect(r.b.c.d).toEqual([1, 2, {m: 'override'}]);
+            expect(r.b.c.d).toEqual([1, 2, { m: 'override' }]);
         });
 
         test('should merge properly: o2 is undefined', () => {
             const r = utils.merge(that.o, undefined);
 
             expect(r.a).toEqual(1);
-            expect(r.b.c.d).toEqual([1, 2, {m: 'test'}]);
+            expect(r.b.c.d).toEqual([1, 2, { m: 'test' }]);
             expect(r.b.c.e).toEqual('test');
             expect(r.b.c.f).toEqual(12);
         });
@@ -39,7 +39,7 @@ describe('Utils', () => {
             const r = utils.merge(null, that.o);
 
             expect(r.a).toEqual(1);
-            expect(r.b.c.d).toEqual([1, 2, {m: 'test'}]);
+            expect(r.b.c.d).toEqual([1, 2, { m: 'test' }]);
             expect(r.b.c.e).toEqual('test');
             expect(r.b.c.f).toEqual(12);
         });
@@ -47,7 +47,7 @@ describe('Utils', () => {
 
     describe('#isObjectEmpty', () => {
         test('should properly check whether the object is empty or not', () => {
-            expect(utils.isObjectEmpty({ a: 1, b: {}})).toEqual(false);
+            expect(utils.isObjectEmpty({ a: 1, b: {} })).toEqual(false);
             expect(utils.isObjectEmpty({ a: 1 })).toEqual(false);
             expect(utils.isObjectEmpty(null)).toEqual(false);
             expect(utils.isObjectEmpty(undefined)).toEqual(false);
@@ -62,7 +62,7 @@ describe('Utils', () => {
 
         beforeEach(() => {
             that.o1 = {
-                a:1,
+                a: 1,
                 b: {
                     c: { d: false, e: 'test', f: 12 },
                     g: 'test',
@@ -75,14 +75,14 @@ describe('Utils', () => {
                             n: {
                                 o: 1
                             },
-                            p: [ { x: 1 }, { y: 2 } ]
+                            p: [{ x: 1 }, { y: 2 }]
                         }
                     }
                 }
             };
 
             that.o2 = {
-                a:1,
+                a: 1,
                 b: {
                     c: { d: false, e: 'test', f: 12 },
                     g: 'test',
@@ -95,7 +95,7 @@ describe('Utils', () => {
                             n: {
                                 o: 1
                             },
-                            p: [ { x: 1 }, { y: 2 } ]
+                            p: [{ x: 1 }, { y: 2 }]
                         }
                     }
                 }
@@ -186,7 +186,7 @@ describe('Utils', () => {
             expect(utils.isDeepEqual(that.o1, that.o2)).toEqual(false);
         });
 
-        test('should return false when o1.b.j.m.p array\'s first object has different x value ', () => {
+        test("should return false when o1.b.j.m.p array's first object has different x value ", () => {
             that.o1.b.j.m.p[0].x = 9000;
             expect(utils.isDeepEqual(that.o1, that.o2)).toEqual(false);
         });
@@ -201,7 +201,7 @@ describe('Utils', () => {
                 b: {
                     j: {
                         k: null,
-                        l: 'test',
+                        l: 'test'
                     }
                 },
                 c: 'test',
