@@ -392,6 +392,7 @@ export default class Graph extends React.Component {
         return (
             <div id={`${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`}>
                 <svg style={svgStyle}>
+                    {this.props.children}
                     <g id={`${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`}>
                         {links}
                         {nodes}
