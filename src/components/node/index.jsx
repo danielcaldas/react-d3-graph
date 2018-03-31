@@ -33,6 +33,7 @@ import nodeHelper from './helper';
  *     size=200
  *     stroke='none'
  *     strokeWidth=1.5
+ *     svg='assets/my-svg.svg'
  *     type='square'
  *     className='node'
  *     onClickNode={onClickNode}
@@ -59,24 +60,12 @@ export default class Node extends React.Component {
     handleOnMouseOutNode = () => this.props.onMouseOut && this.props.onMouseOut(this.props.id);
 
     render() {
-        const gProps = {
-            className: this.props.className,
-            cx: this.props.cx,
-            cy: this.props.cy,
-            id: this.props.id,
-            transform: `translate(${this.props.cx},${this.props.cy})`
-        };
-
-        const pathProps = {
+        const nodeProps = {
             cursor: this.props.cursor,
-            d: nodeHelper.buildSvgSymbol(this.props.size, this.props.type),
-            fill: this.props.fill,
             onClick: this.handleOnClickNode,
             onMouseOut: this.handleOnMouseOutNode,
             onMouseOver: this.handleOnMouseOverNode,
-            opacity: this.props.opacity,
-            stroke: this.props.stroke,
-            strokeWidth: this.props.strokeWidth
+            opacity: this.props.opacity
         };
 
         const textProps = {
@@ -87,10 +76,47 @@ export default class Node extends React.Component {
             opacity: this.props.opacity
         };
 
+        const size = this.props.size;
+        let gtx = this.props.cx;
+        let gty = this.props.cy;
+        let label;
+        let node;
+
+        if (this.props.svg) {
+            const height = size / 10;
+            const width = size / 10;
+            const tx = width / 2;
+            const ty = height / 2;
+            const transform = `translate(${tx},${ty})`;
+
+            label = (<text {...textProps} transform={transform}>{this.props.label}</text>);
+            node = (<image {...nodeProps} href={this.props.svg} width={width} height={height}/>);
+
+            // svg offset transform regarding svg width/height
+            gtx -= tx;
+            gty -= ty;
+        } else {
+            nodeProps.d = nodeHelper.buildSvgSymbol(size, this.props.type);
+            nodeProps.fill = this.props.fill;
+            nodeProps.stroke = this.props.stroke;
+            nodeProps.strokeWidth = this.props.strokeWidth;
+
+            label = (<text {...textProps}>{this.props.label}</text>);
+            node = (<path {...nodeProps} />);
+        }
+
+        const gProps = {
+            className: this.props.className,
+            cx: this.props.cx,
+            cy: this.props.cy,
+            id: this.props.id,
+            transform: `translate(${gtx},${gty})`
+        };
+
         return (
             <g {...gProps}>
-                <path {...pathProps}/>
-                {this.props.renderLabel && <text {...textProps}>{this.props.label}</text>}
+                {node}
+                {this.props.renderLabel && label}
             </g>
         );
     }
