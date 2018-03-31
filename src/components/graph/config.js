@@ -76,7 +76,7 @@
  * @param {number} [node.size=200] - 🔍🔍🔍 defines the size of all nodes.
  * @param {string} [node.strokeColor='none'] - color for the stroke of each node.
  * @param {number} [node.strokeWidth=1.5] - the width of the all node strokes.
- * @param {string} [node.svg=''] - render custom svg for nodes in alternative to **node.symbolType**. This svg can
+ * @param {string} [node.svg=''] - 🔍🔍🔍 render custom svg for nodes in alternative to **node.symbolType**. This svg can
  * be provided as a string to either a remote svg resource or for a local one.
  * @param {string} [node.symbolType='circle'] - 🔍🔍🔍 the <span id='node-symbol-type'>shape</span> of the node.
  * Use the following values under a property **type** inside each node (nodes may have different types, same as colors):
