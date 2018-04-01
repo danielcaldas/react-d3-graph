@@ -59,6 +59,12 @@
  * property for all nodes' labels.
  * @param {string} [node.fontWeight='normal'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control|font-weight}
  * property for all nodes' labels.
+ * @param {string} [node.highlightColor='SAME'] - color for all highlighted nodes (use string 'SAME' if you
+ * want the node to keep its color in highlighted state).
+ * @param {number} [node.highlightFontSize=8] - fontSize in highlighted state.
+ * @param {string} [node.highlightFontWeight='normal'] - fontWeight in highlighted state.
+ * @param {string} [node.highlightStrokeColor='SAME'] - strokeColor in highlighted state.
+ * @param {number} [node.highlightStrokeWidth=1.5] - strokeWidth in highlighted state.
  * @param {string} [node.labelProperty='id'] - this is the node property that will be used in runtime to
  * fetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set
  * node.labelProperty to be **'firstName'**.
@@ -70,6 +76,8 @@
  * @param {number} [node.size=200] - 🔍🔍🔍 defines the size of all nodes.
  * @param {string} [node.strokeColor='none'] - color for the stroke of each node.
  * @param {number} [node.strokeWidth=1.5] - the width of the all node strokes.
+ * @param {string} [node.svg=''] - 🔍🔍🔍 render custom svg for nodes in alternative to **node.symbolType**. This svg can
+ * be provided as a string to either a remote svg resource or for a local one.
  * @param {string} [node.symbolType='circle'] - 🔍🔍🔍 the <span id='node-symbol-type'>shape</span> of the node.
  * Use the following values under a property **type** inside each node (nodes may have different types, same as colors):
  *   - 'circle'
@@ -81,12 +89,6 @@
  *   - 'wye'
  *
  * **[note]** react-d3-graph will map this values to [d3 symbols](https://github.com/d3/d3-shape#symbols)
- * @param {string} [node.highlightColor='SAME'] - color for all highlighted nodes (use string 'SAME' if you
- * want the node to keep its color in highlighted state).
- * @param {number} [node.highlightFontSize=8] - fontSize in highlighted state.
- * @param {string} [node.highlightFontWeight='normal'] - fontWeight in highlighted state.
- * @param {string} [node.highlightStrokeColor='SAME'] - strokeColor in highlighted state.
- * @param {number} [node.highlightStrokeWidth=1.5] - strokeWidth in highlighted state.
  * <br/>
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2>Link level configurations</h2>
@@ -137,6 +139,11 @@ export default {
         color: '#d3d3d3',
         fontSize: 8,
         fontWeight: 'normal',
+        highlightColor: 'SAME',
+        highlightFontSize: 8,
+        highlightFontWeight: 'normal',
+        highlightStrokeColor: 'SAME',
+        highlightStrokeWidth: 1.5,
         labelProperty: 'id',
         mouseCursor: 'pointer',
         opacity: 1,
@@ -144,12 +151,8 @@ export default {
         size: 200,
         strokeColor: 'none',
         strokeWidth: 1.5,
-        symbolType: 'circle',
-        highlightColor: 'SAME',
-        highlightFontSize: 8,
-        highlightFontWeight: 'normal',
-        highlightStrokeColor: 'SAME',
-        highlightStrokeWidth: 1.5
+        svg: '',
+        symbolType: 'circle'
     },
     link: {
         color: '#d3d3d3',

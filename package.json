@@ -22,9 +22,9 @@
         "lint": "npm run lint:src && npm run lint:test",
         "precommit": "lint-staged",
         "start": "http-server ./sandbox/ -p 8888 -c-1",
-        "test:clean": "jest --no-cache --updateSnapshot --verbose --coverage",
-        "test:watch": "jest --verbose --coverage --watchAll",
-        "test": "jest --verbose --coverage"
+        "test:clean": "jest --no-cache --updateSnapshot --verbose --coverage --config jest.config.js",
+        "test:watch": "jest --verbose --coverage --watchAll --config jest.config.js",
+        "test": "jest --verbose --coverage --config jest.config.js"
     },
     "lint-staged": {
         "*.{js,json,css,md}": [

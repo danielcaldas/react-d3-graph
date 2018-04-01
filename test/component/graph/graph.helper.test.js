@@ -24,7 +24,7 @@ describe('Graph Helper', () => {
         let that = {};
 
         beforeEach(() => {
-            const nodeConfig = Object.assign({}, config.node);
+            const nodeConfig = Object.assign({}, config.node, { svg: 'file.svg' });
             const linkConfig = Object.assign({}, config.link);
 
             that = {
@@ -70,6 +70,7 @@ describe('Graph Helper', () => {
                     size: 200,
                     stroke: 'yellow',
                     strokeWidth: 2,
+                    svg: 'file.svg',
                     type: 'circle'
                 });
             });
@@ -110,6 +111,7 @@ describe('Graph Helper', () => {
                         size: 200,
                         stroke: 'none',
                         strokeWidth: 1.5,
+                        svg: 'file.svg',
                         type: 'circle'
                     });
                 });
@@ -149,6 +151,7 @@ describe('Graph Helper', () => {
                         size: 200,
                         stroke: 'none',
                         strokeWidth: 1.5,
+                        svg: 'file.svg',
                         type: 'circle'
                     });
                 });

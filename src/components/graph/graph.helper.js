@@ -293,6 +293,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     const fontSize = highlight ? config.node.highlightFontSize : config.node.fontSize;
     const dx = fontSize * t + nodeSize / 100 + 1.5;
     const strokeWidth = highlight ? config.node.highlightStrokeWidth : config.node.strokeWidth;
+    const svg = node.svg || config.node.svg;
 
     return {
         className: CONST.NODE_CLASS_NAME,
@@ -313,6 +314,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         size: nodeSize * t,
         stroke,
         strokeWidth: strokeWidth * t,
+        svg,
         type: node.symbolType || config.node.symbolType
     };
 }
