@@ -78,6 +78,8 @@
  * @param {number} [node.strokeWidth=1.5] - the width of the all node strokes.
  * @param {string} [node.svg=''] - 🔍🔍🔍 render custom svg for nodes in alternative to **node.symbolType**. This svg can
  * be provided as a string to either a remote svg resource or for a local one.
+ * <br/>
+ * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-custom-svg.gif?raw=true" width="820" height="480"/>
  * @param {string} [node.symbolType='circle'] - 🔍🔍🔍 the <span id='node-symbol-type'>shape</span> of the node.
  * Use the following values under a property **type** inside each node (nodes may have different types, same as colors):
  *   - 'circle'
