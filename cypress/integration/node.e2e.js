@@ -79,4 +79,42 @@ describe('[rd3g-node] node tests', function() {
             });
         });
     });
+
+    describe('when rendering custom svg as node', function() {
+        describe('and svg is provided to specific node at node level', function() {
+            beforeEach(function() {
+                // expand nodes
+                this.sandboxPO.clickJsonTreeNodes();
+                // expand 1st node
+                this.sandboxPO.clickJsonTreeFirstNode();
+                // click (+) add prop to 1st node
+                this.sandboxPO.addJsonTreeFirstNodeProp();
+
+                // prop name be svg
+                cy
+                    .get('[placeholder="Key"]')
+                    .clear()
+                    .type('svg');
+
+                // prop value be './sample.svg' and press ENTER
+                cy
+                    .get('[placeholder="Value"]')
+                    .clear()
+                    .type('./sample.svg{enter}');
+            });
+
+            afterEach(function() {
+                this.sandboxPO.deleteJsonTreeFirstNodeProp();
+                this.sandboxPO.clickJsonTreeNodes();
+            });
+
+            it('target node should be rendered with provided svg', function() {
+                const nodePO = new NodePO(nodes[0]);
+
+                nodePO.getImageHref().should('eq', './sample.svg');
+                nodePO.getImageWidth().should('eq', '20');
+                nodePO.getImageHeight().should('eq', '20');
+            });
+        });
+    });
 });
