@@ -24,8 +24,8 @@ import {
     forceManyBody as d3ForceManyBody
 } from 'd3-force';
 
-import CONST from './const';
-import DEFAULT_CONFIG from './config';
+import CONST from './graph.const';
+import DEFAULT_CONFIG from './graph.config';
 import ERRORS from '../../err';
 
 import utils from '../../utils';

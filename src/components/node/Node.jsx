@@ -1,8 +1,8 @@
 import React from 'react';
 
-import CONST from './const';
+import CONST from './node.const';
 
-import nodeHelper from './helper';
+import nodeHelper from './node.helper';
 
 /**
  * Node component is responsible for encapsulating node render.
