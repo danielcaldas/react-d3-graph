@@ -14,7 +14,7 @@ import {
     symbol as d3Symbol
 } from 'd3-shape';
 
-import CONST from './const';
+import CONST from './node.const';
 
 /**
  * Converts a string that specifies a symbol into a concrete instance

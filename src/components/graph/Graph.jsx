@@ -9,8 +9,8 @@ import {
 } from 'd3-selection';
 import { zoom as d3Zoom } from 'd3-zoom';
 
-import CONST from './const';
-import DEFAULT_CONFIG from './config';
+import CONST from './graph.const';
+import DEFAULT_CONFIG from './graph.config';
 import ERRORS from '../../err';
 
 import * as graphRenderer from './graph.renderer';

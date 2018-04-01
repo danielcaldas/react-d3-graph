@@ -1,6 +1,6 @@
 import * as graphHelper from '../../../src/components/graph/graph.helper';
 
-import config from '../../../src/components/graph/config';
+import config from '../../../src/components/graph/graph.config';
 
 import utils from '../../../src/utils';
 

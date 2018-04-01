@@ -5,10 +5,10 @@
  */
 import React from 'react';
 
-import CONST from './const';
+import CONST from './graph.const';
 
-import Link from '../link/';
-import Node from '../node/';
+import Link from '../link/Link';
+import Node from '../node/Node';
 import {
     buildLinkProps,
     buildNodeProps
