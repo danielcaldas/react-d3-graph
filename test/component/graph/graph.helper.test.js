@@ -70,6 +70,7 @@ describe('Graph Helper', () => {
                     size: 200,
                     stroke: 'yellow',
                     strokeWidth: 2,
+                    svg: '',
                     type: 'circle'
                 });
             });
@@ -110,6 +111,7 @@ describe('Graph Helper', () => {
                         size: 200,
                         stroke: 'none',
                         strokeWidth: 1.5,
+                        svg: '',
                         type: 'circle'
                     });
                 });
@@ -149,6 +151,7 @@ describe('Graph Helper', () => {
                         size: 200,
                         stroke: 'none',
                         strokeWidth: 1.5,
+                        svg: '',
                         type: 'circle'
                     });
                 });
