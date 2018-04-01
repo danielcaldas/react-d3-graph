@@ -1,12 +1,12 @@
 /*global cy*/
 const SANDBOX_URL = Cypress.env('SANDBOX_URL');
 
-const NodePO = require('../common/page-objects/node.po');
-const SandboxPO = require('../common/page-objects/sandbox.po');
-let nodes = require('./../../sandbox/data').nodes.map(({id}) => id);
+const NodePO = require('../page-objects/node.po');
+const SandboxPO = require('../page-objects/sandbox.po');
+let nodes = require('./../../sandbox/data').nodes.map(({ id }) => id);
 
-describe('[rd3g-graph] graph tests', function () {
-    before(function () {
+describe('[rd3g-graph] graph tests', function() {
+    before(function() {
         this.sandboxPO = new SandboxPO();
         // visit sandbox
         cy.visit(SANDBOX_URL);
@@ -16,30 +16,32 @@ describe('[rd3g-graph] graph tests', function () {
         this.sandboxPO.pauseGraph();
     });
 
-    describe('when data is changed', function () {
-        describe('and we change nodes props', function () {
-            beforeEach(function () {
+    describe('when data is changed', function() {
+        describe('and we change nodes props', function() {
+            beforeEach(function() {
                 // expand nodes
                 this.sandboxPO.clickJsonTreeNodes();
                 // expand 1st node
                 this.sandboxPO.clickJsonTreeFirstNode();
             });
 
-            afterEach(function () {
+            afterEach(function() {
                 this.sandboxPO.clickJsonTreeNodes();
             });
 
-            it('nodes props modifications should be reflected in the graph', function () {
+            it('nodes props modifications should be reflected in the graph', function() {
                 // click (+) add prop to 1st node
                 this.sandboxPO.addJsonTreeFirstNodeProp();
 
                 // prop name be color
-                cy.get('[placeholder="Key"]')
+                cy
+                    .get('[placeholder="Key"]')
                     .clear()
                     .type('color');
 
                 // prop value be red and press ENTER
-                cy.get('[placeholder="Value"]')
+                cy
+                    .get('[placeholder="Value"]')
                     .clear()
                     .type('red{enter}');
 
@@ -53,13 +55,13 @@ describe('[rd3g-graph] graph tests', function () {
                 nodePO.getColor().should('eq', '#d3d3d3');
             });
 
-            describe('and staticGraph is toggled on', function () {
-                beforeEach(function () {
+            describe('and staticGraph is toggled on', function() {
+                beforeEach(function() {
                     cy.contains('staticGraph').scrollIntoView();
                     this.sandboxPO.getFieldInput('staticGraph').click();
                 });
 
-                it('nodes props modifications should be reflected in the graph', function () {
+                it('nodes props modifications should be reflected in the graph', function() {
                     cy.get('text').should('have.length', 14);
 
                     this.sandboxPO.addNode();
@@ -72,11 +74,13 @@ describe('[rd3g-graph] graph tests', function () {
                     // click (+) add prop to 1st node
                     this.sandboxPO.addJsonTreeFirstNodeProp();
                     // prop name be color
-                    cy.get('[placeholder="Key"]')
+                    cy
+                        .get('[placeholder="Key"]')
                         .clear()
                         .type('color');
                     // prop value be red and press ENTER
-                    cy.get('[placeholder="Value"]')
+                    cy
+                        .get('[placeholder="Value"]')
                         .clear()
                         .type('red{enter}');
 

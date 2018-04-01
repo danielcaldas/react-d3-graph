@@ -5,7 +5,7 @@
  * @param {string} id the id of the node.
  * @returns {undefined}
  */
-function NodePO (id) {
+function NodePO(id) {
     this.id = id;
     this.path = `#${this.id} > path`;
     this.text = `#${this.id} > text`;
