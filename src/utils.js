@@ -25,8 +25,8 @@ function _isPropertyNestedObject(o, k) {
  * @param  {Object} o1 - one of the objects to be compared.
  * @param  {Object} o2 - second object to compare with first.
  * @param  {number} [_depth=0] - this parameter serves only for internal usage.
- * @memberof utils
  * @returns {boolean} returns true if o1 and o2 have exactly the same content, or are exactly the same object reference.
+ * @memberof utils
  */
 function isDeepEqual(o1, o2, _depth = 0) {
     let diffs = [];
@@ -81,10 +81,10 @@ function isObjectEmpty(o) {
  * if o2 doesn't posses some o1 property the fallback will be the o1 property.
  * @param  {Object} o1 - object.
  * @param  {Object} o2 - object that will override o1 properties.
- * @memberof utils
  * @param  {int} [_depth=0] - the depth at which we are merging the object.
  * @returns {Object} object that is the result of merging o1 and o2, being o2 properties priority overriding
  * existent o1 properties.
+ * @memberof utils
  */
 function merge(o1 = {}, o2 = {}, _depth = 0) {
     let o = {};
@@ -115,6 +115,7 @@ function merge(o1 = {}, o2 = {}, _depth = 0) {
  * @param {Object} o - the object to pick props from.
  * @param {Array.<string>} props - list of props that we want to pick from o.
  * @returns {Object} the object resultant from the picking operation.
+ * @memberof utils
  */
 function pick(o, props) {
     return Object.keys(o).reduce((acc, k) => {

@@ -1,9 +1,9 @@
 # react-d3-graph &middot; [![Build Status](https://travis-ci.org/danielcaldas/react-d3-graph.svg?branch=master&style=flat-square)](https://travis-ci.org/danielcaldas/react-d3-graph)
 
-[![npm version](https://img.shields.io/badge/npm-v1.0.1-blue.svg?longCache=true&style=flat-square)](https://www.npmjs.com/package/react-d3-graph) [![npm stats](https://img.shields.io/badge/downloads-3k-brightgreen.svg?longCache=true&style=flat-square)](https://npm-stat.com/charts.html?package=react-d3-graph&from=2017-04-25) [![probot enabled](https://img.shields.io/badge/probot:stale-enabled-yellow.svg?longCache=true&style=flat-square)](https://probot.github.io/) [![trello](https://img.shields.io/badge/trello-board-blue.svg?longCache=true&style=flat-square)](https://trello.com/b/KrnmFXha/react-d3-graph)
+[![npm version](https://img.shields.io/badge/npm-v1.2.0-blue.svg?longCache=true&style=flat-square)](https://www.npmjs.com/package/react-d3-graph) [![npm stats](https://img.shields.io/badge/downloads-3k-brightgreen.svg?longCache=true&style=flat-square)](https://npm-stat.com/charts.html?package=react-d3-graph&from=2017-04-25) [![probot enabled](https://img.shields.io/badge/probot:stale-enabled-yellow.svg?longCache=true&style=flat-square)](https://probot.github.io/) [![trello](https://img.shields.io/badge/trello-board-blue.svg?longCache=true&style=flat-square)](https://trello.com/b/KrnmFXha/react-d3-graph)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-:book: [1.0.1](https://danielcaldas.github.io/react-d3-graph/docs/index.html)
+:book: [1.2.0](https://danielcaldas.github.io/react-d3-graph/docs/index.html)
 
 ### _Interactive and configurable graphs with react and d3 effortlessly_
 

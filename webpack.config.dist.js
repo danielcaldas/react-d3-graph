@@ -17,7 +17,7 @@ module.exports = {
                 loader: 'babel-loader',
                 options: {
                     presets: ['react', 'es2015', 'stage-0'],
-                    plugins: ['react-html-attrs'],
+                    plugins: ['react-html-attrs']
                 }
             }
         ]
@@ -25,9 +25,5 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx']
     },
-    plugins: [
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin(),
-        new Visualizer({ filename: '../gen-docs/stats.html' })
-    ]
+    plugins: [new Visualizer({ filename: '../gen-docs/stats.html' })]
 };
