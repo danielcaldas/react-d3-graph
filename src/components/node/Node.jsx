@@ -27,6 +27,7 @@ import nodeHelper from './node.helper';
  *     fontSize=10
  *     dx=90
  *     fontWeight='normal'
+ *     fontColor='black'
  *     label='label text'
  *     opacity=1
  *     renderLabel=true
