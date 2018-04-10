@@ -55,11 +55,11 @@
  * @param {string} [node.color='#d3d3d3'] - 🔍🔍🔍 this is the color that will be applied to the node if no **color property**
  * is found inside the node itself (yes **you can pass a property 'color' inside the node and that color will override the
  * this default one**).
+ * @param {string} [node.fontColor='black'] - fill color for node's <text> svg label
  * @param {number} [node.fontSize=10] - {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control|font-size}
  * property for all nodes' labels.
  * @param {string} [node.fontWeight='normal'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control|font-weight}
  * property for all nodes' labels.
- * @param {string} [node.fontWeight='normal'] - fill color for node's <text> svg label
  * @param {string} [node.highlightColor='SAME'] - color for all highlighted nodes (use string 'SAME' if you
  * want the node to keep its color in highlighted state).
  * @param {number} [node.highlightFontSize=8] - fontSize in highlighted state.
@@ -140,9 +140,9 @@ export default {
     width: 800,
     node: {
         color: '#d3d3d3',
+        fontColor: 'black',
         fontSize: 8,
         fontWeight: 'normal',
-        fontColor: 'black',
         highlightColor: 'SAME',
         highlightFontSize: 8,
         highlightFontWeight: 'normal',
