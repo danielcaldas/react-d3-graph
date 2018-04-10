@@ -294,6 +294,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     const dx = fontSize * t + nodeSize / 100 + 1.5;
     const strokeWidth = highlight ? config.node.highlightStrokeWidth : config.node.strokeWidth;
     const svg = node.svg || config.node.svg;
+    const fontColor = config.node.fontColor || 'green';
 
     return {
         className: CONST.NODE_CLASS_NAME,
@@ -302,6 +303,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         cy: (node && node.y) || '0',
         fill,
         fontSize: fontSize * t,
+        fontColor,
         dx,
         fontWeight: highlight ? config.node.highlightFontWeight : config.node.fontWeight,
         id: node.id,

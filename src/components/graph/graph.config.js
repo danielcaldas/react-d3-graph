@@ -59,6 +59,7 @@
  * property for all nodes' labels.
  * @param {string} [node.fontWeight='normal'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control|font-weight}
  * property for all nodes' labels.
+ * @param {string} [node.fontWeight='normal'] - fill color for node's <text> svg label
  * @param {string} [node.highlightColor='SAME'] - color for all highlighted nodes (use string 'SAME' if you
  * want the node to keep its color in highlighted state).
  * @param {number} [node.highlightFontSize=8] - fontSize in highlighted state.
@@ -141,6 +142,7 @@ export default {
         color: '#d3d3d3',
         fontSize: 8,
         fontWeight: 'normal',
+        fontColor: 'black',
         highlightColor: 'SAME',
         highlightFontSize: 8,
         highlightFontWeight: 'normal',
