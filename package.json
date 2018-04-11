@@ -27,7 +27,7 @@
         "test": "jest --verbose --coverage --config jest.config.js"
     },
     "lint-staged": {
-        "*.{js,json,css,md}": [
+        "*.{js,jsx,json,css,md}": [
             "prettier --write",
             "git add"
         ]
