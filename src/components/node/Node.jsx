@@ -72,9 +72,9 @@ export default class Node extends React.Component {
     const textProps = {
       dx: this.props.dx || CONST.NODE_LABEL_DX,
       dy: CONST.NODE_LABEL_DY,
+      fill: this.props.fontColor,
       fontSize: this.props.fontSize,
       fontWeight: this.props.fontWeight,
-      fill: this.props.fontColor,
       opacity: this.props.opacity
     };
 

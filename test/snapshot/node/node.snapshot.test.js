@@ -19,6 +19,7 @@ describe('Snapshot - Node Component', () => {
                 y2="4"
                 opacity="1"
                 fill="black"
+                fontColor="black"
                 fontWeight="bold"
                 fontSize="12"
                 label="text"
