@@ -71,7 +71,6 @@
         "react-dom": "15.6.1",
         "react-editable-json-tree": "2.1.0",
         "react-jsonschema-form": "0.50.1",
-        "react-router-dom": "4.2.2",
         "react-test-renderer": "15.6.1",
         "style-loader": "0.18.2",
         "webpack": "4.2.0",
