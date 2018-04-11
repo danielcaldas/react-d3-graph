@@ -22,6 +22,7 @@ exports[`Snapshot - Node Component should match snapshot 1`] = `
   <text
     dx=".90em"
     dy=".35em"
+    fill="black"
     fontSize="12"
     fontWeight="bold"
     opacity="1"
