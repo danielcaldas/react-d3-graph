@@ -394,6 +394,7 @@ function initializeGraphState({ data, id, config }, state) {
  * @param {string} value - new highlight value for given node.
  * @returns {Object} returns an object containing the updated nodes
  * and the id of the highlighted node.
+ * @memberof Graph/helper
  */
 function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
     const highlightedNode = value ? id : '';

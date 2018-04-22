@@ -1,9 +1,9 @@
 # react-d3-graph &middot; [![Build Status](https://travis-ci.org/danielcaldas/react-d3-graph.svg?branch=master&style=flat-square)](https://travis-ci.org/danielcaldas/react-d3-graph)
 
-[![npm version](https://img.shields.io/badge/npm-v1.2.0-blue.svg?longCache=true&style=flat-square)](https://www.npmjs.com/package/react-d3-graph) [![npm stats](https://img.shields.io/badge/downloads-3k-brightgreen.svg?longCache=true&style=flat-square)](https://npm-stat.com/charts.html?package=react-d3-graph&from=2017-04-25) [![probot enabled](https://img.shields.io/badge/probot:stale-enabled-yellow.svg?longCache=true&style=flat-square)](https://probot.github.io/) [![trello](https://img.shields.io/badge/trello-board-blue.svg?longCache=true&style=flat-square)](https://trello.com/b/KrnmFXha/react-d3-graph)
+[![npm version](https://img.shields.io/badge/npm-v1.2.1-blue.svg?longCache=true&style=flat-square)](https://www.npmjs.com/package/react-d3-graph) [![npm stats](https://img.shields.io/badge/downloads-3k-brightgreen.svg?longCache=true&style=flat-square)](https://npm-stat.com/charts.html?package=react-d3-graph&from=2017-04-25) [![probot enabled](https://img.shields.io/badge/probot:stale-enabled-yellow.svg?longCache=true&style=flat-square)](https://probot.github.io/) [![trello](https://img.shields.io/badge/trello-board-blue.svg?longCache=true&style=flat-square)](https://trello.com/b/KrnmFXha/react-d3-graph)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-:book: [1.2.0](https://danielcaldas.github.io/react-d3-graph/docs/index.html)
+:book: [1.2.1](https://danielcaldas.github.io/react-d3-graph/docs/index.html)
 
 ### _Interactive and configurable graphs with react and d3 effortlessly_
 
@@ -36,59 +36,59 @@ import { Graph } from 'react-d3-graph';
 
 // graph payload (with minimalist structure)
 const data = {
-  nodes: [{ id: 'Harry' }, { id: 'Sally' }, { id: 'Alice' }],
-  links: [{ source: 'Harry', target: 'Sally' }, { source: 'Harry', target: 'Alice' }]
+    nodes: [{ id: 'Harry' }, { id: 'Sally' }, { id: 'Alice' }],
+    links: [{ source: 'Harry', target: 'Sally' }, { source: 'Harry', target: 'Alice' }]
 };
 
 // the graph configuration, you only need to pass down properties
 // that you want to override, otherwise default ones will be used
 const myConfig = {
-  nodeHighlightBehavior: true,
-  node: {
-    color: 'lightgreen',
-    size: 120,
-    highlightStrokeColor: 'blue'
-  },
-  link: {
-    highlightColor: 'lightblue'
-  }
+    nodeHighlightBehavior: true,
+    node: {
+        color: 'lightgreen',
+        size: 120,
+        highlightStrokeColor: 'blue'
+    },
+    link: {
+        highlightColor: 'lightblue'
+    }
 };
 
 // graph event callbacks
 const onClickNode = function(nodeId) {
-  window.alert('Clicked node ${nodeId}');
+    window.alert('Clicked node ${nodeId}');
 };
 
 const onMouseOverNode = function(nodeId) {
-  window.alert(`Mouse over node ${nodeId}`);
+    window.alert(`Mouse over node ${nodeId}`);
 };
 
 const onMouseOutNode = function(nodeId) {
-  window.alert(`Mouse out node ${nodeId}`);
+    window.alert(`Mouse out node ${nodeId}`);
 };
 
 const onClickLink = function(source, target) {
-  window.alert(`Clicked link between ${source} and ${target}`);
+    window.alert(`Clicked link between ${source} and ${target}`);
 };
 
 const onMouseOverLink = function(source, target) {
-  window.alert(`Mouse over in link between ${source} and ${target}`);
+    window.alert(`Mouse over in link between ${source} and ${target}`);
 };
 
 const onMouseOutLink = function(source, target) {
-  window.alert(`Mouse out link between ${source} and ${target}`);
+    window.alert(`Mouse out link between ${source} and ${target}`);
 };
 
 <Graph
-  id="graph-id" // id is mandatory, if no id is defined rd3g will throw an error
-  data={data}
-  config={myConfig}
-  onClickNode={onClickNode}
-  onClickLink={onClickLink}
-  onMouseOverNode={onMouseOverNode}
-  onMouseOutNode={onMouseOutNode}
-  onMouseOverLink={onMouseOverLink}
-  onMouseOutLink={onMouseOutLink}
+    id="graph-id" // id is mandatory, if no id is defined rd3g will throw an error
+    data={data}
+    config={myConfig}
+    onClickNode={onClickNode}
+    onClickLink={onClickLink}
+    onMouseOverNode={onMouseOverNode}
+    onMouseOutNode={onMouseOutNode}
+    onMouseOverLink={onMouseOverLink}
+    onMouseOutLink={onMouseOutLink}
 />;
 ```
 
