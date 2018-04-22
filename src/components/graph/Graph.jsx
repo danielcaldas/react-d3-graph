@@ -2,11 +2,7 @@ import React from 'react';
 
 import { drag as d3Drag } from 'd3-drag';
 import { forceLink as d3ForceLink } from 'd3-force';
-import {
-    select as d3Select,
-    selectAll as d3SelectAll,
-    event as d3Event
-} from 'd3-selection';
+import { select as d3Select, selectAll as d3SelectAll, event as d3Event } from 'd3-selection';
 import { zoom as d3Zoom } from 'd3-zoom';
 
 import CONST from './graph.const';
@@ -104,27 +100,30 @@ export default class Graph extends React.Component {
         this.state.simulation.nodes(this.state.d3Nodes).on('tick', this._tick);
 
         const forceLink = d3ForceLink(this.state.d3Links)
-                            .id(l => l.id)
-                            .distance(D3_CONST.LINK_IDEAL_DISTANCE)
-                            .strength(D3_CONST.FORCE_LINK_STRENGTH);
+            .id(l => l.id)
+            .distance(D3_CONST.LINK_IDEAL_DISTANCE)
+            .strength(D3_CONST.FORCE_LINK_STRENGTH);
 
         this.state.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
 
         const customNodeDrag = d3Drag()
-                                .on('start', this._onDragStart)
-                                .on('drag', this._onDragMove)
-                                .on('end', this._onDragEnd);
+            .on('start', this._onDragStart)
+            .on('drag', this._onDragMove)
+            .on('end', this._onDragEnd);
 
-        d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).selectAll('.node').call(customNodeDrag);
+        d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`)
+            .selectAll('.node')
+            .call(customNodeDrag);
     }
 
     /**
      * Handles d3 drag 'end' event.
      * @returns {undefined}
      */
-    _onDragEnd = () => !this.state.config.staticGraph
-                        && this.state.config.automaticRearrangeAfterDropNode
-                        && this.state.simulation.alphaTarget(D3_CONST.SIMULATION_ALPHA_TARGET).restart();
+    _onDragEnd = () =>
+        !this.state.config.staticGraph &&
+        this.state.config.automaticRearrangeAfterDropNode &&
+        this.state.simulation.alphaTarget(D3_CONST.SIMULATION_ALPHA_TARGET).restart();
 
     /**
      * Handles d3 'drag' event.
@@ -151,7 +150,7 @@ export default class Graph extends React.Component {
 
             this._tick();
         }
-    }
+    };
 
     /**
      * Handles d3 drag 'start' event.
@@ -165,19 +164,10 @@ export default class Graph extends React.Component {
      * @param  {boolean} [value=false] - the highlight value to be set (true or false).
      * @returns {undefined}
      */
-    _setNodeHighlightedValue = (id, value=false) => {
-        this.state.highlightedNode = value ? id : '';
-        this.state.nodes[id].highlighted = value;
-
-        // when highlightDegree is 0 we want only to highlight selected node
-        if (this.state.links[id] && this.state.config.highlightDegree !== 0) {
-            Object.keys(this.state.links[id]).forEach(k => {
-                this.state.nodes[k].highlighted = value;
-            });
-        }
-
-        this._tick();
-    }
+    _setNodeHighlightedValue = (id, value = false) =>
+        this._tick(
+            graphHelper.updateNodeHighlightedValue(this.state.nodes, this.state.links, this.state.config, id, value)
+        );
 
     /**
      * The tick function simply calls React set state in order to update component and render nodes
@@ -185,16 +175,19 @@ export default class Graph extends React.Component {
      * @param {Object} state - new state to pass on.
      * @returns {undefined}
      */
-    _tick = (state={}) => this.setState(state);
+    _tick = (state = {}) => this.setState(state);
 
     /**
      * Configures zoom upon graph with default or user provided values.<br/>
      * {@link https://github.com/d3/d3-zoom#zoom}
      * @returns {undefined}
      */
-    _zoomConfig = () => d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`)
-                            .call(d3Zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
-                            .on('zoom', this._zoomed));
+    _zoomConfig = () =>
+        d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).call(
+            d3Zoom()
+                .scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
+                .on('zoom', this._zoomed)
+        );
 
     /**
      * Handler for 'zoom' event within zoom config.
@@ -206,29 +199,29 @@ export default class Graph extends React.Component {
         d3SelectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr('transform', transform);
 
         this.state.config.panAndZoom && this.setState({ transform: transform.k });
-    }
+    };
 
     /**
      * Handles mouse over node event.
      * @param  {string} id - id of the node that participates in the event.
      * @returns {undefined}
      */
-    onMouseOverNode = (id) => {
+    onMouseOverNode = id => {
         this.props.onMouseOverNode && this.props.onMouseOverNode(id);
 
         this.state.config.nodeHighlightBehavior && this._setNodeHighlightedValue(id, true);
-    }
+    };
 
     /**
      * Handles mouse out node event.
      * @param  {string} id - id of the node that participates in the event.
      * @returns {undefined}
      */
-    onMouseOutNode = (id) => {
+    onMouseOutNode = id => {
         this.props.onMouseOutNode && this.props.onMouseOutNode(id);
 
         this.state.config.nodeHighlightBehavior && this._setNodeHighlightedValue(id, false);
-    }
+    };
 
     /**
      * Handles mouse over link event.
@@ -244,7 +237,7 @@ export default class Graph extends React.Component {
 
             this._tick();
         }
-    }
+    };
 
     /**
      * Handles mouse out link event.
@@ -260,13 +253,13 @@ export default class Graph extends React.Component {
 
             this._tick();
         }
-    }
+    };
 
     /**
-    * Calls d3 simulation.stop().<br/>
-    * {@link https://github.com/d3/d3-force#simulation_stop}
-    * @returns {undefined}
-    */
+     * Calls d3 simulation.stop().<br/>
+     * {@link https://github.com/d3/d3-force#simulation_stop}
+     * @returns {undefined}
+     */
     pauseSimulation = () => this.state.simulation.stop();
 
     /**
@@ -290,7 +283,7 @@ export default class Graph extends React.Component {
 
             this._tick();
         }
-    }
+    };
 
     /**
      * Calls d3 simulation.restart().<br/>
@@ -310,14 +303,15 @@ export default class Graph extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const newGraphElements = nextProps.data.nodes.length !== this.state.nodesInputSnapshot.length
-                                || nextProps.data.links.length !== this.state.linksInputSnapshot.length
-                                || !utils.isDeepEqual(nextProps.data, {
-                                    nodes: this.state.nodesInputSnapshot,
-                                    links: this.state.linksInputSnapshot,
-                                });
-        const configUpdated = !utils.isObjectEmpty(nextProps.config)
-                            && !utils.isDeepEqual(nextProps.config, this.state.config);
+        const newGraphElements =
+            nextProps.data.nodes.length !== this.state.nodesInputSnapshot.length ||
+            nextProps.data.links.length !== this.state.linksInputSnapshot.length ||
+            !utils.isDeepEqual(nextProps.data, {
+                nodes: this.state.nodesInputSnapshot,
+                links: this.state.linksInputSnapshot
+            });
+        const configUpdated =
+            !utils.isObjectEmpty(nextProps.config) && !utils.isDeepEqual(nextProps.config, this.state.config);
         const state = newGraphElements ? graphHelper.initializeGraphState(nextProps, this.state) : this.state;
         const config = configUpdated ? utils.merge(DEFAULT_CONFIG, nextProps.config || {}) : this.state.config;
 

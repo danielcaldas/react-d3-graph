@@ -10,7 +10,7 @@ import defaultConfig from '../src/components/graph/graph.config';
 import { Graph } from '../src';
 import data from './data';
 import Utils from './utils';
-import ReactD3GraphUtils from  '../src/utils';
+import ReactD3GraphUtils from '../src/utils';
 import { JsonTree } from 'react-editable-json-tree';
 
 /**
@@ -21,7 +21,10 @@ export default class Sandbox extends React.Component {
     constructor(props) {
         super(props);
 
-        const schemaProps = Utils.generateFormSchema(defaultConfig, '', {});
+        // NOTE: Override initial configs here. e.g: { staticGraph: true }
+        const configOverride = {};
+
+        const schemaProps = Utils.generateFormSchema(Object.assign(defaultConfig, configOverride), '', {});
 
         const schema = {
             type: 'object',
@@ -29,14 +32,14 @@ export default class Sandbox extends React.Component {
         };
 
         const uiSchema = {
-            height: {'ui:readonly': 'true'},
-            width: {'ui:readonly': 'true'}
+            height: { 'ui:readonly': 'true' },
+            width: { 'ui:readonly': 'true' }
         };
 
         this.uiSchema = uiSchema;
 
         this.state = {
-            config: {}, // NOTE: Override initial configs here. e.g: {staticGraph: true}
+            config: {},
             generatedConfig: {},
             schema,
             data,
@@ -44,15 +47,15 @@ export default class Sandbox extends React.Component {
         };
     }
 
-    onClickNode = (id) => window.alert(`Clicked node ${id}`);
+    onClickNode = id => window.alert(`Clicked node ${id}`);
 
     onClickLink = (source, target) => window.alert(`Clicked link between ${source} and ${target}`);
 
-    onMouseOverNode = (id) => console.info(`Do something when mouse is over node (${id})`);
+    onMouseOverNode = id => console.info(`Do something when mouse is over node (${id})`);
 
-    onMouseOutNode = (id) => console.info(`Do something when mouse is out of node (${id})`);
+    onMouseOutNode = id => console.info(`Do something when mouse is out of node (${id})`);
 
-    onMouseOverLink = (source, target) => 
+    onMouseOverLink = (source, target) =>
         console.info(`Do something when mouse is over link between ${source} and ${target}`);
 
     onMouseOutLink = (source, target) =>
@@ -65,7 +68,7 @@ export default class Sandbox extends React.Component {
         const fullscreen = !this.state.fullscreen;
 
         this.setState({ fullscreen });
-    }
+    };
 
     /**
      * Play stopped animations.
@@ -94,7 +97,7 @@ export default class Sandbox extends React.Component {
             let nLinks = Math.floor(Math.random() * (5 - minIndex + 1) + minIndex);
             const newNode = `Node ${this.state.data.nodes.length}`;
 
-            this.state.data.nodes.push({id: newNode});
+            this.state.data.nodes.push({ id: newNode });
 
             while (this.state.data.nodes[i] && this.state.data.nodes[i].id && nLinks) {
                 this.state.data.links.push({
@@ -112,15 +115,13 @@ export default class Sandbox extends React.Component {
         } else {
             // 1st node
             const data = {
-                nodes: [
-                    {id: 'Node 1'}
-                ],
+                nodes: [{ id: 'Node 1' }],
                 links: []
             };
 
             this.setState({ data });
         }
-    }
+    };
 
     /**
      * Remove a node.
@@ -137,9 +138,9 @@ export default class Sandbox extends React.Component {
         } else {
             window.alert('No more nodes to remove!');
         }
-    }
+    };
 
-    _buildGraphConfig = (data) => {
+    _buildGraphConfig = data => {
         let config = {};
         let schemaPropsValues = {};
 
@@ -151,32 +152,32 @@ export default class Sandbox extends React.Component {
             schemaPropsValues[k]['default'] = data.formData[k];
         }
 
-        return {config, schemaPropsValues};
-    }
+        return { config, schemaPropsValues };
+    };
 
-    refreshGraph = (data) => {
-        const {config, schemaPropsValues} = this._buildGraphConfig(data);
+    refreshGraph = data => {
+        const { config, schemaPropsValues } = this._buildGraphConfig(data);
 
         this.state.schema.properties = ReactD3GraphUtils.merge(this.state.schema.properties, schemaPropsValues);
 
         this.setState({
             config
         });
-    }
+    };
 
     /**
      * Generate graph configuration file ready to use!
      */
-    onSubmit = (data) => {
+    onSubmit = data => {
         const { config } = this._buildGraphConfig(data);
 
         this.setState({ generatedConfig: config });
-    }
+    };
 
     onClickSubmit = () => {
         // Hack for allow submit button to live outside jsonform
         document.body.querySelector('.invisible-button').click();
-    }
+    };
 
     resetGraphConfig = () => {
         const generatedConfig = {};
@@ -193,7 +194,7 @@ export default class Sandbox extends React.Component {
             generatedConfig,
             schema
         });
-    }
+    };
 
     /**
      * This function decorates nodes and links with positions. The motivation
@@ -202,21 +203,21 @@ export default class Sandbox extends React.Component {
      * @param  {Object} nodes nodes and links with minimalist structure.
      * @return {Object} the graph where now nodes containing (x,y) coords.
      */
-    decorateGraphNodesWithInitialPositioning = (nodes) => {
-        return nodes.map(n => (
+    decorateGraphNodesWithInitialPositioning = nodes => {
+        return nodes.map(n =>
             Object.assign({}, n, {
                 x: n.x || Math.floor(Math.random() * 500),
                 y: n.y || Math.floor(Math.random() * 500)
             })
-        ));
-    }
+        );
+    };
 
     /**
      * Update graph data each time an update is triggered
      * by JsonTree
      * @param {Object} data update graph data (nodes and links)
      */
-    onGraphDataUpdate = (data) => this.setState({ data });
+    onGraphDataUpdate = data => this.setState({ data });
 
     /**
      * Build common piece of the interface that contains some interactions such as
@@ -227,25 +228,55 @@ export default class Sandbox extends React.Component {
             cursor: this.state.config.staticGraph ? 'not-allowed' : 'pointer'
         };
 
-        const fullscreen = this.state.fullscreen ?
-            (<span className='cross-icon' onClick={this.onToggleFullScreen}>❌</span>)
-            : (<button onClick={this.onToggleFullScreen}
-                className='btn btn-default btn-margin-left'>Fullscreen</button>);
+        const fullscreen = this.state.fullscreen ? (
+            <span className="cross-icon" onClick={this.onToggleFullScreen}>
+                ❌
+            </span>
+        ) : (
+            <button onClick={this.onToggleFullScreen} className="btn btn-default btn-margin-left">
+                Fullscreen
+            </button>
+        );
 
         return (
             <div>
                 {fullscreen}
-                <button onClick={this.restartGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>▶️</button>
-                <button onClick={this.pauseGraphSimulation} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>⏸️</button>
-                <button onClick={this.resetNodesPositions} className='btn btn-default btn-margin-left' style={btnStyle} disabled={this.state.config.staticGraph}>Unstick nodes</button>
-                <button onClick={this.onClickAddNode} className='btn btn-default btn-margin-left'>+</button>
-                <button onClick={this.onClickRemoveNode} className='btn btn-default btn-margin-left'>-</button>
-                <span className='container__graph-info'>
+                <button
+                    onClick={this.restartGraphSimulation}
+                    className="btn btn-default btn-margin-left"
+                    style={btnStyle}
+                    disabled={this.state.config.staticGraph}
+                >
+                    ▶️
+                </button>
+                <button
+                    onClick={this.pauseGraphSimulation}
+                    className="btn btn-default btn-margin-left"
+                    style={btnStyle}
+                    disabled={this.state.config.staticGraph}
+                >
+                    ⏸️
+                </button>
+                <button
+                    onClick={this.resetNodesPositions}
+                    className="btn btn-default btn-margin-left"
+                    style={btnStyle}
+                    disabled={this.state.config.staticGraph}
+                >
+                    Unstick nodes
+                </button>
+                <button onClick={this.onClickAddNode} className="btn btn-default btn-margin-left">
+                    +
+                </button>
+                <button onClick={this.onClickRemoveNode} className="btn btn-default btn-margin-left">
+                    -
+                </button>
+                <span className="container__graph-info">
                     <b>Nodes: </b> {this.state.data.nodes.length} | <b>Links: </b> {this.state.data.links.length}
                 </span>
             </div>
         );
-    }
+    };
 
     render() {
         // This does not happens in this sandbox scenario running time, but if we set staticGraph config
@@ -270,51 +301,63 @@ export default class Sandbox extends React.Component {
         if (this.state.fullscreen) {
             graphProps.config = Object.assign({}, graphProps.config, {
                 height: window.innerHeight,
-                width: window.innerWidth,
+                width: window.innerWidth
             });
 
             return (
                 <div>
                     {this.buildCommonInteractionsPanel()}
-                    <Graph ref='graph' {...graphProps}/>
+                    <Graph ref="graph" {...graphProps} />
                 </div>
             );
         } else {
             // @TODO: Only show configs that differ from default ones in "Your config" box
             return (
-                <div className='container'>
-                    <div className='container__graph'>
+                <div className="container">
+                    <div className="container__graph">
                         {this.buildCommonInteractionsPanel()}
-                        <div className='container__graph-area'>
-                            <Graph ref='graph' {...graphProps}/>
+                        <div className="container__graph-area">
+                            <Graph ref="graph" {...graphProps} />
                         </div>
                     </div>
-                    <div className='container__form'>
+                    <div className="container__form">
                         <h4>
-                            <a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">react-d3-graph</a>
+                            <a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">
+                                react-d3-graph
+                            </a>
                         </h4>
                         <h4>
-                            <a href="https://danielcaldas.github.io/react-d3-graph/docs/index.html" target="_blank">docs</a>
+                            <a href="https://danielcaldas.github.io/react-d3-graph/docs/index.html" target="_blank">
+                                docs
+                            </a>
                         </h4>
                         <h3>Configurations</h3>
-                        <Form className='form-wrapper'
+                        <Form
+                            className="form-wrapper"
                             schema={this.state.schema}
                             uiSchema={this.uiSchema}
                             onChange={this.refreshGraph}
-                            onSubmit={this.onSubmit}>
-                            <button className='invisible-button' type='submit'></button>
+                            onSubmit={this.onSubmit}
+                        >
+                            <button className="invisible-button" type="submit" />
                         </Form>
-                        <button className='submit-button btn btn-primary' onClick={this.onClickSubmit}>Generate config</button>
-                        <button className='reset-button btn btn-danger' onClick={this.resetGraphConfig}>Reset config</button>
+                        <button className="submit-button btn btn-primary" onClick={this.onClickSubmit}>
+                            Generate config
+                        </button>
+                        <button className="reset-button btn btn-danger" onClick={this.resetGraphConfig}>
+                            Reset config
+                        </button>
                     </div>
-                    <div className='container__graph-config'>
+                    <div className="container__graph-config">
                         <h4>Your config</h4>
                         <JSONContainer data={this.state.generatedConfig} staticData={false} />
                     </div>
-                    <div className='container__graph-data'>
-                        <h4>Graph Data <small>(editable)</small></h4>
-                        <div className='json-data-container'>
-                            <JsonTree data={this.state.data} onFullyUpdate={this.onGraphDataUpdate}/>
+                    <div className="container__graph-data">
+                        <h4>
+                            Graph Data <small>(editable)</small>
+                        </h4>
+                        <div className="json-data-container">
+                            <JsonTree data={this.state.data} onFullyUpdate={this.onGraphDataUpdate} />
                         </div>
                     </div>
                 </div>
@@ -329,8 +372,6 @@ class JSONContainer extends React.Component {
     }
 
     render() {
-        return (
-            <pre className='json-data-container'>{JSON.stringify(this.props.data, null, 2)}</pre>
-        );
+        return <pre className="json-data-container">{JSON.stringify(this.props.data, null, 2)}</pre>;
     }
 }

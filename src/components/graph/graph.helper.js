@@ -12,9 +12,11 @@
 /**
  * @typedef {Object} Node
  * @property {string} id - the id of the node.
- * @property {string} [color] - color of the node (optional).
- * @property {string} [size] - size of the node (optional).
- * @property {string} [symbolType] - symbol type of the node (optional).
+ * @property {string} [color=] - color of the node (optional).
+ * @property {string} [fontColor=] - node text label font color (optional).
+ * @property {string} [size=] - size of the node (optional).
+ * @property {string} [symbolType=] - symbol type of the node (optional).
+ * @property {string} [svg=] - custom svg for node (optional).
  * @memberof Graph/helper
  */
 import {
@@ -383,4 +385,34 @@ function initializeGraphState({ data, id, config }, state) {
     };
 }
 
-export { buildLinkProps, buildNodeProps, initializeGraphState };
+/**
+ * This function updates the highlighted value for a given node and also updates highlight props.
+ * @param {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
+ * @param {Object.<string, Object>} links - an object containing a matrix of connections of the graph.
+ * @param {Object} config - an object containing rd3g consumer defined configurations {@link #config config} for the graph.
+ * @param {string} id - identifier of node to update.
+ * @param {string} value - new highlight value for given node.
+ * @returns {Object} returns an object containing the updated nodes
+ * and the id of the highlighted node.
+ */
+function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
+    const highlightedNode = value ? id : '';
+    const node = Object.assign({}, nodes[id], { highlighted: value });
+    let updatedNodes = Object.assign({}, nodes, { [id]: node });
+
+    // when highlightDegree is 0 we want only to highlight selected node
+    if (links[id] && config.highlightDegree !== 0) {
+        updatedNodes = Object.keys(links[id]).reduce((acc, linkId) => {
+            const updatedNode = Object.assign({}, updatedNodes[linkId], { highlighted: value });
+
+            return Object.assign(acc, { [linkId]: updatedNode });
+        }, updatedNodes);
+    }
+
+    return {
+        nodes: updatedNodes,
+        highlightedNode
+    };
+}
+
+export { buildLinkProps, buildNodeProps, initializeGraphState, updateNodeHighlightedValue };
