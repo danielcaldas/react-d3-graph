@@ -12,9 +12,11 @@
 /**
  * @typedef {Object} Node
  * @property {string} id - the id of the node.
- * @property {string} [color] - color of the node (optional).
- * @property {string} [size] - size of the node (optional).
- * @property {string} [symbolType] - symbol type of the node (optional).
+ * @property {string} [color=] - color of the node (optional).
+ * @property {string} [fontColor=] - node text label font color (optional).
+ * @property {string} [size=] - size of the node (optional).
+ * @property {string} [symbolType=] - symbol type of the node (optional).
+ * @property {string} [svg=] - custom svg for node (optional).
  * @memberof Graph/helper
  */
 import {
