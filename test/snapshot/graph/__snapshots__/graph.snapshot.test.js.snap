@@ -61,6 +61,91 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
+        x1="30"
+        x2="305"
+        y1="184"
+        y2="745"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
+        x1="200"
+        x2="305"
+        y1="300"
+        y2="745"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
+        x1="120"
+        x2="305"
+        y1="270"
+        y2="745"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
+        x1="20"
+        x2="305"
+        y1="110"
+        y2="745"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
+        x1="190"
+        x2="305"
+        y1="609"
+        y2="745"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
         x1="40"
         x2="101"
         y1="200"
@@ -95,163 +180,10 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="40"
+        x1="404"
         x2="14"
-        y1="200"
-        y2="250"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="40"
-        x2="200"
-        y1="200"
-        y2="300"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="140"
-        x2="40"
-        y1="20"
-        y2="200"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="20"
-        x2="40"
-        y1="110"
-        y2="200"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="20"
-        x2="305"
-        y1="110"
-        y2="745"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="30"
-        x2="305"
-        y1="184"
-        y2="745"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="30"
-        x2="190"
-        y1="184"
-        y2="609"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="305"
-        x2="30"
-        y1="745"
-        y2="184"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="305"
-        x2="200"
-        y1="745"
-        y2="300"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="305"
-        x2="120"
-        y1="745"
-        y2="270"
+        y1="404"
+        y2="30"
       />
       <line
         className="link"
@@ -282,180 +214,10 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="305"
-        x2="190"
-        y1="745"
-        y2="609"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="200"
-        x2="305"
-        y1="300"
-        y2="745"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="200"
-        x2="40"
-        y1="300"
-        y2="200"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="120"
-        x2="305"
-        y1="270"
-        y2="745"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="120"
+        x1="40"
         x2="14"
-        y1="270"
-        y2="20"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="190"
-        x2="305"
-        y1="609"
-        y2="745"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="190"
-        x2="30"
-        y1="609"
-        y2="184"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="190"
-        x2="14"
-        y1="609"
-        y2="259"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="190"
-        x2="409"
-        y1="609"
-        y2="500"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="101"
-        x2="40"
-        y1="201"
-        y2="200"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="2"
-        x2="40"
         y1="200"
-        y2="200"
+        y2="250"
       />
       <line
         className="link"
@@ -469,44 +231,10 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="404"
-        x2="14"
-        y1="404"
-        y2="30"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="14"
-        x2="404"
-        y1="30"
-        y2="404"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="14"
-        x2="40"
-        y1="250"
-        y2="200"
+        x1="30"
+        x2="190"
+        y1="184"
+        y2="609"
       />
       <line
         className="link"
@@ -524,23 +252,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         x2="190"
         y1="259"
         y2="609"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="14"
-        x2="520"
-        y1="259"
-        y2="123"
       />
       <line
         className="link"
@@ -588,10 +299,95 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
+        x1="190"
+        x2="14"
+        y1="609"
+        y2="259"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
+        x1="305"
+        x2="120"
+        y1="745"
+        y2="270"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
         x1="14"
         x2="120"
         y1="20"
         y2="270"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
+        x1="305"
+        x2="200"
+        y1="745"
+        y2="300"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
+        x1="40"
+        x2="200"
+        y1="200"
+        y2="300"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
+        x1="200"
+        x2="40"
+        y1="300"
+        y2="200"
       />
       <line
         className="link"
@@ -623,43 +419,77 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           }
         }
         x1="90"
-        x2="20"
-        y1="90"
-        y2="1"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="90"
-        x2="90"
-        y1="90"
-        y2="656"
-      />
-      <line
-        className="link"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
-          }
-        }
-        x1="90"
         x2="90"
         y1="656"
         y2="90"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
+        x1="190"
+        x2="30"
+        y1="609"
+        y2="184"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
+        x1="305"
+        x2="30"
+        y1="745"
+        y2="184"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
+        x1="190"
+        x2="409"
+        y1="609"
+        y2="500"
+      />
+      <line
+        className="link"
+        onClick={[Function]}
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+            "stroke": "#d3d3d3",
+            "strokeWidth": 1.5,
+          }
+        }
+        x1="120"
+        x2="14"
+        y1="270"
+        y2="20"
       />
       <g
         className="node"
