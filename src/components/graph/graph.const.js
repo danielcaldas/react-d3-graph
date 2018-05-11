@@ -2,7 +2,7 @@ import CONST from '../../const';
 
 export default {
     COORDS_SEPARATOR: ',',
-    FORCE_IDEAL_STRENGTH: -100, // @TODO: Expose as configurable,
+    FORCE_IDEAL_STRENGTH: -100, // TODO: Expose as configurable,
     FORCE_X: 0.06,
     FORCE_Y: 0.06,
     GRAPH_CONTAINER_ID: 'graph-container-zoomable',

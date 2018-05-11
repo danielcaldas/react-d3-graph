@@ -107,7 +107,7 @@ function _initializeLinks(graphLinks) {
             links[target] = {};
         }
 
-        // @TODO: If the graph is directed this should be adapted
+        // TODO: If the graph is directed this should be adapted
         links[source][target] = links[target][source] = l.value || 1;
 
         return links;
