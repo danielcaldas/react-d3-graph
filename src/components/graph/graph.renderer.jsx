@@ -48,6 +48,27 @@ function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlight
 }
 
 /**
+ * Function that builds Node components.
+ * @param  {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
+ * @param  {Function[]} nodeCallbacks - array of callbacks for used defined event handler for node interactions.
+ * @param  {Object} config - an object containing rd3g consumer defined configurations {@link #config config} for the graph.
+ * @param  {string} highlightedNode - this value contains a string that represents the some currently highlighted node.
+ * @param  {Object} highlightedLink - this object contains a source and target property for a link that is highlighted at some point in time.
+ * @param  {string} highlightedLink.source - id of source node for highlighted link.
+ * @param  {string} highlightedLink.target - id of target node for highlighted link.
+ * @param  {number} transform - value that indicates the amount of zoom transformation.
+ * @returns {Object} returns the generated array of nodes components
+ * @memberof Graph/helper
+ */
+function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform) {
+    return Object.keys(nodes).map(nodeId => {
+        const props = buildNodeProps(nodes[nodeId], config, nodeCallbacks, highlightedNode, highlightedLink, transform);
+
+        return <Node key={nodeId} {...props} />;
+    });
+}
+
+/**
  * Method that actually is exported an consumed by Graph component in order to build all Nodes and Link
  * components.
  * @param  {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
@@ -100,31 +121,18 @@ function buildGraph(
     highlightedLink,
     transform
 ) {
-    let linksComponents = [];
-    let nodesComponents = [];
-
-    for (let i = 0, keys = Object.keys(nodes), n = keys.length; i < n; i++) {
-        const nodeId = keys[i];
-
-        const props = buildNodeProps(nodes[nodeId], config, nodeCallbacks, highlightedNode, highlightedLink, transform);
-
-        nodesComponents.push(<Node key={nodeId} {...props} />);
-    }
-
-    linksComponents = _buildLinks(
-        nodes,
-        links,
-        linksMatrix,
-        config,
-        linkCallbacks,
-        highlightedNode,
-        highlightedLink,
-        transform
-    );
-
     return {
-        nodes: nodesComponents,
-        links: linksComponents
+        nodes: _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform),
+        links: _buildLinks(
+            nodes,
+            links,
+            linksMatrix,
+            config,
+            linkCallbacks,
+            highlightedNode,
+            highlightedLink,
+            transform
+        )
     };
 }
 
