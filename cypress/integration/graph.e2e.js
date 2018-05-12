@@ -63,6 +63,7 @@ describe('[rd3g-graph] graph tests', function() {
 
                 it('nodes props modifications should be reflected in the graph', function() {
                     cy.get('text').should('have.length', 14);
+                    cy.get('line').should('be.visible');
 
                     this.sandboxPO.addNode();
                     this.sandboxPO.addNode();
@@ -102,6 +103,7 @@ describe('[rd3g-graph] graph tests', function() {
                     this.sandboxPO.removeNode();
 
                     cy.get('text').should('have.length', 14);
+                    cy.get('line').should('be.visible');
                 });
             });
         });
