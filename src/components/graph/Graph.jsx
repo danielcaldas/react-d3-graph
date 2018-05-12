@@ -366,6 +366,7 @@ export default class Graph extends React.Component {
                 onMouseOverNode: this.onMouseOverNode,
                 onMouseOut: this.onMouseOutNode
             },
+            this.state.d3Links,
             this.state.links,
             {
                 onClickLink: this.props.onClickLink,
