@@ -17,6 +17,10 @@ const sandboxData = utils.loadDataset();
 /**
  * This is a sample integration of react-d3-graph, in this particular case all the rd3g config properties
  * will be exposed in a form in order to allow on the fly graph configuration.
+ * The data and configuration that are initially loaded can be manipulated via queryParameter on this same
+ * Sandbox. You can dynamically load different datasets that are under the `data` folder. If you want
+ * for instance to load the data and config under the `small` folder you just need to append "?data=small"
+ * to the url when accessing the sandbox.
  */
 export default class Sandbox extends React.Component {
     constructor(props) {
