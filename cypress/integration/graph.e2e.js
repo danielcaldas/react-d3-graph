@@ -3,7 +3,7 @@ const SANDBOX_URL = Cypress.env('SANDBOX_URL');
 
 const NodePO = require('../page-objects/node.po');
 const SandboxPO = require('../page-objects/sandbox.po');
-let nodes = require('./../../sandbox/data').nodes.map(({ id }) => id);
+let nodes = require('./../../sandbox/data/default').nodes.map(({ id }) => id);
 
 describe('[rd3g-graph] graph tests', function() {
     before(function() {
