@@ -11,6 +11,10 @@ module.exports = {
         {
             source: 1,
             target: 4
+        },
+        {
+            source: 3,
+            target: 4
         }
     ],
     nodes: [

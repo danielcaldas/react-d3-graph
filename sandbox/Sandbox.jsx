@@ -22,7 +22,7 @@ export default class Sandbox extends React.Component {
     constructor(props) {
         super(props);
 
-        const { configOverride, data } = sandboxData;
+        const { config: configOverride, data } = sandboxData;
         const schemaProps = utils.generateFormSchema(Object.assign(defaultConfig, configOverride), '', {});
 
         const schema = {
