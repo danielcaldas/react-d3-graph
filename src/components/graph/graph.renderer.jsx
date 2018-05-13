@@ -62,7 +62,14 @@ function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlight
  */
 function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform) {
     return Object.keys(nodes).map(nodeId => {
-        const props = buildNodeProps(nodes[nodeId], config, nodeCallbacks, highlightedNode, highlightedLink, transform);
+        const props = buildNodeProps(
+            Object.assign({}, nodes[nodeId], { id: `${nodeId}` }),
+            config,
+            nodeCallbacks,
+            highlightedNode,
+            highlightedLink,
+            transform
+        );
 
         return <Node key={nodeId} {...props} />;
     });
