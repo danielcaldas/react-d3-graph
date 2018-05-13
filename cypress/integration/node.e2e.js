@@ -3,7 +3,8 @@ const SANDBOX_URL = Cypress.env('SANDBOX_URL');
 
 const NodePO = require('../page-objects/node.po');
 const SandboxPO = require('../page-objects/sandbox.po');
-let nodes = require('./../../sandbox/data').nodes.map(({ id }) => id);
+const defaultNodes = require('./../../sandbox/data/default').nodes;
+let nodes = require('./../../sandbox/data/default').nodes.map(({ id }) => id);
 
 describe('[rd3g-node] node tests', function() {
     before(function() {
@@ -20,6 +21,30 @@ describe('[rd3g-node] node tests', function() {
         // cy.window().then((win) => {
         //     cy.spy(win.console, 'log')
         // });
+    });
+
+    describe('when node.labelProperty is different than default property', function() {
+        beforeEach(function() {
+            // scroll down to node.labelProperty config
+            cy.contains('node.labelProperty').scrollIntoView();
+            // input text 'green'
+            this.sandboxPO
+                .getFieldInput('node.labelProperty')
+                .clear()
+                .type('symbolType');
+        });
+
+        it('should properly render node labels', function() {
+            defaultNodes.forEach(function({ id, symbolType }) {
+                const nodePO = new NodePO(id);
+                const label = symbolType || id;
+
+                nodePO
+                    .getLabel()
+                    .invoke('text')
+                    .should('eq', label);
+            });
+        });
     });
 
     describe('when setting specific node color', function() {
