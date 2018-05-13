@@ -146,4 +146,43 @@ describe('[rd3g-graph] link tests', function() {
             this.link34PO.shouldHaveColor('blue');
         });
     });
+
+    describe('when mouse is over some link', function() {
+        beforeEach(function() {
+            // small hack to disable any previous highlight behavior
+            this.sandboxPO.fullScreenMode().click();
+        });
+
+        it('should highlight the link and the intervening nodes', function() {
+            // mouse over link between nodes 1 and 4
+            // should highlight nodes 1 and 4 as well as they're connection
+            this.link14PO
+                .getLine()
+                .click()
+                .trigger('mouseover');
+
+            this.node1PO.getColor().should('eq', 'red');
+            this.node1PO.getFontWeight().should('eq', 'bold');
+
+            this.node2PO.getColor().should('eq', '#d3d3d3');
+            this.node2PO.getOpacity().should('eq', '0.2');
+
+            this.node3PO.getColor().should('eq', '#d3d3d3');
+            this.node3PO.getOpacity().should('eq', '0.2');
+
+            this.node4PO.getColor().should('eq', 'red');
+            this.node4PO.getFontWeight().should('eq', 'bold');
+
+            this.link12PO.shouldHaveColor('rgb(211, 211, 211)');
+            this.link12PO.shouldHaveOpacity(0.2);
+
+            this.link13PO.shouldHaveColor('rgb(211, 211, 211)');
+            this.link13PO.shouldHaveOpacity(0.2);
+
+            this.link14PO.shouldHaveColor('blue');
+
+            this.link34PO.shouldHaveColor('rgb(211, 211, 211)');
+            this.link34PO.shouldHaveOpacity(0.2);
+        });
+    });
 });

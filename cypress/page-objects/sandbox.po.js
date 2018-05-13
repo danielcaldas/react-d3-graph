@@ -9,6 +9,7 @@ function SandboxPO() {
     this.checkboxes = ['node.renderLabel', 'staticGraph'];
 
     // actions
+    this.fullScreenMode = () => cy.get('.container__graph > :nth-child(1) > :nth-child(1)');
     this.playGraph = () => cy.get('.container__graph > :nth-child(1) > :nth-child(2)').click();
     this.pauseGraph = () => cy.get('.container__graph > :nth-child(1) > :nth-child(3)').click();
     this.addNode = () => cy.get('.container__graph > :nth-child(1) > :nth-child(5)').click();
