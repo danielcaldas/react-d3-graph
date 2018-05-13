@@ -8,7 +8,7 @@ import './styles.css';
 
 import defaultConfig from '../src/components/graph/graph.config';
 import { Graph } from '../src';
-import data from './data';
+import data from './data/default';
 import Utils from './utils';
 import ReactD3GraphUtils from '../src/utils';
 import { JsonTree } from 'react-editable-json-tree';
