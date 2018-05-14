@@ -1,5 +1,32 @@
 # Change Log
 
+## [1.2.2](https://github.com/danielcaldas/react-d3-graph/tree/1.2.2) (2018-05-14)
+
+**NOTE**: This release contains only some minor fixes picked from master. Out of scope of this relase is
+PR _Fix/peer dependencies_ [\#70](https://github.com/danielcaldas/react-d3-graph/pull/70) where **react** and
+**d3** will pass to the _peerDependencies_ block breaking installs that do not meet the restrictions of
+react and d3 versions.
+
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/1.2.1...1.2.2)
+
+**Fixed bugs:**
+
+*   BUG: NO LINK GETS HIGHLIGHTED WHEN NODE ID IS NON-STIRNG [\#73](https://github.com/danielcaldas/react-d3-graph/issues/73) props to @iamhosseindhv for reporting
+
+**Closed issues:**
+
+*   can the graph nodes and line not stacked [\#58](https://github.com/danielcaldas/react-d3-graph/issues/58)
+*   custom add node button [\#57](https://github.com/danielcaldas/react-d3-graph/issues/57)
+*   labelProperty not implemented? [\#54](https://github.com/danielcaldas/react-d3-graph/issues/54)
+*   BUG: NO LINK GETS HIGHLIGHTED WHEN NODE ID IS NON-STIRNG [\#73](https://github.com/danielcaldas/react-d3-graph/issues/73)
+
+**Merged pull requests:**
+
+*   Fix/mouse over link highlight [\#75](https://github.com/danielcaldas/react-d3-graph/pull/75)
+*   Fix/link highlight id number [\#74](https://github.com/danielcaldas/react-d3-graph/pull/74)
+*   Feature/move to node 8.11.0 [\#72](https://github.com/danielcaldas/react-d3-graph/pull/72)
+*   Refactor/links build [\#69](https://github.com/danielcaldas/react-d3-graph/pull/69)
+
 ## [1.2.1](https://github.com/danielcaldas/react-d3-graph/tree/1.2.1) (2018-04-22)
 
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/1.2.0...1.2.1)

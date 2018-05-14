@@ -67,7 +67,6 @@ typings/
 dist
 lib
 coverage
-sandbox/rd3g.sandbox.bundle.js.map
 gen-docs
 .DS_Store
 cypress/videos/
