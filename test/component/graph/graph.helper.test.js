@@ -20,6 +20,55 @@ describe('Graph Helper', () => {
         utils.throwErr = jest.fn();
     });
 
+    describe('#buildLinkProps', () => {
+        let that = {};
+
+        beforeAll(() => {
+            const linkConfig = Object.assign({}, config.link);
+
+            that = {
+                config: { link: linkConfig },
+                link: { source: 'source', target: 'target' }
+            };
+        });
+
+        describe('when building props for a link', () => {
+            describe('and no custom color is set', () => {
+                test('should return default color defined in link config', () => {
+                    const props = graphHelper.buildLinkProps(
+                        that.link,
+                        {},
+                        {},
+                        that.config,
+                        [],
+                        undefined,
+                        undefined,
+                        1
+                    );
+
+                    expect(props.stroke).toEqual(that.config.link.color);
+                });
+            });
+
+            describe('and custom color is set to green', () => {
+                test('should return green color in the props', () => {
+                    const props = graphHelper.buildLinkProps(
+                        { ...that.link, color: 'green' },
+                        {},
+                        {},
+                        that.config,
+                        [],
+                        undefined,
+                        undefined,
+                        1
+                    );
+
+                    expect(props.stroke).toEqual('green');
+                });
+            });
+        });
+    });
+
     describe('#buildNodeProps', () => {
         let that = {};
 
