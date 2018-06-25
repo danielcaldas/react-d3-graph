@@ -32,8 +32,7 @@ function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlight
         const targetId = target.id || target;
         const key = `${sourceId}${CONST.COORDS_SEPARATOR}${targetId}`;
         const props = buildLinkProps(
-            `${sourceId}`,
-            `${targetId}`,
+            { ...link, source: `${sourceId}`, target: `${targetId}` },
             nodes,
             linksMatrix,
             config,

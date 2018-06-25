@@ -176,8 +176,7 @@ function _validateGraphData(data) {
 
 /**
  * Build some Link properties based on given parameters.
- * @param  {string} source - the id of the source node (from).
- * @param  {string} target - the id of the target node (to).
+ * @param  {Object} link - the link object for which we will generate properties.
  * @param  {Object.<string, Object>} nodes - same as {@link #buildGraph|nodes in buildGraph}.
  * @param  {Object.<string, Object>} links - same as {@link #buildGraph|links in buildGraph}.
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
@@ -188,17 +187,9 @@ function _validateGraphData(data) {
  * @returns {Object} returns an object that aggregates all props for creating respective Link component instance.
  * @memberof Graph/helper
  */
-function buildLinkProps(
-    source,
-    target,
-    nodes,
-    links,
-    config,
-    linkCallbacks,
-    highlightedNode,
-    highlightedLink,
-    transform
-) {
+function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
+    const { source, target } = link;
+
     const x1 = (nodes[source] && nodes[source].x) || 0;
     const y1 = (nodes[source] && nodes[source].y) || 0;
     const x2 = (nodes[target] && nodes[target].x) || 0;
@@ -230,7 +221,7 @@ function buildLinkProps(
         opacity = highlight ? config.link.opacity : config.highlightOpacity;
     }
 
-    let stroke = config.link.color;
+    let stroke = link.color || config.link.color;
 
     if (highlight) {
         stroke = config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color : config.link.highlightColor;
