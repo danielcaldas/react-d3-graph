@@ -1,5 +1,15 @@
 # Change Log
 
+## [1.3.0](https://github.com/danielcaldas/react-d3-graph/tree/1.3.0) (2018-06-25)
+
+**NOTE**: This release contains only PR [\#79](https://github.com/danielcaldas/react-d3-graph/pull/79) cherry picked from master.
+
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/1.2.2...1.3.0)
+
+**Merged pull requests:**
+
+*   Customize color for a link [\#79](https://github.com/danielcaldas/react-d3-graph/pull/79)
+
 ## [1.2.2](https://github.com/danielcaldas/react-d3-graph/tree/1.2.2) (2018-05-14)
 
 **NOTE**: This release contains only some minor fixes picked from master. Out of scope of this relase is

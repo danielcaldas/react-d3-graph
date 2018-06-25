@@ -6,7 +6,7 @@
 [![npm](https://img.shields.io/npm/dw/react-d3-graph.svg?style=flat-square)](https://www.npmjs.com/package/react-d3-graph)
 [![npm](https://img.shields.io/npm/dt/react-d3-graph.svg?style=flat-square)](https://www.npmjs.com/package/react-d3-graph)
 
-:book: [1.2.2](https://danielcaldas.github.io/react-d3-graph/docs/index.html)
+:book: [documentation](https://danielcaldas.github.io/react-d3-graph/docs/index.html)
 
 ### _Interactive and configurable graphs with react and d3 effortlessly_
 

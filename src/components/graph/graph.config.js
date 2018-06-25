@@ -95,7 +95,8 @@
  * <br/>
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2>Link level configurations</h2>
- * @param {string} [link.color='#d3d3d3'] - the color for links.
+ * @param {string} [link.color='#d3d3d3'] - 🚅🚅🚅 the color for links
+ * (from version 1.3.0 this property can be configured at link level).
  * @param {number} [link.opacity=1] - the default opacity value for links.
  * @param {boolean} [link.semanticStrokeWidth=false] - when set to true all links will have
  * *"semantic width"*, this means that the width of the connections will be proportional to the value of each link.
