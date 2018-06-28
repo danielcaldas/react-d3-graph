@@ -310,15 +310,17 @@ export default class Graph extends React.Component {
                 nodes: this.state.nodesInputSnapshot,
                 links: this.state.linksInputSnapshot
             });
-        const configUpdated =
-            !utils.isObjectEmpty(nextProps.config) && !utils.isDeepEqual(nextProps.config, this.state.config);
         const state = newGraphElements ? graphHelper.initializeGraphState(nextProps, this.state) : this.state;
-        const config = configUpdated ? utils.merge(DEFAULT_CONFIG, nextProps.config || {}) : this.state.config;
+
+        const newConfig = nextProps.config || {};
+        const configUpdated =
+            newConfig && !utils.isObjectEmpty(newConfig) && !utils.isDeepEqual(newConfig, this.state.config);
+        const config = configUpdated ? utils.merge(DEFAULT_CONFIG, newConfig) : this.state.config;
 
         // in order to properly update graph data we need to pause eventual d3 ongoing animations
         newGraphElements && this.pauseSimulation();
 
-        const transform = nextProps.config.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
+        const transform = newConfig.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
 
         this.setState({
             ...state,
