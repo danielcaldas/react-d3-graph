@@ -358,37 +358,54 @@ export default class Graph extends React.Component {
         this.pauseSimulation();
     }
 
-    onClickNode = id => {
-        const clickedNodeLinks = this.state.links[id];
-        let singleLadies = {};
+    _toggleNodeConnection(targetNodeId, allConnections) {
+        const newConnection = {
+            [targetNodeId]: allConnections[targetNodeId] === 1 ? 0 : 1
+        };
 
-        Object.keys(clickedNodeLinks).forEach(linkId => {
-            const nodeLinkKeys = Object.keys(this.state.links[linkId]);
-            const cardinality = nodeLinkKeys.length;
+        return { ...allConnections, ...newConnection };
+    }
 
-            if (cardinality === 1) {
-                const [nodeLinkKey] = nodeLinkKeys;
+    _getLeafNodeConnections(startingNodeId, currentConnections) {
+        const startingNodeConnections = currentConnections[startingNodeId];
+        const startingNodeConnectionsList = Object.keys(startingNodeConnections);
 
-                singleLadies[linkId] = {
-                    [nodeLinkKey]: this.state.links[linkId][nodeLinkKey] === 1 ? 0 : 1
-                };
+        return startingNodeConnectionsList.reduce((allLeafNodes, candidateLeafId) => {
+            const candidateLeafConnections = currentConnections[candidateLeafId];
+            const candidateLeafConnectionList = Object.keys(candidateLeafConnections);
+            const isLeafNode = candidateLeafConnectionList.length === 1;
+
+            if (isLeafNode) {
+                allLeafNodes[candidateLeafId] = candidateLeafConnections;
             }
-        });
-        const singleLadiesList = Object.keys(singleLadies);
-        const d3Links = this.state.d3Links.reduce((allD3Links, currentD3Link) => {
-            const { source, target } = currentD3Link;
-            const isSingleLady = singleLadiesList.some(
-                singleLadyId => singleLadyId === source.id || singleLadyId === target.id
+
+            return allLeafNodes;
+        }, {});
+    }
+
+    onClickNode = clickedNodeId => {
+        const currentConnections = this.state.links;
+        const leafNodesToToggle = this._getLeafNodeConnections(clickedNodeId, currentConnections);
+        const toggledLeafNodes = Object.keys(leafNodesToToggle).reduce((newLeafNodeConnections, leafNodeId) => {
+            // Toggle connections from Leaf node to Parent node
+            newLeafNodeConnections[leafNodeId] = this._toggleNodeConnection(
+                clickedNodeId,
+                currentConnections[leafNodeId]
             );
 
-            if (isSingleLady) {
-                allD3Links.push({
-                    ...currentD3Link,
-                    isHidden: !currentD3Link.isHidden
-                });
-            } else {
-                allD3Links.push(currentD3Link);
-            }
+            return newLeafNodeConnections;
+        }, {});
+
+        const toggledLeafNodesList = Object.keys(toggledLeafNodes);
+        const d3Links = this.state.d3Links.reduce((allD3Links, currentD3Link) => {
+            const { source, target } = currentD3Link;
+            const isLeafNode = toggledLeafNodesList.some(
+                leafNodeId => leafNodeId === source.id || leafNodeId === target.id
+            );
+
+            isLeafNode
+                ? allD3Links.push({ ...currentD3Link, isHidden: !currentD3Link.isHidden })
+                : allD3Links.push(currentD3Link);
 
             return allD3Links;
         }, []);
@@ -397,11 +414,11 @@ export default class Graph extends React.Component {
             d3Links,
             links: {
                 ...this.state.links,
-                ...singleLadies
+                ...toggledLeafNodes
             }
         });
 
-        return this.props.onClickNode(id);
+        return this.props.onClickNode(clickedNodeId);
     };
 
     render() {
