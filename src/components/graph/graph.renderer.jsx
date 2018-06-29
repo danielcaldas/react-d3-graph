@@ -25,7 +25,7 @@ import { buildLinkProps, buildNodeProps } from './graph.helper';
  * @memberof Graph/helper
  */
 function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
-    return links.map(link => {
+    return links.filter(({ isHidden }) => !isHidden).map(link => {
         const { source, target } = link;
         // FIXME: solve this source data inconsistency later
         const sourceId = source.id || source;
@@ -59,19 +59,27 @@ function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlight
  * @returns {Object} returns the generated array of nodes components
  * @memberof Graph/helper
  */
-function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform) {
-    return Object.keys(nodes).map(nodeId => {
-        const props = buildNodeProps(
-            Object.assign({}, nodes[nodeId], { id: `${nodeId}` }),
-            config,
-            nodeCallbacks,
-            highlightedNode,
-            highlightedLink,
-            transform
-        );
+function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
+    return Object.keys(nodes)
+        .filter(
+            nodeId =>
+                !!Object.values(linksMatrix[nodeId]).reduce(
+                    (allNodeConnectivity, isNodeConnected) => allNodeConnectivity + isNodeConnected,
+                    0
+                )
+        )
+        .map(nodeId => {
+            const props = buildNodeProps(
+                Object.assign({}, nodes[nodeId], { id: `${nodeId}` }),
+                config,
+                nodeCallbacks,
+                highlightedNode,
+                highlightedLink,
+                transform
+            );
 
-        return <Node key={nodeId} {...props} />;
-    });
+            return <Node key={nodeId} {...props} />;
+        });
 }
 
 /**
@@ -128,7 +136,7 @@ function buildGraph(
     transform
 ) {
     return {
-        nodes: _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform),
+        nodes: _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix),
         links: _buildLinks(
             nodes,
             links,

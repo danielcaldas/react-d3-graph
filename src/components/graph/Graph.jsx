@@ -358,11 +358,57 @@ export default class Graph extends React.Component {
         this.pauseSimulation();
     }
 
+    onClickNode = id => {
+        const clickedNodeLinks = this.state.links[id];
+        let singleLadies = {};
+
+        Object.keys(clickedNodeLinks).forEach(linkId => {
+            const nodeLinkKeys = Object.keys(this.state.links[linkId]);
+            const cardinality = nodeLinkKeys.length;
+
+            if (cardinality === 1) {
+                const [nodeLinkKey] = nodeLinkKeys;
+
+                singleLadies[linkId] = {
+                    [nodeLinkKey]: this.state.links[linkId][nodeLinkKey] === 1 ? 0 : 1
+                };
+            }
+        });
+        const singleLadiesList = Object.keys(singleLadies);
+        const d3Links = this.state.d3Links.reduce((allD3Links, currentD3Link) => {
+            const { source, target } = currentD3Link;
+            const isSingleLady = singleLadiesList.some(
+                singleLadyId => singleLadyId === source.id || singleLadyId === target.id
+            );
+
+            if (isSingleLady) {
+                allD3Links.push({
+                    ...currentD3Link,
+                    isHidden: !currentD3Link.isHidden
+                });
+            } else {
+                allD3Links.push(currentD3Link);
+            }
+
+            return allD3Links;
+        }, []);
+
+        this._tick({
+            d3Links,
+            links: {
+                ...this.state.links,
+                ...singleLadies
+            }
+        });
+
+        return this.props.onClickNode(id);
+    };
+
     render() {
         const { nodes, links } = graphRenderer.buildGraph(
             this.state.nodes,
             {
-                onClickNode: this.props.onClickNode,
+                onClickNode: this.onClickNode,
                 onMouseOverNode: this.onMouseOverNode,
                 onMouseOut: this.onMouseOutNode
             },
