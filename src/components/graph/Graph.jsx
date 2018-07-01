@@ -358,37 +358,12 @@ export default class Graph extends React.Component {
         this.pauseSimulation();
     }
 
-    _toggleNodeConnection(targetNodeId, allConnections) {
-        const newConnection = {
-            [targetNodeId]: allConnections[targetNodeId] === 1 ? 0 : 1
-        };
-
-        return { ...allConnections, ...newConnection };
-    }
-
-    _getLeafNodeConnections(startingNodeId, currentConnections) {
-        const startingNodeConnections = currentConnections[startingNodeId];
-        const startingNodeConnectionsList = Object.keys(startingNodeConnections);
-
-        return startingNodeConnectionsList.reduce((allLeafNodes, candidateLeafId) => {
-            const candidateLeafConnections = currentConnections[candidateLeafId];
-            const candidateLeafConnectionList = Object.keys(candidateLeafConnections);
-            const isLeafNode = candidateLeafConnectionList.length === 1;
-
-            if (isLeafNode) {
-                allLeafNodes[candidateLeafId] = candidateLeafConnections;
-            }
-
-            return allLeafNodes;
-        }, {});
-    }
-
     onClickNode = clickedNodeId => {
         const currentConnections = this.state.links;
-        const leafNodesToToggle = this._getLeafNodeConnections(clickedNodeId, currentConnections);
+        const leafNodesToToggle = graphHelper.getLeafNodeConnections(clickedNodeId, currentConnections);
         const toggledLeafNodes = Object.keys(leafNodesToToggle).reduce((newLeafNodeConnections, leafNodeId) => {
             // Toggle connections from Leaf node to Parent node
-            newLeafNodeConnections[leafNodeId] = this._toggleNodeConnection(
+            newLeafNodeConnections[leafNodeId] = graphHelper.toggleNodeConnection(
                 clickedNodeId,
                 currentConnections[leafNodeId]
             );

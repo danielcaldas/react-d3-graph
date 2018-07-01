@@ -407,4 +407,52 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
     };
 }
 
-export { buildLinkProps, buildNodeProps, initializeGraphState, updateNodeHighlightedValue };
+/**
+ * This function toggles the value for a given node connection (1 -> 0 and vice-versa).
+ * @param {string} targetNodeId - The id of the node which to toggle
+ * @param {Object.<string, number>} allConnections - An object containing a matrix of connections of the node
+ * where we want to toggle the connection (destinations/targets).
+ * @returns {Object.<string, number>} - Contains the new connections with the target node toggled.
+ * @memberof Graph/helper
+ */
+function toggleNodeConnection(targetNodeId, allConnections) {
+    const newConnection = {
+        [targetNodeId]: allConnections[targetNodeId] === 1 ? 0 : 1
+    };
+
+    return { ...allConnections, ...newConnection };
+}
+
+/**
+ * Based on a starting node (ID) and all the current connections between all the nodes.
+ * Find the leaf node connections of that starting node.
+ * @param {string} startingNodeId - The id of the node where the "search" should be started.
+ * @param {Object.<string, number>} currentConnections - An object containing a matrix of connections of the nodes.
+ * @returns {Object.<string, number>} - Contains the connections to leaf nodes based on the given starting node.
+ * @memberof Graph/helper
+ */
+function getLeafNodeConnections(startingNodeId, currentConnections) {
+    const startingNodeConnections = currentConnections[startingNodeId];
+    const startingNodeConnectionsList = Object.keys(startingNodeConnections);
+
+    return startingNodeConnectionsList.reduce((allLeafNodes, candidateLeafId) => {
+        const candidateLeafConnections = currentConnections[candidateLeafId];
+        const candidateLeafConnectionList = Object.keys(candidateLeafConnections);
+        const isLeafNode = candidateLeafConnectionList.length === 1;
+
+        if (isLeafNode) {
+            allLeafNodes[candidateLeafId] = candidateLeafConnections;
+        }
+
+        return allLeafNodes;
+    }, {});
+}
+
+export {
+    buildLinkProps,
+    buildNodeProps,
+    initializeGraphState,
+    updateNodeHighlightedValue,
+    toggleNodeConnection,
+    getLeafNodeConnections
+};
