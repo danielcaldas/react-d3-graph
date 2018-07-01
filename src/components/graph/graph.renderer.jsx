@@ -9,7 +9,7 @@ import CONST from './graph.const';
 
 import Link from '../link/Link';
 import Node from '../node/Node';
-import { buildLinkProps, buildNodeProps } from './graph.helper';
+import { buildLinkProps, buildNodeProps, getNodeCardinality } from './graph.helper';
 
 /**
  * Build Link components given a list of links.
@@ -56,18 +56,13 @@ function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlight
  * @param  {string} highlightedLink.source - id of source node for highlighted link.
  * @param  {string} highlightedLink.target - id of target node for highlighted link.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
+ * @param  {Object.<string, Object>} linksMatrix - the matrix of connections of the graph
  * @returns {Object} returns the generated array of nodes components
  * @memberof Graph/helper
  */
 function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
     return Object.keys(nodes)
-        .filter(
-            nodeId =>
-                !!Object.values(linksMatrix[nodeId]).reduce(
-                    (allNodeConnectivity, isNodeConnected) => allNodeConnectivity + isNodeConnected,
-                    0
-                )
-        )
+        .filter(nodeId => getNodeCardinality(nodeId, linksMatrix) > 0)
         .map(nodeId => {
             const props = buildNodeProps(
                 Object.assign({}, nodes[nodeId], { id: `${nodeId}` }),
