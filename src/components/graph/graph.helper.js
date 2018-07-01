@@ -448,11 +448,28 @@ function getLeafNodeConnections(startingNodeId, currentConnections) {
     }, {});
 }
 
+/**
+ * Given a node and the connections matrix, give the cardinality of the node.
+ *
+ * i.e.: Taking into account the node is connected to nothing, it amounts to 0.
+ *       Being connected to three nodes, it amounts to 3.
+ * @param {string} nodeId - The id of the node to get the cardinality of
+ * @param {Object.<string, number>} linksMatrix - An object containing a matrix of connections of the nodes.
+ * @returns {number} - Contains the cardinality of the asked node.
+ * @memberof Graph/helper
+ */
+function getNodeCardinality(nodeId, linksMatrix) {
+    const nodeConnectivityList = Object.values(linksMatrix[nodeId]);
+
+    return nodeConnectivityList.reduce((cardinality, nodeConnectivity) => cardinality + nodeConnectivity, 0);
+}
+
 export {
     buildLinkProps,
     buildNodeProps,
     initializeGraphState,
     updateNodeHighlightedValue,
     toggleNodeConnection,
-    getLeafNodeConnections
+    getLeafNodeConnections,
+    getNodeCardinality
 };
