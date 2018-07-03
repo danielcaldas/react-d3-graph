@@ -358,6 +358,11 @@ export default class Graph extends React.Component {
         this.pauseSimulation();
     }
 
+    /**
+     * Collapses the nodes, then calls the callback passed to the component.
+     * @param  {string} clickedNodeId - The id of the node where the click was performed.
+     * @returns {undefined}
+     */
     onClickNode = clickedNodeId => {
         if (this.state.config.collapsible) {
             const disconnectedLeafNodesPartialState = graphHelper.disconnectLeafNodeConnections(
@@ -369,7 +374,7 @@ export default class Graph extends React.Component {
             this._tick({ ...disconnectedLeafNodesPartialState });
         }
 
-        return this.props.onClickNode(clickedNodeId);
+        this.props.onClickNode(clickedNodeId);
     };
 
     render() {
