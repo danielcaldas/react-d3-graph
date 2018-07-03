@@ -408,6 +408,45 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
 }
 
 /**
+ * This function disconnects all the connections from leaf -> parent.
+ * @param {string} targetNodeId - The id of the node from which to disconnect the leaf nodes
+ * @param {Object.<string, number>} originalConnections - An object containing a matrix of connections of the nodes.
+ * @returns {Object.<string, number>} - Contains the new links and d3Links.
+ * @memberof Graph/helper
+ */
+function disconnectLeafNodeConnections(targetNodeId, originalConnections, d3Links) {
+    const leafNodesToToggle = getLeafNodeConnections(targetNodeId, originalConnections);
+    const toggledLeafNodes = Object.keys(leafNodesToToggle).reduce((newLeafNodeConnections, leafNodeId) => {
+        // Toggle connections from Leaf node to Parent node
+        newLeafNodeConnections[leafNodeId] = toggleNodeConnection(targetNodeId, originalConnections[leafNodeId]);
+
+        return newLeafNodeConnections;
+    }, {});
+
+    const toggledLeafNodesList = Object.keys(toggledLeafNodes);
+    const toggledD3Links = d3Links.reduce((allD3Links, currentD3Link) => {
+        const { source, target } = currentD3Link;
+        const isLeafNode = toggledLeafNodesList.some(
+            leafNodeId => leafNodeId === source.id || leafNodeId === target.id
+        );
+
+        isLeafNode
+            ? allD3Links.push({ ...currentD3Link, isHidden: !currentD3Link.isHidden })
+            : allD3Links.push(currentD3Link);
+
+        return allD3Links;
+    }, []);
+
+    return {
+        d3Links: toggledD3Links,
+        links: {
+            ...originalConnections,
+            ...toggledLeafNodes
+        }
+    };
+}
+
+/**
  * This function toggles the value for a given node connection (1 -> 0 and vice-versa).
  * @param {string} targetNodeId - The id of the node which to toggle
  * @param {Object.<string, number>} allConnections - An object containing a matrix of connections of the node
@@ -467,9 +506,10 @@ function getNodeCardinality(nodeId, linksMatrix) {
 export {
     buildLinkProps,
     buildNodeProps,
-    initializeGraphState,
-    updateNodeHighlightedValue,
-    toggleNodeConnection,
+    disconnectLeafNodeConnections,
     getLeafNodeConnections,
-    getNodeCardinality
+    getNodeCardinality,
+    initializeGraphState,
+    toggleNodeConnection,
+    updateNodeHighlightedValue
 };
