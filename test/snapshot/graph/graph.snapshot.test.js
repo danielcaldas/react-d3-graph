@@ -17,6 +17,7 @@ describe('Snapshot - Graph Component', () => {
         nodeHighlightBehavior: true,
         highlightOpacity: that.highlightOpacity,
         staticGraph: true,
+        collapsible: false,
         node: {
             color: that.nodeColor,
             highlightColor: that.highlightColor,
