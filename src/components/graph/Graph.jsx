@@ -359,39 +359,41 @@ export default class Graph extends React.Component {
     }
 
     onClickNode = clickedNodeId => {
-        const currentConnections = this.state.links;
-        const leafNodesToToggle = graphHelper.getLeafNodeConnections(clickedNodeId, currentConnections);
-        const toggledLeafNodes = Object.keys(leafNodesToToggle).reduce((newLeafNodeConnections, leafNodeId) => {
-            // Toggle connections from Leaf node to Parent node
-            newLeafNodeConnections[leafNodeId] = graphHelper.toggleNodeConnection(
-                clickedNodeId,
-                currentConnections[leafNodeId]
-            );
+        if (this.state.config.collapsible) {
+            const currentConnections = this.state.links;
+            const leafNodesToToggle = graphHelper.getLeafNodeConnections(clickedNodeId, currentConnections);
+            const toggledLeafNodes = Object.keys(leafNodesToToggle).reduce((newLeafNodeConnections, leafNodeId) => {
+                // Toggle connections from Leaf node to Parent node
+                newLeafNodeConnections[leafNodeId] = graphHelper.toggleNodeConnection(
+                    clickedNodeId,
+                    currentConnections[leafNodeId]
+                );
 
-            return newLeafNodeConnections;
-        }, {});
+                return newLeafNodeConnections;
+            }, {});
 
-        const toggledLeafNodesList = Object.keys(toggledLeafNodes);
-        const d3Links = this.state.d3Links.reduce((allD3Links, currentD3Link) => {
-            const { source, target } = currentD3Link;
-            const isLeafNode = toggledLeafNodesList.some(
-                leafNodeId => leafNodeId === source.id || leafNodeId === target.id
-            );
+            const toggledLeafNodesList = Object.keys(toggledLeafNodes);
+            const d3Links = this.state.d3Links.reduce((allD3Links, currentD3Link) => {
+                const { source, target } = currentD3Link;
+                const isLeafNode = toggledLeafNodesList.some(
+                    leafNodeId => leafNodeId === source.id || leafNodeId === target.id
+                );
 
-            isLeafNode
-                ? allD3Links.push({ ...currentD3Link, isHidden: !currentD3Link.isHidden })
-                : allD3Links.push(currentD3Link);
+                isLeafNode
+                    ? allD3Links.push({ ...currentD3Link, isHidden: !currentD3Link.isHidden })
+                    : allD3Links.push(currentD3Link);
 
-            return allD3Links;
-        }, []);
+                return allD3Links;
+            }, []);
 
-        this._tick({
-            d3Links,
-            links: {
-                ...this.state.links,
-                ...toggledLeafNodes
-            }
-        });
+            this._tick({
+                d3Links,
+                links: {
+                    ...this.state.links,
+                    ...toggledLeafNodes
+                }
+            });
+        }
 
         return this.props.onClickNode(clickedNodeId);
     };
