@@ -90,19 +90,7 @@ module.exports = {
         },
         {
             source: 'VUX',
-            target: 'Intruder 1'
-        },
-        {
-            source: 'VUX',
-            target: 'Intruder 2'
-        },
-        {
-            source: 'VUX',
-            target: 'Intruder 3'
-        },
-        {
-            source: 'VUX',
-            target: 'Intruder 4'
+            target: 'Intruder'
         }
     ],
     nodes: [
@@ -152,19 +140,7 @@ module.exports = {
             symbolType: 'square'
         },
         {
-            id: 'Intruder 1',
-            symbolType: 'square'
-        },
-        {
-            id: 'Intruder 2',
-            symbolType: 'square'
-        },
-        {
-            id: 'Intruder 3',
-            symbolType: 'square'
-        },
-        {
-            id: 'Intruder 4',
+            id: 'Intruder',
             symbolType: 'square'
         }
     ]

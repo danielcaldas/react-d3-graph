@@ -411,6 +411,7 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
  * This function disconnects all the connections from leaf -> parent.
  * @param {string} targetNodeId - The id of the node from which to disconnect the leaf nodes
  * @param {Object.<string, number>} originalConnections - An object containing a matrix of connections of the nodes.
+ * @param {Array} d3Links - An array containing all the d3 links.
  * @returns {Object.<string, number>} - Contains the new links and d3Links.
  * @memberof Graph/helper
  */
