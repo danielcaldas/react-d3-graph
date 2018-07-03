@@ -61,20 +61,24 @@ function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlight
  * @memberof Graph/helper
  */
 function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
-    return Object.keys(nodes)
-        .filter(nodeId => getNodeCardinality(nodeId, linksMatrix) > 0)
-        .map(nodeId => {
-            const props = buildNodeProps(
-                Object.assign({}, nodes[nodeId], { id: `${nodeId}` }),
-                config,
-                nodeCallbacks,
-                highlightedNode,
-                highlightedLink,
-                transform
-            );
+    let losNodes = Object.keys(nodes);
 
-            return <Node key={nodeId} {...props} />;
-        });
+    if (config.collapsible) {
+        losNodes = losNodes.filter(nodeId => getNodeCardinality(nodeId, linksMatrix) > 0);
+    }
+
+    return losNodes.map(nodeId => {
+        const props = buildNodeProps(
+            Object.assign({}, nodes[nodeId], { id: `${nodeId}` }),
+            config,
+            nodeCallbacks,
+            highlightedNode,
+            highlightedLink,
+            transform
+        );
+
+        return <Node key={nodeId} {...props} />;
+    });
 }
 
 /**
