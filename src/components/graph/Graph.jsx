@@ -374,7 +374,7 @@ export default class Graph extends React.Component {
             this._tick({ ...disconnectedLeafNodesPartialState });
         }
 
-        this.props.onClickNode(clickedNodeId);
+        this.props.onClickNode && this.props.onClickNode(clickedNodeId);
     };
 
     render() {
