@@ -117,9 +117,9 @@ function merge(o1 = {}, o2 = {}, _depth = 0) {
  * @returns {Object} the object resultant from the picking operation.
  * @memberof utils
  */
-function pick(o, props) {
-    return Object.keys(o).reduce((acc, k) => {
-        if (o.hasOwnProperty(k) && props.includes(k)) {
+function pick(o, props = []) {
+    return props.reduce((acc, k) => {
+        if (o.hasOwnProperty(k)) {
             acc[k] = o[k];
         }
 
