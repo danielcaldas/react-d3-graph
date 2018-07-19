@@ -6,11 +6,12 @@
 import { LINE_TYPES } from './link.const';
 
 /**
- * Get a strategy to compute line radius.
- * CURVE_SMOOTH from {@link http://bl.ocks.org/mbostock/1153292 | mbostock - Mobile Patent Suits}
+ * Get a strategy to compute line radius.<br/>
+ * *CURVE_SMOOTH* type inspired by {@link http://bl.ocks.org/mbostock/1153292|mbostock - Mobile Patent Suits}.
  * @param {string} type type of curve to get radius strategy from.
  * @returns {Function} a function that calculates a radius
  * to match curve type expectation. Fallback is the straight line.
+ * @memberof Link/helper
  */
 function getRadiusStrategy(type) {
     switch (type) {
@@ -31,12 +32,13 @@ function getRadiusStrategy(type) {
 /**
  * This method returns the path definition for a given link base on the line type
  * and the link source and target.
- * {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d | **d** attribute mdn}
+ * {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d|d attribute mdn}
  * @param {Object} link - the link to build the path definition
  * @param {Object} link.source - link source
  * @param {Object} link.target - link target
  * @param {string} type - the link line type
  * @returns {string} the path definition for the requested link
+ * @memberof Link/helper
  */
 function buildLinkPathDefinition({ source = {}, target = {} }, type = LINE_TYPES.STRAIGHT) {
     const { x: sx, y: sy } = source;
