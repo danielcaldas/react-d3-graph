@@ -1,13 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Snapshot - Link Component should match snapshot 1`] = `
-<line
+<path
   className={undefined}
+  d={undefined}
   onClick={[Function]}
   onMouseOut={[Function]}
   onMouseOver={[Function]}
   style={
     Object {
+      "fill": "none",
       "opacity": "1",
       "stroke": "red",
       "strokeWidth": "2",
