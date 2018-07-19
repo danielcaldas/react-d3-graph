@@ -19,7 +19,7 @@
         "functional": "export CYPRESS_SANDBOX_URL=http://127.0.0.1:8888 && cypress run",
         "lint:src": "node_modules/eslint/bin/eslint.js --config=.eslintrc.js \"src/**/*.js*\"",
         "lint:test": "node_modules/eslint/bin/eslint.js --config=.eslintrc.test.config.js \"test/**/*.test.js\"",
-        "lint": "npm run lint:src && npm run lint:test",
+        "lint": "npm run lint:src && npm run lint:test && npm run docs:lint",
         "precommit": "lint-staged",
         "start": "http-server ./sandbox/ -p 8888 -c-1",
         "test:clean": "jest --no-cache --updateSnapshot --verbose --coverage --config jest.config.js",
