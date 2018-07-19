@@ -16,6 +16,7 @@ import React from 'react';
  * };
  *
  * <Link
+ *     d="M1..."
  *     source='idSourceNode'
  *     target='idTargetNode'
  *     x1=22
@@ -35,32 +36,33 @@ export default class Link extends React.Component {
      * Handle link click event.
      * @returns {undefined}
      */
-    handleOnClickLink = () => this.props.onClickLink
-                            && this.props.onClickLink(this.props.source, this.props.target);
+    handleOnClickLink = () => this.props.onClickLink && this.props.onClickLink(this.props.source, this.props.target);
 
     /**
      * Handle mouse over link event.
      * @returns {undefined}
      */
-    handleOnMouseOverLink = () => this.props.onMouseOverLink
-                            && this.props.onMouseOverLink(this.props.source, this.props.target);
+    handleOnMouseOverLink = () =>
+        this.props.onMouseOverLink && this.props.onMouseOverLink(this.props.source, this.props.target);
 
     /**
      * Handle mouse out link event.
      * @returns {undefined}
      */
-    handleOnMouseOutLink = () => this.props.onMouseOutLink
-                            && this.props.onMouseOutLink(this.props.source, this.props.target);
+    handleOnMouseOutLink = () =>
+        this.props.onMouseOutLink && this.props.onMouseOutLink(this.props.source, this.props.target);
 
     render() {
         const lineStyle = {
             strokeWidth: this.props.strokeWidth,
             stroke: this.props.stroke,
-            opacity: this.props.opacity
+            opacity: this.props.opacity,
+            fill: 'none'
         };
 
         const lineProps = {
             className: this.props.className,
+            d: this.props.d,
             onClick: this.handleOnClickLink,
             onMouseOut: this.handleOnMouseOutLink,
             onMouseOver: this.handleOnMouseOverLink,
@@ -71,8 +73,6 @@ export default class Link extends React.Component {
             y2: this.props.y2
         };
 
-        return (
-            <line {...lineProps} />
-        );
+        return <path {...lineProps} />;
     }
 }

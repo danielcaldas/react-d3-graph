@@ -112,6 +112,10 @@
  * link.strokeWidth * (1 / transform); // transform is a zoom delta Δ value
  * ```
  * @param {string} [link.highlightColor='#d3d3d3'] - links' color in highlight state.
+ * @param {string} [link.type='STRAIGHT'] - the type of line to draw, available types at this point are:
+ * - "STRAIGHT" <small>(default)</small> - a straight line.
+ * - "CURVE_SMOOTH" - a slight curve between two nodes
+ * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
  *
  * @example
  * // A simple config that uses some properties
@@ -167,6 +171,7 @@ export default {
         highlightColor: '#d3d3d3',
         opacity: 1,
         semanticStrokeWidth: false,
-        strokeWidth: 1.5
+        strokeWidth: 1.5,
+        type: 'STRAIGHT'
     }
 };

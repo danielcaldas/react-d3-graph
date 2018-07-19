@@ -31,6 +31,7 @@ import DEFAULT_CONFIG from './graph.config';
 import ERRORS from '../../err';
 
 import utils from '../../utils';
+import { buildLinkPathDefinition } from '../link/link.helper';
 
 const NODE_PROPS_WHITELIST = ['id', 'highlighted', 'x', 'y', 'index', 'vy', 'vx'];
 
@@ -189,11 +190,12 @@ function _validateGraphData(data) {
  */
 function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
     const { source, target } = link;
-
     const x1 = (nodes[source] && nodes[source].x) || 0;
     const y1 = (nodes[source] && nodes[source].y) || 0;
     const x2 = (nodes[target] && nodes[target].x) || 0;
     const y2 = (nodes[target] && nodes[target].y) || 0;
+
+    const d = buildLinkPathDefinition({ source: { x: x1, y: y1 }, target: { x: x2, y: y2 } }, config.link.type);
 
     let mainNodeParticipates = false;
 
@@ -236,6 +238,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     }
 
     return {
+        d,
         source,
         target,
         x1,
