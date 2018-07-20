@@ -428,7 +428,7 @@ function disconnectLeafNodeConnections(targetNodeId, originalConnections, d3Link
     const toggledD3Links = d3Links.reduce((allD3Links, currentD3Link) => {
         const { source, target } = currentD3Link;
         const isLeafNode = toggledLeafNodesList.some(
-            leafNodeId => leafNodeId === source.id || leafNodeId === target.id
+            leafNodeId => leafNodeId === `${source.id}` || leafNodeId === `${target.id}`
         );
 
         isLeafNode
