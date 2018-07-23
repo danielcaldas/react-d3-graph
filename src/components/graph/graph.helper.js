@@ -421,7 +421,7 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
 function disconnectLeafNodeConnections(targetNodeId, originalConnections, d3Links) {
     const leafNodesToToggle = getLeafNodeConnections(targetNodeId, originalConnections);
     const toggledLeafNodes = Object.keys(leafNodesToToggle).reduce((newLeafNodeConnections, leafNodeId) => {
-        // Toggle connections from Leaf node to Parent node
+        // toggle connections from Leaf node to Parent node
         newLeafNodeConnections[leafNodeId] = toggleNodeConnection(targetNodeId, originalConnections[leafNodeId]);
 
         return newLeafNodeConnections;
