@@ -1,5 +1,6 @@
 module.exports = {
     automaticRearrangeAfterDropNode: false,
+    collapsible: false,
     height: 400,
     highlightDegree: 1,
     highlightOpacity: 0.2,

@@ -6,7 +6,7 @@
  */
 function SandboxPO() {
     // whitelist checkbox inputs
-    this.checkboxes = ['node.renderLabel', 'staticGraph'];
+    this.checkboxes = ['node.renderLabel', 'staticGraph', 'collapsible'];
 
     // actions
     this.fullScreenMode = () => cy.get('.container__graph > :nth-child(1) > :nth-child(1)');

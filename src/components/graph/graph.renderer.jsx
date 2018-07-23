@@ -9,7 +9,7 @@ import CONST from './graph.const';
 
 import Link from '../link/Link';
 import Node from '../node/Node';
-import { buildLinkProps, buildNodeProps } from './graph.helper';
+import { buildLinkProps, buildNodeProps, getNodeCardinality } from './graph.helper';
 
 /**
  * Build Link components given a list of links.
@@ -25,7 +25,7 @@ import { buildLinkProps, buildNodeProps } from './graph.helper';
  * @memberof Graph/helper
  */
 function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
-    return links.map(link => {
+    return links.filter(({ isHidden }) => !isHidden).map(link => {
         const { source, target } = link;
         // FIXME: solve this source data inconsistency later
         const sourceId = source.id || source;
@@ -56,11 +56,18 @@ function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlight
  * @param  {string} highlightedLink.source - id of source node for highlighted link.
  * @param  {string} highlightedLink.target - id of target node for highlighted link.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
+ * @param  {Object.<string, Object>} linksMatrix - the matrix of connections of the graph
  * @returns {Object} returns the generated array of nodes components
  * @memberof Graph/helper
  */
-function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform) {
-    return Object.keys(nodes).map(nodeId => {
+function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
+    let losNodes = Object.keys(nodes);
+
+    if (config.collapsible) {
+        losNodes = losNodes.filter(nodeId => getNodeCardinality(nodeId, linksMatrix) > 0);
+    }
+
+    return losNodes.map(nodeId => {
         const props = buildNodeProps(
             Object.assign({}, nodes[nodeId], { id: `${nodeId}` }),
             config,
@@ -128,7 +135,7 @@ function buildGraph(
     transform
 ) {
     return {
-        nodes: _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform),
+        nodes: _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix),
         links: _buildLinks(
             nodes,
             links,

@@ -29,6 +29,8 @@
  * <h2>Graph global configurations</h2>
  * @param {boolean} [automaticRearrangeAfterDropNode=false] - 🚅🚅🚅 when true performing a node drag and drop should automatically
  * rearrange all nodes positions based on new position of dragged node (note: **staticGraph** should be false).
+ * @param {boolean} [collapsible=false] - 🚅🚅🚅 Allow leaf neighbours nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.
+ * To see an example of this behaviour you can access this sandbox link that has a specific set up to experiment this feature.
  * @param {number} [height=400] - the height of the (svg) area where the graph will be rendered.
  * @param {boolean} [nodeHighlightBehavior=false] - 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
  * connections will be highlighted (depending on the *highlightDegree* value). All the remaining nodes and links assume opacity value equal to **highlightOpacity**.
@@ -129,6 +131,7 @@
  */
 export default {
     automaticRearrangeAfterDropNode: false,
+    collapsible: false,
     height: 400,
     highlightDegree: 1,
     highlightOpacity: 1,
@@ -161,9 +164,9 @@ export default {
     },
     link: {
         color: '#d3d3d3',
+        highlightColor: '#d3d3d3',
         opacity: 1,
         semanticStrokeWidth: false,
-        strokeWidth: 1.5,
-        highlightColor: '#d3d3d3'
+        strokeWidth: 1.5
     }
 };

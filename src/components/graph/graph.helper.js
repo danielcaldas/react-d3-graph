@@ -407,4 +407,110 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
     };
 }
 
-export { buildLinkProps, buildNodeProps, initializeGraphState, updateNodeHighlightedValue };
+/**
+ * This function disconnects all the connections from leaf -> parent.
+ * @param {string} targetNodeId - The id of the node from which to disconnect the leaf nodes
+ * @param {Object.<string, number>} originalConnections - An object containing a matrix of connections of the nodes.
+ * @param {Array} d3Links - An array containing all the d3 links.
+ * @returns {Object.<string, number>} - Contains the new links and d3Links.
+ * @memberof Graph/helper
+ */
+function disconnectLeafNodeConnections(targetNodeId, originalConnections, d3Links) {
+    const leafNodesToToggle = getLeafNodeConnections(targetNodeId, originalConnections);
+    const toggledLeafNodes = Object.keys(leafNodesToToggle).reduce((newLeafNodeConnections, leafNodeId) => {
+        // Toggle connections from Leaf node to Parent node
+        newLeafNodeConnections[leafNodeId] = toggleNodeConnection(targetNodeId, originalConnections[leafNodeId]);
+
+        return newLeafNodeConnections;
+    }, {});
+
+    const toggledLeafNodesList = Object.keys(toggledLeafNodes);
+    const toggledD3Links = d3Links.reduce((allD3Links, currentD3Link) => {
+        const { source, target } = currentD3Link;
+        const isLeafNode = toggledLeafNodesList.some(
+            leafNodeId => leafNodeId === `${source.id}` || leafNodeId === `${target.id}`
+        );
+
+        isLeafNode
+            ? allD3Links.push({ ...currentD3Link, isHidden: !currentD3Link.isHidden })
+            : allD3Links.push(currentD3Link);
+
+        return allD3Links;
+    }, []);
+
+    return {
+        d3Links: toggledD3Links,
+        links: {
+            ...originalConnections,
+            ...toggledLeafNodes
+        }
+    };
+}
+
+/**
+ * This function toggles the value for a given node connection (1 -> 0 and vice-versa).
+ * @param {string} targetNodeId - The id of the node which to toggle
+ * @param {Object.<string, number>} allConnections - An object containing a matrix of connections of the node
+ * where we want to toggle the connection (destinations/targets).
+ * @returns {Object.<string, number>} - Contains the new connections with the target node toggled.
+ * @memberof Graph/helper
+ */
+function toggleNodeConnection(targetNodeId, allConnections) {
+    const newConnection = {
+        [targetNodeId]: allConnections[targetNodeId] === 1 ? 0 : 1
+    };
+
+    return { ...allConnections, ...newConnection };
+}
+
+/**
+ * Based on a starting node (ID) and all the current connections between all the nodes.
+ * Find the leaf node connections of that starting node.
+ * @param {string} startingNodeId - The id of the node where the "search" should be started.
+ * @param {Object.<string, number>} currentConnections - An object containing a matrix of connections of the nodes.
+ * @returns {Object.<string, number>} - Contains the connections to leaf nodes based on the given starting node.
+ * @memberof Graph/helper
+ */
+function getLeafNodeConnections(startingNodeId, currentConnections) {
+    const startingNodeConnections = currentConnections[startingNodeId];
+    const startingNodeConnectionsList = Object.keys(startingNodeConnections);
+
+    return startingNodeConnectionsList.reduce((allLeafNodes, candidateLeafId) => {
+        const candidateLeafConnections = currentConnections[candidateLeafId];
+        const candidateLeafConnectionList = Object.keys(candidateLeafConnections);
+        const isLeafNode = candidateLeafConnectionList.length === 1;
+
+        if (isLeafNode) {
+            allLeafNodes[candidateLeafId] = candidateLeafConnections;
+        }
+
+        return allLeafNodes;
+    }, {});
+}
+
+/**
+ * Given a node and the connections matrix, give the cardinality of the node.
+ *
+ * i.e.: Taking into account the node is connected to nothing, it amounts to 0.
+ *       Being connected to three nodes, it amounts to 3.
+ * @param {string} nodeId - The id of the node to get the cardinality of
+ * @param {Object.<string, number>} linksMatrix - An object containing a matrix of connections of the nodes.
+ * @returns {number} - Contains the cardinality of the asked node.
+ * @memberof Graph/helper
+ */
+function getNodeCardinality(nodeId, linksMatrix) {
+    const nodeConnectivityList = Object.values(linksMatrix[nodeId]);
+
+    return nodeConnectivityList.reduce((cardinality, nodeConnectivity) => cardinality + nodeConnectivity, 0);
+}
+
+export {
+    buildLinkProps,
+    buildNodeProps,
+    disconnectLeafNodeConnections,
+    getLeafNodeConnections,
+    getNodeCardinality,
+    initializeGraphState,
+    toggleNodeConnection,
+    updateNodeHighlightedValue
+};

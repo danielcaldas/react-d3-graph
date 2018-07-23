@@ -360,11 +360,30 @@ export default class Graph extends React.Component {
         this.pauseSimulation();
     }
 
+    /**
+     * Collapses the nodes, then calls the callback passed to the component.
+     * @param  {string} clickedNodeId - The id of the node where the click was performed.
+     * @returns {undefined}
+     */
+    onClickNode = clickedNodeId => {
+        if (this.state.config.collapsible) {
+            const disconnectedLeafNodesPartialState = graphHelper.disconnectLeafNodeConnections(
+                clickedNodeId,
+                this.state.links,
+                this.state.d3Links
+            );
+
+            this._tick({ ...disconnectedLeafNodesPartialState });
+        }
+
+        this.props.onClickNode && this.props.onClickNode(clickedNodeId);
+    };
+
     render() {
         const { nodes, links } = graphRenderer.buildGraph(
             this.state.nodes,
             {
-                onClickNode: this.props.onClickNode,
+                onClickNode: this.onClickNode,
                 onMouseOverNode: this.onMouseOverNode,
                 onMouseOut: this.onMouseOutNode
             },
