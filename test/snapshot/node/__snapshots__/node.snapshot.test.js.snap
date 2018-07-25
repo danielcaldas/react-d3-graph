@@ -2,10 +2,6 @@
 
 exports[`Snapshot - Node Component should match snapshot 1`] = `
 <g
-  className={undefined}
-  cx={undefined}
-  cy={undefined}
-  id={undefined}
   transform="translate(undefined,undefined)"
 >
   <path

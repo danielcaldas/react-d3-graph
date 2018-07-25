@@ -61,13 +61,13 @@ function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlight
  * @memberof Graph/helper
  */
 function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
-    let losNodes = Object.keys(nodes);
+    let outNodes = Object.keys(nodes);
 
     if (config.collapsible) {
-        losNodes = losNodes.filter(nodeId => getNodeCardinality(nodeId, linksMatrix) > 0);
+        outNodes = outNodes.filter(nodeId => getNodeCardinality(nodeId, linksMatrix) > 0);
     }
 
-    return losNodes.map(nodeId => {
+    return outNodes.map(nodeId => {
         const props = buildNodeProps(
             Object.assign({}, nodes[nodeId], { id: `${nodeId}` }),
             config,
