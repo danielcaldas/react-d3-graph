@@ -502,7 +502,7 @@ function getLeafNodeConnections(startingNodeId, currentConnections) {
  * @memberof Graph/helper
  */
 function getNodeCardinality(nodeId, linksMatrix) {
-    const nodeConnectivityList = Object.values(linksMatrix[nodeId]);
+    const nodeConnectivityList = Object.values(linksMatrix[nodeId] || []);
 
     return nodeConnectivityList.reduce((cardinality, nodeConnectivity) => cardinality + nodeConnectivity, 0);
 }
