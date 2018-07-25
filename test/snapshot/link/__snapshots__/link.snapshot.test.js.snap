@@ -2,8 +2,6 @@
 
 exports[`Snapshot - Link Component should match snapshot 1`] = `
 <path
-  className={undefined}
-  d={undefined}
   onClick={[Function]}
   onMouseOut={[Function]}
   onMouseOver={[Function]}
