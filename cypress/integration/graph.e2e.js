@@ -109,38 +109,38 @@ describe('[rd3g-graph] graph tests', function() {
             });
         });
     });
-});
 
-describe('when clicking a node', function() {
-    before(function() {
-        this.sandboxPO = new SandboxPO();
-        // visit sandbox
-        cy.visit(`${SANDBOX_URL}?data=small`);
-        // sleep 2 seconds
-        cy.wait(2000);
-        // pause the graph
-        this.sandboxPO.pauseGraph();
+    describe('when clicking a node', function() {
+        before(function() {
+            this.sandboxPO = new SandboxPO();
+            // visit sandbox
+            cy.visit(`${SANDBOX_URL}?data=small`);
+            // sleep 2 seconds
+            cy.wait(2000);
+            // pause the graph
+            this.sandboxPO.pauseGraph();
 
-        cy.contains('collapsible').scrollIntoView();
-        this.sandboxPO.getFieldInput('collapsible').click();
+            cy.contains('collapsible').scrollIntoView();
+            this.sandboxPO.getFieldInput('collapsible').click();
 
-        this.node1PO = new NodePO(1);
-        this.node2PO = new NodePO(2);
-        this.link12PO = new LinkPO(0);
-    });
+            this.node1PO = new NodePO(1);
+            this.node2PO = new NodePO(2);
+            this.link12PO = new LinkPO(0);
+        });
 
-    it('should collapse leaf nodes', function() {
-        const line = this.link12PO.getLine();
+        it('should collapse leaf nodes', function() {
+            const line = this.link12PO.getLine();
 
-        // Check the leaf node & link is present
-        this.node2PO.getPath().should('be.visible');
-        line.should('be.visible');
+            // Check the leaf node & link is present
+            this.node2PO.getPath().should('be.visible');
+            line.should('be.visible');
 
-        // Click 'Node 1' in order to collapse the leafs
-        this.node1PO.getPath().click();
+            // Click 'Node 1' in order to collapse the leafs
+            this.node1PO.getPath().click();
 
-        // Check the leaf node & link is no longer visible
-        this.node2PO.getPath().should('not.be.visible');
-        line.should('not.be.visible');
+            // Check the leaf node & link is no longer visible
+            this.node2PO.getPath().should('not.be.visible');
+            line.should('not.be.visible');
+        });
     });
 });
