@@ -59,7 +59,7 @@ const myConfig = {
 
 // graph event callbacks
 const onClickNode = function(nodeId) {
-    window.alert('Clicked node ${nodeId}');
+    window.alert(`Clicked node ${nodeId}`);
 };
 
 const onMouseOverNode = function(nodeId) {
