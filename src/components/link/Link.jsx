@@ -66,13 +66,13 @@ export default class Link extends React.Component {
             onClick: this.handleOnClickLink,
             onMouseOut: this.handleOnMouseOutLink,
             onMouseOver: this.handleOnMouseOverLink,
-            style: lineStyle,
-            x1: this.props.x1,
-            x2: this.props.x2,
-            y1: this.props.y1,
-            y2: this.props.y2
+            style: lineStyle
         };
 
-        return <path {...lineProps} />;
+        return (
+            <svg>
+                <path {...lineProps} markerEnd={`url(#${this.props.arrowId})`} />
+            </svg>
+        );
     }
 }

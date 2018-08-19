@@ -29,6 +29,7 @@ import {
 import CONST from './graph.const';
 import DEFAULT_CONFIG from './graph.config';
 import ERRORS from '../../err';
+import { MARKERS } from '../marker/marker.const';
 
 import utils from '../../utils';
 import { buildLinkPathDefinition } from '../link/link.helper';
@@ -91,11 +92,12 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
  * in a lightweight matrix containing only links with source and target being strings representative of some node id
  * and the respective link value (if non existent will default to 1).
  * @param  {Array.<Link>} graphLinks - an array of all graph links.
+ * @param  {Object} config - the graph config.
  * @returns {Object.<string, Object>} an object containing a matrix of connections of the graph, for each nodeId,
  * there is an object that maps adjacent nodes ids (string) and their values (number).
  * @memberof Graph/helper
  */
-function _initializeLinks(graphLinks) {
+function _initializeLinks(graphLinks, config) {
     return graphLinks.reduce((links, l) => {
         const source = l.source.id || l.source;
         const target = l.target.id || l.target;
@@ -108,8 +110,13 @@ function _initializeLinks(graphLinks) {
             links[target] = {};
         }
 
-        // TODO: If the graph is directed this should be adapted
-        links[source][target] = links[target][source] = l.value || 1;
+        const value = l.value || 1;
+
+        links[source][target] = value;
+
+        if (!config.directed) {
+            links[target][source] = value;
+        }
 
         return links;
     }, {});
@@ -175,6 +182,25 @@ function _validateGraphData(data) {
     }
 }
 
+function _getMarkerSize(t, mMax, lMax) {
+    if (t < mMax) {
+        return 'S';
+    } else if (t >= mMax && t < lMax) {
+        return 'M';
+    } else {
+        return 'L';
+    }
+}
+
+function _getMarkerId(highlight, transform, config) {
+    const mMax = config.maxZoom / 4;
+    const lMax = config.maxZoom / 2;
+    const size = _getMarkerSize(transform, mMax, lMax);
+    const highlighted = highlight ? 'H' : '';
+
+    return MARKERS[`MARKER_${size}${highlighted}`];
+}
+
 /**
  * Build some Link properties based on given parameters.
  * @param  {Object} link - the link object for which we will generate properties.
@@ -195,7 +221,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     const x2 = (nodes[target] && nodes[target].x) || 0;
     const y2 = (nodes[target] && nodes[target].y) || 0;
 
-    const d = buildLinkPathDefinition({ source: { x: x1, y: y1 }, target: { x: x2, y: y2 } }, config.link.type);
+    const d = buildLinkPathDefinition({ source: { x: x1, y: y1 }, target: { x: x2, y: y2 } });
 
     let mainNodeParticipates = false;
 
@@ -237,7 +263,10 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         strokeWidth += linkValue * strokeWidth / 10;
     }
 
+    const arrowId = _getMarkerId(highlight, transform, config);
+
     return {
+        arrowId,
         d,
         source,
         target,
@@ -357,7 +386,7 @@ function initializeGraphState({ data, id, config }, state) {
 
     let newConfig = Object.assign({}, utils.merge(DEFAULT_CONFIG, config || {}));
     let nodes = _initializeNodes(graph.nodes);
-    let links = _initializeLinks(graph.links); // matrix of graph connections
+    let links = _initializeLinks(graph.links, newConfig); // matrix of graph connections
     const { nodes: d3Nodes, links: d3Links } = graph;
     const formatedId = id.replace(/ /g, '_');
     const simulation = _createForceSimulation(newConfig.width, newConfig.height);
