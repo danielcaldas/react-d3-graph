@@ -6,9 +6,11 @@
 import React from 'react';
 
 import CONST from './graph.const';
+import { MARKERS } from '../marker/marker.const';
 
 import Link from '../link/Link';
 import Node from '../node/Node';
+import Marker from '../marker/Marker';
 import { buildLinkProps, buildNodeProps, getNodeCardinality } from './graph.helper';
 
 /**
@@ -21,8 +23,8 @@ import { buildLinkProps, buildNodeProps, getNodeCardinality } from './graph.help
  * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
  * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
- * @returns {Object[]} returns the generated array of Link components.
- * @memberof Graph/renderer
+ * @returns {Array.<Object>} returns the generated array of Link components.
+ * @memberof Graph/helper
  */
 function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
     return links.filter(({ isHidden }) => !isHidden).map(link => {
@@ -57,8 +59,8 @@ function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlight
  * @param  {string} highlightedLink.target - id of target node for highlighted link.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @param  {Object.<string, Object>} linksMatrix - the matrix of connections of the graph
- * @returns {Object} returns the generated array of nodes components
- * @memberof Graph/renderer
+ * @returns {Array.<Object>} returns the generated array of nodes components
+ * @memberof Graph/helper
  */
 function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
     let outNodes = Object.keys(nodes);
@@ -79,6 +81,29 @@ function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedL
 
         return <Node key={nodeId} {...props} />;
     });
+}
+
+/**
+ * Builds graph defs (for now markers, but we could also have gradients for instance).
+ * @param {Object} config - the graph config object.
+ * @returns {Object} graph reusable objects [defs](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/defs).
+ */
+function _buildDefs(config) {
+    // TODO: do this computations only once within a static object that belongs to the Graph state
+    const small = 16;
+    const medium = small + 2 * config.maxZoom / 3;
+    const large = small + 4 * config.maxZoom / 3;
+
+    return (
+        <defs>
+            <Marker id={MARKERS.MARKER_S} refX={small} fill={config.link.color} />
+            <Marker id={MARKERS.MARKER_SH} refX={small} fill={config.link.highlightColor} />
+            <Marker id={MARKERS.MARKER_M} refX={medium} fill={config.link.color} />
+            <Marker id={MARKERS.MARKER_MH} refX={medium} fill={config.link.highlightColor} />
+            <Marker id={MARKERS.MARKER_L} refX={large} fill={config.link.color} />
+            <Marker id={MARKERS.MARKER_LH} refX={large} fill={config.link.highlightColor} />
+        </defs>
+    );
 }
 
 /**
@@ -144,7 +169,8 @@ function buildGraph(
             highlightedNode,
             highlightedLink,
             transform
-        )
+        ),
+        defs: _buildDefs(config)
     };
 }
 
