@@ -1,3 +1,7 @@
+const HIGHLIGHTED = 'H';
+const MARKER_SMALL_SIZE = 16;
+const MARKER_MEDIUM_OFFSET = 2;
+const MARKER_LARGE_OFFSET = 4;
 // internal marker flavours for cross referencing
 const MARKERS = {
     MARKER_S: 'marker-small',
@@ -7,7 +11,6 @@ const MARKERS = {
     MARKER_L: 'marker-large',
     MARKER_LH: 'marker-large-highlighted'
 };
-
 // hard coded aggregation of the different sizes available for markers
 const SIZES = {
     S: 'S',
@@ -15,6 +18,4 @@ const SIZES = {
     L: 'L'
 };
 
-const HIGHLIGHTED = 'H';
-
-export { MARKERS, SIZES, HIGHLIGHTED };
+export { HIGHLIGHTED, MARKER_LARGE_OFFSET, MARKER_MEDIUM_OFFSET, MARKER_SMALL_SIZE, MARKERS, SIZES };
