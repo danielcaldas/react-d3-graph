@@ -239,7 +239,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     const x2 = (nodes[target] && nodes[target].x) || 0;
     const y2 = (nodes[target] && nodes[target].y) || 0;
 
-    const d = buildLinkPathDefinition({ source: { x: x1, y: y1 }, target: { x: x2, y: y2 } });
+    const d = buildLinkPathDefinition({ source: { x: x1, y: y1 }, target: { x: x2, y: y2 } }, config.link.type);
 
     let mainNodeParticipates = false;
 
