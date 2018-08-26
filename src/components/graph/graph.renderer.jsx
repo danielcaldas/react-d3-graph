@@ -6,7 +6,7 @@
 import React from 'react';
 
 import CONST from './graph.const';
-import { MARKERS } from '../marker/marker.const';
+import { MARKERS, MARKER_SMALL_SIZE, MARKER_MEDIUM_OFFSET, MARKER_LARGE_OFFSET } from '../marker/marker.const';
 
 import Link from '../link/Link';
 import Node from '../node/Node';
@@ -85,26 +85,41 @@ function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedL
 
 /**
  * Builds graph defs (for now markers, but we could also have gradients for instance).
+ * NOTE: defs are static svg graphical objects, thus we only need to render them once, the result
+ * is cached on the 1st call and from there we simply return the cached jsx.
  * @param {Object} config - the graph config object.
  * @returns {Object} graph reusable objects [defs](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/defs).
+ * @memberof Graph/helper
  */
-function _buildDefs(config) {
-    // TODO: do this computations only once within a static object that belongs to the Graph state
-    const small = 16;
-    const medium = small + 2 * config.maxZoom / 3;
-    const large = small + 4 * config.maxZoom / 3;
+function _buildDefs() {
+    let cachedDefs;
 
-    return (
-        <defs>
-            <Marker id={MARKERS.MARKER_S} refX={small} fill={config.link.color} />
-            <Marker id={MARKERS.MARKER_SH} refX={small} fill={config.link.highlightColor} />
-            <Marker id={MARKERS.MARKER_M} refX={medium} fill={config.link.color} />
-            <Marker id={MARKERS.MARKER_MH} refX={medium} fill={config.link.highlightColor} />
-            <Marker id={MARKERS.MARKER_L} refX={large} fill={config.link.color} />
-            <Marker id={MARKERS.MARKER_LH} refX={large} fill={config.link.highlightColor} />
-        </defs>
-    );
+    return config => {
+        if (cachedDefs) {
+            return cachedDefs;
+        }
+
+        const small = MARKER_SMALL_SIZE;
+        const medium = small + MARKER_MEDIUM_OFFSET * config.maxZoom / 3;
+        const large = small + MARKER_LARGE_OFFSET * config.maxZoom / 3;
+
+        cachedDefs = (
+            <defs>
+                <Marker id={MARKERS.MARKER_S} refX={small} fill={config.link.color} />
+                <Marker id={MARKERS.MARKER_SH} refX={small} fill={config.link.highlightColor} />
+                <Marker id={MARKERS.MARKER_M} refX={medium} fill={config.link.color} />
+                <Marker id={MARKERS.MARKER_MH} refX={medium} fill={config.link.highlightColor} />
+                <Marker id={MARKERS.MARKER_L} refX={large} fill={config.link.color} />
+                <Marker id={MARKERS.MARKER_LH} refX={large} fill={config.link.highlightColor} />
+            </defs>
+        );
+
+        return cachedDefs;
+    };
 }
+
+// memoized reference for _buildDefs
+const _memoizedBuildDefs = _buildDefs();
 
 /**
  * Method that actually is exported an consumed by Graph component in order to build all Nodes and Link
@@ -170,7 +185,7 @@ function buildGraph(
             highlightedLink,
             transform
         ),
-        defs: _buildDefs(config)
+        defs: _memoizedBuildDefs(config)
     };
 }
 
