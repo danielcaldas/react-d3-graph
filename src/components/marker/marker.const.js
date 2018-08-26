@@ -8,4 +8,13 @@ const MARKERS = {
     MARKER_LH: 'marker-large-highlighted'
 };
 
-export { MARKERS };
+// hard coded aggregation of the different sizes available for markers
+const SIZES = {
+    S: 'S',
+    M: 'M',
+    L: 'L'
+};
+
+const HIGHLIGHTED = 'H';
+
+export { MARKERS, SIZES, HIGHLIGHTED };

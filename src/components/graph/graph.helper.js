@@ -30,10 +30,10 @@ import {
 import CONST from './graph.const';
 import DEFAULT_CONFIG from './graph.config';
 import ERRORS from '../../err';
-import { MARKERS } from '../marker/marker.const';
 
 import utils from '../../utils';
 import { buildLinkPathDefinition } from '../link/link.helper';
+import { getMarkerId } from '../marker/marker.helper';
 
 const NODE_PROPS_WHITELIST = ['id', 'highlighted', 'x', 'y', 'index', 'vy', 'vx'];
 
@@ -219,25 +219,6 @@ function _validateGraphData(data) {
     }
 }
 
-function _getMarkerSize(t, mMax, lMax) {
-    if (t < mMax) {
-        return 'S';
-    } else if (t >= mMax && t < lMax) {
-        return 'M';
-    } else {
-        return 'L';
-    }
-}
-
-function _getMarkerId(highlight, transform, config) {
-    const mMax = config.maxZoom / 4;
-    const lMax = config.maxZoom / 2;
-    const size = _getMarkerSize(transform, mMax, lMax);
-    const highlighted = highlight ? 'H' : '';
-
-    return MARKERS[`MARKER_${size}${highlighted}`];
-}
-
 /**
  * Build some Link properties based on given parameters.
  * @param  {Object} link - the link object for which we will generate properties.
@@ -300,10 +281,10 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         strokeWidth += linkValue * strokeWidth / 10;
     }
 
-    const arrowId = _getMarkerId(highlight, transform, config);
+    const markerId = getMarkerId(highlight, transform, config);
 
     return {
-        arrowId,
+        markerId,
         d,
         source,
         target,
