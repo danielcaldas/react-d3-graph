@@ -27,6 +27,7 @@ import React from 'react';
  *     y1=22
  *     x2=22
  *     y2=22
+ *     markerId='marker-small'
  *     strokeWidth=1.5
  *     stroke='green'
  *     className='link'
@@ -86,9 +87,13 @@ export default class Link extends React.Component {
             style: lineStyle
         };
 
+        if (this.props.markerId) {
+            lineProps.markerEnd = `url(#${this.props.markerId})`;
+        }
+
         return (
             <svg>
-                <path {...lineProps} markerEnd={`url(#${this.props.markerId})`} />
+                <path {...lineProps} />
             </svg>
         );
     }

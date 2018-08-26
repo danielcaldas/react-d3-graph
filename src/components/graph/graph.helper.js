@@ -281,7 +281,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         strokeWidth += linkValue * strokeWidth / 10;
     }
 
-    const markerId = getMarkerId(highlight, transform, config);
+    const markerId = config.directed ? getMarkerId(highlight, transform, config) : null;
 
     return {
         markerId,
