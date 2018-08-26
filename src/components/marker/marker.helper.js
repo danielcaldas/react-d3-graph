@@ -37,7 +37,7 @@ function _getMarkerSize(transform, mMax, lMax) {
  * @param {Object} config - the graph config object.
  * @returns {string} the id of the result marker.
  */
-function getMarkerId(highlight, transform, { maxZoom }) {
+function _computeMarkerId(highlight, transform, { maxZoom }) {
     const mMax = maxZoom / 4;
     const lMax = maxZoom / 2;
     const size = _getMarkerSize(transform, mMax, lMax);
@@ -46,5 +46,32 @@ function getMarkerId(highlight, transform, { maxZoom }) {
 
     return MARKERS[markerKey];
 }
+
+/**
+ * This function memoize results for _computeMarkerId
+ * since many of the times user will be playing around with the same zoom
+ * factor, we can take advantage of this and cache the results for a
+ * given combination of highlight state, zoom transform value and maxZoom config.
+ * @returns{Function} memoize wrapper to the _computeMarkerId operation.
+ */
+function _memoizedComputeMarkerId() {
+    let cache = {};
+
+    return (highlight, transform, { maxZoom }) => {
+        const cacheKey = `${highlight};${transform};${maxZoom}`;
+
+        if (cache[cacheKey]) {
+            return cache[cacheKey];
+        }
+
+        const markerId = _computeMarkerId(highlight, transform, { maxZoom });
+
+        cache[cacheKey] = markerId;
+
+        return markerId;
+    };
+}
+
+const getMarkerId = _memoizedComputeMarkerId();
 
 export { getMarkerId };
