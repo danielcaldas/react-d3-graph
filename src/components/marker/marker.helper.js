@@ -1,3 +1,8 @@
+/**
+ * @module Marker/helper
+ * @description
+ * Offers a series of methods to compute proper markers within a given context.
+ */
 import { MARKERS, SIZES, HIGHLIGHTED } from './marker.const';
 
 /**
@@ -6,6 +11,7 @@ import { MARKERS, SIZES, HIGHLIGHTED } from './marker.const';
  * @param {string} size - string that indicates size of marker.
  * @param {string} highlighted - string that indicates highlight state of marker.
  * @returns {string} the key of the marker.
+ * @memberof Marker/helper
  */
 function _markerKeyBuilder(size, highlighted) {
     return `MARKER_${size}${highlighted}`;
@@ -18,6 +24,7 @@ function _markerKeyBuilder(size, highlighted) {
  * @param {number} mMax - a derived value from the max zoom config.
  * @param {number} lMax - a derived value from the min zoom config.
  * @returns {string} the size.
+ * @memberof Marker/helper
  */
 function _getMarkerSize(transform, mMax, lMax) {
     if (transform < mMax) {
@@ -36,6 +43,7 @@ function _getMarkerSize(transform, mMax, lMax) {
  * @param {number} transform - the delta zoom value to calculate resize transformations.
  * @param {Object} config - the graph config object.
  * @returns {string} the id of the result marker.
+ * @memberof Marker/helper
  */
 function _computeMarkerId(highlight, transform, { maxZoom }) {
     const mMax = maxZoom / 4;
@@ -53,6 +61,7 @@ function _computeMarkerId(highlight, transform, { maxZoom }) {
  * factor, we can take advantage of this and cache the results for a
  * given combination of highlight state, zoom transform value and maxZoom config.
  * @returns{Function} memoize wrapper to the _computeMarkerId operation.
+ * @memberof Marker/helper
  */
 function _memoizedComputeMarkerId() {
     let cache = {};
@@ -72,6 +81,8 @@ function _memoizedComputeMarkerId() {
     };
 }
 
+// memoized reference for _memoizedComputeMarkerId exposed
+// as getter for sake of readability
 const getMarkerId = _memoizedComputeMarkerId();
 
 export { getMarkerId };
