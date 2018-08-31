@@ -313,7 +313,8 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         stroke,
         strokeWidth: strokeWidth * t,
         svg,
-        type: node.symbolType || config.node.symbolType
+        type: node.symbolType || config.node.symbolType,
+        view: node.view
     };
 }
 

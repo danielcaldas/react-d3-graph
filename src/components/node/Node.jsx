@@ -84,7 +84,7 @@ export default class Node extends React.Component {
         let label;
         let node;
 
-        if (this.props.svg) {
+        if (this.props.svg || this.props.view) {
             const height = size / 10;
             const width = size / 10;
             const tx = width / 2;
@@ -96,7 +96,19 @@ export default class Node extends React.Component {
                     {this.props.label}
                 </text>
             );
-            node = <image {...nodeProps} href={this.props.svg} width={width} height={height} />;
+
+            // if a view is set, it takes precedence over any svg image url
+            if (this.props.view) {
+                node = (
+                    <svg {...nodeProps} width={width} height={height}>
+                        <foreignObject x="0" y="0" width="100%" height="100%">
+                            {this.props.view}
+                        </foreignObject>
+                    </svg>
+                );
+            } else {
+                node = <image {...nodeProps} href={this.props.svg} width={width} height={height} />;
+            }
 
             // svg offset transform regarding svg width/height
             gtx -= tx;
