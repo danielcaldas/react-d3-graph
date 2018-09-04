@@ -97,6 +97,9 @@
  *
  * **[note]** react-d3-graph will map this values to [d3 symbols](https://github.com/d3/d3-shape#symbols)
  * <br/>
+ * @param {number} [node.gravity=-100] - this will define how close nodes are to each other.
+ *  - If value is positive, nodes will attract each other.
+ *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don't overlap.
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2>Link level configurations</h2>
  * @param {string} [link.color='#d3d3d3'] - 🚅🚅🚅 the color for links
@@ -169,7 +172,8 @@ export default {
         strokeColor: 'none',
         strokeWidth: 1.5,
         svg: '',
-        symbolType: 'circle'
+        symbolType: 'circle',
+        gravity: -100
     },
     link: {
         color: '#d3d3d3',
