@@ -118,6 +118,7 @@
  * - "STRAIGHT" <small>(default)</small> - a straight line.
  * - "CURVE_SMOOTH" - a slight curve between two nodes
  * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
+ * @param {number} [link.size=100] - the length of the link from the center of the nodes it joins.
  * <br/>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
  *
@@ -176,6 +177,7 @@ export default {
         opacity: 1,
         semanticStrokeWidth: false,
         strokeWidth: 1.5,
-        type: 'STRAIGHT'
+        type: 'STRAIGHT',
+        size: 100
     }
 };
