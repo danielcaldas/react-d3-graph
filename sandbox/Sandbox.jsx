@@ -50,7 +50,10 @@ export default class Sandbox extends React.Component {
         };
     }
 
-    onClickNode = id => window.alert(`Clicked node ${id}`);
+    onClickNode = id => {
+        window.alert(`Clicked node ${id}`);
+        this.setState({ focusedNodeId: this.state.focusedNodeId !== id ? id : null });
+    };
 
     onClickLink = (source, target) => window.alert(`Clicked link between ${source} and ${target}`);
 
@@ -298,7 +301,8 @@ export default class Sandbox extends React.Component {
             onMouseOverNode: this.onMouseOverNode,
             onMouseOutNode: this.onMouseOutNode,
             onMouseOverLink: this.onMouseOverLink,
-            onMouseOutLink: this.onMouseOutLink
+            onMouseOutLink: this.onMouseOutLink,
+            focusedNodeId: this.state.focusedNodeId
         };
 
         if (this.state.fullscreen) {
