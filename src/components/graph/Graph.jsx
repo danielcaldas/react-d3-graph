@@ -379,6 +379,31 @@ export default class Graph extends React.Component {
         this.props.onClickNode && this.props.onClickNode(clickedNodeId);
     };
 
+    /**
+     * Returns the transformation to apply in order to center the graph on the
+     * selected node.
+     * @param   {number} nodeId - node to focus the graph view on.
+     * @returns {string} transform rule to apply.
+     */
+    getCenterAndZoomTransformation = nodeId => {
+        const node = this.state.d3Nodes.find(node => node.id === nodeId);
+
+        if (!node) {
+            console.warn(`There isn't a node with id ${nodeId}.`);
+            return;
+        }
+
+        console.log(`Graph will focus on node ${nodeId}...`);
+        const { width, height, focusZoom } = this.state.config;
+
+        // TODO: ensure that focusZoom is between minZoom and maxZoom
+        return `
+            translate(${width / 2}, ${height / 2})
+            scale(${focusZoom})
+            translate(${-node.x}, ${-node.y})
+        `;
+    };
+
     render() {
         const { nodes, links } = graphRenderer.buildGraph(
             this.state.nodes,
@@ -405,10 +430,16 @@ export default class Graph extends React.Component {
             width: this.state.config.width
         };
 
+        const { focusedNodeId } = this.props;
+        const containerProps = {
+            style: { transitionDuration: '.75s' },
+            transform: focusedNodeId ? this.getCenterAndZoomTransformation(focusedNodeId) : null
+        };
+
         return (
             <div id={`${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`}>
                 <svg style={svgStyle}>
-                    <g id={`${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`}>
+                    <g id={`${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`} {...containerProps}>
                         {links}
                         {nodes}
                     </g>
