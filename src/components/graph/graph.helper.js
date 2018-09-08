@@ -362,11 +362,7 @@ function initializeGraphState({ data, id, config }, state) {
     let links = _initializeLinks(graph.links); // matrix of graph connections
     const { nodes: d3Nodes, links: d3Links } = graph;
     const formatedId = id.replace(/ /g, '_');
-    const simulation = _createForceSimulation(
-        newConfig.width,
-        newConfig.height,
-        newConfig.node && newConfig.node.gravity
-    );
+    const simulation = _createForceSimulation(newConfig.width, newConfig.height, newConfig.d3.gravity);
 
     return {
         id: formatedId,

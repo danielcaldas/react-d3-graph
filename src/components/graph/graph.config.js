@@ -54,6 +54,14 @@
  * from the given nodes positions by rd3g), no coordinates will be calculated by rd3g or subjacent d3 modules.
  * @param {number} [width=800] - the width of the (svg) area where the graph will be rendered.
  * <br/>
+ * @param {Object} d3 d3 object is explained in next section. ⬇️
+ * @param {number} [d3.gravity=-100] - this will define how close nodes are to each other.
+ *  - If value is positive, nodes will attract each other.
+ *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don't overlap.
+ * @param {number} [d3.linkLength=100] - the length of each link from the center of the nodes it joins.
+ * @param {number} [d3.linkStrength=1]
+ * @param {number} [d3.alphaTarget=0.05]
+ * <br/>
  * @param {Object} node node object is explained in next section. ⬇️
  * <h2 id="node-section">Node level configurations</h2>
  * @param {string} [node.color='#d3d3d3'] - 🔍🔍🔍 this is the color that will be applied to the node if no **color property**
@@ -97,9 +105,6 @@
  *
  * **[note]** react-d3-graph will map this values to [d3 symbols](https://github.com/d3/d3-shape#symbols)
  * <br/>
- * @param {number} [node.gravity=-100] - this will define how close nodes are to each other.
- *  - If value is positive, nodes will attract each other.
- *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don't overlap.
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2>Link level configurations</h2>
  * @param {string} [link.color='#d3d3d3'] - 🚅🚅🚅 the color for links
@@ -121,7 +126,6 @@
  * - "STRAIGHT" <small>(default)</small> - a straight line.
  * - "CURVE_SMOOTH" - a slight curve between two nodes
  * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
- * @param {number} [link.size=100] - the length of the link from the center of the nodes it joins.
  * <br/>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
  *
@@ -154,6 +158,12 @@ export default {
     panAndZoom: false,
     staticGraph: false,
     width: 800,
+    d3: {
+        gravity: -100,
+        linkLength: 100,
+        linkStrength: 1,
+        alphaTarget: 0.05
+    },
     node: {
         color: '#d3d3d3',
         fontColor: 'black',
@@ -172,8 +182,7 @@ export default {
         strokeColor: 'none',
         strokeWidth: 1.5,
         svg: '',
-        symbolType: 'circle',
-        gravity: -100
+        symbolType: 'circle'
     },
     link: {
         color: '#d3d3d3',
@@ -181,7 +190,6 @@ export default {
         opacity: 1,
         semanticStrokeWidth: false,
         strokeWidth: 1.5,
-        type: 'STRAIGHT',
-        size: 100
+        type: 'STRAIGHT'
     }
 };
