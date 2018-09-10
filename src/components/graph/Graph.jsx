@@ -396,7 +396,6 @@ export default class Graph extends React.Component {
         console.log(`Graph will focus on node ${nodeId}...`);
         const { width, height, focusZoom } = this.state.config;
 
-        // TODO: ensure that focusZoom is between minZoom and maxZoom
         return `
             translate(${width / 2}, ${height / 2})
             scale(${focusZoom})
