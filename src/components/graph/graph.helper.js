@@ -362,6 +362,10 @@ function initializeGraphState({ data, id, config }, state) {
     const formatedId = id.replace(/ /g, '_');
     const simulation = _createForceSimulation(newConfig.width, newConfig.height);
 
+    // ensure focus zoom is between minZoom and maxZoom
+    const { minZoom, maxZoom, focusZoom } = newConfig;
+    newConfig.focusZoom = focusZoom > maxZoom ? maxZoom : focusZoom < minZoom ? minZoom : focusZoom;
+
     return {
         id: formatedId,
         config: newConfig,
