@@ -49,7 +49,7 @@ const NODE_PROPS_WHITELIST = ['id', 'highlighted', 'x', 'y', 'index', 'vy', 'vx'
 function _createForceSimulation(width, height, gravity) {
     const frx = d3ForceX(width / 2).strength(CONST.FORCE_X);
     const fry = d3ForceY(height / 2).strength(CONST.FORCE_Y);
-    const forceStrength = gravity || CONST.FORCE_IDEAL_STRENGTH;
+    const forceStrength = gravity;
 
     return d3ForceSimulation()
         .force('charge', d3ForceManyBody().strength(forceStrength))
