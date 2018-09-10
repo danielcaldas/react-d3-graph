@@ -54,6 +54,14 @@
  * from the given nodes positions by rd3g), no coordinates will be calculated by rd3g or subjacent d3 modules.
  * @param {number} [width=800] - the width of the (svg) area where the graph will be rendered.
  * <br/>
+ * @param {Object} d3 d3 object is explained in next section. ⬇️
+ * @param {number} [d3.gravity=-100] - this will define how close nodes are to each other.
+ *  - If value is positive, nodes will attract each other.
+ *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don't overlap.
+ * @param {number} [d3.linkLength=100] - the length of each link from the center of the nodes it joins.
+ * @param {number} [d3.linkStrength=1]
+ * @param {number} [d3.alphaTarget=0.05]
+ * <br/>
  * @param {Object} node node object is explained in next section. ⬇️
  * <h2 id="node-section">Node level configurations</h2>
  * @param {string} [node.color='#d3d3d3'] - 🔍🔍🔍 this is the color that will be applied to the node if no **color property**
@@ -150,6 +158,12 @@ export default {
     panAndZoom: false,
     staticGraph: false,
     width: 800,
+    d3: {
+        gravity: -100,
+        linkLength: 100,
+        linkStrength: 1,
+        alphaTarget: 0.05
+    },
     node: {
         color: '#d3d3d3',
         fontColor: 'black',

@@ -42,15 +42,17 @@ const NODE_PROPS_WHITELIST = ['id', 'highlighted', 'x', 'y', 'index', 'vy', 'vx'
  * Wtf is a force? {@link https://github.com/d3/d3-force#forces| here}
  * @param  {number} width - the width of the container area of the graph.
  * @param  {number} height - the height of the container area of the graph.
+ * @param  {number} gravity - the force strength applied to the graph.
  * @returns {Object} returns the simulation instance to be consumed.
  * @memberof Graph/helper
  */
-function _createForceSimulation(width, height) {
+function _createForceSimulation(width, height, gravity) {
     const frx = d3ForceX(width / 2).strength(CONST.FORCE_X);
     const fry = d3ForceY(height / 2).strength(CONST.FORCE_Y);
+    const forceStrength = gravity;
 
     return d3ForceSimulation()
-        .force('charge', d3ForceManyBody().strength(CONST.FORCE_IDEAL_STRENGTH))
+        .force('charge', d3ForceManyBody().strength(forceStrength))
         .force('x', frx)
         .force('y', fry);
 }
@@ -360,7 +362,7 @@ function initializeGraphState({ data, id, config }, state) {
     let links = _initializeLinks(graph.links); // matrix of graph connections
     const { nodes: d3Nodes, links: d3Links } = graph;
     const formatedId = id.replace(/ /g, '_');
-    const simulation = _createForceSimulation(newConfig.width, newConfig.height);
+    const simulation = _createForceSimulation(newConfig.width, newConfig.height, newConfig.d3 && newConfig.d3.gravity);
 
     return {
         id: formatedId,
