@@ -50,7 +50,7 @@ export default class Sandbox extends React.Component {
         };
     }
 
-    onClickNode = id => window.alert(`Clicked node ${id}`);
+    onClickNode = id => !this.state.config.collapsible && window.alert(`Clicked node ${id}`);
 
     onClickLink = (source, target) => window.alert(`Clicked link between ${source} and ${target}`);
 

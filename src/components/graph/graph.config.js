@@ -10,7 +10,7 @@
  * ⭐ **tip** *to achieve smoother interactions you may want to provide a toggle to set **staticGraph** to **true** *<br/>
  * <br/>
  * **Note about granularity**<br/>
- * Some of the properties listed in the {@link #node-section|Node section} are marked with 🔍🔍🔍. This means that this properties
+ * Some of the properties listed in the {@link #config-node|Node section} are marked with 🔍🔍🔍. This means that this properties
  * have a higher level of granularity. These properties can be defined in the graph payload at a node level. (sample payload below)
  * ```javascript
  * const graph = {
@@ -26,7 +26,15 @@
  * };
  * ```
  *
- * <h2>Graph global configurations</h2>
+ * <br/>
+ *
+ * **Index for config**<br/>
+ * - <a href="#config-global">Graph global configurations</a>
+ * - <a href="#config-d3">d3 level configurations</a>
+ * - <a href="#config-node">Node level configurations</a>
+ * - <a href="#config-link">Link level configurations</a>
+ *
+ * <h2 id="config-global"><a href="#config-global">#</a>  Graph global configurations</h2>
  * @param {boolean} [automaticRearrangeAfterDropNode=false] - 🚅🚅🚅 when true performing a node drag and drop should automatically
  * rearrange all nodes positions based on new position of dragged node (note: **staticGraph** should be false).
  * @param {boolean} [collapsible=false] - 🚅🚅🚅 Allow leaf neighbours nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.
@@ -55,15 +63,16 @@
  * @param {number} [width=800] - the width of the (svg) area where the graph will be rendered.
  * <br/>
  * @param {Object} d3 d3 object is explained in next section. ⬇️
- * @param {number} [d3.gravity=-100] - this will define how close nodes are to each other.
+ * <h2 id="config-d3"><a href="#config-d3">#</a> d3 level configurations</h2>
+ * @param {number} [d3.alphaTarget=0.05] - [see d3-force simulation.alphaTarget](https://github.com/d3/d3-force#simulation_alphaTarget)
+ * @param {number} [d3.gravity=-100] - this will define how close nodes are to each other ([see d3 reference for forces](https://github.com/d3/d3-force#forces)).
  *  - If value is positive, nodes will attract each other.
  *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don't overlap.
  * @param {number} [d3.linkLength=100] - the length of each link from the center of the nodes it joins.
- * @param {number} [d3.linkStrength=1]
- * @param {number} [d3.alphaTarget=0.05]
+ * @param {number} [d3.linkStrength=1] - [see d3-force link.strength](https://github.com/d3/d3-force#link_strength)
  * <br/>
  * @param {Object} node node object is explained in next section. ⬇️
- * <h2 id="node-section">Node level configurations</h2>
+ * <h2 id="config-node"><a href="#config-node">#</a> Node level configurations</h2>
  * @param {string} [node.color='#d3d3d3'] - 🔍🔍🔍 this is the color that will be applied to the node if no **color property**
  * is found inside the node itself (yes **you can pass a property 'color' inside the node and that color will override the
  * this default one**).
@@ -106,7 +115,7 @@
  * **[note]** react-d3-graph will map this values to [d3 symbols](https://github.com/d3/d3-shape#symbols)
  * <br/>
  * @param {Object} link link object is explained in the next section. ⬇️
- * <h2>Link level configurations</h2>
+ * <h2 id="config-link"><a href="#config-link">#</a> Link level configurations</h2>
  * @param {string} [link.color='#d3d3d3'] - 🚅🚅🚅 the color for links
  * (from version 1.3.0 this property can be configured at link level).
  * @param {number} [link.opacity=1] - the default opacity value for links.
@@ -159,10 +168,10 @@ export default {
     staticGraph: false,
     width: 800,
     d3: {
+        alphaTarget: 0.05,
         gravity: -100,
         linkLength: 100,
-        linkStrength: 1,
-        alphaTarget: 0.05
+        linkStrength: 1
     },
     node: {
         color: '#d3d3d3',
