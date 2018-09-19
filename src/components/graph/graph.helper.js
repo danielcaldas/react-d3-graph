@@ -23,7 +23,8 @@ import {
     forceX as d3ForceX,
     forceY as d3ForceY,
     forceSimulation as d3ForceSimulation,
-    forceManyBody as d3ForceManyBody
+    forceManyBody as d3ForceManyBody,
+    forceCollide as d3ForceCollide
 } from 'd3-force';
 
 import CONST from './graph.const';
@@ -43,18 +44,35 @@ const NODE_PROPS_WHITELIST = ['id', 'highlighted', 'x', 'y', 'index', 'vy', 'vx'
  * @param  {number} width - the width of the container area of the graph.
  * @param  {number} height - the height of the container area of the graph.
  * @param  {number} gravity - the force strength applied to the graph.
+ * @param  {callback} onCollide - the method takes a node as its param and returns a collision force radius.
  * @returns {Object} returns the simulation instance to be consumed.
  * @memberof Graph/helper
  */
-function _createForceSimulation(width, height, gravity) {
+function _createForceSimulation(width, height, gravity, onCollide) {
     const frx = d3ForceX(width / 2).strength(CONST.FORCE_X);
     const fry = d3ForceY(height / 2).strength(CONST.FORCE_Y);
     const forceStrength = gravity;
+    const onC = onCollide
+        ? onCollide
+        : n => {
+              return 1;
+          };
 
     return d3ForceSimulation()
         .force('charge', d3ForceManyBody().strength(forceStrength))
         .force('x', frx)
-        .force('y', fry);
+        .force('y', fry)
+        .force(
+            'collide',
+            d3ForceCollide(n => {
+                const num = onC(n);
+                // Needs to be a number AND a positive radius
+                if (Number.isInteger(num) && num > 0) {
+                    return num;
+                }
+                return 1;
+            })
+        );
 }
 
 /**
@@ -362,7 +380,12 @@ function initializeGraphState({ data, id, config }, state) {
     let links = _initializeLinks(graph.links); // matrix of graph connections
     const { nodes: d3Nodes, links: d3Links } = graph;
     const formatedId = id.replace(/ /g, '_');
-    const simulation = _createForceSimulation(newConfig.width, newConfig.height, newConfig.d3 && newConfig.d3.gravity);
+    const simulation = _createForceSimulation(
+        newConfig.width,
+        newConfig.height,
+        newConfig.d3 && newConfig.d3.gravity,
+        newConfig.d3.onCollide
+    );
 
     return {
         id: formatedId,
