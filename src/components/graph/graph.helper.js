@@ -23,7 +23,8 @@ import {
     forceX as d3ForceX,
     forceY as d3ForceY,
     forceSimulation as d3ForceSimulation,
-    forceManyBody as d3ForceManyBody
+    forceManyBody as d3ForceManyBody,
+    forceCollide as d3ForceCollide
 } from 'd3-force';
 
 import CONST from './graph.const';
@@ -53,6 +54,7 @@ function _createForceSimulation(width, height, gravity) {
 
     return d3ForceSimulation()
         .force('charge', d3ForceManyBody().strength(forceStrength))
+        .force('collide', d3ForceCollide(d => d.svg != null ? 100 : 3))
         .force('x', frx)
         .force('y', fry);
 }
