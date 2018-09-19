@@ -1,0 +1,67 @@
+/* --- Generic styles --- */
+
+.flex-container {
+    flex-direction: column;
+    display: flex;
+}
+
+.flex-container-column {
+    flex-direction: column;
+}
+
+.flex-container-row {
+    flex-direction: row;
+}
+
+.fill-space {
+    flex-grow: 1;
+}
+
+.icon {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* --- Shape for the nodes --- */
+
+.person-node {
+    width: 100%;
+    height: 100%;
+    border-radius: 35% 5% 35% 5%;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.person-node.male {
+    background-color: lightblue;
+    box-shadow: 25px 15px cadetblue;
+}
+
+.person-node.female {
+    background-color: pink;
+    box-shadow: 25px 15px palevioletred;
+}
+
+/* --- Other styles for node content --- */
+
+.person-node .name {
+    padding: 5%;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.person-node .icon-bar {
+    width: 20%;
+    margin-right: 5%;
+}
+
+.person-node .icon-bar > .icon {
+    width: 80%;
+    height: 30%;
+}
