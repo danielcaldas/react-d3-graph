@@ -102,7 +102,7 @@ export default class Node extends React.Component {
                 node = (
                     <svg {...nodeProps} width={width} height={height}>
                         <foreignObject x="0" y="0" width="100%" height="100%">
-                            {this.props.view}
+                            <body style={{ height, width, backgroundColor: 'transparent' }}>{this.props.view}</body>
                         </foreignObject>
                     </svg>
                 );
