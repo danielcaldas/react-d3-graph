@@ -384,7 +384,7 @@ function initializeGraphState({ data, id, config }, state) {
         newConfig.width,
         newConfig.height,
         newConfig.d3 && newConfig.d3.gravity,
-        newConfig.d3.onCollide
+        newConfig.d3 && newConfig.d3.onCollide
     );
 
     return {
