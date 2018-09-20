@@ -1,7 +1,4 @@
-import React from 'react';
-import CustomNode from './CustomNode';
-
-const dataSet = {
+module.exports = {
     links: [
         {
             source: 1,
@@ -24,43 +21,30 @@ const dataSet = {
         {
             id: 1,
             name: 'Mary',
-            data: {
-                gender: 'female',
-                hasCar: false,
-                hasBike: false
-            }
+            gender: 'female',
+            hasCar: false,
+            hasBike: false
         },
         {
             id: 2,
             name: 'Roy',
-            data: {
-                gender: 'male',
-                hasCar: false,
-                hasBike: true
-            }
+            gender: 'male',
+            hasCar: false,
+            hasBike: true
         },
         {
             id: 3,
             name: 'Frank',
-            data: {
-                gender: 'male',
-                hasCar: true,
-                hasBike: true
-            }
+            gender: 'male',
+            hasCar: true,
+            hasBike: true
         },
         {
             id: 4,
             name: 'Melanie',
-            data: {
-                gender: 'female',
-                hasCar: true,
-                hasBike: false
-            }
+            gender: 'female',
+            hasCar: true,
+            hasBike: false
         }
     ]
 };
-
-// Generate views for each node and append them to data object
-const nodeListWithCustomView = dataSet.nodes.map(node => ({ ...node, view: <CustomNode node={node} /> }));
-
-module.exports = { ...dataSet, nodes: nodeListWithCustomView };

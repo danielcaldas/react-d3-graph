@@ -12,15 +12,15 @@ const ICON_TYPES = {
 };
 
 /**
- *  Component that renders a person's name and gender, along with icons
+ * Component that renders a person's name and gender, along with icons
  * representing if they have a driver license for bike and / or car.
  */
-function CustomNode({ node }) {
-    const isMale = node.data.gender === 'male';
+function CustomNode({ person }) {
+    const isMale = person.gender === 'male';
 
     return (
         <div className={`flex-container person-node ${isMale ? 'male' : 'female'}`}>
-            <div className="name">{node.name}</div>
+            <div className="name">{person.name}</div>
 
             <div className="flex-container fill-space flex-container-row">
                 <div className="fill-space">
@@ -31,12 +31,10 @@ function CustomNode({ node }) {
                 </div>
 
                 <div className="icon-bar">
-                    {node.data.hasBike && (
+                    {person.hasBike && (
                         <div className="icon" style={{ backgroundImage: `url('${ICON_TYPES.BIKE}')` }} />
                     )}
-                    {node.data.hasCar && (
-                        <div className="icon" style={{ backgroundImage: `url('${ICON_TYPES.CAR}')` }} />
-                    )}
+                    {person.hasCar && <div className="icon" style={{ backgroundImage: `url('${ICON_TYPES.CAR}')` }} />}
                 </div>
             </div>
         </div>

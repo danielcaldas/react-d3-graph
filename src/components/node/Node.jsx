@@ -36,6 +36,7 @@ import nodeHelper from './node.helper';
  *     strokeWidth=1.5
  *     svg='assets/my-svg.svg'
  *     type='square'
+ *     viewGenerator=(node) => <CustomComponent node={node} />
  *     className='node'
  *     onClickNode={onClickNode}
  *     onMouseOverNode={onMouseOverNode}
@@ -84,7 +85,7 @@ export default class Node extends React.Component {
         let label;
         let node;
 
-        if (this.props.svg || this.props.view) {
+        if (this.props.svg || this.props.viewGenerator) {
             const height = size / 10;
             const width = size / 10;
             const tx = width / 2;
@@ -97,13 +98,14 @@ export default class Node extends React.Component {
                 </text>
             );
 
-            // if a view is set, it takes precedence over any svg image url
-            if (this.props.view) {
+            // if a view generator is set, it takes precedence over any svg image url
+            if (this.props.viewGenerator) {
+                const nodeInfo = this.props.data;
                 node = (
                     <svg {...nodeProps} width={width} height={height}>
                         <foreignObject x="0" y="0" width="100%" height="100%">
                             <section style={{ height, width, backgroundColor: 'transparent' }}>
-                                {this.props.view}
+                                {this.props.viewGenerator(nodeInfo)}
                             </section>
                         </foreignObject>
                     </svg>

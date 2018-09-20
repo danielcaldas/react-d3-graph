@@ -314,7 +314,8 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         strokeWidth: strokeWidth * t,
         svg,
         type: node.symbolType || config.node.symbolType,
-        view: node.view
+        data: node,
+        viewGenerator: node.viewGenerator || (!node.svg ? config.node.viewGenerator : null)
     };
 }
 

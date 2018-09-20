@@ -1,3 +1,6 @@
+import React from 'react';
+import CustomNode from './CustomNode';
+
 module.exports = {
     automaticRearrangeAfterDropNode: false,
     collapsible: false,
@@ -29,7 +32,8 @@ module.exports = {
         strokeColor: 'none',
         strokeWidth: 1.5,
         svg: '',
-        symbolType: 'circle'
+        symbolType: 'circle',
+        viewGenerator: node => <CustomNode person={node} />
     },
     link: {
         color: '#d3d3d3',
