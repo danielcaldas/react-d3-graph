@@ -55,6 +55,7 @@ function _createForceSimulation(width, height, gravity, onCollide) {
     const onC = onCollide
         ? onCollide
         : n => {
+              n;
               return 1;
           };
 
@@ -66,6 +67,7 @@ function _createForceSimulation(width, height, gravity, onCollide) {
             'collide',
             d3ForceCollide(n => {
                 const num = onC(n);
+
                 // Needs to be a number AND a positive radius
                 if (Number.isInteger(num) && num > 0) {
                     return num;
