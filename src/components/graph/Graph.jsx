@@ -379,7 +379,7 @@ export default class Graph extends React.Component {
      * @returns {string} transform rule to apply.
      */
     getCenterAndZoomTransformation = nodeId => {
-        const node = this.state.d3Nodes.find(node => node.id === nodeId);
+        const node = this.state.d3Nodes.find(node => node.id.toString() === nodeId.toString());
 
         if (!node) {
             console.warn(`There isn't a node with id ${nodeId}.`);
