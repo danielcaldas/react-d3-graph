@@ -13,13 +13,6 @@ import * as graphRenderer from './graph.renderer';
 import * as graphHelper from './graph.helper';
 import utils from '../../utils';
 
-// Some d3 constant values
-const D3_CONST = {
-    FORCE_LINK_STRENGTH: 1,
-    LINK_IDEAL_DISTANCE: 100,
-    SIMULATION_ALPHA_TARGET: 0.05
-};
-
 /**
  * Graph component is the main component for react-d3-graph components, its interface allows its user
  * to build the graph once the user provides the data, configuration (optional) and callback interactions (also optional).
@@ -101,8 +94,8 @@ export default class Graph extends React.Component {
 
         const forceLink = d3ForceLink(this.state.d3Links)
             .id(l => l.id)
-            .distance(D3_CONST.LINK_IDEAL_DISTANCE)
-            .strength(D3_CONST.FORCE_LINK_STRENGTH);
+            .distance(this.state.config.d3.linkLength)
+            .strength(this.state.config.d3.linkStrength);
 
         this.state.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
 
@@ -123,7 +116,7 @@ export default class Graph extends React.Component {
     _onDragEnd = () =>
         !this.state.config.staticGraph &&
         this.state.config.automaticRearrangeAfterDropNode &&
-        this.state.simulation.alphaTarget(D3_CONST.SIMULATION_ALPHA_TARGET).restart();
+        this.state.simulation.alphaTarget(this.state.config.d3.alphaTarget).restart();
 
     /**
      * Handles d3 'drag' event.
@@ -279,7 +272,7 @@ export default class Graph extends React.Component {
                 }
             }
 
-            this.state.simulation.alphaTarget(D3_CONST.SIMULATION_ALPHA_TARGET).restart();
+            this.state.simulation.alphaTarget(this.state.config.d3.alphaTarget).restart();
 
             this._tick();
         }

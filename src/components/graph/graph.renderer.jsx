@@ -22,7 +22,7 @@ import { buildLinkProps, buildNodeProps, getNodeCardinality } from './graph.help
  * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object[]} returns the generated array of Link components.
- * @memberof Graph/helper
+ * @memberof Graph/renderer
  */
 function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
     return links.filter(({ isHidden }) => !isHidden).map(link => {
@@ -58,7 +58,7 @@ function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlight
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @param  {Object.<string, Object>} linksMatrix - the matrix of connections of the graph
  * @returns {Object} returns the generated array of nodes components
- * @memberof Graph/helper
+ * @memberof Graph/renderer
  */
 function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
     let outNodes = Object.keys(nodes);
@@ -119,9 +119,8 @@ function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedL
  * @param  {string} highlightedLink.source - id of source node for highlighted link.
  * @param  {string} highlightedLink.target - id of target node for highlighted link.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
- * @returns {Object} returns an object containing the generated nodes and links that form the graph. The result is
- * returned in a way that can be consumed by es6 **destructuring assignment**.
- * @memberof Graph/helper
+ * @returns {Object} returns an object containing the generated nodes and links that form the graph.
+ * @memberof Graph/renderer
  */
 function buildGraph(
     nodes,

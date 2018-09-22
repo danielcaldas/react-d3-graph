@@ -1,5 +1,29 @@
 # Change Log
 
+## [2.0.0-rc0](https://github.com/danielcaldas/react-d3-graph/tree/2.0.0-rc0)
+
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/1.3.0...2.0.0-rc0)
+
+**Implemented enhancements:**
+
+*   Directional links are placed on top of each other [\#89](https://github.com/danielcaldas/react-d3-graph/issues/89)
+
+**Fixed bugs:**
+
+*   Error re-rendering Graph when no `config` prop is set [\#81](https://github.com/danielcaldas/react-d3-graph/issues/81)
+
+**Merged pull requests:**
+
+*   Configurable graph force strength and link length [\#104](https://github.com/danielcaldas/react-d3-graph/pull/104) ([LonelyPrincess](https://github.com/LonelyPrincess))
+*   Fix alert message of onClickNode function in README [\#100](https://github.com/danielcaldas/react-d3-graph/pull/100) ([LucienBouletRoblin](https://github.com/LucienBouletRoblin))
+*   Fix/dependencies update [\#95](https://github.com/danielcaldas/react-d3-graph/pull/95) ([danielcaldas](https://github.com/danielcaldas))
+*   Feature/bump dependencies [\#92](https://github.com/danielcaldas/react-d3-graph/pull/92) ([danielcaldas](https://github.com/danielcaldas))
+*   Feature/bend links [\#91](https://github.com/danielcaldas/react-d3-graph/pull/91) ([danielcaldas](https://github.com/danielcaldas))
+*   Small improvement in utils/pick [\#87](https://github.com/danielcaldas/react-d3-graph/pull/87) ([danielcaldas](https://github.com/danielcaldas))
+*   fix: Graph fails to render without config prop [\#84](https://github.com/danielcaldas/react-d3-graph/pull/84) ([LonelyPrincess](https://github.com/LonelyPrincess))
+*   Node Collapse [\#83](https://github.com/danielcaldas/react-d3-graph/pull/83) ([svipatov](https://github.com/svipatov))
+*   Added overflow:hidden to container graph area [\#82](https://github.com/danielcaldas/react-d3-graph/pull/82) ([svipatov](https://github.com/svipatov))
+
 ## [1.3.0](https://github.com/danielcaldas/react-d3-graph/tree/1.3.0) (2018-06-25)
 
 **NOTE**: This release contains only PR [\#79](https://github.com/danielcaldas/react-d3-graph/pull/79) cherry picked from master.

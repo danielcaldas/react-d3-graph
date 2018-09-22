@@ -51,7 +51,7 @@ export default class Sandbox extends React.Component {
     }
 
     onClickNode = id => {
-        window.alert(`Clicked node ${id}`);
+        !this.state.config.collapsible && window.alert(`Clicked node ${id}`);
         this.setState({ focusedNodeId: this.state.focusedNodeId !== id ? id : null });
     };
 
