@@ -96,7 +96,7 @@
  *   - 'wye'
  *
  * **[note]** react-d3-graph will map this values to [d3 symbols](https://github.com/d3/d3-shape#symbols)
- * @param {function} [node.viewGenerator=undefined] - 🔍🔍🔍 function that receives a node and returns a JSX view.
+ * @param {Function} [node.viewGenerator=undefined] - 🔍🔍🔍 function that receives a node and returns a JSX view.
  * <br/>
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2>Link level configurations</h2>
