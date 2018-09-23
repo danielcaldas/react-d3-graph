@@ -316,7 +316,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         svg,
         type: node.symbolType || config.node.symbolType,
         viewGenerator: node.viewGenerator || config.node.viewGenerator,
-        overrideViewGenerator: !node.viewGenerator && node.svg
+        overrideGlobalViewGenerator: !node.viewGenerator && node.svg
     };
 }
 
