@@ -98,8 +98,8 @@ export default class Node extends React.Component {
                 </text>
             );
 
-            // if a view generator is set, it takes precedence over any svg image url
-            if (this.props.viewGenerator) {
+            // By default, if a view generator is set, it takes precedence over any svg image url
+            if (this.props.viewGenerator && !this.props.overrideViewGenerator) {
                 const nodeInfo = this.props.data;
                 node = (
                     <svg {...nodeProps} width={width} height={height}>
