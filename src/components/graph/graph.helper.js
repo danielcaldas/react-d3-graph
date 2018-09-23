@@ -293,6 +293,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     const fontColor = node.fontColor || config.node.fontColor;
 
     return {
+        ...node,
         className: CONST.NODE_CLASS_NAME,
         cursor: config.node.mouseCursor,
         cx: (node && node.x) || '0',
@@ -314,7 +315,6 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         strokeWidth: strokeWidth * t,
         svg,
         type: node.symbolType || config.node.symbolType,
-        data: node,
         viewGenerator: node.viewGenerator || config.node.viewGenerator,
         overrideViewGenerator: !node.viewGenerator && node.svg
     };
