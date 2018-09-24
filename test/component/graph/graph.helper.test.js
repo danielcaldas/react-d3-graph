@@ -121,7 +121,14 @@ describe('Graph Helper', () => {
                     stroke: 'yellow',
                     strokeWidth: 2,
                     svg: 'file.svg',
-                    type: 'circle'
+                    symbolType: undefined,
+                    x: 1,
+                    y: 2,
+                    type: 'circle',
+                    color: 'green',
+                    highlighted: true,
+                    viewGenerator: undefined,
+                    overrideGlobalViewGenerator: undefined
                 });
             });
         });
@@ -163,7 +170,14 @@ describe('Graph Helper', () => {
                         stroke: 'none',
                         strokeWidth: 1.5,
                         svg: 'file.svg',
-                        type: 'circle'
+                        symbolType: undefined,
+                        x: 1,
+                        y: 2,
+                        type: 'circle',
+                        color: 'green',
+                        highlighted: false,
+                        viewGenerator: undefined,
+                        overrideGlobalViewGenerator: undefined
                     });
                 });
             });
@@ -204,7 +218,14 @@ describe('Graph Helper', () => {
                         stroke: 'none',
                         strokeWidth: 1.5,
                         svg: 'file.svg',
-                        type: 'circle'
+                        symbolType: undefined,
+                        x: 1,
+                        y: 2,
+                        type: 'circle',
+                        color: 'green',
+                        highlighted: false,
+                        viewGenerator: undefined,
+                        overrideGlobalViewGenerator: undefined
                     });
                 });
             });
