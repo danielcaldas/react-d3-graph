@@ -366,7 +366,12 @@ function initializeGraphState({ data, id, config }, state) {
 
     // ensure focus zoom is between minZoom and maxZoom
     const { minZoom, maxZoom, focusZoom } = newConfig;
-    newConfig.focusZoom = focusZoom > maxZoom ? maxZoom : focusZoom < minZoom ? minZoom : focusZoom;
+
+    if (focusZoom > maxZoom) {
+        newConfig.focusZoom = maxZoom;
+    } else if (focusZoom < minZoom) {
+        newConfig.focusZoom = minZoom;
+    }
 
     return {
         id: formatedId,
