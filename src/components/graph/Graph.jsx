@@ -381,12 +381,11 @@ export default class Graph extends React.Component {
     getCenterAndZoomTransformation = nodeId => {
         const node = this.state.d3Nodes.find(node => node.id.toString() === nodeId.toString());
 
+        // If node with specified id doesn't exist, don't do anything
         if (!node) {
-            console.warn(`There isn't a node with id ${nodeId}.`);
             return;
         }
 
-        console.log(`Graph will focus on node ${nodeId}...`);
         const { width, height, focusZoom } = this.state.config;
 
         return `
