@@ -44,7 +44,7 @@ const NODE_PROPS_WHITELIST = ['id', 'highlighted', 'x', 'y', 'index', 'vy', 'vx'
  * @param  {number} width - the width of the container area of the graph.
  * @param  {number} height - the height of the container area of the graph.
  * @param  {number} gravity - the force strength applied to the graph.
- * @param  {callback} onCollide - the method takes a node as its param and returns a collision force radius.
+ * @param  {Function} onCollide - this method takes a node as its param and returns a collision force radius.
  * @returns {Object} returns the simulation instance to be consumed.
  * @memberof Graph/helper
  */
