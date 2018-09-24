@@ -52,28 +52,38 @@ function _createForceSimulation(width, height, gravity, onCollide) {
     const frx = d3ForceX(width / 2).strength(CONST.FORCE_X);
     const fry = d3ForceY(height / 2).strength(CONST.FORCE_Y);
     const forceStrength = gravity;
-    const onCollision = _isValidCollisionFunction(onCollide) ? onCollide : d3ForceCollide;
 
-    return d3ForceSimulation()
-        .force('charge', d3ForceManyBody().strength(forceStrength))
-        .force('x', frx)
-        .force('y', fry)
-        .force(
-            'collide',
-            d3ForceCollide(node => {
-                onCollision(node);
-            })
+    if (_isValidCollisionFunction(onCollide)) {
+        return (
+            d3ForceSimulation()
+                .force('charge', d3ForceManyBody().strength(forceStrength))
+                .force('x', frx)
+                .force('y', fry)
+                .force('y', fry)
+                // Each node from the data set is passed into the onCollide method
+                .force(
+                    'collide',
+                    d3ForceCollide(node => {
+                        onCollide(node);
+                    })
+                )
         );
+    } else {
+        return d3ForceSimulation()
+            .force('charge', d3ForceManyBody().strength(forceStrength))
+            .force('x', frx)
+            .force('y', fry)
+            .force('y', fry);
+    }
 }
 
 /**
  *
- * @param {callback} onCollide - the method takes a node as its param and returns a collision force radius.
- * @returns {*|boolean} value that indicates if onCollide is a valid collision function
- * @private
+ * @param {Function} onCollide - this method takes a node as its param and returns a collision force radius.
+ * @returns {boolean} value that indicates if onCollide is a valid collision function
  */
 function _isValidCollisionFunction(onCollide) {
-    return onCollide && typeof onCollide === 'function';
+    return !!onCollide && typeof onCollide === 'function';
 }
 
 /**
