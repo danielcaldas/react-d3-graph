@@ -372,6 +372,23 @@ export default class Graph extends React.Component {
         this.props.onClickNode && this.props.onClickNode(clickedNodeId);
     };
 
+    /**
+     * Calls the callback passed to the component.
+     * @param  {string} e - The event of onClick handler.
+     * @returns {undefined}
+     */
+    onClickGraph = e => {
+        // Only trigger the graph onClickHandler, if not clicked a node or link.
+        // toUpperCase() is added as a precaution, as the documentation says tagName should always
+        // return in UPPERCASE, but chrome returns lowercase
+        if (
+            e.target.tagName.toUpperCase() === 'SVG' &&
+            e.target.attributes.name.value === `svg-container-${this.state.id}`
+        ) {
+            this.props.onClickGraph && this.props.onClickGraph();
+        }
+    };
+
     render() {
         const { nodes, links } = graphRenderer.buildGraph(
             this.state.nodes,
@@ -400,7 +417,7 @@ export default class Graph extends React.Component {
 
         return (
             <div id={`${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`}>
-                <svg style={svgStyle}>
+                <svg name={`svg-container-${this.state.id}`} style={svgStyle} onClick={this.onClickGraph}>
                     <g id={`${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`}>
                         {links}
                         {nodes}

@@ -101,6 +101,7 @@ describe('Graph Helper', () => {
                 const props = graphHelper.buildNodeProps(that.node, that.config, undefined, 'id', undefined, 1);
 
                 expect(props).toEqual({
+                    ...that.node,
                     className: 'node',
                     cursor: 'pointer',
                     cx: 1,
@@ -121,7 +122,9 @@ describe('Graph Helper', () => {
                     stroke: 'yellow',
                     strokeWidth: 2,
                     svg: 'file.svg',
-                    type: 'circle'
+                    type: 'circle',
+                    viewGenerator: undefined,
+                    overrideGlobalViewGenerator: undefined
                 });
             });
         });
@@ -143,6 +146,7 @@ describe('Graph Helper', () => {
                     );
 
                     expect(props).toEqual({
+                        ...that.node,
                         className: 'node',
                         cursor: 'pointer',
                         cx: 1,
@@ -163,7 +167,9 @@ describe('Graph Helper', () => {
                         stroke: 'none',
                         strokeWidth: 1.5,
                         svg: 'file.svg',
-                        type: 'circle'
+                        type: 'circle',
+                        viewGenerator: undefined,
+                        overrideGlobalViewGenerator: undefined
                     });
                 });
             });
@@ -184,6 +190,7 @@ describe('Graph Helper', () => {
                     );
 
                     expect(props).toEqual({
+                        ...that.node,
                         className: 'node',
                         cursor: 'pointer',
                         cx: 1,
@@ -204,7 +211,9 @@ describe('Graph Helper', () => {
                         stroke: 'none',
                         strokeWidth: 1.5,
                         svg: 'file.svg',
-                        type: 'circle'
+                        type: 'circle',
+                        viewGenerator: undefined,
+                        overrideGlobalViewGenerator: undefined
                     });
                 });
             });

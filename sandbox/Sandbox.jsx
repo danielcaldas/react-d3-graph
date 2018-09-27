@@ -50,6 +50,8 @@ export default class Sandbox extends React.Component {
         };
     }
 
+    onClickGraph = () => console.info(`Clicked the graph`);
+
     onClickNode = id => !this.state.config.collapsible && window.alert(`Clicked node ${id}`);
 
     onClickLink = (source, target) => window.alert(`Clicked link between ${source} and ${target}`);
@@ -294,6 +296,7 @@ export default class Sandbox extends React.Component {
             data,
             config: this.state.config,
             onClickNode: this.onClickNode,
+            onClickGraph: this.onClickGraph,
             onClickLink: this.onClickLink,
             onMouseOverNode: this.onMouseOverNode,
             onMouseOutNode: this.onMouseOutNode,
