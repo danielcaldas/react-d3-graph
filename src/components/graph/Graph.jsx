@@ -295,6 +295,16 @@ export default class Graph extends React.Component {
         this.state = graphHelper.initializeGraphState(this.props, this.state);
     }
 
+    /**
+     * @deprecated
+     * `componentWillReceiveProps` has a replacement method in react v16.3 onwards.
+     * that is getDerivedStateFromProps.
+     * But one needs to be aware that if an anti pattern of `componentWillReceiveProps` is
+     * in place for this implementation the migration might not be that easy.
+     * See {@link https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html}.
+     * @param {Object} nextProps - props.
+     * @returns {undefined}
+     */
     componentWillReceiveProps(nextProps) {
         const newGraphElements =
             nextProps.data.nodes.length !== this.state.nodesInputSnapshot.length ||
