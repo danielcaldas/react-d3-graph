@@ -70,7 +70,7 @@
  *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don't overlap.
  * @param  {Function} onCollide - this method takes a node as parameter and returns a collision force radius. See
  * {@link https://github.com/d3/d3-force#forceCollide} for more information on a collision force radius.
- * @example const onCollide = (node) => node.svg ? 100 : 50;
+ * @example const onCollide = d3.forceCollide().radius(function(d) { return d.r + 0.5; });
  * @param {number} [d3.linkLength=100] - the length of each link from the center of the nodes it joins.
  * @param {number} [d3.linkStrength=1] - [see d3-force link.strength](https://github.com/d3/d3-force#link_strength)
  * <br/>

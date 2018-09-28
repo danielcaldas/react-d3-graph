@@ -54,20 +54,12 @@ function _createForceSimulation(width, height, gravity, onCollide) {
     const forceStrength = gravity;
 
     if (_isValidCollisionFunction(onCollide)) {
-        return (
-            d3ForceSimulation()
-                .force('charge', d3ForceManyBody().strength(forceStrength))
-                .force('x', frx)
-                .force('y', fry)
-                .force('y', fry)
-                // Each node from the data set is passed into the onCollide method
-                .force(
-                    'collide',
-                    d3ForceCollide(node => {
-                        onCollide(node);
-                    })
-                )
-        );
+        return d3ForceSimulation()
+            .force('charge', d3ForceManyBody().strength(forceStrength))
+            .force('x', frx)
+            .force('y', fry)
+            .force('y', fry)
+            .force('collide', onCollide);
     } else {
         return d3ForceSimulation()
             .force('charge', d3ForceManyBody().strength(forceStrength))
