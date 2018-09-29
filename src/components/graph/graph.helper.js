@@ -1,3 +1,4 @@
+/*eslint-disable max-lines*/
 /**
  * @module Graph/helper
  * @description
@@ -146,6 +147,39 @@ function _initializeNodes(graphNodes) {
     }
 
     return nodes;
+}
+
+/**
+ * Maps an input link (with format `{ source: 'sourceId', target: 'targetId' }`) to a d3Link
+ * (with format `{ source: { id: 'sourceId' }, target: { id: 'targetId' } }`). If d3Link with
+ * given index exists already that same d3Link is returned.
+ * @param {Object} link - input link.
+ * @param {number} index - index of the input link.
+ * @param {Array.<Object>} d3Links - all d3Links.
+ * @returns {Object} a d3Link.
+ */
+function _mapDataLinkToD3Link(link, index, d3Links = []) {
+    const d3Link = d3Links[index];
+
+    if (d3Link) {
+        return d3Link;
+    }
+
+    const highlighted = false;
+    const source = {
+        id: link.source,
+        highlighted
+    };
+    const target = {
+        id: link.target,
+        highlighted
+    };
+
+    return {
+        index,
+        source,
+        target
+    };
 }
 
 /**
@@ -369,15 +403,13 @@ function checkForGraphElementsChanges(nextProps, currentState) {
  * @memberof Graph/helper
  */
 function initializeGraphState({ data, id, config }, state) {
-    let graph;
-
     _validateGraphData(data);
 
+    let graph;
     const nodesInputSnapshot = data.nodes.map(n => Object.assign({}, n));
     const linksInputSnapshot = data.links.map(l => Object.assign({}, l));
 
     if (state && state.nodes) {
-        // absorb existent positioning
         graph = {
             nodes: data.nodes.map(
                 n =>
@@ -385,7 +417,7 @@ function initializeGraphState({ data, id, config }, state) {
                         ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
                         : Object.assign({}, n)
             ),
-            links: (state && state.d3Links) || data.links.map(l => Object.assign({}, l))
+            links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links))
         };
     } else {
         graph = {
