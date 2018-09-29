@@ -125,6 +125,8 @@ describe('[rd3g-graph] graph tests', function() {
 
             this.node1PO = new NodePO(1);
             this.node2PO = new NodePO(2);
+            this.node3PO = new NodePO(3);
+            this.node4PO = new NodePO(4);
             this.link12PO = new LinkPO(0);
         });
 
@@ -141,6 +143,19 @@ describe('[rd3g-graph] graph tests', function() {
             // Check the leaf node & link is no longer visible
             this.node2PO.getPath().should('not.be.visible');
             line.should('not.be.visible');
+
+            // Check if other nodes and links are still visible
+            this.node1PO.getPath().should('be.visible');
+            this.node3PO.getPath().should('be.visible');
+            this.node4PO.getPath().should('be.visible');
+
+            const link13PO = new LinkPO(1);
+            const link14PO = new LinkPO(2);
+            const link34PO = new LinkPO(3);
+
+            link13PO.getLine().should('be.visible');
+            link14PO.getLine().should('be.visible');
+            link34PO.getLine().should('be.visible');
         });
     });
 });

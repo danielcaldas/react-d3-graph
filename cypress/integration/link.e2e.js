@@ -6,7 +6,7 @@ const NodePO = require('../page-objects/node.po');
 const SandboxPO = require('../page-objects/sandbox.po');
 let nodes = require('./../../sandbox/data/small/small.data').nodes.map(({ id }) => id);
 
-describe('[rd3g-graph] link tests', function() {
+describe('[rd3g-link] link tests', function() {
     before(function() {
         this.sandboxPO = new SandboxPO();
         // visit sandbox
