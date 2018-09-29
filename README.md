@@ -103,3 +103,7 @@ Check [this trello board](https://trello.com/b/KrnmFXha/react-d3-graph) where ev
 ## Contributions
 
 Contributions are welcome fell free to submit new ideas/features, just open an issue or send me an email or something. If you are more a _hands on_ person, just submit a pull request.
+
+## Alternatives (Not what you where looking for?)
+
+Well if you scrolled this far maybe _react-d3-graph_ does not fulfill all your requirements 😭, but don't worry I got you covered! There are a lot of different and good alternatives out there, [here is a list with a few alternatives](http://anvaka.github.io/graph-drawing-libraries/#!/all#%2Fall). Btw, not in the previous list but also a valid alternative built by uber [uber/react-vis-force](https://github.com/uber/react-vis-force).
