@@ -235,7 +235,7 @@ describe('Graph Helper', () => {
             });
 
             describe('and received state was already initialized', () => {
-                test('should create graph structure absorbing stored nodes behavior in state obj', () => {
+                test('should create graph structure absorbing stored nodes and links behavior', () => {
                     const data = {
                         nodes: [{ id: 'A' }, { id: 'B' }, { id: 'C' }],
                         links: [{ source: 'A', target: 'B' }, { source: 'C', target: 'A' }]
@@ -245,7 +245,7 @@ describe('Graph Helper', () => {
                             A: { x: 20, y: 40 },
                             B: { x: 40, y: 60 }
                         },
-                        links: 'links',
+                        links: [],
                         nodeIndexMapping: 'nodeIndexMapping'
                     };
 
@@ -273,12 +273,26 @@ describe('Graph Helper', () => {
                     ]);
                     expect(newState.d3Links).toEqual([
                         {
-                            source: 'A',
-                            target: 'B'
+                            index: 0,
+                            source: {
+                                highlighted: false,
+                                id: 'A'
+                            },
+                            target: {
+                                highlighted: false,
+                                id: 'B'
+                            }
                         },
                         {
-                            source: 'C',
-                            target: 'A'
+                            index: 1,
+                            source: {
+                                highlighted: false,
+                                id: 'C'
+                            },
+                            target: {
+                                highlighted: false,
+                                id: 'A'
+                            }
                         }
                     ]);
                 });
@@ -364,12 +378,26 @@ describe('Graph Helper', () => {
                     configUpdated: false,
                     d3Links: [
                         {
-                            source: 'A',
-                            target: 'B'
+                            index: 0,
+                            source: {
+                                highlighted: false,
+                                id: 'A'
+                            },
+                            target: {
+                                highlighted: false,
+                                id: 'B'
+                            }
                         },
                         {
-                            source: 'C',
-                            target: 'A'
+                            index: 1,
+                            source: {
+                                highlighted: false,
+                                id: 'C'
+                            },
+                            target: {
+                                highlighted: false,
+                                id: 'A'
+                            }
                         }
                     ],
                     d3Nodes: [
@@ -406,6 +434,16 @@ describe('Graph Helper', () => {
                             A: 1
                         }
                     },
+                    linksInputSnapshot: [
+                        {
+                            source: 'A',
+                            target: 'B'
+                        },
+                        {
+                            source: 'C',
+                            target: 'A'
+                        }
+                    ],
                     newGraphElements: false,
                     nodes: {
                         A: {
@@ -427,10 +465,6 @@ describe('Graph Helper', () => {
                             y: 0
                         }
                     },
-                    simulation: {
-                        force: forceStub
-                    },
-                    transform: 1,
                     nodesInputSnapshot: [
                         {
                             id: 'A'
@@ -442,16 +476,10 @@ describe('Graph Helper', () => {
                             id: 'C'
                         }
                     ],
-                    linksInputSnapshot: [
-                        {
-                            source: 'A',
-                            target: 'B'
-                        },
-                        {
-                            source: 'C',
-                            target: 'A'
-                        }
-                    ]
+                    simulation: {
+                        force: forceStub
+                    },
+                    transform: 1
                 });
             });
         });
