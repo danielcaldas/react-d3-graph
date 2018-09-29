@@ -245,7 +245,7 @@ describe('Graph Helper', () => {
                             A: { x: 20, y: 40 },
                             B: { x: 40, y: 60 }
                         },
-                        links: 'links',
+                        links: [],
                         nodeIndexMapping: 'nodeIndexMapping'
                     };
 

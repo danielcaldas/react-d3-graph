@@ -340,7 +340,7 @@ function initializeGraphState({ data, id, config }, state) {
     const nodesInputSnapshot = data.nodes.map(n => Object.assign({}, n));
     const linksInputSnapshot = data.links.map(l => Object.assign({}, l));
 
-    if (state && state.nodes && state.links) {
+    if (state && state.nodes) {
         // absorb existent positioning
         graph = {
             nodes: data.nodes.map(
@@ -349,16 +349,14 @@ function initializeGraphState({ data, id, config }, state) {
                         ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
                         : Object.assign({}, n)
             ),
-            links: {}
+            links: (state && state.d3Links) || data.links.map(l => Object.assign({}, l))
         };
     } else {
         graph = {
             nodes: data.nodes.map(n => Object.assign({}, n)),
-            links: {}
+            links: data.links.map(l => Object.assign({}, l))
         };
     }
-
-    graph.links = data.links.map(l => Object.assign({}, l));
 
     let newConfig = Object.assign({}, utils.merge(DEFAULT_CONFIG, config || {}));
     let nodes = _initializeNodes(graph.nodes);
@@ -513,6 +511,7 @@ function getNodeCardinality(nodeId, linksMatrix) {
 }
 
 export {
+    NODE_PROPS_WHITELIST,
     buildLinkProps,
     buildNodeProps,
     disconnectLeafNodeConnections,
