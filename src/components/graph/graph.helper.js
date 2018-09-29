@@ -322,6 +322,42 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     };
 }
 
+// list of properties that are of no interest when it comes to nodes and links comparison
+const NODE_PROPERTIES_DISCARD_TO_COMPARE = ['x', 'y', 'vx', 'vy', 'index'];
+
+/**
+ * This function checks for graph elements (nodes and links) changes, in two different
+ * levels of significance, updated elements (whether some property has changed in some
+ * node or link) and new elements (whether some new elements or added/removed from the graph).
+ * @param {Object} nextProps - nextProps that graph will receive.
+ * @param {Object} currentState - the current state of the graph.
+ * @returns {Object.<string, boolean>} returns object containing update check flags:
+ * - newGraphElements - flag that indicates whether new graph elements were added.
+ * - graphElementsUpdated - flag that indicates whether some graph elements have
+ * updated (some property that is not in NODE_PROPERTIES_DISCARD_TO_COMPARE was added to
+ * some node or link or was updated).
+ */
+function checkForGraphElementsChanges(nextProps, currentState) {
+    const nextNodes = nextProps.data.nodes.map(n => utils.antiPick(n, NODE_PROPERTIES_DISCARD_TO_COMPARE));
+    const nextLinks = nextProps.data.links;
+    const stateD3Nodes = currentState.d3Nodes.map(n => utils.antiPick(n, NODE_PROPERTIES_DISCARD_TO_COMPARE));
+    const stateD3Links = currentState.d3Links.map(l => ({
+        // FIXME: solve this source data inconsistency later
+        source: l.source.id || l.source,
+        target: l.target.id || l.target
+    }));
+    const graphElementsUpdated = !(
+        utils.isDeepEqual(nextNodes, stateD3Nodes) && utils.isDeepEqual(nextLinks, stateD3Links)
+    );
+    const newGraphElements =
+        nextNodes.length !== stateD3Nodes.length ||
+        nextLinks.length !== stateD3Links.length ||
+        !utils.isDeepEqual(nextNodes.map(({ id }) => ({ id })), stateD3Nodes.map(({ id }) => ({ id }))) ||
+        !utils.isDeepEqual(nextLinks, stateD3Links.map(({ source, target }) => ({ source, target })));
+
+    return { graphElementsUpdated, newGraphElements };
+}
+
 /**
  * Encapsulates common procedures to initialize graph.
  * @param {Object} props - Graph component props, object that holds data, id and config.
@@ -514,6 +550,7 @@ export {
     NODE_PROPS_WHITELIST,
     buildLinkProps,
     buildNodeProps,
+    checkForGraphElementsChanges,
     disconnectLeafNodeConnections,
     getLeafNodeConnections,
     getNodeCardinality,

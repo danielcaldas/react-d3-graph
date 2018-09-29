@@ -306,15 +306,11 @@ export default class Graph extends React.Component {
      * @returns {undefined}
      */
     componentWillReceiveProps(nextProps) {
-        const newGraphElements =
-            nextProps.data.nodes.length !== this.state.nodesInputSnapshot.length ||
-            nextProps.data.links.length !== this.state.linksInputSnapshot.length ||
-            !utils.isDeepEqual(nextProps.data, {
-                nodes: this.state.nodesInputSnapshot,
-                links: this.state.linksInputSnapshot
-            });
-        const state = newGraphElements ? graphHelper.initializeGraphState(nextProps, this.state) : this.state;
-
+        const { graphElementsUpdated, newGraphElements } = graphHelper.checkForGraphElementsChanges(
+            nextProps,
+            this.state
+        );
+        const state = graphElementsUpdated ? graphHelper.initializeGraphState(nextProps, this.state) : this.state;
         const newConfig = nextProps.config || {};
         const configUpdated =
             newConfig && !utils.isObjectEmpty(newConfig) && !utils.isDeepEqual(newConfig, this.state.config);
@@ -328,8 +324,8 @@ export default class Graph extends React.Component {
         this.setState({
             ...state,
             config,
-            newGraphElements,
             configUpdated,
+            newGraphElements,
             transform
         });
     }
