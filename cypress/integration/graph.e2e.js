@@ -65,6 +65,7 @@ describe('[rd3g-graph] graph tests', function() {
                 it('nodes props modifications should be reflected in the graph', function() {
                     cy.get('text').should('have.length', 14);
                     cy.get('path[class="link"]').should('be.visible');
+                    cy.get('path[class="link"]').should('have.length', 23);
 
                     this.sandboxPO.addNode();
                     this.sandboxPO.addNode();
@@ -72,6 +73,9 @@ describe('[rd3g-graph] graph tests', function() {
                     this.sandboxPO.addNode();
 
                     cy.get('text').should('have.length', 18);
+
+                    // should now have more than 23 links
+                    cy.get('path[class="link"]').should('not.have.length', 23);
 
                     // click (+) add prop to 1st node
                     this.sandboxPO.addJsonTreeFirstNodeProp();
