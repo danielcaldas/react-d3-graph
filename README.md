@@ -16,6 +16,13 @@
 
 [Here a live playground](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html) page where you can interactively config your own graph, and generate a ready to use configuration! :sunglasses:
 
+You can also load different datasets and configurations via URL query parameter, here are the links:
+
+*   [small dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=small)
+*   [custom node dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=custom-node)
+
+Do you want to visualize your own data set on the live sandbox? Just submit a PR! You're welcome 😁
+
 ## Documentation :book:
 
 Full documentation [here](https://danielcaldas.github.io/react-d3-graph/docs/index.html).
