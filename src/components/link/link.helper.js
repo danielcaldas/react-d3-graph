@@ -71,7 +71,8 @@ function getRadiusStrategy(type) {
 function buildLinkPathDefinition({ source = {}, target = {} }, type = LINE_TYPES.STRAIGHT) {
     const { x: sx, y: sy } = source;
     const { x: tx, y: ty } = target;
-    const radius = getRadiusStrategy(type)(sx, sy, tx, ty);
+    const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
+    const radius = getRadiusStrategy(validType)(sx, sy, tx, ty);
 
     return `M${sx},${sy}A${radius},${radius} 0 0,1 ${tx},${ty}`;
 }

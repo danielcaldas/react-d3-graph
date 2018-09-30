@@ -1,5 +1,22 @@
 # Change Log
 
+## [2.0.0-rc1](https://github.com/danielcaldas/react-d3-graph/tree/2.0.0-rc1)
+
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.0.0-rc0...2.0.0-rc1)
+
+**Closed issues:**
+
+*   i want to customise node. is it possible ? [\#90](https://github.com/danielcaldas/react-d3-graph/issues/90)
+
+**Merged pull requests:**
+
+*   Remove snapshoot structures for nodes and links [\#118](https://github.com/danielcaldas/react-d3-graph/pull/118) ([danielcaldas](https://github.com/danielcaldas))
+*   Fix/Check for d3 config is updated [\#117](https://github.com/danielcaldas/react-d3-graph/pull/117) ([danielcaldas](https://github.com/danielcaldas))
+*   Feature/documentation overall improvements [\#116](https://github.com/danielcaldas/react-d3-graph/pull/116) ([danielcaldas](https://github.com/danielcaldas))
+*   Fix/defensive code for curve types [\#115](https://github.com/danielcaldas/react-d3-graph/pull/115) ([danielcaldas](https://github.com/danielcaldas))
+*   Fix/graph unnecessary calls to graph forces config [\#114](https://github.com/danielcaldas/react-d3-graph/pull/114) ([danielcaldas](https://github.com/danielcaldas))
+*   Customize nodes with JSX views [\#103](https://github.com/danielcaldas/react-d3-graph/pull/103) ([LonelyPrincess](https://github.com/LonelyPrincess))
+
 ## [2.0.0-rc0](https://github.com/danielcaldas/react-d3-graph/tree/2.0.0-rc0)
 
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/1.3.0...2.0.0-rc0)

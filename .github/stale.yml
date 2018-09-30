@@ -1,6 +1,6 @@
 # https://github.com/apps/stale
-daysUntilStale: 30
-daysUntilClose: 10
+daysUntilStale: 40
+daysUntilClose: 20
 exemptLabels:
   - pinned
   - security

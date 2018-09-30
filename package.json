@@ -1,11 +1,12 @@
 {
     "name": "react-d3-graph",
-    "version": "2.0.0-rc0",
+    "version": "2.0.0-rc1",
     "description": "React component to build interactive and configurable graphs with d3 effortlessly",
     "author": "Daniel Caldas",
     "license": "MIT",
     "scripts": {
         "check": "npm run docs:lint && npm run lint && npm run test && npm run functional",
+        "check:light": "npm run lint && npm run test",
         "dev": "NODE_ENV=dev webpack-dev-server --mode=development --content-base sandbox --config webpack.config.js --inline --hot --port 3002",
         "dist:rd3g": "rm -rf dist/ && webpack --config webpack.config.dist.js -p --display-modules --optimize-minimize",
         "dist:sandbox": "webpack --config webpack.config.js -p",

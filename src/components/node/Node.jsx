@@ -36,6 +36,7 @@ import nodeHelper from './node.helper';
  *     strokeWidth=1.5
  *     svg='assets/my-svg.svg'
  *     type='square'
+ *     viewGenerator=(node) => <CustomComponent node={node} />
  *     className='node'
  *     onClickNode={onClickNode}
  *     onMouseOverNode={onMouseOverNode}
@@ -84,7 +85,7 @@ export default class Node extends React.Component {
         let label;
         let node;
 
-        if (this.props.svg) {
+        if (this.props.svg || this.props.viewGenerator) {
             const height = size / 10;
             const width = size / 10;
             const tx = width / 2;
@@ -96,7 +97,21 @@ export default class Node extends React.Component {
                     {this.props.label}
                 </text>
             );
-            node = <image {...nodeProps} href={this.props.svg} width={width} height={height} />;
+
+            // By default, if a view generator is set, it takes precedence over any svg image url
+            if (this.props.viewGenerator && !this.props.overrideGlobalViewGenerator) {
+                node = (
+                    <svg {...nodeProps} width={width} height={height}>
+                        <foreignObject x="0" y="0" width="100%" height="100%">
+                            <section style={{ height, width, backgroundColor: 'transparent' }}>
+                                {this.props.viewGenerator(this.props)}
+                            </section>
+                        </foreignObject>
+                    </svg>
+                );
+            } else {
+                node = <image {...nodeProps} href={this.props.svg} width={width} height={height} />;
+            }
 
             // svg offset transform regarding svg width/height
             gtx -= tx;

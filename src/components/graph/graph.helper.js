@@ -1,3 +1,4 @@
+/*eslint-disable max-lines*/
 /**
  * @module Graph/helper
  * @description
@@ -149,14 +150,48 @@ function _initializeNodes(graphNodes) {
 }
 
 /**
+ * Maps an input link (with format `{ source: 'sourceId', target: 'targetId' }`) to a d3Link
+ * (with format `{ source: { id: 'sourceId' }, target: { id: 'targetId' } }`). If d3Link with
+ * given index exists already that same d3Link is returned.
+ * @param {Object} link - input link.
+ * @param {number} index - index of the input link.
+ * @param {Array.<Object>} d3Links - all d3Links.
+ * @returns {Object} a d3Link.
+ * @memberof Graph/helper
+ */
+function _mapDataLinkToD3Link(link, index, d3Links = []) {
+    const d3Link = d3Links[index];
+
+    if (d3Link) {
+        return d3Link;
+    }
+
+    const highlighted = false;
+    const source = {
+        id: link.source,
+        highlighted
+    };
+    const target = {
+        id: link.target,
+        highlighted
+    };
+
+    return {
+        index,
+        source,
+        target
+    };
+}
+
+/**
  * Some integrity validations on links and nodes structure. If some validation fails the function will
  * throw an error.
  * @param  {Object} data - Same as {@link #initializeGraphState|data in initializeGraphState}.
- * @memberof Graph/helper
  * @throws can throw the following error msg:
  * INSUFFICIENT_DATA - msg if no nodes are provided
  * INVALID_LINKS - if links point to nonexistent nodes
  * @returns {undefined}
+ * @memberof Graph/helper
  */
 function _validateGraphData(data) {
     if (!data.nodes || !data.nodes.length) {
@@ -295,6 +330,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     const fontColor = node.fontColor || config.node.fontColor;
 
     return {
+        ...node,
         className: CONST.NODE_CLASS_NAME,
         cursor: config.node.mouseCursor,
         cx: (node && node.x) || '0',
@@ -315,8 +351,65 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         stroke,
         strokeWidth: strokeWidth * t,
         svg,
-        type: node.symbolType || config.node.symbolType
+        type: node.symbolType || config.node.symbolType,
+        viewGenerator: node.viewGenerator || config.node.viewGenerator,
+        overrideGlobalViewGenerator: !node.viewGenerator && node.svg
     };
+}
+
+// list of properties that are of no interest when it comes to nodes and links comparison
+const NODE_PROPERTIES_DISCARD_TO_COMPARE = ['x', 'y', 'vx', 'vy', 'index'];
+
+/**
+ * This function checks for graph elements (nodes and links) changes, in two different
+ * levels of significance, updated elements (whether some property has changed in some
+ * node or link) and new elements (whether some new elements or added/removed from the graph).
+ * @param {Object} nextProps - nextProps that graph will receive.
+ * @param {Object} currentState - the current state of the graph.
+ * @returns {Object.<string, boolean>} returns object containing update check flags:
+ * - newGraphElements - flag that indicates whether new graph elements were added.
+ * - graphElementsUpdated - flag that indicates whether some graph elements have
+ * updated (some property that is not in NODE_PROPERTIES_DISCARD_TO_COMPARE was added to
+ * some node or link or was updated).
+ * @memberof Graph/helper
+ */
+function checkForGraphElementsChanges(nextProps, currentState) {
+    const nextNodes = nextProps.data.nodes.map(n => utils.antiPick(n, NODE_PROPERTIES_DISCARD_TO_COMPARE));
+    const nextLinks = nextProps.data.links;
+    const stateD3Nodes = currentState.d3Nodes.map(n => utils.antiPick(n, NODE_PROPERTIES_DISCARD_TO_COMPARE));
+    const stateD3Links = currentState.d3Links.map(l => ({
+        // FIXME: solve this source data inconsistency later
+        source: l.source.id || l.source,
+        target: l.target.id || l.target
+    }));
+    const graphElementsUpdated = !(
+        utils.isDeepEqual(nextNodes, stateD3Nodes) && utils.isDeepEqual(nextLinks, stateD3Links)
+    );
+    const newGraphElements =
+        nextNodes.length !== stateD3Nodes.length ||
+        nextLinks.length !== stateD3Links.length ||
+        !utils.isDeepEqual(nextNodes.map(({ id }) => ({ id })), stateD3Nodes.map(({ id }) => ({ id }))) ||
+        !utils.isDeepEqual(nextLinks, stateD3Links.map(({ source, target }) => ({ source, target })));
+
+    return { graphElementsUpdated, newGraphElements };
+}
+
+/**
+ * Logic to check for changes in graph config.
+ * @param {Object} nextProps - nextProps that graph will receive.
+ * @param {Object} currentState - the current state of the graph.
+ * @returns {Object.<string, boolean>} returns object containing update check flags:
+ * - configUpdated - global flag that indicates if any property was updated.
+ * - d3ConfigUpdated - specific flag that indicates changes in d3 configurations.
+ * @memberof Graph/helper
+ */
+function checkForGraphConfigChanges(nextProps, currentState) {
+    const newConfig = nextProps.config || {};
+    const configUpdated =
+        newConfig && !utils.isObjectEmpty(newConfig) && !utils.isDeepEqual(newConfig, currentState.config);
+    const d3ConfigUpdated = newConfig && newConfig.d3 && !utils.isDeepEqual(newConfig.d3, currentState.config.d3);
+
+    return { configUpdated, d3ConfigUpdated };
 }
 
 /**
@@ -330,15 +423,11 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
  * @memberof Graph/helper
  */
 function initializeGraphState({ data, id, config }, state) {
-    let graph;
-
     _validateGraphData(data);
 
-    const nodesInputSnapshot = data.nodes.map(n => Object.assign({}, n));
-    const linksInputSnapshot = data.links.map(l => Object.assign({}, l));
+    let graph;
 
-    if (state && state.nodes && state.links) {
-        // absorb existent positioning
+    if (state && state.nodes) {
         graph = {
             nodes: data.nodes.map(
                 n =>
@@ -346,16 +435,14 @@ function initializeGraphState({ data, id, config }, state) {
                         ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
                         : Object.assign({}, n)
             ),
-            links: {}
+            links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links))
         };
     } else {
         graph = {
             nodes: data.nodes.map(n => Object.assign({}, n)),
-            links: {}
+            links: data.links.map(l => Object.assign({}, l))
         };
     }
-
-    graph.links = data.links.map(l => Object.assign({}, l));
 
     let newConfig = Object.assign({}, utils.merge(DEFAULT_CONFIG, config || {}));
     let nodes = _initializeNodes(graph.nodes);
@@ -377,10 +464,8 @@ function initializeGraphState({ data, id, config }, state) {
         config: newConfig,
         links,
         d3Links,
-        linksInputSnapshot,
         nodes,
         d3Nodes,
-        nodesInputSnapshot,
         highlightedNode: '',
         simulation,
         newGraphElements: false,
@@ -544,6 +629,8 @@ function getCenterAndZoomTransformation(nodeId, d3Nodes, config) {
 export {
     buildLinkProps,
     buildNodeProps,
+    checkForGraphConfigChanges,
+    checkForGraphElementsChanges,
     disconnectLeafNodeConnections,
     getLeafNodeConnections,
     getNodeCardinality,
