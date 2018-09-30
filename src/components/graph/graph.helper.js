@@ -606,9 +606,10 @@ function getNodeCardinality(nodeId, linksMatrix) {
  * Returns the transformation to apply in order to center the graph on the
  * selected node.
  * @param {number} nodeId - node to focus the graph view on.
- * @param {Array} d3Nodes - array containing all the d3 nodes.
+ * @param {Array.<Object>} d3Nodes - array containing all the d3 nodes.
  * @param {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @returns {string} transform rule to apply.
+ * @memberof Graph/helper
  */
 function getCenterAndZoomTransformation(nodeId, d3Nodes, config) {
     const node = d3Nodes.find(node => `${node.id}` === `${nodeId}`);
