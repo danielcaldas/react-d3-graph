@@ -312,8 +312,7 @@ export default class Graph extends React.Component {
         );
         const state = graphElementsUpdated ? graphHelper.initializeGraphState(nextProps, this.state) : this.state;
         const newConfig = nextProps.config || {};
-        const configUpdated =
-            newConfig && !utils.isObjectEmpty(newConfig) && !utils.isDeepEqual(newConfig, this.state.config);
+        const { configUpdated, d3ConfigUpdated } = graphHelper.checkForGraphConfigChanges(nextProps, this.state);
         const config = configUpdated ? utils.merge(DEFAULT_CONFIG, newConfig) : this.state.config;
 
         // in order to properly update graph data we need to pause eventual d3 ongoing animations
@@ -325,6 +324,7 @@ export default class Graph extends React.Component {
             ...state,
             config,
             configUpdated,
+            d3ConfigUpdated,
             newGraphElements,
             transform
         });
@@ -334,10 +334,10 @@ export default class Graph extends React.Component {
         // if the property staticGraph was activated we want to stop possible ongoing simulation
         this.state.config.staticGraph && this.pauseSimulation();
 
-        if (!this.state.config.staticGraph && this.state.newGraphElements) {
+        if (!this.state.config.staticGraph && (this.state.newGraphElements || this.state.d3ConfigUpdated)) {
             this._graphForcesConfig();
             this.restartSimulation();
-            this.setState({ newGraphElements: false });
+            this.setState({ newGraphElements: false, d3ConfigUpdated: false });
         }
 
         if (this.state.configUpdated) {

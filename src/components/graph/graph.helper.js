@@ -393,6 +393,23 @@ function checkForGraphElementsChanges(nextProps, currentState) {
 }
 
 /**
+ * Logic to check for changes in graph config.
+ * @param {Object} nextProps - nextProps that graph will receive.
+ * @param {Object} currentState - the current state of the graph.
+ * @returns {Object.<string, boolean>} returns object containing update check flags:
+ * - configUpdated - global flag that indicates if any property was updated.
+ * - d3ConfigUpdated - specific flag that indicates changes in d3 configurations.
+ */
+function checkForGraphConfigChanges(nextProps, currentState) {
+    const newConfig = nextProps.config || {};
+    const configUpdated =
+        newConfig && !utils.isObjectEmpty(newConfig) && !utils.isDeepEqual(newConfig, currentState.config);
+    const d3ConfigUpdated = newConfig && newConfig.d3 && !utils.isDeepEqual(newConfig.d3, currentState.config.d3);
+
+    return { configUpdated, d3ConfigUpdated };
+}
+
+/**
  * Encapsulates common procedures to initialize graph.
  * @param {Object} props - Graph component props, object that holds data, id and config.
  * @param {Object} props.data - Data object holds links (array of **Link**) and nodes (array of **Node**).
@@ -579,9 +596,9 @@ function getNodeCardinality(nodeId, linksMatrix) {
 }
 
 export {
-    NODE_PROPS_WHITELIST,
     buildLinkProps,
     buildNodeProps,
+    checkForGraphConfigChanges,
     checkForGraphElementsChanges,
     disconnectLeafNodeConnections,
     getLeafNodeConnections,
