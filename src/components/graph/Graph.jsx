@@ -374,7 +374,7 @@ export default class Graph extends React.Component {
 
     /**
      * Calls the callback passed to the component.
-     * @param  {string} e - The event of onClick handler.
+     * @param  {object} e - The event of onClick handler.
      * @returns {undefined}
      */
     onClickGraph = e => {
