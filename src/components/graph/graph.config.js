@@ -56,7 +56,7 @@
  * @param {number} [minZoom=0.1] - min zoom that can be performed against the graph.
  * @param {number} [focusZoom=1] - zoom that will be applied when the graph view is focused in a node. Its value must be between
  * *minZoom* and *maxZoom*. If the specified *focusZoom* is out of this range, *minZoom* or *maxZoom* will be applied instead.
- * @param {number} [focusAnimationLength=0.75] - duration (in seconds) for the animation that takes place when focusing the graph on a node.
+ * @param {number} [focusAnimationDuration=0.75] - duration (in seconds) for the animation that takes place when focusing the graph on a node.
  * @param {boolean} [panAndZoom=false] - 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
  * a similar functionality may be consulted {@link https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39|here}.
  * @param {boolean} [staticGraph=false] - when setting this value to true the graph will be completely static, thus
@@ -168,7 +168,7 @@ export default {
     maxZoom: 8,
     minZoom: 0.1,
     focusZoom: 1,
-    focusAnimationLength: 0.75,
+    focusAnimationDuration: 0.75,
     nodeHighlightBehavior: false,
     panAndZoom: false,
     staticGraph: false,
