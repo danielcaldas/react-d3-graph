@@ -372,29 +372,6 @@ export default class Graph extends React.Component {
         this.props.onClickNode && this.props.onClickNode(clickedNodeId);
     };
 
-    /**
-     * Returns the transformation to apply in order to center the graph on the
-     * selected node.
-     * @param   {number} nodeId - node to focus the graph view on.
-     * @returns {string} transform rule to apply.
-     */
-    getCenterAndZoomTransformation = nodeId => {
-        const node = this.state.d3Nodes.find(node => node.id.toString() === nodeId.toString());
-
-        // If node with specified id doesn't exist, don't do anything
-        if (!node) {
-            return;
-        }
-
-        const { width, height, focusZoom } = this.state.config;
-
-        return `
-            translate(${width / 2}, ${height / 2})
-            scale(${focusZoom})
-            translate(${-node.x}, ${-node.y})
-        `;
-    };
-
     render() {
         const { nodes, links } = graphRenderer.buildGraph(
             this.state.nodes,
@@ -425,7 +402,9 @@ export default class Graph extends React.Component {
 
         const containerProps = {
             style: { transitionDuration: `${this.state.config.focusAnimationLength}s` },
-            transform: focusedNodeId ? this.getCenterAndZoomTransformation(focusedNodeId) : null
+            transform: focusedNodeId
+                ? graphHelper.getCenterAndZoomTransformation(focusedNodeId, this.state.d3Nodes, this.state.config)
+                : null
         };
 
         return (

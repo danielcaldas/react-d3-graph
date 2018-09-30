@@ -364,7 +364,6 @@ function initializeGraphState({ data, id, config }, state) {
     const formatedId = id.replace(/ /g, '_');
     const simulation = _createForceSimulation(newConfig.width, newConfig.height, newConfig.d3 && newConfig.d3.gravity);
 
-    // ensure focus zoom is between minZoom and maxZoom
     const { minZoom, maxZoom, focusZoom } = newConfig;
 
     if (focusZoom > maxZoom) {
@@ -518,6 +517,30 @@ function getNodeCardinality(nodeId, linksMatrix) {
     return nodeConnectivityList.reduce((cardinality, nodeConnectivity) => cardinality + nodeConnectivity, 0);
 }
 
+/**
+ * Returns the transformation to apply in order to center the graph on the
+ * selected node.
+ * @param {number} nodeId - node to focus the graph view on.
+ * @param {Array} d3Nodes - array containing all the d3 nodes.
+ * @param {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @returns {string} transform rule to apply.
+ */
+function getCenterAndZoomTransformation(nodeId, d3Nodes, config) {
+    const node = d3Nodes.find(node => `${node.id}` === `${nodeId}`);
+
+    if (!node) {
+        return;
+    }
+
+    const { width, height, focusZoom } = config;
+
+    return `
+        translate(${width / 2}, ${height / 2})
+        scale(${focusZoom})
+        translate(${-node.x}, ${-node.y})
+    `;
+}
+
 export {
     buildLinkProps,
     buildNodeProps,
@@ -526,5 +549,6 @@ export {
     getNodeCardinality,
     initializeGraphState,
     toggleNodeConnection,
-    updateNodeHighlightedValue
+    updateNodeHighlightedValue,
+    getCenterAndZoomTransformation
 };
