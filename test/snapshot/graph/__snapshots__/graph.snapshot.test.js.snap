@@ -14,6 +14,12 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
   >
     <g
       id="graphId-graph-container-zoomable"
+      style={
+        Object {
+          "transitionDuration": "0.75s",
+        }
+      }
+      transform={null}
     >
       <path
         className="link"
