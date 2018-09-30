@@ -434,16 +434,6 @@ describe('Graph Helper', () => {
                             A: 1
                         }
                     },
-                    linksInputSnapshot: [
-                        {
-                            source: 'A',
-                            target: 'B'
-                        },
-                        {
-                            source: 'C',
-                            target: 'A'
-                        }
-                    ],
                     newGraphElements: false,
                     nodes: {
                         A: {
@@ -465,17 +455,6 @@ describe('Graph Helper', () => {
                             y: 0
                         }
                     },
-                    nodesInputSnapshot: [
-                        {
-                            id: 'A'
-                        },
-                        {
-                            id: 'B'
-                        },
-                        {
-                            id: 'C'
-                        }
-                    ],
                     simulation: {
                         force: forceStub
                     },

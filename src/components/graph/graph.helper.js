@@ -423,8 +423,6 @@ function initializeGraphState({ data, id, config }, state) {
     _validateGraphData(data);
 
     let graph;
-    const nodesInputSnapshot = data.nodes.map(n => Object.assign({}, n));
-    const linksInputSnapshot = data.links.map(l => Object.assign({}, l));
 
     if (state && state.nodes) {
         graph = {
@@ -455,10 +453,8 @@ function initializeGraphState({ data, id, config }, state) {
         config: newConfig,
         links,
         d3Links,
-        linksInputSnapshot,
         nodes,
         d3Nodes,
-        nodesInputSnapshot,
         highlightedNode: '',
         simulation,
         newGraphElements: false,
