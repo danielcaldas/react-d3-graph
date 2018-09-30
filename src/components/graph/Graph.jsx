@@ -421,7 +421,8 @@ export default class Graph extends React.Component {
             width: this.state.config.width
         };
 
-        const { focusedNodeId } = this.props;
+        const { focusedNodeId } = this.props.data;
+
         const containerProps = {
             style: { transitionDuration: `${this.state.config.focusAnimationLength}s` },
             transform: focusedNodeId ? this.getCenterAndZoomTransformation(focusedNodeId) : null

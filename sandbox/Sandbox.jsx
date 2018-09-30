@@ -52,7 +52,12 @@ export default class Sandbox extends React.Component {
 
     onClickNode = id => {
         !this.state.config.collapsible && window.alert(`Clicked node ${id}`);
-        this.setState({ focusedNodeId: this.state.focusedNodeId !== id ? id : null });
+        this.setState({
+            data: {
+                ...this.state.data,
+                focusedNodeId: this.state.data.focusedNodeId !== id ? id : null
+            }
+        });
     };
 
     onClickLink = (source, target) => window.alert(`Clicked link between ${source} and ${target}`);
@@ -289,7 +294,8 @@ export default class Sandbox extends React.Component {
         // to true in the constructor we will provide nodes with initial positions
         const data = {
             nodes: this.decorateGraphNodesWithInitialPositioning(this.state.data.nodes),
-            links: this.state.data.links
+            links: this.state.data.links,
+            focusedNodeId: this.state.data.focusedNodeId
         };
 
         const graphProps = {
@@ -301,8 +307,7 @@ export default class Sandbox extends React.Component {
             onMouseOverNode: this.onMouseOverNode,
             onMouseOutNode: this.onMouseOutNode,
             onMouseOverLink: this.onMouseOverLink,
-            onMouseOutLink: this.onMouseOutLink,
-            focusedNodeId: this.state.focusedNodeId
+            onMouseOutLink: this.onMouseOutLink
         };
 
         if (this.state.fullscreen) {
