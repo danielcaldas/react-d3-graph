@@ -132,6 +132,7 @@ function pick(o, props = []) {
  * @param {Object} o - the object to pick props from.
  * @param {Array.<string>} props - list of props that we DON'T want to pick from o.
  * @returns {Object} the object resultant from the anti picking operation.
+ * @memberof utils
  */
 function antiPick(o, props = []) {
     const wanted = Object.keys(o).filter(k => !props.includes(k));

@@ -157,6 +157,7 @@ function _initializeNodes(graphNodes) {
  * @param {number} index - index of the input link.
  * @param {Array.<Object>} d3Links - all d3Links.
  * @returns {Object} a d3Link.
+ * @memberof Graph/helper
  */
 function _mapDataLinkToD3Link(link, index, d3Links = []) {
     const d3Link = d3Links[index];
@@ -186,11 +187,11 @@ function _mapDataLinkToD3Link(link, index, d3Links = []) {
  * Some integrity validations on links and nodes structure. If some validation fails the function will
  * throw an error.
  * @param  {Object} data - Same as {@link #initializeGraphState|data in initializeGraphState}.
- * @memberof Graph/helper
  * @throws can throw the following error msg:
  * INSUFFICIENT_DATA - msg if no nodes are provided
  * INVALID_LINKS - if links point to nonexistent nodes
  * @returns {undefined}
+ * @memberof Graph/helper
  */
 function _validateGraphData(data) {
     if (!data.nodes || !data.nodes.length) {
@@ -370,6 +371,7 @@ const NODE_PROPERTIES_DISCARD_TO_COMPARE = ['x', 'y', 'vx', 'vy', 'index'];
  * - graphElementsUpdated - flag that indicates whether some graph elements have
  * updated (some property that is not in NODE_PROPERTIES_DISCARD_TO_COMPARE was added to
  * some node or link or was updated).
+ * @memberof Graph/helper
  */
 function checkForGraphElementsChanges(nextProps, currentState) {
     const nextNodes = nextProps.data.nodes.map(n => utils.antiPick(n, NODE_PROPERTIES_DISCARD_TO_COMPARE));
@@ -399,6 +401,7 @@ function checkForGraphElementsChanges(nextProps, currentState) {
  * @returns {Object.<string, boolean>} returns object containing update check flags:
  * - configUpdated - global flag that indicates if any property was updated.
  * - d3ConfigUpdated - specific flag that indicates changes in d3 configurations.
+ * @memberof Graph/helper
  */
 function checkForGraphConfigChanges(nextProps, currentState) {
     const newConfig = nextProps.config || {};
