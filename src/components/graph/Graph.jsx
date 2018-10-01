@@ -49,6 +49,10 @@ import utils from '../../utils';
  * };
  *
  * // graph event callbacks
+ * const onClickGraph = function() {
+ *      window.alert('Clicked the graph background');
+ * };
+ *
  * const onClickNode = function(nodeId) {
  *      window.alert('Clicked node ${nodeId}');
  * };
@@ -77,6 +81,7 @@ import utils from '../../utils';
  *      id='graph-id' // id is mandatory, if no id is defined rd3g will throw an error
  *      data={data}
  *      config={myConfig}
+ *      onClickGraph={onClickGraph}
  *      onClickNode={onClickNode}
  *      onClickLink={onClickLink}
  *      onMouseOverNode={onMouseOverNode}
@@ -374,7 +379,7 @@ export default class Graph extends React.Component {
 
     /**
      * Calls the callback passed to the component.
-     * @param  {Óbject} e - The event of onClick handler.
+     * @param  {Object} e - The event of onClick handler.
      * @returns {undefined}
      */
     onClickGraph = e => {
