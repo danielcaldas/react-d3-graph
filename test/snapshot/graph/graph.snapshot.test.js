@@ -11,6 +11,8 @@ describe('Snapshot - Graph Component', () => {
     that.highlightColor = 'blue';
     that.svgSize = 600;
     that.highlightOpacity = 0.1;
+    that.mouseCursor = 'pointer';
+
     that.config = {
         height: that.svgSize,
         width: that.svgSize,
@@ -24,6 +26,7 @@ describe('Snapshot - Graph Component', () => {
             size: 100
         },
         link: {
+            mouseCursor: that.mouseCursor,
             highlightColor: that.highlightColor
         }
     };

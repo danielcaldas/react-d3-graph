@@ -23,6 +23,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -42,6 +43,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -61,6 +63,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -80,6 +83,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -99,6 +103,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -118,6 +123,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -137,6 +143,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -156,6 +163,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -175,6 +183,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -194,6 +203,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -213,6 +223,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -232,6 +243,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -251,6 +263,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -270,6 +283,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -289,6 +303,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -308,6 +323,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -327,6 +343,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -346,6 +363,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -365,6 +383,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -384,6 +403,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -403,6 +423,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -422,6 +443,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -441,6 +463,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -460,6 +483,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -479,6 +503,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -498,6 +523,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -517,6 +543,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
@@ -536,6 +563,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         onMouseOver={[Function]}
         style={
           Object {
+            "cursor": "pointer",
             "fill": "none",
             "opacity": 1,
             "stroke": "#d3d3d3",
