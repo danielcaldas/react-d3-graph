@@ -200,6 +200,7 @@ export default {
         opacity: 1,
         semanticStrokeWidth: false,
         strokeWidth: 1.5,
-        type: 'STRAIGHT'
+        type: 'STRAIGHT',
+        mouseCursor: 'pointer'
     }
 };
