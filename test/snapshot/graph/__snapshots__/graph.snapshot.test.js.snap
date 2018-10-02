@@ -5,6 +5,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
   id="graphId-graph-wrapper"
 >
   <svg
+    name="svg-container-graphId"
+    onClick={[Function]}
     style={
       Object {
         "height": 600,

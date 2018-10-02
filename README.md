@@ -65,6 +65,10 @@ const myConfig = {
 };
 
 // graph event callbacks
+const onClickGraph = function() {
+    window.alert(`Clicked the graph background`);
+};
+
 const onClickNode = function(nodeId) {
     window.alert(`Clicked node ${nodeId}`);
 };
@@ -94,6 +98,7 @@ const onMouseOutLink = function(source, target) {
     data={data}
     config={myConfig}
     onClickNode={onClickNode}
+    onClickGraph={onClickGraph}
     onClickLink={onClickLink}
     onMouseOverNode={onMouseOverNode}
     onMouseOutNode={onMouseOutNode}

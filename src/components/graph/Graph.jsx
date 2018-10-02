@@ -49,6 +49,10 @@ import utils from '../../utils';
  * };
  *
  * // graph event callbacks
+ * const onClickGraph = function() {
+ *      window.alert('Clicked the graph background');
+ * };
+ *
  * const onClickNode = function(nodeId) {
  *      window.alert('Clicked node ${nodeId}');
  * };
@@ -77,6 +81,7 @@ import utils from '../../utils';
  *      id='graph-id' // id is mandatory, if no id is defined rd3g will throw an error
  *      data={data}
  *      config={myConfig}
+ *      onClickGraph={onClickGraph}
  *      onClickNode={onClickNode}
  *      onClickLink={onClickLink}
  *      onMouseOverNode={onMouseOverNode}
@@ -378,6 +383,23 @@ export default class Graph extends React.Component {
         this.props.onClickNode && this.props.onClickNode(clickedNodeId);
     };
 
+    /**
+     * Calls the callback passed to the component.
+     * @param  {Object} e - The event of onClick handler.
+     * @returns {undefined}
+     */
+    onClickGraph = e => {
+        // Only trigger the graph onClickHandler, if not clicked a node or link.
+        // toUpperCase() is added as a precaution, as the documentation says tagName should always
+        // return in UPPERCASE, but chrome returns lowercase
+        if (
+            e.target.tagName.toUpperCase() === 'SVG' &&
+            e.target.attributes.name.value === `svg-container-${this.state.id}`
+        ) {
+            this.props.onClickGraph && this.props.onClickGraph();
+        }
+    };
+
     render() {
         const { nodes, links } = graphRenderer.buildGraph(
             this.state.nodes,
@@ -406,7 +428,7 @@ export default class Graph extends React.Component {
 
         return (
             <div id={`${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`}>
-                <svg style={svgStyle}>
+                <svg name={`svg-container-${this.state.id}`} style={svgStyle} onClick={this.onClickGraph}>
                     <g id={`${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`}>
                         {links}
                         {nodes}
