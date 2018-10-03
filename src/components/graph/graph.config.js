@@ -96,7 +96,7 @@
  * @param {boolean} [node.renderLabel=true] - when set to false no labels will appear along side nodes in the
  * graph.
  * @param {number} [node.size=200] - 🔍🔍🔍 defines the size of all nodes.
- * @param {string} [node.strokeColor='none'] - color for the stroke of each node.
+ * @param {string} [node.strokeColor='none'] - 🔍🔍🔍  this is the stroke color that will be applied to the node if no **strokeColor property** is found inside the node itself (yes **you can pass a property 'strokeColor' inside the node and that stroke color will override this default one** ).
  * @param {number} [node.strokeWidth=1.5] - the width of the all node strokes.
  * @param {string} [node.svg=''] - 🔍🔍🔍 render custom svg for nodes in alternative to **node.symbolType**. This svg can
  * be provided as a string to either a remote svg resource or for a local one.
