@@ -218,6 +218,27 @@ describe('Graph Helper', () => {
                 });
             });
         });
+        describe('and no custom strokeColor is set', () => {
+            test('should return the default strokeColor in the props', () => {
+                const props = graphHelper.buildNodeProps(that.node, that.config, undefined, undefined, undefined, 1);
+
+                expect(props.stroke).toEqual('none');
+            });
+        });
+        describe('and custom strokeColor is set to yellow', () => {
+            test('should return yellow strokeColor in the props', () => {
+                const props = graphHelper.buildNodeProps(
+                    { ...that.node, strokeColor: 'yellow' },
+                    that.config,
+                    undefined,
+                    undefined,
+                    undefined,
+                    1
+                );
+
+                expect(props.stroke).toEqual('yellow');
+            });
+        });
     });
 
     describe('#initializeGraphState', () => {
