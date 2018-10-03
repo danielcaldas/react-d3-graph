@@ -85,7 +85,7 @@ export default class Link extends React.Component {
         };
 
         return (
-            <svg>
+            <React.Fragment>
                 <path {...lineProps} id={id} />
                 {label && (
                     <text style={{ textAnchor: 'middle' }} {...textProps}>
@@ -94,7 +94,7 @@ export default class Link extends React.Component {
                         </textPath>
                     </text>
                 )}
-            </svg>
+            </React.Fragment>
         );
     }
 }

@@ -63,7 +63,7 @@ describe('[rd3g-graph] graph tests', function() {
                 });
 
                 it('nodes props modifications should be reflected in the graph', function() {
-                    cy.get('text').should('have.length', 14);
+                    cy.get('text').should('have.length', 15);
                     cy.get('path[class="link"]').should('be.visible');
 
                     this.sandboxPO.addNode();
@@ -71,7 +71,7 @@ describe('[rd3g-graph] graph tests', function() {
                     this.sandboxPO.addNode();
                     this.sandboxPO.addNode();
 
-                    cy.get('text').should('have.length', 18);
+                    cy.get('text').should('have.length', 19);
 
                     // click (+) add prop to 1st node
                     this.sandboxPO.addJsonTreeFirstNodeProp();
@@ -120,6 +120,7 @@ describe('[rd3g-graph] graph tests', function() {
             // pause the graph
             this.sandboxPO.pauseGraph();
 
+            cy.contains('collapsible').scrollIntoView();
             cy.contains('collapsible').scrollIntoView();
             this.sandboxPO.getFieldInput('collapsible').click();
 

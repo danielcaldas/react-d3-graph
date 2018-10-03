@@ -12,12 +12,100 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       }
     }
   >
+    <defs>
+      <marker
+        fill="blue"
+        id="marker-small"
+        markerHeight="6"
+        markerWidth="6"
+        orient="auto"
+        refX={16}
+        refY="0"
+        viewBox="0 -5 10 10"
+      >
+        <path
+          d="M0,-5L10,0L0,5"
+        />
+      </marker>
+      <marker
+        fill="blue"
+        id="marker-small-highlighted"
+        markerHeight="6"
+        markerWidth="6"
+        orient="auto"
+        refX={16}
+        refY="0"
+        viewBox="0 -5 10 10"
+      >
+        <path
+          d="M0,-5L10,0L0,5"
+        />
+      </marker>
+      <marker
+        fill="blue"
+        id="marker-medium"
+        markerHeight="6"
+        markerWidth="6"
+        orient="auto"
+        refX={21.333333333333332}
+        refY="0"
+        viewBox="0 -5 10 10"
+      >
+        <path
+          d="M0,-5L10,0L0,5"
+        />
+      </marker>
+      <marker
+        fill="blue"
+        id="marker-medium-highlighted"
+        markerHeight="6"
+        markerWidth="6"
+        orient="auto"
+        refX={21.333333333333332}
+        refY="0"
+        viewBox="0 -5 10 10"
+      >
+        <path
+          d="M0,-5L10,0L0,5"
+        />
+      </marker>
+      <marker
+        fill="blue"
+        id="marker-large"
+        markerHeight="6"
+        markerWidth="6"
+        orient="auto"
+        refX={26.666666666666664}
+        refY="0"
+        viewBox="0 -5 10 10"
+      >
+        <path
+          d="M0,-5L10,0L0,5"
+        />
+      </marker>
+      <marker
+        fill="blue"
+        id="marker-large-highlighted"
+        markerHeight="6"
+        markerWidth="6"
+        orient="auto"
+        refX={26.666666666666664}
+        refY="0"
+        viewBox="0 -5 10 10"
+      >
+        <path
+          d="M0,-5L10,0L0,5"
+        />
+      </marker>
+    </defs>
     <g
       id="graphId-graph-container-zoomable"
     >
       <path
         className="link"
-        d="M40,200A0,0 0 0,1 140,20"
+        d="M40,200A205.91260281974002,205.91260281974002 0 0,1 140,20"
+        id="Harry,Sally"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -25,18 +113,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="40"
-        x2="140"
-        y1="200"
-        y2="20"
       />
       <path
         className="link"
-        d="M40,200A0,0 0 0,1 20,110"
+        d="M40,200A92.19544457292888,92.19544457292888 0 0,1 20,110"
+        id="Harry,Mario"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -44,18 +130,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="40"
-        x2="20"
-        y1="200"
-        y2="110"
       />
       <path
         className="link"
-        d="M30,184A0,0 0 0,1 305,745"
+        d="M30,184A624.7767601311688,624.7767601311688 0 0,1 305,745"
+        id="Sarah,Alice"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -63,18 +147,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="30"
-        x2="305"
-        y1="184"
-        y2="745"
       />
       <path
         className="link"
-        d="M200,300A0,0 0 0,1 305,745"
+        d="M200,300A457.21985958617324,457.21985958617324 0 0,1 305,745"
+        id="Eveie,Alice"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -82,18 +164,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="200"
-        x2="305"
-        y1="300"
-        y2="745"
       />
       <path
         className="link"
-        d="M120,270A0,0 0 0,1 305,745"
+        d="M120,270A509.7548430373173,509.7548430373173 0 0,1 305,745"
+        id="Peter,Alice"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -101,18 +181,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="120"
-        x2="305"
-        y1="270"
-        y2="745"
       />
       <path
         className="link"
-        d="M20,110A0,0 0 0,1 305,745"
+        d="M20,110A696.0244248587833,696.0244248587833 0 0,1 305,745"
+        id="Mario,Alice"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -120,18 +198,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="20"
-        x2="305"
-        y1="110"
-        y2="745"
       />
       <path
         className="link"
-        d="M190,609A0,0 0 0,1 305,745"
+        d="M190,609A178.10390225932727,178.10390225932727 0 0,1 305,745"
+        id="James,Alice"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -139,18 +215,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="190"
-        x2="305"
-        y1="609"
-        y2="745"
       />
       <path
         className="link"
-        d="M40,200A0,0 0 0,1 101,201"
+        d="M40,200A61.00819617067857,61.00819617067857 0 0,1 101,201"
+        id="Harry,Carol"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -158,18 +232,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="40"
-        x2="101"
-        y1="200"
-        y2="201"
       />
       <path
         className="link"
-        d="M40,200A0,0 0 0,1 2,200"
+        d="M40,200A38,38 0 0,1 2,200"
+        id="Harry,Nicky"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -177,18 +249,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="40"
-        x2="2"
-        y1="200"
-        y2="200"
       />
       <path
         className="link"
-        d="M404,404A0,0 0 0,1 14,30"
+        d="M404,404A540.348035991619,540.348035991619 0 0,1 14,30"
+        id="Bobby,Frank"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -196,18 +266,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="404"
-        x2="14"
-        y1="404"
-        y2="30"
       />
       <path
         className="link"
-        d="M305,745A0,0 0 0,1 20,110"
+        d="M305,745A696.0244248587833,696.0244248587833 0 0,1 20,110"
+        id="Alice,Mario"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -215,18 +283,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="305"
-        x2="20"
-        y1="745"
-        y2="110"
       />
       <path
         className="link"
-        d="M40,200A0,0 0 0,1 14,250"
+        d="M40,200A56.356011214421486,56.356011214421486 0 0,1 14,250"
+        id="Harry,Lynne"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -234,18 +300,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="40"
-        x2="14"
-        y1="200"
-        y2="250"
       />
       <path
         className="link"
-        d="M30,184A0,0 0 0,1 190,609"
+        d="M30,184A454.1200281863816,454.1200281863816 0 0,1 190,609"
+        id="Sarah,James"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -253,18 +317,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="30"
-        x2="190"
-        y1="184"
-        y2="609"
       />
       <path
         className="link"
-        d="M14,259A0,0 0 0,1 190,609"
+        d="M14,259A391.76013069223876,391.76013069223876 0 0,1 190,609"
+        id="Roger,James"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -272,18 +334,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="14"
-        x2="190"
-        y1="259"
-        y2="609"
       />
       <path
         className="link"
-        d="M409,500A0,0 0 0,1 190,609"
+        d="M409,500A244.6262455256999,244.6262455256999 0 0,1 190,609"
+        id="Maddy,James"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -291,18 +351,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="409"
-        x2="190"
-        y1="500"
-        y2="609"
       />
       <path
         className="link"
-        d="M520,123A0,0 0 0,1 14,259"
+        d="M520,123A523.9580135850582,523.9580135850582 0 0,1 14,259"
+        id="Sonny,Roger"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -310,18 +368,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="520"
-        x2="14"
-        y1="123"
-        y2="259"
       />
       <path
         className="link"
-        d="M190,609A0,0 0 0,1 14,259"
+        d="M190,609A391.76013069223876,391.76013069223876 0 0,1 14,259"
+        id="James,Roger"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -329,18 +385,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="190"
-        x2="14"
-        y1="609"
-        y2="259"
       />
       <path
         className="link"
-        d="M305,745A0,0 0 0,1 120,270"
+        d="M305,745A509.7548430373173,509.7548430373173 0 0,1 120,270"
+        id="Alice,Peter"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -348,18 +402,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="305"
-        x2="120"
-        y1="745"
-        y2="270"
       />
       <path
         className="link"
-        d="M14,20A0,0 0 0,1 120,270"
+        d="M14,20A271.5437349673161,271.5437349673161 0 0,1 120,270"
+        id="Johan,Peter"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -367,18 +419,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="14"
-        x2="120"
-        y1="20"
-        y2="270"
       />
       <path
         className="link"
-        d="M305,745A0,0 0 0,1 200,300"
+        d="M305,745A457.21985958617324,457.21985958617324 0 0,1 200,300"
+        id="Alice,Eveie"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -386,18 +436,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="305"
-        x2="200"
-        y1="745"
-        y2="300"
       />
       <path
         className="link"
-        d="M40,200A0,0 0 0,1 200,300"
+        d="M40,200A188.67962264113208,188.67962264113208 0 0,1 200,300"
+        id="Harry,Eveie"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -405,18 +453,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="40"
-        x2="200"
-        y1="200"
-        y2="300"
       />
       <path
         className="link"
-        d="M200,300A0,0 0 0,1 40,200"
+        d="M200,300A188.67962264113208,188.67962264113208 0 0,1 40,200"
+        id="Eveie,Harry"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -424,18 +470,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="200"
-        x2="40"
-        y1="300"
-        y2="200"
       />
       <path
         className="link"
-        d="M20,1A0,0 0 0,1 90,90"
+        d="M20,1A113.22985472038724,113.22985472038724 0 0,1 90,90"
+        id="Henry,Mikey"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -443,18 +487,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="20"
-        x2="90"
-        y1="1"
-        y2="90"
       />
       <path
         className="link"
-        d="M90,656A0,0 0 0,1 90,90"
+        d="M90,656A566,566 0 0,1 90,90"
+        id="Elric,Mikey"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -462,18 +504,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="90"
-        x2="90"
-        y1="656"
-        y2="90"
       />
       <path
         className="link"
-        d="M190,609A0,0 0 0,1 30,184"
+        d="M190,609A454.1200281863816,454.1200281863816 0 0,1 30,184"
+        id="James,Sarah"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -481,18 +521,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="190"
-        x2="30"
-        y1="609"
-        y2="184"
       />
       <path
         className="link"
-        d="M305,745A0,0 0 0,1 30,184"
+        d="M305,745A624.7767601311688,624.7767601311688 0 0,1 30,184"
+        id="Alice,Sarah"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -500,18 +538,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="305"
-        x2="30"
-        y1="745"
-        y2="184"
       />
       <path
         className="link"
-        d="M190,609A0,0 0 0,1 409,500"
+        d="M190,609A244.6262455256999,244.6262455256999 0 0,1 409,500"
+        id="James,Maddy"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -519,18 +555,16 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="190"
-        x2="409"
-        y1="609"
-        y2="500"
       />
       <path
         className="link"
-        d="M120,270A0,0 0 0,1 14,20"
+        d="M120,270A271.5437349673161,271.5437349673161 0 0,1 14,20"
+        id="Peter,Johan"
+        markerEnd="url(#marker-small)"
         onClick={[Function]}
         onMouseOut={[Function]}
         onMouseOver={[Function]}
@@ -538,14 +572,10 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Object {
             "fill": "none",
             "opacity": 1,
-            "stroke": "#d3d3d3",
-            "strokeWidth": 1.5,
+            "stroke": "blue",
+            "strokeWidth": 2,
           }
         }
-        x1="120"
-        x2="14"
-        y1="270"
-        y2="20"
       />
       <g
         className="node"
