@@ -27,7 +27,7 @@ import React from 'react';
  *     stroke='green'
  *     className='link'
  *     opacity=1
- *     cursor='pointer'
+ *     mouseCursor='pointer'
  *     onClickLink={onClickLink}
  *     onMouseOverLink={onMouseOverLink}
  *     onMouseOutLink={onMouseOutLink} />
