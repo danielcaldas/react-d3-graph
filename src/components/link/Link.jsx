@@ -27,6 +27,7 @@ import React from 'react';
  *     stroke='green'
  *     className='link'
  *     opacity=1
+ *     mouseCursor='pointer'
  *     onClickLink={onClickLink}
  *     onMouseOverLink={onMouseOverLink}
  *     onMouseOutLink={onMouseOutLink} />
@@ -57,7 +58,8 @@ export default class Link extends React.Component {
             strokeWidth: this.props.strokeWidth,
             stroke: this.props.stroke,
             opacity: this.props.opacity,
-            fill: 'none'
+            fill: 'none',
+            cursor: this.props.mouseCursor
         };
 
         const lineProps = {

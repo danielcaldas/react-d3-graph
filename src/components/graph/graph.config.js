@@ -138,6 +138,8 @@
  * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
  * <br/>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
+ *  @param {string} [link.mouseCursor='pointer'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
+ * property for when link is mouse hovered.
  *
  * @example
  * // A simple config that uses some properties
@@ -200,6 +202,7 @@ export default {
         opacity: 1,
         semanticStrokeWidth: false,
         strokeWidth: 1.5,
-        type: 'STRAIGHT'
+        type: 'STRAIGHT',
+        mouseCursor: 'pointer'
     }
 };

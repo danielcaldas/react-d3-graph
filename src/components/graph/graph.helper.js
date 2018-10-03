@@ -284,6 +284,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         y2,
         strokeWidth,
         stroke,
+        mouseCursor: config.link.mouseCursor,
         className: CONST.LINK_CLASS_NAME,
         opacity,
         onClickLink: linkCallbacks.onClickLink,
