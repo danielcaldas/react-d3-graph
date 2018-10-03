@@ -316,7 +316,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         fill = config.node.highlightColor;
     }
 
-    let stroke = config.node.strokeColor;
+    let stroke = node.strokeColor || config.node.strokeColor;
 
     if (highlight && config.node.highlightStrokeColor !== CONST.KEYWORDS.SAME) {
         stroke = config.node.highlightStrokeColor;
