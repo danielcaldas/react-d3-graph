@@ -38,7 +38,7 @@ describe('Graph Helper', () => {
 
                 expect(linkHelper.buildLinkPathDefinition).toHaveBeenCalledWith(
                     { source: { x: 0, y: 0 }, target: { x: 0, y: 0 } },
-                    'CURVE_SMOOTH'
+                    'STRAIGHT'
                 );
             });
 

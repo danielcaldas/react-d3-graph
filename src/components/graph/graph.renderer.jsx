@@ -87,7 +87,6 @@ function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedL
  * Builds graph defs (for now markers, but we could also have gradients for instance).
  * NOTE: defs are static svg graphical objects, thus we only need to render them once, the result
  * is cached on the 1st call and from there we simply return the cached jsx.
- * @param {Object} config - the graph config object.
  * @returns {Object} graph reusable objects [defs](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/defs).
  * @memberof Graph/helper
  */

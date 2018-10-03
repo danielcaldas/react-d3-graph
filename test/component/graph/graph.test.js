@@ -42,7 +42,7 @@ describe('Graph Component', () => {
         const nodeNotAdjOffset = 10;
 
         test('should call mouseOverNode callback', () => {
-            const linksNodes = that.tree.children[0].children[0].children;
+            const linksNodes = that.tree.children[0].children[1].children;
             const node = linksNodes[linksNodes.length - 1];
 
             node.children[0].props.onMouseOver();
@@ -51,14 +51,14 @@ describe('Graph Component', () => {
         });
 
         test('node and their adjacent should have opacity equal to 1 and color (fill) equal to that.highlightColor', () => {
-            let linksNodes = that.tree.children[0].children[0].children;
+            let linksNodes = that.tree.children[0].children[1].children;
             let node = linksNodes[linksNodes.length - nodeOffset];
 
             node.children[0].props.onMouseOver();
 
             let tree = that.graph.toJSON(); // re-render
 
-            linksNodes = tree.children[0].children[0].children;
+            linksNodes = tree.children[0].children[1].children;
 
             // Mouse overed node
             node = linksNodes[linksNodes.length - nodeOffset];
@@ -78,14 +78,14 @@ describe('Graph Component', () => {
         });
 
         test('non selected node and non adjacent should have opacity equal to that.highlightOpacity and color equal to that.nodeColor', () => {
-            let linksNodes = that.tree.children[0].children[0].children;
+            let linksNodes = that.tree.children[0].children[1].children;
             let node = linksNodes[linksNodes.length - nodeOffset];
 
             node.children[0].props.onMouseOver();
 
             let tree = that.graph.toJSON(); // re-render
 
-            linksNodes = tree.children[0].children[0].children;
+            linksNodes = tree.children[0].children[1].children;
             node = linksNodes[linksNodes.length - nodeNotAdjOffset];
 
             const props = node.children[0].props;

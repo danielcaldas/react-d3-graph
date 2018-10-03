@@ -158,17 +158,17 @@
  * // Sorry for the long config description, here's a potato 🥔.
  */
 export default {
-    directed: true,
+    directed: false,
     automaticRearrangeAfterDropNode: false,
     collapsible: false,
     height: 400,
     highlightDegree: 1,
-    highlightOpacity: 0.12,
-    linkHighlightBehavior: true,
+    highlightOpacity: 1,
+    linkHighlightBehavior: false,
     maxZoom: 8,
     minZoom: 0.1,
-    nodeHighlightBehavior: true,
-    panAndZoom: true,
+    nodeHighlightBehavior: false,
+    panAndZoom: false,
     staticGraph: false,
     width: 800,
     d3: {
@@ -199,8 +199,8 @@ export default {
         viewGenerator: null
     },
     link: {
-        color: 'blue',
-        highlightColor: 'red',
+        color: '#d3d3d3',
+        highlightColor: '#d3d3d3',
         opacity: 1,
         semanticStrokeWidth: false,
         strokeWidth: 1.5,
