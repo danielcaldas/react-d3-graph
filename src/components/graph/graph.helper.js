@@ -246,17 +246,26 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
 
     const markerId = config.directed ? getMarkerId(highlight, transform, config) : null;
 
+    const t = 1 / transform;
+    const fontSize = link.fontSize || config.link.fontSize;
+    const fontColor = link.fontColor || config.link.fontColor;
+    const fontWeight = highlight ? config.link.highlightFontWeight : config.link.fontWeight;
+
     return {
         markerId,
         d,
         source,
         target,
+        label: link[config.link.labelProperty],
         x1,
         y1,
         x2,
         y2,
         strokeWidth,
         stroke,
+        fontColor,
+        fontSize: fontSize * t,
+        fontWeight,
         className: CONST.LINK_CLASS_NAME,
         opacity,
         onClickLink: linkCallbacks.onClickLink,

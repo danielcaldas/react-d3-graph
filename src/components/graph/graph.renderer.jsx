@@ -44,7 +44,7 @@ function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlight
             transform
         );
 
-        return <Link key={key} {...props} />;
+        return <Link key={key} id={key} {...props} />;
     });
 }
 

@@ -2,7 +2,9 @@ module.exports = {
     links: [
         {
             source: 'Androsynth',
-            target: 'Chenjesu'
+            target: 'Chenjesu',
+            label: 'Test Label',
+            fontColor: 'red'
         },
         {
             source: 'Androsynth',

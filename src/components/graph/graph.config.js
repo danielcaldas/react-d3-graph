@@ -60,7 +60,7 @@
  * is found inside the node itself (yes **you can pass a property 'color' inside the node and that color will override the
  * this default one**).
  * @param {string} [node.fontColor='black'] - 🔍🔍🔍 fill color for node's <text> svg label.
- * @param {number} [node.fontSize=10] - {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control|font-size}
+ * @param {number} [node.fontSize=8] - {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control|font-size}
  * property for all nodes' labels.
  * @param {string} [node.fontWeight='normal'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control|font-weight}
  * property for all nodes' labels.
@@ -120,6 +120,13 @@
  * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
  * <br/>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
+ * @param {string} [link.fontColor='black'] - 🔍🔍🔍 fill color for link's <text> svg label.
+ * @param {number} [link.fontSize=8] - {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control|font-size}
+ * property for all links' labels.
+ * @param {string} [link.fontWeight='normal'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control|font-weight}
+ * property for all links' labels.
+ * @param {number} [link.highlightFontSize=8] - fontSize in highlighted state.
+ * @param {string} [link.highlightFontWeight='normal'] - fontWeight in highlighted state.
  *
  * @example
  * // A simple config that uses some properties
@@ -177,6 +184,12 @@ export default {
         opacity: 1,
         semanticStrokeWidth: false,
         strokeWidth: 2,
-        type: 'CURVE_SMOOTH'
+        type: 'CURVE_SMOOTH',
+        fontSize: 8,
+        fontWeight: 'normal',
+        fontColor: 'black',
+        highlightFontSize: 8,
+        highlightFontWeight: 'normal',
+        labelProperty: 'label'
     }
 };

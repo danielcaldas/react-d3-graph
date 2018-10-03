@@ -74,9 +74,26 @@ export default class Link extends React.Component {
             lineProps.markerEnd = `url(#${this.props.markerId})`;
         }
 
+        const { label, id } = this.props;
+        const textProps = {
+            dy: -1,
+            style: {
+                fill: this.props.fontColor,
+                fontSize: this.props.fontSize,
+                fontWeight: this.props.fontWeight
+            }
+        };
+
         return (
             <svg>
-                <path {...lineProps} />
+                <path {...lineProps} id={id} />
+                {label && (
+                    <text style={{ textAnchor: 'middle' }} {...textProps}>
+                        <textPath href={`#${id}`} startOffset="50%">
+                            {label}
+                        </textPath>
+                    </text>
+                )}
             </svg>
         );
     }
