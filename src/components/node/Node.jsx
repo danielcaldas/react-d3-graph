@@ -11,6 +11,10 @@ import nodeHelper from './node.helper';
  *      window.alert('Clicked node', nodeId);
  * };
  *
+ * const onRightClickNode = function(event, nodeId) {
+ *      window.alert('Right clicked node', nodeId);
+ * }
+ *
  * const onMouseOverNode = function(nodeId) {
  *      window.alert('Mouse over node', nodeId);
  * };
@@ -39,6 +43,7 @@ import nodeHelper from './node.helper';
  *     viewGenerator=(node) => <CustomComponent node={node} />
  *     className='node'
  *     onClickNode={onClickNode}
+ *     onRightClickNode={onRightClickNode}
  *     onMouseOverNode={onMouseOverNode}
  *     onMouseOutNode={onMouseOutNode} />
  */
@@ -48,6 +53,13 @@ export default class Node extends React.Component {
      * @returns {undefined}
      */
     handleOnClickNode = () => this.props.onClickNode && this.props.onClickNode(this.props.id);
+
+    /**
+     * Handle right click on the node.
+     * @param {Object} event - the event object
+     * @returns {undefined}
+     */
+    handleOnRightClickNode = event => this.props.onRightClickNode && this.props.onClickNode(event, this.props.id);
 
     /**
      * Handle mouse over node event.
@@ -65,6 +77,7 @@ export default class Node extends React.Component {
         const nodeProps = {
             cursor: this.props.cursor,
             onClick: this.handleOnClickNode,
+            onContextMenu: this.handleOnRightClickNode,
             onMouseOut: this.handleOnMouseOutNode,
             onMouseOver: this.handleOnMouseOverNode,
             opacity: this.props.opacity

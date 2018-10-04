@@ -288,6 +288,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         className: CONST.LINK_CLASS_NAME,
         opacity,
         onClickLink: linkCallbacks.onClickLink,
+        onRightClickLink: linkCallbacks.onRightClickLink,
         onMouseOverLink: linkCallbacks.onMouseOverLink,
         onMouseOutLink: linkCallbacks.onMouseOutLink
     };
@@ -344,6 +345,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         id: node.id,
         label: node[config.node.labelProperty] || node.id,
         onClickNode: nodeCallbacks.onClickNode,
+        onRightClickNode: nodeCallbacks.onRightClickNode,
         onMouseOverNode: nodeCallbacks.onMouseOverNode,
         onMouseOut: nodeCallbacks.onMouseOut,
         opacity,
