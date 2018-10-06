@@ -284,6 +284,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         y2,
         strokeWidth,
         stroke,
+        mouseCursor: config.link.mouseCursor,
         className: CONST.LINK_CLASS_NAME,
         opacity,
         onClickLink: linkCallbacks.onClickLink,
@@ -315,7 +316,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         fill = config.node.highlightColor;
     }
 
-    let stroke = config.node.strokeColor;
+    let stroke = node.strokeColor || config.node.strokeColor;
 
     if (highlight && config.node.highlightStrokeColor !== CONST.KEYWORDS.SAME) {
         stroke = config.node.highlightStrokeColor;

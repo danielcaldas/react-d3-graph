@@ -50,6 +50,8 @@ export default class Sandbox extends React.Component {
         };
     }
 
+    onClickGraph = () => console.info(`Clicked the graph`);
+
     onClickNode = id => {
         !this.state.config.collapsible && window.alert(`Clicked node ${id}`);
         this.setState({
@@ -303,6 +305,7 @@ export default class Sandbox extends React.Component {
             data,
             config: this.state.config,
             onClickNode: this.onClickNode,
+            onClickGraph: this.onClickGraph,
             onClickLink: this.onClickLink,
             onMouseOverNode: this.onMouseOverNode,
             onMouseOutNode: this.onMouseOutNode,
