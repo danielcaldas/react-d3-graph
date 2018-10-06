@@ -73,6 +73,10 @@ const onClickNode = function(nodeId) {
     window.alert(`Clicked node ${nodeId}`);
 };
 
+const onRightClickNode = function(event, nodeId) {
+    window.alert(`Right clicked node ${nodeId}`);
+};
+
 const onMouseOverNode = function(nodeId) {
     window.alert(`Mouse over node ${nodeId}`);
 };
@@ -83,6 +87,10 @@ const onMouseOutNode = function(nodeId) {
 
 const onClickLink = function(source, target) {
     window.alert(`Clicked link between ${source} and ${target}`);
+};
+
+const onRightClickLink = function(event, source, target) {
+    window.alert(`Right clicked link between ${source} and ${target}`);
 };
 
 const onMouseOverLink = function(source, target) {
@@ -98,8 +106,10 @@ const onMouseOutLink = function(source, target) {
     data={data}
     config={myConfig}
     onClickNode={onClickNode}
+    onRightClickNode={onRightClickNode}
     onClickGraph={onClickGraph}
     onClickLink={onClickLink}
+    onRightClickLink={onRightClickLink}
     onMouseOverNode={onMouseOverNode}
     onMouseOutNode={onMouseOutNode}
     onMouseOverLink={onMouseOverLink}
