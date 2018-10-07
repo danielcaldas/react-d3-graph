@@ -5,6 +5,8 @@ import { forceLink as d3ForceLink } from 'd3-force';
 import { select as d3Select, selectAll as d3SelectAll, event as d3Event } from 'd3-selection';
 import { zoom as d3Zoom } from 'd3-zoom';
 
+import * as collapseHelper from './collapse.helper';
+
 import CONST from './graph.const';
 import DEFAULT_CONFIG from './graph.config';
 import ERRORS from '../../err';
@@ -381,13 +383,21 @@ export default class Graph extends React.Component {
      */
     onClickNode = clickedNodeId => {
         if (this.state.config.collapsible) {
-            const disconnectedLeafNodesPartialState = graphHelper.disconnectLeafNodeConnections(
-                clickedNodeId,
-                this.state.links,
-                this.state.d3Links
-            );
+            // const disconnectedLeafNodesPartialState = graphHelper.disconnectLeafNodeConnections(
+            //     clickedNodeId,
+            //     this.state.links,
+            //     this.state.d3Links
+            // );
 
-            this._tick({ ...disconnectedLeafNodesPartialState });
+            // this._tick({ ...disconnectedLeafNodesPartialState });
+            const leafConnections = collapseHelper.getTargetLeafConnections(clickedNodeId, this.state.links);
+            const links = collapseHelper.toggleLinksMatrixConnections(this.state.links, leafConnections);
+            const d3Links = collapseHelper.toggleLinksConnections(this.state.d3Links, links);
+
+            this._tick({
+                links,
+                d3Links
+            });
         }
 
         this.props.onClickNode && this.props.onClickNode(clickedNodeId);
