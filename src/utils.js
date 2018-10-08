@@ -138,9 +138,11 @@ function pick(o, props = []) {
  */
 const checkCyclicUtil = (links, nodeid, visited, recStack) => {
     if (!visited[nodeid]) {
+        const nodeNeighbors = links.filter(edge => edge.source === nodeid);
+
         visited[nodeid] = true;
         recStack[nodeid] = true;
-        const nodeNeighbors = links.filter(edge => edge.source === nodeid);
+
         for (const neighbor of nodeNeighbors) {
             if (!visited[neighbor.target] && checkCyclicUtil(links, neighbor.target, visited, recStack)) {
                 return true;
@@ -173,7 +175,7 @@ const checkCyclic = (nodes, links) => {
     return false;
 };
 
-/*
+/**
  * Picks all props except the ones passed in the props array.
  * @param {Object} o - the object to pick props from.
  * @param {Array.<string>} props - list of props that we DON'T want to pick from o.
