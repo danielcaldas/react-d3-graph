@@ -128,6 +128,50 @@ function pick(o, props = []) {
 }
 
 /**
+ * Utility function used to perform a dfs search over a graph, recursively.
+ * @param {Array.<Object>} nodes - list of nodes in a graph.
+ * @param {Array.<Object>} links - list of links connecting the nodes in a graph.
+ * @returns {boolean} boolean reflecting wether the input nodes and links, results in a cyclic graph.
+ * @memberof utils
+ */
+const checkCyclicUtil = (links, nodeid, visited, recStack) => {
+    if (!visited[nodeid]) {
+        visited[nodeid] = true;
+        recStack[nodeid] = true;
+        const nodeNeighbors = links.filter(edge => edge.source === nodeid);
+        for (const neighbor of nodeNeighbors) {
+            if (!visited[neighbor.target] && checkCyclicUtil(links, neighbor.target, visited, recStack)) {
+                return true;
+            } else if (recStack[neighbor.target]) {
+                return true;
+            }
+        }
+    }
+    recStack[nodeid] = false;
+    return false;
+};
+
+/**
+ * Checks if the input nodes and links reflects a cyclic graph.
+ * Note: Makes use of the corresponding checkCyclicUtil function, to perform a recursive dfs search.
+ * @param {Array.<Object>} nodes - list of nodes in a graph.
+ * @param {Array.<Object>} links - list of links connecting the nodes in a graph.
+ * @returns {boolean} boolean reflecting wether the input nodes and links, results in a cyclic graph.
+ * @memberof utils
+ */
+const checkCyclic = (nodes, links) => {
+    const visited = {};
+    const recStack = {};
+
+    for (const node of nodes) {
+        if (checkCyclicUtil(links, node.id, visited, recStack)) {
+            return true;
+        }
+    }
+    return false;
+};
+
+/**
  * Helper function for customized error logging.
  * @param  {string} component - the name of the component where the error is to be thrown.
  * @param  {string} msg - the message contain a more detailed explanation about the error.
@@ -145,5 +189,6 @@ export default {
     isObjectEmpty,
     merge,
     pick,
+    checkCyclic,
     throwErr
 };
