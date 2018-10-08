@@ -171,6 +171,19 @@ const checkCyclic = (nodes, links) => {
     return false;
 };
 
+/*
+ * Picks all props except the ones passed in the props array.
+ * @param {Object} o - the object to pick props from.
+ * @param {Array.<string>} props - list of props that we DON'T want to pick from o.
+ * @returns {Object} the object resultant from the anti picking operation.
+ * @memberof utils
+ */
+function antiPick(o, props = []) {
+    const wanted = Object.keys(o).filter(k => !props.includes(k));
+
+    return pick(o, wanted);
+}
+
 /**
  * Helper function for customized error logging.
  * @param  {string} component - the name of the component where the error is to be thrown.
@@ -190,5 +203,6 @@ export default {
     merge,
     pick,
     checkCyclic,
+    antiPick,
     throwErr
 };

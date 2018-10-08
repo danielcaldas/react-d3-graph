@@ -114,6 +114,7 @@ describe('Graph Helper', () => {
                     id: 'id',
                     label: 'id',
                     onClickNode: undefined,
+                    onRightClickNode: undefined,
                     onMouseOut: undefined,
                     onMouseOverNode: undefined,
                     opacity: 1,
@@ -159,6 +160,7 @@ describe('Graph Helper', () => {
                         id: 'id',
                         label: 'id',
                         onClickNode: undefined,
+                        onRightClickNode: undefined,
                         onMouseOut: undefined,
                         onMouseOverNode: undefined,
                         opacity: undefined,
@@ -203,6 +205,7 @@ describe('Graph Helper', () => {
                         id: 'id',
                         label: 'id',
                         onClickNode: undefined,
+                        onRightClickNode: undefined,
                         onMouseOut: undefined,
                         onMouseOverNode: undefined,
                         opacity: undefined,
@@ -216,6 +219,27 @@ describe('Graph Helper', () => {
                         overrideGlobalViewGenerator: undefined
                     });
                 });
+            });
+        });
+        describe('and no custom strokeColor is set', () => {
+            test('should return the default strokeColor in the props', () => {
+                const props = graphHelper.buildNodeProps(that.node, that.config, undefined, undefined, undefined, 1);
+
+                expect(props.stroke).toEqual('none');
+            });
+        });
+        describe('and custom strokeColor is set to yellow', () => {
+            test('should return yellow strokeColor in the props', () => {
+                const props = graphHelper.buildNodeProps(
+                    { ...that.node, strokeColor: 'yellow' },
+                    that.config,
+                    undefined,
+                    undefined,
+                    undefined,
+                    1
+                );
+
+                expect(props.stroke).toEqual('yellow');
             });
         });
     });
@@ -235,7 +259,7 @@ describe('Graph Helper', () => {
             });
 
             describe('and received state was already initialized', () => {
-                test('should create graph structure absorbing stored nodes behavior in state obj', () => {
+                test('should create graph structure absorbing stored nodes and links behavior', () => {
                     const data = {
                         nodes: [{ id: 'A' }, { id: 'B' }, { id: 'C' }],
                         links: [{ source: 'A', target: 'B' }, { source: 'C', target: 'A' }]
@@ -245,7 +269,7 @@ describe('Graph Helper', () => {
                             A: { x: 20, y: 40 },
                             B: { x: 40, y: 60 }
                         },
-                        links: 'links',
+                        links: [],
                         nodeIndexMapping: 'nodeIndexMapping'
                     };
 
@@ -273,12 +297,26 @@ describe('Graph Helper', () => {
                     ]);
                     expect(newState.d3Links).toEqual([
                         {
-                            source: 'A',
-                            target: 'B'
+                            index: 0,
+                            source: {
+                                highlighted: false,
+                                id: 'A'
+                            },
+                            target: {
+                                highlighted: false,
+                                id: 'B'
+                            }
                         },
                         {
-                            source: 'C',
-                            target: 'A'
+                            index: 1,
+                            source: {
+                                highlighted: false,
+                                id: 'C'
+                            },
+                            target: {
+                                highlighted: false,
+                                id: 'A'
+                            }
                         }
                     ]);
                 });
@@ -364,12 +402,26 @@ describe('Graph Helper', () => {
                     configUpdated: false,
                     d3Links: [
                         {
-                            source: 'A',
-                            target: 'B'
+                            index: 0,
+                            source: {
+                                highlighted: false,
+                                id: 'A'
+                            },
+                            target: {
+                                highlighted: false,
+                                id: 'B'
+                            }
                         },
                         {
-                            source: 'C',
-                            target: 'A'
+                            index: 1,
+                            source: {
+                                highlighted: false,
+                                id: 'C'
+                            },
+                            target: {
+                                highlighted: false,
+                                id: 'A'
+                            }
                         }
                     ],
                     d3Nodes: [
@@ -430,28 +482,7 @@ describe('Graph Helper', () => {
                     simulation: {
                         force: forceStub
                     },
-                    transform: 1,
-                    nodesInputSnapshot: [
-                        {
-                            id: 'A'
-                        },
-                        {
-                            id: 'B'
-                        },
-                        {
-                            id: 'C'
-                        }
-                    ],
-                    linksInputSnapshot: [
-                        {
-                            source: 'A',
-                            target: 'B'
-                        },
-                        {
-                            source: 'C',
-                            target: 'A'
-                        }
-                    ]
+                    transform: 1
                 });
             });
         });

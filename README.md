@@ -16,6 +16,13 @@
 
 [Here a live playground](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html) page where you can interactively config your own graph, and generate a ready to use configuration! :sunglasses:
 
+You can also load different datasets and configurations via URL query parameter, here are the links:
+
+*   [small dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=small)
+*   [custom node dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=custom-node)
+
+Do you want to visualize your own data set on the live sandbox? Just submit a PR! You're welcome 😁
+
 ## Documentation :book:
 
 Full documentation [here](https://danielcaldas.github.io/react-d3-graph/docs/index.html).
@@ -66,6 +73,10 @@ const onClickNode = function(nodeId) {
     window.alert(`Clicked node ${nodeId}`);
 };
 
+const onRightClickNode = function(event, nodeId) {
+    window.alert(`Right clicked node ${nodeId}`);
+};
+
 const onMouseOverNode = function(nodeId) {
     window.alert(`Mouse over node ${nodeId}`);
 };
@@ -76,6 +87,10 @@ const onMouseOutNode = function(nodeId) {
 
 const onClickLink = function(source, target) {
     window.alert(`Clicked link between ${source} and ${target}`);
+};
+
+const onRightClickLink = function(event, source, target) {
+    window.alert(`Right clicked link between ${source} and ${target}`);
 };
 
 const onMouseOverLink = function(source, target) {
@@ -91,8 +106,10 @@ const onMouseOutLink = function(source, target) {
     data={data}
     config={myConfig}
     onClickNode={onClickNode}
+    onRightClickNode={onRightClickNode}
     onClickGraph={onClickGraph}
     onClickLink={onClickLink}
+    onRightClickLink={onRightClickLink}
     onMouseOverNode={onMouseOverNode}
     onMouseOutNode={onMouseOutNode}
     onMouseOverLink={onMouseOverLink}
@@ -108,3 +125,7 @@ Check [this trello board](https://trello.com/b/KrnmFXha/react-d3-graph) where ev
 ## Contributions
 
 Contributions are welcome fell free to submit new ideas/features, just open an issue or send me an email or something. If you are more a _hands on_ person, just submit a pull request.
+
+## Alternatives (Not what you where looking for?)
+
+Well if you scrolled this far maybe _react-d3-graph_ does not fulfill all your requirements 😭, but don't worry I got you covered! There are a lot of different and good alternatives out there, [here is a list with a few alternatives](http://anvaka.github.io/graph-drawing-libraries/#!/all#%2Fall). Btw, not in the previous list but also a valid alternative built by uber [uber/react-vis-force](https://github.com/uber/react-vis-force).

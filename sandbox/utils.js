@@ -1,11 +1,26 @@
 /*eslint require-jsdoc: 0, valid-jsdoc: 0, no-undef: 0, no-empty: 0, no-console: 0*/
 import queryString from 'query-string';
+import { LINE_TYPES } from '../src/components/link/link.const';
 
 /**
  * This two functions generate the react-jsonschema-form
  * schema from some passed graph configuration.
  */
 function formMap(k, v) {
+    // customized props
+    switch (k) {
+        case 'link.type': {
+            return {
+                type: 'array',
+                title: 'link.type',
+                items: {
+                    enum: Object.keys(LINE_TYPES)
+                },
+                uniqueItems: true
+            };
+        }
+    }
+
     return {
         title: k,
         type: typeof v,

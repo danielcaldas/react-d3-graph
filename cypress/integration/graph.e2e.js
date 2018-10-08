@@ -65,6 +65,7 @@ describe('[rd3g-graph] graph tests', function() {
                 it('nodes props modifications should be reflected in the graph', function() {
                     cy.get('text').should('have.length', 14);
                     cy.get('path[class="link"]').should('be.visible');
+                    cy.get('path[class="link"]').should('have.length', 23);
 
                     this.sandboxPO.addNode();
                     this.sandboxPO.addNode();
@@ -72,6 +73,9 @@ describe('[rd3g-graph] graph tests', function() {
                     this.sandboxPO.addNode();
 
                     cy.get('text').should('have.length', 18);
+
+                    // should now have more than 23 links
+                    cy.get('path[class="link"]').should('not.have.length', 23);
 
                     // click (+) add prop to 1st node
                     this.sandboxPO.addJsonTreeFirstNodeProp();
@@ -125,6 +129,8 @@ describe('[rd3g-graph] graph tests', function() {
 
             this.node1PO = new NodePO(1);
             this.node2PO = new NodePO(2);
+            this.node3PO = new NodePO(3);
+            this.node4PO = new NodePO(4);
             this.link12PO = new LinkPO(0);
         });
 
@@ -141,6 +147,19 @@ describe('[rd3g-graph] graph tests', function() {
             // Check the leaf node & link is no longer visible
             this.node2PO.getPath().should('not.be.visible');
             line.should('not.be.visible');
+
+            // Check if other nodes and links are still visible
+            this.node1PO.getPath().should('be.visible');
+            this.node3PO.getPath().should('be.visible');
+            this.node4PO.getPath().should('be.visible');
+
+            const link13PO = new LinkPO(1);
+            const link14PO = new LinkPO(2);
+            const link34PO = new LinkPO(3);
+
+            link13PO.getLine().should('be.visible');
+            link14PO.getLine().should('be.visible');
+            link34PO.getLine().should('be.visible');
         });
     });
 });

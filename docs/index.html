@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>react-d3-graph 2.0.0-rc0 | Documentation</title>
+  <title>react-d3-graph 2.0.0-rc1 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
@@ -15,13 +15,13 @@
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>react-d3-graph</h3>
           <i class="icon-github"></i>
-          <div class='mb1'><code>2.0.0-rc0</code></div>
+          <div class='mb1'><code>2.0.0-rc1</code></div>
           <h3>Quick Links</h3>
           <h4><a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">🔗 GitHub Repo</a></h4>
           <h4><a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html" target="_blank">🔗 Live Demo</a></h4>
           <h5>Versions</h5>
           <ul>
-            <li><a href="./index.html">2.0.0-rc0 (latest) 🚀</a></li>
+            <li><a href="./index.html">2.0.0-rc1 (latest) 🚀</a></li>
             <li><a href="./1.3.0.html">1.3.0</a></li>
             <li><a href="./1.2.2.html">1.2.2</a></li>
             <li><a href="./1.2.0.html">1.2.0</a></li>
@@ -1023,8 +1023,20 @@ Use the following values under a property
 <li>'triangle'</li>
 <li>'wye'</li>
 </ul>
-<p><strong>[note]</strong> react-d3-graph will map this values to <a href="https://github.com/d3/d3-shape#symbols">d3 symbols</a>
-<br/></p>
+<p><strong>[note]</strong> react-d3-graph will map this values to <a href="https://github.com/d3/d3-shape#symbols">d3 symbols</a></p>
+</span></td>
+</tr>
+
+
+
+                <tr>
+  <td class='break-word'><span class='code bold'>node.viewGenerator</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></code>
+
+    (default <code>undefined</code>)
+  </td>
+  <td class='break-word'><span>🔍🔍🔍 function that receives a node and returns a JSX view.
+
+<br/>
 </span></td>
 </tr>
 
@@ -1223,6 +1235,75 @@ following expression:
     <div class='py1 quiet mt1 prose-big'>Static Members</div>
     <div class="clearfix">
 
+    <div class='border-bottom' id='graphhelperlink'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>Link</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+
+
+  <div class='pre p1 fill-light mt0'>Link</div>
+
+    <p>
+      Type:
+      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
+    </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Properties</div>
+    <div>
+
+        <div class='space-bottom0'>
+          <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : the node id of the source in the link.
+
+
+        </div>
+
+        <div class='space-bottom0'>
+          <span class='code bold'>target</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+          : the node id of the target in the link.
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
     <div class='border-bottom' id='graphhelpernode'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -1297,75 +1378,6 @@ following expression:
         <div class='space-bottom0'>
           <span class='code bold'>svg</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
           : custom svg for node (optional).
-
-
-        </div>
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-</section>
-
-      </div>
-    </div>
-
-    <div class='border-bottom' id='graphhelperlink'>
-      <div class="clearfix small pointer toggle-sibling">
-        <div class="py1 contain">
-            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>Link</span>
-        </div>
-      </div>
-      <div class="clearfix display-none toggle-target">
-        <section class='p2 mb2 clearfix bg-white minishadow'>
-
-
-
-
-
-  <div class='pre p1 fill-light mt0'>Link</div>
-
-    <p>
-      Type:
-      <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
-    </p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class='py1 quiet mt1 prose-big'>Properties</div>
-    <div>
-
-        <div class='space-bottom0'>
-          <span class='code bold'>source</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : the node id of the source in the link.
-
-
-        </div>
-
-        <div class='space-bottom0'>
-          <span class='code bold'>target</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : the node id of the target in the link.
 
 
         </div>
@@ -1721,6 +1733,95 @@ and highlighted values.
       </div>
     </div>
 
+    <div class='border-bottom' id='graphhelper_mapdatalinktod3link'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_mapDataLinkToD3Link(link, index, d3Links)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Maps an input link (with format <code>{ source: 'sourceId', target: 'targetId' }</code>) to a d3Link
+(with format <code>{ source: { id: 'sourceId' }, target: { id: 'targetId' } }</code>). If d3Link with
+given index exists already that same d3Link is returned.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_mapDataLinkToD3Link(link: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, index: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, d3Links: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>link</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    input link.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>index</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    index of the input link.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>d3Links</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>
+            = <code>[]</code>)</code>
+	    all d3Links.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        a d3Link.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
     <div class='border-bottom' id='graphhelper_validategraphdata'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -2048,6 +2149,172 @@ INVALID_LINKS - if links point to nonexistent nodes
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
         returns object that contain Link props ready to be feeded to the Link component.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='graphhelpercheckforgraphelementschanges'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>checkForGraphElementsChanges(nextProps, currentState)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>This function checks for graph elements (nodes and links) changes, in two different
+levels of significance, updated elements (whether some property has changed in some
+node or link) and new elements (whether some new elements or added/removed from the graph).</p>
+
+
+  <div class='pre p1 fill-light mt0'>checkForGraphElementsChanges(nextProps: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, currentState: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>></div>
+
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>nextProps</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    nextProps that graph will receive.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>currentState</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    the current state of the graph.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>></code>:
+        returns object containing update check flags:
+<ul>
+<li>newGraphElements - flag that indicates whether new graph elements were added.</li>
+<li>graphElementsUpdated - flag that indicates whether some graph elements have
+updated (some property that is not in NODE_PROPERTIES_DISCARD_TO_COMPARE was added to
+some node or link or was updated).</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='graphhelpercheckforgraphconfigchanges'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>checkForGraphConfigChanges(nextProps, currentState)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Logic to check for changes in graph config.</p>
+
+
+  <div class='pre p1 fill-light mt0'>checkForGraphConfigChanges(nextProps: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, currentState: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>></div>
+
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>nextProps</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    nextProps that graph will receive.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>currentState</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    the current state of the graph.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>></code>:
+        returns object containing update check flags:
+<ul>
+<li>configUpdated - global flag that indicates if any property was updated.</li>
+<li>d3ConfigUpdated - specific flag that indicates changes in d3 configurations.</li>
+</ul>
 
 
 
@@ -4512,6 +4779,83 @@ to their original positions (or at least new positions according to the d3 force
       </div>
     </div>
 
+    <div class='border-bottom' id='graphcomponentwillreceiveprops'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>componentWillReceiveProps(nextProps)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+
+
+  <div class='pre p1 fill-light mt0'>componentWillReceiveProps(nextProps: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></div>
+
+
+
+  <div>Deprecated: <code>componentWillReceiveProps</code>
+ has a replacement method in react v16.3 onwards.
+that is getDerivedStateFromProps.
+But one needs to be aware that if an anti pattern of
+<code>componentWillReceiveProps</code>
+ is
+in place for this implementation the migration might not be that easy.
+See
+<a href="https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html">https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html</a>
+.
+</div>
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>nextProps</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    props.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
     <div class='border-bottom' id='graphonclicknode'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
@@ -5205,27 +5549,28 @@ there is an Object that maps adjacent nodes ids (string) and their values (numbe
      <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">'Mouse out node'</span>, nodeId);
 };
 
-<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Node</span>
-    <span class="hljs-attr">id</span>=<span class="hljs-string">'nodeId'</span>
-    <span class="hljs-attr">cx</span>=<span class="hljs-string">22</span>
-    <span class="hljs-attr">cy</span>=<span class="hljs-string">22</span>
-    <span class="hljs-attr">fill</span>=<span class="hljs-string">'green'</span>
-    <span class="hljs-attr">fontSize</span>=<span class="hljs-string">10</span>
-    <span class="hljs-attr">fontColor</span>=<span class="hljs-string">'black'</span>
-    <span class="hljs-attr">fontWeight</span>=<span class="hljs-string">'normal'</span>
-    <span class="hljs-attr">dx</span>=<span class="hljs-string">90</span>
-    <span class="hljs-attr">label</span>=<span class="hljs-string">'label text'</span>
-    <span class="hljs-attr">opacity</span>=<span class="hljs-string">1</span>
-    <span class="hljs-attr">renderLabel</span>=<span class="hljs-string">true</span>
-    <span class="hljs-attr">size</span>=<span class="hljs-string">200</span>
-    <span class="hljs-attr">stroke</span>=<span class="hljs-string">'none'</span>
-    <span class="hljs-attr">strokeWidth</span>=<span class="hljs-string">1.5</span>
-    <span class="hljs-attr">svg</span>=<span class="hljs-string">'assets/my-svg.svg'</span>
-    <span class="hljs-attr">type</span>=<span class="hljs-string">'square'</span>
-    <span class="hljs-attr">className</span>=<span class="hljs-string">'node'</span>
-    <span class="hljs-attr">onClickNode</span>=<span class="hljs-string">{onClickNode}</span>
-    <span class="hljs-attr">onMouseOverNode</span>=<span class="hljs-string">{onMouseOverNode}</span>
-    <span class="hljs-attr">onMouseOutNode</span>=<span class="hljs-string">{onMouseOutNode}</span> /&gt;</span></span></pre>
+&lt;Node
+    id='nodeId'
+    cx=22
+    cy=22
+    fill='green'
+    fontSize=10
+    fontColor='black'
+    fontWeight='normal'
+    dx=90
+    label='label text'
+    opacity=1
+    renderLabel=true
+    size=200
+    stroke='none'
+    strokeWidth=1.5
+    svg='assets/my-svg.svg'
+    type='square'
+    viewGenerator=(node) =&gt; &lt;CustomComponent node={node} /&gt;
+    className='node'
+    onClickNode={onClickNode}
+    onMouseOverNode={onMouseOverNode}
+    onMouseOutNode={onMouseOutNode} /&gt;</pre>
 
 
 
@@ -6091,6 +6436,84 @@ in the props list.</p>
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
         the object resultant from the picking operation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='utilsantipick'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>antiPick(o, props)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Picks all props except the ones passed in the props array.</p>
+
+
+  <div class='pre p1 fill-light mt0'>antiPick(o: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>o</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    the object to pick props from.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>props</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>
+            = <code>[]</code>)</code>
+	    list of props that we DON'T want to pick from o.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        the object resultant from the anti picking operation.
 
 
 
