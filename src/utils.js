@@ -129,8 +129,10 @@ function pick(o, props = []) {
 
 /**
  * Utility function used to perform a dfs search over a graph, recursively.
- * @param {Array.<Object>} nodes - list of nodes in a graph.
  * @param {Array.<Object>} links - list of links connecting the nodes in a graph.
+ * @param {number} nodeid - id property of the node currently checking neighbors of.
+ * @param {Object} visited - Object keeping track of all the nodes previously visited.
+ * @param {Object} recStack - Object keeping track of recursion stack, containing the back edges.
  * @returns {boolean} boolean reflecting wether the input nodes and links, results in a cyclic graph.
  * @memberof utils
  */
