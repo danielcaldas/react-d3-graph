@@ -1,25 +1,30 @@
 /**
-Developer notes - collapsing nodes and maintaining state on links matrix.
-
-User interaction flow
-1. User clicks node
-2. All leaf connections of that node are not rendered anymore
-3. User clicks on same node
-4. All leaf connections of that node are rendered
-
-rd3g calculations
-1. User clicks node
-2. Compute leaf connections for clicked node (targetNode)
-3. Update connections matrix (based on 2.)
-4. Update d3Links array with toggled connections (based on 2.)
-*/
+ * @module Graph/collapse-helper
+ * @description
+ * Offers a series of methods that allow graph to perform the necessary operations to
+ * create the collapsible behavior.
+ *
+ * Developer notes - collapsing nodes and maintaining state on links matrix.
+ *
+ * User interaction flow (for a collapsible graph)
+ * 1. User clicks node
+ * 2. All leaf connections of that node are not rendered anymore
+ * 3. User clicks on same node
+ * 4. All leaf connections of that node are rendered
+ *
+ * Internal react-d3-graph flow
+ * 1. User clicks node
+ * 2. Compute leaf connections for clicked node (targetNode)
+ * 3. Update connections matrix (based on 2.)
+ * 4. Update d3Links array with toggled connections (based on 2.)
+ */
 
 /**
  * Given in and out degree tells whether degrees indicate a leaf or non leaf scenario.
  * @param {string} nodeId - The id of the node to get the cardinality of.
  * @param {Object.<string, number>} linksMatrix - An object containing a matrix of connections of the nodes.
  * @returns {boolean} flag that indicates whether node is leaf or not.
- * @memberof Graph/collapse.helper
+ * @memberof Graph/collapse-helper
  */
 function _isLeaf(nodeId, linksMatrix) {
     const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
@@ -35,6 +40,7 @@ function _isLeaf(nodeId, linksMatrix) {
  * @returns {Object.<string, number>} returns object containing in and out degree of the node:
  * - inDegree: number
  * - outDegree: number
+ * @memberof Graph/collapse-helper
  */
 function computeNodeDegree(nodeId, linksMatrix = {}) {
     return Object.keys(linksMatrix).reduce(
@@ -78,6 +84,7 @@ function computeNodeDegree(nodeId, linksMatrix = {}) {
  * @returns {Array.<Object.<string, string>>} a list of leaf connections.
  * What is a leaf connection? A leaf connection is a link between some node A and other node B
  * where A has id equal to rootNodeId and B has inDegree 1 and outDegree 0 (or outDegree 1 but the connection is with A).
+ * @memberof Graph/collapse-helper
  */
 function getTargetLeafConnections(rootNodeId, linksMatrix = {}) {
     const rootConnectionsNodesIds = Object.keys(linksMatrix[rootNodeId]);
@@ -104,7 +111,7 @@ function getTargetLeafConnections(rootNodeId, linksMatrix = {}) {
  * @param {string} nodeId - The id of the node to get the cardinality of
  * @param {Object.<string, number>} linksMatrix - An object containing a matrix of connections of the nodes.
  * @returns {boolean} flag that indicates whether node should or not be displayed.
- * @memberof Graph/collapse.helper
+ * @memberof Graph/collapse-helper
  */
 function isNodeVisible(nodeId, linksMatrix) {
     const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
@@ -119,6 +126,7 @@ function isNodeVisible(nodeId, linksMatrix) {
  * @param {Array.<Object.<string, string>>} connections - connections to toggle on matrix.
  * @param {boolean} directed - tells whether linksMatrix represents a directed graph or not.
  * @returns {Object.<string, Object>} updated linksMatrix
+ * @memberof Graph/collapse-helper
  */
 function toggleLinksMatrixConnections(linksMatrix, connections, directed) {
     return connections.reduce(
@@ -148,6 +156,7 @@ function toggleLinksMatrixConnections(linksMatrix, connections, directed) {
  * @param {Array.<Object>} d3Links - An array containing all the d3 links.
  * @param {Array.<Object.<string, string>>} connectionMatrix - connections to toggle.
  * @returns {Array.<Object>} updated d3Links.
+ * @memberof Graph/collapse-helper
  */
 function toggleLinksConnections(d3Links, connectionMatrix) {
     return d3Links.map(d3Link => {
