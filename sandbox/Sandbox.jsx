@@ -53,7 +53,6 @@ export default class Sandbox extends React.Component {
 
     onClickGraph = () => console.info(`Clicked the graph`);
 
-    // FIXME: collapsible possibly not properly set on bootstrap? Investigate.
     onClickNode = id => !this.state.config.collapsible && window.alert(`Clicked node ${id}`);
 
     onClickLink = (source, target) => window.alert(`Clicked link between ${source} and ${target}`);
