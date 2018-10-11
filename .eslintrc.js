@@ -1,5 +1,5 @@
 module.exports = {
-    extends: ['eslint:recommended'],
+    extends: ['eslint:recommended', 'plugin:jest/recommended'],
     globals: {
         document: true,
         Reflect: true,
@@ -12,7 +12,7 @@ module.exports = {
             jsx: true
         }
     },
-    plugins: ['standard', 'promise', 'react'],
+    plugins: ['standard', 'promise', 'react', 'jest'],
     rules: {
         'react/jsx-uses-react': 'error',
         'react/jsx-uses-vars': 'error',
