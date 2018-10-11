@@ -183,6 +183,7 @@ export default class Graph extends React.Component {
      * The tick function simply calls React set state in order to update component and render nodes
      * along time as d3 calculates new node positioning.
      * @param {Object} state - new state to pass on.
+     * @param {?Function} cb - optional callback to fed in to {@link setState()|https://reactjs.org/docs/react-component.html#setstate}.
      * @returns {undefined}
      */
     _tick = (state = {}, cb) => (cb ? this.setState(state) : this.setState(state, cb));
@@ -383,13 +384,6 @@ export default class Graph extends React.Component {
      */
     onClickNode = clickedNodeId => {
         if (this.state.config.collapsible) {
-            // const disconnectedLeafNodesPartialState = graphHelper.disconnectLeafNodeConnections(
-            //     clickedNodeId,
-            //     this.state.links,
-            //     this.state.d3Links
-            // );
-
-            // this._tick({ ...disconnectedLeafNodesPartialState });
             const leafConnections = collapseHelper.getTargetLeafConnections(clickedNodeId, this.state.links);
             const links = collapseHelper.toggleLinksMatrixConnections(this.state.links, leafConnections);
             const d3Links = collapseHelper.toggleLinksConnections(this.state.d3Links, links);
