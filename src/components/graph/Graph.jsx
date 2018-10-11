@@ -185,7 +185,7 @@ export default class Graph extends React.Component {
      * @param {Object} state - new state to pass on.
      * @returns {undefined}
      */
-    _tick = (state = {}) => this.setState(state);
+    _tick = (state = {}, cb) => (cb ? this.setState(state) : this.setState(state, cb));
 
     /**
      * Configures zoom upon graph with default or user provided values.<br/>
@@ -394,13 +394,16 @@ export default class Graph extends React.Component {
             const links = collapseHelper.toggleLinksMatrixConnections(this.state.links, leafConnections);
             const d3Links = collapseHelper.toggleLinksConnections(this.state.d3Links, links);
 
-            this._tick({
-                links,
-                d3Links
-            });
+            this._tick(
+                {
+                    links,
+                    d3Links
+                },
+                () => this.props.onClickNode && this.props.onClickNode(clickedNodeId)
+            );
+        } else {
+            this.props.onClickNode && this.props.onClickNode(clickedNodeId);
         }
-
-        this.props.onClickNode && this.props.onClickNode(clickedNodeId);
     };
 
     /**
