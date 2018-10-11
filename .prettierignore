@@ -1,6 +1,5 @@
 package.json
 package-lock.json
-yarn.lock
 *.snap
 *.bundle.js
 *.bundle.js.map
