@@ -81,8 +81,17 @@ function _memoizedComputeMarkerId() {
     };
 }
 
-// memoized reference for _memoizedComputeMarkerId exposed
-// as getter for sake of readability
+/**
+ * Memoized reference for _memoizedComputeMarkerId exposed
+ * as getter for sake of readability.
+ * Gets proper marker id given the highlight state and the zoom
+ * transform.
+ * @param {boolean} highlight - tells us whether or not some element (link or node) is highlighted.
+ * @param {number} transform - the delta zoom value to calculate resize transformations.
+ * @param {Object} config - the graph config object.
+ * @param {Object} config.maxZoom - max zoom that can be performed against the graph.
+ * @memberof Marker/helper
+ */
 const getMarkerId = _memoizedComputeMarkerId();
 
 export { getMarkerId };
