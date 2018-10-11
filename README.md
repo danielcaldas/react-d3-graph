@@ -33,7 +33,6 @@ Full documentation [here](https://danielcaldas.github.io/react-d3-graph/docs/ind
 
 ```bash
 npm install react-d3-graph // using npm
-yarn add react-d3-graph // using yarn
 ```
 
 ## Usage sample

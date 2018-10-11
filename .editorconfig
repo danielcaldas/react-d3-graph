@@ -15,6 +15,6 @@ indent_size = 4
 [Makefile]
 indent_style = tab
 
-[{package.json,package-lock.json,yarn.lock,.travis.yml}]
+[{package.json,package-lock.json,.travis.yml}]
 indent_style = space
 indent_size = 4
