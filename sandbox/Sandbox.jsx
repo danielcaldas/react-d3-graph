@@ -27,6 +27,12 @@ export default class Sandbox extends React.Component {
         super(props);
 
         const { config: configOverride, data } = sandboxData;
+
+        defaultConfig.d3.onCollide = node => {
+            console.log('onCollide');
+            return node.symbolType === 'square' ? 100 : 50;
+        };
+
         const schemaProps = utils.generateFormSchema(Object.assign(defaultConfig, configOverride), '', {});
 
         const schema = {
