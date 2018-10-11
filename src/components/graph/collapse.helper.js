@@ -15,6 +15,19 @@ rd3g calculations
 */
 
 /**
+ * Given in and out degree tells whether degrees indicate a leaf or non leaf scenario.
+ * @param {string} nodeId - The id of the node to get the cardinality of.
+ * @param {Object.<string, number>} linksMatrix - An object containing a matrix of connections of the nodes.
+ * @returns {boolean} flag that indicates whether node is leaf or not.
+ * @memberof Graph/collapse.helper
+ */
+function _isLeaf(nodeId, linksMatrix) {
+    const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
+
+    return inDegree <= 1 && outDegree <= 1;
+}
+
+/**
  * Calculates degree (in an out) of some provided node.
  * @param {string|number} nodeId - the id of the node whom degree we want to compute.
  * @param {Object.<string, Object>} linksMatrix - an object containing a matrix of connections of the graph, for each nodeId,
@@ -58,16 +71,6 @@ function computeNodeDegree(nodeId, linksMatrix = {}) {
 }
 
 /**
- * Given in and out degree tells whether degrees indicate a leaf or non leaf scenario.
- * @param {number} inDegree - in degree.
- * @param {number} outDegree - out degree.
- * @returns {boolean} whether given degrees represent a leaf node or not.
- */
-function _isLeaf(inDegree, outDegree) {
-    return inDegree <= 1 && outDegree <= 1;
-}
-
-/**
  * Given a node id we want to calculate the list of leaf connections
  * @param {string} rootNodeId - node who's leafs we want to calculate.
  * @param {Object.<string, Object>} linksMatrix - an object containing a matrix of connections of the graph, for each nodeId,
@@ -80,9 +83,7 @@ function getTargetLeafConnections(rootNodeId, linksMatrix = {}) {
     const rootConnectionsNodesIds = Object.keys(linksMatrix[rootNodeId]);
 
     return rootConnectionsNodesIds.reduce((leafConnections, target) => {
-        const { inDegree, outDegree } = computeNodeDegree(target, linksMatrix);
-
-        if (_isLeaf(inDegree, outDegree)) {
+        if (_isLeaf(target, linksMatrix)) {
             leafConnections.push({
                 source: rootNodeId,
                 target
@@ -91,6 +92,24 @@ function getTargetLeafConnections(rootNodeId, linksMatrix = {}) {
 
         return leafConnections;
     }, []);
+}
+
+/**
+ * Given a node and the connections matrix, check if node should be displayed
+ * NOTE: this function is meant to be used under the `collapsible` toggle, meaning
+ * that the `isNodeVisible` actually is checking visibility on collapsible graphs.
+ * If you think that this code is confusing and could potentially collide (🤞) with #_isLeaf
+ * always remember that *A leaf can, through time, be both a visible or an invisible node!*.
+ *
+ * @param {string} nodeId - The id of the node to get the cardinality of
+ * @param {Object.<string, number>} linksMatrix - An object containing a matrix of connections of the nodes.
+ * @returns {boolean} flag that indicates whether node should or not be displayed.
+ * @memberof Graph/collapse.helper
+ */
+function isNodeVisible(nodeId, linksMatrix) {
+    const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
+
+    return inDegree >= 1 || outDegree >= 1;
 }
 
 /**
@@ -150,4 +169,10 @@ function toggleLinksConnections(d3Links, connectionMatrix) {
     });
 }
 
-export { computeNodeDegree, getTargetLeafConnections, toggleLinksMatrixConnections, toggleLinksConnections };
+export {
+    computeNodeDegree,
+    getTargetLeafConnections,
+    isNodeVisible,
+    toggleLinksMatrixConnections,
+    toggleLinksConnections
+};

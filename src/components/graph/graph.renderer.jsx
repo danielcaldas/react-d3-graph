@@ -11,7 +11,8 @@ import { MARKERS, MARKER_SMALL_SIZE, MARKER_MEDIUM_OFFSET, MARKER_LARGE_OFFSET }
 import Link from '../link/Link';
 import Node from '../node/Node';
 import Marker from '../marker/Marker';
-import { buildLinkProps, buildNodeProps, getNodeCardinality } from './graph.helper';
+import { buildLinkProps, buildNodeProps } from './graph.helper';
+import { isNodeVisible } from './collapse.helper';
 
 /**
  * Build Link components given a list of links.
@@ -66,7 +67,7 @@ function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedL
     let outNodes = Object.keys(nodes);
 
     if (config.collapsible) {
-        outNodes = outNodes.filter(nodeId => getNodeCardinality(nodeId, linksMatrix) > 0);
+        outNodes = outNodes.filter(nodeId => isNodeVisible(nodeId, linksMatrix));
     }
 
     return outNodes.map(nodeId => {
