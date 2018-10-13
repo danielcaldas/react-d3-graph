@@ -113,7 +113,7 @@
  *   - 'wye'
  *
  * **[note]** react-d3-graph will map this values to [d3 symbols](https://github.com/d3/d3-shape#symbols)
- * @param {Function} [node.viewGenerator=undefined] - 🔍🔍🔍 function that receives a node and returns a JSX view.
+ * @param {Function} [node.viewGenerator=null] - 🔍🔍🔍 function that receives a node and returns a JSX view.
  * <br/>
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2 id="config-link"><a href="#config-link">#</a> Link level configurations</h2>
@@ -194,7 +194,8 @@ export default {
         strokeColor: 'none',
         strokeWidth: 1.5,
         svg: '',
-        symbolType: 'circle'
+        symbolType: 'circle',
+        viewGenerator: null
     },
     link: {
         color: '#d3d3d3',
