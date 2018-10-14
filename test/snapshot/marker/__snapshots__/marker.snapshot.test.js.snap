@@ -2,6 +2,7 @@
 
 exports[`Snapshot - Marker Component should match snapshot 1`] = `
 <marker
+  className="marker"
   fill="green"
   id="id"
   markerHeight="6"

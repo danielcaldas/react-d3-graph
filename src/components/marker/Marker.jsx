@@ -11,6 +11,7 @@ export default class Marker extends React.Component {
     render() {
         return (
             <marker
+                className="marker"
                 id={this.props.id}
                 viewBox="0 -5 10 10"
                 refX={this.props.refX}
