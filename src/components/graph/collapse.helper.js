@@ -145,6 +145,25 @@ function isNodeVisible(nodeId, linksMatrix) {
 }
 
 /**
+ * Updates d3Links by toggling given connections
+ * @param {Array.<Object>} d3Links - An array containing all the d3 links.
+ * @param {Array.<Object.<string, string>>} connectionMatrix - connections to toggle.
+ * @returns {Array.<Object>} updated d3Links.
+ * @memberof Graph/collapse-helper
+ */
+function toggleLinksConnections(d3Links, connectionMatrix) {
+    return d3Links.map(d3Link => {
+        const { source, target } = d3Link;
+        const sourceId = source.id || source;
+        const targetId = target.id || target;
+        // connectionMatrix[sourceId][targetId] can be 0 or non existent
+        const connection = connectionMatrix && connectionMatrix[sourceId] && connectionMatrix[sourceId][targetId];
+
+        return connection ? { ...d3Link, isHidden: false } : { ...d3Link, isHidden: true };
+    });
+}
+
+/**
  * Update matrix given array of connections to toggle.
  * @param {Object.<string, Object>} linksMatrix - an object containing a matrix of connections of the graph, for each nodeId,
  * there is an object that maps adjacent nodes ids (string) and their values (number).
@@ -179,37 +198,10 @@ function toggleLinksMatrixConnections(linksMatrix, connections, { directed }) {
     );
 }
 
-/**
- * Updates d3Links by toggling given connections
- * @param {Array.<Object>} d3Links - An array containing all the d3 links.
- * @param {Array.<Object.<string, string>>} connectionMatrix - connections to toggle.
- * @returns {Array.<Object>} updated d3Links.
- * @memberof Graph/collapse-helper
- */
-function toggleLinksConnections(d3Links, connectionMatrix) {
-    return d3Links.map(d3Link => {
-        const { source, target } = d3Link;
-        // TODO: Confirm whether fallbacks are needed in this situation
-        const sourceId = source.id || source;
-        const targetId = target.id || target;
-
-        // TODO: Improve this code
-        if (!(connectionMatrix && connectionMatrix[sourceId] && connectionMatrix[sourceId][targetId])) {
-            return { ...d3Link, isHidden: true };
-        }
-
-        if (connectionMatrix[sourceId][targetId] === 0) {
-            return { ...d3Link, isHidden: true };
-        } else {
-            return { ...d3Link, isHidden: false };
-        }
-    });
-}
-
 export {
     computeNodeDegree,
     getTargetLeafConnections,
     isNodeVisible,
-    toggleLinksMatrixConnections,
-    toggleLinksConnections
+    toggleLinksConnections,
+    toggleLinksMatrixConnections
 };
