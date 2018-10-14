@@ -28,7 +28,13 @@ import { isNodeVisible } from './collapse.helper';
  * @memberof Graph/helper
  */
 function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
-    return links.filter(({ isHidden }) => !isHidden).map(link => {
+    let outLinks = links;
+
+    if (config.collapsible) {
+        outLinks = outLinks.filter(({ isHidden }) => !isHidden);
+    }
+
+    return outLinks.map(link => {
         const { source, target } = link;
         // FIXME: solve this source data inconsistency later
         const sourceId = source.id || source;

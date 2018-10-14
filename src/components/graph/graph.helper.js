@@ -162,14 +162,16 @@ function _initializeNodes(graphNodes) {
  * @param {Object} link - input link.
  * @param {number} index - index of the input link.
  * @param {Array.<Object>} d3Links - all d3Links.
+ * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @returns {Object} a d3Link.
  * @memberof Graph/helper
  */
-function _mapDataLinkToD3Link(link, index, d3Links = []) {
+function _mapDataLinkToD3Link(link, index, d3Links = [], config) {
     const d3Link = d3Links[index];
 
     if (d3Link) {
-        return d3Link;
+        // every time we disable collapsible all links should be visible again
+        return config.collapsible ? d3Link : { ...d3Link, isHidden: false };
     }
 
     const highlighted = false;
@@ -447,7 +449,7 @@ function initializeGraphState({ data, id, config }, state) {
                         ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
                         : Object.assign({}, n)
             ),
-            links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links))
+            links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links, config))
         };
     } else {
         graph = {
