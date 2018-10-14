@@ -3,7 +3,9 @@ module.exports = {
     globals: {
         document: true,
         Reflect: true,
-        window: true
+        window: true,
+        Cypress: true,
+        cy: true
     },
     parser: 'babel-eslint',
     parserOptions: {
@@ -12,9 +14,8 @@ module.exports = {
             jsx: true
         }
     },
-    plugins: ['standard', 'promise', 'react', 'jest', 'cypress', 'chai-friendly'],
+    plugins: ['standard', 'promise', 'react', 'jest', 'cypress'],
     rules: {
-        'chai-friendly/no-unused-expressions': 2,
         'react/jsx-uses-react': 'error',
         'react/jsx-uses-vars': 'error',
         camelcase: 'error',

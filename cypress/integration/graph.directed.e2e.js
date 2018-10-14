@@ -1,11 +1,8 @@
-/*global cy*/
-const SANDBOX_URL = Cypress.env('SANDBOX_URL');
+const SANDBOX_URL = cy.env('SANDBOX_URL');
 
 const LinkPO = require('../page-objects/link.po');
 const NodePO = require('../page-objects/node.po');
 const SandboxPO = require('../page-objects/sandbox.po');
-
-let nodes = require('./../../sandbox/data/default').nodes.map(({ id }) => id);
 
 describe('[rd3g-graph] directed graph tests', function() {
     beforeEach(function() {
@@ -33,7 +30,7 @@ describe('[rd3g-graph] directed graph tests', function() {
             this.link34PO = new LinkPO(3);
         });
         it('should properly display elements for directed graph', function() {
-            // Check if other nodes, links and markers are visible
+            // Check if other , links and markers are visible
             this.node1PO.getPath().should('be.visible');
             this.node2PO.getPath().should('be.visible');
             this.node3PO.getPath().should('be.visible');
