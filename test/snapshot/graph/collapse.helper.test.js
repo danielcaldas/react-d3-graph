@@ -130,7 +130,7 @@ describe('Collapse Helper', () => {
                 ];
 
                 expect(
-                    collapseHelper.toggleLinksMatrixConnections(directedState.links, connections, true)
+                    collapseHelper.toggleLinksMatrixConnections(directedState.links, connections, { directed: true })
                 ).toMatchSnapshot();
             });
         });
@@ -143,7 +143,7 @@ describe('Collapse Helper', () => {
                 ];
 
                 expect(
-                    collapseHelper.toggleLinksMatrixConnections(defaultState.links, connections, false)
+                    collapseHelper.toggleLinksMatrixConnections(defaultState.links, connections, { directed: false })
                 ).toMatchSnapshot();
             });
         });

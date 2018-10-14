@@ -124,11 +124,12 @@ function isNodeVisible(nodeId, linksMatrix) {
  * @param {Object.<string, Object>} linksMatrix - an object containing a matrix of connections of the graph, for each nodeId,
  * there is an object that maps adjacent nodes ids (string) and their values (number).
  * @param {Array.<Object.<string, string>>} connections - connections to toggle on matrix.
- * @param {boolean} directed - tells whether linksMatrix represents a directed graph or not.
+ * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @param {boolean} config.directed - tells whether linksMatrix represents a directed graph or not.
  * @returns {Object.<string, Object>} updated linksMatrix
  * @memberof Graph/collapse-helper
  */
-function toggleLinksMatrixConnections(linksMatrix, connections, directed) {
+function toggleLinksMatrixConnections(linksMatrix, connections, { directed }) {
     return connections.reduce(
         (newMatrix, link) => {
             if (!newMatrix[link.source]) {
@@ -139,10 +140,12 @@ function toggleLinksMatrixConnections(linksMatrix, connections, directed) {
                 newMatrix[link.source][link.target] = 0;
             }
 
-            newMatrix[link.source][link.target] = newMatrix[link.source][link.target] === 0 ? 1 : 0;
+            const newConnectionValue = newMatrix[link.source][link.target] === 0 ? 1 : 0;
+
+            newMatrix[link.source][link.target] = newConnectionValue;
 
             if (!directed) {
-                newMatrix[link.target][link.source] = newMatrix[link.source][link.target];
+                newMatrix[link.target][link.source] = newConnectionValue;
             }
 
             return newMatrix;
