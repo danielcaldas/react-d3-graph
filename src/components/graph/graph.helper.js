@@ -163,13 +163,21 @@ function _initializeNodes(graphNodes) {
  * @param {number} index - index of the input link.
  * @param {Array.<Object>} d3Links - all d3Links.
  * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @param {Object} state - Graph component current state (same format as returned object on this function).
  * @returns {Object} a d3Link.
  * @memberof Graph/helper
  */
-function _mapDataLinkToD3Link(link, index, d3Links = [], config) {
+function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
     const d3Link = d3Links[index];
 
     if (d3Link) {
+        const toggledDirected = state.config && state.config.directed && config.directed !== state.config.directed;
+
+        // every time we toggle directed config all links should be visible again
+        if (toggledDirected) {
+            return { ...d3Link, isHidden: false };
+        }
+
         // every time we disable collapsible all links should be visible again
         return config.collapsible ? d3Link : { ...d3Link, isHidden: false };
     }
@@ -449,7 +457,7 @@ function initializeGraphState({ data, id, config }, state) {
                         ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
                         : Object.assign({}, n)
             ),
-            links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links, config))
+            links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links, config, state))
         };
     } else {
         graph = {

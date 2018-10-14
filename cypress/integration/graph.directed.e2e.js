@@ -1,4 +1,4 @@
-const SANDBOX_URL = cy.env('SANDBOX_URL');
+const SANDBOX_URL = Cypress.env('SANDBOX_URL');
 
 const LinkPO = require('../page-objects/link.po');
 const NodePO = require('../page-objects/node.po');
@@ -9,13 +9,15 @@ describe('[rd3g-graph] directed graph tests', function() {
         this.sandboxPO = new SandboxPO();
         // visit sandbox
         cy.visit(`${SANDBOX_URL}?data=small`);
-        // sleep 1 second
-        cy.wait(1000);
+        // sleep 1.5 seconds
+        cy.wait(1500);
         // pause the graph
         this.sandboxPO.pauseGraph();
-        // make graph directed
-        cy.contains('directed').scrollIntoView();
-        this.sandboxPO.getFieldInput('directed').click();
+        // make graph directed and remove labels
+        ['node.renderLabel', 'directed'].forEach(formKey => {
+            cy.contains(formKey).scrollIntoView();
+            this.sandboxPO.getFieldInput(formKey).click();
+        });
     });
 
     describe('check for graph elements', function() {
@@ -58,7 +60,7 @@ describe('[rd3g-graph] directed graph tests', function() {
             this.link12PO = new LinkPO(0);
         });
 
-        it('[FAILING] should behave correctly when directed is disabled after collapsed node', function() {
+        it('should behave correctly when directed is disabled after collapsed node', function() {
             const line = this.link12PO.getLine();
 
             // Check the leaf node & link is present
@@ -89,15 +91,13 @@ describe('[rd3g-graph] directed graph tests', function() {
             cy.contains('directed').scrollIntoView();
             this.sandboxPO.getFieldInput('directed').click();
 
-            // FIXME: I'm FAILING HERE!
-            this.node2PO.getPath().should('not.be.visible');
-            line.should('not.be.visible');
-
             // Check if other nodes and links are still visible
             this.node1PO.getPath().should('be.visible');
+            this.node2PO.getPath().should('be.visible');
             this.node3PO.getPath().should('be.visible');
             this.node4PO.getPath().should('be.visible');
 
+            line.should('be.visible');
             link13PO.getLine().should('be.visible');
             link14PO.getLine().should('be.visible');
             link34PO.getLine().should('be.visible');
