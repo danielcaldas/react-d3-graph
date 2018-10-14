@@ -32,7 +32,9 @@ function generateFormSchema(o, rootSpreadProp, accum = {}) {
     for (let k of Object.keys(o)) {
         const kk = rootSpreadProp ? `${rootSpreadProp}.${k}` : k;
 
-        typeof o[k] === 'object' ? generateFormSchema(o[kk], kk, accum) : (accum[kk] = formMap(kk, o[k]));
+        if (o[k] !== undefined && o[k] !== null && typeof o[k] !== 'function') {
+            typeof o[k] === 'object' ? generateFormSchema(o[kk], kk, accum) : (accum[kk] = formMap(kk, o[k]));
+        }
     }
 
     return accum;

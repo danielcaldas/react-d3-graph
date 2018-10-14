@@ -124,7 +124,7 @@ describe('Graph Helper', () => {
                     strokeWidth: 2,
                     svg: 'file.svg',
                     type: 'circle',
-                    viewGenerator: undefined,
+                    viewGenerator: null,
                     overrideGlobalViewGenerator: undefined
                 });
             });
@@ -170,7 +170,7 @@ describe('Graph Helper', () => {
                         strokeWidth: 1.5,
                         svg: 'file.svg',
                         type: 'circle',
-                        viewGenerator: undefined,
+                        viewGenerator: null,
                         overrideGlobalViewGenerator: undefined
                     });
                 });
@@ -215,7 +215,7 @@ describe('Graph Helper', () => {
                         strokeWidth: 1.5,
                         svg: 'file.svg',
                         type: 'circle',
-                        viewGenerator: undefined,
+                        viewGenerator: null,
                         overrideGlobalViewGenerator: undefined
                     });
                 });
