@@ -6,7 +6,7 @@ describe('Collapse Helper', () => {
     let directedState;
     let defaultState;
 
-    beforeAll(() => {
+    beforeEach(() => {
         directedState = initializeGraphState({ data: graphData, id: 'id', config: { directed: true } });
         defaultState = initializeGraphState({ data: graphData, id: 'id' });
     });
@@ -127,6 +127,23 @@ describe('Collapse Helper', () => {
 
                 expect(collapseHelper.getTargetLeafConnections(nodeId, defaultState.links, { directed })).toEqual([]);
             });
+        });
+    });
+
+    describe('#toggleLinksConnections', () => {
+        test('should properly set isHidden value for given links and linksMatrix', () => {
+            const d3Links = directedState.d3Links;
+            const connectionsMatrix = directedState.links;
+
+            connectionsMatrix['Androsynth']['Ilwrath'] = 0; // d3Links[1] isHidden: true
+            delete connectionsMatrix['Androsynth']['Chenjesu']; // d3Links[0] isHidden: true
+
+            const updatedD3Links = collapseHelper.toggleLinksConnections(d3Links, connectionsMatrix);
+
+            expect(updatedD3Links[1].isHidden).toEqual(true);
+            expect(updatedD3Links[0].isHidden).toEqual(true);
+
+            expect(updatedD3Links).toMatchSnapshot();
         });
     });
 
