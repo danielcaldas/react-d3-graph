@@ -37,8 +37,9 @@
  * <h2 id="config-global"><a href="#config-global">#</a>  Graph global configurations</h2>
  * @param {boolean} [automaticRearrangeAfterDropNode=false] - 🚅🚅🚅 when true performing a node drag and drop should automatically
  * rearrange all nodes positions based on new position of dragged node (note: **staticGraph** should be false).
- * @param {boolean} [collapsible=false] - 🚅🚅🚅 Allow leaf neighbours nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.
- * To see an example of this behavior you can access this sandbox link that has a specific set up to experiment this feature.
+ * @param {boolean} [collapsible=false] - 🚅🚅🚅 Allow leaf neighbors nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.
+ * To see an example of this behavior you can access this sandbox link that has a specific set up to experiment this feature. **NOTE**: At this moment
+ * nodes without connections (orphan nodes) are not rendered when this property is activated (see [react-d3-graph/issues/#129](https://github.com/danielcaldas/react-d3-graph/issues/129)).
  * <br/>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-collapsible.gif?raw=true" width="820" height="480"/>
  * @param {number} [height=400] - the height of the (svg) area where the graph will be rendered.
