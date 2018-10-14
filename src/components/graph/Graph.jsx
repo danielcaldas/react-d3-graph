@@ -384,7 +384,11 @@ export default class Graph extends React.Component {
      */
     onClickNode = clickedNodeId => {
         if (this.state.config.collapsible) {
-            const leafConnections = collapseHelper.getTargetLeafConnections(clickedNodeId, this.state.links);
+            const leafConnections = collapseHelper.getTargetLeafConnections(
+                clickedNodeId,
+                this.state.links,
+                this.state.config
+            );
             const links = collapseHelper.toggleLinksMatrixConnections(
                 this.state.links,
                 leafConnections,

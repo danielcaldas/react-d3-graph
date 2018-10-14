@@ -72,11 +72,16 @@ describe('Collapse Helper', () => {
     });
 
     describe('#getTargetLeafConnections', () => {
+        let directed;
+
         describe('when graph is directed', () => {
+            beforeAll(() => {
+                directed = true;
+            });
             test('should return expected leaf connections for node "Mycon"', () => {
                 const nodeId = 'Mycon';
 
-                expect(collapseHelper.getTargetLeafConnections(nodeId, directedState.links)).toEqual([
+                expect(collapseHelper.getTargetLeafConnections(nodeId, directedState.links, { directed })).toEqual([
                     { source: 'Mycon', target: 'Podship' }
                 ]);
             });
@@ -84,7 +89,7 @@ describe('Collapse Helper', () => {
             test('should return expected leaf connections for node "VUX"', () => {
                 const nodeId = 'VUX';
 
-                expect(collapseHelper.getTargetLeafConnections(nodeId, directedState.links)).toEqual([
+                expect(collapseHelper.getTargetLeafConnections(nodeId, directedState.links, { directed })).toEqual([
                     { source: 'VUX', target: 'Intruder' }
                 ]);
             });
@@ -92,15 +97,19 @@ describe('Collapse Helper', () => {
             test('should return expected leaf connections for node "Eluder"', () => {
                 const nodeId = 'Eluder';
 
-                expect(collapseHelper.getTargetLeafConnections(nodeId, directedState.links)).toEqual([]);
+                expect(collapseHelper.getTargetLeafConnections(nodeId, directedState.links, { directed })).toEqual([]);
             });
         });
 
         describe('when graph is not directed', () => {
+            beforeAll(() => {
+                directed = false;
+            });
+
             test('should calculate correct node degree for "Androsynth"', () => {
                 const nodeId = 'Mycon';
 
-                expect(collapseHelper.getTargetLeafConnections(nodeId, defaultState.links)).toEqual([
+                expect(collapseHelper.getTargetLeafConnections(nodeId, defaultState.links, { directed })).toEqual([
                     { source: 'Mycon', target: 'Podship' }
                 ]);
             });
@@ -108,7 +117,7 @@ describe('Collapse Helper', () => {
             test('should return expected leaf connections for node "VUX"', () => {
                 const nodeId = 'VUX';
 
-                expect(collapseHelper.getTargetLeafConnections(nodeId, defaultState.links)).toEqual([
+                expect(collapseHelper.getTargetLeafConnections(nodeId, defaultState.links, { directed })).toEqual([
                     { source: 'VUX', target: 'Intruder' }
                 ]);
             });
@@ -116,7 +125,7 @@ describe('Collapse Helper', () => {
             test('should return expected leaf connections for node "Eluder"', () => {
                 const nodeId = 'Eluder';
 
-                expect(collapseHelper.getTargetLeafConnections(nodeId, defaultState.links)).toEqual([]);
+                expect(collapseHelper.getTargetLeafConnections(nodeId, defaultState.links, { directed })).toEqual([]);
             });
         });
     });

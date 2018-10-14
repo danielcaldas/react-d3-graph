@@ -20,16 +20,39 @@
  */
 
 /**
+ * For directed graphs.
+ * Check based on node degrees whether it is a leaf node or not.
+ * @param {number} inDegree - the in degree for a given node.
+ * @param {number} outDegree - the out degree for a given node.
+ * @returns {boolean} based on the degrees tells whether node is leaf or not.
+ */
+function _isLeafDirected(inDegree, outDegree) {
+    return inDegree <= 1 && outDegree < 1;
+}
+
+/**
+ * For not directed graphs.
+ * Check based on node degrees whether it is a leaf node or not.
+ * @param {number} inDegree - the in degree for a given node.
+ * @param {number} outDegree - the out degree for a given node.
+ * @returns {boolean} based on the degrees tells whether node is leaf or not.
+ */
+function _isLeafNotDirected(inDegree, outDegree) {
+    return inDegree <= 1 && outDegree <= 1;
+}
+
+/**
  * Given in and out degree tells whether degrees indicate a leaf or non leaf scenario.
  * @param {string} nodeId - The id of the node to get the cardinality of.
  * @param {Object.<string, number>} linksMatrix - An object containing a matrix of connections of the nodes.
+ * @param {boolean} directed - whether graph in context is directed or not.
  * @returns {boolean} flag that indicates whether node is leaf or not.
  * @memberof Graph/collapse-helper
  */
-function _isLeaf(nodeId, linksMatrix) {
+function _isLeaf(nodeId, linksMatrix, directed) {
     const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
 
-    return inDegree <= 1 && outDegree <= 1;
+    return directed ? _isLeafDirected(inDegree, outDegree) : _isLeafNotDirected(inDegree, outDegree);
 }
 
 /**
@@ -55,14 +78,14 @@ function computeNodeDegree(nodeId, linksMatrix = {}) {
                 if (nodeId === source) {
                     return {
                         ..._acc,
-                        outDegree: _acc.outDegree + linksMatrix[source][target]
+                        outDegree: _acc.outDegree + linksMatrix[nodeId][target]
                     };
                 }
 
                 if (nodeId === target) {
                     return {
                         ..._acc,
-                        inDegree: _acc.inDegree + linksMatrix[source][target]
+                        inDegree: _acc.inDegree + linksMatrix[source][nodeId]
                     };
                 }
 
@@ -81,16 +104,18 @@ function computeNodeDegree(nodeId, linksMatrix = {}) {
  * @param {string} rootNodeId - node who's leafs we want to calculate.
  * @param {Object.<string, Object>} linksMatrix - an object containing a matrix of connections of the graph, for each nodeId,
  * there is an object that maps adjacent nodes ids (string) and their values (number).
+ * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @param {boolean} config.directed - tells whether linksMatrix represents a directed graph or not.
  * @returns {Array.<Object.<string, string>>} a list of leaf connections.
  * What is a leaf connection? A leaf connection is a link between some node A and other node B
  * where A has id equal to rootNodeId and B has inDegree 1 and outDegree 0 (or outDegree 1 but the connection is with A).
  * @memberof Graph/collapse-helper
  */
-function getTargetLeafConnections(rootNodeId, linksMatrix = {}) {
+function getTargetLeafConnections(rootNodeId, linksMatrix = {}, { directed }) {
     const rootConnectionsNodesIds = Object.keys(linksMatrix[rootNodeId]);
 
     return rootConnectionsNodesIds.reduce((leafConnections, target) => {
-        if (_isLeaf(target, linksMatrix)) {
+        if (_isLeaf(target, linksMatrix, directed)) {
             leafConnections.push({
                 source: rootNodeId,
                 target
