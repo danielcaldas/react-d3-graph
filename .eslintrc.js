@@ -12,8 +12,9 @@ module.exports = {
             jsx: true
         }
     },
-    plugins: ['standard', 'promise', 'react', 'jest'],
+    plugins: ['standard', 'promise', 'react', 'jest', 'cypress', 'chai-friendly'],
     rules: {
+        'chai-friendly/no-unused-expressions': 2,
         'react/jsx-uses-react': 'error',
         'react/jsx-uses-vars': 'error',
         camelcase: 'error',
