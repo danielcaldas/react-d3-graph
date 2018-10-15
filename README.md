@@ -6,6 +6,8 @@
 [![npm](https://img.shields.io/npm/dw/react-d3-graph.svg?style=flat-square)](https://www.npmjs.com/package/react-d3-graph)
 [![npm](https://img.shields.io/npm/dt/react-d3-graph.svg?style=flat-square)](https://www.npmjs.com/package/react-d3-graph)
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/DanielCaldas321)
+
 :book: [documentation](https://danielcaldas.github.io/react-d3-graph/docs/index.html)
 
 ### _Interactive and configurable graphs with react and d3 effortlessly_
@@ -124,6 +126,12 @@ Check [this trello board](https://trello.com/b/KrnmFXha/react-d3-graph) where ev
 ## Contributions
 
 Contributions are welcome fell free to submit new ideas/features, just open an issue or send me an email or something. If you are more a _hands on_ person, just submit a pull request.
+
+## Donation
+
+Using _react-d3-graph_ and want to help the project grow with new features or simply want to say thank you? You can always buy me a cup of coffee ☕☕☕
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/DanielCaldas321)
 
 ## Alternatives (Not what you where looking for?)
 
