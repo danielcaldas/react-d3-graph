@@ -26,7 +26,7 @@ export default class Sandbox extends React.Component {
     constructor(props) {
         super(props);
 
-        const { config: configOverride, data } = sandboxData;
+        const { config: configOverride, data, fullscreen } = sandboxData;
         const config = Object.assign(defaultConfig, configOverride);
         const schemaProps = utils.generateFormSchema(config, '', {});
 
@@ -47,7 +47,7 @@ export default class Sandbox extends React.Component {
             generatedConfig: {},
             schema,
             data,
-            fullscreen: false
+            fullscreen
         };
     }
 
