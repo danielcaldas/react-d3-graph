@@ -27,6 +27,7 @@ import React from 'react';
  *     y1=22
  *     x2=22
  *     y2=22
+ *     markerId='marker-small'
  *     strokeWidth=1.5
  *     stroke='green'
  *     className='link'
@@ -83,12 +84,12 @@ export default class Link extends React.Component {
             onContextMenu: this.handleOnRightClickLink,
             onMouseOut: this.handleOnMouseOutLink,
             onMouseOver: this.handleOnMouseOverLink,
-            style: lineStyle,
-            x1: this.props.x1,
-            x2: this.props.x2,
-            y1: this.props.y1,
-            y2: this.props.y2
+            style: lineStyle
         };
+
+        if (this.props.markerId) {
+            lineProps.markerEnd = `url(#${this.props.markerId})`;
+        }
 
         return <path {...lineProps} />;
     }

@@ -3,6 +3,7 @@ import * as graphHelper from '../../../src/components/graph/graph.helper';
 import config from '../../../src/components/graph/graph.config';
 
 import utils from '../../../src/utils';
+import * as linkHelper from '../../../src/components/link/link.helper';
 
 jest.mock('d3-force');
 import {
@@ -18,21 +19,29 @@ describe('Graph Helper', () => {
         utils.isObjectEmpty = jest.fn();
         utils.merge = jest.fn();
         utils.throwErr = jest.fn();
+        jest.spyOn(linkHelper, 'buildLinkPathDefinition');
     });
 
     describe('#buildLinkProps', () => {
         let that = {};
 
         beforeAll(() => {
-            const linkConfig = Object.assign({}, config.link);
-
             that = {
-                config: { link: linkConfig },
+                config: { link: config.link },
                 link: { source: 'source', target: 'target' }
             };
         });
 
         describe('when building props for a link', () => {
+            test('should call buildLinkPathDefinition with expected parameters', () => {
+                graphHelper.buildLinkProps(that.link, {}, {}, that.config, [], undefined, undefined, 1);
+
+                expect(linkHelper.buildLinkPathDefinition).toHaveBeenCalledWith(
+                    { source: { x: 0, y: 0 }, target: { x: 0, y: 0 } },
+                    'STRAIGHT'
+                );
+            });
+
             describe('and no custom color is set', () => {
                 test('should return default color defined in link config', () => {
                     const props = graphHelper.buildLinkProps(

@@ -48,13 +48,13 @@ const RADIUS_STRATEGIES = {
 /**
  * Get a strategy to compute line radius.<br/>
  * *CURVE_SMOOTH* type inspired by {@link http://bl.ocks.org/mbostock/1153292|mbostock - Mobile Patent Suits}.
- * @param {string} type type of curve to get radius strategy from.
+ * @param {string} [type=LINE_TYPES.STRAIGHT] type of curve to get radius strategy from.
  * @returns {Function} a function that calculates a radius
  * to match curve type expectation. Fallback is the straight line.
  * @memberof Link/helper
  */
 function getRadiusStrategy(type) {
-    return RADIUS_STRATEGIES[type];
+    return RADIUS_STRATEGIES[type] || RADIUS_STRATEGIES[LINE_TYPES.STRAIGHT];
 }
 
 /**

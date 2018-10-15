@@ -9,8 +9,9 @@ import CONST from './graph.const';
 import DEFAULT_CONFIG from './graph.config';
 import ERRORS from '../../err';
 
-import * as graphRenderer from './graph.renderer';
+import * as collapseHelper from './collapse.helper';
 import * as graphHelper from './graph.helper';
+import * as graphRenderer from './graph.renderer';
 import utils from '../../utils';
 
 /**
@@ -181,9 +182,10 @@ export default class Graph extends React.Component {
      * The tick function simply calls React set state in order to update component and render nodes
      * along time as d3 calculates new node positioning.
      * @param {Object} state - new state to pass on.
+     * @param {Function} [cb] - optional callback to fed in to {@link setState()|https://reactjs.org/docs/react-component.html#setstate}.
      * @returns {undefined}
      */
-    _tick = (state = {}) => this.setState(state);
+    _tick = (state = {}, cb) => (cb ? this.setState(state) : this.setState(state, cb));
 
     /**
      * Configures zoom upon graph with default or user provided values.<br/>
@@ -381,16 +383,28 @@ export default class Graph extends React.Component {
      */
     onClickNode = clickedNodeId => {
         if (this.state.config.collapsible) {
-            const disconnectedLeafNodesPartialState = graphHelper.disconnectLeafNodeConnections(
+            const leafConnections = collapseHelper.getTargetLeafConnections(
                 clickedNodeId,
                 this.state.links,
-                this.state.d3Links
+                this.state.config
             );
+            const links = collapseHelper.toggleLinksMatrixConnections(
+                this.state.links,
+                leafConnections,
+                this.state.config
+            );
+            const d3Links = collapseHelper.toggleLinksConnections(this.state.d3Links, links);
 
-            this._tick({ ...disconnectedLeafNodesPartialState });
+            this._tick(
+                {
+                    links,
+                    d3Links
+                },
+                () => this.props.onClickNode && this.props.onClickNode(clickedNodeId)
+            );
+        } else {
+            this.props.onClickNode && this.props.onClickNode(clickedNodeId);
         }
-
-        this.props.onClickNode && this.props.onClickNode(clickedNodeId);
     };
 
     /**
@@ -421,7 +435,7 @@ export default class Graph extends React.Component {
     };
 
     render() {
-        const { nodes, links } = graphRenderer.buildGraph(
+        const { nodes, links, defs } = graphRenderer.buildGraph(
             this.state.nodes,
             {
                 onClickNode: this.onClickNode,
@@ -451,6 +465,7 @@ export default class Graph extends React.Component {
         return (
             <div id={`${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`}>
                 <svg name={`svg-container-${this.state.id}`} style={svgStyle} onClick={this.onClickGraph}>
+                    {defs}
                     <g id={`${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`}>
                         {links}
                         {nodes}

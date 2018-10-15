@@ -1,4 +1,3 @@
-/*eslint-disable max-lines*/
 /**
  * @module Graph/helper
  * @description
@@ -33,6 +32,7 @@ import ERRORS from '../../err';
 
 import utils from '../../utils';
 import { buildLinkPathDefinition } from '../link/link.helper';
+import { getMarkerId } from '../marker/marker.helper';
 
 const NODE_PROPS_WHITELIST = ['id', 'highlighted', 'x', 'y', 'index', 'vy', 'vx'];
 
@@ -94,11 +94,12 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
  * in a lightweight matrix containing only links with source and target being strings representative of some node id
  * and the respective link value (if non existent will default to 1).
  * @param  {Array.<Link>} graphLinks - an array of all graph links.
+ * @param  {Object} config - the graph config.
  * @returns {Object.<string, Object>} an object containing a matrix of connections of the graph, for each nodeId,
  * there is an object that maps adjacent nodes ids (string) and their values (number).
  * @memberof Graph/helper
  */
-function _initializeLinks(graphLinks) {
+function _initializeLinks(graphLinks, config) {
     return graphLinks.reduce((links, l) => {
         const source = l.source.id || l.source;
         const target = l.target.id || l.target;
@@ -111,8 +112,13 @@ function _initializeLinks(graphLinks) {
             links[target] = {};
         }
 
-        // TODO: If the graph is directed this should be adapted
-        links[source][target] = links[target][source] = l.value || 1;
+        const value = l.value || 1;
+
+        links[source][target] = value;
+
+        if (!config.directed) {
+            links[target][source] = value;
+        }
 
         return links;
     }, {});
@@ -156,14 +162,24 @@ function _initializeNodes(graphNodes) {
  * @param {Object} link - input link.
  * @param {number} index - index of the input link.
  * @param {Array.<Object>} d3Links - all d3Links.
+ * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @param {Object} state - Graph component current state (same format as returned object on this function).
  * @returns {Object} a d3Link.
  * @memberof Graph/helper
  */
-function _mapDataLinkToD3Link(link, index, d3Links = []) {
+function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
     const d3Link = d3Links[index];
 
     if (d3Link) {
-        return d3Link;
+        const toggledDirected = state.config && state.config.directed && config.directed !== state.config.directed;
+
+        // every time we toggle directed config all links should be visible again
+        if (toggledDirected) {
+            return { ...d3Link, isHidden: false };
+        }
+
+        // every time we disable collapsible (collapsible is false) all links should be visible again
+        return config.collapsible ? d3Link : { ...d3Link, isHidden: false };
     }
 
     const highlighted = false;
@@ -274,7 +290,10 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         strokeWidth += linkValue * strokeWidth / 10;
     }
 
+    const markerId = config.directed ? getMarkerId(highlight, transform, config) : null;
+
     return {
+        markerId,
         d,
         source,
         target,
@@ -438,7 +457,7 @@ function initializeGraphState({ data, id, config }, state) {
                         ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
                         : Object.assign({}, n)
             ),
-            links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links))
+            links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links, config, state))
         };
     } else {
         graph = {
@@ -449,7 +468,7 @@ function initializeGraphState({ data, id, config }, state) {
 
     let newConfig = Object.assign({}, utils.merge(DEFAULT_CONFIG, config || {}));
     let nodes = _initializeNodes(graph.nodes);
-    let links = _initializeLinks(graph.links); // matrix of graph connections
+    let links = _initializeLinks(graph.links, newConfig); // matrix of graph connections
     const { nodes: d3Nodes, links: d3Links } = graph;
     const formatedId = id.replace(/ /g, '_');
     const simulation = _createForceSimulation(newConfig.width, newConfig.height, newConfig.d3 && newConfig.d3.gravity);
@@ -500,112 +519,11 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
     };
 }
 
-/**
- * This function disconnects all the connections from leaf -> parent.
- * @param {string} targetNodeId - The id of the node from which to disconnect the leaf nodes
- * @param {Object.<string, number>} originalConnections - An object containing a matrix of connections of the nodes.
- * @param {Array} d3Links - An array containing all the d3 links.
- * @returns {Object.<string, number>} - Contains the new links and d3Links.
- * @memberof Graph/helper
- */
-function disconnectLeafNodeConnections(targetNodeId, originalConnections, d3Links) {
-    const leafNodesToToggle = getLeafNodeConnections(targetNodeId, originalConnections);
-    const toggledLeafNodes = Object.keys(leafNodesToToggle).reduce((newLeafNodeConnections, leafNodeId) => {
-        // toggle connections from Leaf node to Parent node
-        newLeafNodeConnections[leafNodeId] = toggleNodeConnection(targetNodeId, originalConnections[leafNodeId]);
-
-        return newLeafNodeConnections;
-    }, {});
-
-    const toggledLeafNodesList = Object.keys(toggledLeafNodes);
-    const toggledD3Links = d3Links.reduce((allD3Links, currentD3Link) => {
-        const { source, target } = currentD3Link;
-        const isLeafNode = toggledLeafNodesList.some(
-            leafNodeId => leafNodeId === `${source.id}` || leafNodeId === `${target.id}`
-        );
-
-        isLeafNode
-            ? allD3Links.push({ ...currentD3Link, isHidden: !currentD3Link.isHidden })
-            : allD3Links.push(currentD3Link);
-
-        return allD3Links;
-    }, []);
-
-    return {
-        d3Links: toggledD3Links,
-        links: {
-            ...originalConnections,
-            ...toggledLeafNodes
-        }
-    };
-}
-
-/**
- * This function toggles the value for a given node connection (1 -> 0 and vice-versa).
- * @param {string} targetNodeId - The id of the node which to toggle
- * @param {Object.<string, number>} allConnections - An object containing a matrix of connections of the node
- * where we want to toggle the connection (destinations/targets).
- * @returns {Object.<string, number>} - Contains the new connections with the target node toggled.
- * @memberof Graph/helper
- */
-function toggleNodeConnection(targetNodeId, allConnections) {
-    const newConnection = {
-        [targetNodeId]: allConnections[targetNodeId] === 1 ? 0 : 1
-    };
-
-    return { ...allConnections, ...newConnection };
-}
-
-/**
- * Based on a starting node (ID) and all the current connections between all the nodes.
- * Find the leaf node connections of that starting node.
- * @param {string} startingNodeId - The id of the node where the "search" should be started.
- * @param {Object.<string, number>} currentConnections - An object containing a matrix of connections of the nodes.
- * @returns {Object.<string, number>} - Contains the connections to leaf nodes based on the given starting node.
- * @memberof Graph/helper
- */
-function getLeafNodeConnections(startingNodeId, currentConnections) {
-    const startingNodeConnections = currentConnections[startingNodeId];
-    const startingNodeConnectionsList = Object.keys(startingNodeConnections);
-
-    return startingNodeConnectionsList.reduce((allLeafNodes, candidateLeafId) => {
-        const candidateLeafConnections = currentConnections[candidateLeafId];
-        const candidateLeafConnectionList = Object.keys(candidateLeafConnections);
-        const isLeafNode = candidateLeafConnectionList.length === 1;
-
-        if (isLeafNode) {
-            allLeafNodes[candidateLeafId] = candidateLeafConnections;
-        }
-
-        return allLeafNodes;
-    }, {});
-}
-
-/**
- * Given a node and the connections matrix, give the cardinality of the node.
- *
- * i.e.: Taking into account the node is connected to nothing, it amounts to 0.
- *       Being connected to three nodes, it amounts to 3.
- * @param {string} nodeId - The id of the node to get the cardinality of
- * @param {Object.<string, number>} linksMatrix - An object containing a matrix of connections of the nodes.
- * @returns {number} - Contains the cardinality of the asked node.
- * @memberof Graph/helper
- */
-function getNodeCardinality(nodeId, linksMatrix) {
-    const nodeConnectivityList = Object.values(linksMatrix[nodeId] || []);
-
-    return nodeConnectivityList.reduce((cardinality, nodeConnectivity) => cardinality + nodeConnectivity, 0);
-}
-
 export {
     buildLinkProps,
     buildNodeProps,
     checkForGraphConfigChanges,
     checkForGraphElementsChanges,
-    disconnectLeafNodeConnections,
-    getLeafNodeConnections,
-    getNodeCardinality,
     initializeGraphState,
-    toggleNodeConnection,
     updateNodeHighlightedValue
 };

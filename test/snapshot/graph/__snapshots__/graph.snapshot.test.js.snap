@@ -14,6 +14,98 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       }
     }
   >
+    <defs>
+      <marker
+        className="marker"
+        fill="#d3d3d3"
+        id="marker-small"
+        markerHeight="6"
+        markerWidth="6"
+        orient="auto"
+        refX={16}
+        refY="0"
+        viewBox="0 -5 10 10"
+      >
+        <path
+          d="M0,-5L10,0L0,5"
+        />
+      </marker>
+      <marker
+        className="marker"
+        fill="blue"
+        id="marker-small-highlighted"
+        markerHeight="6"
+        markerWidth="6"
+        orient="auto"
+        refX={16}
+        refY="0"
+        viewBox="0 -5 10 10"
+      >
+        <path
+          d="M0,-5L10,0L0,5"
+        />
+      </marker>
+      <marker
+        className="marker"
+        fill="#d3d3d3"
+        id="marker-medium"
+        markerHeight="6"
+        markerWidth="6"
+        orient="auto"
+        refX={21.333333333333332}
+        refY="0"
+        viewBox="0 -5 10 10"
+      >
+        <path
+          d="M0,-5L10,0L0,5"
+        />
+      </marker>
+      <marker
+        className="marker"
+        fill="blue"
+        id="marker-medium-highlighted"
+        markerHeight="6"
+        markerWidth="6"
+        orient="auto"
+        refX={21.333333333333332}
+        refY="0"
+        viewBox="0 -5 10 10"
+      >
+        <path
+          d="M0,-5L10,0L0,5"
+        />
+      </marker>
+      <marker
+        className="marker"
+        fill="#d3d3d3"
+        id="marker-large"
+        markerHeight="6"
+        markerWidth="6"
+        orient="auto"
+        refX={26.666666666666664}
+        refY="0"
+        viewBox="0 -5 10 10"
+      >
+        <path
+          d="M0,-5L10,0L0,5"
+        />
+      </marker>
+      <marker
+        className="marker"
+        fill="blue"
+        id="marker-large-highlighted"
+        markerHeight="6"
+        markerWidth="6"
+        orient="auto"
+        refX={26.666666666666664}
+        refY="0"
+        viewBox="0 -5 10 10"
+      >
+        <path
+          d="M0,-5L10,0L0,5"
+        />
+      </marker>
+    </defs>
     <g
       id="graphId-graph-container-zoomable"
     >
@@ -33,10 +125,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="40"
-        x2="140"
-        y1="200"
-        y2="20"
       />
       <path
         className="link"
@@ -54,10 +142,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="40"
-        x2="20"
-        y1="200"
-        y2="110"
       />
       <path
         className="link"
@@ -75,10 +159,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="30"
-        x2="305"
-        y1="184"
-        y2="745"
       />
       <path
         className="link"
@@ -96,10 +176,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="200"
-        x2="305"
-        y1="300"
-        y2="745"
       />
       <path
         className="link"
@@ -117,10 +193,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="120"
-        x2="305"
-        y1="270"
-        y2="745"
       />
       <path
         className="link"
@@ -138,10 +210,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="20"
-        x2="305"
-        y1="110"
-        y2="745"
       />
       <path
         className="link"
@@ -159,10 +227,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="190"
-        x2="305"
-        y1="609"
-        y2="745"
       />
       <path
         className="link"
@@ -180,10 +244,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="40"
-        x2="101"
-        y1="200"
-        y2="201"
       />
       <path
         className="link"
@@ -201,10 +261,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="40"
-        x2="2"
-        y1="200"
-        y2="200"
       />
       <path
         className="link"
@@ -222,10 +278,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="404"
-        x2="14"
-        y1="404"
-        y2="30"
       />
       <path
         className="link"
@@ -243,10 +295,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="305"
-        x2="20"
-        y1="745"
-        y2="110"
       />
       <path
         className="link"
@@ -264,10 +312,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="40"
-        x2="14"
-        y1="200"
-        y2="250"
       />
       <path
         className="link"
@@ -285,10 +329,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="30"
-        x2="190"
-        y1="184"
-        y2="609"
       />
       <path
         className="link"
@@ -306,10 +346,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="14"
-        x2="190"
-        y1="259"
-        y2="609"
       />
       <path
         className="link"
@@ -327,10 +363,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="409"
-        x2="190"
-        y1="500"
-        y2="609"
       />
       <path
         className="link"
@@ -348,10 +380,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="520"
-        x2="14"
-        y1="123"
-        y2="259"
       />
       <path
         className="link"
@@ -369,10 +397,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="190"
-        x2="14"
-        y1="609"
-        y2="259"
       />
       <path
         className="link"
@@ -390,10 +414,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="305"
-        x2="120"
-        y1="745"
-        y2="270"
       />
       <path
         className="link"
@@ -411,10 +431,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="14"
-        x2="120"
-        y1="20"
-        y2="270"
       />
       <path
         className="link"
@@ -432,10 +448,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="305"
-        x2="200"
-        y1="745"
-        y2="300"
       />
       <path
         className="link"
@@ -453,10 +465,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="40"
-        x2="200"
-        y1="200"
-        y2="300"
       />
       <path
         className="link"
@@ -474,10 +482,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="200"
-        x2="40"
-        y1="300"
-        y2="200"
       />
       <path
         className="link"
@@ -495,10 +499,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="20"
-        x2="90"
-        y1="1"
-        y2="90"
       />
       <path
         className="link"
@@ -516,10 +516,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="90"
-        x2="90"
-        y1="656"
-        y2="90"
       />
       <path
         className="link"
@@ -537,10 +533,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="190"
-        x2="30"
-        y1="609"
-        y2="184"
       />
       <path
         className="link"
@@ -558,10 +550,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="305"
-        x2="30"
-        y1="745"
-        y2="184"
       />
       <path
         className="link"
@@ -579,10 +567,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="190"
-        x2="409"
-        y1="609"
-        y2="500"
       />
       <path
         className="link"
@@ -600,10 +584,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             "strokeWidth": 1.5,
           }
         }
-        x1="120"
-        x2="14"
-        y1="270"
-        y2="20"
       />
       <g
         className="node"

@@ -42,6 +42,11 @@ function generateFormSchema(o, rootSpreadProp, accum = {}) {
 
 function loadDataset() {
     const queryParams = queryString.parse(location.search);
+    let fullscreen = false;
+
+    if (queryParams && queryParams.fullscreen) {
+        fullscreen = new Boolean(queryParams.fullscreen);
+    }
 
     if (queryParams && queryParams.data) {
         const dataset = queryParams.data.toLowerCase();
@@ -50,7 +55,7 @@ function loadDataset() {
             const data = require(`./data/${dataset}/${dataset}.data`);
             const config = require(`./data/${dataset}/${dataset}.config`);
 
-            return { data, config };
+            return { data, config, fullscreen };
         } catch (error) {
             console.warn(
                 `dataset with name ${dataset} not found, falling back to default, make sure it is a valid dataset`
@@ -63,7 +68,8 @@ function loadDataset() {
 
     return {
         config,
-        data
+        data,
+        fullscreen
     };
 }
 
