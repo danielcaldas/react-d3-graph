@@ -42,6 +42,10 @@
  * nodes without connections (orphan nodes) are not rendered when this property is activated (see [react-d3-graph/issues/#129](https://github.com/danielcaldas/react-d3-graph/issues/129)).
  * <br/>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-collapsible.gif?raw=true" width="820" height="480"/>
+ * @param {boolean} [directed=false] - This property makes react-d3-graph handle your graph as a directed graph. It will
+ * out of the box provide the look and feel of a directed graph and add directional semantic to links. You can see a sample in the image below.
+ * <br/>
+ * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-directed.gif?raw=true" width="820" height="480"/>
  * @param {number} [height=400] - the height of the (svg) area where the graph will be rendered.
  * @param {boolean} [nodeHighlightBehavior=false] - 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
  * connections will be highlighted (depending on the *highlightDegree* value). All the remaining nodes and links assume opacity value equal to **highlightOpacity**.
@@ -120,6 +124,10 @@
  * <h2 id="config-link"><a href="#config-link">#</a> Link level configurations</h2>
  * @param {string} [link.color='#d3d3d3'] - 🚅🚅🚅 the color for links
  * (from version 1.3.0 this property can be configured at link level).
+ * @param {string} [link.highlightColor='#d3d3d3'] - links' color in highlight state.
+ * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
+ *  @param {string} [link.mouseCursor='pointer'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
+ * property for when link is mouse hovered.
  * @param {number} [link.opacity=1] - the default opacity value for links.
  * @param {boolean} [link.semanticStrokeWidth=false] - when set to true all links will have
  * *"semantic width"*, this means that the width of the connections will be proportional to the value of each link.
@@ -132,15 +140,11 @@
  * ```javascript
  * link.strokeWidth * (1 / transform); // transform is a zoom delta Δ value
  * ```
- * @param {string} [link.highlightColor='#d3d3d3'] - links' color in highlight state.
  * @param {string} [link.type='STRAIGHT'] - the type of line to draw, available types at this point are:
  * - "STRAIGHT" <small>(default)</small> - a straight line.
  * - "CURVE_SMOOTH" - a slight curve between two nodes
  * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
  * <br/>
- * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
- *  @param {string} [link.mouseCursor='pointer'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
- * property for when link is mouse hovered.
  *
  * @example
  * // A simple config that uses some properties
@@ -159,9 +163,9 @@
  * // Sorry for the long config description, here's a potato 🥔.
  */
 export default {
-    directed: false,
     automaticRearrangeAfterDropNode: false,
     collapsible: false,
+    directed: false,
     height: 400,
     highlightDegree: 1,
     highlightOpacity: 1,
@@ -202,10 +206,10 @@ export default {
     link: {
         color: '#d3d3d3',
         highlightColor: '#d3d3d3',
+        mouseCursor: 'pointer',
         opacity: 1,
         semanticStrokeWidth: false,
         strokeWidth: 1.5,
-        type: 'STRAIGHT',
-        mouseCursor: 'pointer'
+        type: 'STRAIGHT'
     }
 };
