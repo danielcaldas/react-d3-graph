@@ -178,7 +178,7 @@ function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
             return { ...d3Link, isHidden: false };
         }
 
-        // every time we disable collapsible all links should be visible again
+        // every time we disable collapsible (collapsible is false) all links should be visible again
         return config.collapsible ? d3Link : { ...d3Link, isHidden: false };
     }
 

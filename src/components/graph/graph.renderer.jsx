@@ -66,7 +66,7 @@ function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlight
  * @param  {string} highlightedLink.target - id of target node for highlighted link.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @param  {Object.<string, Object>} linksMatrix - the matrix of connections of the graph
- * @returns {Array.<Object>} returns the generated array of nodes components
+ * @returns {Array.<Object>} returns the generated array of node components
  * @memberof Graph/helper
  */
 function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
@@ -94,7 +94,7 @@ function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedL
  * Builds graph defs (for now markers, but we could also have gradients for instance).
  * NOTE: defs are static svg graphical objects, thus we only need to render them once, the result
  * is cached on the 1st call and from there we simply return the cached jsx.
- * @returns {Object} graph reusable objects [defs](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/defs).
+ * @returns {Function} memoized build definitions function.
  * @memberof Graph/helper
  */
 function _buildDefs() {
@@ -124,7 +124,12 @@ function _buildDefs() {
     };
 }
 
-// memoized reference for _buildDefs
+/**
+ * Memoized reference for _buildDefs.
+ * @param  {Object} config - an object containing rd3g consumer defined configurations {@link #config config} for the graph.
+ * @returns {Object} graph reusable objects [defs](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/defs).
+ * @memberof Graph/helper
+ */
 const _memoizedBuildDefs = _buildDefs();
 
 /**

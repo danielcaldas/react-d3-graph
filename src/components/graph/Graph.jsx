@@ -5,14 +5,13 @@ import { forceLink as d3ForceLink } from 'd3-force';
 import { select as d3Select, selectAll as d3SelectAll, event as d3Event } from 'd3-selection';
 import { zoom as d3Zoom } from 'd3-zoom';
 
-import * as collapseHelper from './collapse.helper';
-
 import CONST from './graph.const';
 import DEFAULT_CONFIG from './graph.config';
 import ERRORS from '../../err';
 
-import * as graphRenderer from './graph.renderer';
+import * as collapseHelper from './collapse.helper';
 import * as graphHelper from './graph.helper';
+import * as graphRenderer from './graph.renderer';
 import utils from '../../utils';
 
 /**

@@ -14,7 +14,7 @@
  *
  * Internal react-d3-graph flow
  * 1. User clicks node
- * 2. Compute leaf connections for clicked node (targetNode)
+ * 2. Compute leaf connections for clicked node (rootNode, root as in 'root' of the event)
  * 3. Update connections matrix (based on 2.)
  * 4. Update d3Links array with toggled connections (based on 2.)
  */

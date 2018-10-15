@@ -2,7 +2,7 @@ const HIGHLIGHTED = 'H';
 const MARKER_SMALL_SIZE = 16;
 const MARKER_MEDIUM_OFFSET = 2;
 const MARKER_LARGE_OFFSET = 4;
-// internal marker flavours for cross referencing
+// internal marker flavors for cross referencing
 const MARKERS = {
     MARKER_S: 'marker-small',
     MARKER_SH: 'marker-small-highlighted',
