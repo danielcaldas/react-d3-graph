@@ -5,7 +5,8 @@ module.exports = {
         Reflect: true,
         window: true,
         Cypress: true,
-        cy: true
+        cy: true,
+        module: true
     },
     parser: 'babel-eslint',
     parserOptions: {
