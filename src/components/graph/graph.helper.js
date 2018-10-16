@@ -344,7 +344,11 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     }
 
     if (typeof config.node.labelProperty === 'function') {
-        labelProperty = config.node.labelProperty.call(null, node);
+        try {
+            labelProperty = config.node.labelProperty.call(null, node);
+        } catch (error) {
+            throw new Error(error);
+        }
     }
 
     const t = 1 / transform;
