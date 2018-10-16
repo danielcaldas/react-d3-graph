@@ -112,7 +112,7 @@ function _initializeLinks(graphLinks, config) {
             links[target] = {};
         }
 
-        const value = l.value || 1;
+        const value = config.collapsible && l.isHidden ? 0 : l.value || 1;
 
         links[source][target] = value;
 
