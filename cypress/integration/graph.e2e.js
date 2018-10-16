@@ -116,7 +116,6 @@ describe('[rd3g-graph] graph tests', function() {
 
     describe('when clicking a node', function() {
         before(function() {
-            this.sandboxPO = new SandboxPO();
             // visit sandbox
             cy.visit(`${SANDBOX_URL}?data=small`);
             // sleep 2 seconds
@@ -124,42 +123,65 @@ describe('[rd3g-graph] graph tests', function() {
             // pause the graph
             this.sandboxPO.pauseGraph();
 
-            cy.contains('collapsible').scrollIntoView();
-            this.sandboxPO.getFieldInput('collapsible').click();
-
             this.node1PO = new NodePO(1);
-            this.node2PO = new NodePO(2);
-            this.node3PO = new NodePO(3);
-            this.node4PO = new NodePO(4);
-            this.link12PO = new LinkPO(0);
         });
 
-        it('should collapse leaf nodes', function() {
-            const line = this.link12PO.getLine();
+        it('should trigger alert with message containing node id', async function() {
+            // stub window.alert
+            const stub = cy.stub();
 
-            // Check the leaf node & link is present
-            this.node2PO.getPath().should('be.visible');
-            line.should('be.visible');
+            cy.on('window:alert', stub);
 
-            // Click 'Node 1' in order to collapse the leafs
-            this.node1PO.getPath().click();
+            // Click node 1
+            this.node1PO
+                .getPath()
+                .click()
+                .then(() => {
+                    expect(stub.getCall(0)).to.be.calledWith('laraalarla');
+                });
+        });
 
-            // Check the leaf node & link is no longer visible
-            this.node2PO.getPath().should('not.be.visible');
-            line.should('not.be.visible');
+        describe('and graph is collapsible', function() {
+            before(function() {
+                ['node.renderLabel', 'collapsible'].forEach(formKey => {
+                    cy.contains(formKey).scrollIntoView();
+                    this.sandboxPO.getFieldInput(formKey).click();
+                });
 
-            // Check if other nodes and links are still visible
-            this.node1PO.getPath().should('be.visible');
-            this.node3PO.getPath().should('be.visible');
-            this.node4PO.getPath().should('be.visible');
+                this.node1PO = new NodePO(1);
+                this.node2PO = new NodePO(2);
+                this.node3PO = new NodePO(3);
+                this.node4PO = new NodePO(4);
+                this.link12PO = new LinkPO(0);
+            });
 
-            const link13PO = new LinkPO(1);
-            const link14PO = new LinkPO(2);
-            const link34PO = new LinkPO(3);
+            it('should collapse leaf nodes', function() {
+                const line = this.link12PO.getLine();
 
-            link13PO.getLine().should('be.visible');
-            link14PO.getLine().should('be.visible');
-            link34PO.getLine().should('be.visible');
+                // Check the leaf node & link is present
+                this.node2PO.getPath().should('be.visible');
+                line.should('be.visible');
+
+                // Click 'Node 1' in order to collapse the leafs
+                this.node1PO.getPath().click();
+
+                // Check the leaf node & link is no longer visible
+                this.node2PO.getPath().should('not.be.visible');
+                line.should('not.be.visible');
+
+                // Check if other nodes and links are still visible
+                this.node1PO.getPath().should('be.visible');
+                this.node3PO.getPath().should('be.visible');
+                this.node4PO.getPath().should('be.visible');
+
+                const link13PO = new LinkPO(1);
+                const link14PO = new LinkPO(2);
+                const link34PO = new LinkPO(3);
+
+                link13PO.getLine().should('be.visible');
+                link14PO.getLine().should('be.visible');
+                link34PO.getLine().should('be.visible');
+            });
         });
     });
 });
