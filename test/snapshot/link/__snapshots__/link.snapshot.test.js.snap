@@ -3,6 +3,7 @@
 exports[`Snapshot - Link Component should match snapshot 1`] = `
 <path
   onClick={[Function]}
+  onContextMenu={[Function]}
   onMouseOut={[Function]}
   onMouseOver={[Function]}
   style={
@@ -14,9 +15,5 @@ exports[`Snapshot - Link Component should match snapshot 1`] = `
       "strokeWidth": "2",
     }
   }
-  x1="2"
-  x2="4"
-  y1="2"
-  y2="4"
 />
 `;

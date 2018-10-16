@@ -7,6 +7,10 @@ import React from 'react';
  *      window.alert(`Clicked link between ${source} and ${target}`);
  * };
  *
+ * const onRightClickLink = function(event, source, target) {
+ *      window.alert(`Right clicked link between ${source} and ${target}`);
+ * };
+ *
  * const onMouseOverLink = function(source, target) {
  *      window.alert(`Mouse over in link between ${source} and ${target}`);
  * };
@@ -23,12 +27,14 @@ import React from 'react';
  *     y1=22
  *     x2=22
  *     y2=22
+ *     markerId='marker-small'
  *     strokeWidth=1.5
  *     stroke='green'
  *     className='link'
  *     opacity=1
  *     mouseCursor='pointer'
  *     onClickLink={onClickLink}
+ *     onRightClickLink={onRightClickLink}
  *     onMouseOverLink={onMouseOverLink}
  *     onMouseOutLink={onMouseOutLink} />
  */
@@ -38,6 +44,15 @@ export default class Link extends React.Component {
      * @returns {undefined}
      */
     handleOnClickLink = () => this.props.onClickLink && this.props.onClickLink(this.props.source, this.props.target);
+
+    /**
+     * Handle link right click event.
+     * @param {Object} event - the event object
+     * @returns {undefined}
+     */
+    handleOnRightClickLink = event => {
+        this.props.onRightClickLink && this.props.onRightClickLink(event, this.props.source, this.props.target);
+    };
 
     /**
      * Handle mouse over link event.
@@ -66,14 +81,15 @@ export default class Link extends React.Component {
             className: this.props.className,
             d: this.props.d,
             onClick: this.handleOnClickLink,
+            onContextMenu: this.handleOnRightClickLink,
             onMouseOut: this.handleOnMouseOutLink,
             onMouseOver: this.handleOnMouseOverLink,
-            style: lineStyle,
-            x1: this.props.x1,
-            x2: this.props.x2,
-            y1: this.props.y1,
-            y2: this.props.y2
+            style: lineStyle
         };
+
+        if (this.props.markerId) {
+            lineProps.markerEnd = `url(#${this.props.markerId})`;
+        }
 
         return <path {...lineProps} />;
     }

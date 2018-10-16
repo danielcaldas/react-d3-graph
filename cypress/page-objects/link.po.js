@@ -12,6 +12,10 @@ function LinkPO(index) {
     this.getStyle = () => this.getLine().invoke('attr', 'style');
     this.shouldHaveColor = color => this.getStyle().should('contain', `stroke: ${color};`);
     this.shouldHaveOpacity = opacity => this.getStyle().should('contain', `opacity: ${opacity};`);
+    this.hasMarker = () =>
+        this.getLine()
+            .invoke('attr', 'marker-end')
+            .should('contain', 'url(#marker-');
 }
 
 module.exports = LinkPO;

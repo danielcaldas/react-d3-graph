@@ -1,0 +1,249 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Collapse Helper #toggleLinksConnections should properly set isHidden value for given links and linksMatrix 1`] = `
+Array [
+  Object {
+    "isHidden": true,
+    "source": "Androsynth",
+    "target": "Chenjesu",
+  },
+  Object {
+    "isHidden": true,
+    "source": "Androsynth",
+    "target": "Ilwrath",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Androsynth",
+    "target": "Mycon",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Androsynth",
+    "target": "Spathi",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Androsynth",
+    "target": "Umgah",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Androsynth",
+    "target": "VUX",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Chenjesu",
+    "target": "Mycon",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Chenjesu",
+    "target": "Spathi",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Chenjesu",
+    "target": "Umgah",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Chenjesu",
+    "target": "VUX",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Ilwrath",
+    "target": "Spathi",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Ilwrath",
+    "target": "Umgah",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Ilwrath",
+    "target": "VUX",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Mycon",
+    "target": "Umgah",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Mycon",
+    "target": "VUX",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Umgah",
+    "target": "VUX",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Androsynth",
+    "target": "Guardian",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Chenjesu",
+    "target": "Broodhmome",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Ilwrath",
+    "target": "Avenger",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Mycon",
+    "target": "Podship",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Spathi",
+    "target": "Eluder",
+  },
+  Object {
+    "isHidden": false,
+    "source": "Umgah",
+    "target": "Drone",
+  },
+  Object {
+    "isHidden": false,
+    "source": "VUX",
+    "target": "Intruder",
+  },
+]
+`;
+
+exports[`Collapse Helper #toggleLinksMatrixConnections when graph is directed should properly toggle passed connections in links matrix 1`] = `
+Object {
+  "Androsynth": Object {
+    "Chenjesu": 0,
+    "Guardian": 1,
+    "Ilwrath": 0,
+    "Mycon": 1,
+    "Spathi": 1,
+    "Umgah": 1,
+    "VUX": 1,
+  },
+  "Avenger": Object {},
+  "Broodhmome": Object {},
+  "Chenjesu": Object {
+    "Broodhmome": 1,
+    "Mycon": 1,
+    "Spathi": 1,
+    "Umgah": 1,
+    "VUX": 1,
+  },
+  "Drone": Object {},
+  "Eluder": Object {},
+  "Guardian": Object {},
+  "Ilwrath": Object {
+    "Avenger": 1,
+    "Spathi": 1,
+    "Umgah": 1,
+    "VUX": 1,
+  },
+  "Intruder": Object {},
+  "Mycon": Object {
+    "Podship": 1,
+    "Umgah": 1,
+    "VUX": 1,
+  },
+  "Podship": Object {},
+  "Spathi": Object {
+    "Eluder": 1,
+  },
+  "Umgah": Object {
+    "Drone": 1,
+    "VUX": 1,
+  },
+  "VUX": Object {
+    "Intruder": 1,
+  },
+}
+`;
+
+exports[`Collapse Helper #toggleLinksMatrixConnections when graph is not directed should properly toggle passed connections in links matrix 1`] = `
+Object {
+  "Androsynth": Object {
+    "Chenjesu": 0,
+    "Guardian": 1,
+    "Ilwrath": 0,
+    "Mycon": 1,
+    "Spathi": 1,
+    "Umgah": 1,
+    "VUX": 1,
+  },
+  "Avenger": Object {
+    "Ilwrath": 1,
+  },
+  "Broodhmome": Object {
+    "Chenjesu": 1,
+  },
+  "Chenjesu": Object {
+    "Androsynth": 0,
+    "Broodhmome": 1,
+    "Mycon": 1,
+    "Spathi": 1,
+    "Umgah": 1,
+    "VUX": 1,
+  },
+  "Drone": Object {
+    "Umgah": 1,
+  },
+  "Eluder": Object {
+    "Spathi": 1,
+  },
+  "Guardian": Object {
+    "Androsynth": 1,
+  },
+  "Ilwrath": Object {
+    "Androsynth": 0,
+    "Avenger": 1,
+    "Spathi": 1,
+    "Umgah": 1,
+    "VUX": 1,
+  },
+  "Intruder": Object {
+    "VUX": 1,
+  },
+  "Mycon": Object {
+    "Androsynth": 1,
+    "Chenjesu": 1,
+    "Podship": 1,
+    "Umgah": 1,
+    "VUX": 1,
+  },
+  "Podship": Object {
+    "Mycon": 1,
+  },
+  "Spathi": Object {
+    "Androsynth": 1,
+    "Chenjesu": 1,
+    "Eluder": 1,
+    "Ilwrath": 1,
+  },
+  "Umgah": Object {
+    "Androsynth": 1,
+    "Chenjesu": 1,
+    "Drone": 1,
+    "Ilwrath": 1,
+    "Mycon": 1,
+    "VUX": 1,
+  },
+  "VUX": Object {
+    "Androsynth": 1,
+    "Chenjesu": 1,
+    "Ilwrath": 1,
+    "Intruder": 1,
+    "Mycon": 1,
+    "Umgah": 1,
+  },
+}
+`;

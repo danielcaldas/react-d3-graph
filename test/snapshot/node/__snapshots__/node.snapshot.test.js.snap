@@ -9,6 +9,7 @@ exports[`Snapshot - Node Component should match snapshot 1`] = `
     d="M6.180387232371033,0A6.180387232371033,6.180387232371033,0,1,1,-6.180387232371033,0A6.180387232371033,6.180387232371033,0,1,1,6.180387232371033,0"
     fill="black"
     onClick={[Function]}
+    onContextMenu={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
     opacity="1"
