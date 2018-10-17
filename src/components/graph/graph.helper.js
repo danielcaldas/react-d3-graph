@@ -342,6 +342,12 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         stroke = config.node.highlightStrokeColor;
     }
 
+    let label = node[config.node.labelProperty] || node.id;
+
+    if (typeof config.node.labelProperty === 'function') {
+        label = config.node.labelProperty(node);
+    }
+
     const t = 1 / transform;
     const nodeSize = node.size || config.node.size;
     const fontSize = highlight ? config.node.highlightFontSize : config.node.fontSize;
@@ -362,7 +368,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         dx,
         fontWeight: highlight ? config.node.highlightFontWeight : config.node.fontWeight,
         id: node.id,
-        label: node[config.node.labelProperty] || node.id,
+        label,
         onClickNode: nodeCallbacks.onClickNode,
         onRightClickNode: nodeCallbacks.onRightClickNode,
         onMouseOverNode: nodeCallbacks.onMouseOverNode,

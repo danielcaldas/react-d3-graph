@@ -92,9 +92,19 @@
  * @param {string} [node.highlightFontWeight='normal'] - fontWeight in highlighted state.
  * @param {string} [node.highlightStrokeColor='SAME'] - strokeColor in highlighted state.
  * @param {number} [node.highlightStrokeWidth=1.5] - strokeWidth in highlighted state.
- * @param {string} [node.labelProperty='id'] - this is the node property that will be used in runtime to
+ * @param {string|Function} [node.labelProperty='id'] - this is the node property that will be used in runtime to
  * fetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set
- * node.labelProperty to be **'firstName'**.
+ * node.labelProperty to be **'firstName'**. **This can also be a function!**, if you pass a function here it will be called
+ * to obtain the `label` value on the fly, as a client you will receive all the node information that you passed down into react-d3-graph,
+ * so the signature of the function would be:
+ * ```javascript
+ * function myCustomLabelBuilder(node) {
+ *     // do stuff to get the final result...
+ *     return 'label string';
+ * }
+ * ```
+ * Then you just need to make sure that you pass this function in the config in `config.node.labelProperty`.
+ * <br/>
  * @param {string} [node.mouseCursor='pointer'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
  * property for when some node is mouse hovered.
  * @param {number} [node.opacity=1] - by default all nodes will have this opacity value.
