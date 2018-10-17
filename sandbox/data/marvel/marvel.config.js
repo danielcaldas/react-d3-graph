@@ -30,7 +30,7 @@ module.exports = {
         highlightFontWeight: 'bold',
         highlightStrokeColor: 'red',
         highlightStrokeWidth: 1.5,
-        labelProperty: n => `${n.id} - ${n.name}`,
+        labelProperty: n => (n.name ? `${n.id} - ${n.name}` : n.id),
         mouseCursor: 'crosshair',
         opacity: 0.9,
         renderLabel: true,
