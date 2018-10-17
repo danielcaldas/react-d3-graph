@@ -331,7 +331,6 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
             node.id === (highlightedLink && highlightedLink.target));
     const opacity = _getNodeOpacity(node, highlightedNode, highlightedLink, config);
     let fill = node.color || config.node.color;
-    let labelProperty = node[config.node.labelProperty] || node.id;
 
     if (highlight && config.node.highlightColor !== CONST.KEYWORDS.SAME) {
         fill = config.node.highlightColor;
@@ -343,12 +342,10 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         stroke = config.node.highlightStrokeColor;
     }
 
+    let label = node[config.node.labelProperty] || node.id;
+
     if (typeof config.node.labelProperty === 'function') {
-        try {
-            labelProperty = config.node.labelProperty.call(null, node);
-        } catch (error) {
-            throw new Error(error);
-        }
+        label = config.node.labelProperty(node);
     }
 
     const t = 1 / transform;
@@ -371,7 +368,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         dx,
         fontWeight: highlight ? config.node.highlightFontWeight : config.node.fontWeight,
         id: node.id,
-        label: labelProperty,
+        label,
         onClickNode: nodeCallbacks.onClickNode,
         onRightClickNode: nodeCallbacks.onRightClickNode,
         onMouseOverNode: nodeCallbacks.onMouseOverNode,
