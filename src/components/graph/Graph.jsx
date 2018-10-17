@@ -185,7 +185,7 @@ export default class Graph extends React.Component {
      * @param {Function} [cb] - optional callback to fed in to {@link setState()|https://reactjs.org/docs/react-component.html#setstate}.
      * @returns {undefined}
      */
-    _tick = (state = {}, cb) => (cb ? this.setState(state) : this.setState(state, cb));
+    _tick = (state = {}, cb) => (cb ? this.setState(state, cb) : this.setState(state));
 
     /**
      * Configures zoom upon graph with default or user provided values.<br/>
