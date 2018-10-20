@@ -2,19 +2,23 @@ module.exports = {
     links: [
         {
             source: 'Androsynth',
-            target: 'Chenjesu'
+            target: 'Chenjesu',
+            label: 'connects to Chenjesu'
         },
         {
             source: 'Androsynth',
-            target: 'Ilwrath'
+            target: 'Ilwrath',
+            label: 'connects to Ilwrath'
         },
         {
             source: 'Androsynth',
-            target: 'Mycon'
+            target: 'Mycon',
+            label: 'connects to Mycon'
         },
         {
             source: 'Androsynth',
-            target: 'Spathi'
+            target: 'Spathi',
+            label: 'connects to Spathi'
         },
         {
             source: 'Androsynth',
