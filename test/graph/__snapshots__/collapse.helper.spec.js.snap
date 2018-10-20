@@ -4,21 +4,25 @@ exports[`Collapse Helper #toggleLinksConnections should properly set isHidden va
 Array [
   Object {
     "isHidden": true,
+    "label": "connects to Chenjesu",
     "source": "Androsynth",
     "target": "Chenjesu",
   },
   Object {
     "isHidden": true,
+    "label": "connects to Ilwrath",
     "source": "Androsynth",
     "target": "Ilwrath",
   },
   Object {
     "isHidden": false,
+    "label": "connects to Mycon",
     "source": "Androsynth",
     "target": "Mycon",
   },
   Object {
     "isHidden": false,
+    "label": "connects to Spathi",
     "source": "Androsynth",
     "target": "Spathi",
   },
