@@ -221,12 +221,77 @@ function _validateGraphData(data) {
             utils.throwErr("Graph", `${ERRORS.INVALID_LINKS} - "${l.target}" is not a valid target node id`);
         }
 
-        if (l && l.value !== undefined && typeof l.value !== "number") {
-            utils.throwErr(
-                "Graph",
-                `${ERRORS.INVALID_LINK_VALUE} - found in link with source "${l.source}" and target "${l.target}"`
-            );
-        }
+    if (config.link.semanticStrokeWidth) {
+        const linkValue = links[source][target] || links[target][source] || 1;
+
+        strokeWidth += linkValue * strokeWidth / 10;
+    }
+
+    const markerId = config.directed ? getMarkerId(highlight, transform, config) : null;
+
+    const t = 1 / transform;
+    const fontSize = link.fontSize || config.link.fontSize;
+    const fontColor = link.fontColor || config.link.fontColor;
+    const fontWeight = highlight ? config.link.highlightFontWeight : config.link.fontWeight;
+
+    return {
+        markerId,
+        d,
+        source,
+        target,
+        label: link[config.link.labelProperty],
+        x1,
+        y1,
+        x2,
+        y2,
+        strokeWidth,
+        stroke,
+        mouseCursor: config.link.mouseCursor,
+        fontColor,
+        fontSize: fontSize * t,
+        fontWeight,
+        className: CONST.LINK_CLASS_NAME,
+        opacity,
+        onClickLink: linkCallbacks.onClickLink,
+        onRightClickLink: linkCallbacks.onRightClickLink,
+        onMouseOverLink: linkCallbacks.onMouseOverLink,
+        onMouseOutLink: linkCallbacks.onMouseOutLink
+    };
+}
+
+/**
+ * Build some Node properties based on given parameters.
+ * @param  {Object} node - the node object for whom we will generate properties.
+ * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @param  {Function[]} nodeCallbacks - same as {@link #buildGraph|nodeCallbacks in buildGraph}.
+ * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
+ * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
+ * @param  {number} transform - value that indicates the amount of zoom transformation.
+ * @returns {Object} returns object that contain Link props ready to be feeded to the Link component.
+ * @memberof Graph/helper
+ */
+function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highlightedLink, transform) {
+    const highlight =
+        node.highlighted ||
+        (node.id === (highlightedLink && highlightedLink.source) ||
+            node.id === (highlightedLink && highlightedLink.target));
+    const opacity = _getNodeOpacity(node, highlightedNode, highlightedLink, config);
+    let fill = node.color || config.node.color;
+
+    if (highlight && config.node.highlightColor !== CONST.KEYWORDS.SAME) {
+        fill = config.node.highlightColor;
+    }
+
+    let stroke = node.strokeColor || config.node.strokeColor;
+
+    if (highlight && config.node.highlightStrokeColor !== CONST.KEYWORDS.SAME) {
+        stroke = config.node.highlightStrokeColor;
+    }
+
+    let label = node[config.node.labelProperty] || node.id;
+
+    if (typeof config.node.labelProperty === 'function') {
+        label = config.node.labelProperty(node);
     }
 }
 

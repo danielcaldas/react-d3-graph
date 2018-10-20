@@ -1,5 +1,5 @@
 /**
- * <div style='text-align: right;'><i>This is certainly the only extra piece of documentation that you will ever need</i></div>
+ * <div style="text-align: right;"><i>This is certainly the only extra piece of documentation that you will ever need</i></div>
  * <br/><br/>
  * Here you can consult a detailed description of each graph configurable property as well as the default values
  * of those properties.
@@ -16,10 +16,10 @@
  * const graph = {
  *     nodes: [
  *         {
- *             id: 'id',
- *             color: 'red',         // only this node will be red
+ *             id: "id",
+ *             color: "red",         // only this node will be red
  *             size: 300,            // only this node will have size 300
- *             symbolType: 'diamond' // only this node will have 'diamond' shape
+ *             symbolType: "diamond" // only this node will have "diamond" shape
  *         }
  *     ],
  *     links: [...]
@@ -55,7 +55,7 @@
  * const data = {
  *    nodes: this.state.data.nodes,
  *    links: this.state.data.links,
- *    focusedNodeId: 'nodeIdToTriggerZoomAnimation'
+ *    focusedNodeId: "nodeIdToTriggerZoomAnimation"
  * };
  * ```
  *
@@ -88,71 +88,71 @@
  * @param {number} [d3.alphaTarget=0.05] - [see d3-force simulation.alphaTarget](https://github.com/d3/d3-force#simulation_alphaTarget)
  * @param {number} [d3.gravity=-100] - this will define how close nodes are to each other ([see d3 reference for forces](https://github.com/d3/d3-force#forces)).
  *  - If value is positive, nodes will attract each other.
- *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don't overlap.
+ *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don"t overlap.
  * @param {number} [d3.linkLength=100] - the length of each link from the center of the nodes it joins.
  * @param {number} [d3.linkStrength=1] - [see d3-force link.strength](https://github.com/d3/d3-force#link_strength)
  * <br/>
  * @param {Object} node node object is explained in next section. ⬇️
  * <h2 id="config-node"><a href="#config-node">#</a> Node level configurations</h2>
- * @param {string} [node.color='#d3d3d3'] - 🔍🔍🔍 this is the color that will be applied to the node if no **color property**
- * is found inside the node itself (yes **you can pass a property 'color' inside the node and that color will override the
+ * @param {string} [node.color="#d3d3d3"] - 🔍🔍🔍 this is the color that will be applied to the node if no **color property**
+ * is found inside the node itself (yes **you can pass a property "color" inside the node and that color will override the
  * this default one**).
- * @param {string} [node.fontColor='black'] - 🔍🔍🔍 fill color for node's <text> svg label.
- * @param {number} [node.fontSize=10] - {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control|font-size}
- * property for all nodes' labels.
- * @param {string} [node.fontWeight='normal'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control|font-weight}
- * property for all nodes' labels.
- * @param {string} [node.highlightColor='SAME'] - color for all highlighted nodes (use string 'SAME' if you
+ * @param {string} [node.fontColor="black"] - 🔍🔍🔍 fill color for node"s <text> svg label.
+ * @param {number} [node.fontSize=8] - {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control|font-size}
+ * property for all nodes" labels.
+ * @param {string} [node.fontWeight="normal"] - {@link https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control|font-weight}
+ * property for all nodes" labels.
+ * @param {string} [node.highlightColor="SAME"] - color for all highlighted nodes (use string "SAME" if you
  * want the node to keep its color in highlighted state).
  * @param {number} [node.highlightFontSize=8] - fontSize in highlighted state.
- * @param {string} [node.highlightFontWeight='normal'] - fontWeight in highlighted state.
- * @param {string} [node.highlightStrokeColor='SAME'] - strokeColor in highlighted state.
- * @param {number} [node.highlightStrokeWidth='SAME'] - strokeWidth in highlighted state.
- * @param {string|Function} [node.labelProperty='id'] - this is the node property that will be used in runtime to
+ * @param {string} [node.highlightFontWeight="normal"] - fontWeight in highlighted state.
+ * @param {string} [node.highlightStrokeColor="SAME"] - strokeColor in highlighted state.
+ * @param {number} [node.highlightStrokeWidth="SAME"] - strokeWidth in highlighted state.
+ * @param {string|Function} [node.labelProperty="id"] - this is the node property that will be used in runtime to
  * fetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set
- * node.labelProperty to be **'firstName'**. **This can also be a function!**, if you pass a function here it will be called
+ * node.labelProperty to be **"firstName"**. **This can also be a function!**, if you pass a function here it will be called
  * to obtain the `label` value on the fly, as a client you will receive all the node information that you passed down into react-d3-graph,
  * so the signature of the function would be:
  * ```javascript
  * function myCustomLabelBuilder(node) {
  *     // do stuff to get the final result...
- *     return 'label string';
+ *     return "label string";
  * }
  * ```
  * Then you just need to make sure that you pass this function in the config in `config.node.labelProperty`.
  * <br/>
- * @param {string} [node.mouseCursor='pointer'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
+ * @param {string} [node.mouseCursor="pointer"] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
  * property for when some node is mouse hovered.
  * @param {number} [node.opacity=1] 🔍🔍🔍 - by default all nodes will have this opacity value.
  * @param {boolean} [node.renderLabel=true] - when set to false no labels will appear along side nodes in the
  * graph.
  * @param {number} [node.size=200] - 🔍🔍🔍 defines the size of all nodes.
- * @param {string} [node.strokeColor='none'] - 🔍🔍🔍  this is the stroke color that will be applied to the node if no **strokeColor property** is found inside the node itself (yes **you can pass a property 'strokeColor' inside the node and that stroke color will override this default one** ).
+ * @param {string} [node.strokeColor="none"] - 🔍🔍🔍  this is the stroke color that will be applied to the node if no **strokeColor property** is found inside the node itself (yes **you can pass a property "strokeColor" inside the node and that stroke color will override this default one** ).
  * @param {number} [node.strokeWidth=1.5] 🔍🔍🔍 - the width of the all node strokes.
- * @param {string} [node.svg=''] - 🔍🔍🔍 render custom svg for nodes in alternative to **node.symbolType**. This svg can
+ * @param {string} [node.svg=""] - 🔍🔍🔍 render custom svg for nodes in alternative to **node.symbolType**. This svg can
  * be provided as a string to either a remote svg resource or for a local one.
  * <br/>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-custom-svg.gif?raw=true" width="820" height="480"/>
- * @param {string} [node.symbolType='circle'] - 🔍🔍🔍 the <span id='node-symbol-type'>shape</span> of the node.
+ * @param {string} [node.symbolType="circle"] - 🔍🔍🔍 the <span id="node-symbol-type">shape</span> of the node.
  * Use the following values under a property **type** inside each node (nodes may have different types, same as colors):
- *   - 'circle'
- *   - 'cross'
- *   - 'diamond'
- *   - 'square'
- *   - 'star'
- *   - 'triangle'
- *   - 'wye'
+ *   - "circle"
+ *   - "cross"
+ *   - "diamond"
+ *   - "square"
+ *   - "star"
+ *   - "triangle"
+ *   - "wye"
  *
  * **[note]** react-d3-graph will map this values to [d3 symbols](https://github.com/d3/d3-shape#symbols)
  * @param {Function} [node.viewGenerator=null] - 🔍🔍🔍 function that receives a node and returns a JSX view.
  * <br/>
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2 id="config-link"><a href="#config-link">#</a> Link level configurations</h2>
- * @param {string} [link.color='#d3d3d3'] - 🚅🚅🚅 the color for links
+ * @param {string} [link.color="#d3d3d3"] - 🚅🚅🚅 the color for links
  * (from version 1.3.0 this property can be configured at link level).
- * @param {string} [link.highlightColor='#d3d3d3'] - links' color in highlight state.
+ * @param {string} [link.highlightColor="#d3d3d3"] - links" color in highlight state.
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
- *  @param {string} [link.mouseCursor='pointer'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
+ *  @param {string} [link.mouseCursor="pointer"] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
  * property for when link is mouse hovered.
  * @param {number} [link.opacity=1] 🔍🔍🔍 - the default opacity value for links.
  * @param {boolean} [link.semanticStrokeWidth=false] - when set to true all links will have
@@ -166,27 +166,35 @@
  * ```javascript
  * link.strokeWidth * (1 / transform); // transform is a zoom delta Δ value
  * ```
- * @param {string} [link.type='STRAIGHT'] - the type of line to draw, available types at this point are:
+ * @param {string} [link.type="STRAIGHT"] - the type of line to draw, available types at this point are:
  * - "STRAIGHT" <small>(default)</small> - a straight line.
  * - "CURVE_SMOOTH" - a slight curve between two nodes
  * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
  * <br/>
+ * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
+ * @param {string} [link.fontColor="black"] - 🔍🔍🔍 fill color for link"s <text> svg label.
+ * @param {number} [link.fontSize=8] - {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control|font-size}
+ * property for all links" labels.
+ * @param {string} [link.fontWeight="normal"] - {@link https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control|font-weight}
+ * property for all links" labels.
+ * @param {number} [link.highlightFontSize=8] - fontSize in highlighted state.
+ * @param {string} [link.highlightFontWeight="normal"] - fontWeight in highlighted state.
  *
  * @example
  * // A simple config that uses some properties
  * const myConfig = {
  *     nodeHighlightBehavior: true,
  *     node: {
- *         color: 'lightgreen',
+ *         color: "lightgreen",
  *         size: 120,
- *         highlightStrokeColor: 'blue'
+ *         highlightStrokeColor: "blue"
  *     },
  *     link: {
- *         highlightColor: 'lightblue'
+ *         highlightColor: "lightblue"
  *     }
  * };
  *
- * // Sorry for the long config description, here's a potato 🥔.
+ * // Sorry for the long config description, here"s a potato 🥔.
  */
 export default {
     automaticRearrangeAfterDropNode: false,
@@ -233,7 +241,13 @@ export default {
     },
     link: {
         color: "#d3d3d3",
+        fontColor: "black",
+        fontSize: 8,
+        fontWeight: "normal",
         highlightColor: "#d3d3d3",
+        highlightFontSize: 8,
+        highlightFontWeight: "normal",
+        labelProperty: "label",
         mouseCursor: "pointer",
         opacity: 1,
         semanticStrokeWidth: false,

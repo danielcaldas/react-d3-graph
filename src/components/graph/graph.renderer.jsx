@@ -51,7 +51,7 @@ function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highligh
             transform
         );
 
-        return <Link key={key} {...props} />;
+        return <Link key={key} id={key} {...props} />;
     });
 }
 
