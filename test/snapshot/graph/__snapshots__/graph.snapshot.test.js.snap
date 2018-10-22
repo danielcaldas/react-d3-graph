@@ -110,7 +110,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       id="graphId-graph-container-zoomable"
       style={
         Object {
-          "transitionDuration": "0.75s",
+          "transitionDuration": "0s",
         }
       }
       transform={null}
