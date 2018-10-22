@@ -146,6 +146,10 @@ export default class Graph extends React.Component {
     _onDragMove = (ev, index, nodeList) => {
         const id = nodeList[index].id;
 
+        if (this.state.enableFocusAnimation) {
+            this.setState({ enableFocusAnimation: false });
+        }
+
         if (!this.state.config.staticGraph) {
             // this is where d3 and react bind
             let draggedNode = this.state.nodes[id];
@@ -309,6 +313,7 @@ export default class Graph extends React.Component {
             utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
         }
 
+        this.focusAnimationTimeout = null;
         this.state = graphHelper.initializeGraphState(this.props, this.state);
     }
 
@@ -337,13 +342,16 @@ export default class Graph extends React.Component {
 
         const transform = newConfig.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
 
+        const enableFocusAnimation = this.props.data.focusedNodeId !== nextProps.data.focusedNodeId;
+
         this.setState({
             ...state,
             config,
             configUpdated,
             d3ConfigUpdated,
             newGraphElements,
-            transform
+            transform,
+            enableFocusAnimation
         });
     }
 
@@ -423,6 +431,10 @@ export default class Graph extends React.Component {
      * @returns {undefined}
      */
     onClickGraph = e => {
+        if (this.state.enableFocusAnimation) {
+            this.setState({ enableFocusAnimation: false });
+        }
+
         // Only trigger the graph onClickHandler, if not clicked a node or link.
         // toUpperCase() is added as a precaution, as the documentation says tagName should always
         // return in UPPERCASE, but chrome returns lowercase
@@ -432,6 +444,36 @@ export default class Graph extends React.Component {
         ) {
             this.props.onClickGraph && this.props.onClickGraph();
         }
+    };
+
+    /**
+     * Obtain a set of properties which will be used to perform the focus and zoom animation if
+     * required. In case there's not a focus and zoom animation in progress, it should reset the
+     * transition duration to zero and clear transformation styles.
+     * @returns {Object} - Focus and zoom animation properties.
+     */
+    _generateFocusAnimationProps = () => {
+        const { focusedNodeId } = this.props.data;
+
+        // In case an older animation was still not complete, clear previous timeout to ensure the new one is not cancelled
+        if (this.state.enableFocusAnimation) {
+            if (this.focusAnimationTimeout) {
+                clearTimeout(this.focusAnimationTimeout);
+            }
+
+            this.focusAnimationTimeout = setTimeout(
+                () => this.setState({ enableFocusAnimation: false }),
+                this.state.config.focusAnimationDuration * 1000
+            );
+        }
+
+        const transitionDuration = this.state.enableFocusAnimation ? this.state.config.focusAnimationDuration : 0;
+        return {
+            style: { transitionDuration: `${transitionDuration}s` },
+            transform: focusedNodeId
+                ? graphHelper.getCenterAndZoomTransformation(focusedNodeId, this.state.d3Nodes, this.state.config)
+                : null
+        };
     };
 
     render() {
@@ -462,14 +504,7 @@ export default class Graph extends React.Component {
             width: this.state.config.width
         };
 
-        const { focusedNodeId } = this.props.data;
-
-        const containerProps = {
-            style: { transitionDuration: `${this.state.config.focusAnimationDuration}s` },
-            transform: focusedNodeId
-                ? graphHelper.getCenterAndZoomTransformation(focusedNodeId, this.state.d3Nodes, this.state.config)
-                : null
-        };
+        const containerProps = this._generateFocusAnimationProps();
 
         return (
             <div id={`${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`}>
