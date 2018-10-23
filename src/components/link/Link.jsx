@@ -23,10 +23,6 @@ import React from 'react';
  *     d="M1..."
  *     source='idSourceNode'
  *     target='idTargetNode'
- *     x1=22
- *     y1=22
- *     x2=22
- *     y2=22
  *     markerId='marker-small'
  *     strokeWidth=1.5
  *     stroke='green'

@@ -17,7 +17,7 @@ const MAX_DEPTH = 20;
  * @memberof utils
  */
 function _isPropertyNestedObject(o, k) {
-    return o.hasOwnProperty(k) && typeof o[k] === 'object' && o[k] !== null && !isObjectEmpty(o[k]);
+    return o.hasOwnProperty(k) && typeof o[k] === 'object' && o[k] !== null && !isEmptyObject(o[k]);
 }
 
 /**
@@ -35,7 +35,7 @@ function isDeepEqual(o1, o2, _depth = 0) {
         return true;
     }
 
-    if ((isObjectEmpty(o1) && !isObjectEmpty(o2)) || (!isObjectEmpty(o1) && isObjectEmpty(o2))) {
+    if ((isEmptyObject(o1) && !isEmptyObject(o2)) || (!isEmptyObject(o1) && isEmptyObject(o2))) {
         return false;
     }
 
@@ -52,7 +52,7 @@ function isDeepEqual(o1, o2, _depth = 0) {
         if (nestedO && _depth < MAX_DEPTH) {
             diffs.push(isDeepEqual(o1[k], o2[k], _depth + 1));
         } else {
-            const r = (isObjectEmpty(o1[k]) && isObjectEmpty(o2[k])) || (o2.hasOwnProperty(k) && o2[k] === o1[k]);
+            const r = (isEmptyObject(o1[k]) && isEmptyObject(o2[k])) || (o2.hasOwnProperty(k) && o2[k] === o1[k]);
 
             diffs.push(r);
 
@@ -72,7 +72,7 @@ function isDeepEqual(o1, o2, _depth = 0) {
  * @returns {boolean} true if the given object is n ft and object and is empty.
  * @memberof utils
  */
-function isObjectEmpty(o) {
+function isEmptyObject(o) {
     return !!o && typeof o === 'object' && !Object.keys(o).length;
 }
 
@@ -90,7 +90,7 @@ function merge(o1 = {}, o2 = {}, _depth = 0) {
     let o = {};
 
     if (Object.keys(o1 || {}).length === 0) {
-        return o2 && !isObjectEmpty(o2) ? o2 : {};
+        return o2 && !isEmptyObject(o2) ? o2 : {};
     }
 
     for (let k of Object.keys(o1)) {
@@ -155,7 +155,7 @@ function throwErr(component, msg) {
 
 export default {
     isDeepEqual,
-    isObjectEmpty,
+    isEmptyObject,
     merge,
     pick,
     antiPick,
