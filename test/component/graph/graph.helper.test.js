@@ -16,7 +16,7 @@ import {
 describe('Graph Helper', () => {
     beforeAll(() => {
         utils.isDeepEqual = jest.fn();
-        utils.isObjectEmpty = jest.fn();
+        utils.isEmptyObject = jest.fn();
         utils.merge = jest.fn();
         utils.throwErr = jest.fn();
         jest.spyOn(linkHelper, 'buildLinkPathDefinition');
