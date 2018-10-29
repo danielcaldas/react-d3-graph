@@ -343,6 +343,11 @@ export default class Graph extends React.Component {
         const transform = newConfig.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
 
         const enableFocusAnimation = this.props.data.focusedNodeId !== nextProps.data.focusedNodeId;
+        const focusTransformation = graphHelper.getCenterAndZoomTransformation(
+            nextProps.data.focusedNodeId,
+            this.state.d3Nodes,
+            this.state.config
+        );
 
         this.setState({
             ...state,
@@ -351,7 +356,8 @@ export default class Graph extends React.Component {
             d3ConfigUpdated,
             newGraphElements,
             transform,
-            enableFocusAnimation
+            enableFocusAnimation,
+            focusTransformation
         });
     }
 
@@ -470,9 +476,7 @@ export default class Graph extends React.Component {
         const transitionDuration = this.state.enableFocusAnimation ? this.state.config.focusAnimationDuration : 0;
         return {
             style: { transitionDuration: `${transitionDuration}s` },
-            transform: focusedNodeId
-                ? graphHelper.getCenterAndZoomTransformation(focusedNodeId, this.state.d3Nodes, this.state.config)
-                : null
+            transform: focusedNodeId ? this.state.focusTransformation : null
         };
     };
 
