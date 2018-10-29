@@ -475,6 +475,7 @@ export default class Graph extends React.Component {
         }
 
         const transitionDuration = this.state.enableFocusAnimation ? this.state.config.focusAnimationDuration : 0;
+
         return {
             style: { transitionDuration: `${transitionDuration}s` },
             transform: focusedNodeId ? this.state.focusTransformation : null
