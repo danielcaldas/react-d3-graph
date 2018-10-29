@@ -16,6 +16,9 @@ module.exports = {
         }
     },
     plugins: ['standard', 'promise', 'react', 'jest', 'cypress'],
+    env: {
+        browser: true
+    },
     rules: {
         'react/jsx-uses-react': 'error',
         'react/jsx-uses-vars': 'error',
