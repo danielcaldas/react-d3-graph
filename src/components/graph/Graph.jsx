@@ -146,10 +146,6 @@ export default class Graph extends React.Component {
     _onDragMove = (ev, index, nodeList) => {
         const id = nodeList[index].id;
 
-        if (this.state.enableFocusAnimation) {
-            this.setState({ enableFocusAnimation: false });
-        }
-
         if (!this.state.config.staticGraph) {
             // this is where d3 and react bind
             let draggedNode = this.state.nodes[id];
@@ -169,7 +165,12 @@ export default class Graph extends React.Component {
      * Handles d3 drag 'start' event.
      * @returns {undefined}
      */
-    _onDragStart = () => this.pauseSimulation();
+    _onDragStart = () => {
+        this.pauseSimulation();
+        if (this.state.enableFocusAnimation) {
+            this.setState({ enableFocusAnimation: false });
+        }
+    };
 
     /**
      * Sets nodes and links highlighted value.
