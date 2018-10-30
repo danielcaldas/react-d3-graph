@@ -530,25 +530,21 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
 /**
  * Returns the transformation to apply in order to center the graph on the
  * selected node.
- * @param {number} nodeId - node to focus the graph view on.
- * @param {Array.<Object>} d3Nodes - array containing all the d3 nodes.
+ * @param {Object} d3Node - node to focus the graph view on.
  * @param {Object} config - same as {@link #buildGraph|config in buildGraph}.
  * @returns {string} transform rule to apply.
  * @memberof Graph/helper
  */
-function getCenterAndZoomTransformation(nodeId, d3Nodes, config) {
-    const node = d3Nodes.find(node => `${node.id}` === `${nodeId}`);
-
-    if (!node) {
+function getCenterAndZoomTransformation(d3Node, config) {
+    if (!d3Node) {
         return;
     }
 
     const { width, height, focusZoom } = config;
 
     return `
-        translate(${width / 2}, ${height / 2})
         scale(${focusZoom})
-        translate(${-node.x}, ${-node.y})
+        translate(${width / 2 - d3Node.x}, ${height / 2 - d3Node.y})
     `;
 }
 

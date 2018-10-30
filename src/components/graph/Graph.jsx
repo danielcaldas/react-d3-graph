@@ -343,12 +343,9 @@ export default class Graph extends React.Component {
 
         const transform = newConfig.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
 
+        const d3FocusedNode = this.state.d3Nodes.find(node => `${node.id}` === `${nextProps.data.focusedNodeId}`);
+        const focusTransformation = graphHelper.getCenterAndZoomTransformation(d3FocusedNode, this.state.config);
         const enableFocusAnimation = this.props.data.focusedNodeId !== nextProps.data.focusedNodeId;
-        const focusTransformation = graphHelper.getCenterAndZoomTransformation(
-            nextProps.data.focusedNodeId,
-            this.state.d3Nodes,
-            this.state.config
-        );
 
         this.setState({
             ...state,
