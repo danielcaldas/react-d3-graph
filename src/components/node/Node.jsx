@@ -11,7 +11,7 @@ import nodeHelper from './node.helper';
  *      window.alert('Clicked node', nodeId);
  * };
  *
- * const onRightClickNode = function(event, nodeId) {
+ * const onRightClickNode = function(nodeId) {
  *      window.alert('Right clicked node', nodeId);
  * }
  *
@@ -56,10 +56,10 @@ export default class Node extends React.Component {
 
     /**
      * Handle right click on the node.
-     * @param {Object} event - the event object
+     * @param {Object} event - native event.
      * @returns {undefined}
      */
-    handleOnRightClickNode = event => this.props.onRightClickNode && this.props.onClickNode(event, this.props.id);
+    handleOnRightClickNode = event => this.props.onRightClickNode && this.props.onRightClickNode(event, this.props.id);
 
     /**
      * Handle mouse over node event.

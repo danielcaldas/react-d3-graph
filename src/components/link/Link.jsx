@@ -7,7 +7,7 @@ import React from 'react';
  *      window.alert(`Clicked link between ${source} and ${target}`);
  * };
  *
- * const onRightClickLink = function(event, source, target) {
+ * const onRightClickLink = function(source, target) {
  *      window.alert(`Right clicked link between ${source} and ${target}`);
  * };
  *
@@ -23,10 +23,6 @@ import React from 'react';
  *     d="M1..."
  *     source='idSourceNode'
  *     target='idTargetNode'
- *     x1=22
- *     y1=22
- *     x2=22
- *     y2=22
  *     markerId='marker-small'
  *     strokeWidth=1.5
  *     stroke='green'
@@ -47,12 +43,11 @@ export default class Link extends React.Component {
 
     /**
      * Handle link right click event.
-     * @param {Object} event - the event object
+     * @param {Object} event - native event.
      * @returns {undefined}
      */
-    handleOnRightClickLink = event => {
+    handleOnRightClickLink = event =>
         this.props.onRightClickLink && this.props.onRightClickLink(event, this.props.source, this.props.target);
-    };
 
     /**
      * Handle mouse over link event.

@@ -297,10 +297,6 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         d,
         source,
         target,
-        x1,
-        y1,
-        x2,
-        y2,
         strokeWidth,
         stroke,
         mouseCursor: config.link.mouseCursor,
@@ -342,6 +338,12 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         stroke = config.node.highlightStrokeColor;
     }
 
+    let label = node[config.node.labelProperty] || node.id;
+
+    if (typeof config.node.labelProperty === 'function') {
+        label = config.node.labelProperty(node);
+    }
+
     const t = 1 / transform;
     const nodeSize = node.size || config.node.size;
     const fontSize = highlight ? config.node.highlightFontSize : config.node.fontSize;
@@ -362,7 +364,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         dx,
         fontWeight: highlight ? config.node.highlightFontWeight : config.node.fontWeight,
         id: node.id,
-        label: node[config.node.labelProperty] || node.id,
+        label,
         onClickNode: nodeCallbacks.onClickNode,
         onRightClickNode: nodeCallbacks.onRightClickNode,
         onMouseOverNode: nodeCallbacks.onMouseOverNode,
@@ -428,7 +430,7 @@ function checkForGraphElementsChanges(nextProps, currentState) {
 function checkForGraphConfigChanges(nextProps, currentState) {
     const newConfig = nextProps.config || {};
     const configUpdated =
-        newConfig && !utils.isObjectEmpty(newConfig) && !utils.isDeepEqual(newConfig, currentState.config);
+        newConfig && !utils.isEmptyObject(newConfig) && !utils.isDeepEqual(newConfig, currentState.config);
     const d3ConfigUpdated = newConfig && newConfig.d3 && !utils.isDeepEqual(newConfig.d3, currentState.config.d3);
 
     return { configUpdated, d3ConfigUpdated };

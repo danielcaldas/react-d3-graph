@@ -63,7 +63,17 @@ export default class Sandbox extends React.Component {
         });
     };
 
+    onRightClickNode = (event, id) => {
+        event.preventDefault();
+        window.alert(`RIGHT clicked node ${id}`);
+    };
+
     onClickLink = (source, target) => window.alert(`Clicked link between ${source} and ${target}`);
+
+    onRightClickLink = (event, source, target) => {
+        event.preventDefault();
+        window.alert(`RIGHT clicked link between ${source} and ${target}`);
+    };
 
     onMouseOverNode = id => console.info(`Do something when mouse is over node (${id})`);
 
@@ -306,8 +316,10 @@ export default class Sandbox extends React.Component {
             data,
             config: this.state.config,
             onClickNode: this.onClickNode,
+            onRightClickNode: this.onRightClickNode,
             onClickGraph: this.onClickGraph,
             onClickLink: this.onClickLink,
+            onRightClickLink: this.onRightClickLink,
             onMouseOverNode: this.onMouseOverNode,
             onMouseOutNode: this.onMouseOutNode,
             onMouseOverLink: this.onMouseOverLink,

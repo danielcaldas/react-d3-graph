@@ -45,15 +45,15 @@ describe('Utils', () => {
         });
     });
 
-    describe('#isObjectEmpty', () => {
+    describe('#isEmptyObject', () => {
         test('should properly check whether the object is empty or not', () => {
-            expect(utils.isObjectEmpty({ a: 1, b: {} })).toEqual(false);
-            expect(utils.isObjectEmpty({ a: 1 })).toEqual(false);
-            expect(utils.isObjectEmpty(null)).toEqual(false);
-            expect(utils.isObjectEmpty(undefined)).toEqual(false);
-            expect(utils.isObjectEmpty(0)).toEqual(false);
-            expect(utils.isObjectEmpty('test')).toEqual(false);
-            expect(utils.isObjectEmpty({})).toEqual(true);
+            expect(utils.isEmptyObject({ a: 1, b: {} })).toEqual(false);
+            expect(utils.isEmptyObject({ a: 1 })).toEqual(false);
+            expect(utils.isEmptyObject(null)).toEqual(false);
+            expect(utils.isEmptyObject(undefined)).toEqual(false);
+            expect(utils.isEmptyObject(0)).toEqual(false);
+            expect(utils.isEmptyObject('test')).toEqual(false);
+            expect(utils.isEmptyObject({})).toEqual(true);
         });
     });
 
