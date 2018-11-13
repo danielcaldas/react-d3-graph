@@ -53,7 +53,15 @@ export default class Sandbox extends React.Component {
 
     onClickGraph = () => console.info(`Clicked the graph`);
 
-    onClickNode = id => !this.state.config.collapsible && window.alert(`Clicked node ${id}`);
+    onClickNode = id => {
+        !this.state.config.collapsible && window.alert(`Clicked node ${id}`);
+        this.setState({
+            data: {
+                ...this.state.data,
+                focusedNodeId: this.state.data.focusedNodeId !== id ? id : null
+            }
+        });
+    };
 
     onRightClickNode = (event, id) => {
         event.preventDefault();
@@ -299,7 +307,8 @@ export default class Sandbox extends React.Component {
         // to true in the constructor we will provide nodes with initial positions
         const data = {
             nodes: this.decorateGraphNodesWithInitialPositioning(this.state.data.nodes),
-            links: this.state.data.links
+            links: this.state.data.links,
+            focusedNodeId: this.state.data.focusedNodeId
         };
 
         const graphProps = {

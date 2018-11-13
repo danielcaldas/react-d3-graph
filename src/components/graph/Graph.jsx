@@ -165,7 +165,12 @@ export default class Graph extends React.Component {
      * Handles d3 drag 'start' event.
      * @returns {undefined}
      */
-    _onDragStart = () => this.pauseSimulation();
+    _onDragStart = () => {
+        this.pauseSimulation();
+        if (this.state.enableFocusAnimation) {
+            this.setState({ enableFocusAnimation: false });
+        }
+    };
 
     /**
      * Sets nodes and links highlighted value.
@@ -309,6 +314,7 @@ export default class Graph extends React.Component {
             utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
         }
 
+        this.focusAnimationTimeout = null;
         this.state = graphHelper.initializeGraphState(this.props, this.state);
     }
 
@@ -337,13 +343,21 @@ export default class Graph extends React.Component {
 
         const transform = newConfig.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
 
+        const focusedNodeId = nextProps.data.focusedNodeId;
+        const d3FocusedNode = this.state.d3Nodes.find(node => `${node.id}` === `${focusedNodeId}`);
+        const focusTransformation = graphHelper.getCenterAndZoomTransformation(d3FocusedNode, this.state.config);
+        const enableFocusAnimation = this.props.data.focusedNodeId !== nextProps.data.focusedNodeId;
+
         this.setState({
             ...state,
             config,
             configUpdated,
             d3ConfigUpdated,
             newGraphElements,
-            transform
+            transform,
+            focusedNodeId,
+            enableFocusAnimation,
+            focusTransformation
         });
     }
 
@@ -413,6 +427,10 @@ export default class Graph extends React.Component {
      * @returns {undefined}
      */
     onClickGraph = e => {
+        if (this.state.enableFocusAnimation) {
+            this.setState({ enableFocusAnimation: false });
+        }
+
         // Only trigger the graph onClickHandler, if not clicked a node or link.
         // toUpperCase() is added as a precaution, as the documentation says tagName should always
         // return in UPPERCASE, but chrome returns lowercase
@@ -422,6 +440,35 @@ export default class Graph extends React.Component {
         ) {
             this.props.onClickGraph && this.props.onClickGraph();
         }
+    };
+
+    /**
+     * Obtain a set of properties which will be used to perform the focus and zoom animation if
+     * required. In case there's not a focus and zoom animation in progress, it should reset the
+     * transition duration to zero and clear transformation styles.
+     * @returns {Object} - Focus and zoom animation properties.
+     */
+    _generateFocusAnimationProps = () => {
+        const { focusedNodeId } = this.state;
+
+        // In case an older animation was still not complete, clear previous timeout to ensure the new one is not cancelled
+        if (this.state.enableFocusAnimation) {
+            if (this.focusAnimationTimeout) {
+                clearTimeout(this.focusAnimationTimeout);
+            }
+
+            this.focusAnimationTimeout = setTimeout(
+                () => this.setState({ enableFocusAnimation: false }),
+                this.state.config.focusAnimationDuration * 1000
+            );
+        }
+
+        const transitionDuration = this.state.enableFocusAnimation ? this.state.config.focusAnimationDuration : 0;
+
+        return {
+            style: { transitionDuration: `${transitionDuration}s` },
+            transform: focusedNodeId ? this.state.focusTransformation : null
+        };
     };
 
     render() {
@@ -452,11 +499,13 @@ export default class Graph extends React.Component {
             width: this.state.config.width
         };
 
+        const containerProps = this._generateFocusAnimationProps();
+
         return (
             <div id={`${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`}>
                 <svg name={`svg-container-${this.state.id}`} style={svgStyle} onClick={this.onClickGraph}>
                     {defs}
-                    <g id={`${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`}>
+                    <g id={`${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`} {...containerProps}>
                         {links}
                         {nodes}
                     </g>

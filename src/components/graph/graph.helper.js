@@ -112,7 +112,7 @@ function _initializeLinks(graphLinks, config) {
             links[target] = {};
         }
 
-        const value = l.value || 1;
+        const value = config.collapsible && l.isHidden ? 0 : l.value || 1;
 
         links[source][target] = value;
 
@@ -475,6 +475,14 @@ function initializeGraphState({ data, id, config }, state) {
     const formatedId = id.replace(/ /g, '_');
     const simulation = _createForceSimulation(newConfig.width, newConfig.height, newConfig.d3 && newConfig.d3.gravity);
 
+    const { minZoom, maxZoom, focusZoom } = newConfig;
+
+    if (focusZoom > maxZoom) {
+        newConfig.focusZoom = maxZoom;
+    } else if (focusZoom < minZoom) {
+        newConfig.focusZoom = minZoom;
+    }
+
     return {
         id: formatedId,
         config: newConfig,
@@ -521,11 +529,34 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
     };
 }
 
+/**
+ * Returns the transformation to apply in order to center the graph on the
+ * selected node.
+ * @param {Object} d3Node - node to focus the graph view on.
+ * @param {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @returns {string} transform rule to apply.
+ * @memberof Graph/helper
+ */
+function getCenterAndZoomTransformation(d3Node, config) {
+    if (!d3Node) {
+        return;
+    }
+
+    const { width, height, focusZoom } = config;
+
+    return `
+        translate(${width / 2}, ${height / 2})
+        scale(${focusZoom})
+        translate(${-d3Node.x}, ${-d3Node.y})
+    `;
+}
+
 export {
     buildLinkProps,
     buildNodeProps,
     checkForGraphConfigChanges,
     checkForGraphElementsChanges,
     initializeGraphState,
-    updateNodeHighlightedValue
+    updateNodeHighlightedValue,
+    getCenterAndZoomTransformation
 };
