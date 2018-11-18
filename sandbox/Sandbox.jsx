@@ -54,7 +54,7 @@ export default class Sandbox extends React.Component {
     onClickGraph = () => console.info(`Clicked the graph`);
 
     onClickNode = id => {
-        !this.state.config.collapsible && window.alert(`Clicked node ${id}`);
+        //!this.state.config.collapsible && window.alert(`Clicked node ${id}`);
         this.setState({
             data: {
                 ...this.state.data,

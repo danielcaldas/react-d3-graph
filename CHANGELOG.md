@@ -1,5 +1,43 @@
 # Change Log
 
+## [2.0.0-rc2](https://github.com/danielcaldas/react-d3-graph/tree/2.0.0-rc2)
+
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.0.0-rc1...2.0.0-rc2)
+
+**Implemented enhancements:**
+
+*   Allow nodes to override strokeColor [\#122](https://github.com/danielcaldas/react-d3-graph/issues/122)
+
+**Fixed bugs:**
+
+*   Custom onNodeClick handler not triggering on collapsible nodes [\#136](https://github.com/danielcaldas/react-d3-graph/issues/136)
+*   🐛 Global `viewGenerator` not been applied to the nodes [\#130](https://github.com/danielcaldas/react-d3-graph/issues/130)
+
+**Closed issues:**
+
+*   graph constantly re-rendering even when app is idle? [\#145](https://github.com/danielcaldas/react-d3-graph/issues/145)
+*   Allow users to pass in a function in node.labelProperty [\#133](https://github.com/danielcaldas/react-d3-graph/issues/133)
+*   Drop yarn support for development \(stick to npm only\) [\#127](https://github.com/danielcaldas/react-d3-graph/issues/127)
+*   Link mouse cursor property [\#119](https://github.com/danielcaldas/react-d3-graph/issues/119)
+*   Center graph on a specific node [\#102](https://github.com/danielcaldas/react-d3-graph/issues/102)
+*   Links with directional arrow [\#88](https://github.com/danielcaldas/react-d3-graph/issues/88)
+
+**Merged pull requests:**
+
+*   Fix/right clicks [\#140](https://github.com/danielcaldas/react-d3-graph/pull/140) ([danielcaldas](https://github.com/danielcaldas))
+*   Refactor/clean link component [\#139](https://github.com/danielcaldas/react-d3-graph/pull/139) ([danielcaldas](https://github.com/danielcaldas))
+*   fix: Trigger custom click handler in collapsible nodes [\#137](https://github.com/danielcaldas/react-d3-graph/pull/137) ([LonelyPrincess](https://github.com/LonelyPrincess))
+*   Add Support to pass a function to node.labelProperty [\#135](https://github.com/danielcaldas/react-d3-graph/pull/135) ([dgautsch](https://github.com/dgautsch))
+*   Support Development on Windows Machines [\#134](https://github.com/danielcaldas/react-d3-graph/pull/134) ([dgautsch](https://github.com/dgautsch))
+*   Feature/directional graph [\#132](https://github.com/danielcaldas/react-d3-graph/pull/132) ([danielcaldas](https://github.com/danielcaldas))
+*   Global `viewGenerator` included in default config object [\#131](https://github.com/danielcaldas/react-d3-graph/pull/131) ([LonelyPrincess](https://github.com/LonelyPrincess))
+*   Remove Yarn [\#128](https://github.com/danielcaldas/react-d3-graph/pull/128) ([sasalx](https://github.com/sasalx))
+*   Feature/right clicking [\#124](https://github.com/danielcaldas/react-d3-graph/pull/124) ([ghardin137](https://github.com/ghardin137))
+*   Allow nodes to override strokeColor [\#123](https://github.com/danielcaldas/react-d3-graph/pull/123) ([Andras-Simon](https://github.com/Andras-Simon))
+*   fix: \#119 Add mouseCursor prop to \<Link\> [\#120](https://github.com/danielcaldas/react-d3-graph/pull/120) ([kaungmyatlwin](https://github.com/kaungmyatlwin))
+*   Add onClick handler to the canvas, for use in eg. unselecting nodes [\#113](https://github.com/danielcaldas/react-d3-graph/pull/113) ([smilykoch](https://github.com/smilykoch))
+*   Focus view on a node [\#107](https://github.com/danielcaldas/react-d3-graph/pull/107) ([LonelyPrincess](https://github.com/LonelyPrincess))
+
 ## [2.0.0-rc1](https://github.com/danielcaldas/react-d3-graph/tree/2.0.0-rc1)
 
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.0.0-rc0...2.0.0-rc1)

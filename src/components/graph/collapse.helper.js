@@ -25,6 +25,7 @@
  * @param {number} inDegree - the in degree for a given node.
  * @param {number} outDegree - the out degree for a given node.
  * @returns {boolean} based on the degrees tells whether node is leaf or not.
+ * @memberof Graph/collapse-helper
  */
 function _isLeafDirected(inDegree, outDegree) {
     return inDegree <= 1 && outDegree < 1;
@@ -36,6 +37,7 @@ function _isLeafDirected(inDegree, outDegree) {
  * @param {number} inDegree - the in degree for a given node.
  * @param {number} outDegree - the out degree for a given node.
  * @returns {boolean} based on the degrees tells whether node is leaf or not.
+ * @memberof Graph/collapse-helper
  */
 function _isLeafNotDirected(inDegree, outDegree) {
     return inDegree <= 1 && outDegree <= 1;
@@ -56,7 +58,7 @@ function _isLeaf(nodeId, linksMatrix, directed) {
 }
 
 /**
- * Calculates degree (in an out) of some provided node.
+ * Calculates degree (in and out) of some provided node.
  * @param {string|number} nodeId - the id of the node whom degree we want to compute.
  * @param {Object.<string, Object>} linksMatrix - an object containing a matrix of connections of the graph, for each nodeId,
  * there is an object that maps adjacent nodes ids (string) and their values (number).

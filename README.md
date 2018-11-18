@@ -20,8 +20,9 @@
 
 You can also load different datasets and configurations via URL query parameter, here are the links:
 
-*   [small dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=small)
-*   [custom node dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=custom-node)
+*   [small dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=small) - small example.
+*   [custom node dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=custom-node) - sample config with custom views.
+*   [marvel dataset!](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=marvel) - sample config with directed collapsible graph and custom svg nodes.
 
 Do you want to visualize your own data set on the live sandbox? Just submit a PR! You're welcome 😁
 

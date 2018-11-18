@@ -61,6 +61,19 @@
  * @param {number} [minZoom=0.1] - min zoom that can be performed against the graph.
  * @param {number} [focusZoom=1] - zoom that will be applied when the graph view is focused in a node. Its value must be between
  * *minZoom* and *maxZoom*. If the specified *focusZoom* is out of this range, *minZoom* or *maxZoom* will be applied instead.
+ * **NOTE:** This animation is not trigger by default. In order to trigger it you need to pass down to `react-d3-graph` the
+ * node that you want to focus via prop `focusedNodeId` along side with nodes and links:
+ *
+ * ```javascript
+ * const data = {
+ *    nodes: this.state.data.nodes,
+ *    links: this.state.data.links,
+ *    focusedNodeId: 'nodeIdToTriggerZoomAnimation'
+ * };
+ * ```
+ *
+ * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-zoom-animation.gif?raw=true" width="820" height="480"/>
+ *
  * @param {number} [focusAnimationDuration=0.75] - duration (in seconds) for the animation that takes place when focusing the graph on a node.
  * @param {boolean} [panAndZoom=false] - 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
  * a similar functionality may be consulted {@link https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39|here}.
