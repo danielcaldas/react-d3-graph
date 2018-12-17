@@ -17,7 +17,7 @@ const MAX_DEPTH = 20;
  * @memberof utils
  */
 function _isPropertyNestedObject(o, k) {
-    return o.hasOwnProperty(k) && typeof o[k] === 'object' && o[k] !== null && !isEmptyObject(o[k]);
+    return !!o && o.hasOwnProperty(k) && typeof o[k] === 'object' && o[k] !== null && !isEmptyObject(o[k]);
 }
 
 /**
@@ -74,6 +74,29 @@ function isDeepEqual(o1, o2, _depth = 0) {
  */
 function isEmptyObject(o) {
     return !!o && typeof o === 'object' && !Object.keys(o).length;
+}
+
+/**
+ * Function to deep clone plain javascript objects.
+ * @param {Object} o - the object to clone.
+ * @param {Object} _clone - carries the cloned output throughout the
+ * recursive calls. Parameter serves only for internal usage.
+ * @param {number} _depth - this parameter serves only for internal usage.
+ * @returns {Object} - the cloned object.
+ * @memberof utils
+ */
+function deepClone(o, _clone = {}, _depth = 0) {
+    // TODO: Handle invalid input o is null, undefined, empty object
+    const oKeys = Object.keys(o);
+
+    // TODO: handle arrays
+    for (let k of oKeys) {
+        const nested = _isPropertyNestedObject(o, k);
+
+        _clone[k] = nested && _depth < MAX_DEPTH ? deepClone(o[k], {}, _depth + 1) : o[k];
+    }
+
+    return _clone;
 }
 
 /**
@@ -156,6 +179,7 @@ function throwErr(component, msg) {
 export default {
     isDeepEqual,
     isEmptyObject,
+    deepClone,
     merge,
     pick,
     antiPick,
