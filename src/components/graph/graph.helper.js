@@ -1,3 +1,4 @@
+/*eslint max-lines: 0*/
 /**
  * @module Graph/helper
  * @description
@@ -457,6 +458,28 @@ function checkForGraphConfigChanges(nextProps, currentState) {
 }
 
 /**
+ * Returns the transformation to apply in order to center the graph on the
+ * selected node.
+ * @param {Object} d3Node - node to focus the graph view on.
+ * @param {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @returns {string} transform rule to apply.
+ * @memberof Graph/helper
+ */
+function getCenterAndZoomTransformation(d3Node, config) {
+    if (!d3Node) {
+        return;
+    }
+
+    const { width, height, focusZoom } = config;
+
+    return `
+        translate(${width / 2}, ${height / 2})
+        scale(${focusZoom})
+        translate(${-d3Node.x}, ${-d3Node.y})
+    `;
+}
+
+/**
  * Encapsulates common procedures to initialize graph.
  * @param {Object} props - Graph component props, object that holds data, id and config.
  * @param {Object} props.data - Data object holds links (array of **Link**) and nodes (array of **Node**).
@@ -549,34 +572,12 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
     };
 }
 
-/**
- * Returns the transformation to apply in order to center the graph on the
- * selected node.
- * @param {Object} d3Node - node to focus the graph view on.
- * @param {Object} config - same as {@link #buildGraph|config in buildGraph}.
- * @returns {string} transform rule to apply.
- * @memberof Graph/helper
- */
-function getCenterAndZoomTransformation(d3Node, config) {
-    if (!d3Node) {
-        return;
-    }
-
-    const { width, height, focusZoom } = config;
-
-    return `
-        translate(${width / 2}, ${height / 2})
-        scale(${focusZoom})
-        translate(${-d3Node.x}, ${-d3Node.y})
-    `;
-}
-
 export {
     buildLinkProps,
     buildNodeProps,
     checkForGraphConfigChanges,
     checkForGraphElementsChanges,
+    getCenterAndZoomTransformation,
     initializeGraphState,
-    updateNodeHighlightedValue,
-    getCenterAndZoomTransformation
+    updateNodeHighlightedValue
 };
