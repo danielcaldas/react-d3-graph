@@ -73,7 +73,7 @@ function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedL
     let outNodes = Object.keys(nodes);
 
     if (config.collapsible) {
-        outNodes = outNodes.filter(nodeId => isNodeVisible(nodeId, linksMatrix));
+        outNodes = outNodes.filter(nodeId => isNodeVisible(nodeId, nodes, linksMatrix));
     }
 
     return outNodes.map(nodeId => {

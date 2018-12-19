@@ -33,6 +33,7 @@ import ERRORS from '../../err';
 import utils from '../../utils';
 import { buildLinkPathDefinition } from '../link/link.helper';
 import { getMarkerId } from '../marker/marker.helper';
+import { computeNodeDegree } from './collapse.helper';
 
 const NODE_PROPS_WHITELIST = ['id', 'highlighted', 'x', 'y', 'index', 'vy', 'vx'];
 
@@ -197,6 +198,25 @@ function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
         source,
         target
     };
+}
+
+/**
+ * Tags orphan nodes with a `_orphan` flag.
+ * @param {Object.<string, Object>} nodes - nodes mapped by their id.
+ * @param {Object.<string, Object>} linksMatrix - an object containing a matrix of connections of the graph, for each nodeId,
+ * there is an object that maps adjacent nodes ids (string) and their values (number).
+ * @returns {Object.<string, Object>} same input nodes structure with tagged orphans nodes where applicable.
+ */
+function _tagOrphanNodes(nodes, linksMatrix) {
+    return Object.keys(nodes).reduce((acc, nodeId) => {
+        const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
+        const node = nodes[nodeId];
+        const taggedNode = inDegree === 0 && outDegree === 0 ? { ...node, _orphan: true } : node;
+
+        acc[nodeId] = taggedNode;
+
+        return acc;
+    }, {});
 }
 
 /**
@@ -469,8 +489,8 @@ function initializeGraphState({ data, id, config }, state) {
     }
 
     let newConfig = Object.assign({}, utils.merge(DEFAULT_CONFIG, config || {}));
-    let nodes = _initializeNodes(graph.nodes);
     let links = _initializeLinks(graph.links, newConfig); // matrix of graph connections
+    let nodes = _tagOrphanNodes(_initializeNodes(graph.nodes), links);
     const { nodes: d3Nodes, links: d3Links } = graph;
     const formatedId = id.replace(/ /g, '_');
     const simulation = _createForceSimulation(newConfig.width, newConfig.height, newConfig.d3 && newConfig.d3.gravity);
