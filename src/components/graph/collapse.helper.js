@@ -136,14 +136,16 @@ function getTargetLeafConnections(rootNodeId, linksMatrix = {}, { directed }) {
  * always remember that *A leaf can, through time, be both a visible or an invisible node!*.
  *
  * @param {string} nodeId - The id of the node to get the cardinality of
+ * @param  {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
  * @param {Object.<string, number>} linksMatrix - An object containing a matrix of connections of the nodes.
  * @returns {boolean} flag that indicates whether node should or not be displayed.
  * @memberof Graph/collapse-helper
  */
-function isNodeVisible(nodeId, linksMatrix) {
+function isNodeVisible(nodeId, nodes, linksMatrix) {
     const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
+    const orphan = !!nodes[nodeId]._orphan;
 
-    return inDegree >= 1 || outDegree >= 1;
+    return inDegree > 0 || outDegree > 0 || orphan;
 }
 
 /**

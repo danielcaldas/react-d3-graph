@@ -192,6 +192,33 @@ describe('Utils', () => {
         });
     });
 
+    describe('#deepClone', () => {
+        let that = {};
+
+        beforeEach(() => {
+            that.o = {
+                a: 1,
+                b: {
+                    j: {
+                        k: null,
+                        l: 'test'
+                    }
+                },
+                c: 'test',
+                f: 0
+            };
+        });
+
+        test('should properly clone a given object', () => {
+            const clone = utils.deepClone(that.o);
+
+            expect(clone).toEqual(that.o);
+            expect(clone).not.toBe(that.o);
+            expect(clone.b).not.toBe(that.o.b);
+            expect(clone.b.j).not.toBe(that.o.b.j);
+        });
+    });
+
     describe('#pick', () => {
         let that = {};
 

@@ -54,13 +54,14 @@ export default class Sandbox extends React.Component {
     onClickGraph = () => console.info(`Clicked the graph`);
 
     onClickNode = id => {
-        //!this.state.config.collapsible && window.alert(`Clicked node ${id}`);
-        this.setState({
-            data: {
-                ...this.state.data,
-                focusedNodeId: this.state.data.focusedNodeId !== id ? id : null
-            }
-        });
+        !this.state.config.collapsible && window.alert(`Clicked node ${id}`);
+        // NOTE: below sample implementation for focusAnimation when clicking on node
+        // this.setState({
+        //     data: {
+        //         ...this.state.data,
+        //         focusedNodeId: this.state.data.focusedNodeId !== id ? id : null
+        //     }
+        // });
     };
 
     onRightClickNode = (event, id) => {

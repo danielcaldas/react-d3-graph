@@ -1,3 +1,4 @@
+/*eslint max-lines: 0*/
 /**
  * @module Graph/helper
  * @description
@@ -33,6 +34,7 @@ import ERRORS from '../../err';
 import utils from '../../utils';
 import { buildLinkPathDefinition } from '../link/link.helper';
 import { getMarkerId } from '../marker/marker.helper';
+import { computeNodeDegree } from './collapse.helper';
 
 const NODE_PROPS_WHITELIST = ['id', 'highlighted', 'x', 'y', 'index', 'vy', 'vx'];
 
@@ -200,6 +202,25 @@ function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
 }
 
 /**
+ * Tags orphan nodes with a `_orphan` flag.
+ * @param {Object.<string, Object>} nodes - nodes mapped by their id.
+ * @param {Object.<string, Object>} linksMatrix - an object containing a matrix of connections of the graph, for each nodeId,
+ * there is an object that maps adjacent nodes ids (string) and their values (number).
+ * @returns {Object.<string, Object>} same input nodes structure with tagged orphans nodes where applicable.
+ */
+function _tagOrphanNodes(nodes, linksMatrix) {
+    return Object.keys(nodes).reduce((acc, nodeId) => {
+        const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
+        const node = nodes[nodeId];
+        const taggedNode = inDegree === 0 && outDegree === 0 ? { ...node, _orphan: true } : node;
+
+        acc[nodeId] = taggedNode;
+
+        return acc;
+    }, {});
+}
+
+/**
  * Some integrity validations on links and nodes structure. If some validation fails the function will
  * throw an error.
  * @param  {Object} data - Same as {@link #initializeGraphState|data in initializeGraphState}.
@@ -222,8 +243,16 @@ function _validateGraphData(data) {
         if (!data.nodes.find(n => n.id === l.source)) {
             utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - "${l.source}" is not a valid source node id`);
         }
+
         if (!data.nodes.find(n => n.id === l.target)) {
             utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - "${l.target}" is not a valid target node id`);
+        }
+
+        if (l && l.value !== undefined && typeof l.value !== 'number') {
+            utils.throwErr(
+                'Graph',
+                `${ERRORS.INVALID_LINK_VALUE} - found in link with source "${l.source}" and target "${l.target}"`
+            );
         }
     }
 }
@@ -437,6 +466,28 @@ function checkForGraphConfigChanges(nextProps, currentState) {
 }
 
 /**
+ * Returns the transformation to apply in order to center the graph on the
+ * selected node.
+ * @param {Object} d3Node - node to focus the graph view on.
+ * @param {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @returns {string} transform rule to apply.
+ * @memberof Graph/helper
+ */
+function getCenterAndZoomTransformation(d3Node, config) {
+    if (!d3Node) {
+        return;
+    }
+
+    const { width, height, focusZoom } = config;
+
+    return `
+        translate(${width / 2}, ${height / 2})
+        scale(${focusZoom})
+        translate(${-d3Node.x}, ${-d3Node.y})
+    `;
+}
+
+/**
  * Encapsulates common procedures to initialize graph.
  * @param {Object} props - Graph component props, object that holds data, id and config.
  * @param {Object} props.data - Data object holds links (array of **Link**) and nodes (array of **Node**).
@@ -469,8 +520,8 @@ function initializeGraphState({ data, id, config }, state) {
     }
 
     let newConfig = Object.assign({}, utils.merge(DEFAULT_CONFIG, config || {}));
-    let nodes = _initializeNodes(graph.nodes);
     let links = _initializeLinks(graph.links, newConfig); // matrix of graph connections
+    let nodes = _tagOrphanNodes(_initializeNodes(graph.nodes), links);
     const { nodes: d3Nodes, links: d3Links } = graph;
     const formatedId = id.replace(/ /g, '_');
     const simulation = _createForceSimulation(newConfig.width, newConfig.height, newConfig.d3 && newConfig.d3.gravity);
@@ -529,34 +580,12 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
     };
 }
 
-/**
- * Returns the transformation to apply in order to center the graph on the
- * selected node.
- * @param {Object} d3Node - node to focus the graph view on.
- * @param {Object} config - same as {@link #buildGraph|config in buildGraph}.
- * @returns {string} transform rule to apply.
- * @memberof Graph/helper
- */
-function getCenterAndZoomTransformation(d3Node, config) {
-    if (!d3Node) {
-        return;
-    }
-
-    const { width, height, focusZoom } = config;
-
-    return `
-        translate(${width / 2}, ${height / 2})
-        scale(${focusZoom})
-        translate(${-d3Node.x}, ${-d3Node.y})
-    `;
-}
-
 export {
     buildLinkProps,
     buildNodeProps,
     checkForGraphConfigChanges,
     checkForGraphElementsChanges,
+    getCenterAndZoomTransformation,
     initializeGraphState,
-    updateNodeHighlightedValue,
-    getCenterAndZoomTransformation
+    updateNodeHighlightedValue
 };

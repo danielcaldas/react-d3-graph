@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
     context: path.join(__dirname, 'sandbox'),
-    devtool: 'source-map',
+    devtool: 'cheap-module-eval-source-map',
     entry: './index.jsx',
     output: {
         path: __dirname + '/sandbox/',
@@ -21,7 +21,7 @@ module.exports = {
                 loader: 'babel-loader',
                 options: {
                     presets: ['react', 'es2015', 'stage-0'],
-                    plugins: ['react-html-attrs'],
+                    plugins: ['react-html-attrs']
                 }
             }
         ]

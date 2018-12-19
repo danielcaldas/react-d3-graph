@@ -4,9 +4,9 @@ node_js:
 install:
     - npm install
 before_script:
+    - npm run dist:sandbox
     - npm start -- --silent &
 script:
     - npm run lint
     - npm run test
-    - npm run dist:sandbox
     - npm run functional
