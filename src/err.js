@@ -4,5 +4,6 @@ export default {
     INVALID_LINKS:
         'you provided a invalid links data structure. Links source and target attributes must point to an existent node',
     INSUFFICIENT_DATA:
-        'you have not provided enough data for react-d3-graph to render something. You need to provide at least one node'
+        'you have not provided enough data for react-d3-graph to render something. You need to provide at least one node',
+    INVALID_LINK_VALUE: 'links "value" attribute must be of type number'
 };

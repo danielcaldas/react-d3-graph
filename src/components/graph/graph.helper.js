@@ -243,8 +243,16 @@ function _validateGraphData(data) {
         if (!data.nodes.find(n => n.id === l.source)) {
             utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - "${l.source}" is not a valid source node id`);
         }
+
         if (!data.nodes.find(n => n.id === l.target)) {
             utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - "${l.target}" is not a valid target node id`);
+        }
+
+        if (l && l.value !== undefined && typeof l.value !== 'number') {
+            utils.throwErr(
+                'Graph',
+                `${ERRORS.INVALID_LINK_VALUE} - found in link with source "${l.source}" and target "${l.target}"`
+            );
         }
     }
 }
