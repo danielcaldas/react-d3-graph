@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Link from '../../../src/components/link/Link';
+import Link from '../../src/components/link/Link';
 
 describe('Link Component', () => {
     let that = {};

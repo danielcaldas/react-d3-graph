@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Marker from '../../../src/components/marker/Marker';
+import Marker from '../../src/components/marker/Marker';
 
 describe('Snapshot - Marker Component', () => {
     let that = {};

@@ -1,9 +1,9 @@
-import * as graphHelper from '../../../src/components/graph/graph.helper';
+import * as graphHelper from '../../src/components/graph/graph.helper';
 
-import config from '../../../src/components/graph/graph.config';
+import config from '../../src/components/graph/graph.config';
 
-import utils from '../../../src/utils';
-import * as linkHelper from '../../../src/components/link/link.helper';
+import utils from '../../src/utils';
+import * as linkHelper from '../../src/components/link/link.helper';
 
 jest.mock('d3-force');
 import {

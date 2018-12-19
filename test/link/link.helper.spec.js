@@ -1,4 +1,4 @@
-import * as linkHelper from '../../../src/components/link/link.helper';
+import * as linkHelper from '../../src/components/link/link.helper';
 
 describe('Link Helper', () => {
     describe('#buildLinkPathDefinition', () => {
