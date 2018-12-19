@@ -1,6 +1,6 @@
-import * as collapseHelper from '../../../src/components/graph/collapse.helper';
-import * as graphData from '../../../sandbox/data/default';
-import { initializeGraphState } from '../../../src/components/graph/graph.helper';
+import * as collapseHelper from '../../src/components/graph/collapse.helper';
+import * as graphData from '../../sandbox/data/default';
+import { initializeGraphState } from '../../src/components/graph/graph.helper';
 
 describe('Collapse Helper', () => {
     let directedState;

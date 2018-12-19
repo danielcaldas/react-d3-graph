@@ -1,4 +1,4 @@
-import * as markerHelper from '../../../src/components/marker/marker.helper';
+import * as markerHelper from '../../src/components/marker/marker.helper';
 
 describe('Marker Helper', () => {
     describe('#getMarkerId', () => {

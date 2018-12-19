@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Graph from '../../../src/components/graph/Graph';
+import Graph from '../../src/components/graph/Graph';
 import graphMock from './graph.mock.js';
 
 describe('Snapshot - Graph Component', () => {
@@ -34,9 +34,13 @@ describe('Snapshot - Graph Component', () => {
 
     beforeEach(() => {
         const config = { ...that.config, collapsible: true };
+        const data = {
+            nodes: [...graphMock.nodes, { id: 'Simba', x: '290', y: '290' }],
+            links: graphMock.links
+        };
 
         that.graph = renderer.create(
-            <Graph id="graphId" data={graphMock} config={config} onMouseOverNode={that.mouseOverNodeCallback} />
+            <Graph id="graphId" data={data} config={config} onMouseOverNode={that.mouseOverNodeCallback} />
         );
 
         that.tree = that.graph.toJSON();
