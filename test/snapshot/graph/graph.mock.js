@@ -99,6 +99,11 @@ export default {
             id: 'Elric',
             x: '90',
             y: '656'
+        },
+        {
+            id: 'Simba', // orphan node
+            x: '290',
+            y: '290'
         }
     ],
     links: [
