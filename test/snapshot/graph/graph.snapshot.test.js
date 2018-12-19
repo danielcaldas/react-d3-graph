@@ -33,8 +33,10 @@ describe('Snapshot - Graph Component', () => {
     that.mouseOverNodeCallback = jest.fn();
 
     beforeEach(() => {
+        const config = { ...that.config, collapsible: true };
+
         that.graph = renderer.create(
-            <Graph id="graphId" data={graphMock} config={that.config} onMouseOverNode={that.mouseOverNodeCallback} />
+            <Graph id="graphId" data={graphMock} config={config} onMouseOverNode={that.mouseOverNodeCallback} />
         );
 
         that.tree = that.graph.toJSON();

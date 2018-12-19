@@ -1191,6 +1191,36 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           Elric
         </text>
       </g>
+      <g
+        className="node"
+        cx="290"
+        cy="290"
+        id="Simba"
+        transform="translate(290,290)"
+      >
+        <path
+          cursor="pointer"
+          d="M5.641895835477563,0A5.641895835477563,5.641895835477563,0,1,1,-5.641895835477563,0A5.641895835477563,5.641895835477563,0,1,1,5.641895835477563,0"
+          fill="red"
+          onClick={[Function]}
+          onContextMenu={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+          opacity={1}
+          stroke="none"
+          strokeWidth={1.5}
+        />
+        <text
+          dx={10.5}
+          dy=".35em"
+          fill="black"
+          fontSize={8}
+          fontWeight="normal"
+          opacity={1}
+        >
+          Simba
+        </text>
+      </g>
     </g>
   </svg>
 </div>
