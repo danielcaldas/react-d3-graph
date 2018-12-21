@@ -1,49 +1,49 @@
-import * as graphHelper from '../../src/components/graph/graph.helper';
+import * as graphHelper from "../../src/components/graph/graph.helper";
 
-import config from '../../src/components/graph/graph.config';
+import config from "../../src/components/graph/graph.config";
 
-import utils from '../../src/utils';
-import * as linkHelper from '../../src/components/link/link.helper';
+import utils from "../../src/utils";
+import * as linkHelper from "../../src/components/link/link.helper";
 
-jest.mock('d3-force');
+jest.mock("d3-force");
 import {
     forceX as d3ForceX,
     forceY as d3ForceY,
     forceSimulation as d3ForceSimulation,
-    forceManyBody as d3ForceManyBody
-} from 'd3-force';
+    forceManyBody as d3ForceManyBody,
+} from "d3-force";
 
-describe('Graph Helper', () => {
+describe("Graph Helper", () => {
     beforeAll(() => {
         utils.isDeepEqual = jest.fn();
         utils.isEmptyObject = jest.fn();
         utils.merge = jest.fn();
         utils.throwErr = jest.fn();
-        jest.spyOn(linkHelper, 'buildLinkPathDefinition');
+        jest.spyOn(linkHelper, "buildLinkPathDefinition");
     });
 
-    describe('#buildLinkProps', () => {
+    describe("#buildLinkProps", () => {
         let that = {};
 
         beforeAll(() => {
             that = {
                 config: { link: config.link },
-                link: { source: 'source', target: 'target' }
+                link: { source: "source", target: "target" },
             };
         });
 
-        describe('when building props for a link', () => {
-            test('should call buildLinkPathDefinition with expected parameters', () => {
+        describe("when building props for a link", () => {
+            test("should call buildLinkPathDefinition with expected parameters", () => {
                 graphHelper.buildLinkProps(that.link, {}, {}, that.config, [], undefined, undefined, 1);
 
                 expect(linkHelper.buildLinkPathDefinition).toHaveBeenCalledWith(
                     { source: { x: 0, y: 0 }, target: { x: 0, y: 0 } },
-                    'STRAIGHT'
+                    "STRAIGHT"
                 );
             });
 
-            describe('and no custom color is set', () => {
-                test('should return default color defined in link config', () => {
+            describe("and no custom color is set", () => {
+                test("should return default color defined in link config", () => {
                     const props = graphHelper.buildLinkProps(
                         that.link,
                         {},
@@ -59,10 +59,10 @@ describe('Graph Helper', () => {
                 });
             });
 
-            describe('and custom color is set to green', () => {
-                test('should return green color in the props', () => {
+            describe("and custom color is set to green", () => {
+                test("should return green color in the props", () => {
                     const props = graphHelper.buildLinkProps(
-                        { ...that.link, color: 'green' },
+                        { ...that.link, color: "green" },
                         {},
                         {},
                         that.config,
@@ -72,56 +72,56 @@ describe('Graph Helper', () => {
                         1
                     );
 
-                    expect(props.stroke).toEqual('green');
+                    expect(props.stroke).toEqual("green");
                 });
             });
         });
     });
 
-    describe('#buildNodeProps', () => {
+    describe("#buildNodeProps", () => {
         let that = {};
 
         beforeEach(() => {
-            const nodeConfig = Object.assign({}, config.node, { svg: 'file.svg' });
+            const nodeConfig = Object.assign({}, config.node, { svg: "file.svg" });
             const linkConfig = Object.assign({}, config.link);
 
             that = {
                 config: { node: nodeConfig, link: linkConfig },
                 node: {
-                    id: 'id',
+                    id: "id",
                     x: 1,
                     y: 2,
-                    color: 'green',
+                    color: "green",
                     highlighted: false,
-                    symbolType: undefined
-                }
+                    symbolType: undefined,
+                },
             };
         });
-        describe('when node to build is the highlightedNode', () => {
-            test('should return node props with proper highlight values', () => {
+        describe("when node to build is the highlightedNode", () => {
+            test("should return node props with proper highlight values", () => {
                 that.node.highlighted = true;
                 Object.assign(that.config.node, {
-                    highlightColor: 'red',
+                    highlightColor: "red",
                     highlightFontSize: 12,
-                    highlightFontWeight: 'bold',
-                    highlightStrokeColor: 'yellow',
-                    highlightStrokeWidth: 2
+                    highlightFontWeight: "bold",
+                    highlightStrokeColor: "yellow",
+                    highlightStrokeWidth: 2,
                 });
-                const props = graphHelper.buildNodeProps(that.node, that.config, undefined, 'id', undefined, 1);
+                const props = graphHelper.buildNodeProps(that.node, that.config, undefined, "id", undefined, 1);
 
                 expect(props).toEqual({
                     ...that.node,
-                    className: 'node',
-                    cursor: 'pointer',
+                    className: "node",
+                    cursor: "pointer",
                     cx: 1,
                     cy: 2,
                     dx: 15.5,
-                    fill: 'red',
+                    fill: "red",
                     fontSize: 12,
-                    fontWeight: 'bold',
-                    fontColor: 'black',
-                    id: 'id',
-                    label: 'id',
+                    fontWeight: "bold",
+                    fontColor: "black",
+                    id: "id",
+                    label: "id",
                     onClickNode: undefined,
                     onRightClickNode: undefined,
                     onMouseOut: undefined,
@@ -129,18 +129,18 @@ describe('Graph Helper', () => {
                     opacity: 1,
                     renderLabel: true,
                     size: 200,
-                    stroke: 'yellow',
+                    stroke: "yellow",
                     strokeWidth: 2,
-                    svg: 'file.svg',
-                    type: 'circle',
+                    svg: "file.svg",
+                    type: "circle",
                     viewGenerator: null,
-                    overrideGlobalViewGenerator: undefined
+                    overrideGlobalViewGenerator: undefined,
                 });
             });
         });
-        describe('when node to build is the highlightedLink target (or source)', () => {
-            describe('and highlight degree is 0', () => {
-                test('should properly build node props ()', () => {
+        describe("when node to build is the highlightedLink target (or source)", () => {
+            describe("and highlight degree is 0", () => {
+                test("should properly build node props ()", () => {
                     that.config.highlightDegree = 0;
 
                     const props = graphHelper.buildNodeProps(
@@ -148,8 +148,8 @@ describe('Graph Helper', () => {
                         that.config,
                         undefined,
                         {
-                            source: 'some other id',
-                            target: 'id'
+                            source: "some other id",
+                            target: "id",
                         },
                         undefined,
                         1
@@ -157,17 +157,17 @@ describe('Graph Helper', () => {
 
                     expect(props).toEqual({
                         ...that.node,
-                        className: 'node',
-                        cursor: 'pointer',
+                        className: "node",
+                        cursor: "pointer",
                         cx: 1,
                         cy: 2,
                         dx: 11.5,
-                        fill: 'green',
+                        fill: "green",
                         fontSize: 8,
-                        fontWeight: 'normal',
-                        fontColor: 'black',
-                        id: 'id',
-                        label: 'id',
+                        fontWeight: "normal",
+                        fontColor: "black",
+                        id: "id",
+                        label: "id",
                         onClickNode: undefined,
                         onRightClickNode: undefined,
                         onMouseOut: undefined,
@@ -175,17 +175,17 @@ describe('Graph Helper', () => {
                         opacity: undefined,
                         renderLabel: true,
                         size: 200,
-                        stroke: 'none',
+                        stroke: "none",
                         strokeWidth: 1.5,
-                        svg: 'file.svg',
-                        type: 'circle',
+                        svg: "file.svg",
+                        type: "circle",
                         viewGenerator: null,
-                        overrideGlobalViewGenerator: undefined
+                        overrideGlobalViewGenerator: undefined,
                     });
                 });
             });
-            describe('and highlight degree is bigger then 0', () => {
-                test('should properly build node props', () => {
+            describe("and highlight degree is bigger then 0", () => {
+                test("should properly build node props", () => {
                     that.config.highlightDegree = 2;
 
                     const props = graphHelper.buildNodeProps(
@@ -193,8 +193,8 @@ describe('Graph Helper', () => {
                         that.config,
                         undefined,
                         {
-                            source: 'some other id',
-                            target: 'id'
+                            source: "some other id",
+                            target: "id",
                         },
                         undefined,
                         1
@@ -202,17 +202,17 @@ describe('Graph Helper', () => {
 
                     expect(props).toEqual({
                         ...that.node,
-                        className: 'node',
-                        cursor: 'pointer',
+                        className: "node",
+                        cursor: "pointer",
                         cx: 1,
                         cy: 2,
                         dx: 11.5,
-                        fill: 'green',
+                        fill: "green",
                         fontSize: 8,
-                        fontWeight: 'normal',
-                        fontColor: 'black',
-                        id: 'id',
-                        label: 'id',
+                        fontWeight: "normal",
+                        fontColor: "black",
+                        id: "id",
+                        label: "id",
                         onClickNode: undefined,
                         onRightClickNode: undefined,
                         onMouseOut: undefined,
@@ -220,27 +220,27 @@ describe('Graph Helper', () => {
                         opacity: undefined,
                         renderLabel: true,
                         size: 200,
-                        stroke: 'none',
+                        stroke: "none",
                         strokeWidth: 1.5,
-                        svg: 'file.svg',
-                        type: 'circle',
+                        svg: "file.svg",
+                        type: "circle",
                         viewGenerator: null,
-                        overrideGlobalViewGenerator: undefined
+                        overrideGlobalViewGenerator: undefined,
                     });
                 });
             });
         });
-        describe('and no custom strokeColor is set', () => {
-            test('should return the default strokeColor in the props', () => {
+        describe("and no custom strokeColor is set", () => {
+            test("should return the default strokeColor in the props", () => {
                 const props = graphHelper.buildNodeProps(that.node, that.config, undefined, undefined, undefined, 1);
 
-                expect(props.stroke).toEqual('none');
+                expect(props.stroke).toEqual("none");
             });
         });
-        describe('and custom strokeColor is set to yellow', () => {
-            test('should return yellow strokeColor in the props', () => {
+        describe("and custom strokeColor is set to yellow", () => {
+            test("should return yellow strokeColor in the props", () => {
                 const props = graphHelper.buildNodeProps(
-                    { ...that.node, strokeColor: 'yellow' },
+                    { ...that.node, strokeColor: "yellow" },
                     that.config,
                     undefined,
                     undefined,
@@ -248,13 +248,13 @@ describe('Graph Helper', () => {
                     1
                 );
 
-                expect(props.stroke).toEqual('yellow');
+                expect(props.stroke).toEqual("yellow");
             });
         });
     });
 
-    describe('#initializeGraphState', () => {
-        describe('when valid graph data is provided', () => {
+    describe("#initializeGraphState", () => {
+        describe("when valid graph data is provided", () => {
             beforeEach(() => {
                 const fr = 10;
                 const forceStub = jest.fn();
@@ -264,149 +264,149 @@ describe('Graph Helper', () => {
                 d3ForceManyBody.mockImplementation(() => ({ strength: () => fr }));
                 forceStub.mockImplementation(() => ({ force: forceStub }));
                 d3ForceSimulation.mockImplementation(() => ({ force: forceStub }));
-                utils.merge.mockImplementation(() => ({ config: 'config' }));
+                utils.merge.mockImplementation(() => ({ config: "config" }));
             });
 
-            describe('and received state was already initialized', () => {
-                test('should create graph structure absorbing stored nodes and links behavior', () => {
+            describe("and received state was already initialized", () => {
+                test("should create graph structure absorbing stored nodes and links behavior", () => {
                     const data = {
-                        nodes: [{ id: 'A' }, { id: 'B' }, { id: 'C' }],
-                        links: [{ source: 'A', target: 'B' }, { source: 'C', target: 'A' }]
+                        nodes: [{ id: "A" }, { id: "B" }, { id: "C" }],
+                        links: [{ source: "A", target: "B" }, { source: "C", target: "A" }],
                     };
                     const state = {
                         nodes: {
                             A: { x: 20, y: 40 },
-                            B: { x: 40, y: 60 }
+                            B: { x: 40, y: 60 },
                         },
                         links: [],
-                        nodeIndexMapping: 'nodeIndexMapping'
+                        nodeIndexMapping: "nodeIndexMapping",
                     };
 
-                    const newState = graphHelper.initializeGraphState({ data, id: 'id', config: {} }, state);
+                    const newState = graphHelper.initializeGraphState({ data, id: "id", config: {} }, state);
 
                     expect(newState.d3Nodes).toEqual([
                         {
                             highlighted: false,
-                            id: 'A',
+                            id: "A",
                             x: 20,
-                            y: 40
+                            y: 40,
                         },
                         {
                             highlighted: false,
-                            id: 'B',
+                            id: "B",
                             x: 40,
-                            y: 60
+                            y: 60,
                         },
                         {
                             highlighted: false,
-                            id: 'C',
+                            id: "C",
                             x: 0,
-                            y: 0
-                        }
+                            y: 0,
+                        },
                     ]);
                     expect(newState.d3Links).toEqual([
                         {
                             index: 0,
                             source: {
                                 highlighted: false,
-                                id: 'A'
+                                id: "A",
                             },
                             target: {
                                 highlighted: false,
-                                id: 'B'
-                            }
+                                id: "B",
+                            },
                         },
                         {
                             index: 1,
                             source: {
                                 highlighted: false,
-                                id: 'C'
+                                id: "C",
                             },
                             target: {
                                 highlighted: false,
-                                id: 'A'
-                            }
-                        }
+                                id: "A",
+                            },
+                        },
                     ]);
                 });
             });
 
-            describe('and received state is empty', () => {
-                test('should create new graph structure with nodes and links', () => {
+            describe("and received state is empty", () => {
+                test("should create new graph structure with nodes and links", () => {
                     const data = {
-                        nodes: [{ id: 'A' }, { id: 'B' }, { id: 'C' }],
-                        links: [{ source: 'A', target: 'B' }, { source: 'C', target: 'A' }]
+                        nodes: [{ id: "A" }, { id: "B" }, { id: "C" }],
+                        links: [{ source: "A", target: "B" }, { source: "C", target: "A" }],
                     };
                     const state = {};
 
-                    const newState = graphHelper.initializeGraphState({ data, id: 'id', config: {} }, state);
+                    const newState = graphHelper.initializeGraphState({ data, id: "id", config: {} }, state);
 
                     expect(newState.d3Nodes).toEqual([
                         {
                             highlighted: false,
-                            id: 'A',
+                            id: "A",
                             x: 0,
-                            y: 0
+                            y: 0,
                         },
                         {
                             highlighted: false,
-                            id: 'B',
+                            id: "B",
                             x: 0,
-                            y: 0
+                            y: 0,
                         },
                         {
                             highlighted: false,
-                            id: 'C',
+                            id: "C",
                             x: 0,
-                            y: 0
-                        }
+                            y: 0,
+                        },
                     ]);
                     expect(newState.d3Links).toEqual([
                         {
-                            source: 'A',
-                            target: 'B'
+                            source: "A",
+                            target: "B",
                         },
                         {
-                            source: 'C',
-                            target: 'A'
-                        }
+                            source: "C",
+                            target: "A",
+                        },
                     ]);
                 });
             });
 
-            test('should return proper state object for given inputs', () => {
+            test("should return proper state object for given inputs", () => {
                 const forceStub = jest.fn();
 
                 forceStub.mockImplementation(() => {
                     return {
-                        force: forceStub
+                        force: forceStub,
                     };
                 });
 
                 d3ForceSimulation.mockImplementation(() => {
                     return {
-                        force: forceStub
+                        force: forceStub,
                     };
                 });
 
                 const data = {
-                    nodes: [{ id: 'A' }, { id: 'B' }, { id: 'C' }],
-                    links: [{ source: 'A', target: 'B' }, { source: 'C', target: 'A' }]
+                    nodes: [{ id: "A" }, { id: "B" }, { id: "C" }],
+                    links: [{ source: "A", target: "B" }, { source: "C", target: "A" }],
                 };
                 const state = {
                     nodes: {
                         A: { x: 20, y: 40 },
-                        B: { x: 40, y: 60 }
+                        B: { x: 40, y: 60 },
                     },
-                    links: 'links',
-                    nodeIndexMapping: 'nodeIndexMapping'
+                    links: "links",
+                    nodeIndexMapping: "nodeIndexMapping",
                 };
 
-                const newState = graphHelper.initializeGraphState({ data, id: 'id', config: undefined }, state);
+                const newState = graphHelper.initializeGraphState({ data, id: "id", config: undefined }, state);
 
                 expect(newState).toEqual({
                     config: {
-                        config: 'config'
+                        config: "config",
                     },
                     configUpdated: false,
                     d3Links: [
@@ -414,152 +414,152 @@ describe('Graph Helper', () => {
                             index: 0,
                             source: {
                                 highlighted: false,
-                                id: 'A'
+                                id: "A",
                             },
                             target: {
                                 highlighted: false,
-                                id: 'B'
-                            }
+                                id: "B",
+                            },
                         },
                         {
                             index: 1,
                             source: {
                                 highlighted: false,
-                                id: 'C'
+                                id: "C",
                             },
                             target: {
                                 highlighted: false,
-                                id: 'A'
-                            }
-                        }
+                                id: "A",
+                            },
+                        },
                     ],
                     d3Nodes: [
                         {
                             highlighted: false,
-                            id: 'A',
+                            id: "A",
                             x: 20,
-                            y: 40
+                            y: 40,
                         },
                         {
                             highlighted: false,
-                            id: 'B',
+                            id: "B",
                             x: 40,
-                            y: 60
+                            y: 60,
                         },
                         {
                             highlighted: false,
-                            id: 'C',
+                            id: "C",
                             x: 0,
-                            y: 0
-                        }
+                            y: 0,
+                        },
                     ],
-                    highlightedNode: '',
-                    id: 'id',
+                    highlightedNode: "",
+                    id: "id",
                     links: {
                         A: {
                             B: 1,
-                            C: 1
+                            C: 1,
                         },
                         B: {
-                            A: 1
+                            A: 1,
                         },
                         C: {
-                            A: 1
-                        }
+                            A: 1,
+                        },
                     },
                     newGraphElements: false,
                     nodes: {
                         A: {
                             highlighted: false,
-                            id: 'A',
+                            id: "A",
                             x: 20,
-                            y: 40
+                            y: 40,
                         },
                         B: {
                             highlighted: false,
-                            id: 'B',
+                            id: "B",
                             x: 40,
-                            y: 60
+                            y: 60,
                         },
                         C: {
                             highlighted: false,
-                            id: 'C',
+                            id: "C",
                             x: 0,
-                            y: 0
-                        }
+                            y: 0,
+                        },
                     },
                     simulation: {
-                        force: forceStub
+                        force: forceStub,
                     },
-                    transform: 1
+                    transform: 1,
                 });
             });
         });
 
-        describe('when invalid graph data is provided', () => {
-            describe('when no nodes are provided', () => {
-                test('should throw INSUFFICIENT_DATA error', () => {
+        describe("when invalid graph data is provided", () => {
+            describe("when no nodes are provided", () => {
+                test("should throw INSUFFICIENT_DATA error", () => {
                     const data = { nodes: [], links: [] };
 
                     graphHelper.initializeGraphState(
                         {
                             data,
-                            id: 'id',
-                            config: 'config'
+                            id: "id",
+                            config: "config",
                         },
-                        'state'
+                        "state"
                     );
 
                     expect(utils.throwErr).toHaveBeenCalledWith(
-                        'Graph',
-                        'you have not provided enough data' +
-                            ' for react-d3-graph to render something. You need to provide at least one node'
+                        "Graph",
+                        "you have not provided enough data" +
+                            " for react-d3-graph to render something. You need to provide at least one node"
                     );
                 });
             });
 
-            describe('when invalid link structure is found', () => {
+            describe("when invalid link structure is found", () => {
                 afterEach(() => {
                     utils.throwErr.mockReset();
                 });
 
-                describe('when link source references nonexistent node', () => {
-                    test('should throw INVALID_LINKS error', () => {
-                        const data = { nodes: [{ id: 'A' }], links: [{ source: 'B', target: 'A' }] };
+                describe("when link source references nonexistent node", () => {
+                    test("should throw INVALID_LINKS error", () => {
+                        const data = { nodes: [{ id: "A" }], links: [{ source: "B", target: "A" }] };
 
                         graphHelper.initializeGraphState(
                             {
                                 data,
-                                id: 'id',
-                                config: 'config'
+                                id: "id",
+                                config: "config",
                             },
-                            'state'
+                            "state"
                         );
 
                         expect(utils.throwErr).toHaveBeenCalledWith(
-                            'Graph',
-                            'you provided a invalid links data' +
+                            "Graph",
+                            "you provided a invalid links data" +
                                 ' structure. Links source and target attributes must point to an existent node - "B" is not a valid source node id'
                         );
                     });
                 });
 
-                describe('when link target references nonexistent node', () => {
-                    test('should throw INVALID_LINKS error', () => {
-                        const data = { nodes: [{ id: 'A' }], links: [{ source: 'A', target: 'B' }] };
+                describe("when link target references nonexistent node", () => {
+                    test("should throw INVALID_LINKS error", () => {
+                        const data = { nodes: [{ id: "A" }], links: [{ source: "A", target: "B" }] };
 
                         graphHelper.initializeGraphState(
                             {
                                 data,
-                                id: 'id',
-                                config: 'config'
+                                id: "id",
+                                config: "config",
                             },
-                            'state'
+                            "state"
                         );
 
                         expect(utils.throwErr).toHaveBeenCalledWith(
-                            'Graph',
-                            'you provided a invalid links data' +
+                            "Graph",
+                            "you provided a invalid links data" +
                                 ' structure. Links source and target attributes must point to an existent node - "B" is not a valid target node id'
                         );
                     });

@@ -1,14 +1,14 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import React from "react";
+import renderer from "react-test-renderer";
 
-import Graph from '../../src/components/graph/Graph';
-import graphMock from './graph.mock.js';
+import Graph from "../../src/components/graph/Graph";
+import graphMock from "./graph.mock.js";
 
-describe('Graph Component', () => {
+describe("Graph Component", () => {
     let that = {};
 
-    that.nodeColor = 'red';
-    that.highlightColor = 'blue';
+    that.nodeColor = "red";
+    that.highlightColor = "blue";
     that.svgSize = 600;
     that.highlightOpacity = 0.1;
     that.config = {
@@ -20,11 +20,11 @@ describe('Graph Component', () => {
         node: {
             color: that.nodeColor,
             highlightColor: that.highlightColor,
-            size: 100
+            size: 100,
         },
         link: {
-            highlightColor: that.highlightColor
-        }
+            highlightColor: that.highlightColor,
+        },
     };
     that.mouseOverNodeCallback = jest.fn();
 
@@ -36,12 +36,12 @@ describe('Graph Component', () => {
         that.tree = that.graph.toJSON();
     });
 
-    describe('when onMouseOverNode is called', () => {
+    describe("when onMouseOverNode is called", () => {
         const nodeOffset = 1;
         const nodeAdjOffset = 2;
         const nodeNotAdjOffset = 10;
 
-        test('should call mouseOverNode callback', () => {
+        test("should call mouseOverNode callback", () => {
             const linksNodes = that.tree.children[0].children[1].children;
             const node = linksNodes[linksNodes.length - 1];
 
@@ -50,7 +50,7 @@ describe('Graph Component', () => {
             expect(that.mouseOverNodeCallback).toBeCalled();
         });
 
-        test('node and their adjacent should have opacity equal to 1 and color (fill) equal to that.highlightColor', () => {
+        test("node and their adjacent should have opacity equal to 1 and color (fill) equal to that.highlightColor", () => {
             let linksNodes = that.tree.children[0].children[1].children;
             let node = linksNodes[linksNodes.length - nodeOffset];
 
@@ -77,7 +77,7 @@ describe('Graph Component', () => {
             expect(props.opacity).toEqual(1);
         });
 
-        test('non selected node and non adjacent should have opacity equal to that.highlightOpacity and color equal to that.nodeColor', () => {
+        test("non selected node and non adjacent should have opacity equal to that.highlightOpacity and color equal to that.nodeColor", () => {
             let linksNodes = that.tree.children[0].children[1].children;
             let node = linksNodes[linksNodes.length - nodeOffset];
 

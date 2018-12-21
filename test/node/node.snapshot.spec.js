@@ -1,9 +1,9 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import React from "react";
+import renderer from "react-test-renderer";
 
-import Node from '../../src/components/node/Node';
+import Node from "../../src/components/node/Node";
 
-describe('Snapshot - Node Component', () => {
+describe("Snapshot - Node Component", () => {
     let that = {};
 
     beforeEach(() => {
@@ -38,7 +38,7 @@ describe('Snapshot - Node Component', () => {
         that.tree = that.node.toJSON();
     });
 
-    test('should match snapshot', () => {
+    test("should match snapshot", () => {
         expect(that.tree).toMatchSnapshot();
     });
 });
