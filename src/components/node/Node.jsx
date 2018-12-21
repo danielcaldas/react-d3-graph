@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import CONST from './node.const';
+import CONST from "./node.const";
 
-import nodeHelper from './node.helper';
+import nodeHelper from "./node.helper";
 
 /**
  * Node component is responsible for encapsulating node render.
@@ -80,7 +80,7 @@ export default class Node extends React.Component {
             onContextMenu: this.handleOnRightClickNode,
             onMouseOut: this.handleOnMouseOutNode,
             onMouseOver: this.handleOnMouseOverNode,
-            opacity: this.props.opacity
+            opacity: this.props.opacity,
         };
 
         const textProps = {
@@ -89,7 +89,7 @@ export default class Node extends React.Component {
             fill: this.props.fontColor,
             fontSize: this.props.fontSize,
             fontWeight: this.props.fontWeight,
-            opacity: this.props.opacity
+            opacity: this.props.opacity,
         };
 
         const size = this.props.size;
@@ -116,7 +116,7 @@ export default class Node extends React.Component {
                 node = (
                     <svg {...nodeProps} width={width} height={height}>
                         <foreignObject x="0" y="0" width="100%" height="100%">
-                            <section style={{ height, width, backgroundColor: 'transparent' }}>
+                            <section style={{ height, width, backgroundColor: "transparent" }}>
                                 {this.props.viewGenerator(this.props)}
                             </section>
                         </foreignObject>
@@ -144,7 +144,7 @@ export default class Node extends React.Component {
             cx: this.props.cx,
             cy: this.props.cy,
             id: this.props.id,
-            transform: `translate(${gtx},${gty})`
+            transform: `translate(${gtx},${gty})`,
         };
 
         return (

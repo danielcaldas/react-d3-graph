@@ -24,19 +24,19 @@ import {
     forceX as d3ForceX,
     forceY as d3ForceY,
     forceSimulation as d3ForceSimulation,
-    forceManyBody as d3ForceManyBody
-} from 'd3-force';
+    forceManyBody as d3ForceManyBody,
+} from "d3-force";
 
-import CONST from './graph.const';
-import DEFAULT_CONFIG from './graph.config';
-import ERRORS from '../../err';
+import CONST from "./graph.const";
+import DEFAULT_CONFIG from "./graph.config";
+import ERRORS from "../../err";
 
-import utils from '../../utils';
-import { buildLinkPathDefinition } from '../link/link.helper';
-import { getMarkerId } from '../marker/marker.helper';
-import { computeNodeDegree } from './collapse.helper';
+import utils from "../../utils";
+import { buildLinkPathDefinition } from "../link/link.helper";
+import { getMarkerId } from "../marker/marker.helper";
+import { computeNodeDegree } from "./collapse.helper";
 
-const NODE_PROPS_WHITELIST = ['id', 'highlighted', 'x', 'y', 'index', 'vy', 'vx'];
+const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
 
 /**
  * Create d3 forceSimulation to be applied on the graph.<br/>
@@ -55,9 +55,9 @@ function _createForceSimulation(width, height, gravity) {
     const forceStrength = gravity;
 
     return d3ForceSimulation()
-        .force('charge', d3ForceManyBody().strength(forceStrength))
-        .force('x', frx)
-        .force('y', fry);
+        .force("charge", d3ForceManyBody().strength(forceStrength))
+        .force("x", frx)
+        .force("y", fry);
 }
 
 /**
@@ -144,10 +144,10 @@ function _initializeNodes(graphNodes) {
 
         node.highlighted = false;
 
-        if (!node.hasOwnProperty('x')) {
+        if (!node.hasOwnProperty("x")) {
             node.x = 0;
         }
-        if (!node.hasOwnProperty('y')) {
+        if (!node.hasOwnProperty("y")) {
             node.y = 0;
         }
 
@@ -187,17 +187,17 @@ function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
     const highlighted = false;
     const source = {
         id: link.source,
-        highlighted
+        highlighted,
     };
     const target = {
         id: link.target,
-        highlighted
+        highlighted,
     };
 
     return {
         index,
         source,
-        target
+        target,
     };
 }
 
@@ -232,7 +232,7 @@ function _tagOrphanNodes(nodes, linksMatrix) {
  */
 function _validateGraphData(data) {
     if (!data.nodes || !data.nodes.length) {
-        utils.throwErr('Graph', ERRORS.INSUFFICIENT_DATA);
+        utils.throwErr("Graph", ERRORS.INSUFFICIENT_DATA);
     }
 
     const n = data.links.length;
@@ -241,16 +241,16 @@ function _validateGraphData(data) {
         const l = data.links[i];
 
         if (!data.nodes.find(n => n.id === l.source)) {
-            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - "${l.source}" is not a valid source node id`);
+            utils.throwErr("Graph", `${ERRORS.INVALID_LINKS} - "${l.source}" is not a valid source node id`);
         }
 
         if (!data.nodes.find(n => n.id === l.target)) {
-            utils.throwErr('Graph', `${ERRORS.INVALID_LINKS} - "${l.target}" is not a valid target node id`);
+            utils.throwErr("Graph", `${ERRORS.INVALID_LINKS} - "${l.target}" is not a valid target node id`);
         }
 
-        if (l && l.value !== undefined && typeof l.value !== 'number') {
+        if (l && l.value !== undefined && typeof l.value !== "number") {
             utils.throwErr(
-                'Graph',
+                "Graph",
                 `${ERRORS.INVALID_LINK_VALUE} - found in link with source "${l.source}" and target "${l.target}"`
             );
         }
@@ -316,7 +316,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     if (config.link.semanticStrokeWidth) {
         const linkValue = links[source][target] || links[target][source] || 1;
 
-        strokeWidth += linkValue * strokeWidth / 10;
+        strokeWidth += (linkValue * strokeWidth) / 10;
     }
 
     const markerId = config.directed ? getMarkerId(highlight, transform, config) : null;
@@ -334,7 +334,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         onClickLink: linkCallbacks.onClickLink,
         onRightClickLink: linkCallbacks.onRightClickLink,
         onMouseOverLink: linkCallbacks.onMouseOverLink,
-        onMouseOutLink: linkCallbacks.onMouseOutLink
+        onMouseOutLink: linkCallbacks.onMouseOutLink,
     };
 }
 
@@ -369,7 +369,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
 
     let label = node[config.node.labelProperty] || node.id;
 
-    if (typeof config.node.labelProperty === 'function') {
+    if (typeof config.node.labelProperty === "function") {
         label = config.node.labelProperty(node);
     }
 
@@ -385,8 +385,8 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         ...node,
         className: CONST.NODE_CLASS_NAME,
         cursor: config.node.mouseCursor,
-        cx: (node && node.x) || '0',
-        cy: (node && node.y) || '0',
+        cx: (node && node.x) || "0",
+        cy: (node && node.y) || "0",
         fill,
         fontColor,
         fontSize: fontSize * t,
@@ -406,12 +406,12 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         svg,
         type: node.symbolType || config.node.symbolType,
         viewGenerator: node.viewGenerator || config.node.viewGenerator,
-        overrideGlobalViewGenerator: !node.viewGenerator && node.svg
+        overrideGlobalViewGenerator: !node.viewGenerator && node.svg,
     };
 }
 
 // list of properties that are of no interest when it comes to nodes and links comparison
-const NODE_PROPERTIES_DISCARD_TO_COMPARE = ['x', 'y', 'vx', 'vy', 'index'];
+const NODE_PROPERTIES_DISCARD_TO_COMPARE = ["x", "y", "vx", "vy", "index"];
 
 /**
  * This function checks for graph elements (nodes and links) changes, in two different
@@ -433,7 +433,7 @@ function checkForGraphElementsChanges(nextProps, currentState) {
     const stateD3Links = currentState.d3Links.map(l => ({
         // FIXME: solve this source data inconsistency later
         source: l.source.id || l.source,
-        target: l.target.id || l.target
+        target: l.target.id || l.target,
     }));
     const graphElementsUpdated = !(
         utils.isDeepEqual(nextNodes, stateD3Nodes) && utils.isDeepEqual(nextLinks, stateD3Links)
@@ -504,18 +504,17 @@ function initializeGraphState({ data, id, config }, state) {
 
     if (state && state.nodes) {
         graph = {
-            nodes: data.nodes.map(
-                n =>
-                    state.nodes[n.id]
-                        ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
-                        : Object.assign({}, n)
+            nodes: data.nodes.map(n =>
+                state.nodes[n.id]
+                    ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
+                    : Object.assign({}, n)
             ),
-            links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links, config, state))
+            links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links, config, state)),
         };
     } else {
         graph = {
             nodes: data.nodes.map(n => Object.assign({}, n)),
-            links: data.links.map(l => Object.assign({}, l))
+            links: data.links.map(l => Object.assign({}, l)),
         };
     }
 
@@ -523,7 +522,7 @@ function initializeGraphState({ data, id, config }, state) {
     let links = _initializeLinks(graph.links, newConfig); // matrix of graph connections
     let nodes = _tagOrphanNodes(_initializeNodes(graph.nodes), links);
     const { nodes: d3Nodes, links: d3Links } = graph;
-    const formatedId = id.replace(/ /g, '_');
+    const formatedId = id.replace(/ /g, "_");
     const simulation = _createForceSimulation(newConfig.width, newConfig.height, newConfig.d3 && newConfig.d3.gravity);
 
     const { minZoom, maxZoom, focusZoom } = newConfig;
@@ -541,11 +540,11 @@ function initializeGraphState({ data, id, config }, state) {
         d3Links,
         nodes,
         d3Nodes,
-        highlightedNode: '',
+        highlightedNode: "",
         simulation,
         newGraphElements: false,
         configUpdated: false,
-        transform: 1
+        transform: 1,
     };
 }
 
@@ -561,7 +560,7 @@ function initializeGraphState({ data, id, config }, state) {
  * @memberof Graph/helper
  */
 function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
-    const highlightedNode = value ? id : '';
+    const highlightedNode = value ? id : "";
     const node = Object.assign({}, nodes[id], { highlighted: value });
     let updatedNodes = Object.assign({}, nodes, { [id]: node });
 
@@ -576,7 +575,7 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
 
     return {
         nodes: updatedNodes,
-        highlightedNode
+        highlightedNode,
     };
 }
 
@@ -587,5 +586,5 @@ export {
     checkForGraphElementsChanges,
     getCenterAndZoomTransformation,
     initializeGraphState,
-    updateNodeHighlightedValue
+    updateNodeHighlightedValue,
 };

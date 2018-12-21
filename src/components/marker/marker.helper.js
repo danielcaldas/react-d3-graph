@@ -3,7 +3,7 @@
  * @description
  * Offers a series of methods to compute proper markers within a given context.
  */
-import { MARKERS, SIZES, HIGHLIGHTED } from './marker.const';
+import { MARKERS, SIZES, HIGHLIGHTED } from "./marker.const";
 
 /**
  * This function is a key template builder to access MARKERS structure.
@@ -49,7 +49,7 @@ function _computeMarkerId(highlight, transform, { maxZoom }) {
     const mMax = maxZoom / 4;
     const lMax = maxZoom / 2;
     const size = _getMarkerSize(transform, mMax, lMax);
-    const highlighted = highlight ? HIGHLIGHTED : '';
+    const highlighted = highlight ? HIGHLIGHTED : "";
     const markerKey = _markerKeyBuilder(size, highlighted);
 
     return MARKERS[markerKey];

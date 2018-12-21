@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react";
 
-import { drag as d3Drag } from 'd3-drag';
-import { forceLink as d3ForceLink } from 'd3-force';
-import { select as d3Select, selectAll as d3SelectAll, event as d3Event } from 'd3-selection';
-import { zoom as d3Zoom } from 'd3-zoom';
+import { drag as d3Drag } from "d3-drag";
+import { forceLink as d3ForceLink } from "d3-force";
+import { select as d3Select, selectAll as d3SelectAll, event as d3Event } from "d3-selection";
+import { zoom as d3Zoom } from "d3-zoom";
 
-import CONST from './graph.const';
-import DEFAULT_CONFIG from './graph.config';
-import ERRORS from '../../err';
+import CONST from "./graph.const";
+import DEFAULT_CONFIG from "./graph.config";
+import ERRORS from "../../err";
 
-import * as collapseHelper from './collapse.helper';
-import * as graphHelper from './graph.helper';
-import * as graphRenderer from './graph.renderer';
-import utils from '../../utils';
+import * as collapseHelper from "./collapse.helper";
+import * as graphHelper from "./graph.helper";
+import * as graphRenderer from "./graph.renderer";
+import utils from "../../utils";
 
 /**
  * Graph component is the main component for react-d3-graph components, its interface allows its user
@@ -106,7 +106,7 @@ export default class Graph extends React.Component {
      * @returns {undefined}
      */
     _graphForcesConfig() {
-        this.state.simulation.nodes(this.state.d3Nodes).on('tick', this._tick);
+        this.state.simulation.nodes(this.state.d3Nodes).on("tick", this._tick);
 
         const forceLink = d3ForceLink(this.state.d3Links)
             .id(l => l.id)
@@ -116,12 +116,12 @@ export default class Graph extends React.Component {
         this.state.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
 
         const customNodeDrag = d3Drag()
-            .on('start', this._onDragStart)
-            .on('drag', this._onDragMove)
-            .on('end', this._onDragEnd);
+            .on("start", this._onDragStart)
+            .on("drag", this._onDragMove)
+            .on("end", this._onDragEnd);
 
         d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`)
-            .selectAll('.node')
+            .selectAll(".node")
             .call(customNodeDrag);
     }
 
@@ -154,8 +154,8 @@ export default class Graph extends React.Component {
             draggedNode.y += d3Event.dy;
 
             // set nodes fixing coords fx and fy
-            draggedNode['fx'] = draggedNode.x;
-            draggedNode['fy'] = draggedNode.y;
+            draggedNode["fx"] = draggedNode.x;
+            draggedNode["fy"] = draggedNode.y;
 
             this._tick();
         }
@@ -201,7 +201,7 @@ export default class Graph extends React.Component {
         d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).call(
             d3Zoom()
                 .scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
-                .on('zoom', this._zoomed)
+                .on("zoom", this._zoomed)
         );
 
     /**
@@ -211,7 +211,7 @@ export default class Graph extends React.Component {
     _zoomed = () => {
         const transform = d3Event.transform;
 
-        d3SelectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr('transform', transform);
+        d3SelectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr("transform", transform);
 
         this.state.config.panAndZoom && this.setState({ transform: transform.k });
     };
@@ -289,8 +289,8 @@ export default class Graph extends React.Component {
                 let node = this.state.nodes[nodeId];
 
                 if (node.fx && node.fy) {
-                    Reflect.deleteProperty(node, 'fx');
-                    Reflect.deleteProperty(node, 'fy');
+                    Reflect.deleteProperty(node, "fx");
+                    Reflect.deleteProperty(node, "fy");
                 }
             }
 
@@ -357,7 +357,7 @@ export default class Graph extends React.Component {
             transform,
             focusedNodeId,
             enableFocusAnimation,
-            focusTransformation
+            focusTransformation,
         });
     }
 
@@ -412,7 +412,7 @@ export default class Graph extends React.Component {
             this._tick(
                 {
                     links,
-                    d3Links
+                    d3Links,
                 },
                 () => this.props.onClickNode && this.props.onClickNode(clickedNodeId)
             );
@@ -435,7 +435,7 @@ export default class Graph extends React.Component {
         // toUpperCase() is added as a precaution, as the documentation says tagName should always
         // return in UPPERCASE, but chrome returns lowercase
         if (
-            e.target.tagName.toUpperCase() === 'SVG' &&
+            e.target.tagName.toUpperCase() === "SVG" &&
             e.target.attributes.name.value === `svg-container-${this.state.id}`
         ) {
             this.props.onClickGraph && this.props.onClickGraph();
@@ -467,7 +467,7 @@ export default class Graph extends React.Component {
 
         return {
             style: { transitionDuration: `${transitionDuration}s` },
-            transform: focusedNodeId ? this.state.focusTransformation : null
+            transform: focusedNodeId ? this.state.focusTransformation : null,
         };
     };
 
@@ -478,7 +478,7 @@ export default class Graph extends React.Component {
                 onClickNode: this.onClickNode,
                 onRightClickNode: this.props.onRightClickNode,
                 onMouseOverNode: this.onMouseOverNode,
-                onMouseOut: this.onMouseOutNode
+                onMouseOut: this.onMouseOutNode,
             },
             this.state.d3Links,
             this.state.links,
@@ -486,7 +486,7 @@ export default class Graph extends React.Component {
                 onClickLink: this.props.onClickLink,
                 onRightClickLink: this.props.onRightClickLink,
                 onMouseOverLink: this.onMouseOverLink,
-                onMouseOutLink: this.onMouseOutLink
+                onMouseOutLink: this.onMouseOutLink,
             },
             this.state.config,
             this.state.highlightedNode,
@@ -496,7 +496,7 @@ export default class Graph extends React.Component {
 
         const svgStyle = {
             height: this.state.config.height,
-            width: this.state.config.width
+            width: this.state.config.width,
         };
 
         const containerProps = this._generateFocusAnimationProps();

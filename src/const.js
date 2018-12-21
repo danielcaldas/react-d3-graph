@@ -5,12 +5,12 @@
  */
 export default {
     SYMBOLS: {
-        CIRCLE: 'circle',
-        CROSS: 'cross',
-        DIAMOND: 'diamond',
-        SQUARE: 'square',
-        STAR: 'star',
-        TRIANGLE: 'triangle',
-        WYE: 'wye'
-    }
+        CIRCLE: "circle",
+        CROSS: "cross",
+        DIAMOND: "diamond",
+        SQUARE: "square",
+        STAR: "star",
+        TRIANGLE: "triangle",
+        WYE: "wye",
+    },
 };

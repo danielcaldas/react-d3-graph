@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * Link component is responsible for encapsulating link render.
@@ -68,8 +68,8 @@ export default class Link extends React.Component {
             strokeWidth: this.props.strokeWidth,
             stroke: this.props.stroke,
             opacity: this.props.opacity,
-            fill: 'none',
-            cursor: this.props.mouseCursor
+            fill: "none",
+            cursor: this.props.mouseCursor,
         };
 
         const lineProps = {
@@ -79,7 +79,7 @@ export default class Link extends React.Component {
             onContextMenu: this.handleOnRightClickLink,
             onMouseOut: this.handleOnMouseOutLink,
             onMouseOver: this.handleOnMouseOverLink,
-            style: lineStyle
+            style: lineStyle,
         };
 
         if (this.props.markerId) {

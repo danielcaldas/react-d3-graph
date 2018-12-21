@@ -80,14 +80,14 @@ function computeNodeDegree(nodeId, linksMatrix = {}) {
                 if (nodeId === source) {
                     return {
                         ..._acc,
-                        outDegree: _acc.outDegree + linksMatrix[nodeId][target]
+                        outDegree: _acc.outDegree + linksMatrix[nodeId][target],
                     };
                 }
 
                 if (nodeId === target) {
                     return {
                         ..._acc,
-                        inDegree: _acc.inDegree + linksMatrix[source][nodeId]
+                        inDegree: _acc.inDegree + linksMatrix[source][nodeId],
                     };
                 }
 
@@ -96,7 +96,7 @@ function computeNodeDegree(nodeId, linksMatrix = {}) {
         },
         {
             inDegree: 0,
-            outDegree: 0
+            outDegree: 0,
         }
     );
 }
@@ -120,7 +120,7 @@ function getTargetLeafConnections(rootNodeId, linksMatrix = {}, { directed }) {
         if (_isLeaf(target, linksMatrix, directed)) {
             leafConnections.push({
                 source: rootNodeId,
-                target
+                target,
             });
         }
 
@@ -207,5 +207,5 @@ export {
     getTargetLeafConnections,
     isNodeVisible,
     toggleLinksConnections,
-    toggleLinksMatrixConnections
+    toggleLinksMatrixConnections,
 };

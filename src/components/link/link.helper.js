@@ -3,7 +3,7 @@
  * @description
  * A set of helper methods to manipulate/create links.
  */
-import { LINE_TYPES } from './link.const';
+import { LINE_TYPES } from "./link.const";
 
 /**
  * Computes radius value for a straight line.
@@ -42,7 +42,7 @@ function fullCurveRadius() {
 const RADIUS_STRATEGIES = {
     [LINE_TYPES.STRAIGHT]: straightLineRadius,
     [LINE_TYPES.CURVE_SMOOTH]: smoothCurveRadius,
-    [LINE_TYPES.CURVE_FULL]: fullCurveRadius
+    [LINE_TYPES.CURVE_FULL]: fullCurveRadius,
 };
 
 /**
