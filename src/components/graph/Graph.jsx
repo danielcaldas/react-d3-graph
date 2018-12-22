@@ -472,7 +472,7 @@ export default class Graph extends React.Component {
     };
 
     render() {
-        const { nodes, links, defs } = graphRenderer.buildGraph(
+        const { nodes, links, defs } = graphRenderer.renderGraph(
             this.state.nodes,
             {
                 onClickNode: this.onClickNode,

@@ -63,9 +63,9 @@ function _createForceSimulation(width, height, gravity) {
 /**
  * Get the correct node opacity in order to properly make decisions based on context such as currently highlighted node.
  * @param  {Object} node - the node object for whom we will generate properties.
- * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
- * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
- * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @param  {string} highlightedNode - same as {@link #renderGraph|highlightedNode in renderGraph}.
+ * @param  {Object} highlightedLink - same as {@link #renderGraph|highlightedLink in renderGraph}.
+ * @param  {Object} config - same as {@link #renderGraph|config in renderGraph}.
  * @returns {number} the opacity value for the given node.
  * @memberof Graph/helper
  */
@@ -164,7 +164,7 @@ function _initializeNodes(graphNodes) {
  * @param {Object} link - input link.
  * @param {number} index - index of the input link.
  * @param {Array.<Object>} d3Links - all d3Links.
- * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @param  {Object} config - same as {@link #renderGraph|config in renderGraph}.
  * @param {Object} state - Graph component current state (same format as returned object on this function).
  * @returns {Object} a d3Link.
  * @memberof Graph/helper
@@ -260,12 +260,12 @@ function _validateGraphData(data) {
 /**
  * Build some Link properties based on given parameters.
  * @param  {Object} link - the link object for which we will generate properties.
- * @param  {Object.<string, Object>} nodes - same as {@link #buildGraph|nodes in buildGraph}.
- * @param  {Object.<string, Object>} links - same as {@link #buildGraph|links in buildGraph}.
- * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
- * @param  {Function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
- * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
- * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
+ * @param  {Object.<string, Object>} nodes - same as {@link #renderGraph|nodes in renderGraph}.
+ * @param  {Object.<string, Object>} links - same as {@link #renderGraph|links in renderGraph}.
+ * @param  {Object} config - same as {@link #renderGraph|config in renderGraph}.
+ * @param  {Function[]} linkCallbacks - same as {@link #renderGraph|linkCallbacks in renderGraph}.
+ * @param  {string} highlightedNode - same as {@link #renderGraph|highlightedNode in renderGraph}.
+ * @param  {Object} highlightedLink - same as {@link #renderGraph|highlightedLink in renderGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object} returns an object that aggregates all props for creating respective Link component instance.
  * @memberof Graph/helper
@@ -341,10 +341,10 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
 /**
  * Build some Node properties based on given parameters.
  * @param  {Object} node - the node object for whom we will generate properties.
- * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
- * @param  {Function[]} nodeCallbacks - same as {@link #buildGraph|nodeCallbacks in buildGraph}.
- * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
- * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
+ * @param  {Object} config - same as {@link #renderGraph|config in renderGraph}.
+ * @param  {Function[]} nodeCallbacks - same as {@link #renderGraph|nodeCallbacks in renderGraph}.
+ * @param  {string} highlightedNode - same as {@link #renderGraph|highlightedNode in renderGraph}.
+ * @param  {Object} highlightedLink - same as {@link #renderGraph|highlightedLink in renderGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object} returns object that contain Link props ready to be feeded to the Link component.
  * @memberof Graph/helper
@@ -469,7 +469,7 @@ function checkForGraphConfigChanges(nextProps, currentState) {
  * Returns the transformation to apply in order to center the graph on the
  * selected node.
  * @param {Object} d3Node - node to focus the graph view on.
- * @param {Object} config - same as {@link #buildGraph|config in buildGraph}.
+ * @param {Object} config - same as {@link #renderGraph|config in renderGraph}.
  * @returns {string} transform rule to apply.
  * @memberof Graph/helper
  */
@@ -492,7 +492,7 @@ function getCenterAndZoomTransformation(d3Node, config) {
  * @param {Object} props - Graph component props, object that holds data, id and config.
  * @param {Object} props.data - Data object holds links (array of **Link**) and nodes (array of **Node**).
  * @param {string} props.id - the graph id.
- * @param {Object} props.config - same as {@link #buildGraph|config in buildGraph}.
+ * @param {Object} props.config - same as {@link #renderGraph|config in renderGraph}.
  * @param {Object} state - Graph component current state (same format as returned object on this function).
  * @returns {Object} a fully (re)initialized graph state object.
  * @memberof Graph/helper
