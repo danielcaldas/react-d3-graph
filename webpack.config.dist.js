@@ -1,5 +1,6 @@
 const path = require("path");
 const Visualizer = require("webpack-visualizer-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 module.exports = {
     context: path.join(__dirname, "src"),
@@ -23,5 +24,12 @@ module.exports = {
     resolve: {
         extensions: [".js", ".jsx"],
     },
-    plugins: [new Visualizer({ filename: "../gen-docs/stats.html" })],
+    plugins: [
+        new BundleAnalyzerPlugin({
+            analyzerMode: "static",
+            reportFilename: "../gen-docs/bundle-analyser-stats.html",
+            openAnalyzer: true,
+        }),
+        new Visualizer({ filename: "../gen-docs/visualizer-stats.html" }),
+    ],
 };
