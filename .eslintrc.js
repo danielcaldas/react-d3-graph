@@ -7,6 +7,7 @@ module.exports = {
         Cypress: true,
         cy: true,
         module: true,
+        __dirname: true,
     },
     parser: "babel-eslint",
     parserOptions: {
