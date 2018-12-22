@@ -102,6 +102,35 @@ import utils from "../../utils";
  */
 export default class Graph extends React.Component {
     /**
+     * Obtain a set of properties which will be used to perform the focus and zoom animation if
+     * required. In case there's not a focus and zoom animation in progress, it should reset the
+     * transition duration to zero and clear transformation styles.
+     * @returns {Object} - Focus and zoom animation properties.
+     */
+    _generateFocusAnimationProps = () => {
+        const { focusedNodeId } = this.state;
+
+        // In case an older animation was still not complete, clear previous timeout to ensure the new one is not cancelled
+        if (this.state.enableFocusAnimation) {
+            if (this.focusAnimationTimeout) {
+                clearTimeout(this.focusAnimationTimeout);
+            }
+
+            this.focusAnimationTimeout = setTimeout(
+                () => this.setState({ enableFocusAnimation: false }),
+                this.state.config.focusAnimationDuration * 1000
+            );
+        }
+
+        const transitionDuration = this.state.enableFocusAnimation ? this.state.config.focusAnimationDuration : 0;
+
+        return {
+            style: { transitionDuration: `${transitionDuration}s` },
+            transform: focusedNodeId ? this.state.focusTransformation : null,
+        };
+    };
+
+    /**
      * Sets d3 tick function and configures other d3 stuff such as forces and drag events.
      * @returns {undefined}
      */
@@ -214,6 +243,58 @@ export default class Graph extends React.Component {
         d3SelectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr("transform", transform);
 
         this.state.config.panAndZoom && this.setState({ transform: transform.k });
+    };
+
+    /**
+     * Calls the callback passed to the component.
+     * @param  {Object} e - The event of onClick handler.
+     * @returns {undefined}
+     */
+    onClickGraph = e => {
+        if (this.state.enableFocusAnimation) {
+            this.setState({ enableFocusAnimation: false });
+        }
+
+        // Only trigger the graph onClickHandler, if not clicked a node or link.
+        // toUpperCase() is added as a precaution, as the documentation says tagName should always
+        // return in UPPERCASE, but chrome returns lowercase
+        if (
+            e.target.tagName.toUpperCase() === "SVG" &&
+            e.target.attributes.name.value === `svg-container-${this.state.id}`
+        ) {
+            this.props.onClickGraph && this.props.onClickGraph();
+        }
+    };
+
+    /**
+     * Collapses the nodes, then calls the callback passed to the component.
+     * @param  {string} clickedNodeId - The id of the node where the click was performed.
+     * @returns {undefined}
+     */
+    onClickNode = clickedNodeId => {
+        if (this.state.config.collapsible) {
+            const leafConnections = collapseHelper.getTargetLeafConnections(
+                clickedNodeId,
+                this.state.links,
+                this.state.config
+            );
+            const links = collapseHelper.toggleLinksMatrixConnections(
+                this.state.links,
+                leafConnections,
+                this.state.config
+            );
+            const d3Links = collapseHelper.toggleLinksConnections(this.state.d3Links, links);
+
+            this._tick(
+                {
+                    links,
+                    d3Links,
+                },
+                () => this.props.onClickNode && this.props.onClickNode(clickedNodeId)
+            );
+        } else {
+            this.props.onClickNode && this.props.onClickNode(clickedNodeId);
+        }
     };
 
     /**
@@ -389,87 +470,6 @@ export default class Graph extends React.Component {
     componentWillUnmount() {
         this.pauseSimulation();
     }
-
-    /**
-     * Collapses the nodes, then calls the callback passed to the component.
-     * @param  {string} clickedNodeId - The id of the node where the click was performed.
-     * @returns {undefined}
-     */
-    onClickNode = clickedNodeId => {
-        if (this.state.config.collapsible) {
-            const leafConnections = collapseHelper.getTargetLeafConnections(
-                clickedNodeId,
-                this.state.links,
-                this.state.config
-            );
-            const links = collapseHelper.toggleLinksMatrixConnections(
-                this.state.links,
-                leafConnections,
-                this.state.config
-            );
-            const d3Links = collapseHelper.toggleLinksConnections(this.state.d3Links, links);
-
-            this._tick(
-                {
-                    links,
-                    d3Links,
-                },
-                () => this.props.onClickNode && this.props.onClickNode(clickedNodeId)
-            );
-        } else {
-            this.props.onClickNode && this.props.onClickNode(clickedNodeId);
-        }
-    };
-
-    /**
-     * Calls the callback passed to the component.
-     * @param  {Object} e - The event of onClick handler.
-     * @returns {undefined}
-     */
-    onClickGraph = e => {
-        if (this.state.enableFocusAnimation) {
-            this.setState({ enableFocusAnimation: false });
-        }
-
-        // Only trigger the graph onClickHandler, if not clicked a node or link.
-        // toUpperCase() is added as a precaution, as the documentation says tagName should always
-        // return in UPPERCASE, but chrome returns lowercase
-        if (
-            e.target.tagName.toUpperCase() === "SVG" &&
-            e.target.attributes.name.value === `svg-container-${this.state.id}`
-        ) {
-            this.props.onClickGraph && this.props.onClickGraph();
-        }
-    };
-
-    /**
-     * Obtain a set of properties which will be used to perform the focus and zoom animation if
-     * required. In case there's not a focus and zoom animation in progress, it should reset the
-     * transition duration to zero and clear transformation styles.
-     * @returns {Object} - Focus and zoom animation properties.
-     */
-    _generateFocusAnimationProps = () => {
-        const { focusedNodeId } = this.state;
-
-        // In case an older animation was still not complete, clear previous timeout to ensure the new one is not cancelled
-        if (this.state.enableFocusAnimation) {
-            if (this.focusAnimationTimeout) {
-                clearTimeout(this.focusAnimationTimeout);
-            }
-
-            this.focusAnimationTimeout = setTimeout(
-                () => this.setState({ enableFocusAnimation: false }),
-                this.state.config.focusAnimationDuration * 1000
-            );
-        }
-
-        const transitionDuration = this.state.enableFocusAnimation ? this.state.config.focusAnimationDuration : 0;
-
-        return {
-            style: { transitionDuration: `${transitionDuration}s` },
-            transform: focusedNodeId ? this.state.focusTransformation : null,
-        };
-    };
 
     render() {
         const { nodes, links, defs } = graphRenderer.renderGraph(
