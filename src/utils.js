@@ -17,7 +17,7 @@ const MAX_DEPTH = 20;
  * @memberof utils
  */
 function _isPropertyNestedObject(o, k) {
-    return !!o && o.hasOwnProperty(k) && typeof o[k] === 'object' && o[k] !== null && !isEmptyObject(o[k]);
+    return !!o && o.hasOwnProperty(k) && typeof o[k] === "object" && o[k] !== null && !isEmptyObject(o[k]);
 }
 
 /**
@@ -73,7 +73,7 @@ function isDeepEqual(o1, o2, _depth = 0) {
  * @memberof utils
  */
 function isEmptyObject(o) {
-    return !!o && typeof o === 'object' && !Object.keys(o).length;
+    return !!o && typeof o === "object" && !Object.keys(o).length;
 }
 
 /**
@@ -117,13 +117,13 @@ function merge(o1 = {}, o2 = {}, _depth = 0) {
     }
 
     for (let k of Object.keys(o1)) {
-        const nestedO = !!(o2[k] && typeof o2[k] === 'object' && typeof o1[k] === 'object' && _depth < MAX_DEPTH);
+        const nestedO = !!(o2[k] && typeof o2[k] === "object" && typeof o1[k] === "object" && _depth < MAX_DEPTH);
 
         if (nestedO) {
             const r = merge(o1[k], o2[k], _depth + 1);
 
             o[k] =
-                o1[k].hasOwnProperty('length') && o2[k].hasOwnProperty('length') ? Object.keys(r).map(rk => r[rk]) : r;
+                o1[k].hasOwnProperty("length") && o2[k].hasOwnProperty("length") ? Object.keys(r).map(rk => r[rk]) : r;
         } else {
             o[k] = o2.hasOwnProperty(k) ? o2[k] : o1[k];
         }
@@ -183,5 +183,5 @@ export default {
     merge,
     pick,
     antiPick,
-    throwErr
+    throwErr,
 };

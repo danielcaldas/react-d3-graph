@@ -1,12 +1,11 @@
-/*global cy*/
-const SANDBOX_URL = Cypress.env('SANDBOX_URL');
+const SANDBOX_URL = Cypress.env("SANDBOX_URL");
 
-const LinkPO = require('../page-objects/link.po');
-const NodePO = require('../page-objects/node.po');
-const SandboxPO = require('../page-objects/sandbox.po');
-let nodes = require('./../../sandbox/data/small/small.data').nodes.map(({ id }) => id);
+const LinkPO = require("../page-objects/link.po");
+const NodePO = require("../page-objects/node.po");
+const SandboxPO = require("../page-objects/sandbox.po");
+let nodes = require("./../../sandbox/data/small/small.data").nodes.map(({ id }) => id);
 
-describe('[rd3g-link] link tests', function() {
+describe("[rd3g-link] link tests", function() {
     before(function() {
         this.sandboxPO = new SandboxPO();
         // visit sandbox
@@ -26,162 +25,162 @@ describe('[rd3g-link] link tests', function() {
         this.link34PO = new LinkPO(3);
     });
 
-    describe('when highlightDegree is 0', function() {
+    describe("when highlightDegree is 0", function() {
         beforeEach(function() {
             // set highlightDegree to 0
-            cy.contains('highlightDegree').scrollIntoView();
+            cy.contains("highlightDegree").scrollIntoView();
             this.sandboxPO
-                .getFieldInput('highlightDegree')
+                .getFieldInput("highlightDegree")
                 .clear()
-                .type('0');
+                .type("0");
         });
 
-        it('(0) graph should react properly to mouse over events on nodes and links', function() {
+        it("(0) graph should react properly to mouse over events on nodes and links", function() {
             // mouse over 'Node 3'
             // highlight node 3 only
-            this.node3PO.getPath().trigger('mouseover');
+            this.node3PO.getPath().trigger("mouseover");
 
-            this.node1PO.getColor().should('eq', '#d3d3d3');
-            this.node1PO.getOpacity().should('eq', '0.2');
+            this.node1PO.getColor().should("eq", "#d3d3d3");
+            this.node1PO.getOpacity().should("eq", "0.2");
 
-            this.node2PO.getColor().should('eq', '#d3d3d3');
-            this.node2PO.getOpacity().should('eq', '0.2');
+            this.node2PO.getColor().should("eq", "#d3d3d3");
+            this.node2PO.getOpacity().should("eq", "0.2");
 
-            this.node3PO.getColor().should('eq', 'red');
-            this.node3PO.getFontWeight().should('eq', 'bold');
+            this.node3PO.getColor().should("eq", "red");
+            this.node3PO.getFontWeight().should("eq", "bold");
 
-            this.node4PO.getColor().should('eq', '#d3d3d3');
-            this.node4PO.getOpacity().should('eq', '0.2');
+            this.node4PO.getColor().should("eq", "#d3d3d3");
+            this.node4PO.getOpacity().should("eq", "0.2");
 
-            this.link12PO.shouldHaveColor('rgb(211, 211, 211)');
+            this.link12PO.shouldHaveColor("rgb(211, 211, 211)");
             this.link12PO.shouldHaveOpacity(0.2);
 
-            this.link13PO.shouldHaveColor('rgb(211, 211, 211)');
+            this.link13PO.shouldHaveColor("rgb(211, 211, 211)");
             this.link13PO.shouldHaveOpacity(0.2);
 
-            this.link14PO.shouldHaveColor('rgb(211, 211, 211)');
+            this.link14PO.shouldHaveColor("rgb(211, 211, 211)");
             this.link14PO.shouldHaveOpacity(0.2);
 
-            this.link34PO.shouldHaveColor('rgb(211, 211, 211)');
+            this.link34PO.shouldHaveColor("rgb(211, 211, 211)");
             this.link34PO.shouldHaveOpacity(0.2);
         });
     });
 
-    describe('when highlightDegree is 1', function() {
+    describe("when highlightDegree is 1", function() {
         beforeEach(function() {
             // set highlightDegree to 1
-            cy.contains('highlightDegree').scrollIntoView();
+            cy.contains("highlightDegree").scrollIntoView();
             this.sandboxPO
-                .getFieldInput('highlightDegree')
+                .getFieldInput("highlightDegree")
                 .clear()
-                .type('1');
+                .type("1");
         });
 
-        it('(1) graph should react properly to mouse over events on nodes and links', function() {
+        it("(1) graph should react properly to mouse over events on nodes and links", function() {
             // mouse over 'Node 3'
             // highlight nodes 1, 3 and 4 and respective links
             // not highlight node 2 and other connections
-            this.node3PO.getPath().trigger('mouseover');
+            this.node3PO.getPath().trigger("mouseover");
 
-            this.node1PO.getColor().should('eq', 'red');
-            this.node1PO.getFontWeight().should('eq', 'bold');
+            this.node1PO.getColor().should("eq", "red");
+            this.node1PO.getFontWeight().should("eq", "bold");
 
-            this.node2PO.getColor().should('eq', '#d3d3d3');
-            this.node2PO.getOpacity().should('eq', '0.2');
+            this.node2PO.getColor().should("eq", "#d3d3d3");
+            this.node2PO.getOpacity().should("eq", "0.2");
 
-            this.node3PO.getColor().should('eq', 'red');
-            this.node3PO.getFontWeight().should('eq', 'bold');
+            this.node3PO.getColor().should("eq", "red");
+            this.node3PO.getFontWeight().should("eq", "bold");
 
-            this.node4PO.getColor().should('eq', 'red');
-            this.node4PO.getFontWeight().should('eq', 'bold');
+            this.node4PO.getColor().should("eq", "red");
+            this.node4PO.getFontWeight().should("eq", "bold");
 
-            this.link12PO.shouldHaveColor('rgb(211, 211, 211)');
+            this.link12PO.shouldHaveColor("rgb(211, 211, 211)");
             this.link12PO.shouldHaveOpacity(0.2);
 
-            this.link13PO.shouldHaveColor('blue');
+            this.link13PO.shouldHaveColor("blue");
 
-            this.link14PO.shouldHaveColor('rgb(211, 211, 211)');
+            this.link14PO.shouldHaveColor("rgb(211, 211, 211)");
             this.link14PO.shouldHaveOpacity(0.2);
 
-            this.link34PO.shouldHaveColor('blue');
+            this.link34PO.shouldHaveColor("blue");
         });
     });
 
-    describe('when highlightDegree is 2', function() {
+    describe("when highlightDegree is 2", function() {
         beforeEach(function() {
             // set highlightDegree to 2
-            cy.contains('highlightDegree').scrollIntoView();
+            cy.contains("highlightDegree").scrollIntoView();
             this.sandboxPO
-                .getFieldInput('highlightDegree')
+                .getFieldInput("highlightDegree")
                 .clear()
-                .type('2');
+                .type("2");
         });
 
-        it('(2) graph should react properly to mouse over events on nodes and links', function() {
+        it("(2) graph should react properly to mouse over events on nodes and links", function() {
             // mouse over 'Node 3'
             // highlight nodes 1, 3 and 4 and respective links
             // should also highlight 2nd degree connection between 1 and 4
             // not highlight node 2 and other connections
-            this.node3PO.getPath().trigger('mouseover');
+            this.node3PO.getPath().trigger("mouseover");
 
-            this.node1PO.getColor().should('eq', 'red');
-            this.node1PO.getFontWeight().should('eq', 'bold');
+            this.node1PO.getColor().should("eq", "red");
+            this.node1PO.getFontWeight().should("eq", "bold");
 
-            this.node2PO.getColor().should('eq', '#d3d3d3');
-            this.node2PO.getOpacity().should('eq', '0.2');
+            this.node2PO.getColor().should("eq", "#d3d3d3");
+            this.node2PO.getOpacity().should("eq", "0.2");
 
-            this.node3PO.getColor().should('eq', 'red');
-            this.node3PO.getFontWeight().should('eq', 'bold');
+            this.node3PO.getColor().should("eq", "red");
+            this.node3PO.getFontWeight().should("eq", "bold");
 
-            this.node4PO.getColor().should('eq', 'red');
-            this.node4PO.getFontWeight().should('eq', 'bold');
+            this.node4PO.getColor().should("eq", "red");
+            this.node4PO.getFontWeight().should("eq", "bold");
 
-            this.link12PO.shouldHaveColor('rgb(211, 211, 211)');
+            this.link12PO.shouldHaveColor("rgb(211, 211, 211)");
             this.link12PO.shouldHaveOpacity(0.2);
 
-            this.link13PO.shouldHaveColor('blue');
+            this.link13PO.shouldHaveColor("blue");
 
-            this.link14PO.shouldHaveColor('blue');
+            this.link14PO.shouldHaveColor("blue");
 
-            this.link34PO.shouldHaveColor('blue');
+            this.link34PO.shouldHaveColor("blue");
         });
     });
 
-    describe('when mouse is over some link', function() {
+    describe("when mouse is over some link", function() {
         beforeEach(function() {
             // small hack to disable any previous highlight behavior
             this.sandboxPO.fullScreenMode().click();
         });
 
-        it('should highlight the link and the intervening nodes', function() {
+        it("should highlight the link and the intervening nodes", function() {
             // mouse over link between nodes 1 and 4
             // should highlight nodes 1 and 4 as well as they're connection
             this.link14PO
                 .getLine()
                 .click()
-                .trigger('mouseover');
+                .trigger("mouseover");
 
-            this.node1PO.getColor().should('eq', 'red');
-            this.node1PO.getFontWeight().should('eq', 'bold');
+            this.node1PO.getColor().should("eq", "red");
+            this.node1PO.getFontWeight().should("eq", "bold");
 
-            this.node2PO.getColor().should('eq', '#d3d3d3');
-            this.node2PO.getOpacity().should('eq', '0.2');
+            this.node2PO.getColor().should("eq", "#d3d3d3");
+            this.node2PO.getOpacity().should("eq", "0.2");
 
-            this.node3PO.getColor().should('eq', '#d3d3d3');
-            this.node3PO.getOpacity().should('eq', '0.2');
+            this.node3PO.getColor().should("eq", "#d3d3d3");
+            this.node3PO.getOpacity().should("eq", "0.2");
 
-            this.node4PO.getColor().should('eq', 'red');
-            this.node4PO.getFontWeight().should('eq', 'bold');
+            this.node4PO.getColor().should("eq", "red");
+            this.node4PO.getFontWeight().should("eq", "bold");
 
-            this.link12PO.shouldHaveColor('rgb(211, 211, 211)');
+            this.link12PO.shouldHaveColor("rgb(211, 211, 211)");
             this.link12PO.shouldHaveOpacity(0.2);
 
-            this.link13PO.shouldHaveColor('rgb(211, 211, 211)');
+            this.link13PO.shouldHaveColor("rgb(211, 211, 211)");
             this.link13PO.shouldHaveOpacity(0.2);
 
-            this.link14PO.shouldHaveColor('blue');
+            this.link14PO.shouldHaveColor("blue");
 
-            this.link34PO.shouldHaveColor('rgb(211, 211, 211)');
+            this.link34PO.shouldHaveColor("rgb(211, 211, 211)");
             this.link34PO.shouldHaveOpacity(0.2);
         });
     });

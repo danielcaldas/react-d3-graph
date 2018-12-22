@@ -1,9 +1,9 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import React from "react";
+import renderer from "react-test-renderer";
 
-import Marker from '../../src/components/marker/Marker';
+import Marker from "../../src/components/marker/Marker";
 
-describe('Snapshot - Marker Component', () => {
+describe("Snapshot - Marker Component", () => {
     let that = {};
 
     beforeEach(() => {
@@ -16,7 +16,7 @@ describe('Snapshot - Marker Component', () => {
         that.tree = that.marker.toJSON();
     });
 
-    test('should match snapshot', () => {
+    test("should match snapshot", () => {
         expect(that.tree).toMatchSnapshot();
     });
 });

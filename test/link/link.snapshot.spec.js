@@ -1,9 +1,9 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import React from "react";
+import renderer from "react-test-renderer";
 
-import Link from '../../src/components/link/Link';
+import Link from "../../src/components/link/Link";
 
-describe('Snapshot - Link Component', () => {
+describe("Snapshot - Link Component", () => {
     let that = {};
 
     beforeEach(() => {
@@ -25,7 +25,7 @@ describe('Snapshot - Link Component', () => {
         that.tree = that.link.toJSON();
     });
 
-    test('should match snapshot', () => {
+    test("should match snapshot", () => {
         expect(that.tree).toMatchSnapshot();
     });
 });

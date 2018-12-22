@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * Market component provides configurable interface to marker definition.

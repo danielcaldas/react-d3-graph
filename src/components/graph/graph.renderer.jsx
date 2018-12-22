@@ -3,31 +3,31 @@
  * @description
  * Offers a series of methods that isolate render logic for Graph component.
  */
-import React from 'react';
+import React from "react";
 
-import CONST from './graph.const';
-import { MARKERS, MARKER_SMALL_SIZE, MARKER_MEDIUM_OFFSET, MARKER_LARGE_OFFSET } from '../marker/marker.const';
+import CONST from "./graph.const";
+import { MARKERS, MARKER_SMALL_SIZE, MARKER_MEDIUM_OFFSET, MARKER_LARGE_OFFSET } from "../marker/marker.const";
 
-import Link from '../link/Link';
-import Node from '../node/Node';
-import Marker from '../marker/Marker';
-import { buildLinkProps, buildNodeProps } from './graph.helper';
-import { isNodeVisible } from './collapse.helper';
+import Link from "../link/Link";
+import Node from "../node/Node";
+import Marker from "../marker/Marker";
+import { buildLinkProps, buildNodeProps } from "./graph.helper";
+import { isNodeVisible } from "./collapse.helper";
 
 /**
  * Build Link components given a list of links.
- * @param  {Object.<string, Object>} nodes - same as {@link #buildGraph|nodes in buildGraph}.
+ * @param  {Object.<string, Object>} nodes - same as {@link #renderGraph|nodes in renderGraph}.
  * @param  {Array.<Object>} links - array of links {@link #Link|Link}.
  * @param  {Array.<Object>} linksMatrix - array of links {@link #Link|Link}.
- * @param  {Object} config - same as {@link #buildGraph|config in buildGraph}.
- * @param  {Function[]} linkCallbacks - same as {@link #buildGraph|linkCallbacks in buildGraph}.
- * @param  {string} highlightedNode - same as {@link #buildGraph|highlightedNode in buildGraph}.
- * @param  {Object} highlightedLink - same as {@link #buildGraph|highlightedLink in buildGraph}.
+ * @param  {Object} config - same as {@link #renderGraph|config in renderGraph}.
+ * @param  {Function[]} linkCallbacks - same as {@link #renderGraph|linkCallbacks in renderGraph}.
+ * @param  {string} highlightedNode - same as {@link #renderGraph|highlightedNode in renderGraph}.
+ * @param  {Object} highlightedLink - same as {@link #renderGraph|highlightedLink in renderGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Array.<Object>} returns the generated array of Link components.
  * @memberof Graph/helper
  */
-function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
+function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
     let outLinks = links;
 
     if (config.collapsible) {
@@ -69,7 +69,7 @@ function _buildLinks(nodes, links, linksMatrix, config, linkCallbacks, highlight
  * @returns {Array.<Object>} returns the generated array of node components
  * @memberof Graph/helper
  */
-function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
+function _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
     let outNodes = Object.keys(nodes);
 
     if (config.collapsible) {
@@ -97,7 +97,7 @@ function _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedL
  * @returns {Function} memoized build definitions function.
  * @memberof Graph/helper
  */
-function _buildDefs() {
+function _renderDefs() {
     let cachedDefs;
 
     return config => {
@@ -106,8 +106,8 @@ function _buildDefs() {
         }
 
         const small = MARKER_SMALL_SIZE;
-        const medium = small + MARKER_MEDIUM_OFFSET * config.maxZoom / 3;
-        const large = small + MARKER_LARGE_OFFSET * config.maxZoom / 3;
+        const medium = small + (MARKER_MEDIUM_OFFSET * config.maxZoom) / 3;
+        const large = small + (MARKER_LARGE_OFFSET * config.maxZoom) / 3;
 
         cachedDefs = (
             <defs>
@@ -125,12 +125,12 @@ function _buildDefs() {
 }
 
 /**
- * Memoized reference for _buildDefs.
+ * Memoized reference for _renderDefs.
  * @param  {Object} config - an object containing rd3g consumer defined configurations {@link #config config} for the graph.
  * @returns {Object} graph reusable objects [defs](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/defs).
  * @memberof Graph/helper
  */
-const _memoizedBuildDefs = _buildDefs();
+const _memoizedRenderDefs = _renderDefs();
 
 /**
  * Method that actually is exported an consumed by Graph component in order to build all Nodes and Link
@@ -173,7 +173,7 @@ const _memoizedBuildDefs = _buildDefs();
  * @returns {Object} returns an object containing the generated nodes and links that form the graph.
  * @memberof Graph/renderer
  */
-function buildGraph(
+function renderGraph(
     nodes,
     nodeCallbacks,
     links,
@@ -185,8 +185,8 @@ function buildGraph(
     transform
 ) {
     return {
-        nodes: _buildNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix),
-        links: _buildLinks(
+        nodes: _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix),
+        links: _renderLinks(
             nodes,
             links,
             linksMatrix,
@@ -196,8 +196,8 @@ function buildGraph(
             highlightedLink,
             transform
         ),
-        defs: _memoizedBuildDefs(config)
+        defs: _memoizedRenderDefs(config),
     };
 }
 
-export { buildGraph };
+export { renderGraph };

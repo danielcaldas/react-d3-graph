@@ -1,9 +1,9 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
+import React from "react";
+import renderer from "react-test-renderer";
 
-import Link from '../../src/components/link/Link';
+import Link from "../../src/components/link/Link";
 
-describe('Link Component', () => {
+describe("Link Component", () => {
     let that = {};
 
     beforeEach(() => {
@@ -25,7 +25,7 @@ describe('Link Component', () => {
         that.tree = that.link.toJSON();
     });
 
-    test('should call callback function when onClick is performed', () => {
+    test("should call callback function when onClick is performed", () => {
         that.tree.props.onClick();
         expect(that.callbackMock).toBeCalled();
     });
