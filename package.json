@@ -75,7 +75,7 @@
         "react": "^16.4.1",
         "react-addons-test-utils": "15.6.2",
         "react-dom": "16.4.1",
-        "react-editable-json-tree": "2.2.0",
+        "react-editable-json-tree": "2.2.1",
         "react-jsonschema-form": "1.0.4",
         "react-test-renderer": "16.4.1",
         "style-loader": "0.18.2",
