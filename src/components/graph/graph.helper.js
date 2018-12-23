@@ -130,7 +130,7 @@ function _initializeNodes(graphNodes) {
  * @param {Object} link - input link.
  * @param {number} index - index of the input link.
  * @param {Array.<Object>} d3Links - all d3Links.
- * @param  {Object} config - same as {@link #renderGraph|config in renderGraph}.
+ * @param  {Object} config - same as {@link #graphrenderer|config in renderGraph}.
  * @param {Object} state - Graph component current state (same format as returned object on this function).
  * @returns {Object} a d3Link.
  * @memberof Graph/helper
@@ -282,7 +282,7 @@ function checkForGraphConfigChanges(nextProps, currentState) {
  * Returns the transformation to apply in order to center the graph on the
  * selected node.
  * @param {Object} d3Node - node to focus the graph view on.
- * @param {Object} config - same as {@link #renderGraph|config in renderGraph}.
+ * @param {Object} config - same as {@link #graphrenderer|config in renderGraph}.
  * @returns {string} transform rule to apply.
  * @memberof Graph/helper
  */
@@ -305,7 +305,7 @@ function getCenterAndZoomTransformation(d3Node, config) {
  * @param {Object} props - Graph component props, object that holds data, id and config.
  * @param {Object} props.data - Data object holds links (array of **Link**) and nodes (array of **Node**).
  * @param {string} props.id - the graph id.
- * @param {Object} props.config - same as {@link #renderGraph|config in renderGraph}.
+ * @param {Object} props.config - same as {@link #graphrenderer|config in renderGraph}.
  * @param {Object} state - Graph component current state (same format as returned object on this function).
  * @returns {Object} a fully (re)initialized graph state object.
  * @memberof Graph/helper

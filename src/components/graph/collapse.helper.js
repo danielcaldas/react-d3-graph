@@ -106,7 +106,7 @@ function computeNodeDegree(nodeId, linksMatrix = {}) {
  * @param {string} rootNodeId - node who's leafs we want to calculate.
  * @param {Object.<string, Object>} linksMatrix - an object containing a matrix of connections of the graph, for each nodeId,
  * there is an object that maps adjacent nodes ids (string) and their values (number).
- * @param  {Object} config - same as {@link #renderGraph|config in renderGraph}.
+ * @param  {Object} config - same as {@link #graphrenderer|config in renderGraph}.
  * @param {boolean} config.directed - tells whether linksMatrix represents a directed graph or not.
  * @returns {Array.<Object.<string, string>>} a list of leaf connections.
  * What is a leaf connection? A leaf connection is a link between some node A and other node B
@@ -172,7 +172,7 @@ function toggleLinksConnections(d3Links, connectionMatrix) {
  * @param {Object.<string, Object>} linksMatrix - an object containing a matrix of connections of the graph, for each nodeId,
  * there is an object that maps adjacent nodes ids (string) and their values (number).
  * @param {Array.<Object.<string, string>>} connections - connections to toggle on matrix.
- * @param  {Object} config - same as {@link #renderGraph|config in renderGraph}.
+ * @param  {Object} config - same as {@link #graphrenderer|config in renderGraph}.
  * @param {boolean} config.directed - tells whether linksMatrix represents a directed graph or not.
  * @returns {Object.<string, Object>} updated linksMatrix
  * @memberof Graph/collapse-helper

@@ -11,9 +11,9 @@ import { getMarkerId } from "../marker/marker.helper";
 /**
  * Get the correct node opacity in order to properly make decisions based on context such as currently highlighted node.
  * @param  {Object} node - the node object for whom we will generate properties.
- * @param  {string} highlightedNode - same as {@link #renderGraph|highlightedNode in renderGraph}.
- * @param  {Object} highlightedLink - same as {@link #renderGraph|highlightedLink in renderGraph}.
- * @param  {Object} config - same as {@link #renderGraph|config in renderGraph}.
+ * @param  {string} highlightedNode - same as {@link #graphrenderer|highlightedNode in renderGraph}.
+ * @param  {Object} highlightedLink - same as {@link #graphrenderer|highlightedLink in renderGraph}.
+ * @param  {Object} config - same as {@link #graphrenderer|config in renderGraph}.
  * @returns {number} the opacity value for the given node.
  * @memberof Graph/builder
  */
@@ -42,12 +42,12 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
 /**
  * Build some Link properties based on given parameters.
  * @param  {Object} link - the link object for which we will generate properties.
- * @param  {Object.<string, Object>} nodes - same as {@link #renderGraph|nodes in renderGraph}.
- * @param  {Object.<string, Object>} links - same as {@link #renderGraph|links in renderGraph}.
- * @param  {Object} config - same as {@link #renderGraph|config in renderGraph}.
- * @param  {Function[]} linkCallbacks - same as {@link #renderGraph|linkCallbacks in renderGraph}.
- * @param  {string} highlightedNode - same as {@link #renderGraph|highlightedNode in renderGraph}.
- * @param  {Object} highlightedLink - same as {@link #renderGraph|highlightedLink in renderGraph}.
+ * @param  {Object.<string, Object>} nodes - same as {@link #graphrenderer|nodes in renderGraph}.
+ * @param  {Object.<string, Object>} links - same as {@link #graphrenderer|links in renderGraph}.
+ * @param  {Object} config - same as {@link #graphrenderer|config in renderGraph}.
+ * @param  {Function[]} linkCallbacks - same as {@link #graphrenderer|linkCallbacks in renderGraph}.
+ * @param  {string} highlightedNode - same as {@link #graphrenderer|highlightedNode in renderGraph}.
+ * @param  {Object} highlightedLink - same as {@link #graphrenderer|highlightedLink in renderGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object} returns an object that aggregates all props for creating respective Link component instance.
  * @memberof Graph/builder
@@ -123,10 +123,10 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
 /**
  * Build some Node properties based on given parameters.
  * @param  {Object} node - the node object for whom we will generate properties.
- * @param  {Object} config - same as {@link #renderGraph|config in renderGraph}.
- * @param  {Function[]} nodeCallbacks - same as {@link #renderGraph|nodeCallbacks in renderGraph}.
- * @param  {string} highlightedNode - same as {@link #renderGraph|highlightedNode in renderGraph}.
- * @param  {Object} highlightedLink - same as {@link #renderGraph|highlightedLink in renderGraph}.
+ * @param  {Object} config - same as {@link #graphrenderer|config in renderGraph}.
+ * @param  {Function[]} nodeCallbacks - same as {@link #graphrenderer|nodeCallbacks in renderGraph}.
+ * @param  {string} highlightedNode - same as {@link #graphrenderer|highlightedNode in renderGraph}.
+ * @param  {Object} highlightedLink - same as {@link #graphrenderer|highlightedLink in renderGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Object} returns object that contain Link props ready to be feeded to the Link component.
  * @memberof Graph/builder

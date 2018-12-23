@@ -16,13 +16,13 @@ import { isNodeVisible } from "./collapse.helper";
 
 /**
  * Build Link components given a list of links.
- * @param  {Object.<string, Object>} nodes - same as {@link #renderGraph|nodes in renderGraph}.
+ * @param  {Object.<string, Object>} nodes - same as {@link #graphrenderer|nodes in renderGraph}.
  * @param  {Array.<Object>} links - array of links {@link #Link|Link}.
  * @param  {Array.<Object>} linksMatrix - array of links {@link #Link|Link}.
- * @param  {Object} config - same as {@link #renderGraph|config in renderGraph}.
- * @param  {Function[]} linkCallbacks - same as {@link #renderGraph|linkCallbacks in renderGraph}.
- * @param  {string} highlightedNode - same as {@link #renderGraph|highlightedNode in renderGraph}.
- * @param  {Object} highlightedLink - same as {@link #renderGraph|highlightedLink in renderGraph}.
+ * @param  {Object} config - same as {@link #graphrenderer|config in renderGraph}.
+ * @param  {Function[]} linkCallbacks - same as {@link #graphrenderer|linkCallbacks in renderGraph}.
+ * @param  {string} highlightedNode - same as {@link #graphrenderer|highlightedNode in renderGraph}.
+ * @param  {Object} highlightedLink - same as {@link #graphrenderer|highlightedLink in renderGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Array.<Object>} returns the generated array of Link components.
  * @memberof Graph/helper
