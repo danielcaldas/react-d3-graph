@@ -1,32 +1,30 @@
-const path = require('path');
-const webpack = require('webpack');
+const path = require("path");
 
 module.exports = {
-    context: path.join(__dirname, 'sandbox'),
-    devtool: 'cheap-module-eval-source-map',
-    entry: './index.jsx',
+    context: path.join(__dirname, "sandbox"),
+    devtool: "cheap-module-eval-source-map",
+    entry: "./index.jsx",
     output: {
-        path: __dirname + '/sandbox/',
-        filename: 'rd3g.sandbox.bundle.js'
+        path: __dirname + "/sandbox/",
+        filename: "rd3g.sandbox.bundle.js",
     },
     module: {
         rules: [
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: ["style-loader", "css-loader"],
             },
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
+                loader: "babel-loader",
                 options: {
-                    presets: ['react', 'es2015', 'stage-0'],
-                    plugins: ['react-html-attrs']
-                }
-            }
-        ]
+                    presets: ["react", "es2015", "stage-2"],
+                },
+            },
+        ],
     },
     resolve: {
-        extensions: ['.js', '.jsx']
-    }
+        extensions: [".js", ".jsx"],
+    },
 };
