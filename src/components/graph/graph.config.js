@@ -46,19 +46,6 @@
  * out of the box provide the look and feel of a directed graph and add directional semantic to links. You can see a sample in the image below.
  * <br/>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-directed.gif?raw=true" width="820" height="480"/>
- * @param {number} [height=400] - the height of the (svg) area where the graph will be rendered.
- * @param {boolean} [nodeHighlightBehavior=false] - 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
- * connections will be highlighted (depending on the *highlightDegree* value). All the remaining nodes and links assume opacity value equal to **highlightOpacity**.
- * @param {boolean} [linkHighlightBehavior=false] - 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior
- * to *nodeHighlightBehavior* but for links <small>(just for historical reference this property was introduced in **v1.0.0**)</small>.
- * @param {number} [highlightDegree=1] - **Possible values: 0, 1 or 2**. This value represents the range of the
- * highlight behavior when some node is highlighted. If the value is set to **0** only the selected node will be
- * highlighted. If the value is set to **1** the selected node and his 1st degree connections will be highlighted. If
- * the value is set to **2** the selected node will be highlighted as well as the 1st and 2nd common degree connections.
- * @param {number} [highlightOpacity=1] - this value is used to highlight nodes in the network. The lower
- * the value the more the less highlighted nodes will be visible (related to *nodeHighlightBehavior*).
- * @param {number} [maxZoom=8] - max zoom that can be performed against the graph.
- * @param {number} [minZoom=0.1] - min zoom that can be performed against the graph.
  * @param {number} [focusZoom=1] - zoom that will be applied when the graph view is focused in a node. Its value must be between
  * *minZoom* and *maxZoom*. If the specified *focusZoom* is out of this range, *minZoom* or *maxZoom* will be applied instead.
  * **NOTE:** This animation is not trigger by default. In order to trigger it you need to pass down to `react-d3-graph` the
@@ -75,6 +62,19 @@
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-zoom-animation.gif?raw=true" width="820" height="480"/>
  *
  * @param {number} [focusAnimationDuration=0.75] - duration (in seconds) for the animation that takes place when focusing the graph on a node.
+ * @param {number} [height=400] - the height of the (svg) area where the graph will be rendered.
+ * @param {boolean} [nodeHighlightBehavior=false] - 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
+ * connections will be highlighted (depending on the *highlightDegree* value). All the remaining nodes and links assume opacity value equal to **highlightOpacity**.
+ * @param {boolean} [linkHighlightBehavior=false] - 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior
+ * to *nodeHighlightBehavior* but for links <small>(just for historical reference this property was introduced in **v1.0.0**)</small>.
+ * @param {number} [highlightDegree=1] - **Possible values: 0, 1 or 2**. This value represents the range of the
+ * highlight behavior when some node is highlighted. If the value is set to **0** only the selected node will be
+ * highlighted. If the value is set to **1** the selected node and his 1st degree connections will be highlighted. If
+ * the value is set to **2** the selected node will be highlighted as well as the 1st and 2nd common degree connections.
+ * @param {number} [highlightOpacity=1] - this value is used to highlight nodes in the network. The lower
+ * the value the more the less highlighted nodes will be visible (related to *nodeHighlightBehavior*).
+ * @param {number} [maxZoom=8] - max zoom that can be performed against the graph.
+ * @param {number} [minZoom=0.1] - min zoom that can be performed against the graph.
  * @param {boolean} [panAndZoom=false] - 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
  * a similar functionality may be consulted {@link https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39|here}.
  * @param {boolean} [staticGraph=false] - when setting this value to true the graph will be completely static, thus
@@ -192,14 +192,14 @@ export default {
     automaticRearrangeAfterDropNode: false,
     collapsible: false,
     directed: false,
+    focusAnimationDuration: 0.75,
+    focusZoom: 1,
     height: 400,
     highlightDegree: 1,
     highlightOpacity: 1,
     linkHighlightBehavior: false,
     maxZoom: 8,
     minZoom: 0.1,
-    focusZoom: 1,
-    focusAnimationDuration: 0.75,
     nodeHighlightBehavior: false,
     panAndZoom: false,
     staticGraph: false,

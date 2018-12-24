@@ -1,8 +1,9 @@
 toc:
   - graph.config
   - Graph
-  - Graph/helper
   - Graph/renderer
+  - Graph/builder
+  - Graph/helper
   - Graph/collapse-helper
   - Node
   - Node/helper
