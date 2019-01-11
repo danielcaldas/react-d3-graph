@@ -69,8 +69,8 @@ function _createForceSimulation(width, height, gravity) {
  */
 function _initializeLinks(graphLinks, config) {
     return graphLinks.reduce((links, l) => {
-        const source = l.source.id || l.source;
-        const target = l.target.id || l.target;
+        const source = l.source.id !== undefined && l.source.id !== null ? l.source.id : l.source;
+        const target = l.target.id !== undefined && l.target.id !== null ? l.target.id : l.target;
 
         if (!links[source]) {
             links[source] = {};
@@ -245,8 +245,8 @@ function checkForGraphElementsChanges(nextProps, currentState) {
     const stateD3Nodes = currentState.d3Nodes.map(n => utils.antiPick(n, NODE_PROPERTIES_DISCARD_TO_COMPARE));
     const stateD3Links = currentState.d3Links.map(l => ({
         // FIXME: solve this source data inconsistency later
-        source: l.source.id || l.source,
-        target: l.target.id || l.target,
+        source: l.source.id !== undefined && l.source.id !== null ? l.source.id : l.source,
+        target: l.target.id !== undefined && l.target.id !== null ? l.target.id : l.target,
     }));
     const graphElementsUpdated = !(
         utils.isDeepEqual(nextNodes, stateD3Nodes) && utils.isDeepEqual(nextLinks, stateD3Links)
