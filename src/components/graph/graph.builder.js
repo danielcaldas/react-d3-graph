@@ -139,21 +139,25 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     const opacity = _getNodeOpacity(node, highlightedNode, highlightedLink, config);
 
     let fill = node.color || config.node.color;
+
     if (highlight && config.node.highlightColor !== CONST.KEYWORDS.SAME) {
         fill = config.node.highlightColor;
     }
 
     let stroke = node.strokeColor || config.node.strokeColor;
+
     if (highlight && config.node.highlightStrokeColor !== CONST.KEYWORDS.SAME) {
         stroke = config.node.highlightStrokeColor;
     }
 
     let label = node[config.node.labelProperty] || node.id;
+
     if (typeof config.node.labelProperty === "function") {
         label = config.node.labelProperty(node);
     }
 
     let strokeWidth = node.strokeWidth || config.node.strokeWidth;
+
     if (highlight && config.node.highlightStrokeWidth !== CONST.KEYWORDS.SAME) {
         strokeWidth = config.node.highlightStrokeWidth;
     }
