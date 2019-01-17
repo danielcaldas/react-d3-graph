@@ -33,7 +33,7 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
     } else if (someNodeHighlighted) {
         opacity = highlight ? config.node.opacity : config.highlightOpacity;
     } else {
-        opacity = config.node.opacity;
+        opacity = node.opacity || config.node.opacity;
     }
 
     return opacity;
@@ -81,7 +81,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         target === (highlightedLink && highlightedLink.target);
     const highlight = reasonNode || reasonLink;
 
-    let opacity = config.link.opacity;
+    let opacity = link.opacity || config.link.opacity;
 
     if (highlightedNode || (highlightedLink && highlightedLink.source)) {
         opacity = highlight ? config.link.opacity : config.highlightOpacity;
@@ -137,29 +137,31 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         (node.id === (highlightedLink && highlightedLink.source) ||
             node.id === (highlightedLink && highlightedLink.target));
     const opacity = _getNodeOpacity(node, highlightedNode, highlightedLink, config);
-    let fill = node.color || config.node.color;
 
+    let fill = node.color || config.node.color;
     if (highlight && config.node.highlightColor !== CONST.KEYWORDS.SAME) {
         fill = config.node.highlightColor;
     }
 
     let stroke = node.strokeColor || config.node.strokeColor;
-
     if (highlight && config.node.highlightStrokeColor !== CONST.KEYWORDS.SAME) {
         stroke = config.node.highlightStrokeColor;
     }
 
     let label = node[config.node.labelProperty] || node.id;
-
     if (typeof config.node.labelProperty === "function") {
         label = config.node.labelProperty(node);
+    }
+
+    let strokeWidth = node.strokeWidth || config.node.strokeWidth;
+    if (highlight && config.node.highlightStrokeWidth !== CONST.KEYWORDS.SAME) {
+        strokeWidth = config.node.highlightStrokeWidth;
     }
 
     const t = 1 / transform;
     const nodeSize = node.size || config.node.size;
     const fontSize = highlight ? config.node.highlightFontSize : config.node.fontSize;
     const dx = fontSize * t + nodeSize / 100 + 1.5;
-    const strokeWidth = highlight ? config.node.highlightStrokeWidth : config.node.strokeWidth;
     const svg = node.svg || config.node.svg;
     const fontColor = node.fontColor || config.node.fontColor;
 
