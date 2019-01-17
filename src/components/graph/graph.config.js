@@ -123,12 +123,12 @@
  * <br/>
  * @param {string} [node.mouseCursor='pointer'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
  * property for when some node is mouse hovered.
- * @param {number} [node.opacity=1] - by default all nodes will have this opacity value.
+ * @param {number} [node.opacity=1] 🔍🔍🔍 - by default all nodes will have this opacity value.
  * @param {boolean} [node.renderLabel=true] - when set to false no labels will appear along side nodes in the
  * graph.
  * @param {number} [node.size=200] - 🔍🔍🔍 defines the size of all nodes.
  * @param {string} [node.strokeColor='none'] - 🔍🔍🔍  this is the stroke color that will be applied to the node if no **strokeColor property** is found inside the node itself (yes **you can pass a property 'strokeColor' inside the node and that stroke color will override this default one** ).
- * @param {number} [node.strokeWidth=1.5] - the width of the all node strokes.
+ * @param {number} [node.strokeWidth=1.5] 🔍🔍🔍 - the width of the all node strokes.
  * @param {string} [node.svg=''] - 🔍🔍🔍 render custom svg for nodes in alternative to **node.symbolType**. This svg can
  * be provided as a string to either a remote svg resource or for a local one.
  * <br/>
@@ -154,7 +154,7 @@
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
  *  @param {string} [link.mouseCursor='pointer'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
  * property for when link is mouse hovered.
- * @param {number} [link.opacity=1] - the default opacity value for links.
+ * @param {number} [link.opacity=1] 🔍🔍🔍 - the default opacity value for links.
  * @param {boolean} [link.semanticStrokeWidth=false] - when set to true all links will have
  * *"semantic width"*, this means that the width of the connections will be proportional to the value of each link.
  * This is how link strokeWidth will be calculated:
