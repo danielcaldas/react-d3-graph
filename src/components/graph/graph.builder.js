@@ -93,7 +93,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         stroke = config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color : config.link.highlightColor;
     }
 
-    let strokeWidth = config.link.strokeWidth * (1 / transform);
+    let strokeWidth = (link.strokeWidth || config.link.strokeWidth) * (1 / transform);
 
     if (config.link.semanticStrokeWidth) {
         const linkValue = links[source][target] || links[target][source] || 1;

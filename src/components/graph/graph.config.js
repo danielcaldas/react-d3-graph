@@ -107,7 +107,7 @@
  * @param {number} [node.highlightFontSize=8] - fontSize in highlighted state.
  * @param {string} [node.highlightFontWeight='normal'] - fontWeight in highlighted state.
  * @param {string} [node.highlightStrokeColor='SAME'] - strokeColor in highlighted state.
- * @param {number} [node.highlightStrokeWidth=1.5] - strokeWidth in highlighted state.
+ * @param {number} [node.highlightStrokeWidth='SAME'] - strokeWidth in highlighted state.
  * @param {string|Function} [node.labelProperty='id'] - this is the node property that will be used in runtime to
  * fetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set
  * node.labelProperty to be **'firstName'**. **This can also be a function!**, if you pass a function here it will be called
@@ -219,7 +219,7 @@ export default {
         highlightFontSize: 8,
         highlightFontWeight: "normal",
         highlightStrokeColor: "SAME",
-        highlightStrokeWidth: 1.5,
+        highlightStrokeWidth: "SAME",
         labelProperty: "id",
         mouseCursor: "pointer",
         opacity: 1,
