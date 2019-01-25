@@ -107,7 +107,7 @@
  * @param {number} [node.highlightFontSize=8] - fontSize in highlighted state.
  * @param {string} [node.highlightFontWeight='normal'] - fontWeight in highlighted state.
  * @param {string} [node.highlightStrokeColor='SAME'] - strokeColor in highlighted state.
- * @param {number} [node.highlightStrokeWidth=1.5] - strokeWidth in highlighted state.
+ * @param {number} [node.highlightStrokeWidth='SAME'] - strokeWidth in highlighted state.
  * @param {string|Function} [node.labelProperty='id'] - this is the node property that will be used in runtime to
  * fetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set
  * node.labelProperty to be **'firstName'**. **This can also be a function!**, if you pass a function here it will be called
@@ -123,12 +123,12 @@
  * <br/>
  * @param {string} [node.mouseCursor='pointer'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
  * property for when some node is mouse hovered.
- * @param {number} [node.opacity=1] - by default all nodes will have this opacity value.
+ * @param {number} [node.opacity=1] 🔍🔍🔍 - by default all nodes will have this opacity value.
  * @param {boolean} [node.renderLabel=true] - when set to false no labels will appear along side nodes in the
  * graph.
  * @param {number} [node.size=200] - 🔍🔍🔍 defines the size of all nodes.
  * @param {string} [node.strokeColor='none'] - 🔍🔍🔍  this is the stroke color that will be applied to the node if no **strokeColor property** is found inside the node itself (yes **you can pass a property 'strokeColor' inside the node and that stroke color will override this default one** ).
- * @param {number} [node.strokeWidth=1.5] - the width of the all node strokes.
+ * @param {number} [node.strokeWidth=1.5] 🔍🔍🔍 - the width of the all node strokes.
  * @param {string} [node.svg=''] - 🔍🔍🔍 render custom svg for nodes in alternative to **node.symbolType**. This svg can
  * be provided as a string to either a remote svg resource or for a local one.
  * <br/>
@@ -154,14 +154,14 @@
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
  *  @param {string} [link.mouseCursor='pointer'] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
  * property for when link is mouse hovered.
- * @param {number} [link.opacity=1] - the default opacity value for links.
+ * @param {number} [link.opacity=1] 🔍🔍🔍 - the default opacity value for links.
  * @param {boolean} [link.semanticStrokeWidth=false] - when set to true all links will have
  * *"semantic width"*, this means that the width of the connections will be proportional to the value of each link.
  * This is how link strokeWidth will be calculated:
  * ```javascript
  * strokeWidth += (linkValue * strokeWidth) / 10;
  * ```
- * @param {number} [link.strokeWidth=1.5] - strokeWidth for all links. By default the actual value is obtain by the
+ * @param {number} [link.strokeWidth=1.5] 🔍🔍🔍 - strokeWidth for all links. By default the actual value is obtain by the
  * following expression:
  * ```javascript
  * link.strokeWidth * (1 / transform); // transform is a zoom delta Δ value
@@ -219,7 +219,7 @@ export default {
         highlightFontSize: 8,
         highlightFontWeight: "normal",
         highlightStrokeColor: "SAME",
-        highlightStrokeWidth: 1.5,
+        highlightStrokeWidth: "SAME",
         labelProperty: "id",
         mouseCursor: "pointer",
         opacity: 1,
