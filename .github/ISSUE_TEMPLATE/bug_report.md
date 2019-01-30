@@ -28,6 +28,7 @@ If applicable, add screenshots to help explain your problem.
  - Browser [e.g. chrome, safari]
  - Version [e.g. 22]
  - Node version [e.g. 8.11.0]
+ - react-d3-graph version [e.g. 2.0.0-rc2]
  - d3 version [e.g. 5.5.0]
  - react version [e.g. 16.0.0]
 
