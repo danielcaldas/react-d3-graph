@@ -164,6 +164,7 @@ function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
         index,
         source,
         target,
+        color: link.color,
     };
 }
 
@@ -317,10 +318,11 @@ function initializeGraphState({ data, id, config }, state) {
 
     if (state && state.nodes) {
         graph = {
-            nodes: data.nodes.map(n =>
-                state.nodes[n.id]
-                    ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
-                    : Object.assign({}, n)
+            nodes: data.nodes.map(
+                n =>
+                    state.nodes[n.id]
+                        ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
+                        : Object.assign({}, n)
             ),
             links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links, config, state)),
         };
