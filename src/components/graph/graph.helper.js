@@ -34,6 +34,7 @@ import utils from "../../utils";
 import { computeNodeDegree } from "./collapse.helper";
 
 const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
+const LINK_PROPS_WHITELIST = ["color", "opacity", "strokeWidth"];
 
 /**
  * Create d3 forceSimulation to be applied on the graph.<br/>
@@ -146,8 +147,17 @@ function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
             return { ...d3Link, isHidden: false };
         }
 
+        let refinedD3Link = {
+            ...d3Link,
+            ...LINK_PROPS_WHITELIST.reduce((acc, key) => {
+                acc[key] = link[key];
+
+                return acc;
+            }, {}),
+        };
+
         // every time we disable collapsible (collapsible is false) all links should be visible again
-        return config.collapsible ? d3Link : { ...d3Link, isHidden: false };
+        return config.collapsible ? refinedD3Link : { ...refinedD3Link, isHidden: false };
     }
 
     const highlighted = false;
@@ -318,11 +328,10 @@ function initializeGraphState({ data, id, config }, state) {
 
     if (state && state.nodes) {
         graph = {
-            nodes: data.nodes.map(
-                n =>
-                    state.nodes[n.id]
-                        ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
-                        : Object.assign({}, n)
+            nodes: data.nodes.map(n =>
+                state.nodes[n.id]
+                    ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
+                    : Object.assign({}, n)
             ),
             links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links, config, state)),
         };
