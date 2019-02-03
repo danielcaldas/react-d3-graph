@@ -34,6 +34,7 @@ import utils from "../../utils";
 import { computeNodeDegree } from "./collapse.helper";
 
 const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
+const LINK_CUSTOM_PROPS_WHITELIST = ["color", "opacity", "strokeWidth"];
 
 /**
  * Create d3 forceSimulation to be applied on the graph.<br/>
@@ -137,17 +138,22 @@ function _initializeNodes(graphNodes) {
  */
 function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
     const d3Link = d3Links[index];
+    const customProps = utils.pick(link, LINK_CUSTOM_PROPS_WHITELIST);
 
     if (d3Link) {
         const toggledDirected = state.config && state.config.directed && config.directed !== state.config.directed;
+        const refinedD3Link = {
+            ...d3Link,
+            ...customProps,
+        };
 
         // every time we toggle directed config all links should be visible again
         if (toggledDirected) {
-            return { ...d3Link, isHidden: false };
+            return { ...refinedD3Link, isHidden: false };
         }
 
         // every time we disable collapsible (collapsible is false) all links should be visible again
-        return config.collapsible ? d3Link : { ...d3Link, isHidden: false };
+        return config.collapsible ? refinedD3Link : { ...refinedD3Link, isHidden: false };
     }
 
     const highlighted = false;
@@ -164,6 +170,7 @@ function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
         index,
         source,
         target,
+        ...customProps,
     };
 }
 
