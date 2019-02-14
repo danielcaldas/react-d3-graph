@@ -35,7 +35,7 @@ import nodeHelper from "./node.helper";
  *     label='label text'
  *     opacity=1
  *     renderLabel=true
- *     size=200
+ *     size=200 or  size={width:200, height:200}
  *     stroke='none'
  *     strokeWidth=1.5
  *     svg='assets/my-svg.svg'
@@ -98,9 +98,18 @@ export default class Node extends React.Component {
         let label;
         let node;
 
+        //Determine if we have a rectangle or a square size
+        var sizeWidth = size;
+        var sizeHeight = size;
+
+        if (this.props.sizeWidth != undefined && this.props.sizeHeight != undefined) {
+            sizeWidth = this.props.sizeWidth;
+            sizeHeight = this.props.sizeHeight;
+        }
+
         if (this.props.svg || this.props.viewGenerator) {
-            const height = size / 10;
-            const width = size / 10;
+            const height = sizeHeight / 10;
+            const width = sizeWidth / 10;
             const tx = width / 2;
             const ty = height / 2;
             const transform = `translate(${tx},${ty})`;
