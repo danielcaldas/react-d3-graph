@@ -164,12 +164,19 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
 
     const t = 1 / transform;
     const nodeSize = node.size || config.node.size;
-    const nodeSizeWidth = node.size || config.node.width;
-    const nodeSizeHeight = node.size || config.node.height;
+    var nodeSizeWidth = node.width || config.node.width;
+    var nodeSizeHeight = node.height || config.node.height;
     const fontSize = highlight ? config.node.highlightFontSize : config.node.fontSize;
     const dx = fontSize * t + nodeSize / 100 + 1.5;
     const svg = node.svg || config.node.svg;
     const fontColor = node.fontColor || config.node.fontColor;
+
+    // if there is a node config level size specified clear out the
+    //width and hight if they are set
+    if (node.size != undefined) {
+        nodeSizeWidth = undefined;
+        nodeSizeHeight = undefined;
+    }
 
     return {
         ...node,
