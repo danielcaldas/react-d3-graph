@@ -127,8 +127,8 @@
  * @param {boolean} [node.renderLabel=true] - when set to false no labels will appear along side nodes in the
  * graph.
  * @param {number} [node.size=200] - 🔍🔍🔍 defines the size of all nodes.
- * @param {number} [node.sizeWidth=undefined] - 🔍🔍🔍 defines the width of all nodes - overrides the size property.
- * @param {number} [node.sizeHeight=undefined] - 🔍🔍🔍 defines the height of all nodes - overrides the size property.
+ * @param {number} [node.width=undefined] - 🔍🔍🔍 defines the width of all nodes - overrides the size property.
+ * @param {number} [node.height=undefined] - 🔍🔍🔍 defines the height of all nodes - overrides the size property.
  * @param {string} [node.strokeColor='none'] - 🔍🔍🔍  this is the stroke color that will be applied to the node if no **strokeColor property** is found inside the node itself (yes **you can pass a property 'strokeColor' inside the node and that stroke color will override this default one** ).
  * @param {number} [node.strokeWidth=1.5] 🔍🔍🔍 - the width of the all node strokes.
  * @param {string} [node.svg=''] - 🔍🔍🔍 render custom svg for nodes in alternative to **node.symbolType**. This svg can
@@ -227,8 +227,8 @@ export default {
         opacity: 1,
         renderLabel: true,
         size: 200,
-        sizeWidth: undefined,
-        sizeHeight: undefined,
+        width: undefined,
+        height: undefined,
         strokeColor: "none",
         strokeWidth: 1.5,
         svg: "",

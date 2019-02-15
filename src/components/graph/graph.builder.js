@@ -164,8 +164,8 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
 
     const t = 1 / transform;
     const nodeSize = node.size || config.node.size;
-    const nodeSizeWidth = node.size || config.node.sizeWidth;
-    const nodeSizeHeight = node.size || config.node.sizeHeight;
+    const nodeSizeWidth = node.size || config.node.width;
+    const nodeSizeHeight = node.size || config.node.height;
     const fontSize = highlight ? config.node.highlightFontSize : config.node.fontSize;
     const dx = fontSize * t + nodeSize / 100 + 1.5;
     const svg = node.svg || config.node.svg;
@@ -191,8 +191,8 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         opacity,
         renderLabel: config.node.renderLabel,
         size: nodeSize * t,
-        sizeWidth: nodeSizeWidth,
-        sizeHeight: nodeSizeHeight,
+        width: nodeSizeWidth,
+        height: nodeSizeHeight,
         stroke,
         strokeWidth: strokeWidth * t,
         svg,

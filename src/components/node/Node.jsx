@@ -36,8 +36,8 @@ import nodeHelper from "./node.helper";
  *     opacity=1
  *     renderLabel=true
  *     size=200
- *     sizeWidth=undefined
- *     sizeHeight=undefined
+ *     width=undefined
+ *     height=undefined
  *     stroke='none'
  *     strokeWidth=1.5
  *     svg='assets/my-svg.svg'
@@ -104,9 +104,9 @@ export default class Node extends React.Component {
         var sizeWidth = size;
         var sizeHeight = size;
 
-        if (this.props.sizeWidth != undefined && this.props.sizeHeight != undefined) {
-            sizeWidth = this.props.sizeWidth;
-            sizeHeight = this.props.sizeHeight;
+        if (this.props.width != undefined && this.props.height != undefined) {
+            sizeWidth = this.props.width;
+            sizeHeight = this.props.height;
         }
 
         if (this.props.svg || this.props.viewGenerator) {
