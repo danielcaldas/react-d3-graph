@@ -35,7 +35,9 @@ import nodeHelper from "./node.helper";
  *     label='label text'
  *     opacity=1
  *     renderLabel=true
- *     size=200 or  size={width:200, height:200}
+ *     size=200
+ *     sizeWidth=undefined
+ *     sizeHeight=undefined
  *     stroke='none'
  *     strokeWidth=1.5
  *     svg='assets/my-svg.svg'
