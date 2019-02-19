@@ -83,9 +83,12 @@ export default class Node extends React.Component {
             opacity: this.props.opacity,
         };
 
+        const dxAfterOffset = this.props.dx && this.props.dx + (this.props.textLabelOffsetX || 0);
+        const dyAfterOffset = this.props.dy && this.props.dy + (this.props.textLabelOffsetY || 0);
+
         const textProps = {
-            dx: this.props.dx || CONST.NODE_LABEL_DX,
-            dy: CONST.NODE_LABEL_DY,
+            dx: dxAfterOffset || CONST.NODE_LABEL_DX,
+            dy: dyAfterOffset || CONST.NODE_LABEL_DY,
             fill: this.props.fontColor,
             fontSize: this.props.fontSize,
             fontWeight: this.props.fontWeight,
