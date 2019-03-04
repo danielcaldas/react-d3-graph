@@ -11,6 +11,9 @@ describe("Link Component", () => {
 
         that.link = renderer.create(
             <Link
+                id="A#B"
+                source="A"
+                target="B"
                 x1="2"
                 y1="2"
                 x2="4"
@@ -26,7 +29,7 @@ describe("Link Component", () => {
     });
 
     test("should call callback function when onClick is performed", () => {
-        that.tree.props.onClick();
+        that.tree.children[0].props.onClick();
         expect(that.callbackMock).toBeCalled();
     });
 });

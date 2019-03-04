@@ -3,7 +3,6 @@ const SANDBOX_URL = Cypress.env("SANDBOX_URL");
 const LinkPO = require("../page-objects/link.po");
 const NodePO = require("../page-objects/node.po");
 const SandboxPO = require("../page-objects/sandbox.po");
-let nodes = require("./../../sandbox/data/small/small.data").nodes.map(({ id }) => id);
 
 describe("[rd3g-link] link tests", function() {
     before(function() {
@@ -23,6 +22,25 @@ describe("[rd3g-link] link tests", function() {
         this.link13PO = new LinkPO(1);
         this.link14PO = new LinkPO(2);
         this.link34PO = new LinkPO(3);
+    });
+
+    describe("when some link.renderLabel is enable", function() {
+        beforeEach(function() {
+            cy.contains("link.renderLabel").scrollIntoView();
+            this.sandboxPO.getFieldInput("link.renderLabel").click();
+        });
+
+        describe("and some link has a 'label' property", function() {
+            it("should properly render the label in the link between two nodes", function() {
+                // link between nodes' 1 and 2 should have a label
+                this.link12PO.getLabel().contains("link 1 and 2");
+            });
+        });
+
+        afterEach(function() {
+            cy.contains("link.renderLabel").scrollIntoView();
+            this.sandboxPO.getFieldInput("link.renderLabel").click();
+        });
     });
 
     describe("when highlightDegree is 0", function() {

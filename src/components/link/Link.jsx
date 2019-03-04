@@ -21,14 +21,14 @@ import React from "react";
  *
  * <Link
  *     d="M1..."
- *     source='idSourceNode'
- *     target='idTargetNode'
- *     markerId='marker-small'
+ *     source="idSourceNode"
+ *     target="idTargetNode"
+ *     markerId="marker-small"
  *     strokeWidth=1.5
- *     stroke='green'
- *     className='link'
+ *     stroke="green"
+ *     className="link"
  *     opacity=1
- *     mouseCursor='pointer'
+ *     mouseCursor="pointer"
  *     onClickLink={onClickLink}
  *     onRightClickLink={onRightClickLink}
  *     onMouseOverLink={onMouseOverLink}
@@ -86,6 +86,27 @@ export default class Link extends React.Component {
             lineProps.markerEnd = `url(#${this.props.markerId})`;
         }
 
-        return <path {...lineProps} />;
+        const { label, id } = this.props;
+        const textProps = {
+            dy: -1,
+            style: {
+                fill: this.props.fontColor,
+                fontSize: this.props.fontSize,
+                fontWeight: this.props.fontWeight,
+            },
+        };
+
+        return (
+            <svg>
+                <path {...lineProps} id={id} />
+                {label && (
+                    <text style={{ textAnchor: "middle" }} {...textProps}>
+                        <textPath href={`#${id}`} startOffset="50%">
+                            {label}
+                        </textPath>
+                    </text>
+                )}
+            </svg>
+        );
     }
 }
