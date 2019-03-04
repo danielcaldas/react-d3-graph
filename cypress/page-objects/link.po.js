@@ -14,6 +14,7 @@ function LinkPO(index) {
         this.getLine()
             .invoke("attr", "marker-end")
             .should("contain", "url(#marker-");
+    this.getLabel = () => this.getLine().siblings();
 }
 
 module.exports = LinkPO;
