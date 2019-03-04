@@ -1,6 +1,8 @@
 /*eslint require-jsdoc: 0, valid-jsdoc: 0, no-undef: 0, no-empty: 0, no-console: 0*/
-import queryString from 'query-string';
-import { LINE_TYPES } from '../src/components/link/link.const';
+import queryString from "query-string";
+import { LINE_TYPES } from "../src/components/link/link.const";
+import DEFAULT_CONFIG from "../src/components/graph/graph.config";
+import utils from "../src/utils";
 
 /**
  * This two functions generate the react-jsonschema-form
@@ -9,14 +11,14 @@ import { LINE_TYPES } from '../src/components/link/link.const';
 function formMap(k, v) {
     // customized props
     switch (k) {
-        case 'link.type': {
+        case "link.type": {
             return {
-                type: 'array',
-                title: 'link.type',
+                type: "array",
+                title: "link.type",
                 items: {
-                    enum: Object.keys(LINE_TYPES)
+                    enum: Object.keys(LINE_TYPES),
                 },
-                uniqueItems: true
+                uniqueItems: true,
             };
         }
     }
@@ -24,7 +26,7 @@ function formMap(k, v) {
     return {
         title: k,
         type: typeof v,
-        default: v
+        default: v,
     };
 }
 
@@ -32,8 +34,8 @@ function generateFormSchema(o, rootSpreadProp, accum = {}) {
     for (let k of Object.keys(o)) {
         const kk = rootSpreadProp ? `${rootSpreadProp}.${k}` : k;
 
-        if (o[k] !== undefined && o[k] !== null && typeof o[k] !== 'function') {
-            typeof o[k] === 'object' ? generateFormSchema(o[kk], kk, accum) : (accum[kk] = formMap(kk, o[k]));
+        if (o[k] !== undefined && o[k] !== null && typeof o[k] !== "function") {
+            typeof o[k] === "object" ? generateFormSchema(o[kk], kk, accum) : (accum[kk] = formMap(kk, o[k]));
         }
     }
 
@@ -53,7 +55,8 @@ function loadDataset() {
 
         try {
             const data = require(`./data/${dataset}/${dataset}.data`);
-            const config = require(`./data/${dataset}/${dataset}.config`);
+            const datasetConfig = require(`./data/${dataset}/${dataset}.config`);
+            const config = utils.merge(DEFAULT_CONFIG, datasetConfig);
 
             return { data, config, fullscreen };
         } catch (error) {
@@ -64,18 +67,18 @@ function loadDataset() {
     }
 
     const config = {};
-    const data = require('./data/default');
+    const data = require("./data/default");
 
     return {
         config,
         data,
-        fullscreen
+        fullscreen,
     };
 }
 
 function setValue(obj, access, value) {
-    if (typeof access == 'string') {
-        access = access.split('.');
+    if (typeof access == "string") {
+        access = access.split(".");
     }
 
     // check for non existence of root property before advancing
@@ -89,5 +92,5 @@ function setValue(obj, access, value) {
 export default {
     generateFormSchema,
     loadDataset,
-    setValue
+    setValue,
 };
