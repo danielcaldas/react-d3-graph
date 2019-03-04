@@ -29,7 +29,7 @@ describe("Link Component", () => {
     });
 
     test("should call callback function when onClick is performed", () => {
-        that.tree.props.onClick();
+        that.tree.children[0].props.onClick();
         expect(that.callbackMock).toBeCalled();
     });
 });
