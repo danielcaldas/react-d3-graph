@@ -150,13 +150,22 @@
  * <h2 id="config-link"><a href="#config-link">#</a> Link level configurations</h2>
  * @param {string} [link.color="#d3d3d3"] - 🚅🚅🚅 the color for links
  * (from version 1.3.0 this property can be configured at link level).
- * @param {string} [link.highlightColor="#d3d3d3"] - links" color in highlight state.
+ * @param {string} [link.fontColor="black"] - 🔍🔍🔍 fill color for link's <text> svg label.
+ * @param {number} [link.fontSize=8] - {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control|font-size}
+ * property for all links' labels.
+ * @param {string} [link.fontWeight="normal"] - {@link https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control|font-weight}
+ * property for all links' labels.
+ * @param {string} [link.highlightColor="#d3d3d3"] - links' color in highlight state.
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
+ * @param {number} [link.highlightFontSize=8] - fontSize in highlighted state.
+ * @param {string} [link.highlightFontWeight="normal"] - fontWeight in highlighted state.
  *  @param {string} [link.mouseCursor="pointer"] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
  * property for when link is mouse hovered.
  * @param {number} [link.opacity=1] 🔍🔍🔍 - the default opacity value for links.
  * @param {boolean} [link.renderLabel=false] - when set to false no labels will appear along side links in the
  * graph.
+ * <br/>
+ * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-link-render-label.png" width="820" height="480"/>
  * @param {boolean} [link.semanticStrokeWidth=false] - when set to true all links will have
  * *"semantic width"*, this means that the width of the connections will be proportional to the value of each link.
  * This is how link strokeWidth will be calculated:
@@ -174,13 +183,6 @@
  * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
  * <br/>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
- * @param {string} [link.fontColor="black"] - 🔍🔍🔍 fill color for link"s <text> svg label.
- * @param {number} [link.fontSize=8] - {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control|font-size}
- * property for all links" labels.
- * @param {string} [link.fontWeight="normal"] - {@link https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control|font-weight}
- * property for all links" labels.
- * @param {number} [link.highlightFontSize=8] - fontSize in highlighted state.
- * @param {string} [link.highlightFontWeight="normal"] - fontWeight in highlighted state.
  *
  * @example
  * // A simple config that uses some properties
