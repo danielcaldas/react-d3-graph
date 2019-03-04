@@ -1,16 +1,16 @@
 /*global console*/
 /*eslint require-jsdoc: 0, valid-jsdoc: 0, no-console: 0*/
-import React from 'react';
+import React from "react";
 
-import Form from 'react-jsonschema-form';
+import Form from "react-jsonschema-form";
 
-import './styles.css';
+import "./styles.css";
 
-import defaultConfig from '../src/components/graph/graph.config';
-import { Graph } from '../src';
-import utils from './utils';
-import reactD3GraphUtils from '../src/utils';
-import { JsonTree } from 'react-editable-json-tree';
+import defaultConfig from "../src/components/graph/graph.config";
+import { Graph } from "../src";
+import utils from "./utils";
+import reactD3GraphUtils from "../src/utils";
+import { JsonTree } from "react-editable-json-tree";
 
 const sandboxData = utils.loadDataset();
 
@@ -28,16 +28,16 @@ export default class Sandbox extends React.Component {
 
         const { config: configOverride, data, fullscreen } = sandboxData;
         const config = Object.assign(defaultConfig, configOverride);
-        const schemaProps = utils.generateFormSchema(config, '', {});
+        const schemaProps = utils.generateFormSchema(config, "", {});
 
         const schema = {
-            type: 'object',
-            properties: schemaProps
+            type: "object",
+            properties: schemaProps,
         };
 
         const uiSchema = {
-            height: { 'ui:readonly': 'true' },
-            width: { 'ui:readonly': 'true' }
+            height: { "ui:readonly": "true" },
+            width: { "ui:readonly": "true" },
         };
 
         this.uiSchema = uiSchema;
@@ -47,11 +47,11 @@ export default class Sandbox extends React.Component {
             generatedConfig: {},
             schema,
             data,
-            fullscreen
+            fullscreen,
         };
     }
 
-    onClickGraph = () => console.info(`Clicked the graph`);
+    onClickGraph = () => console.info("Clicked the graph");
 
     onClickNode = id => {
         !this.state.config.collapsible && window.alert(`Clicked node ${id}`);
@@ -127,7 +127,7 @@ export default class Sandbox extends React.Component {
             while (this.state.data.nodes[i] && this.state.data.nodes[i].id && nLinks) {
                 this.state.data.links.push({
                     source: newNode,
-                    target: this.state.data.nodes[i].id
+                    target: this.state.data.nodes[i].id,
                 });
 
                 i++;
@@ -135,13 +135,13 @@ export default class Sandbox extends React.Component {
             }
 
             this.setState({
-                data: this.state.data
+                data: this.state.data,
             });
         } else {
             // 1st node
             const data = {
-                nodes: [{ id: 'Node 1' }],
-                links: []
+                nodes: [{ id: "Node 1" }],
+                links: [],
             };
 
             this.setState({ data });
@@ -161,7 +161,7 @@ export default class Sandbox extends React.Component {
 
             this.setState({ data });
         } else {
-            window.alert('No more nodes to remove!');
+            window.alert("No more nodes to remove!");
         }
     };
 
@@ -174,7 +174,7 @@ export default class Sandbox extends React.Component {
             utils.setValue(config, k, data.formData[k]);
             // Set new values for schema of jsonform
             schemaPropsValues[k] = {};
-            schemaPropsValues[k]['default'] = data.formData[k];
+            schemaPropsValues[k]["default"] = data.formData[k];
         }
 
         return { config, schemaPropsValues };
@@ -186,7 +186,7 @@ export default class Sandbox extends React.Component {
         this.state.schema.properties = reactD3GraphUtils.merge(this.state.schema.properties, schemaPropsValues);
 
         this.setState({
-            config
+            config,
         });
     };
 
@@ -201,23 +201,23 @@ export default class Sandbox extends React.Component {
 
     onClickSubmit = () => {
         // Hack for allow submit button to live outside jsonform
-        document.body.querySelector('.invisible-button').click();
+        document.body.querySelector(".invisible-button").click();
     };
 
     resetGraphConfig = () => {
         const generatedConfig = {};
 
-        const schemaProps = utils.generateFormSchema(defaultConfig, '', {});
+        const schemaProps = utils.generateFormSchema(defaultConfig, "", {});
 
         const schema = {
-            type: 'object',
-            properties: schemaProps
+            type: "object",
+            properties: schemaProps,
         };
 
         this.setState({
             config: defaultConfig,
             generatedConfig,
-            schema
+            schema,
         });
     };
 
@@ -232,7 +232,7 @@ export default class Sandbox extends React.Component {
         return nodes.map(n =>
             Object.assign({}, n, {
                 x: n.x || Math.floor(Math.random() * 500),
-                y: n.y || Math.floor(Math.random() * 500)
+                y: n.y || Math.floor(Math.random() * 500),
             })
         );
     };
@@ -250,7 +250,7 @@ export default class Sandbox extends React.Component {
      */
     buildCommonInteractionsPanel = () => {
         const btnStyle = {
-            cursor: this.state.config.staticGraph ? 'not-allowed' : 'pointer'
+            cursor: this.state.config.staticGraph ? "not-allowed" : "pointer",
         };
 
         const fullscreen = this.state.fullscreen ? (
@@ -309,11 +309,11 @@ export default class Sandbox extends React.Component {
         const data = {
             nodes: this.decorateGraphNodesWithInitialPositioning(this.state.data.nodes),
             links: this.state.data.links,
-            focusedNodeId: this.state.data.focusedNodeId
+            focusedNodeId: this.state.data.focusedNodeId,
         };
 
         const graphProps = {
-            id: 'graph',
+            id: "graph",
             data,
             config: this.state.config,
             onClickNode: this.onClickNode,
@@ -324,13 +324,13 @@ export default class Sandbox extends React.Component {
             onMouseOverNode: this.onMouseOverNode,
             onMouseOutNode: this.onMouseOutNode,
             onMouseOverLink: this.onMouseOverLink,
-            onMouseOutLink: this.onMouseOutLink
+            onMouseOutLink: this.onMouseOutLink,
         };
 
         if (this.state.fullscreen) {
             graphProps.config = Object.assign({}, graphProps.config, {
                 height: window.innerHeight,
-                width: window.innerWidth
+                width: window.innerWidth,
             });
 
             return (
