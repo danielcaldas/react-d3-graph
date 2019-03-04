@@ -155,6 +155,8 @@
  *  @param {string} [link.mouseCursor="pointer"] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
  * property for when link is mouse hovered.
  * @param {number} [link.opacity=1] 🔍🔍🔍 - the default opacity value for links.
+ * @param {boolean} [link.renderLabel=false] - when set to false no labels will appear along side links in the
+ * graph.
  * @param {boolean} [link.semanticStrokeWidth=false] - when set to true all links will have
  * *"semantic width"*, this means that the width of the connections will be proportional to the value of each link.
  * This is how link strokeWidth will be calculated:
@@ -250,6 +252,7 @@ export default {
         labelProperty: "label",
         mouseCursor: "pointer",
         opacity: 1,
+        renderLabel: false,
         semanticStrokeWidth: false,
         strokeWidth: 1.5,
         type: "STRAIGHT",

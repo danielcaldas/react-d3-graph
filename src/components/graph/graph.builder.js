@@ -104,9 +104,18 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     const markerId = config.directed ? getMarkerId(highlight, transform, config) : null;
 
     const t = 1 / transform;
-    const fontSize = link.fontSize || config.link.fontSize;
-    const fontColor = link.fontColor || config.link.fontColor;
-    const fontWeight = highlight ? config.link.highlightFontWeight : config.link.fontWeight;
+
+    let fontSize = null;
+    let fontColor = null;
+    let fontWeight = null;
+    let label = null;
+
+    if (config.link.renderLabel) {
+        label = link[config.link.labelProperty];
+        fontSize = link.fontSize || config.link.fontSize;
+        fontColor = link.fontColor || config.link.fontColor;
+        fontWeight = highlight ? config.link.highlightFontWeight : config.link.fontWeight;
+    }
 
     return {
         markerId,
@@ -115,7 +124,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         target,
         strokeWidth,
         stroke,
-        label: link[config.link.labelProperty],
+        label,
         mouseCursor: config.link.mouseCursor,
         fontColor,
         fontSize: fontSize * t,
