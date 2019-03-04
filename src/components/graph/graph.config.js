@@ -148,7 +148,7 @@
  * <br/>
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2 id="config-link"><a href="#config-link">#</a> Link level configurations</h2>
- * @param {string} [link.color="#d3d3d3"] - 🚅🚅🚅 the color for links
+ * @param {string} [link.color="#d3d3d3"] - 🔍🔍🔍 the color for links
  * (from version 1.3.0 this property can be configured at link level).
  * @param {string} [link.fontColor="black"] - 🔍🔍🔍 fill color for link's <text> svg label.
  * @param {number} [link.fontSize=8] - {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control|font-size}
