@@ -1,5 +1,5 @@
-import React from 'react';
-import CustomNode from './CustomNode';
+import React from "react";
+import CustomNode from "./CustomNode";
 
 module.exports = {
     automaticRearrangeAfterDropNode: false,
@@ -15,31 +15,31 @@ module.exports = {
     staticGraph: false,
     width: 800,
     node: {
-        color: '#d3d3d3',
-        fontColor: 'black',
+        color: "#d3d3d3",
+        fontColor: "black",
         fontSize: 12,
-        fontWeight: 'normal',
-        highlightColor: 'red',
+        fontWeight: "normal",
+        highlightColor: "red",
         highlightFontSize: 12,
-        highlightFontWeight: 'bold',
-        highlightStrokeColor: 'SAME',
+        highlightFontWeight: "bold",
+        highlightStrokeColor: "SAME",
         highlightStrokeWidth: 1.5,
-        labelProperty: 'name',
-        mouseCursor: 'pointer',
+        labelProperty: "name",
+        mouseCursor: "pointer",
         opacity: 1,
         renderLabel: false,
         size: 700,
-        strokeColor: 'none',
+        strokeColor: "none",
         strokeWidth: 1.5,
-        svg: '',
-        symbolType: 'circle',
-        viewGenerator: node => <CustomNode person={node} />
+        svg: "",
+        symbolType: "circle",
+        viewGenerator: node => <CustomNode person={node} />,
     },
     link: {
-        color: '#d3d3d3',
+        color: "#d3d3d3",
         opacity: 1,
         semanticStrokeWidth: false,
         strokeWidth: 4,
-        highlightColor: 'blue'
-    }
+        highlightColor: "blue",
+    },
 };

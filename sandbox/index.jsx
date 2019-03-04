@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import Sandbox from './Sandbox';
+import Sandbox from "./Sandbox";
 
-const app = document.getElementById('app');
+const app = document.getElementById("app");
 
-ReactDOM.render(<Sandbox/>, app);
+ReactDOM.render(<Sandbox />, app);

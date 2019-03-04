@@ -25,7 +25,7 @@ import { isNodeVisible } from "./collapse.helper";
  * @param  {Object} highlightedLink - same as {@link #graphrenderer|highlightedLink in renderGraph}.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @returns {Array.<Object>} returns the generated array of Link components.
- * @memberof Graph/helper
+ * @memberof Graph/renderer
  */
 function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
     let outLinks = links;
@@ -67,7 +67,7 @@ function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highligh
  * @param  {number} transform - value that indicates the amount of zoom transformation.
  * @param  {Object.<string, Object>} linksMatrix - the matrix of connections of the graph
  * @returns {Array.<Object>} returns the generated array of node components
- * @memberof Graph/helper
+ * @memberof Graph/renderer
  */
 function _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
     let outNodes = Object.keys(nodes);
@@ -95,7 +95,7 @@ function _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlighted
  * NOTE: defs are static svg graphical objects, thus we only need to render them once, the result
  * is cached on the 1st call and from there we simply return the cached jsx.
  * @returns {Function} memoized build definitions function.
- * @memberof Graph/helper
+ * @memberof Graph/renderer
  */
 function _renderDefs() {
     let cachedDefs;
@@ -128,7 +128,7 @@ function _renderDefs() {
  * Memoized reference for _renderDefs.
  * @param  {Object} config - an object containing rd3g consumer defined configurations {@link #config config} for the graph.
  * @returns {Object} graph reusable objects [defs](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/defs).
- * @memberof Graph/helper
+ * @memberof Graph/renderer
  */
 const _memoizedRenderDefs = _renderDefs();
 
