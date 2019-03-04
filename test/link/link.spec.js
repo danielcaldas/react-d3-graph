@@ -11,6 +11,9 @@ describe("Link Component", () => {
 
         that.link = renderer.create(
             <Link
+                id="A#B"
+                source="A"
+                target="B"
                 x1="2"
                 y1="2"
                 x2="4"
