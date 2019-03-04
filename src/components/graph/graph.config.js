@@ -28,11 +28,12 @@
  *
  * <br/>
  *
- * **Index for config**<br/>
  * - <a href="#config-global">Graph global configurations</a>
  * - <a href="#config-d3">d3 level configurations</a>
  * - <a href="#config-node">Node level configurations</a>
  * - <a href="#config-link">Link level configurations</a>
+ *
+ * <br/>
  *
  * <h2 id="config-global"><a href="#config-global">#</a>  Graph global configurations</h2>
  * @param {boolean} [automaticRearrangeAfterDropNode=false] - 🚅🚅🚅 when true performing a node drag and drop should automatically
@@ -159,13 +160,15 @@
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
  * @param {number} [link.highlightFontSize=8] - fontSize in highlighted state.
  * @param {string} [link.highlightFontWeight="normal"] - fontWeight in highlighted state.
- *  @param {string} [link.mouseCursor="pointer"] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
+ * @param {boolean} [link.labelProperty="label"] - the property that will be rendered as label within some link. Note that
+ * this property needs to be passed along the link payload (along side with source and target).
+ * @param {string} [link.mouseCursor="pointer"] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
  * property for when link is mouse hovered.
  * @param {number} [link.opacity=1] 🔍🔍🔍 - the default opacity value for links.
- * @param {boolean} [link.renderLabel=false] - when set to false no labels will appear along side links in the
- * graph.
+ * @param {boolean} [link.renderLabel=false] - when set to true labels will appear along side links in the
+ * graph. **Note**: this will only happen of course if proper label is passed within the link, check also `link.labelProperty`.
  * <br/>
- * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-link-render-label.png" width="820" height="480"/>
+ * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-link-render-label.png?raw=true" width="820" height="480"/>
  * @param {boolean} [link.semanticStrokeWidth=false] - when set to true all links will have
  * *"semantic width"*, this means that the width of the connections will be proportional to the value of each link.
  * This is how link strokeWidth will be calculated:
