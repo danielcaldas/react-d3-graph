@@ -137,7 +137,8 @@ function _initializeNodes(graphNodes) {
  * @memberof Graph/helper
  */
 function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
-    const d3Link = d3Links[index];
+    // find the matching link if it exists
+    const d3Link = d3Links.find(l => l.source.id === link.source && l.target.id === link.target);
     const customProps = utils.pick(link, LINK_CUSTOM_PROPS_WHITELIST);
 
     if (d3Link) {

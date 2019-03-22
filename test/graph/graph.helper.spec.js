@@ -94,6 +94,94 @@ describe("Graph Helper", () => {
                         },
                     ]);
                 });
+                describe("and the new state has nodes removed", () => {
+                    test("should create graph structure preserving subset of original structure", () => {
+                        const data = {
+                            nodes: [{ id: "B" }, { id: "C" }],
+                            links: [{ source: "B", target: "C" }],
+                        };
+                        const state = {
+                            nodes: {
+                                A: { x: 20, y: 40 },
+                                B: { x: 40, y: 60 },
+                                C: { x: 60, y: 80 },
+                            },
+                            links: [
+                                { source: "A", target: "B" },
+                                { source: "C", target: "A" },
+                                { source: "B", target: "C" },
+                            ],
+                            d3Links: [
+                                {
+                                    index: 0,
+                                    source: {
+                                        highlighted: false,
+                                        id: "A",
+                                    },
+                                    target: {
+                                        highlighted: false,
+                                        id: "B",
+                                    },
+                                },
+                                {
+                                    index: 1,
+                                    source: {
+                                        highlighted: false,
+                                        id: "C",
+                                    },
+                                    target: {
+                                        highlighted: false,
+                                        id: "A",
+                                    },
+                                },
+                                {
+                                    index: 2,
+                                    isHidden: false,
+                                    source: {
+                                        highlighted: false,
+                                        id: "B",
+                                    },
+                                    target: {
+                                        highlighted: false,
+                                        id: "C",
+                                    },
+                                },
+                            ],
+                            nodeIndexMapping: "nodeIndexMapping",
+                        };
+
+                        const newState = graphHelper.initializeGraphState({ data, id: "id", config: {} }, state);
+
+                        expect(newState.d3Nodes).toEqual([
+                            {
+                                highlighted: false,
+                                id: "B",
+                                x: 40,
+                                y: 60,
+                            },
+                            {
+                                highlighted: false,
+                                id: "C",
+                                x: 60,
+                                y: 80,
+                            },
+                        ]);
+                        expect(newState.d3Links).toEqual([
+                            {
+                                index: 2,
+                                isHidden: false,
+                                source: {
+                                    highlighted: false,
+                                    id: "B",
+                                },
+                                target: {
+                                    highlighted: false,
+                                    id: "C",
+                                },
+                            },
+                        ]);
+                    });
+                });
             });
 
             describe("and received state is empty", () => {
