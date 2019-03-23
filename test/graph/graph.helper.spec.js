@@ -168,7 +168,7 @@ describe("Graph Helper", () => {
                         ]);
                         expect(newState.d3Links).toEqual([
                             {
-                                index: 2,
+                                index: 0,
                                 isHidden: false,
                                 source: {
                                     highlighted: false,

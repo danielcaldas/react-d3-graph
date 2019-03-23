@@ -145,6 +145,7 @@ function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
         const toggledDirected = state.config && state.config.directed && config.directed !== state.config.directed;
         const refinedD3Link = {
             ...d3Link,
+            index,
             ...customProps,
         };
 
