@@ -115,7 +115,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       }
       transform={null}
     >
-      <svg>
+      <g>
         <path
           className="link"
           d="M40,200A0,0 0 0,1 140,20"
@@ -134,8 +134,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M40,200A0,0 0 0,1 20,110"
@@ -154,8 +154,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M30,184A0,0 0 0,1 305,745"
@@ -174,8 +174,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M200,300A0,0 0 0,1 305,745"
@@ -194,8 +194,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M120,270A0,0 0 0,1 305,745"
@@ -214,8 +214,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M20,110A0,0 0 0,1 305,745"
@@ -234,8 +234,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M190,609A0,0 0 0,1 305,745"
@@ -254,8 +254,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M40,200A0,0 0 0,1 101,201"
@@ -274,8 +274,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M40,200A0,0 0 0,1 2,200"
@@ -294,8 +294,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M404,404A0,0 0 0,1 14,30"
@@ -314,8 +314,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M305,745A0,0 0 0,1 20,110"
@@ -334,8 +334,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M40,200A0,0 0 0,1 14,250"
@@ -354,8 +354,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M30,184A0,0 0 0,1 190,609"
@@ -374,8 +374,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M14,259A0,0 0 0,1 190,609"
@@ -394,8 +394,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M409,500A0,0 0 0,1 190,609"
@@ -414,8 +414,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M520,123A0,0 0 0,1 14,259"
@@ -434,8 +434,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M190,609A0,0 0 0,1 14,259"
@@ -454,8 +454,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M305,745A0,0 0 0,1 120,270"
@@ -474,8 +474,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M14,20A0,0 0 0,1 120,270"
@@ -494,8 +494,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M305,745A0,0 0 0,1 200,300"
@@ -514,8 +514,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M40,200A0,0 0 0,1 200,300"
@@ -534,8 +534,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M200,300A0,0 0 0,1 40,200"
@@ -554,8 +554,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M20,1A0,0 0 0,1 90,90"
@@ -574,8 +574,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M90,656A0,0 0 0,1 90,90"
@@ -594,8 +594,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M190,609A0,0 0 0,1 30,184"
@@ -614,8 +614,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M305,745A0,0 0 0,1 30,184"
@@ -634,8 +634,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M190,609A0,0 0 0,1 409,500"
@@ -654,8 +654,8 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
-      <svg>
+      </g>
+      <g>
         <path
           className="link"
           d="M120,270A0,0 0 0,1 14,20"
@@ -674,7 +674,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
             }
           }
         />
-      </svg>
+      </g>
       <g
         className="node"
         cx="40"
