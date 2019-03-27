@@ -1,5 +1,13 @@
 # Change Log
 
+## [2.0.1](https://github.com/danielcaldas/react-d3-graph/tree/2.0.1)
+
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.0.0...2.0.1)
+
+**Fixed bugs:**
+
+-   Links get disappeared while dragging the nodes [\#180](https://github.com/danielcaldas/react-d3-graph/issues/180) Thanks ([kbtganesh](https://github.com/kbtganesh)), ([wendymungovan](https://github.com/wendymungovan)) and ([prateekgoel](https://github.com/prateekgoel)) for reporting
+
 ## [2.0.0](https://github.com/danielcaldas/react-d3-graph/tree/2.0.0)
 
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.0.0-rc2...2.0.0)
