@@ -101,13 +101,9 @@ export default class Node extends React.Component {
         let node;
 
         //Determine if we have a rectangle or a square size
-        var sizeWidth = size;
-        var sizeHeight = size;
-
-        if (this.props.width != undefined && this.props.height != undefined) {
-            sizeWidth = this.props.width;
-            sizeHeight = this.props.height;
-        }
+        const useRectangle = this.props.width && this.props.height;
+        const sizeWidth = useRectangle ? this.props.width : size;
+        const sizeHeight = useRectangle ? this.props.height : size;
 
         if (this.props.svg || this.props.viewGenerator) {
             const height = sizeHeight / 10;
