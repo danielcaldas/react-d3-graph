@@ -35,8 +35,19 @@ Full documentation [here](https://danielcaldas.github.io/react-d3-graph/docs/ind
 [![https://nodei.co/npm/YOUR-MODULE-NAME.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/react-d3-graph.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/react-d3-graph)
 
 ```bash
-npm install react-d3-graph // using npm
+npm install d3@^5.5.0      # if you don't have d3 already
+npm install react@^16.4.1  # if you don't have react already
+
+npm install react-d3-graph
 ```
+
+#### About react and d3 peer dependencies
+
+**Note** that `react` and `d3` are [peer-dependencies](https://nodejs.org/en/blog/npm/peer-dependencies/), this means that the responsability to install them is delegated to the client. This will give you a bigger flexibility on what versions of `d3` and `react` you want to consume, you just need to make sure that you are compliant with the range of versions that `react-d3-graph` is compatible with. If you install `react-d3-graph` without first installing `d3` and `react` you might be propmt the following warnings:
+
+> npm WARN react-d3-graph@2.0.1 requires a peer of d3@^5.5.0 but none is installed. You must install peer dependencies yourself.
+> npm WARN react-d3-graph@2.0.1 requires a peer of react@^16.4.1 but none is installed. You must install peer dependencies yourself.
+
 
 ## Usage sample
 
