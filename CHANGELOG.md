@@ -1,5 +1,23 @@
 # Change Log
 
+## [2.0.2](https://github.com/danielcaldas/react-d3-graph/tree/2.0.2)
+
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.0.1...2.0.2)
+
+**Fixed bugs:**
+
+-   Delete \(remove\) nodes and links from graph [\#183](https://github.com/danielcaldas/react-d3-graph/issues/183)
+
+**Closed issues:**
+
+-   Is there a way to make the graph render consistently? [\#193](https://github.com/danielcaldas/react-d3-graph/issues/193)
+-   Addition to readme [\#190](https://github.com/danielcaldas/react-d3-graph/issues/190)
+
+**Merged pull requests:**
+
+-   Update README.md [\#191](https://github.com/danielcaldas/react-d3-graph/pull/191) ([danielcaldas](https://github.com/danielcaldas))
+-   Specify links in Graph component update [\#186](https://github.com/danielcaldas/react-d3-graph/pull/186) ([grant37](https://github.com/grant37))
+
 ## [2.0.1](https://github.com/danielcaldas/react-d3-graph/tree/2.0.1)
 
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.0.0...2.0.1)

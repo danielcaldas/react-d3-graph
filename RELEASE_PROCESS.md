@@ -1,7 +1,6 @@
 ## Release Process
 
-This is not yet a full automated process, so here are a few steps to get the thing properly released on github
-and publish under npm registry.
+This is not yet a full automated process, so here are a few steps to get the thing properly released on github and publish under npm registry.
 
 ### Setup (serve a local version to run tests against it)
 
