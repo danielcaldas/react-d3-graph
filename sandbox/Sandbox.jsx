@@ -64,6 +64,10 @@ export default class Sandbox extends React.Component {
         // });
     };
 
+    onDoubleClickNode = id => {
+        !this.state.config.collapsible && window.alert(`Double clicked node ${id}`);
+    };
+
     onRightClickNode = (event, id) => {
         event.preventDefault();
         window.alert(`RIGHT clicked node ${id}`);
@@ -317,6 +321,7 @@ export default class Sandbox extends React.Component {
             data,
             config: this.state.config,
             onClickNode: this.onClickNode,
+            onDoubleClickNode: this.onDoubleClickNode,
             onRightClickNode: this.onRightClickNode,
             onClickGraph: this.onClickGraph,
             onClickLink: this.onClickLink,

@@ -58,6 +58,10 @@ import utils from "../../utils";
  *      window.alert('Clicked node ${nodeId}');
  * };
  *
+ * const onDoubleClickNode = function(nodeId) {
+ *      window.alert('Double clicked node ${nodeId}');
+ * };
+ *
  * const onRightClickNode = function(event, nodeId) {
  *      window.alert('Right clicked node ${nodeId}');
  * };
@@ -92,6 +96,7 @@ import utils from "../../utils";
  *      config={myConfig}
  *      onClickGraph={onClickGraph}
  *      onClickNode={onClickNode}
+ *      onDoubleClickNode={onDoubleClickNode}
  *      onRightClickNode={onRightClickNode}
  *      onClickLink={onClickLink}
  *      onRightClickLink={onRightClickLink}
@@ -267,7 +272,7 @@ export default class Graph extends React.Component {
     };
 
     /**
-     * Collapses the nodes, then calls the callback passed to the component.
+     * Collapses the nodes, then checks if the click is doubled and calls the callback passed to the component.
      * @param  {string} clickedNodeId - The id of the node where the click was performed.
      * @returns {undefined}
      */
@@ -293,7 +298,16 @@ export default class Graph extends React.Component {
                 () => this.props.onClickNode && this.props.onClickNode(clickedNodeId)
             );
         } else {
-            this.props.onClickNode && this.props.onClickNode(clickedNodeId);
+            if (!this.timeoutID) {
+                this.timeoutID = setTimeout(() => {
+                    this.props.onClickNode && this.props.onClickNode(clickedNodeId);
+                    this.timeoutID = null;
+                    return 1;
+                }, 250);
+            } else {
+                this.props.onDoubleClickNode && this.props.onDoubleClickNode(clickedNodeId);
+                this.timeoutID = clearTimeout(this.timeoutID);
+            }
         }
     };
 
@@ -476,6 +490,7 @@ export default class Graph extends React.Component {
             this.state.nodes,
             {
                 onClickNode: this.onClickNode,
+                onDoubleClickNode: this.onDoubleClickNode,
                 onRightClickNode: this.props.onRightClickNode,
                 onMouseOverNode: this.onMouseOverNode,
                 onMouseOut: this.onMouseOutNode,
