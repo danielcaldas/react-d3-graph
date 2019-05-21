@@ -64,7 +64,8 @@ export default class Sandbox extends React.Component {
         // });
     };
 
-    onDoubleClickNode = id => {
+    onDoubleClickNode = (event, id) => {
+        event.stopPropagation(); //??? Marche pas
         !this.state.config.collapsible && window.alert(`Double clicked node ${id}`);
     };
 

@@ -862,10 +862,6 @@ const onClickNode = function(nodeId) {
     window.alert("Clicked node ${nodeId}");
 };
 
-const onDoubleClickNode = function(nodeId) {
-    window.alert("Double clicked node ${nodeId}");
-};
-
 const onRightClickNode = function(event, nodeId) {
     window.alert("Right clicked node ${nodeId}");
 };
@@ -900,7 +896,6 @@ const onMouseOutLink = function(source, target) {
     config={myConfig}
     onClickGraph={onClickGraph}
     onClickNode={onClickNode}
-    onDoubleClickNode={onDoubleClickNode}
     onRightClickNode={onRightClickNode}
     onClickLink={onClickLink}
     onRightClickLink={onRightClickLink}
@@ -1061,7 +1056,7 @@ Returns **[undefined][111]**
 
 ### onClickNode
 
-Collapses the nodes, then checks if the click is doubled and calls the callback passed to the component.
+Collapses the nodes, then calls the callback passed to the component.
 
 **Parameters**
 
@@ -1162,10 +1157,6 @@ Node component is responsible for encapsulating node render.
 ```javascript
 const onClickNode = function(nodeId) {
      window.alert('Clicked node', nodeId);
-};
-
-const onDoubleClickNode = function(nodeId) {
-     window.alert('Double clicked node', nodeId);
 };
 
 const onRightClickNode = function(nodeId) {

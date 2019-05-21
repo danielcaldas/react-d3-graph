@@ -58,7 +58,7 @@ import utils from "../../utils";
  *      window.alert('Clicked node ${nodeId}');
  * };
  *
- * const onDoubleClickNode = function(nodeId) {
+ * const onDoubleClickNode = function(event, nodeId) {
  *      window.alert('Double clicked node ${nodeId}');
  * };
  *
@@ -231,12 +231,15 @@ export default class Graph extends React.Component {
      * {@link https://github.com/d3/d3-zoom#zoom}
      * @returns {undefined}
      */
-    _zoomConfig = () =>
-        d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).call(
-            d3Zoom()
-                .scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
-                .on("zoom", this._zoomed)
-        );
+    _zoomConfig = () => {
+        d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`)
+            .call(
+                d3Zoom()
+                    .scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
+                    .on("zoom", this._zoomed)
+            )
+            .on("dblclick.zoom", null);
+    };
 
     /**
      * Handler for 'zoom' event within zoom config.
@@ -273,10 +276,13 @@ export default class Graph extends React.Component {
 
     /**
      * Collapses the nodes, then checks if the click is doubled and calls the callback passed to the component.
+     * @param  {Object} e - The event of onClick handler.
      * @param  {string} clickedNodeId - The id of the node where the click was performed.
      * @returns {undefined}
      */
-    onClickNode = clickedNodeId => {
+    onClickNode = (e, clickedNodeId) => {
+        // eslint-disable-next-line no-console
+        console.log(e);
         if (this.state.config.collapsible) {
             const leafConnections = collapseHelper.getTargetLeafConnections(
                 clickedNodeId,
@@ -298,15 +304,15 @@ export default class Graph extends React.Component {
                 () => this.props.onClickNode && this.props.onClickNode(clickedNodeId)
             );
         } else {
-            if (!this.timeoutID) {
-                this.timeoutID = setTimeout(() => {
+            if (!this.nodeClickTimer) {
+                this.nodeClickTimer = setTimeout(() => {
                     this.props.onClickNode && this.props.onClickNode(clickedNodeId);
-                    this.timeoutID = null;
+                    this.nodeClickTimer = null;
                     return 1;
                 }, 250);
             } else {
-                this.props.onDoubleClickNode && this.props.onDoubleClickNode(clickedNodeId);
-                this.timeoutID = clearTimeout(this.timeoutID);
+                this.props.onDoubleClickNode && this.props.onDoubleClickNode(e, clickedNodeId);
+                this.nodeClickTimer = clearTimeout(this.nodeClickTimer);
             }
         }
     };
