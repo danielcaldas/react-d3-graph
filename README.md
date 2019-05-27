@@ -54,12 +54,12 @@ Graph component is the main component for react-d3-graph components, its interfa
 The code for the [live example](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html) can be consulted [here](https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/Sandbox.jsx).
 
 ```javascript
-import { Graph } from "react-d3-graph";
+import { Graph } from 'react-d3-graph';
 
 // graph payload (with minimalist structure)
 const data = {
-    nodes: [{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }],
-    links: [{ source: "Harry", target: "Sally" }, { source: "Harry", target: "Alice" }],
+    nodes: [{ id: 'Harry' }, { id: 'Sally' }, { id: 'Alice' }],
+    links: [{ source: 'Harry', target: 'Sally' }, { source: 'Harry', target: 'Alice' }]
 };
 
 // the graph configuration, you only need to pass down properties
@@ -67,13 +67,13 @@ const data = {
 const myConfig = {
     nodeHighlightBehavior: true,
     node: {
-        color: "lightgreen",
+        color: 'lightgreen',
         size: 120,
-        highlightStrokeColor: "blue",
+        highlightStrokeColor: 'blue'
     },
     link: {
-        highlightColor: "lightblue",
-    },
+        highlightColor: 'lightblue'
+    }
 };
 
 // graph event callbacks
