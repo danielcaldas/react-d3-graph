@@ -58,7 +58,7 @@ import utils from "../../utils";
  *      window.alert('Clicked node ${nodeId}');
  * };
  *
- * const onDoubleClickNode = function(event, nodeId) {
+ * const onDoubleClickNode = function(nodeId) {
  *      window.alert('Double clicked node ${nodeId}');
  * };
  *
@@ -276,13 +276,10 @@ export default class Graph extends React.Component {
 
     /**
      * Collapses the nodes, then checks if the click is doubled and calls the callback passed to the component.
-     * @param  {Object} e - The event of onClick handler.
      * @param  {string} clickedNodeId - The id of the node where the click was performed.
      * @returns {undefined}
      */
-    onClickNode = (e, clickedNodeId) => {
-        // eslint-disable-next-line no-console
-        console.log(e);
+    onClickNode = clickedNodeId => {
         if (this.state.config.collapsible) {
             const leafConnections = collapseHelper.getTargetLeafConnections(
                 clickedNodeId,
@@ -308,10 +305,9 @@ export default class Graph extends React.Component {
                 this.nodeClickTimer = setTimeout(() => {
                     this.props.onClickNode && this.props.onClickNode(clickedNodeId);
                     this.nodeClickTimer = null;
-                    return 1;
                 }, 250);
             } else {
-                this.props.onDoubleClickNode && this.props.onDoubleClickNode(e, clickedNodeId);
+                this.props.onDoubleClickNode && this.props.onDoubleClickNode(clickedNodeId);
                 this.nodeClickTimer = clearTimeout(this.nodeClickTimer);
             }
         }
