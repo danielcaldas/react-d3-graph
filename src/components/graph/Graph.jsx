@@ -228,6 +228,9 @@ export default class Graph extends React.Component {
 
     /**
      * Configures zoom upon graph with default or user provided values.<br/>
+     * NOTE: in order for users to be able to double click on nodes, we
+     * are disabling the native dblclick.zoom from d3 that performs a zoom
+     * whenever a user double clicks on top of the graph.
      * {@link https://github.com/d3/d3-zoom#zoom}
      * @returns {undefined}
      */
