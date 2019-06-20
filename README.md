@@ -86,6 +86,10 @@ const onClickNode = function(nodeId) {
     window.alert(`Clicked node ${nodeId}`);
 };
 
+const onDoubleClickNode = function(nodeId) {
+    window.alert(`Double clicked node ${nodeId}`);
+};
+
 const onRightClickNode = function(event, nodeId) {
     window.alert(`Right clicked node ${nodeId}`);
 };

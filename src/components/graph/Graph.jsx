@@ -58,6 +58,10 @@ import utils from "../../utils";
  *      window.alert('Clicked node ${nodeId}');
  * };
  *
+ * const onDoubleClickNode = function(nodeId) {
+ *      window.alert('Double clicked node ${nodeId}');
+ * };
+ *
  * const onRightClickNode = function(event, nodeId) {
  *      window.alert('Right clicked node ${nodeId}');
  * };
@@ -92,6 +96,7 @@ import utils from "../../utils";
  *      config={myConfig}
  *      onClickGraph={onClickGraph}
  *      onClickNode={onClickNode}
+ *      onDoubleClickNode={onDoubleClickNode}
  *      onRightClickNode={onRightClickNode}
  *      onClickLink={onClickLink}
  *      onRightClickLink={onRightClickLink}
@@ -223,15 +228,21 @@ export default class Graph extends React.Component {
 
     /**
      * Configures zoom upon graph with default or user provided values.<br/>
+     * NOTE: in order for users to be able to double click on nodes, we
+     * are disabling the native dblclick.zoom from d3 that performs a zoom
+     * whenever a user double clicks on top of the graph.
      * {@link https://github.com/d3/d3-zoom#zoom}
      * @returns {undefined}
      */
-    _zoomConfig = () =>
-        d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`).call(
-            d3Zoom()
-                .scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
-                .on("zoom", this._zoomed)
-        );
+    _zoomConfig = () => {
+        d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`)
+            .call(
+                d3Zoom()
+                    .scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
+                    .on("zoom", this._zoomed)
+            )
+            .on("dblclick.zoom", null);
+    };
 
     /**
      * Handler for 'zoom' event within zoom config.
@@ -267,7 +278,7 @@ export default class Graph extends React.Component {
     };
 
     /**
-     * Collapses the nodes, then calls the callback passed to the component.
+     * Collapses the nodes, then checks if the click is doubled and calls the callback passed to the component.
      * @param  {string} clickedNodeId - The id of the node where the click was performed.
      * @returns {undefined}
      */
@@ -293,7 +304,15 @@ export default class Graph extends React.Component {
                 () => this.props.onClickNode && this.props.onClickNode(clickedNodeId)
             );
         } else {
-            this.props.onClickNode && this.props.onClickNode(clickedNodeId);
+            if (!this.nodeClickTimer) {
+                this.nodeClickTimer = setTimeout(() => {
+                    this.props.onClickNode && this.props.onClickNode(clickedNodeId);
+                    this.nodeClickTimer = null;
+                }, CONST.TTL_DOUBLE_CLICK_IN_MS);
+            } else {
+                this.props.onDoubleClickNode && this.props.onDoubleClickNode(clickedNodeId);
+                this.nodeClickTimer = clearTimeout(this.nodeClickTimer);
+            }
         }
     };
 
@@ -469,6 +488,7 @@ export default class Graph extends React.Component {
 
     componentWillUnmount() {
         this.pauseSimulation();
+        this.nodeClickTimer && clearTimeout(this.nodeClickTimer);
     }
 
     render() {
@@ -476,6 +496,7 @@ export default class Graph extends React.Component {
             this.state.nodes,
             {
                 onClickNode: this.onClickNode,
+                onDoubleClickNode: this.onDoubleClickNode,
                 onRightClickNode: this.props.onRightClickNode,
                 onMouseOverNode: this.onMouseOverNode,
                 onMouseOut: this.onMouseOutNode,
