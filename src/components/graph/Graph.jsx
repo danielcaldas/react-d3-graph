@@ -305,7 +305,7 @@ export default class Graph extends React.Component {
                 this.nodeClickTimer = setTimeout(() => {
                     this.props.onClickNode && this.props.onClickNode(clickedNodeId);
                     this.nodeClickTimer = null;
-                }, 250);
+                }, CONST.TTL_DOUBLE_CLICK_IN_MS);
             } else {
                 this.props.onDoubleClickNode && this.props.onDoubleClickNode(clickedNodeId);
                 this.nodeClickTimer = clearTimeout(this.nodeClickTimer);
@@ -485,6 +485,7 @@ export default class Graph extends React.Component {
 
     componentWillUnmount() {
         this.pauseSimulation();
+        this.nodeClickTimer && clearTimeout(this.nodeClickTimer);
     }
 
     render() {

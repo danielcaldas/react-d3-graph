@@ -11,5 +11,6 @@ export default {
     },
     LINK_CLASS_NAME: "link",
     NODE_CLASS_NAME: "node",
+    TTL_DOUBLE_CLICK_IN_MS: 300,
     ...CONST,
 };
