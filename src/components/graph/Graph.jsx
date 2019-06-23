@@ -269,10 +269,10 @@ export default class Graph extends React.Component {
         // Only trigger the graph onClickHandler, if not clicked a node or link.
         // toUpperCase() is added as a precaution, as the documentation says tagName should always
         // return in UPPERCASE, but chrome returns lowercase
-        if (
-            e.target.tagName.toUpperCase() === "SVG" &&
-            e.target.attributes.name.value === `svg-container-${this.state.id}`
-        ) {
+        const tagName = e.target && e.target.tagName;
+        const name = e.target && e.target.attributes && e.target.attributes.name && e.target.attributes.name.value;
+
+        if (tagName.toUpperCase() === "SVG" && name === `svg-container-${this.state.id}`) {
             this.props.onClickGraph && this.props.onClickGraph();
         }
     };
