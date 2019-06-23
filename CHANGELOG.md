@@ -1,5 +1,17 @@
 # Change Log
 
+## [2.1.0](https://github.com/danielcaldas/react-d3-graph/tree/2.1.0)
+
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.0.2...2.1.0)
+
+**Fixed bugs:**
+
+-   When using an icon from mdi-react in a node, clicking the node throws an error. [#201](https://github.com/danielcaldas/react-d3-graph/issues/201)
+
+**New features:**
+
+-   **onDoubleClickNode** [#194](https://github.com/danielcaldas/react-d3-graph/issues/194)
+
 ## [2.0.2](https://github.com/danielcaldas/react-d3-graph/tree/2.0.2)
 
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.0.1...2.0.2)

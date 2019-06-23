@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>react-d3-graph 2.1.0 | Documentation</title>
+  <title>react-d3-graph 2.0.2 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
@@ -14,7 +14,7 @@
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>react-d3-graph</h3>
-          <div class='mb1'><code>2.1.0</code></div>
+          <div class='mb1'><code>2.0.2</code></div>
           <h3>Quick Links</h3>
           <h4><a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">🔗 GitHub Repo</a></h4>
           <h4><a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html" target="_blank">🔗 Live Demo</a></h4>
@@ -1821,10 +1821,6 @@ can be consulted <a href="https://github.com/danielcaldas/react-d3-graph/blob/ma
      <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">'Clicked node ${nodeId}'</span>);
 };
 
-<span class="hljs-keyword">const</span> onDoubleClickNode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nodeId</span>) </span>{
-     <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">'Double clicked node ${nodeId}'</span>);
-};
-
 <span class="hljs-keyword">const</span> onRightClickNode = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">event, nodeId</span>) </span>{
      <span class="hljs-built_in">window</span>.alert(<span class="hljs-string">'Right clicked node ${nodeId}'</span>);
 };
@@ -1859,7 +1855,6 @@ can be consulted <a href="https://github.com/danielcaldas/react-d3-graph/blob/ma
      <span class="hljs-attr">config</span>=<span class="hljs-string">{myConfig}</span>
      <span class="hljs-attr">onClickGraph</span>=<span class="hljs-string">{onClickGraph}</span>
      <span class="hljs-attr">onClickNode</span>=<span class="hljs-string">{onClickNode}</span>
-     <span class="hljs-attr">onDoubleClickNode</span>=<span class="hljs-string">{onDoubleClickNode}</span>
      <span class="hljs-attr">onRightClickNode</span>=<span class="hljs-string">{onRightClickNode}</span>
      <span class="hljs-attr">onClickLink</span>=<span class="hljs-string">{onClickLink}</span>
      <span class="hljs-attr">onRightClickLink</span>=<span class="hljs-string">{onRightClickLink}</span>
@@ -2354,9 +2349,6 @@ along time as d3 calculates new node positioning.</p>
 
 
   <p>Configures zoom upon graph with default or user provided values.<br/>
-NOTE: in order for users to be able to double click on nodes, we
-are disabling the native dblclick.zoom from d3 that performs a zoom
-whenever a user double clicks on top of the graph.
 <a href="https://github.com/d3/d3-zoom#zoom">https://github.com/d3/d3-zoom#zoom</a></p>
 
 
@@ -2533,7 +2525,7 @@ whenever a user double clicks on top of the graph.
 
 
 
-  <p>Collapses the nodes, then checks if the click is doubled and calls the callback passed to the component.</p>
+  <p>Collapses the nodes, then calls the callback passed to the component.</p>
 
 
   <div class='pre p1 fill-light mt0'>onClickNode</div>
