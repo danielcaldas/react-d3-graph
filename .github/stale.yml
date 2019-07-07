@@ -1,9 +1,12 @@
 # https://github.com/apps/stale
-daysUntilStale: 40
-daysUntilClose: 20
+daysUntilStale: 60
+daysUntilClose: 90
 exemptLabels:
   - pinned
   - security
+  - bug
+  - "in progress"
+  - "good first issue"
 staleLabel: wontfix
 markComment: >
   This issue has been automatically marked as stale because it has not had
