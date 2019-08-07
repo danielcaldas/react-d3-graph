@@ -252,6 +252,7 @@ export default {
         fontColor: "black",
         fontSize: 8,
         fontWeight: "normal",
+        // FIXME: highlightColor default should be "SAME", breaking change
         highlightColor: "#d3d3d3",
         highlightFontSize: 8,
         highlightFontWeight: "normal",
