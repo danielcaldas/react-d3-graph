@@ -1,6 +1,7 @@
 language: node_js
 node_js:
-    - "8.11.0"
+    - "8.9.0"
+    - "10.14.0"
 install:
     - npm install
 before_script:
