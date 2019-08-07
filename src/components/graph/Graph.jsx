@@ -271,8 +271,9 @@ export default class Graph extends React.Component {
         // return in UPPERCASE, but chrome returns lowercase
         const tagName = e.target && e.target.tagName;
         const name = e.target && e.target.attributes && e.target.attributes.name && e.target.attributes.name.value;
+        const svgContainerName = `svg-container-${this.state.id}`;
 
-        if (tagName.toUpperCase() === "SVG" && name === `svg-container-${this.state.id}`) {
+        if (tagName.toUpperCase() === "SVG" && name === svgContainerName) {
             this.props.onClickGraph && this.props.onClickGraph();
         }
     };
@@ -348,9 +349,9 @@ export default class Graph extends React.Component {
         this.props.onMouseOverLink && this.props.onMouseOverLink(source, target);
 
         if (this.state.config.linkHighlightBehavior) {
-            this.state.highlightedLink = { source, target };
+            const highlightedLink = { source, target };
 
-            this._tick();
+            this._tick({ highlightedLink });
         }
     };
 
@@ -364,9 +365,9 @@ export default class Graph extends React.Component {
         this.props.onMouseOutLink && this.props.onMouseOutLink(source, target);
 
         if (this.state.config.linkHighlightBehavior) {
-            this.state.highlightedLink = undefined;
+            const highlightedLink = undefined;
 
-            this._tick();
+            this._tick({ highlightedLink });
         }
     };
 
