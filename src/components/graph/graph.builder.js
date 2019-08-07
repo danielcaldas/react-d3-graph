@@ -111,7 +111,12 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     let label = null;
 
     if (config.link.renderLabel) {
-        label = link[config.link.labelProperty];
+        if (typeof config.link.labelProperty === "function") {
+            label = config.link.labelProperty(link);
+        } else {
+            label = link[config.link.labelProperty];
+        }
+
         fontSize = link.fontSize || config.link.fontSize;
         fontColor = link.fontColor || config.link.fontColor;
         fontWeight = highlight ? config.link.highlightFontWeight : config.link.fontWeight;
