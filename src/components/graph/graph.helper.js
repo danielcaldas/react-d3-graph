@@ -33,9 +33,6 @@ import ERRORS from "../../err";
 import utils from "../../utils";
 import { computeNodeDegree } from "./collapse.helper";
 
-const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
-const LINK_CUSTOM_PROPS_WHITELIST = ["color", "opacity", "strokeWidth", "label"];
-
 /**
  * Create d3 forceSimulation to be applied on the graph.<br/>
  * {@link https://github.com/d3/d3-force#forceSimulation|d3-force#forceSimulation}<br/>
@@ -139,7 +136,7 @@ function _initializeNodes(graphNodes) {
 function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
     // find the matching link if it exists
     const d3Link = d3Links.find(l => l.source.id === link.source && l.target.id === link.target);
-    const customProps = utils.pick(link, LINK_CUSTOM_PROPS_WHITELIST);
+    const customProps = utils.antiPick(link, ["source", "target"]);
 
     if (d3Link) {
         const toggledDirected = state.config && state.config.directed && config.directed !== state.config.directed;
@@ -329,7 +326,7 @@ function initializeGraphState({ data, id, config }, state) {
         graph = {
             nodes: data.nodes.map(n =>
                 state.nodes[n.id]
-                    ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
+                    ? Object.assign({}, n, utils.antiPick(state.nodes[n.id], ["id"]))
                     : Object.assign({}, n)
             ),
             links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links, config, state)),
