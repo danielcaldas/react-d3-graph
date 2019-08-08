@@ -160,8 +160,9 @@
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
  * @param {number} [link.highlightFontSize=8] - fontSize in highlighted state.
  * @param {string} [link.highlightFontWeight="normal"] - fontWeight in highlighted state.
- * @param {boolean} [link.labelProperty="label"] - the property that will be rendered as label within some link. Note that
- * this property needs to be passed along the link payload (along side with source and target).
+ * @param {string|Function} [link.labelProperty="label"] - the property that will be rendered as label within some link. Note that
+ * this property needs to be passed along the link payload (along side with source and target). This property can also be a function
+ * that receives the link itself as argument and returns a custom string, similarly to what happens with `node.labelProperty`.
  * @param {string} [link.mouseCursor="pointer"] - {@link https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control|cursor}
  * property for when link is mouse hovered.
  * @param {number} [link.opacity=1] 🔍🔍🔍 - the default opacity value for links.
@@ -251,6 +252,7 @@ export default {
         fontColor: "black",
         fontSize: 8,
         fontWeight: "normal",
+        // FIXME: highlightColor default should be "SAME", breaking change
         highlightColor: "#d3d3d3",
         highlightFontSize: 8,
         highlightFontWeight: "normal",

@@ -33,9 +33,18 @@ module.exports = {
     },
     link: {
         color: "#d3d3d3",
+        fontColor: "red",
+        fontSize: 10,
+        highlightColor: "blue",
+        highlightFontWeight: "bold",
+        labelProperty: link => `from ${link.source} to ${link.target}`,
         opacity: 1,
+        renderLabel: false,
         semanticStrokeWidth: false,
         strokeWidth: 4,
-        highlightColor: "blue",
+    },
+    d3: {
+        gravity: -400,
+        linkLength: 300,
     },
 };

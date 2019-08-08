@@ -30,10 +30,10 @@ describe("[rd3g-link] link tests", function() {
             this.sandboxPO.getFieldInput("link.renderLabel").click();
         });
 
-        describe("and some link has a 'label' property", function() {
+        describe("and some link has a 'labelProperty'", function() {
             it("should properly render the label in the link between two nodes", function() {
                 // link between nodes' 1 and 2 should have a label
-                this.link12PO.getLabel().contains("link 1 and 2");
+                this.link12PO.getLabel().contains("from 1 to 2");
             });
         });
 
