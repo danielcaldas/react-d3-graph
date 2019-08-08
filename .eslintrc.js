@@ -1,12 +1,13 @@
 module.exports = {
     extends: ["eslint:recommended", "plugin:jest/recommended"],
     globals: {
+        cy: true,
+        Cypress: true,
         document: true,
+        module: true,
+        Promise: true,
         Reflect: true,
         window: true,
-        Cypress: true,
-        cy: true,
-        module: true,
         __dirname: true,
     },
     parser: "babel-eslint",
