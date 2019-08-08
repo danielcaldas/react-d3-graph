@@ -276,8 +276,8 @@ export default class Sandbox extends React.Component {
 
         this.setState({
             data: {
-                nodes,
                 links,
+                nodes,
             },
         });
     };
