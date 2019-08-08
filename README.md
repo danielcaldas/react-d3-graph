@@ -20,9 +20,10 @@
 
 You can also load different datasets and configurations via URL query parameter, here are the links:
 
-*   [small dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=small) - small example.
-*   [custom node dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=custom-node) - sample config with custom views.
-*   [marvel dataset!](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=marvel) - sample config with directed collapsible graph and custom svg nodes.
+-   [small dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=small) - small example.
+-   [custom node dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=custom-node) - sample config with custom views.
+-   [marvel dataset!](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=marvel) - sample config with directed collapsible graph and custom svg nodes.
+-   [static dataset!](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=static) - small sample config statically positioned nodes.
 
 Do you want to visualize your own data set on the live sandbox? Just submit a PR! You're welcome 😁
 
@@ -48,19 +49,18 @@ npm install react-d3-graph
 > npm WARN react-d3-graph@2.0.1 requires a peer of d3@^5.5.0 but none is installed. You must install peer dependencies yourself.
 > npm WARN react-d3-graph@2.0.1 requires a peer of react@^16.4.1 but none is installed. You must install peer dependencies yourself.
 
-
 ## Usage sample
 
 Graph component is the main component for react-d3-graph components, its interface allows its user to build the graph once the user provides the data, configuration (optional) and callback interactions (also optional).
 The code for the [live example](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html) can be consulted [here](https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/Sandbox.jsx).
 
 ```javascript
-import { Graph } from 'react-d3-graph';
+import { Graph } from "react-d3-graph";
 
 // graph payload (with minimalist structure)
 const data = {
-    nodes: [{ id: 'Harry' }, { id: 'Sally' }, { id: 'Alice' }],
-    links: [{ source: 'Harry', target: 'Sally' }, { source: 'Harry', target: 'Alice' }]
+    nodes: [{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }],
+    links: [{ source: "Harry", target: "Sally" }, { source: "Harry", target: "Alice" }],
 };
 
 // the graph configuration, you only need to pass down properties
@@ -68,13 +68,13 @@ const data = {
 const myConfig = {
     nodeHighlightBehavior: true,
     node: {
-        color: 'lightgreen',
+        color: "lightgreen",
         size: 120,
-        highlightStrokeColor: 'blue'
+        highlightStrokeColor: "blue",
     },
     link: {
-        highlightColor: 'lightblue'
-    }
+        highlightColor: "lightblue",
+    },
 };
 
 // graph event callbacks
