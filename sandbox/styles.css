@@ -57,7 +57,7 @@
 .container__form {
     grid-column: 5/ 6;
     grid-row: 1 / 4;
-    min-width: 400px;
+    min-width: 250px;
     z-index: 3;
 }
 
