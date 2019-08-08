@@ -3,7 +3,7 @@ module.exports = {
     width: 800,
     nodeHighlightBehavior: true,
     linkHighlightBehavior: true,
-    staticGraph: true,
+    staticGraphWithDragAndDrop: true,
     node: {
         fontSize: 12,
         highlightFontSize: 12,

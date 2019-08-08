@@ -464,11 +464,17 @@ export default class Graph extends React.Component {
 
     componentDidUpdate() {
         // if the property staticGraph was activated we want to stop possible ongoing simulation
-        this.state.config.staticGraph && this.pauseSimulation();
+        const shouldPause = this.state.config.staticGraph || this.state.config.staticGraphWithDragAndDrop;
+
+        if (shouldPause) {
+            this.pauseSimulation();
+        }
 
         if (!this.state.config.staticGraph && (this.state.newGraphElements || this.state.d3ConfigUpdated)) {
             this._graphForcesConfig();
-            this.restartSimulation();
+            if (!this.state.config.staticGraphWithDragAndDrop) {
+                this.restartSimulation();
+            }
             this.setState({ newGraphElements: false, d3ConfigUpdated: false });
         }
 
