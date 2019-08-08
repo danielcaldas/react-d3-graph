@@ -48,6 +48,7 @@ export default class Sandbox extends React.Component {
             schema,
             data,
             fullscreen,
+            nodeIdToBeRemoved: null,
         };
     }
 
@@ -242,11 +243,44 @@ export default class Sandbox extends React.Component {
     };
 
     /**
+     * Before removing elements (nodes, links)
+     * from the graph data, this function is executed.
+     * https://github.com/oxyno-zeta/react-editable-json-tree#beforeremoveaction
+     */
+    onBeforeRemoveGraphData = (key, keyPath, deep, oldValue) => {
+        if (keyPath && keyPath[0] && keyPath[0] === "nodes" && oldValue && oldValue.id) {
+            this.setState({
+                nodeIdToBeRemoved: oldValue.id,
+            });
+        }
+
+        return Promise.resolve();
+    };
+
+    /**
      * Update graph data each time an update is triggered
      * by JsonTree
      * @param {Object} data update graph data (nodes and links)
      */
-    onGraphDataUpdate = data => this.setState({ data });
+    onGraphDataUpdate = data => {
+        const removedNodeIndex = data.nodes.findIndex(n => !n);
+        let removedNodeId = null;
+
+        if (removedNodeIndex !== -1 && this.state.nodeIdToBeRemoved) {
+            removedNodeId = this.state.nodeIdToBeRemoved;
+        }
+
+        const nodes = data.nodes.filter(Boolean);
+        const isValidLink = link => link && link.source !== removedNodeId && link.target !== removedNodeId;
+        const links = data.links.filter(isValidLink);
+
+        this.setState({
+            data: {
+                links,
+                nodes,
+            },
+        });
+    };
 
     /**
      * Build common piece of the interface that contains some interactions such as
@@ -391,7 +425,11 @@ export default class Sandbox extends React.Component {
                             Graph Data <small>(editable)</small>
                         </h4>
                         <div className="json-data-container">
-                            <JsonTree data={this.state.data} onFullyUpdate={this.onGraphDataUpdate} />
+                            <JsonTree
+                                data={this.state.data}
+                                beforeRemoveAction={this.onBeforeRemoveGraphData}
+                                onFullyUpdate={this.onGraphDataUpdate}
+                            />
                         </div>
                     </div>
                 </div>
