@@ -7,7 +7,7 @@
  * **Note about performance**<br/>
  * Some of the properties have a major performance impact when toggled while rendering graphs of medium or large dimensions (hundreds or thousand of elements).
  * These properties are marked with 🚅🚅🚅.<br/>
- * ⭐ **tip** *to achieve smoother interactions you may want to provide a toggle to set **staticGraph** to **true** *<br/>
+ * ⭐ **tip** *to achieve smoother interactions you may want to provide a toggle to set **staticGraph** or (better) **staticGraphWithDragAndDrop** to **true** *<br/>
  * <br/>
  * **Note about granularity**<br/>
  * Some of the properties listed in the {@link #config-node|Node section} are marked with 🔍🔍🔍. This means that this properties
@@ -82,6 +82,9 @@
  * all forces and drag events upon nodes will produce not effect. Note that, if this value is true the nodes will be
  * rendered with the initial provided **x and y coordinates** (links positions will be automatically set
  * from the given nodes positions by rd3g), no coordinates will be calculated by rd3g or subjacent d3 modules.
+ * @param {boolean} [staticGraphWithDragAndDrop] - exactly the same as above `staticGraph`, but it will allow users to drag&drop nodes.
+ * **Note**: If `staticGraph` is set to `true`, then `staticGraphWithDragAndDrop` will not produce the desired behaviour, make sure
+ * to set only one of them to `true`.
  * @param {number} [width=800] - the width of the (svg) area where the graph will be rendered.
  * <br/>
  * @param {Object} d3 d3 object is explained in next section. ⬇️
@@ -219,6 +222,7 @@ export default {
     nodeHighlightBehavior: false,
     panAndZoom: false,
     staticGraph: false,
+    staticGraphWithDragAndDrop: false,
     width: 800,
     d3: {
         alphaTarget: 0.05,
