@@ -39,7 +39,7 @@ module.exports = {
         highlightFontWeight: "bold",
         labelProperty: link => `from ${link.source} to ${link.target}`,
         opacity: 1,
-        renderLabel: true,
+        renderLabel: false,
         semanticStrokeWidth: false,
         strokeWidth: 4,
     },
