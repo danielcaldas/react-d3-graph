@@ -133,7 +133,7 @@ function _initializeNodes(graphNodes) {
  * @returns {Object} a d3Link.
  * @memberof Graph/helper
  */
-function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
+function _mergeDataLinkWithD3Link(link, index, d3Links = [], config, state = {}) {
     // find the matching link if it exists
     const d3Link = d3Links.find(l => l.source.id === link.source && l.target.id === link.target);
     const customProps = utils.antiPick(link, ["source", "target"]);
@@ -329,7 +329,9 @@ function initializeGraphState({ data, id, config }, state) {
                     ? Object.assign({}, n, utils.antiPick(state.nodes[n.id], ["id"]))
                     : Object.assign({}, n)
             ),
-            links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links, config, state)),
+            links: data.links.map((l, index) =>
+                _mergeDataLinkWithD3Link(l, index, state && state.d3Links, config, state)
+            ),
         };
     } else {
         graph = {
