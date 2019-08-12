@@ -33,6 +33,8 @@ import ERRORS from "../../err";
 import utils from "../../utils";
 import { computeNodeDegree } from "./collapse.helper";
 
+const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
+
 /**
  * Create d3 forceSimulation to be applied on the graph.<br/>
  * {@link https://github.com/d3/d3-force#forceSimulation|d3-force#forceSimulation}<br/>
@@ -326,7 +328,7 @@ function initializeGraphState({ data, id, config }, state) {
         graph = {
             nodes: data.nodes.map(n =>
                 state.nodes[n.id]
-                    ? Object.assign({}, n, utils.antiPick(state.nodes[n.id], ["id"]))
+                    ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
                     : Object.assign({}, n)
             ),
             links: data.links.map((l, index) =>
