@@ -170,6 +170,10 @@ describe("[rd3g-link] link tests", function() {
             this.sandboxPO.fullScreenMode().click();
         });
 
+        afterEach(function() {
+            this.sandboxPO.exitFullScreenMode();
+        });
+
         it("should highlight the link and the intervening nodes", function() {
             // mouse over link between nodes 1 and 4
             // should highlight nodes 1 and 4 as well as they're connection
@@ -200,11 +204,17 @@ describe("[rd3g-link] link tests", function() {
 
             this.link34PO.shouldHaveColor("rgb(211, 211, 211)");
             this.link34PO.shouldHaveOpacity(0.2);
+
+            // clean
+            this.link14PO
+                .getLine()
+                .click()
+                .trigger("mouseout");
         });
     });
 
-    describe("and we change link props", function() {
-        it.only("should properly update link color", function() {
+    describe("when changing link props", function() {
+        it("should properly update link color", function() {
             this.sandboxPO.jsonTreeExpandLinks();
             this.sandboxPO.clickJsonTreeFirstLink();
 
