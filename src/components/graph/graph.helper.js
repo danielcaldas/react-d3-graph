@@ -34,6 +34,7 @@ import utils from "../../utils";
 import { computeNodeDegree } from "./collapse.helper";
 
 const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
+const LINK_PROPS_WHITELIST = ["index", "source", "target", "isHidden"];
 
 /**
  * Create d3 forceSimulation to be applied on the graph.<br/>
@@ -137,7 +138,8 @@ function _initializeNodes(graphNodes) {
  */
 function _mergeDataLinkWithD3Link(link, index, d3Links = [], config, state = {}) {
     // find the matching link if it exists
-    const d3Link = d3Links.find(l => l.source.id === link.source && l.target.id === link.target);
+    const tmp = d3Links.find(l => l.source.id === link.source && l.target.id === link.target);
+    const d3Link = tmp && utils.pick(tmp, LINK_PROPS_WHITELIST);
     const customProps = utils.antiPick(link, ["source", "target"]);
 
     if (d3Link) {
