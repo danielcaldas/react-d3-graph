@@ -143,7 +143,8 @@ function _mergeDataLinkWithD3Link(link, index, d3Links = [], config, state = {})
     const customProps = utils.antiPick(link, ["source", "target"]);
 
     if (d3Link) {
-        const toggledDirected = state.config && state.config.directed && config.directed !== state.config.directed;
+        const toggledDirected =
+            state.config && state.config.hasOwnProperty("directed") && config.directed !== state.config.directed;
         const refinedD3Link = {
             index,
             ...d3Link,
