@@ -429,7 +429,8 @@ export default class Graph extends React.Component {
      * @param {Object} nextProps - props.
      * @returns {undefined}
      */
-    componentWillReceiveProps(nextProps) {
+    // eslint-disable-next-line
+    UNSAFE_componentWillReceiveProps(nextProps) {
         const { graphElementsUpdated, newGraphElements } = graphHelper.checkForGraphElementsChanges(
             nextProps,
             this.state
