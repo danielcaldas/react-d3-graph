@@ -31,6 +31,26 @@ function SandboxPO() {
         cy.get(":nth-child(2) > :nth-child(1) > .rejt-not-collapsed > :nth-child(4) > .rejt-plus-menu").click();
     this.deleteJsonTreeFirstNodeProp = () =>
         cy.get(".rejt-not-collapsed-list > :nth-child(2) > .rejt-minus-menu").click();
+    this.jsonTreeExpandLinks = () =>
+        cy
+            .get(
+                ".rejt-tree > :nth-child(1) > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(1) > .rejt-name"
+            )
+            .click();
+    this.clickJsonTreeFirstLink = () =>
+        cy
+            .get(
+                ":nth-child(2) > :nth-child(1) > :nth-child(2) > :nth-child(2) > :nth-child(1) > :nth-child(1) > .rejt-name"
+            )
+            .click();
+    this.addJsonTreeFirstLinkProp = () =>
+        cy
+            .get(
+                ":nth-child(2) > :nth-child(1) > :nth-child(2) > :nth-child(2) > :nth-child(1) > .rejt-not-collapsed > :nth-child(4) > .rejt-plus-menu"
+            )
+            .click();
+    this.deleteJsonTreeLastLinkProp = () =>
+        cy.get(".rejt-not-collapsed-list > :nth-child(4) > .rejt-minus-menu").click();
 
     // element getters
     this.getFieldInput = field =>

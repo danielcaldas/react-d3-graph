@@ -202,4 +202,39 @@ describe("[rd3g-link] link tests", function() {
             this.link34PO.shouldHaveOpacity(0.2);
         });
     });
+
+    describe("and we change link props", function() {
+        it.only("should properly update link color", function() {
+            this.sandboxPO.jsonTreeExpandLinks();
+            this.sandboxPO.clickJsonTreeFirstLink();
+
+            this.sandboxPO.addJsonTreeFirstLinkProp();
+
+            // prop name be color
+            cy.get('[placeholder="Key"]')
+                .clear()
+                .type("color");
+            // prop value be red and press ENTER
+            cy.get('[placeholder="Value"]')
+                .clear()
+                .type("red{enter}");
+
+            this.sandboxPO.addJsonTreeFirstLinkProp();
+
+            // prop name be color
+            cy.get('[placeholder="Key"]')
+                .clear()
+                .type("color");
+            // prop value be red and press ENTER
+            cy.get('[placeholder="Value"]')
+                .clear()
+                .type("blue{enter}");
+
+            this.link12PO.shouldHaveColor("blue");
+
+            this.sandboxPO.deleteJsonTreeLastLinkProp();
+
+            this.link12PO.shouldHaveColor("rgb(211, 211, 211)");
+        });
+    });
 });
