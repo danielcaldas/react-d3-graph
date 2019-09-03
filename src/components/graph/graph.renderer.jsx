@@ -78,7 +78,7 @@ function _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlighted
 
     return outNodes.map(nodeId => {
         const props = buildNodeProps(
-            Object.assign({}, nodes[nodeId], { id: `${nodeId}` }),
+            { ...nodes[nodeId], id: `${nodeId}` },
             config,
             nodeCallbacks,
             highlightedNode,

@@ -347,9 +347,7 @@ function initializeGraphState({ data, id, config }, state) {
     if (state && state.nodes) {
         graph = {
             nodes: data.nodes.map(n =>
-                state.nodes[n.id]
-                    ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
-                    : Object.assign({}, n)
+                state.nodes[n.id] ? { ...n, ...utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST) } : { ...n }
             ),
             links: data.links.map((l, index) =>
                 _mergeDataLinkWithD3Link(l, index, state && state.d3Links, config, state)
@@ -357,12 +355,12 @@ function initializeGraphState({ data, id, config }, state) {
         };
     } else {
         graph = {
-            nodes: data.nodes.map(n => Object.assign({}, n)),
-            links: data.links.map(l => Object.assign({}, l)),
+            nodes: data.nodes.map(n => ({ ...n })),
+            links: data.links.map(l => ({ ...l })),
         };
     }
 
-    let newConfig = Object.assign({}, utils.merge(DEFAULT_CONFIG, config || {}));
+    let newConfig = { ...utils.merge(DEFAULT_CONFIG, config || {}) };
     let links = _initializeLinks(graph.links, newConfig); // matrix of graph connections
     let nodes = _tagOrphanNodes(_initializeNodes(graph.nodes), links);
     const { nodes: d3Nodes, links: d3Links } = graph;
@@ -405,15 +403,15 @@ function initializeGraphState({ data, id, config }, state) {
  */
 function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
     const highlightedNode = value ? id : "";
-    const node = Object.assign({}, nodes[id], { highlighted: value });
-    let updatedNodes = Object.assign({}, nodes, { [id]: node });
+    const node = { ...nodes[id], highlighted: value };
+    let updatedNodes = { ...nodes, [id]: node };
 
     // when highlightDegree is 0 we want only to highlight selected node
     if (links[id] && config.highlightDegree !== 0) {
         updatedNodes = Object.keys(links[id]).reduce((acc, linkId) => {
-            const updatedNode = Object.assign({}, updatedNodes[linkId], { highlighted: value });
+            const updatedNode = { ...updatedNodes[linkId], highlighted: value };
 
-            return Object.assign(acc, { [linkId]: updatedNode });
+            return { ...acc, [linkId]: updatedNode };
         }, updatedNodes);
     }
 
