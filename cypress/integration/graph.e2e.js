@@ -47,6 +47,21 @@ describe("[rd3g-graph] graph tests", function() {
 
                 nodePO.getColor().should("eq", "red");
 
+                // again click (+) add prop to 1st node
+                this.sandboxPO.addJsonTreeFirstNodeProp();
+
+                // edit color
+                cy.get('[placeholder="Key"]')
+                    .clear()
+                    .type("color");
+
+                // edit color to yellow and press ENTER
+                cy.get('[placeholder="Value"]')
+                    .clear()
+                    .type("yellow{enter}");
+
+                nodePO.getColor().should("eq", "yellow");
+
                 // delete created prop
                 this.sandboxPO.deleteJsonTreeFirstNodeProp();
 

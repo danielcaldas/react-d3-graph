@@ -170,6 +170,10 @@ describe("[rd3g-link] link tests", function() {
             this.sandboxPO.fullScreenMode().click();
         });
 
+        afterEach(function() {
+            this.sandboxPO.exitFullScreenMode();
+        });
+
         it("should highlight the link and the intervening nodes", function() {
             // mouse over link between nodes 1 and 4
             // should highlight nodes 1 and 4 as well as they're connection
@@ -200,6 +204,47 @@ describe("[rd3g-link] link tests", function() {
 
             this.link34PO.shouldHaveColor("rgb(211, 211, 211)");
             this.link34PO.shouldHaveOpacity(0.2);
+
+            // clean
+            this.link14PO
+                .getLine()
+                .click()
+                .trigger("mouseout");
+        });
+    });
+
+    describe("when changing link props", function() {
+        it("should properly update link color", function() {
+            this.sandboxPO.jsonTreeExpandLinks();
+            this.sandboxPO.clickJsonTreeFirstLink();
+
+            this.sandboxPO.addJsonTreeFirstLinkProp();
+
+            // prop name be color
+            cy.get('[placeholder="Key"]')
+                .clear()
+                .type("color");
+            // prop value be red and press ENTER
+            cy.get('[placeholder="Value"]')
+                .clear()
+                .type("red{enter}");
+
+            this.sandboxPO.addJsonTreeFirstLinkProp();
+
+            // prop name be color
+            cy.get('[placeholder="Key"]')
+                .clear()
+                .type("color");
+            // prop value be red and press ENTER
+            cy.get('[placeholder="Value"]')
+                .clear()
+                .type("blue{enter}");
+
+            this.link12PO.shouldHaveColor("blue");
+
+            this.sandboxPO.deleteJsonTreeLastLinkProp();
+
+            this.link12PO.shouldHaveColor("rgb(211, 211, 211)");
         });
     });
 });

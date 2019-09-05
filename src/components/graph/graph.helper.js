@@ -34,7 +34,7 @@ import utils from "../../utils";
 import { computeNodeDegree } from "./collapse.helper";
 
 const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
-const LINK_CUSTOM_PROPS_WHITELIST = ["color", "opacity", "strokeWidth", "label"];
+const LINK_PROPS_WHITELIST = ["index", "source", "target", "isHidden"];
 
 /**
  * Create d3 forceSimulation to be applied on the graph.<br/>
@@ -136,13 +136,15 @@ function _initializeNodes(graphNodes) {
  * @returns {Object} a d3Link.
  * @memberof Graph/helper
  */
-function _mapDataLinkToD3Link(link, index, d3Links = [], config, state = {}) {
+function _mergeDataLinkWithD3Link(link, index, d3Links = [], config, state = {}) {
     // find the matching link if it exists
-    const d3Link = d3Links.find(l => l.source.id === link.source && l.target.id === link.target);
-    const customProps = utils.pick(link, LINK_CUSTOM_PROPS_WHITELIST);
+    const tmp = d3Links.find(l => l.source.id === link.source && l.target.id === link.target);
+    const d3Link = tmp && utils.pick(tmp, LINK_PROPS_WHITELIST);
+    const customProps = utils.antiPick(link, ["source", "target"]);
 
     if (d3Link) {
-        const toggledDirected = state.config && state.config.directed && config.directed !== state.config.directed;
+        const toggledDirected =
+            state.config && state.config.hasOwnProperty("directed") && config.directed !== state.config.directed;
         const refinedD3Link = {
             index,
             ...d3Link,
@@ -237,6 +239,24 @@ function _validateGraphData(data) {
 const NODE_PROPERTIES_DISCARD_TO_COMPARE = ["x", "y", "vx", "vy", "index"];
 
 /**
+ * Picks the id.
+ * @param {Object} o object to pick from.
+ * @returns {Object} new object with id property only.
+ */
+function _pickId(o) {
+    return utils.pick(o, ["id"]);
+}
+
+/**
+ * Picks source and target.
+ * @param {Object} o object to pick from.
+ * @returns {Object} new object with source and target only.
+ */
+function _pickSourceAndTarget(o) {
+    return utils.pick(o, ["source", "target"]);
+}
+
+/**
  * This function checks for graph elements (nodes and links) changes, in two different
  * levels of significance, updated elements (whether some property has changed in some
  * node or link) and new elements (whether some new elements or added/removed from the graph).
@@ -264,8 +284,8 @@ function checkForGraphElementsChanges(nextProps, currentState) {
     const newGraphElements =
         nextNodes.length !== stateD3Nodes.length ||
         nextLinks.length !== stateD3Links.length ||
-        !utils.isDeepEqual(nextNodes.map(({ id }) => ({ id })), stateD3Nodes.map(({ id }) => ({ id }))) ||
-        !utils.isDeepEqual(nextLinks, stateD3Links.map(({ source, target }) => ({ source, target })));
+        !utils.isDeepEqual(nextNodes.map(_pickId), stateD3Nodes.map(_pickId)) ||
+        !utils.isDeepEqual(nextLinks.map(_pickSourceAndTarget), stateD3Links.map(_pickSourceAndTarget));
 
     return { graphElementsUpdated, newGraphElements };
 }
@@ -328,20 +348,20 @@ function initializeGraphState({ data, id, config }, state) {
     if (state && state.nodes) {
         graph = {
             nodes: data.nodes.map(n =>
-                state.nodes[n.id]
-                    ? Object.assign({}, n, utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST))
-                    : Object.assign({}, n)
+                state.nodes[n.id] ? { ...n, ...utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST) } : { ...n }
             ),
-            links: data.links.map((l, index) => _mapDataLinkToD3Link(l, index, state && state.d3Links, config, state)),
+            links: data.links.map((l, index) =>
+                _mergeDataLinkWithD3Link(l, index, state && state.d3Links, config, state)
+            ),
         };
     } else {
         graph = {
-            nodes: data.nodes.map(n => Object.assign({}, n)),
-            links: data.links.map(l => Object.assign({}, l)),
+            nodes: data.nodes.map(n => ({ ...n })),
+            links: data.links.map(l => ({ ...l })),
         };
     }
 
-    let newConfig = Object.assign({}, utils.merge(DEFAULT_CONFIG, config || {}));
+    let newConfig = { ...utils.merge(DEFAULT_CONFIG, config || {}) };
     let links = _initializeLinks(graph.links, newConfig); // matrix of graph connections
     let nodes = _tagOrphanNodes(_initializeNodes(graph.nodes), links);
     const { nodes: d3Nodes, links: d3Links } = graph;
@@ -384,15 +404,15 @@ function initializeGraphState({ data, id, config }, state) {
  */
 function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
     const highlightedNode = value ? id : "";
-    const node = Object.assign({}, nodes[id], { highlighted: value });
-    let updatedNodes = Object.assign({}, nodes, { [id]: node });
+    const node = { ...nodes[id], highlighted: value };
+    let updatedNodes = { ...nodes, [id]: node };
 
     // when highlightDegree is 0 we want only to highlight selected node
     if (links[id] && config.highlightDegree !== 0) {
         updatedNodes = Object.keys(links[id]).reduce((acc, linkId) => {
-            const updatedNode = Object.assign({}, updatedNodes[linkId], { highlighted: value });
+            const updatedNode = { ...updatedNodes[linkId], highlighted: value };
 
-            return Object.assign(acc, { [linkId]: updatedNode });
+            return { ...acc, [linkId]: updatedNode };
         }, updatedNodes);
     }
 
