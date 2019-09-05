@@ -136,19 +136,25 @@ export default class Graph extends React.Component {
     };
 
     /**
-     * Sets d3 tick function and configures other d3 stuff such as forces and drag events.
+     * This method runs {@link d3-force|https://github.com/d3/d3-force}
+     * against the current graph.
      * @returns {undefined}
      */
-    _graphForcesConfig() {
-        this.state.simulation.nodes(this.state.d3Nodes).on("tick", this._tick);
-
+    _graphLinkForceConfig() {
         const forceLink = d3ForceLink(this.state.d3Links)
             .id(l => l.id)
             .distance(this.state.config.d3.linkLength)
             .strength(this.state.config.d3.linkStrength);
 
         this.state.simulation.force(CONST.LINK_CLASS_NAME, forceLink);
+    }
 
+    /**
+     * This method runs {@link d3-drag|https://github.com/d3/d3-drag}
+     * against the current graph.
+     * @returns {undefined}
+     */
+    _graphNodeDragConfig() {
         const customNodeDrag = d3Drag()
             .on("start", this._onDragStart)
             .on("drag", this._onDragMove)
@@ -157,6 +163,17 @@ export default class Graph extends React.Component {
         d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`)
             .selectAll(".node")
             .call(customNodeDrag);
+    }
+
+    /**
+     * Sets d3 tick function and configures other d3 stuff such as forces and drag events.
+     * Whenever called binds Graph component state with d3.
+     * @returns {undefined}
+     */
+    _graphBindD3ToReactComponent() {
+        this.state.simulation.nodes(this.state.d3Nodes).on("tick", this._tick);
+        this._graphLinkForceConfig();
+        this._graphNodeDragConfig();
     }
 
     /**
@@ -296,13 +313,27 @@ export default class Graph extends React.Component {
                 this.state.config
             );
             const d3Links = collapseHelper.toggleLinksConnections(this.state.d3Links, links);
+            const firstLeaf = leafConnections && leafConnections.length && leafConnections[0];
+            let isExpanding = false;
+
+            if (firstLeaf) {
+                const visibility = links[firstLeaf.source][firstLeaf.target];
+
+                isExpanding = visibility === 1;
+            }
 
             this._tick(
                 {
                     links,
                     d3Links,
                 },
-                () => this.props.onClickNode && this.props.onClickNode(clickedNodeId)
+                () => {
+                    this.props.onClickNode && this.props.onClickNode(clickedNodeId);
+
+                    if (isExpanding) {
+                        this._graphNodeDragConfig();
+                    }
+                }
             );
         } else {
             if (!this.nodeClickTimer) {
@@ -444,7 +475,6 @@ export default class Graph extends React.Component {
         newGraphElements && this.pauseSimulation();
 
         const transform = newConfig.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
-
         const focusedNodeId = nextProps.data.focusedNodeId;
         const d3FocusedNode = this.state.d3Nodes.find(node => `${node.id}` === `${focusedNodeId}`);
         const focusTransformation = graphHelper.getCenterAndZoomTransformation(d3FocusedNode, this.state.config);
@@ -472,11 +502,15 @@ export default class Graph extends React.Component {
         }
 
         if (!this.state.config.staticGraph && (this.state.newGraphElements || this.state.d3ConfigUpdated)) {
-            this._graphForcesConfig();
+            this._graphBindD3ToReactComponent();
+
             if (!this.state.config.staticGraphWithDragAndDrop) {
                 this.restartSimulation();
             }
+
             this.setState({ newGraphElements: false, d3ConfigUpdated: false });
+        } else if (this.state.configUpdated) {
+            this._graphNodeDragConfig();
         }
 
         if (this.state.configUpdated) {
@@ -487,7 +521,7 @@ export default class Graph extends React.Component {
 
     componentDidMount() {
         if (!this.state.config.staticGraph) {
-            this._graphForcesConfig();
+            this._graphBindD3ToReactComponent();
         }
 
         // graph zoom and drag&drop all network
