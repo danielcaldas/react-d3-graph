@@ -242,6 +242,7 @@ const NODE_PROPERTIES_DISCARD_TO_COMPARE = ["x", "y", "vx", "vy", "index"];
  * Picks the id.
  * @param {Object} o object to pick from.
  * @returns {Object} new object with id property only.
+ * @memberof Graph/helper
  */
 function _pickId(o) {
     return utils.pick(o, ["id"]);
@@ -251,6 +252,7 @@ function _pickId(o) {
  * Picks source and target.
  * @param {Object} o object to pick from.
  * @returns {Object} new object with source and target only.
+ * @memberof Graph/helper
  */
 function _pickSourceAndTarget(o) {
     return utils.pick(o, ["source", "target"]);

@@ -2,35 +2,26 @@
 <html>
 <head>
   <meta charset='utf-8' />
-  <title>react-d3-graph 2.1.0 | Documentation</title>
+  <title>react-d3-graph 2.2.0 | Documentation</title>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' type='text/css' rel='stylesheet' />
   <link href='assets/style.css' type='text/css' rel='stylesheet' />
   <link href='assets/github.css' type='text/css' rel='stylesheet' />
   <link href='assets/split.css' type='text/css' rel='stylesheet' />
-  <script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date(); a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-121685077-1', 'auto');
-    ga('send', 'pageview');
-  </script>
 </head>
 <body class='documentation m0'>
     <div class='flex'>
       <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
         <div class='py1 px2'>
           <h3 class='mb0 no-anchor'>react-d3-graph</h3>
-          <div class='mb1'><code>2.1.0</code></div>
+          <div class='mb1'><code>2.2.0</code></div>
           <h3>Quick Links</h3>
           <h4><a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">🔗 GitHub Repo</a></h4>
           <h4><a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html" target="_blank">🔗 Live Demo</a></h4>
           <h5>Versions</h5>
           <ul>
-            <li><a href="./index.html">2.1.0 (latest) 🚀</a></li>
+            <li><a href="./index.html">2.2.0 (latest) 🚀</a></li>
+            <li><a href="./2.1.0.html">2.1.0</a></li>
             <li><a href="./2.0.2.html">2.0.2</a></li>
             <li><a href="./1.3.0.html">1.3.0</a></li>
             <li><a href="./1.2.2.html">1.2.2</a></li>
@@ -79,9 +70,21 @@
                       </a></li>
 
                       <li><a
-                        href='#graph_graphforcesconfig'
+                        href='#graph_graphlinkforceconfig'
                         class='regular pre-open'>
-                        #_graphForcesConfig
+                        #_graphLinkForceConfig
+                      </a></li>
+
+                      <li><a
+                        href='#graph_graphnodedragconfig'
+                        class='regular pre-open'>
+                        #_graphNodeDragConfig
+                      </a></li>
+
+                      <li><a
+                        href='#graph_graphbindd3toreactcomponent'
+                        class='regular pre-open'>
+                        #_graphBindD3ToReactComponent
                       </a></li>
 
                       <li><a
@@ -181,9 +184,9 @@
                       </a></li>
 
                       <li><a
-                        href='#graphcomponentwillreceiveprops'
+                        href='#graphunsafe_componentwillreceiveprops'
                         class='regular pre-open'>
-                        #componentWillReceiveProps
+                        #UNSAFE_componentWillReceiveProps
                       </a></li>
 
                     </ul>
@@ -330,9 +333,9 @@
                       </a></li>
 
                       <li><a
-                        href='#graphhelper_mapdatalinktod3link'
+                        href='#graphhelper_mergedatalinkwithd3link'
                         class='regular pre-open'>
-                        ._mapDataLinkToD3Link
+                        ._mergeDataLinkWithD3Link
                       </a></li>
 
                       <li><a
@@ -345,6 +348,18 @@
                         href='#graphhelper_validategraphdata'
                         class='regular pre-open'>
                         ._validateGraphData
+                      </a></li>
+
+                      <li><a
+                        href='#graphhelper_pickid'
+                        class='regular pre-open'>
+                        ._pickId
+                      </a></li>
+
+                      <li><a
+                        href='#graphhelper_picksourceandtarget'
+                        class='regular pre-open'>
+                        ._pickSourceAndTarget
                       </a></li>
 
                       <li><a
@@ -824,7 +839,7 @@ of those properties.
 <p><strong>Note about performance</strong><br/>
 Some of the properties have a major performance impact when toggled while rendering graphs of medium or large dimensions (hundreds or thousand of elements).
 These properties are marked with 🚅🚅🚅.<br/>
-⭐ <strong>tip</strong> <em>to achieve smoother interactions you may want to provide a toggle to set <strong>staticGraph</strong> to <strong>true</strong> </em><br/>
+⭐ <strong>tip</strong> <em>to achieve smoother interactions you may want to provide a toggle to set <strong>staticGraph</strong> or (better) <strong>staticGraphWithDragAndDrop</strong> to <strong>true</strong> </em><br/>
 <br/>
 <strong>Note about granularity</strong><br/>
 Some of the properties listed in the <a href="#config-node">Node section</a> are marked with 🔍🔍🔍. This means that this properties
@@ -1081,6 +1096,29 @@ rendered with the initial provided
 <strong>x and y coordinates</strong>
  (links positions will be automatically set
 from the given nodes positions by rd3g), no coordinates will be calculated by rd3g or subjacent d3 modules.
+
+          </div>
+
+        </div>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>staticGraphWithDragAndDrop</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?)</code>
+	    exactly the same as above
+<code>staticGraph</code>
+, but it will allow users to drag&#x26;drop nodes.
+
+<strong>Note</strong>
+: If
+<code>staticGraph</code>
+ is set to
+<code>true</code>
+, then
+<code>staticGraphWithDragAndDrop</code>
+ will not produce the desired behaviour, make sure
+to set only one of them to
+<code>true</code>
+.
 
           </div>
 
@@ -1583,12 +1621,15 @@ property for all links' labels.
 
 
                 <tr>
-  <td class='break-word'><span class='code bold'>link.labelProperty</span> <code class='quiet'><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+  <td class='break-word'><span class='code bold'>link.labelProperty</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
 
     (default <code>&quot;label&quot;</code>)
   </td>
   <td class='break-word'><span>the property that will be rendered as label within some link. Note that
-this property needs to be passed along the link payload (along side with source and target).
+this property needs to be passed along the link payload (along side with source and target). This property can also be a function
+that receives the link itself as argument and returns a custom string, similarly to what happens with
+<code>node.labelProperty</code>
+.
 </span></td>
 </tr>
 
@@ -1942,11 +1983,11 @@ transition duration to zero and clear transformation styles.</p>
       </div>
     </div>
 
-    <div class='border-bottom' id='graph_graphforcesconfig'>
+    <div class='border-bottom' id='graph_graphlinkforceconfig'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>_graphForcesConfig()</span>
+            <span class='code strong strong truncate'>_graphLinkForceConfig()</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -1954,10 +1995,121 @@ transition duration to zero and clear transformation styles.</p>
 
 
 
-  <p>Sets d3 tick function and configures other d3 stuff such as forces and drag events.</p>
+  <p>This method runs <a href="d3-force">https://github.com/d3/d3-force</a>
+against the current graph.</p>
 
 
-  <div class='pre p1 fill-light mt0'>_graphForcesConfig(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></div>
+  <div class='pre p1 fill-light mt0'>_graphLinkForceConfig(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='graph_graphnodedragconfig'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_graphNodeDragConfig()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>This method runs <a href="d3-drag">https://github.com/d3/d3-drag</a>
+against the current graph.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_graphNodeDragConfig(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></code>:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='graph_graphbindd3toreactcomponent'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_graphBindD3ToReactComponent()</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Sets d3 tick function and configures other d3 stuff such as forces and drag events.
+Whenever called binds Graph component state with d3.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_graphBindD3ToReactComponent(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></div>
 
 
 
@@ -3055,11 +3207,11 @@ to their original positions (or at least new positions according to the d3 force
       </div>
     </div>
 
-    <div class='border-bottom' id='graphcomponentwillreceiveprops'>
+    <div class='border-bottom' id='graphunsafe_componentwillreceiveprops'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>componentWillReceiveProps(nextProps)</span>
+            <span class='code strong strong truncate'>UNSAFE_componentWillReceiveProps(nextProps)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -3069,7 +3221,7 @@ to their original positions (or at least new positions according to the d3 force
 
 
 
-  <div class='pre p1 fill-light mt0'>componentWillReceiveProps(nextProps: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></div>
+  <div class='pre p1 fill-light mt0'>UNSAFE_componentWillReceiveProps(nextProps: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></div>
 
 
 
@@ -4693,11 +4845,11 @@ and highlighted values.
       </div>
     </div>
 
-    <div class='border-bottom' id='graphhelper_mapdatalinktod3link'>
+    <div class='border-bottom' id='graphhelper_mergedatalinkwithd3link'>
       <div class="clearfix small pointer toggle-sibling">
         <div class="py1 contain">
             <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-            <span class='code strong strong truncate'>_mapDataLinkToD3Link(link, index, d3Links, config, state)</span>
+            <span class='code strong strong truncate'>_mergeDataLinkWithD3Link(link, index, d3Links, config, state)</span>
         </div>
       </div>
       <div class="clearfix display-none toggle-target">
@@ -4710,7 +4862,7 @@ and highlighted values.
 given index exists already that same d3Link is returned.</p>
 
 
-  <div class='pre p1 fill-light mt0'>_mapDataLinkToD3Link(link: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, index: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, d3Links: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, state: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+  <div class='pre p1 fill-light mt0'>_mergeDataLinkWithD3Link(link: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, index: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, d3Links: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, state: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
 
 
 
@@ -4948,6 +5100,142 @@ INVALID_LINKS - if links point to nonexistent nodes
 </li>
 
     </ul>
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='graphhelper_pickid'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_pickId(o)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Picks the id.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_pickId(o: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>o</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    object to pick from.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        new object with id property only.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+      </div>
+    </div>
+
+    <div class='border-bottom' id='graphhelper_picksourceandtarget'>
+      <div class="clearfix small pointer toggle-sibling">
+        <div class="py1 contain">
+            <a class='icon pin-right py1 dark-link caret-right'>▸</a>
+            <span class='code strong strong truncate'>_pickSourceAndTarget(o)</span>
+        </div>
+      </div>
+      <div class="clearfix display-none toggle-target">
+        <section class='p2 mb2 clearfix bg-white minishadow'>
+
+
+
+  <p>Picks source and target.</p>
+
+
+  <div class='pre p1 fill-light mt0'>_pickSourceAndTarget(o: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
+
+
+
+
+
+
+
+
+
+
+
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>o</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    object to pick from.
+
+          </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
+        new object with source and target only.
+
+
+
+
+
 
 
 

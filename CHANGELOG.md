@@ -1,5 +1,37 @@
 # Change Log
 
+## [2.2.0](https://github.com/danielcaldas/react-d3-graph/tree/2.2.0)
+
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.1.0...2.2.0)
+
+**Fixed bugs:**
+
+-   Drag&Drop does not work for leaf nodes after collapsing and _"uncollapsing"_ [\#223](https://github.com/danielcaldas/react-d3-graph/issues/223)
+-   \[Sandbox\] Fail to remove links / nodes in the live demo example [\#212](https://github.com/danielcaldas/react-d3-graph/issues/212)
+-   Error clicking nodes composed of `mdi-react` icons [\#201](https://github.com/danielcaldas/react-d3-graph/issues/201)
+
+**Closed issues:**
+
+-   link.renderLabel is not true by default [\#210](https://github.com/danielcaldas/react-d3-graph/issues/210)
+-   onDoubleClickNode [\#194](https://github.com/danielcaldas/react-d3-graph/issues/194)
+
+**Merged pull requests:**
+
+-   Fix uncollapsing nodes causes entire graph to be dragged [\#224](https://github.com/danielcaldas/react-d3-graph/pull/224) ([danielcaldas](https://github.com/danielcaldas))
+-   Fix/allow custom properties to pass on update for links [\#220](https://github.com/danielcaldas/react-d3-graph/pull/220) ([danielcaldas](https://github.com/danielcaldas))
+-   Feature/new config static graph with drag and drop [\#217](https://github.com/danielcaldas/react-d3-graph/pull/217) ([danielcaldas](https://github.com/danielcaldas))
+-   Fix/Fail to remove links / nodes in the live demo [\#216](https://github.com/danielcaldas/react-d3-graph/pull/216) ([danielcaldas](https://github.com/danielcaldas))
+-   Feature/allow pass function in link.label property [\#215](https://github.com/danielcaldas/react-d3-graph/pull/215) ([danielcaldas](https://github.com/danielcaldas))
+-   Run CI on node 10.14.0 \(additionally\) [\#214](https://github.com/danielcaldas/react-d3-graph/pull/214) ([danielcaldas](https://github.com/danielcaldas))
+-   Use setState to set highlightedLink [\#213](https://github.com/danielcaldas/react-d3-graph/pull/213) ([danielcaldas](https://github.com/danielcaldas))
+
+**Chore:**
+
+-   Supporting spread operator for objects. Moving from [Object.assign()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign).
+-   Update [cypress](https://github.com/cypress-io/cypress) from `v2.1.0` to `v.3.4.1`.
+-   Use [UNSAFE_componentWillReceiveProps](UNSAFE_componentWillReceiveProps) instead of `componentWillReceiveProps` (TBD: migrate to [static getDerivedStateFromProps(props, state)
+    ](https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops))
+
 ## [2.1.0](https://github.com/danielcaldas/react-d3-graph/tree/2.1.0)
 
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.0.2...2.1.0)

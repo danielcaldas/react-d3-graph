@@ -1,7 +1,6 @@
 # react-d3-graph &middot; [![Build Status](https://travis-ci.org/danielcaldas/react-d3-graph.svg?branch=master&style=flat-square)](https://travis-ci.org/danielcaldas/react-d3-graph)
 
-[![npm version](https://img.shields.io/npm/v/react-d3-graph.svg?style=flat-square)](https://www.npmjs.com/package/react-d3-graph) [![probot enabled](https://img.shields.io/badge/probot:stale-enabled-yellow.svg?longCache=true&style=flat-square)](https://probot.github.io/) [![trello](https://img.shields.io/badge/trello-board-blue.svg?longCache=true&style=flat-square)](https://trello.com/b/KrnmFXha/react-d3-graph)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![npm version](https://img.shields.io/npm/v/react-d3-graph.svg?style=flat-square)](https://www.npmjs.com/package/react-d3-graph) [![probot enabled](https://img.shields.io/badge/probot:stale-enabled-yellow.svg?longCache=true&style=flat-square)](https://probot.github.io/) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 [![npm](https://img.shields.io/npm/dw/react-d3-graph.svg?style=flat-square)](https://www.npmjs.com/package/react-d3-graph)
 [![npm](https://img.shields.io/npm/dt/react-d3-graph.svg?style=flat-square)](https://www.npmjs.com/package/react-d3-graph)
@@ -13,6 +12,12 @@
 ### _Interactive and configurable graphs with react and d3 effortlessly_
 
 [![react-d3-graph gif sample](https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/rd3g_v2.gif?raw=true)](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html)
+
+## Donations
+
+If you enjoy this library, please consider [supporting me](https://paypal.me/DanielCaldas321) for developing and maintaining it.
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/DanielCaldas321)
 
 ## Playground
 
@@ -134,20 +139,11 @@ const onMouseOutLink = function(source, target) {
 />;
 ```
 
-## Roadmap :railway_track:
-
-Want to know what's ahead for react-d3-graph? Or simply curious on what comes next and stuff that is under development?
-Check [this trello board](https://trello.com/b/KrnmFXha/react-d3-graph) where everything related to react-d3-graph is managed.
-
 ## Contributions
 
-Contributions are welcome fell free to submit new ideas/features, just open an issue or send me an email or something. If you are more a _hands on_ person, just submit a pull request.
+Contributions are welcome fell free to submit new ideas/features, just open an issue or send me an email or something. If you are more a _hands on_ person, just submit a pull request. Before jumping into coding, please take at the contribution guidelines [CONTRIBUTING.md](https://github.com/danielcaldas/react-d3-graph/blob/master/CONTRIBUTING.md).
 
-## Donation
-
-Using _react-d3-graph_ and want to help the project grow with new features or simply want to say thank you? You can always buy me a cup of coffee ☕☕☕
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/DanielCaldas321)
+To run react-d3-graph in development mode you just need to run `npm run dev` and the interactive sandbox will reload with the changes to the library code, that way you can test your changes not only through unit test but also through a real life example. It's that simple.
 
 ## Alternatives (Not what you where looking for?)
 
