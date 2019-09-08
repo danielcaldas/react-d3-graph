@@ -2,23 +2,9 @@
  * @module Graph/collapse-helper
  * @description
  * Offers a series of methods that allow graph to perform the necessary operations to
- * create the collapsible behavior.
- *
- * Developer notes - collapsing nodes and maintaining state on links matrix.
- *
- * User interaction flow (for a collapsible graph)
- * 1. User clicks node
- * 2. All leaf connections of that node are not rendered anymore
- * 3. User clicks on same node
- * 4. All leaf connections of that node are rendered
- *
- * Internal react-d3-graph flow
- * 1. User clicks node
- * 2. Compute leaf connections for clicked node (rootNode, root as in 'root' of the event)
- * 3. Update connections matrix (based on 2.)
- * 4. Update d3Links array with toggled connections (based on 2.)
+ * create the collapsible behavior. These functions will most likely operate on
+ * the links matrix.
  */
-
 /**
  * For directed graphs.
  * Check based on node degrees whether it is a leaf node or not.
@@ -53,8 +39,9 @@ function _isLeafNotDirected(inDegree, outDegree) {
  */
 function _isLeaf(nodeId, linksMatrix, directed) {
     const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
+    const fn = directed ? _isLeafDirected : _isLeafNotDirected;
 
-    return directed ? _isLeafDirected(inDegree, outDegree) : _isLeafNotDirected(inDegree, outDegree);
+    return fn(inDegree, outDegree);
 }
 
 /**
@@ -78,17 +65,11 @@ function computeNodeDegree(nodeId, linksMatrix = {}) {
 
             return currentNodeConnections.reduce((_acc, target) => {
                 if (nodeId === source) {
-                    return {
-                        ..._acc,
-                        outDegree: _acc.outDegree + linksMatrix[nodeId][target],
-                    };
+                    _acc.outDegree += linksMatrix[nodeId][target];
                 }
 
                 if (nodeId === target) {
-                    return {
-                        ..._acc,
-                        inDegree: _acc.inDegree + linksMatrix[source][nodeId],
-                    };
+                    _acc.inDegree += linksMatrix[source][nodeId];
                 }
 
                 return _acc;
@@ -133,7 +114,7 @@ function getTargetLeafConnections(rootNodeId, linksMatrix = {}, { directed }) {
  * NOTE: this function is meant to be used under the `collapsible` toggle, meaning
  * that the `isNodeVisible` actually is checking visibility on collapsible graphs.
  * If you think that this code is confusing and could potentially collide (🤞) with #_isLeaf
- * always remember that *A leaf can, through time, be both a visible or an invisible node!*.
+ * always remember that *A leaf can, throughout time, both a visible or an invisible node!*.
  *
  * @param {string} nodeId - The id of the node to get the cardinality of
  * @param  {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
@@ -142,10 +123,13 @@ function getTargetLeafConnections(rootNodeId, linksMatrix = {}, { directed }) {
  * @memberof Graph/collapse-helper
  */
 function isNodeVisible(nodeId, nodes, linksMatrix) {
-    const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
-    const orphan = !!nodes[nodeId]._orphan;
+    if (nodes[nodeId]._orphan) {
+        return true;
+    }
 
-    return inDegree > 0 || outDegree > 0 || orphan;
+    const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
+
+    return inDegree > 0 || outDegree > 0;
 }
 
 /**
@@ -162,8 +146,9 @@ function toggleLinksConnections(d3Links, connectionMatrix) {
         const targetId = target.id || target;
         // connectionMatrix[sourceId][targetId] can be 0 or non existent
         const connection = connectionMatrix && connectionMatrix[sourceId] && connectionMatrix[sourceId][targetId];
+        const isHidden = !connection;
 
-        return connection ? { ...d3Link, isHidden: false } : { ...d3Link, isHidden: true };
+        return { ...d3Link, isHidden };
     });
 }
 
