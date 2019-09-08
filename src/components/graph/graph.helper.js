@@ -318,7 +318,7 @@ function checkForGraphConfigChanges(nextProps, currentState) {
  * selected node.
  * @param {Object} d3Node - node to focus the graph view on.
  * @param {Object} config - same as {@link #graphrenderer|config in renderGraph}.
- * @returns {string} transform rule to apply.
+ * @returns {string|undefined} transform rule to apply.
  * @memberof Graph/helper
  */
 function getCenterAndZoomTransformation(d3Node, config) {
@@ -418,7 +418,9 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
         updatedNodes = Object.keys(links[id]).reduce((acc, linkId) => {
             const updatedNode = { ...updatedNodes[linkId], highlighted: value };
 
-            return { ...acc, [linkId]: updatedNode };
+            acc[linkId] = updatedNode;
+
+            return acc;
         }, updatedNodes);
     }
 
