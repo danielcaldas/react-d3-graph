@@ -15,9 +15,6 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: /node_modules|sandbox/,
                 loader: "babel-loader",
-                options: {
-                    presets: ["react", "es2015", "stage-2"],
-                },
             },
         ],
     },
