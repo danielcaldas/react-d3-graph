@@ -180,10 +180,17 @@ export default class Graph extends React.Component {
      * Handles d3 drag 'end' event.
      * @returns {undefined}
      */
-    _onDragEnd = () =>
+    _onDragEnd = () => {
+        Object.keys(this.state.nodes).forEach(id => {
+            const tmpNode = this.state.nodes[id];
+            if (tmpNode.fx && tmpNode.fy) {
+                this.onNodePositionChange(tmpNode.id, tmpNode.fx, tmpNode.fy);
+            }
+        });
         !this.state.config.staticGraph &&
-        this.state.config.automaticRearrangeAfterDropNode &&
-        this.state.simulation.alphaTarget(this.state.config.d3.alphaTarget).restart();
+            this.state.config.automaticRearrangeAfterDropNode &&
+            this.state.simulation.alphaTarget(this.state.config.d3.alphaTarget).restart();
+    };
 
     /**
      * Handles d3 'drag' event.
@@ -366,6 +373,13 @@ export default class Graph extends React.Component {
      */
     onMouseOutNode = id => {
         this.props.onMouseOutNode && this.props.onMouseOutNode(id);
+        let node = this.state.nodes[id];
+
+        if (node.fx && node.fy) {
+            console.log("fixed:   x=", node.fx, " y=", node.fy);
+        } else {
+            console.log("initial: x=", node.x, " y=", node.y);
+        }
 
         this.state.config.nodeHighlightBehavior && this._setNodeHighlightedValue(id, false);
     };
@@ -400,6 +414,17 @@ export default class Graph extends React.Component {
 
             this._tick({ highlightedLink });
         }
+    };
+
+    /**
+     * Handles node position change.
+     * @param (string) nodeId - id of the node whose position changed
+     * @param (number) x - x coordinate of the node whose position changed
+     * @param (number) y - y coordinate of the node whose position changed
+     * @returns {undefined)
+     */
+    onNodePositionChange = (nodeId, x, y) => {
+        this.props.onNodePositionChange && this.props.onNodePositionChange(nodeId, x, y);
     };
 
     /**
