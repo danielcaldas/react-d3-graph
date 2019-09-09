@@ -47,12 +47,12 @@ describe("Graph Component", () => {
 
             node.children[0].props.onMouseOver();
 
-            expect(that.mouseOverNodeCallback).toBeCalled();
+            expect(that.mouseOverNodeCallback).toHaveBeenCalled();
         });
 
         test("node and their adjacent should have opacity equal to 1 and color (fill) equal to that.highlightColor", () => {
-            let linksNodes = that.tree.children[0].children[1].children;
-            let node = linksNodes[linksNodes.length - nodeOffset];
+            let linksNodes = that.tree.children[0].children[1].children,
+                node = linksNodes[linksNodes.length - nodeOffset];
 
             node.children[0].props.onMouseOver();
 
@@ -78,8 +78,8 @@ describe("Graph Component", () => {
         });
 
         test("non selected node and non adjacent should have opacity equal to that.highlightOpacity and color equal to that.nodeColor", () => {
-            let linksNodes = that.tree.children[0].children[1].children;
-            let node = linksNodes[linksNodes.length - nodeOffset];
+            let linksNodes = that.tree.children[0].children[1].children,
+                node = linksNodes[linksNodes.length - nodeOffset];
 
             node.children[0].props.onMouseOver();
 

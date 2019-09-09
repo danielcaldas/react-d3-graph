@@ -111,10 +111,11 @@ function _initializeNodes(graphNodes) {
 
         node.highlighted = false;
 
-        if (!node.hasOwnProperty("x")) {
+        if (!Object.prototype.hasOwnProperty.call(node, "x")) {
             node.x = 0;
         }
-        if (!node.hasOwnProperty("y")) {
+
+        if (!Object.prototype.hasOwnProperty.call(node, "y")) {
             node.y = 0;
         }
 
@@ -144,7 +145,9 @@ function _mergeDataLinkWithD3Link(link, index, d3Links = [], config, state = {})
 
     if (d3Link) {
         const toggledDirected =
-            state.config && state.config.hasOwnProperty("directed") && config.directed !== state.config.directed;
+            state.config &&
+            Object.prototype.hasOwnProperty.call(state.config, "directed") &&
+            config.directed !== state.config.directed;
         const refinedD3Link = {
             index,
             ...d3Link,
@@ -363,13 +366,12 @@ function initializeGraphState({ data, id, config }, state) {
         };
     }
 
-    let newConfig = { ...utils.merge(DEFAULT_CONFIG, config || {}) };
-    let links = _initializeLinks(graph.links, newConfig); // matrix of graph connections
-    let nodes = _tagOrphanNodes(_initializeNodes(graph.nodes), links);
+    let newConfig = { ...utils.merge(DEFAULT_CONFIG, config || {}) },
+        links = _initializeLinks(graph.links, newConfig), // matrix of graph connections
+        nodes = _tagOrphanNodes(_initializeNodes(graph.nodes), links);
     const { nodes: d3Nodes, links: d3Links } = graph;
     const formatedId = id.replace(/ /g, "_");
     const simulation = _createForceSimulation(newConfig.width, newConfig.height, newConfig.d3 && newConfig.d3.gravity);
-
     const { minZoom, maxZoom, focusZoom } = newConfig;
 
     if (focusZoom > maxZoom) {
@@ -408,6 +410,7 @@ function initializeGraphState({ data, id, config }, state) {
 function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
     const highlightedNode = value ? id : "";
     const node = { ...nodes[id], highlighted: value };
+
     let updatedNodes = { ...nodes, [id]: node };
 
     // when highlightDegree is 0 we want only to highlight selected node

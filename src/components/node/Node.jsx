@@ -93,10 +93,11 @@ export default class Node extends React.Component {
         };
 
         const size = this.props.size;
-        let gtx = this.props.cx;
-        let gty = this.props.cy;
-        let label;
-        let node;
+
+        let gtx = this.props.cx,
+            gty = this.props.cy,
+            label = null,
+            node = null;
 
         if (this.props.svg || this.props.viewGenerator) {
             const height = size / 10;

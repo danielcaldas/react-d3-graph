@@ -39,16 +39,16 @@ describe("Node Component", () => {
 
     test("should call callback function when onClick is called", () => {
         that.tree.children[0].props.onClick();
-        expect(that.clickCallback).toBeCalled();
+        expect(that.clickCallback).toHaveBeenCalled();
     });
 
     test("should call callback function when onMouseOut is called", () => {
         that.tree.children[0].props.onMouseOver();
-        expect(that.mouseOverCallback).toBeCalled();
+        expect(that.mouseOverCallback).toHaveBeenCalled();
     });
 
     test("should call callback function when onMouseOver is called", () => {
         that.tree.children[0].props.onMouseOut();
-        expect(that.mouseOutCallback).toBeCalled();
+        expect(that.mouseOutCallback).toHaveBeenCalled();
     });
 });
