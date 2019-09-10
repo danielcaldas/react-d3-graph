@@ -90,6 +90,11 @@ import utils from "../../utils";
  *      window.alert(`Mouse out link between ${source} and ${target}`);
  * };
  *
+ * const onNodePositionChange = function(nodeId, x, y) {
+ *      window.alert(`Node ${nodeId} moved to new position x= ${x} y= ${y}`);
+ * };
+ *
+ *
  * <Graph
  *      id='graph-id' // id is mandatory, if no id is defined rd3g will throw an error
  *      data={data}
@@ -180,10 +185,13 @@ export default class Graph extends React.Component {
      * Handles d3 drag 'end' event.
      * @returns {undefined}
      */
-    _onDragEnd = () =>
+    _onDragEnd = () => {
+        this.state.draggedNode &&
+            this.onNodePositionChange(this.state.draggedNode.id, this.state.draggedNode.fx, this.state.draggedNode.fy);
         !this.state.config.staticGraph &&
-        this.state.config.automaticRearrangeAfterDropNode &&
-        this.state.simulation.alphaTarget(this.state.config.d3.alphaTarget).restart();
+            this.state.config.automaticRearrangeAfterDropNode &&
+            this.state.simulation.alphaTarget(this.state.config.d3.alphaTarget).restart();
+    };
 
     /**
      * Handles d3 'drag' event.
@@ -208,7 +216,7 @@ export default class Graph extends React.Component {
             draggedNode["fx"] = draggedNode.x;
             draggedNode["fy"] = draggedNode.y;
 
-            this._tick();
+            this._tick({ draggedNode });
         }
     };
 
@@ -401,6 +409,16 @@ export default class Graph extends React.Component {
             this._tick({ highlightedLink });
         }
     };
+
+    /**
+     * Handles node position change.
+     * @param {string} nodeId - id of the node whose position changed.
+     * @param {number} x - x coordinate of the node whose position changed.
+     * @param {number} y - y coordinate of the node whose position changed.
+     * @returns {undefined}
+     */
+    onNodePositionChange = (nodeId, x, y) =>
+        this.props.onNodePositionChange && this.props.onNodePositionChange(nodeId, x, y);
 
     /**
      * Calls d3 simulation.stop().<br/>

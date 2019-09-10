@@ -91,6 +91,9 @@ export default class Sandbox extends React.Component {
     onMouseOutLink = (source, target) =>
         console.info(`Do something when mouse is out of link between ${source} and ${target}`);
 
+    onNodePositionChange = (nodeId, x, y) =>
+        console.info(`Node ${nodeId} is moved to new position. New position is (${x}, ${y}) (x,y)`);
+
     /**
      * Sets on/off fullscreen visualization mode.
      */
@@ -364,6 +367,7 @@ export default class Sandbox extends React.Component {
             onMouseOutNode: this.onMouseOutNode,
             onMouseOverLink: this.onMouseOverLink,
             onMouseOutLink: this.onMouseOutLink,
+            onNodePositionChange: this.onNodePositionChange,
         };
 
         if (this.state.fullscreen) {
