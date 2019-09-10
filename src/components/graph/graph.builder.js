@@ -53,10 +53,10 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
  */
 function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
     const { source, target } = link;
-    const x1 = (nodes[source] && nodes[source].x) || 0;
-    const y1 = (nodes[source] && nodes[source].y) || 0;
-    const x2 = (nodes[target] && nodes[target].x) || 0;
-    const y2 = (nodes[target] && nodes[target].y) || 0;
+    const x1 = ((nodes[source] && nodes[source].x) || 0) + config.offsetX;
+    const y1 = ((nodes[source] && nodes[source].y) || 0) + config.offsetY;
+    const x2 = ((nodes[target] && nodes[target].x) || 0) + config.offsetX;
+    const y2 = ((nodes[target] && nodes[target].y) || 0) + config.offsetY;
 
     const d = buildLinkPathDefinition({ source: { x: x1, y: y1 }, target: { x: x2, y: y2 } }, config.link.type);
 
@@ -195,8 +195,8 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         ...node,
         className: CONST.NODE_CLASS_NAME,
         cursor: config.node.mouseCursor,
-        cx: (node && node.x) || "0",
-        cy: (node && node.y) || "0",
+        cx: (((node && node.x) || 0) + config.offsetX).toString(),
+        cy: (((node && node.y) || 0) + config.offsetY).toString(),
         fill,
         fontColor,
         fontSize: fontSize * t,

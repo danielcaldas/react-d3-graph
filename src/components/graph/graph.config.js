@@ -224,6 +224,8 @@ export default {
     staticGraph: false,
     staticGraphWithDragAndDrop: false,
     width: 800,
+    offsetX: 0,
+    offsetY: 0,
     d3: {
         alphaTarget: 0.05,
         gravity: -100,
