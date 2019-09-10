@@ -123,6 +123,10 @@ const onMouseOutLink = function(source, target) {
     window.alert(`Mouse out link between ${source} and ${target}`);
 };
 
+const onNodePositionChange = function(nodeId, x, y) {
+    window.alert(`Node ${nodeId} is moved to new position. New position is x= ${x} y= ${y}`);
+};
+
 <Graph
     id="graph-id" // id is mandatory, if no id is defined rd3g will throw an error
     data={data}
@@ -136,6 +140,7 @@ const onMouseOutLink = function(source, target) {
     onMouseOutNode={onMouseOutNode}
     onMouseOverLink={onMouseOverLink}
     onMouseOutLink={onMouseOutLink}
+    onNodePositionChange={onNodePositionChange}
 />;
 ```
 
