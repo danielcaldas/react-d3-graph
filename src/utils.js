@@ -17,7 +17,13 @@ const MAX_DEPTH = 20;
  * @memberof utils
  */
 function _isPropertyNestedObject(o, k) {
-    return !!o && o.hasOwnProperty(k) && typeof o[k] === "object" && o[k] !== null && !isEmptyObject(o[k]);
+    return (
+        !!o &&
+        Object.prototype.hasOwnProperty.call(o, k) &&
+        typeof o[k] === "object" &&
+        o[k] !== null &&
+        !isEmptyObject(o[k])
+    );
 }
 
 /**
@@ -52,7 +58,9 @@ function isDeepEqual(o1, o2, _depth = 0) {
         if (nestedO && _depth < MAX_DEPTH) {
             diffs.push(isDeepEqual(o1[k], o2[k], _depth + 1));
         } else {
-            const r = (isEmptyObject(o1[k]) && isEmptyObject(o2[k])) || (o2.hasOwnProperty(k) && o2[k] === o1[k]);
+            const r =
+                (isEmptyObject(o1[k]) && isEmptyObject(o2[k])) ||
+                (Object.prototype.hasOwnProperty.call(o2, k) && o2[k] === o1[k]);
 
             diffs.push(r);
 
@@ -123,9 +131,12 @@ function merge(o1 = {}, o2 = {}, _depth = 0) {
             const r = merge(o1[k], o2[k], _depth + 1);
 
             o[k] =
-                o1[k].hasOwnProperty("length") && o2[k].hasOwnProperty("length") ? Object.keys(r).map(rk => r[rk]) : r;
+                Object.prototype.hasOwnProperty.call(o1[k], "length") &&
+                Object.prototype.hasOwnProperty.call(o2[k], "length")
+                    ? Object.keys(r).map(rk => r[rk])
+                    : r;
         } else {
-            o[k] = o2.hasOwnProperty(k) ? o2[k] : o1[k];
+            o[k] = Object.prototype.hasOwnProperty.call(o2, k) ? o2[k] : o1[k];
         }
     }
 
@@ -142,7 +153,7 @@ function merge(o1 = {}, o2 = {}, _depth = 0) {
  */
 function pick(o, props = []) {
     return props.reduce((acc, k) => {
-        if (o.hasOwnProperty(k)) {
+        if (Object.prototype.hasOwnProperty.call(o, k)) {
             acc[k] = o[k];
         }
 

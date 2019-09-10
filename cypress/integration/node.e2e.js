@@ -5,7 +5,7 @@ const SandboxPO = require("../page-objects/sandbox.po");
 const defaultNodes = require("./../../sandbox/data/default").nodes;
 let nodes = require("./../../sandbox/data/default").nodes.map(({ id }) => id);
 
-describe("[rd3g-node] node tests", function() {
+describe("[rd3g-node]", function() {
     before(function() {
         this.sandboxPO = new SandboxPO();
         // visit sandbox

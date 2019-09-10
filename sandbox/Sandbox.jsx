@@ -1,4 +1,3 @@
-/*global console*/
 /*eslint require-jsdoc: 0, valid-jsdoc: 0, no-console: 0*/
 import React from "react";
 
@@ -126,8 +125,9 @@ export default class Sandbox extends React.Component {
         if (this.state.data.nodes && this.state.data.nodes.length) {
             const maxIndex = this.state.data.nodes.length - 1;
             const minIndex = 0;
-            let i = Math.floor(Math.random() * (maxIndex - minIndex + 1) + minIndex);
-            let nLinks = Math.floor(Math.random() * (5 - minIndex + 1) + minIndex);
+
+            let i = Math.floor(Math.random() * (maxIndex - minIndex + 1) + minIndex),
+                nLinks = Math.floor(Math.random() * (5 - minIndex + 1) + minIndex);
             const newNode = `Node ${this.state.data.nodes.length}`;
 
             this.state.data.nodes.push({ id: newNode });
@@ -174,8 +174,8 @@ export default class Sandbox extends React.Component {
     };
 
     _buildGraphConfig = data => {
-        let config = {};
-        let schemaPropsValues = {};
+        let config = {},
+            schemaPropsValues = {};
 
         for (let k of Object.keys(data.formData)) {
             // Set value mapping correctly for config object of react-d3-graph
@@ -267,6 +267,7 @@ export default class Sandbox extends React.Component {
      */
     onGraphDataUpdate = data => {
         const removedNodeIndex = data.nodes.findIndex(n => !n);
+
         let removedNodeId = null;
 
         if (removedNodeIndex !== -1 && this.state.nodeIdToBeRemoved) {

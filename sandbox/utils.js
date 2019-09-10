@@ -44,6 +44,7 @@ function generateFormSchema(o, rootSpreadProp, accum = {}) {
 
 function loadDataset() {
     const queryParams = queryString.parse(location.search);
+
     let fullscreen = false;
 
     if (queryParams && queryParams.fullscreen) {

@@ -3,8 +3,7 @@ import * as graphData from "../../sandbox/data/default";
 import { initializeGraphState } from "../../src/components/graph/graph.helper";
 
 describe("Collapse Helper", () => {
-    let directedState;
-    let defaultState;
+    let directedState, defaultState;
 
     beforeEach(() => {
         directedState = initializeGraphState({ data: graphData, id: "id", config: { directed: true } });
