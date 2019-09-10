@@ -22,10 +22,9 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
         node.highlighted ||
         node.id === (highlightedLink && highlightedLink.source) ||
         node.id === (highlightedLink && highlightedLink.target);
-    const someNodeHighlighted = !!(
-        highlightedNode ||
-        (highlightedLink && highlightedLink.source && highlightedLink.target)
-    );
+    const someLinkHighlighted = highlightedLink && highlightedLink.source && highlightedLink.target;
+    const someNodeHighlighted = !!(highlightedNode || someLinkHighlighted);
+
     let opacity;
 
     if (someNodeHighlighted && config.highlightDegree === 0) {
@@ -105,10 +104,10 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
 
     const t = 1 / transform;
 
-    let fontSize = null;
-    let fontColor = null;
-    let fontWeight = null;
-    let label = null;
+    let fontSize = null,
+        fontColor = null,
+        fontWeight = null,
+        label = null;
 
     if (config.link.renderLabel) {
         if (typeof config.link.labelProperty === "function") {

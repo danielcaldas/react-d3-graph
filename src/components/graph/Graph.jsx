@@ -322,6 +322,7 @@ export default class Graph extends React.Component {
             );
             const d3Links = collapseHelper.toggleLinksConnections(this.state.d3Links, links);
             const firstLeaf = leafConnections && leafConnections.length && leafConnections[0];
+
             let isExpanding = false;
 
             if (firstLeaf) {

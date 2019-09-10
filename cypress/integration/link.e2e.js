@@ -4,7 +4,7 @@ const LinkPO = require("../page-objects/link.po");
 const NodePO = require("../page-objects/node.po");
 const SandboxPO = require("../page-objects/sandbox.po");
 
-describe("[rd3g-link] link tests", function() {
+describe("[rd3g-link]", function() {
     before(function() {
         this.sandboxPO = new SandboxPO();
         // visit sandbox
