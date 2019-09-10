@@ -92,7 +92,7 @@ export default class Sandbox extends React.Component {
         console.info(`Do something when mouse is out of link between ${source} and ${target}`);
 
     onNodePositionChange = (nodeId, x, y) =>
-        console.info(`Do something when Node ${nodeId} is moved to new position. New position is (${x}, ${y}) (x,y) coordinates.`);
+        console.info(`Node ${nodeId} is moved to new position. New position is (${x}, ${y}) (x,y)`);
 
     /**
      * Sets on/off fullscreen visualization mode.

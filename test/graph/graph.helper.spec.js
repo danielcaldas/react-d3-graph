@@ -345,6 +345,7 @@ describe("Graph Helper", () => {
                         force: forceStub,
                     },
                     transform: 1,
+                    draggedNode: null,
                 });
             });
         });
