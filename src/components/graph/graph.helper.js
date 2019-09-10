@@ -390,6 +390,7 @@ function initializeGraphState({ data, id, config }, state) {
         newGraphElements: false,
         configUpdated: false,
         transform: 1,
+        draggedNode: null,
     };
 }
 
