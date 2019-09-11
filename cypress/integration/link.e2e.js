@@ -56,7 +56,7 @@ describe("[rd3g-link]", function() {
         it("(0) graph should react properly to mouse over events on nodes and links", function() {
             // mouse over 'Node 3'
             // highlight node 3 only
-            this.node3PO.getPath().trigger("mouseover");
+            this.node3PO.getPath().trigger("mouseover", { force: true });
 
             this.node1PO.getColor().should("eq", "#d3d3d3");
             this.node1PO.getOpacity().should("eq", "0.2");
@@ -98,7 +98,7 @@ describe("[rd3g-link]", function() {
             // mouse over 'Node 3'
             // highlight nodes 1, 3 and 4 and respective links
             // not highlight node 2 and other connections
-            this.node3PO.getPath().trigger("mouseover");
+            this.node3PO.getPath().trigger("mouseover", { force: true });
 
             this.node1PO.getColor().should("eq", "red");
             this.node1PO.getFontWeight().should("eq", "bold");
@@ -139,7 +139,7 @@ describe("[rd3g-link]", function() {
             // highlight nodes 1, 3 and 4 and respective links
             // should also highlight 2nd degree connection between 1 and 4
             // not highlight node 2 and other connections
-            this.node3PO.getPath().trigger("mouseover");
+            this.node3PO.getPath().trigger("mouseover", { force: true });
 
             this.node1PO.getColor().should("eq", "red");
             this.node1PO.getFontWeight().should("eq", "bold");

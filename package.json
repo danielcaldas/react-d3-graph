@@ -10,7 +10,7 @@
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --mode=development --content-base sandbox --config webpack.config.js --inline --hot --port 3002",
     "dist:rd3g": "rm -rf dist/ && webpack --config webpack.config.dist.js -p --display-modules --optimize-minimize",
     "dist:sandbox": "webpack --config webpack.config.js -p",
-    "dist:transpile": "./node_modules/babel-cli/bin/babel.js -d lib src",
+    "dist:transpile": "./node_modules/@babel/cli/bin/babel.js -d lib src",
     "dist": "npm run check && npm-run-all --parallel dist:*",
     "docs:lint": "node_modules/documentation/bin/documentation.js lint src/**/*.js",
     "docs:watch": "node_modules/documentation/bin/documentation.js --config documentation.yml build src/**/*.js -f html -o gen-docs --watch",
@@ -39,11 +39,13 @@
     "react": "^16.4.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.6.0",
     "@babel/core": "7.6.0",
     "@babel/plugin-proposal-class-properties": "7.5.5",
     "@babel/preset-env": "7.6.0",
     "@babel/preset-react": "7.0.0",
     "@cypress/webpack-preprocessor": "4.1.0",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "8.0.6",
     "cross-env": "5.2.1",
     "css-loader": "2.0.2",
