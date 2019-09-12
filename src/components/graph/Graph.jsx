@@ -295,8 +295,7 @@ export default class Graph extends React.Component {
         // toUpperCase() is added as a precaution, as the documentation says tagName should always
         // return in UPPERCASE, but chrome returns lowercase
         const tagName = e.target && e.target.tagName;
-        // TODO: optional chaining!
-        const name = e.target && e.target.attributes && e.target.attributes.name && e.target.attributes.name.value;
+        const name = e?.target?.attributes?.name?.value;
         const svgContainerName = `svg-container-${this.state.id}`;
 
         if (tagName.toUpperCase() === "SVG" && name === svgContainerName) {
@@ -322,8 +321,7 @@ export default class Graph extends React.Component {
                 this.state.config
             );
             const d3Links = collapseHelper.toggleLinksConnections(this.state.d3Links, links);
-            // TODO: optional chaining
-            const firstLeaf = leafConnections && leafConnections.length && leafConnections[0];
+            const firstLeaf = leafConnections?.["0"];
 
             let isExpanding = false;
 
