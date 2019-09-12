@@ -4,7 +4,7 @@ const LinkPO = require("../page-objects/link.po");
 const NodePO = require("../page-objects/node.po");
 const SandboxPO = require("../page-objects/sandbox.po");
 
-describe("[rd3g-graph-directed]", function() {
+describe.only("[rd3g-graph-directed]", function() {
     beforeEach(function() {
         this.sandboxPO = new SandboxPO();
         // visit sandbox
@@ -64,8 +64,14 @@ describe("[rd3g-graph-directed]", function() {
             this.link34PO = new LinkPO(3);
         });
 
+        afterEach(function() {
+            this.sandboxPO.exitFullScreenMode();
+        });
+
         it("should behave correctly when directed is disabled after collapsed node", function() {
             const toggledLine = this.link12PO.getLine();
+
+            this.sandboxPO.fullScreenMode().click();
 
             // Check the leaf node & link is present
             this.node2PO.getPath().should("be.visible");
@@ -87,9 +93,13 @@ describe("[rd3g-graph-directed]", function() {
             this.link14PO.getLine().should("be.visible");
             this.link34PO.getLine().should("be.visible");
 
+            this.sandboxPO.exitFullScreenMode();
+
             // Disable "directed"
             cy.contains("directed").scrollIntoView();
             this.sandboxPO.getFieldInput("directed").click();
+
+            this.sandboxPO.fullScreenMode().click();
 
             // Check if other nodes and links are still visible
             this.node1PO.getPath().should("be.visible");
@@ -104,6 +114,8 @@ describe("[rd3g-graph-directed]", function() {
         });
 
         it("should behave correctly when collapsible is disabled after collapsible node", function() {
+            this.sandboxPO.fullScreenMode().click();
+
             const toggledLine = this.link12PO.getLine();
 
             // Check the leaf node & link is present
@@ -126,9 +138,13 @@ describe("[rd3g-graph-directed]", function() {
             this.link14PO.getLine().should("be.visible");
             this.link34PO.getLine().should("be.visible");
 
+            this.sandboxPO.exitFullScreenMode();
+
             // Disable "collapsible"
             cy.contains("collapsible").scrollIntoView();
             this.sandboxPO.getFieldInput("collapsible").click();
+
+            this.sandboxPO.fullScreenMode().click();
 
             // The previously hidden node should reappear
             this.node2PO.getPath().should("be.visible");

@@ -163,6 +163,12 @@ describe("[rd3g-graph] graph tests", function() {
                 this.node3PO = new NodePO(3);
                 this.node4PO = new NodePO(4);
                 this.link12PO = new LinkPO(0);
+
+                this.sandboxPO.fullScreenMode().click();
+            });
+
+            afterEach(function() {
+                this.sandboxPO.exitFullScreenMode();
             });
 
             it("should collapse leaf nodes", function() {
