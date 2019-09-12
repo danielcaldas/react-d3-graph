@@ -17,7 +17,7 @@ module.exports = {
             jsx: true,
         },
     },
-    plugins: ["standard", "promise", "react", "jest", "cypress"],
+    plugins: ["standard", "promise", "react", "jest", "cypress", "babel"],
     env: {
         browser: true,
     },
