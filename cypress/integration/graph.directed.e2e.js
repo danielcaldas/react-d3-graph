@@ -4,7 +4,7 @@ const LinkPO = require("../page-objects/link.po");
 const NodePO = require("../page-objects/node.po");
 const SandboxPO = require("../page-objects/sandbox.po");
 
-describe.only("[rd3g-graph-directed]", function() {
+describe("[rd3g-graph-directed]", function() {
     beforeEach(function() {
         this.sandboxPO = new SandboxPO();
         // visit sandbox

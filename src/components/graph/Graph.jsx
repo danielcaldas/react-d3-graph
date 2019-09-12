@@ -186,8 +186,11 @@ export default class Graph extends React.Component {
      * @returns {undefined}
      */
     _onDragEnd = () => {
-        this.state.draggedNode &&
-            this.onNodePositionChange(this.state.draggedNode.id, this.state.draggedNode.fx, this.state.draggedNode.fy);
+        if (this.state.draggedNode) {
+            this.onNodePositionChange(this.state.draggedNode);
+            this._tick({ draggedNode: null });
+        }
+
         !this.state.config.staticGraph &&
             this.state.config.automaticRearrangeAfterDropNode &&
             this.state.simulation.alphaTarget(this.state.config.d3.alphaTarget).restart();
@@ -208,6 +211,9 @@ export default class Graph extends React.Component {
         if (!this.state.config.staticGraph) {
             // this is where d3 and react bind
             let draggedNode = this.state.nodes[id];
+
+            draggedNode.oldX = draggedNode.x;
+            draggedNode.oldY = draggedNode.y;
 
             draggedNode.x += d3Event.dx;
             draggedNode.y += d3Event.dy;
@@ -413,13 +419,22 @@ export default class Graph extends React.Component {
 
     /**
      * Handles node position change.
-     * @param {string} nodeId - id of the node whose position changed.
-     * @param {number} x - x coordinate of the node whose position changed.
-     * @param {number} y - y coordinate of the node whose position changed.
+     * @param {Object} node - an object holding information about the dragged node.
      * @returns {undefined}
      */
-    onNodePositionChange = (nodeId, x, y) =>
-        this.props.onNodePositionChange && this.props.onNodePositionChange(nodeId, x, y);
+    onNodePositionChange = node => {
+        if (!this.props.onNodePositionChange) {
+            return;
+        }
+
+        const { id, oldX, oldY, x, y } = node;
+        const deltaX = x - oldX;
+        const deltaY = y - oldY;
+
+        if (deltaX !== 0 || deltaY !== 0) {
+            this.props.onNodePositionChange(id, x, y);
+        }
+    };
 
     /**
      * Calls d3 simulation.stop().<br/>
