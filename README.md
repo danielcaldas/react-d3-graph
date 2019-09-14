@@ -148,7 +148,15 @@ const onNodePositionChange = function(nodeId, x, y) {
 
 Contributions are welcome fell free to submit new ideas/features, just open an issue or send me an email or something. If you are more a _hands on_ person, just submit a pull request. Before jumping into coding, please take at the contribution guidelines [CONTRIBUTING.md](https://github.com/danielcaldas/react-d3-graph/blob/master/CONTRIBUTING.md).
 
-To run react-d3-graph in development mode you just need to run `npm run dev` and the interactive sandbox will reload with the changes to the library code, that way you can test your changes not only through unit test but also through a real life example. It's that simple.
+To run react-d3-graph in development mode you just need to run `npm run dev` and the interactive sandbox will reload with the changes to the library code, that way you can test your changes not only through unit test but also through a real life example. It's that simple. The development workflow usually should follow the steps:
+
+-   Create a branch prefixed with `fix/` for bug fixes, `feature/` for new features, `chore/` or `refactor/` for refactoring or tolling and CI/CD related tasks.
+-   Make sure you are up to date running `npm install`.
+-   Run `npm run dev`.
+-   Do you changes inside the folder `src` and the interactive sandbox consumes your changes in real time
+    with webpack-dev-server.
+-   You can run tests locally with `npm run test` (for unit tests) or `npm run functional:local` for e2e tests.
+-   After you're done open the Pull Request and describe the changes you've made.
 
 ## Alternatives (Not what you where looking for?)
 
