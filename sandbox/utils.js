@@ -2,7 +2,7 @@
 import queryString from "query-string";
 import { LINE_TYPES } from "../src/components/link/link.const";
 import DEFAULT_CONFIG from "../src/components/graph/graph.config";
-import utils from "../src/utils";
+import { merge } from "../src/utils";
 
 /**
  * This two functions generate the react-jsonschema-form
@@ -57,7 +57,7 @@ function loadDataset() {
         try {
             const data = require(`./data/${dataset}/${dataset}.data`);
             const datasetConfig = require(`./data/${dataset}/${dataset}.config`);
-            const config = utils.merge(DEFAULT_CONFIG, datasetConfig);
+            const config = merge(DEFAULT_CONFIG, datasetConfig);
 
             return { data, config, fullscreen };
         } catch (error) {
@@ -90,8 +90,4 @@ function setValue(obj, access, value) {
     access.length > 1 ? setValue(obj[access.shift()], access, value) : (obj[access[0]] = value);
 }
 
-export default {
-    generateFormSchema,
-    loadDataset,
-    setValue,
-};
+export { generateFormSchema, loadDataset, setValue };

@@ -30,7 +30,7 @@ import CONST from "./graph.const";
 import DEFAULT_CONFIG from "./graph.config";
 import ERRORS from "../../err";
 
-import utils from "../../utils";
+import { isDeepEqual, isEmptyObject, merge, pick, antiPick, throwErr } from "../../utils";
 import { computeNodeDegree } from "./collapse.helper";
 
 const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
@@ -140,8 +140,8 @@ function _initializeNodes(graphNodes) {
 function _mergeDataLinkWithD3Link(link, index, d3Links = [], config, state = {}) {
     // find the matching link if it exists
     const tmp = d3Links.find(l => l.source.id === link.source && l.target.id === link.target);
-    const d3Link = tmp && utils.pick(tmp, LINK_PROPS_WHITELIST);
-    const customProps = utils.antiPick(link, ["source", "target"]);
+    const d3Link = tmp && pick(tmp, LINK_PROPS_WHITELIST);
+    const customProps = antiPick(link, ["source", "target"]);
 
     if (d3Link) {
         const toggledDirected =
@@ -213,7 +213,7 @@ function _tagOrphanNodes(nodes, linksMatrix) {
  */
 function _validateGraphData(data) {
     if (!data.nodes || !data.nodes.length) {
-        utils.throwErr("Graph", ERRORS.INSUFFICIENT_DATA);
+        throwErr("Graph", ERRORS.INSUFFICIENT_DATA);
     }
 
     const n = data.links.length;
@@ -222,15 +222,15 @@ function _validateGraphData(data) {
         const l = data.links[i];
 
         if (!data.nodes.find(n => n.id === l.source)) {
-            utils.throwErr("Graph", `${ERRORS.INVALID_LINKS} - "${l.source}" is not a valid source node id`);
+            throwErr("Graph", `${ERRORS.INVALID_LINKS} - "${l.source}" is not a valid source node id`);
         }
 
         if (!data.nodes.find(n => n.id === l.target)) {
-            utils.throwErr("Graph", `${ERRORS.INVALID_LINKS} - "${l.target}" is not a valid target node id`);
+            throwErr("Graph", `${ERRORS.INVALID_LINKS} - "${l.target}" is not a valid target node id`);
         }
 
         if (l && l.value !== undefined && typeof l.value !== "number") {
-            utils.throwErr(
+            throwErr(
                 "Graph",
                 `${ERRORS.INVALID_LINK_VALUE} - found in link with source "${l.source}" and target "${l.target}"`
             );
@@ -248,7 +248,7 @@ const NODE_PROPERTIES_DISCARD_TO_COMPARE = ["x", "y", "vx", "vy", "index"];
  * @memberof Graph/helper
  */
 function _pickId(o) {
-    return utils.pick(o, ["id"]);
+    return pick(o, ["id"]);
 }
 
 /**
@@ -258,7 +258,7 @@ function _pickId(o) {
  * @memberof Graph/helper
  */
 function _pickSourceAndTarget(o) {
-    return utils.pick(o, ["source", "target"]);
+    return pick(o, ["source", "target"]);
 }
 
 /**
@@ -275,21 +275,19 @@ function _pickSourceAndTarget(o) {
  * @memberof Graph/helper
  */
 function checkForGraphElementsChanges(nextProps, currentState) {
-    const nextNodes = nextProps.data.nodes.map(n => utils.antiPick(n, NODE_PROPERTIES_DISCARD_TO_COMPARE));
+    const nextNodes = nextProps.data.nodes.map(n => antiPick(n, NODE_PROPERTIES_DISCARD_TO_COMPARE));
     const nextLinks = nextProps.data.links;
-    const stateD3Nodes = currentState.d3Nodes.map(n => utils.antiPick(n, NODE_PROPERTIES_DISCARD_TO_COMPARE));
+    const stateD3Nodes = currentState.d3Nodes.map(n => antiPick(n, NODE_PROPERTIES_DISCARD_TO_COMPARE));
     const stateD3Links = currentState.d3Links.map(l => ({
         source: getId(l.source),
         target: getId(l.target),
     }));
-    const graphElementsUpdated = !(
-        utils.isDeepEqual(nextNodes, stateD3Nodes) && utils.isDeepEqual(nextLinks, stateD3Links)
-    );
+    const graphElementsUpdated = !(isDeepEqual(nextNodes, stateD3Nodes) && isDeepEqual(nextLinks, stateD3Links));
     const newGraphElements =
         nextNodes.length !== stateD3Nodes.length ||
         nextLinks.length !== stateD3Links.length ||
-        !utils.isDeepEqual(nextNodes.map(_pickId), stateD3Nodes.map(_pickId)) ||
-        !utils.isDeepEqual(nextLinks.map(_pickSourceAndTarget), stateD3Links.map(_pickSourceAndTarget));
+        !isDeepEqual(nextNodes.map(_pickId), stateD3Nodes.map(_pickId)) ||
+        !isDeepEqual(nextLinks.map(_pickSourceAndTarget), stateD3Links.map(_pickSourceAndTarget));
 
     return { graphElementsUpdated, newGraphElements };
 }
@@ -305,9 +303,8 @@ function checkForGraphElementsChanges(nextProps, currentState) {
  */
 function checkForGraphConfigChanges(nextProps, currentState) {
     const newConfig = nextProps.config || {};
-    const configUpdated =
-        newConfig && !utils.isEmptyObject(newConfig) && !utils.isDeepEqual(newConfig, currentState.config);
-    const d3ConfigUpdated = newConfig && newConfig.d3 && !utils.isDeepEqual(newConfig.d3, currentState.config.d3);
+    const configUpdated = newConfig && !isEmptyObject(newConfig) && !isDeepEqual(newConfig, currentState.config);
+    const d3ConfigUpdated = newConfig && newConfig.d3 && !isDeepEqual(newConfig.d3, currentState.config.d3);
 
     return { configUpdated, d3ConfigUpdated };
 }
@@ -370,7 +367,7 @@ function initializeGraphState({ data, id, config }, state) {
     if (state && state.nodes) {
         graph = {
             nodes: data.nodes.map(n =>
-                state.nodes[n.id] ? { ...n, ...utils.pick(state.nodes[n.id], NODE_PROPS_WHITELIST) } : { ...n }
+                state.nodes[n.id] ? { ...n, ...pick(state.nodes[n.id], NODE_PROPS_WHITELIST) } : { ...n }
             ),
             links: data.links.map((l, index) =>
                 _mergeDataLinkWithD3Link(l, index, state && state.d3Links, config, state)
@@ -383,7 +380,7 @@ function initializeGraphState({ data, id, config }, state) {
         };
     }
 
-    let newConfig = { ...utils.merge(DEFAULT_CONFIG, config || {}) },
+    let newConfig = { ...merge(DEFAULT_CONFIG, config || {}) },
         links = _initializeLinks(graph.links, newConfig), // matrix of graph connections
         nodes = _tagOrphanNodes(_initializeNodes(graph.nodes), links);
     const { nodes: d3Nodes, links: d3Links } = graph;

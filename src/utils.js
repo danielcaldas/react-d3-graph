@@ -185,12 +185,4 @@ function throwErr(component, msg) {
     throw Error(error);
 }
 
-export default {
-    isDeepEqual,
-    isEmptyObject,
-    deepClone,
-    merge,
-    pick,
-    antiPick,
-    throwErr,
-};
+export { isDeepEqual, isEmptyObject, deepClone, merge, pick, antiPick, throwErr };

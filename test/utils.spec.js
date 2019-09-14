@@ -1,4 +1,4 @@
-import utils from "../src/utils";
+import * as utils from "../src/utils";
 
 describe("Utils", () => {
     describe("#merge", () => {
