@@ -9,10 +9,16 @@ import CONST from "./graph.const";
 import DEFAULT_CONFIG from "./graph.config";
 import ERRORS from "../../err";
 
-import * as collapseHelper from "./collapse.helper";
-import * as graphHelper from "./graph.helper";
-import * as graphRenderer from "./graph.renderer";
-import utils from "../../utils";
+import { getTargetLeafConnections, toggleLinksMatrixConnections, toggleLinksConnections } from "./collapse.helper";
+import {
+    updateNodeHighlightedValue,
+    checkForGraphConfigChanges,
+    checkForGraphElementsChanges,
+    getCenterAndZoomTransformation,
+    initializeGraphState,
+} from "./graph.helper";
+import { renderGraph } from "./graph.renderer";
+import { merge, throwErr } from "../../utils";
 
 /**
  * Graph component is the main component for react-d3-graph components, its interface allows its user
@@ -186,8 +192,11 @@ export default class Graph extends React.Component {
      * @returns {undefined}
      */
     _onDragEnd = () => {
-        this.state.draggedNode &&
-            this.onNodePositionChange(this.state.draggedNode.id, this.state.draggedNode.fx, this.state.draggedNode.fy);
+        if (this.state.draggedNode) {
+            this.onNodePositionChange(this.state.draggedNode);
+            this._tick({ draggedNode: null });
+        }
+
         !this.state.config.staticGraph &&
             this.state.config.automaticRearrangeAfterDropNode &&
             this.state.simulation.alphaTarget(this.state.config.d3.alphaTarget).restart();
@@ -208,6 +217,9 @@ export default class Graph extends React.Component {
         if (!this.state.config.staticGraph) {
             // this is where d3 and react bind
             let draggedNode = this.state.nodes[id];
+
+            draggedNode.oldX = draggedNode.x;
+            draggedNode.oldY = draggedNode.y;
 
             draggedNode.x += d3Event.dx;
             draggedNode.y += d3Event.dy;
@@ -238,9 +250,7 @@ export default class Graph extends React.Component {
      * @returns {undefined}
      */
     _setNodeHighlightedValue = (id, value = false) =>
-        this._tick(
-            graphHelper.updateNodeHighlightedValue(this.state.nodes, this.state.links, this.state.config, id, value)
-        );
+        this._tick(updateNodeHighlightedValue(this.state.nodes, this.state.links, this.state.config, id, value));
 
     /**
      * The tick function simply calls React set state in order to update component and render nodes
@@ -295,7 +305,7 @@ export default class Graph extends React.Component {
         // toUpperCase() is added as a precaution, as the documentation says tagName should always
         // return in UPPERCASE, but chrome returns lowercase
         const tagName = e.target && e.target.tagName;
-        const name = e.target && e.target.attributes && e.target.attributes.name && e.target.attributes.name.value;
+        const name = e?.target?.attributes?.name?.value;
         const svgContainerName = `svg-container-${this.state.id}`;
 
         if (tagName.toUpperCase() === "SVG" && name === svgContainerName) {
@@ -310,18 +320,10 @@ export default class Graph extends React.Component {
      */
     onClickNode = clickedNodeId => {
         if (this.state.config.collapsible) {
-            const leafConnections = collapseHelper.getTargetLeafConnections(
-                clickedNodeId,
-                this.state.links,
-                this.state.config
-            );
-            const links = collapseHelper.toggleLinksMatrixConnections(
-                this.state.links,
-                leafConnections,
-                this.state.config
-            );
-            const d3Links = collapseHelper.toggleLinksConnections(this.state.d3Links, links);
-            const firstLeaf = leafConnections && leafConnections.length && leafConnections[0];
+            const leafConnections = getTargetLeafConnections(clickedNodeId, this.state.links, this.state.config);
+            const links = toggleLinksMatrixConnections(this.state.links, leafConnections, this.state.config);
+            const d3Links = toggleLinksConnections(this.state.d3Links, links);
+            const firstLeaf = leafConnections?.["0"];
 
             let isExpanding = false;
 
@@ -413,13 +415,22 @@ export default class Graph extends React.Component {
 
     /**
      * Handles node position change.
-     * @param {string} nodeId - id of the node whose position changed.
-     * @param {number} x - x coordinate of the node whose position changed.
-     * @param {number} y - y coordinate of the node whose position changed.
+     * @param {Object} node - an object holding information about the dragged node.
      * @returns {undefined}
      */
-    onNodePositionChange = (nodeId, x, y) =>
-        this.props.onNodePositionChange && this.props.onNodePositionChange(nodeId, x, y);
+    onNodePositionChange = node => {
+        if (!this.props.onNodePositionChange) {
+            return;
+        }
+
+        const { id, oldX, oldY, x, y } = node;
+        const deltaX = x - oldX;
+        const deltaY = y - oldY;
+
+        if (deltaX !== 0 || deltaY !== 0) {
+            this.props.onNodePositionChange(id, x, y);
+        }
+    };
 
     /**
      * Calls d3 simulation.stop().<br/>
@@ -462,11 +473,12 @@ export default class Graph extends React.Component {
         super(props);
 
         if (!this.props.id) {
-            utils.throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
+            throwErr(this.constructor.name, ERRORS.GRAPH_NO_ID_PROP);
         }
 
         this.focusAnimationTimeout = null;
-        this.state = graphHelper.initializeGraphState(this.props, this.state);
+        this.nodeClickTimer = null;
+        this.state = initializeGraphState(this.props, this.state);
     }
 
     /**
@@ -481,14 +493,11 @@ export default class Graph extends React.Component {
      */
     // eslint-disable-next-line
     UNSAFE_componentWillReceiveProps(nextProps) {
-        const { graphElementsUpdated, newGraphElements } = graphHelper.checkForGraphElementsChanges(
-            nextProps,
-            this.state
-        );
-        const state = graphElementsUpdated ? graphHelper.initializeGraphState(nextProps, this.state) : this.state;
+        const { graphElementsUpdated, newGraphElements } = checkForGraphElementsChanges(nextProps, this.state);
+        const state = graphElementsUpdated ? initializeGraphState(nextProps, this.state) : this.state;
         const newConfig = nextProps.config || {};
-        const { configUpdated, d3ConfigUpdated } = graphHelper.checkForGraphConfigChanges(nextProps, this.state);
-        const config = configUpdated ? utils.merge(DEFAULT_CONFIG, newConfig) : this.state.config;
+        const { configUpdated, d3ConfigUpdated } = checkForGraphConfigChanges(nextProps, this.state);
+        const config = configUpdated ? merge(DEFAULT_CONFIG, newConfig) : this.state.config;
 
         // in order to properly update graph data we need to pause eventual d3 ongoing animations
         newGraphElements && this.pauseSimulation();
@@ -496,7 +505,7 @@ export default class Graph extends React.Component {
         const transform = newConfig.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
         const focusedNodeId = nextProps.data.focusedNodeId;
         const d3FocusedNode = this.state.d3Nodes.find(node => `${node.id}` === `${focusedNodeId}`);
-        const focusTransformation = graphHelper.getCenterAndZoomTransformation(d3FocusedNode, this.state.config);
+        const focusTransformation = getCenterAndZoomTransformation(d3FocusedNode, this.state.config);
         const enableFocusAnimation = this.props.data.focusedNodeId !== nextProps.data.focusedNodeId;
 
         this.setState({
@@ -549,11 +558,20 @@ export default class Graph extends React.Component {
 
     componentWillUnmount() {
         this.pauseSimulation();
-        this.nodeClickTimer && clearTimeout(this.nodeClickTimer);
+
+        if (this.nodeClickTimer) {
+            clearTimeout(this.nodeClickTimer);
+            this.nodeClickTimer = null;
+        }
+
+        if (this.focusAnimationTimeout) {
+            clearTimeout(this.focusAnimationTimeout);
+            this.focusAnimationTimeout = null;
+        }
     }
 
     render() {
-        const { nodes, links, defs } = graphRenderer.renderGraph(
+        const { nodes, links, defs } = renderGraph(
             this.state.nodes,
             {
                 onClickNode: this.onClickNode,

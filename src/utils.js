@@ -94,10 +94,8 @@ function isEmptyObject(o) {
  * @memberof utils
  */
 function deepClone(o, _clone = {}, _depth = 0) {
-    // TODO: Handle invalid input o is null, undefined, empty object
     const oKeys = Object.keys(o);
 
-    // TODO: handle arrays
     for (let k of oKeys) {
         const nested = _isPropertyNestedObject(o, k);
 
@@ -187,12 +185,4 @@ function throwErr(component, msg) {
     throw Error(error);
 }
 
-export default {
-    isDeepEqual,
-    isEmptyObject,
-    deepClone,
-    merge,
-    pick,
-    antiPick,
-    throwErr,
-};
+export { isDeepEqual, isEmptyObject, deepClone, merge, pick, antiPick, throwErr };

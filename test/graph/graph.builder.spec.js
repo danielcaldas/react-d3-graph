@@ -2,7 +2,7 @@ import * as graphHelper from "../../src/components/graph/graph.builder";
 
 import config from "../../src/components/graph/graph.config";
 
-import utils from "../../src/utils";
+import * as utils from "../../src/utils";
 import * as linkHelper from "../../src/components/link/link.helper";
 
 describe("Graph Helper", () => {

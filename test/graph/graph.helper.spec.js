@@ -1,6 +1,6 @@
 import * as graphHelper from "../../src/components/graph/graph.helper";
 
-import utils from "../../src/utils";
+import * as utils from "../../src/utils";
 
 jest.mock("d3-force");
 import {

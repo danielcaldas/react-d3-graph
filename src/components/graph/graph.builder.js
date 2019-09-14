@@ -53,10 +53,10 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
  */
 function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
     const { source, target } = link;
-    const x1 = (nodes[source] && nodes[source].x) || 0;
-    const y1 = (nodes[source] && nodes[source].y) || 0;
-    const x2 = (nodes[target] && nodes[target].x) || 0;
-    const y2 = (nodes[target] && nodes[target].y) || 0;
+    const x1 = nodes?.[source]?.x || 0;
+    const y1 = nodes?.[source]?.y || 0;
+    const x2 = nodes?.[target]?.x || 0;
+    const y2 = nodes?.[target]?.y || 0;
 
     const d = buildLinkPathDefinition({ source: { x: x1, y: y1 }, target: { x: x2, y: y2 } }, config.link.type);
 
@@ -74,11 +74,11 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
             break;
     }
 
-    const reasonNode = mainNodeParticipates && nodes[source].highlighted && nodes[target].highlighted;
-    const reasonLink =
+    const guiltyNode = mainNodeParticipates && nodes[source].highlighted && nodes[target].highlighted;
+    const guiltyLink =
         source === (highlightedLink && highlightedLink.source) &&
         target === (highlightedLink && highlightedLink.target);
-    const highlight = reasonNode || reasonLink;
+    const highlight = guiltyNode || guiltyLink;
 
     let opacity = link.opacity || config.link.opacity;
 
@@ -122,23 +122,23 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     }
 
     return {
-        markerId,
+        className: CONST.LINK_CLASS_NAME,
         d,
-        source,
-        target,
-        strokeWidth,
-        stroke,
-        label,
-        mouseCursor: config.link.mouseCursor,
         fontColor,
         fontSize: fontSize * t,
         fontWeight,
-        className: CONST.LINK_CLASS_NAME,
+        label,
+        markerId,
+        mouseCursor: config.link.mouseCursor,
         opacity,
+        source,
+        stroke,
+        strokeWidth,
+        target,
         onClickLink: linkCallbacks.onClickLink,
-        onRightClickLink: linkCallbacks.onRightClickLink,
-        onMouseOverLink: linkCallbacks.onMouseOverLink,
         onMouseOutLink: linkCallbacks.onMouseOutLink,
+        onMouseOverLink: linkCallbacks.onMouseOverLink,
+        onRightClickLink: linkCallbacks.onRightClickLink,
     };
 }
 
@@ -195,20 +195,17 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         ...node,
         className: CONST.NODE_CLASS_NAME,
         cursor: config.node.mouseCursor,
-        cx: (node && node.x) || "0",
-        cy: (node && node.y) || "0",
+        cx: node?.x || "0",
+        cy: node?.y || "0",
+        dx,
         fill,
         fontColor,
         fontSize: fontSize * t,
-        dx,
         fontWeight: highlight ? config.node.highlightFontWeight : config.node.fontWeight,
         id: node.id,
         label,
-        onClickNode: nodeCallbacks.onClickNode,
-        onRightClickNode: nodeCallbacks.onRightClickNode,
-        onMouseOverNode: nodeCallbacks.onMouseOverNode,
-        onMouseOut: nodeCallbacks.onMouseOut,
         opacity,
+        overrideGlobalViewGenerator: !node.viewGenerator && node.svg,
         renderLabel: config.node.renderLabel,
         size: nodeSize * t,
         stroke,
@@ -216,7 +213,10 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         svg,
         type: node.symbolType || config.node.symbolType,
         viewGenerator: node.viewGenerator || config.node.viewGenerator,
-        overrideGlobalViewGenerator: !node.viewGenerator && node.svg,
+        onClickNode: nodeCallbacks.onClickNode,
+        onMouseOut: nodeCallbacks.onMouseOut,
+        onMouseOverNode: nodeCallbacks.onMouseOverNode,
+        onRightClickNode: nodeCallbacks.onRightClickNode,
     };
 }
 

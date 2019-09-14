@@ -7,7 +7,6 @@ import { MARKERS, SIZES, HIGHLIGHTED } from "./marker.const";
 
 /**
  * This function is a key template builder to access MARKERS structure.
- * WARN: function tightly coupled to the MARKERS object in marker.const.
  * @param {string} size - string that indicates size of marker.
  * @param {string} highlighted - string that indicates highlight state of marker.
  * @returns {string} the key of the marker.
