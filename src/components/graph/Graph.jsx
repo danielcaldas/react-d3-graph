@@ -481,6 +481,7 @@ export default class Graph extends React.Component {
         }
 
         this.focusAnimationTimeout = null;
+        this.nodeClickTimer = null;
         this.state = graphHelper.initializeGraphState(this.props, this.state);
     }
 
@@ -564,7 +565,16 @@ export default class Graph extends React.Component {
 
     componentWillUnmount() {
         this.pauseSimulation();
-        this.nodeClickTimer && clearTimeout(this.nodeClickTimer);
+
+        if (this.nodeClickTimer) {
+            clearTimeout(this.nodeClickTimer);
+            this.nodeClickTimer = null;
+        }
+
+        if (this.focusAnimationTimeout) {
+            clearTimeout(this.focusAnimationTimeout);
+            this.focusAnimationTimeout = null;
+        }
     }
 
     render() {
