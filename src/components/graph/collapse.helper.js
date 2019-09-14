@@ -5,6 +5,8 @@
  * create the collapsible behavior. These functions will most likely operate on
  * the links matrix.
  */
+import { getId } from "./graph.helper";
+
 /**
  * For directed graphs.
  * Check based on node degrees whether it is a leaf node or not.
@@ -142,8 +144,8 @@ function isNodeVisible(nodeId, nodes, linksMatrix) {
 function toggleLinksConnections(d3Links, connectionMatrix) {
     return d3Links.map(d3Link => {
         const { source, target } = d3Link;
-        const sourceId = source.id || source;
-        const targetId = target.id || target;
+        const sourceId = getId(source);
+        const targetId = getId(target);
         // connectionMatrix[sourceId][targetId] can be 0 or non existent
         const connection = connectionMatrix && connectionMatrix[sourceId] && connectionMatrix[sourceId][targetId];
         const isHidden = !connection;

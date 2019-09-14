@@ -70,8 +70,8 @@ function _createForceSimulation(width, height, gravity) {
  */
 function _initializeLinks(graphLinks, config) {
     return graphLinks.reduce((links, l) => {
-        const source = l.source.id !== undefined && l.source.id !== null ? l.source.id : l.source;
-        const target = l.target.id !== undefined && l.target.id !== null ? l.target.id : l.target;
+        const source = getId(l.source);
+        const target = getId(l.target);
 
         if (!links[source]) {
             links[source] = {};
@@ -279,9 +279,8 @@ function checkForGraphElementsChanges(nextProps, currentState) {
     const nextLinks = nextProps.data.links;
     const stateD3Nodes = currentState.d3Nodes.map(n => utils.antiPick(n, NODE_PROPERTIES_DISCARD_TO_COMPARE));
     const stateD3Links = currentState.d3Links.map(l => ({
-        // FIXME: solve this source data inconsistency later
-        source: l.source.id !== undefined && l.source.id !== null ? l.source.id : l.source,
-        target: l.target.id !== undefined && l.target.id !== null ? l.target.id : l.target,
+        source: getId(l.source),
+        target: getId(l.target),
     }));
     const graphElementsUpdated = !(
         utils.isDeepEqual(nextNodes, stateD3Nodes) && utils.isDeepEqual(nextLinks, stateD3Links)
@@ -333,6 +332,24 @@ function getCenterAndZoomTransformation(d3Node, config) {
         scale(${focusZoom})
         translate(${-d3Node.x}, ${-d3Node.y})
     `;
+}
+
+/**
+ * This function extracts an id from a link.
+ * **Why this function?**
+ * According to [d3-force](https://github.com/d3/d3-force#link_links)
+ * d3 links might be initialized with "source" and "target"
+ * properties as numbers or strings, but after initialization they
+ * are converted to an object. This small utility functions ensures
+ * that weather in initialization or further into the lifetime of the graph
+ * we always get the id.
+ * @param {Object|string|number} sot source or target
+ * of the link to extract id.
+ * we want to extract an id.
+ * @returns {string|number} the id of the link.
+ */
+function getId(sot) {
+    return sot.id !== undefined && sot.id !== null ? sot.id : sot;
 }
 
 /**
@@ -434,6 +451,7 @@ export {
     checkForGraphConfigChanges,
     checkForGraphElementsChanges,
     getCenterAndZoomTransformation,
+    getId,
     initializeGraphState,
     updateNodeHighlightedValue,
 };

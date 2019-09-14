@@ -12,6 +12,7 @@ import Link from "../link/Link";
 import Node from "../node/Node";
 import Marker from "../marker/Marker";
 import { buildLinkProps, buildNodeProps } from "./graph.builder";
+import { getId } from "../graph/graph.helper";
 import { isNodeVisible } from "./collapse.helper";
 
 /**
@@ -36,9 +37,8 @@ function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highligh
 
     return outLinks.map(link => {
         const { source, target } = link;
-        // FIXME: solve this source data inconsistency later
-        const sourceId = source.id !== undefined && source.id !== null ? source.id : source;
-        const targetId = target.id !== undefined && target.id !== null ? target.id : target;
+        const sourceId = getId(source);
+        const targetId = getId(target);
         const key = `${sourceId}${CONST.COORDS_SEPARATOR}${targetId}`;
         const props = buildLinkProps(
             { ...link, source: `${sourceId}`, target: `${targetId}` },
