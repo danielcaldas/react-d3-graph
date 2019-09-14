@@ -32,7 +32,13 @@ describe("[rd3g-graph-directed]", function() {
             this.link34PO = new LinkPO(3);
         });
 
+        afterEach(function() {
+            this.sandboxPO.exitFullScreenMode();
+        });
+
         it("should properly display elements for directed graph", function() {
+            this.sandboxPO.fullScreenMode().click();
+
             // Check if other , links and markers are visible
             this.node1PO.getPath().should("be.visible");
             this.node2PO.getPath().should("be.visible");

@@ -1,5 +1,15 @@
 # Change Log
 
+## [2.3.0](https://github.com/danielcaldas/react-d3-graph/tree/2.3.0)
+
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.2.0...2.3.0)
+
+**Merged pull requests:**
+
+-   Misc refactor improvements [\#231](https://github.com/danielcaldas/react-d3-graph/pull/231) ([danielcaldas](https://github.com/danielcaldas))
+-   onNodePositionChange [\#228](https://github.com/danielcaldas/react-d3-graph/pull/228) ([danielcaldas](https://github.com/danielcaldas))
+-   Upgrade to babel7 [\#225](https://github.com/danielcaldas/react-d3-graph/pull/225) ([danielcaldas](https://github.com/danielcaldas))
+
 ## [2.2.0](https://github.com/danielcaldas/react-d3-graph/tree/2.2.0)
 
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.1.0...2.2.0)

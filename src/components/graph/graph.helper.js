@@ -344,6 +344,7 @@ function getCenterAndZoomTransformation(d3Node, config) {
  * of the link to extract id.
  * we want to extract an id.
  * @returns {string|number} the id of the link.
+ * @memberof Graph/helper
  */
 function getId(sot) {
     return sot.id !== undefined && sot.id !== null ? sot.id : sot;
