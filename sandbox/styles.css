@@ -93,3 +93,7 @@
     border: none !important;
     font-size: 0;
 }
+
+.tooltip-help {
+    cursor: help;
+}

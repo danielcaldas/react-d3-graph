@@ -10,6 +10,8 @@ import { Graph } from "../src";
 import { generateFormSchema, loadDataset, setValue } from "./utils";
 import { isDeepEqual, merge } from "../src/utils";
 import { JsonTree } from "react-editable-json-tree";
+import ReactTooltip from "react-tooltip";
+import { tooltips } from "./graph-config-tooltips";
 
 const sandboxData = loadDataset();
 
@@ -28,7 +30,9 @@ export default class Sandbox extends React.Component {
         const { config: configOverride, data, fullscreen } = sandboxData;
         const config = Object.assign(defaultConfig, configOverride);
         const schemaProps = generateFormSchema(config, "", {});
-
+        // TODO: merge tooltips with schemaProps here
+        // TODO: use https://github.com/wwayne/react-tooltip
+        // to show data on each form label property
         const schema = {
             type: "object",
             properties: schemaProps,
@@ -37,6 +41,22 @@ export default class Sandbox extends React.Component {
         const uiSchema = {
             height: { "ui:readonly": "true" },
             width: { "ui:readonly": "true" },
+            ...Object.keys(schemaProps).reduce((acc, sp) => {
+                if (sp === "height" || sp === "width") {
+                    return acc;
+                }
+
+                acc[sp] = {
+                    ...schemaProps[sp],
+                    "ui:help": (
+                        <small className="tooltip-help" data-tip={tooltips[sp]}>
+                            ℹ️ documentation
+                        </small>
+                    ),
+                };
+
+                return acc;
+            }, {}),
         };
 
         this.uiSchema = uiSchema;
@@ -437,6 +457,7 @@ export default class Sandbox extends React.Component {
                             />
                         </div>
                     </div>
+                    <ReactTooltip place={"left"} multiline={true} html={true} clickable={true} />
                 </div>
             );
         }
