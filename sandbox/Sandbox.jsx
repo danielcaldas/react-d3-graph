@@ -1,19 +1,18 @@
 /*eslint require-jsdoc: 0, valid-jsdoc: 0, no-console: 0*/
 import React from "react";
-
+import { JsonTree } from "react-editable-json-tree";
 import Form from "react-jsonschema-form";
+import ReactTooltip from "react-tooltip";
+import defaultConfig from "../src/components/graph/graph.config";
+import { Graph } from "../src";
+import { generateFormSchema, loadDataset, setValue, tooltipReducer } from "./utils";
+import { isDeepEqual, merge } from "../src/utils";
 
 import "./styles.css";
 
-import defaultConfig from "../src/components/graph/graph.config";
-import { Graph } from "../src";
-import { generateFormSchema, loadDataset, setValue } from "./utils";
-import { isDeepEqual, merge } from "../src/utils";
-import { JsonTree } from "react-editable-json-tree";
-import ReactTooltip from "react-tooltip";
-import { tooltips } from "./graph-config-tooltips";
-
 const sandboxData = loadDataset();
+const NOT_ALLOWED_PROPERTIES = ["height", "width"];
+const isPropertyDocumented = k => !NOT_ALLOWED_PROPERTIES.includes(k);
 
 /**
  * This is a sample integration of react-d3-graph, in this particular case all the rd3g config properties
@@ -30,41 +29,23 @@ export default class Sandbox extends React.Component {
         const { config: configOverride, data, fullscreen } = sandboxData;
         const config = Object.assign(defaultConfig, configOverride);
         const schemaProps = generateFormSchema(config, "", {});
-        // TODO: merge tooltips with schemaProps here
-        // TODO: use https://github.com/wwayne/react-tooltip
-        // to show data on each form label property
         const schema = {
             type: "object",
             properties: schemaProps,
         };
-
         const uiSchema = {
             height: { "ui:readonly": "true" },
             width: { "ui:readonly": "true" },
-            ...Object.keys(schemaProps).reduce((acc, sp) => {
-                if (sp === "height" || sp === "width") {
-                    return acc;
-                }
-
-                acc[sp] = {
-                    ...schemaProps[sp],
-                    "ui:help": (
-                        <small className="tooltip-help" data-tip={tooltips[sp]}>
-                            ℹ️ documentation
-                        </small>
-                    ),
-                };
-
-                return acc;
-            }, {}),
+            ...Object.keys(schemaProps)
+                .filter(isPropertyDocumented)
+                .reduce(tooltipReducer, schemaProps),
         };
-
-        this.uiSchema = uiSchema;
 
         this.state = {
             config,
             generatedConfig: {},
             schema,
+            uiSchema,
             data,
             fullscreen,
             nodeIdToBeRemoved: null,
@@ -428,7 +409,7 @@ export default class Sandbox extends React.Component {
                         <Form
                             className="form-wrapper"
                             schema={this.state.schema}
-                            uiSchema={this.uiSchema}
+                            uiSchema={this.state.uiSchema}
                             onChange={this.refreshGraph}
                             onSubmit={this.onSubmit}
                         >
