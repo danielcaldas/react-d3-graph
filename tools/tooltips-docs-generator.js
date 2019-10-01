@@ -50,4 +50,7 @@ function getParamInfo(param) {
 
 const graphConfigElms = data[0].params.map(getParamInfo).reduce((acc, o) => ({ ...o, ...acc }), {});
 
-console.log(`export const tooltips = ${JSON.stringify(graphConfigElms, null, 2)};`);
+console.log(`\
+    /*eslint-disable*/\n\
+    export const tooltips = ${JSON.stringify(graphConfigElms, null, 2)};\
+`);

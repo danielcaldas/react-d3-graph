@@ -1,3 +1,4 @@
+/*eslint-disable*/
 export const tooltips = {
     "link.type":
         '            <h4>link.type</h4>            <b>type</b>: string | <b>default value</b>: "STRAIGHT" | <b>optional</b>: true            <h5>Description</h5>            <div style="max-width: 400px;">the type of line to draw, available types at this point are:\n- "STRAIGHT" <small>(default)</small> - a straight line.\n- "CURVE_SMOOTH" - a slight curve between two nodes\n- "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.\n</br>\n<img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width=\'400\' height=\'200\'/></div>        ',
