@@ -457,7 +457,7 @@ export default class Sandbox extends React.Component {
                             />
                         </div>
                     </div>
-                    <ReactTooltip place={"bottom"} multiline={true} html={true} clickable={true} />
+                    <ReactTooltip place={"left"} multiline={true} html={true} clickable={true} />
                 </div>
             );
         }
