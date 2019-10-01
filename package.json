@@ -77,6 +77,7 @@
     "react-editable-json-tree": "2.2.1",
     "react-jsonschema-form": "1.0.4",
     "react-test-renderer": "16.9.0",
+    "react-toastify": "5.4.0",
     "style-loader": "0.18.2",
     "typescript": "3.6.2",
     "webpack": "4.28.1",
