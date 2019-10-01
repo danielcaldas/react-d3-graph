@@ -34,11 +34,11 @@ export default class Sandbox extends React.Component {
             properties: schemaProps,
         };
         const uiSchema = {
-            height: { "ui:readonly": "true" },
-            width: { "ui:readonly": "true" },
             ...Object.keys(schemaProps)
                 .filter(isPropertyDocumented)
                 .reduce(tooltipReducer, schemaProps),
+            height: { "ui:readonly": "true" },
+            width: { "ui:readonly": "true" },
         };
 
         this.state = {
