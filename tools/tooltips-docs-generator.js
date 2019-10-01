@@ -1,4 +1,4 @@
-const data = require("./graph.config.jsdoc");
+const data = require("./graph-config-jsdoc");
 
 const TOOLTIPS_MAX_WIDTH = 400;
 
