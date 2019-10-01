@@ -1,5 +1,7 @@
 const data = require("./graph.config.jsdoc");
 
+const TOOLTIPS_MAX_WIDTH = 400;
+
 if (!data || !data.length || !data[0].params) {
     throw new Error("Invalid JSON provided from jsdoc parser");
 }
@@ -32,10 +34,15 @@ function getParamInfo(param) {
     // TODO: extract text only info from the description field, it may contain
     // md or html
     return {
-        [name]: `type: ${ftype} | default value: ${defaultvalue} | optional: ${optional}\\n${description}`,
+        [name]: `
+            <h4>${name}</h4>
+            <b>type</b>: ${ftype} | <b>default value</b>: ${defaultvalue} | <b>optional</b>: ${optional}\
+            <h5>Description</h5>
+            <div style="max-width: ${TOOLTIPS_MAX_WIDTH}px;">${description}</div>\
+        `,
     };
 }
 
 const graphConfigElms = data[0].params.map(getParamInfo).reduce((acc, o) => ({ ...o, ...acc }), {});
 
-console.log(JSON.stringify(graphConfigElms, null, 2));
+console.log(`export const tooltips = ${JSON.stringify(graphConfigElms, null, 2)};`);
