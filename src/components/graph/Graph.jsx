@@ -192,6 +192,8 @@ export default class Graph extends React.Component {
      * @returns {undefined}
      */
     _onDragEnd = () => {
+        this.isDraggingNode = false;
+
         if (this.state.draggedNode) {
             this.onNodePositionChange(this.state.draggedNode);
             this._tick({ draggedNode: null });
@@ -237,7 +239,9 @@ export default class Graph extends React.Component {
      * @returns {undefined}
      */
     _onDragStart = () => {
+        this.isDraggingNode = true;
         this.pauseSimulation();
+
         if (this.state.enableFocusAnimation) {
             this.setState({ enableFocusAnimation: false });
         }
@@ -365,6 +369,10 @@ export default class Graph extends React.Component {
      * @returns {undefined}
      */
     onMouseOverNode = id => {
+        if (this.isDraggingNode) {
+            return;
+        }
+
         this.props.onMouseOverNode && this.props.onMouseOverNode(id);
 
         this.state.config.nodeHighlightBehavior && this._setNodeHighlightedValue(id, true);
@@ -376,6 +384,10 @@ export default class Graph extends React.Component {
      * @returns {undefined}
      */
     onMouseOutNode = id => {
+        if (this.isDraggingNode) {
+            return;
+        }
+
         this.props.onMouseOutNode && this.props.onMouseOutNode(id);
 
         this.state.config.nodeHighlightBehavior && this._setNodeHighlightedValue(id, false);
@@ -478,6 +490,7 @@ export default class Graph extends React.Component {
 
         this.focusAnimationTimeout = null;
         this.nodeClickTimer = null;
+        this.isDraggingNode = false;
         this.state = initializeGraphState(this.props, this.state);
     }
 
