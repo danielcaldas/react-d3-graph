@@ -9,7 +9,7 @@
     "check:light": "npm run lint && npm run test",
     "dev": "cross-env NODE_ENV=dev webpack-dev-server --mode=development --content-base sandbox --config webpack.config.js --inline --hot --port 3002",
     "dist:rd3g": "rm -rf dist/ && webpack --config webpack.config.dist.js -p --display-modules --optimize-minimize",
-    "dist:sandbox": "webpack --config webpack.config.js -p",
+    "dist:sandbox": "npm run generate:tooltips && webpack --config webpack.config.js -p",
     "dist:transpile": "./node_modules/@babel/cli/bin/babel.js -d lib src",
     "dist": "npm run check && npm-run-all --parallel dist:*",
     "docs:lint": "node_modules/documentation/bin/documentation.js lint src/**/*.js",
@@ -18,6 +18,7 @@
     "functional:local": "export CYPRESS_SANDBOX_URL=http://localhost:3002 && cypress open",
     "functional:remote": "export CYPRESS_SANDBOX_URL=https://danielcaldas.github.io/react-d3-graph/sandbox/index.html && cypress open",
     "functional": "export CYPRESS_SANDBOX_URL=http://127.0.0.1:8888 && cypress run",
+    "generate:tooltips": "./node_modules/.bin/jsdoc -X ./src/components/graph/graph.config.js > ./tools/graph-config-jsdoc.json && cd tools && node tooltips-docs-generator.js > ../sandbox/graph-config-tooltips.js",
     "lint:fix": "node_modules/eslint/bin/eslint.js --config=.eslintrc.js --fix \"src/**/*.js*\" \"sandbox/**/*.js*\"",
     "lint:src": "node_modules/eslint/bin/eslint.js --config=.eslintrc.js \"src/**/*.js*\" \"sandbox/**/*.js*\"",
     "lint:test": "node_modules/eslint/bin/eslint.js --config=.eslintrc.test.config.js \"test/**/*.spec.js\"",
@@ -65,6 +66,7 @@
     "http-server": "0.11.1",
     "husky": "3.0.5",
     "jest": "24.9.0",
+    "jsdoc": "^3.6.3",
     "lint-staged": "9.2.5",
     "npm-run-all": "4.1.5",
     "prettier": "1.18.2",
@@ -106,5 +108,8 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "dependencies": {
+    "react-tooltip": "^3.11.1"
   }
 }

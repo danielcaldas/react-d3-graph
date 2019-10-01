@@ -1,8 +1,10 @@
 /*eslint require-jsdoc: 0, valid-jsdoc: 0, no-undef: 0, no-empty: 0, no-console: 0*/
+import React from "react";
 import queryString from "query-string";
 import { LINE_TYPES } from "../src/components/link/link.const";
 import DEFAULT_CONFIG from "../src/components/graph/graph.config";
 import { merge } from "../src/utils";
+import { tooltips } from "./graph-config-tooltips";
 
 /**
  * This two functions generate the react-jsonschema-form
@@ -90,4 +92,21 @@ function setValue(obj, access, value) {
     access.length > 1 ? setValue(obj[access.shift()], access, value) : (obj[access[0]] = value);
 }
 
-export { generateFormSchema, loadDataset, setValue };
+function tooltipReducer(schemaProps, key) {
+    const uiHelp = tooltips[key] ? (
+        <small className="tooltip-help" data-tip={tooltips[key]}>
+            ℹ️ documentation
+        </small>
+    ) : (
+        undefined
+    );
+
+    schemaProps[key] = {
+        ...schemaProps[key],
+        "ui:help": uiHelp,
+    };
+
+    return schemaProps;
+}
+
+export { generateFormSchema, loadDataset, setValue, tooltipReducer };
