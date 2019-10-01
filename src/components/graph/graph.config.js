@@ -1,15 +1,15 @@
 /**
  * <div style="text-align: right;"><i>This is certainly the only extra piece of documentation that you will ever need</i></div>
- * <br/><br/>
+ * </br></br>
  * Here you can consult a detailed description of each graph configurable property as well as the default values
  * of those properties.
  *
- * <b>Note about performance</b><br/>
+ * <b>Note about performance</b></br>
  * Some of the properties have a major performance impact when toggled while rendering graphs of medium or large dimensions (hundreds or thousand of elements).
- * These properties are marked with 🚅🚅🚅.<br/>
- * ⭐ <b>tip</b> <i>to achieve smoother interactions you may want to provide a toggle to set <b>staticGraph</b> or (better) <b>staticGraphWithDragAndDrop</b> to <b>true</b></i><br/>
- * <br/>
- * <b>Note about granularity</b><br/>
+ * These properties are marked with 🚅🚅🚅.</br>
+ * ⭐ <b>tip</b> <i>to achieve smoother interactions you may want to provide a toggle to set <b>staticGraph</b> or (better) <b>staticGraphWithDragAndDrop</b> to <b>true</b></i></br>
+ * </br>
+ * <b>Note about granularity</b></br>
  * Some of the properties listed in the <a href="#config-node">Node section</a> are marked with 🔍🔍🔍. This means that this properties
  * have a higher level of granularity. These properties can be defined in the graph payload at a node level. (sample payload below)
  * ```javascript
@@ -26,14 +26,14 @@
  * };
  * ```
  *
- * <br/>
+ * </br>
  *
  * - <a href="#config-global">Graph global configurations</a>
  * - <a href="#config-d3">d3 level configurations</a>
  * - <a href="#config-node">Node level configurations</a>
  * - <a href="#config-link">Link level configurations</a>
  *
- * <br/>
+ * </br>
  *
  * <h2 id="config-global"><a href="#config-global">#</a>  Graph global configurations</h2>
  * @param {boolean} [automaticRearrangeAfterDropNode=false] - 🚅🚅🚅 when true performing a node drag and drop should automatically
@@ -41,11 +41,11 @@
  * @param {boolean} [collapsible=false] - 🚅🚅🚅 Allow leaf neighbors nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.
  * To see an example of this behavior you can access this sandbox link that has a specific set up to experiment this feature. <b>NOTE</b>: At this moment
  * nodes without connections (orphan nodes) are not rendered when this property is activated (see <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/issues/129">react-d3-graph/issues/#129</a>).
- * <br/>
+ * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-collapsible.gif?raw=true" width="820" height="480"/>
  * @param {boolean} [directed=false] - This property makes react-d3-graph handle your graph as a directed graph. It will
  * out of the box provide the look and feel of a directed graph and add directional semantic to links. You can see a sample in the image below.
- * <br/>
+ * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-directed.gif?raw=true" width="820" height="480"/>
  * @param {number} [focusZoom=1] - zoom that will be applied when the graph view is focused in a node. Its value must be between
  * <i>minZoom</i> and <i>maxZoom</i>. If the specified <i>focusZoom</i> is out of this range, <i>minZoom</i> or <i>maxZoom</i> will be applied instead.</br>
@@ -86,7 +86,7 @@
  * <b>Note</b>: If <code>staticGraph</code> is set to <code>true</code>, then <code>staticGraphWithDragAndDrop</code> will not produce the desired behaviour, make sure
  * to set only one of them to <code>true</code>.
  * @param {number} [width=800] - the width of the (svg) area where the graph will be rendered.
- * <br/>
+ * </br>
  * @param {Object} d3 d3 object is explained in next section. ⬇️
  * <h2 id="config-d3"><a href="#config-d3">#</a> d3 level configurations</h2>
  * @param {number} [d3.alphaTarget=0.05] - <a target="_blank" href="https://github.com/d3/d3-force#simulation_alphaTarget">see d3-force simulation.alphaTarget</a>
@@ -95,7 +95,7 @@
  *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don"t overlap.
  * @param {number} [d3.linkLength=100] - the length of each link from the center of the nodes it joins.
  * @param {number} [d3.linkStrength=1] - <a target="_blank" href="https://github.com/d3/d3-force#link_strength">see d3-force link.strength</a>
- * <br/>
+ * </br>
  * @param {Object} node node object is explained in next section. ⬇️
  * <h2 id="config-node"><a href="#config-node">#</a> Node level configurations</h2>
  * @param {string} [node.color="#d3d3d3"] - 🔍🔍🔍 this is the color that will be applied to the node if no <b>color property</b></br>
@@ -124,7 +124,7 @@
  * }
  * ```
  * Then you just need to make sure that you pass this function in the config in <code>config.node.labelProperty</code>.
- * <br/>
+ * </br>
  * @param {string} [node.mouseCursor="pointer"] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control">cursor</a>
  * property for when some node is mouse hovered.
  * @param {number} [node.opacity=1] 🔍🔍🔍 - by default all nodes will have this opacity value.
@@ -135,7 +135,7 @@
  * @param {number} [node.strokeWidth=1.5] 🔍🔍🔍 - the width of the all node strokes.
  * @param {string} [node.svg=""] - 🔍🔍🔍 render custom svg for nodes in alternative to <b>node.symbolType</b>. This svg can
  * be provided as a string to either a remote svg resource or for a local one.
- * <br/>
+ * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-custom-svg.gif?raw=true" width="820" height="480"/>
  * @param {string} [node.symbolType="circle"] - 🔍🔍🔍 the <span id="node-symbol-type">shape</span> of the node.
  * Use the following values under a property <b>type</b> inside each node (nodes may have different types, same as colors):
@@ -149,7 +149,7 @@
  *
  * <b>[note]</b> react-d3-graph will map this values to <a target="_blank" href="https://github.com/d3/d3-shape#symbols">d3 symbols</a>
  * @param {Function} [node.viewGenerator=null] - 🔍🔍🔍 function that receives a node and returns a JSX view.
- * <br/>
+ * </br>
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2 id="config-link"><a href="#config-link">#</a> Link level configurations</h2>
  * @param {string} [link.color="#d3d3d3"] - 🔍🔍🔍 the color for links
@@ -171,7 +171,7 @@
  * @param {number} [link.opacity=1] 🔍🔍🔍 - the default opacity value for links.
  * @param {boolean} [link.renderLabel=false] - when set to true labels will appear along side links in the
  * graph. <b>Note</b>: this will only happen of course if proper label is passed within the link, check also <code>link.labelProperty</code>.
- * <br/>
+ * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-link-render-label.png?raw=true" width="820" height="480"/>
  * @param {boolean} [link.semanticStrokeWidth=false] - when set to true all links will have
  * <i>"semantic width"</i>, this means that the width of the connections will be proportional to the value of each link.
@@ -188,7 +188,7 @@
  * - "STRAIGHT" <small>(default)</small> - a straight line.
  * - "CURVE_SMOOTH" - a slight curve between two nodes
  * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
- * <br/>
+ * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
  *
  * @example
