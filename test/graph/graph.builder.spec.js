@@ -47,7 +47,7 @@ describe("Graph Helper", () => {
                         1
                     );
 
-                    expect(props.stroke).toEqual(that.config.link.color);
+                    expect(props.stroke).toMatchSnapshot(that.config.link.color);
                 });
             });
 
@@ -64,7 +64,7 @@ describe("Graph Helper", () => {
                         1
                     );
 
-                    expect(props.stroke).toEqual("green");
+                    expect(props.stroke).toMatchSnapshot("green");
                 });
             });
         });
@@ -101,7 +101,7 @@ describe("Graph Helper", () => {
                 });
                 const props = graphHelper.buildNodeProps(that.node, that.config, undefined, "id", undefined, 1);
 
-                expect(props).toEqual({
+                expect(props).toMatchSnapshot({
                     ...that.node,
                     className: "node",
                     cursor: "pointer",
@@ -147,7 +147,7 @@ describe("Graph Helper", () => {
                         1
                     );
 
-                    expect(props).toEqual({
+                    expect(props).toMatchSnapshot({
                         ...that.node,
                         className: "node",
                         cursor: "pointer",
@@ -192,7 +192,7 @@ describe("Graph Helper", () => {
                         1
                     );
 
-                    expect(props).toEqual({
+                    expect(props).toMatchSnapshot({
                         ...that.node,
                         className: "node",
                         cursor: "pointer",
@@ -226,7 +226,7 @@ describe("Graph Helper", () => {
             test("should return the default strokeColor in the props", () => {
                 const props = graphHelper.buildNodeProps(that.node, that.config, undefined, undefined, undefined, 1);
 
-                expect(props.stroke).toEqual("none");
+                expect(props.stroke).toMatchSnapshot("none");
             });
         });
         describe("and custom strokeColor is set to yellow", () => {
@@ -240,7 +240,7 @@ describe("Graph Helper", () => {
                     1
                 );
 
-                expect(props.stroke).toEqual("yellow");
+                expect(props.stroke).toMatchSnapshot("yellow");
             });
         });
     });
