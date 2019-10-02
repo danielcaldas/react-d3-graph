@@ -1,61 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Graph Helper #initializeGraphState when valid graph data is provided and received state is empty should create new graph structure with nodes and links 1`] = `
-Object {
-  "0": Object {
+Array [
+  Object {
     "highlighted": false,
     "id": "A",
     "x": 0,
     "y": 0,
   },
-  "1": Object {
+  Object {
     "highlighted": false,
     "id": "B",
     "x": 0,
     "y": 0,
   },
-  "2": Object {
+  Object {
     "highlighted": false,
     "id": "C",
     "x": 0,
     "y": 0,
   },
-}
+]
 `;
 
 exports[`Graph Helper #initializeGraphState when valid graph data is provided and received state is empty should create new graph structure with nodes and links 2`] = `
-Object {
-  "0": Object {
+Array [
+  Object {
     "source": "A",
     "target": "B",
   },
-  "1": Object {
+  Object {
     "source": "C",
     "target": "A",
   },
-}
+]
 `;
 
 exports[`Graph Helper #initializeGraphState when valid graph data is provided and received state was already initialized and the new state has nodes removed should create graph structure preserving subset of original structure 1`] = `
-Object {
-  "0": Object {
+Array [
+  Object {
     "highlighted": false,
     "id": "B",
     "x": 40,
     "y": 60,
   },
-  "1": Object {
+  Object {
     "highlighted": false,
     "id": "C",
     "x": 60,
     "y": 80,
   },
-}
+]
 `;
 
 exports[`Graph Helper #initializeGraphState when valid graph data is provided and received state was already initialized and the new state has nodes removed should create graph structure preserving subset of original structure 2`] = `
-Object {
-  "0": Object {
+Array [
+  Object {
     "index": 2,
     "isHidden": false,
     "source": Object {
@@ -67,35 +67,35 @@ Object {
       "id": "C",
     },
   },
-}
+]
 `;
 
 exports[`Graph Helper #initializeGraphState when valid graph data is provided and received state was already initialized should create graph structure absorbing stored nodes and links behavior 1`] = `
-Object {
-  "0": Object {
+Array [
+  Object {
     "highlighted": false,
     "id": "A",
     "x": 20,
     "y": 40,
   },
-  "1": Object {
+  Object {
     "highlighted": false,
     "id": "B",
     "x": 40,
     "y": 60,
   },
-  "2": Object {
+  Object {
     "highlighted": false,
     "id": "C",
     "x": 0,
     "y": 0,
   },
-}
+]
 `;
 
 exports[`Graph Helper #initializeGraphState when valid graph data is provided and received state was already initialized should create graph structure absorbing stored nodes and links behavior 2`] = `
-Object {
-  "0": Object {
+Array [
+  Object {
     "index": 0,
     "source": Object {
       "highlighted": false,
@@ -106,7 +106,7 @@ Object {
       "id": "B",
     },
   },
-  "1": Object {
+  Object {
     "index": 1,
     "source": Object {
       "highlighted": false,
@@ -117,181 +117,5 @@ Object {
       "id": "A",
     },
   },
-}
-`;
-
-exports[`Graph Helper #initializeGraphState when valid graph data is provided should return proper state object for given inputs 1`] = `
-Object {
-  "config": Object {
-    "config": "config",
-  },
-  "configUpdated": false,
-  "d3Links": Array [
-    Object {
-      "index": 0,
-      "source": Object {
-        "highlighted": false,
-        "id": "A",
-      },
-      "target": Object {
-        "highlighted": false,
-        "id": "B",
-      },
-    },
-    Object {
-      "index": 1,
-      "source": Object {
-        "highlighted": false,
-        "id": "C",
-      },
-      "target": Object {
-        "highlighted": false,
-        "id": "A",
-      },
-    },
-  ],
-  "d3Nodes": Array [
-    Object {
-      "highlighted": false,
-      "id": "A",
-      "x": 20,
-      "y": 40,
-    },
-    Object {
-      "highlighted": false,
-      "id": "B",
-      "x": 40,
-      "y": 60,
-    },
-    Object {
-      "highlighted": false,
-      "id": "C",
-      "x": 0,
-      "y": 0,
-    },
-  ],
-  "draggedNode": null,
-  "highlightedNode": "",
-  "id": "id",
-  "links": Object {
-    "A": Object {
-      "B": 1,
-      "C": 1,
-    },
-    "B": Object {
-      "A": 1,
-    },
-    "C": Object {
-      "A": 1,
-    },
-  },
-  "newGraphElements": false,
-  "nodes": Object {
-    "A": Object {
-      "highlighted": false,
-      "id": "A",
-      "x": 20,
-      "y": 40,
-    },
-    "B": Object {
-      "highlighted": false,
-      "id": "B",
-      "x": 40,
-      "y": 60,
-    },
-    "C": Object {
-      "highlighted": false,
-      "id": "C",
-      "x": 0,
-      "y": 0,
-    },
-  },
-  "simulation": Object {
-    "force": [MockFunction] {
-      "calls": Array [
-        Array [
-          "charge",
-          10,
-        ],
-        Array [
-          "x",
-          10,
-        ],
-        Array [
-          "y",
-          10,
-        ],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": Object {
-            "force": [MockFunction] {
-              "calls": Array [
-                Array [
-                  "charge",
-                  10,
-                ],
-                Array [
-                  "x",
-                  10,
-                ],
-                Array [
-                  "y",
-                  10,
-                ],
-              ],
-              "results": [Circular],
-            },
-          },
-        },
-        Object {
-          "type": "return",
-          "value": Object {
-            "force": [MockFunction] {
-              "calls": Array [
-                Array [
-                  "charge",
-                  10,
-                ],
-                Array [
-                  "x",
-                  10,
-                ],
-                Array [
-                  "y",
-                  10,
-                ],
-              ],
-              "results": [Circular],
-            },
-          },
-        },
-        Object {
-          "type": "return",
-          "value": Object {
-            "force": [MockFunction] {
-              "calls": Array [
-                Array [
-                  "charge",
-                  10,
-                ],
-                Array [
-                  "x",
-                  10,
-                ],
-                Array [
-                  "y",
-                  10,
-                ],
-              ],
-              "results": [Circular],
-            },
-          },
-        },
-      ],
-    },
-  },
-  "transform": 1,
-}
+]
 `;
