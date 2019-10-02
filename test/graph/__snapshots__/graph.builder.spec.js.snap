@@ -1,13 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Graph Helper #buildLinkProps when building props for a link and custom color is set to green should return green color in the props: green 1`] = `"green"`;
-
-exports[`Graph Helper #buildLinkProps when building props for a link and no custom color is set should return default color defined in link config: #d3d3d3 1`] = `"#d3d3d3"`;
-
-exports[`Graph Helper #buildNodeProps and custom strokeColor is set to yellow should return yellow strokeColor in the props: yellow 1`] = `"yellow"`;
-
-exports[`Graph Helper #buildNodeProps and no custom strokeColor is set should return the default strokeColor in the props: none 1`] = `"none"`;
-
 exports[`Graph Helper #buildNodeProps when node to build is the highlightedLink target (or source) and highlight degree is 0 should properly build node props () 1`] = `
 Object {
   "className": "node",

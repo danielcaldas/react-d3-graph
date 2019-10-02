@@ -47,7 +47,7 @@ describe("Graph Helper", () => {
                         1
                     );
 
-                    expect(props.stroke).toMatchSnapshot(that.config.link.color);
+                    expect(props.stroke).toEqual(that.config.link.color);
                 });
             });
 
@@ -64,7 +64,7 @@ describe("Graph Helper", () => {
                         1
                     );
 
-                    expect(props.stroke).toMatchSnapshot("green");
+                    expect(props.stroke).toEqual("green");
                 });
             });
         });
@@ -101,33 +101,7 @@ describe("Graph Helper", () => {
                 });
                 const props = graphHelper.buildNodeProps(that.node, that.config, undefined, "id", undefined, 1);
 
-                expect(props).toMatchSnapshot({
-                    ...that.node,
-                    className: "node",
-                    cursor: "pointer",
-                    cx: 1,
-                    cy: 2,
-                    dx: 15.5,
-                    fill: "red",
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    fontColor: "black",
-                    id: "id",
-                    label: "id",
-                    onClickNode: undefined,
-                    onRightClickNode: undefined,
-                    onMouseOut: undefined,
-                    onMouseOverNode: undefined,
-                    opacity: 1,
-                    renderLabel: true,
-                    size: 200,
-                    stroke: "yellow",
-                    strokeWidth: 2,
-                    svg: "file.svg",
-                    type: "circle",
-                    viewGenerator: null,
-                    overrideGlobalViewGenerator: undefined,
-                });
+                expect(props).toMatchSnapshot();
             });
         });
         describe("when node to build is the highlightedLink target (or source)", () => {
@@ -147,33 +121,7 @@ describe("Graph Helper", () => {
                         1
                     );
 
-                    expect(props).toMatchSnapshot({
-                        ...that.node,
-                        className: "node",
-                        cursor: "pointer",
-                        cx: 1,
-                        cy: 2,
-                        dx: 11.5,
-                        fill: "green",
-                        fontSize: 8,
-                        fontWeight: "normal",
-                        fontColor: "black",
-                        id: "id",
-                        label: "id",
-                        onClickNode: undefined,
-                        onRightClickNode: undefined,
-                        onMouseOut: undefined,
-                        onMouseOverNode: undefined,
-                        opacity: undefined,
-                        renderLabel: true,
-                        size: 200,
-                        stroke: "none",
-                        strokeWidth: 1.5,
-                        svg: "file.svg",
-                        type: "circle",
-                        viewGenerator: null,
-                        overrideGlobalViewGenerator: undefined,
-                    });
+                    expect(props).toMatchSnapshot();
                 });
             });
             describe("and highlight degree is bigger then 0", () => {
@@ -192,33 +140,7 @@ describe("Graph Helper", () => {
                         1
                     );
 
-                    expect(props).toMatchSnapshot({
-                        ...that.node,
-                        className: "node",
-                        cursor: "pointer",
-                        cx: 1,
-                        cy: 2,
-                        dx: 11.5,
-                        fill: "green",
-                        fontSize: 8,
-                        fontWeight: "normal",
-                        fontColor: "black",
-                        id: "id",
-                        label: "id",
-                        onClickNode: undefined,
-                        onRightClickNode: undefined,
-                        onMouseOut: undefined,
-                        onMouseOverNode: undefined,
-                        opacity: undefined,
-                        renderLabel: true,
-                        size: 200,
-                        stroke: "none",
-                        strokeWidth: 1.5,
-                        svg: "file.svg",
-                        type: "circle",
-                        viewGenerator: null,
-                        overrideGlobalViewGenerator: undefined,
-                    });
+                    expect(props).toMatchSnapshot();
                 });
             });
         });
@@ -226,7 +148,7 @@ describe("Graph Helper", () => {
             test("should return the default strokeColor in the props", () => {
                 const props = graphHelper.buildNodeProps(that.node, that.config, undefined, undefined, undefined, 1);
 
-                expect(props.stroke).toMatchSnapshot("none");
+                expect(props.stroke).toEqual("none");
             });
         });
         describe("and custom strokeColor is set to yellow", () => {
@@ -240,7 +162,7 @@ describe("Graph Helper", () => {
                     1
                 );
 
-                expect(props.stroke).toMatchSnapshot("yellow");
+                expect(props.stroke).toEqual("yellow");
             });
         });
     });
