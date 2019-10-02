@@ -49,50 +49,8 @@ describe("Graph Helper", () => {
 
                     const newState = graphHelper.initializeGraphState({ data, id: "id", config: {} }, state);
 
-                    expect(newState.d3Nodes).toMatchSnapshot([
-                        {
-                            highlighted: false,
-                            id: "A",
-                            x: 20,
-                            y: 40,
-                        },
-                        {
-                            highlighted: false,
-                            id: "B",
-                            x: 40,
-                            y: 60,
-                        },
-                        {
-                            highlighted: false,
-                            id: "C",
-                            x: 0,
-                            y: 0,
-                        },
-                    ]);
-                    expect(newState.d3Links).toMatchSnapshot([
-                        {
-                            index: 0,
-                            source: {
-                                highlighted: false,
-                                id: "A",
-                            },
-                            target: {
-                                highlighted: false,
-                                id: "B",
-                            },
-                        },
-                        {
-                            index: 1,
-                            source: {
-                                highlighted: false,
-                                id: "C",
-                            },
-                            target: {
-                                highlighted: false,
-                                id: "A",
-                            },
-                        },
-                    ]);
+                    expect(newState.d3Nodes).toMatchSnapshot();
+                    expect(newState.d3Links).toMatchSnapshot();
                 });
                 describe("and the new state has nodes removed", () => {
                     test("should create graph structure preserving subset of original structure", () => {
@@ -152,34 +110,8 @@ describe("Graph Helper", () => {
 
                         const newState = graphHelper.initializeGraphState({ data, id: "id", config: {} }, state);
 
-                        expect(newState.d3Nodes).toMatchSnapshot([
-                            {
-                                highlighted: false,
-                                id: "B",
-                                x: 40,
-                                y: 60,
-                            },
-                            {
-                                highlighted: false,
-                                id: "C",
-                                x: 60,
-                                y: 80,
-                            },
-                        ]);
-                        expect(newState.d3Links).toMatchSnapshot([
-                            {
-                                index: 2,
-                                isHidden: false,
-                                source: {
-                                    highlighted: false,
-                                    id: "B",
-                                },
-                                target: {
-                                    highlighted: false,
-                                    id: "C",
-                                },
-                            },
-                        ]);
+                        expect(newState.d3Nodes).toMatchSnapshot();
+                        expect(newState.d3Links).toMatchSnapshot();
                     });
                 });
             });
@@ -194,36 +126,8 @@ describe("Graph Helper", () => {
 
                     const newState = graphHelper.initializeGraphState({ data, id: "id", config: {} }, state);
 
-                    expect(newState.d3Nodes).toMatchSnapshot([
-                        {
-                            highlighted: false,
-                            id: "A",
-                            x: 0,
-                            y: 0,
-                        },
-                        {
-                            highlighted: false,
-                            id: "B",
-                            x: 0,
-                            y: 0,
-                        },
-                        {
-                            highlighted: false,
-                            id: "C",
-                            x: 0,
-                            y: 0,
-                        },
-                    ]);
-                    expect(newState.d3Links).toMatchSnapshot([
-                        {
-                            source: "A",
-                            target: "B",
-                        },
-                        {
-                            source: "C",
-                            target: "A",
-                        },
-                    ]);
+                    expect(newState.d3Nodes).toMatchSnapshot();
+                    expect(newState.d3Links).toMatchSnapshot();
                 });
             });
 
@@ -257,7 +161,7 @@ describe("Graph Helper", () => {
 
                 const newState = graphHelper.initializeGraphState({ data, id: "id", config: undefined }, state);
 
-                expect(newState).toMatchSnapshot({
+                expect(newState).toEqual({
                     config: {
                         config: "config",
                     },

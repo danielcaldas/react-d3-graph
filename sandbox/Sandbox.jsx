@@ -3,11 +3,13 @@ import React from "react";
 import { JsonTree } from "react-editable-json-tree";
 import Form from "react-jsonschema-form";
 import ReactTooltip from "react-tooltip";
+import { toast } from "react-toastify";
 import defaultConfig from "../src/components/graph/graph.config";
 import { Graph } from "../src";
 import { generateFormSchema, loadDataset, setValue, tooltipReducer } from "./utils";
 import { isDeepEqual, merge } from "../src/utils";
 
+import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
 
 const sandboxData = loadDataset();
@@ -52,10 +54,10 @@ export default class Sandbox extends React.Component {
         };
     }
 
-    onClickGraph = () => console.info("Clicked the graph");
+    onClickGraph = () => toast("Clicked the graph");
 
     onClickNode = id => {
-        !this.state.config.collapsible && window.alert(`Clicked node ${id}`);
+        toast(`Clicked node ${id}`);
         // NOTE: below sample implementation for focusAnimation when clicking on node
         // this.setState({
         //     data: {
@@ -65,20 +67,18 @@ export default class Sandbox extends React.Component {
         // });
     };
 
-    onDoubleClickNode = id => {
-        !this.state.config.collapsible && window.alert(`Double clicked node ${id}`);
-    };
+    onDoubleClickNode = id => toast(`Double clicked node ${id}`);
 
     onRightClickNode = (event, id) => {
         event.preventDefault();
-        window.alert(`RIGHT clicked node ${id}`);
+        toast(`Right clicked node ${id}`);
     };
 
-    onClickLink = (source, target) => window.alert(`Clicked link between ${source} and ${target}`);
+    onClickLink = (source, target) => toast(`Clicked link between ${source} and ${target}`);
 
     onRightClickLink = (event, source, target) => {
         event.preventDefault();
-        window.alert(`RIGHT clicked link between ${source} and ${target}`);
+        toast(`Right clicked link between ${source} and ${target}`);
     };
 
     onMouseOverNode = id => console.info(`Do something when mouse is over node (${id})`);
@@ -170,7 +170,7 @@ export default class Sandbox extends React.Component {
 
             this.setState({ data });
         } else {
-            window.alert("No more nodes to remove!");
+            toast("No more nodes to remove!");
         }
     };
 
@@ -345,6 +345,10 @@ export default class Sandbox extends React.Component {
             </div>
         );
     };
+
+    componentDidMount() {
+        toast.configure();
+    }
 
     render() {
         // This does not happens in this sandbox scenario running time, but if we set staticGraph config
