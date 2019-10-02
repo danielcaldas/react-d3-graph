@@ -101,33 +101,7 @@ describe("Graph Helper", () => {
                 });
                 const props = graphHelper.buildNodeProps(that.node, that.config, undefined, "id", undefined, 1);
 
-                expect(props).toEqual({
-                    ...that.node,
-                    className: "node",
-                    cursor: "pointer",
-                    cx: 1,
-                    cy: 2,
-                    dx: 15.5,
-                    fill: "red",
-                    fontSize: 12,
-                    fontWeight: "bold",
-                    fontColor: "black",
-                    id: "id",
-                    label: "id",
-                    onClickNode: undefined,
-                    onRightClickNode: undefined,
-                    onMouseOut: undefined,
-                    onMouseOverNode: undefined,
-                    opacity: 1,
-                    renderLabel: true,
-                    size: 200,
-                    stroke: "yellow",
-                    strokeWidth: 2,
-                    svg: "file.svg",
-                    type: "circle",
-                    viewGenerator: null,
-                    overrideGlobalViewGenerator: undefined,
-                });
+                expect(props).toMatchSnapshot();
             });
         });
         describe("when node to build is the highlightedLink target (or source)", () => {
@@ -147,33 +121,7 @@ describe("Graph Helper", () => {
                         1
                     );
 
-                    expect(props).toEqual({
-                        ...that.node,
-                        className: "node",
-                        cursor: "pointer",
-                        cx: 1,
-                        cy: 2,
-                        dx: 11.5,
-                        fill: "green",
-                        fontSize: 8,
-                        fontWeight: "normal",
-                        fontColor: "black",
-                        id: "id",
-                        label: "id",
-                        onClickNode: undefined,
-                        onRightClickNode: undefined,
-                        onMouseOut: undefined,
-                        onMouseOverNode: undefined,
-                        opacity: undefined,
-                        renderLabel: true,
-                        size: 200,
-                        stroke: "none",
-                        strokeWidth: 1.5,
-                        svg: "file.svg",
-                        type: "circle",
-                        viewGenerator: null,
-                        overrideGlobalViewGenerator: undefined,
-                    });
+                    expect(props).toMatchSnapshot();
                 });
             });
             describe("and highlight degree is bigger then 0", () => {
@@ -192,33 +140,7 @@ describe("Graph Helper", () => {
                         1
                     );
 
-                    expect(props).toEqual({
-                        ...that.node,
-                        className: "node",
-                        cursor: "pointer",
-                        cx: 1,
-                        cy: 2,
-                        dx: 11.5,
-                        fill: "green",
-                        fontSize: 8,
-                        fontWeight: "normal",
-                        fontColor: "black",
-                        id: "id",
-                        label: "id",
-                        onClickNode: undefined,
-                        onRightClickNode: undefined,
-                        onMouseOut: undefined,
-                        onMouseOverNode: undefined,
-                        opacity: undefined,
-                        renderLabel: true,
-                        size: 200,
-                        stroke: "none",
-                        strokeWidth: 1.5,
-                        svg: "file.svg",
-                        type: "circle",
-                        viewGenerator: null,
-                        overrideGlobalViewGenerator: undefined,
-                    });
+                    expect(props).toMatchSnapshot();
                 });
             });
         });

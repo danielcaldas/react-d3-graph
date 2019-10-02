@@ -49,7 +49,7 @@ describe("Graph Helper", () => {
 
                     const newState = graphHelper.initializeGraphState({ data, id: "id", config: {} }, state);
 
-                    expect(newState.d3Nodes).toEqual([
+                    expect(newState.d3Nodes).toMatchSnapshot([
                         {
                             highlighted: false,
                             id: "A",
@@ -69,7 +69,7 @@ describe("Graph Helper", () => {
                             y: 0,
                         },
                     ]);
-                    expect(newState.d3Links).toEqual([
+                    expect(newState.d3Links).toMatchSnapshot([
                         {
                             index: 0,
                             source: {
@@ -152,7 +152,7 @@ describe("Graph Helper", () => {
 
                         const newState = graphHelper.initializeGraphState({ data, id: "id", config: {} }, state);
 
-                        expect(newState.d3Nodes).toEqual([
+                        expect(newState.d3Nodes).toMatchSnapshot([
                             {
                                 highlighted: false,
                                 id: "B",
@@ -166,7 +166,7 @@ describe("Graph Helper", () => {
                                 y: 80,
                             },
                         ]);
-                        expect(newState.d3Links).toEqual([
+                        expect(newState.d3Links).toMatchSnapshot([
                             {
                                 index: 2,
                                 isHidden: false,
@@ -194,7 +194,7 @@ describe("Graph Helper", () => {
 
                     const newState = graphHelper.initializeGraphState({ data, id: "id", config: {} }, state);
 
-                    expect(newState.d3Nodes).toEqual([
+                    expect(newState.d3Nodes).toMatchSnapshot([
                         {
                             highlighted: false,
                             id: "A",
@@ -214,7 +214,7 @@ describe("Graph Helper", () => {
                             y: 0,
                         },
                     ]);
-                    expect(newState.d3Links).toEqual([
+                    expect(newState.d3Links).toMatchSnapshot([
                         {
                             source: "A",
                             target: "B",
@@ -257,7 +257,7 @@ describe("Graph Helper", () => {
 
                 const newState = graphHelper.initializeGraphState({ data, id: "id", config: undefined }, state);
 
-                expect(newState).toEqual({
+                expect(newState).toMatchSnapshot({
                     config: {
                         config: "config",
                     },
