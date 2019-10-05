@@ -111,12 +111,12 @@ function _renderDefs() {
 
         cachedDefs = (
             <defs>
-                <Marker id={MARKERS.MARKER_S} refX={small} fill={config.link.color} />
-                <Marker id={MARKERS.MARKER_SH} refX={small} fill={config.link.highlightColor} />
-                <Marker id={MARKERS.MARKER_M} refX={medium} fill={config.link.color} />
-                <Marker id={MARKERS.MARKER_MH} refX={medium} fill={config.link.highlightColor} />
-                <Marker id={MARKERS.MARKER_L} refX={large} fill={config.link.color} />
-                <Marker id={MARKERS.MARKER_LH} refX={large} fill={config.link.highlightColor} />
+                <Marker id={MARKERS.MARKER_S} refX={small} fill={config.link.color} markerWidth={config.link.markerWidth} markerHeight={config.link.markerHeight} />
+                <Marker id={MARKERS.MARKER_SH} refX={small} fill={config.link.highlightColor} markerWidth={config.link.markerWidth} markerHeight={config.link.markerHeight} />
+                <Marker id={MARKERS.MARKER_M} refX={medium} fill={config.link.color} markerWidth={config.link.markerWidth} markerHeight={config.link.markerHeight} />
+                <Marker id={MARKERS.MARKER_MH} refX={medium} fill={config.link.highlightColor} markerWidth={config.link.markerWidth} markerHeight={config.link.markerHeight} />
+                <Marker id={MARKERS.MARKER_L} refX={large} fill={config.link.color} markerWidth={config.link.markerWidth} markerHeight={config.link.markerHeight} />
+                <Marker id={MARKERS.MARKER_LH} refX={large} fill={config.link.highlightColor} markerWidth={config.link.markerWidth} markerHeight={config.link.markerHeight} />
             </defs>
         );
 
