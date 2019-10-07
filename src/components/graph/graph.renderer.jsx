@@ -109,14 +109,19 @@ function _renderDefs() {
         const medium = small + (MARKER_MEDIUM_OFFSET * config.maxZoom) / 3;
         const large = small + (MARKER_LARGE_OFFSET * config.maxZoom) / 3;
 
+        const markerProps = {
+            markerWidth: config.link.markerWidth,
+            markerHeight: config.link.markerHeight,
+        };
+
         cachedDefs = (
             <defs>
-                <Marker id={MARKERS.MARKER_S} refX={small} fill={config.link.color} />
-                <Marker id={MARKERS.MARKER_SH} refX={small} fill={config.link.highlightColor} />
-                <Marker id={MARKERS.MARKER_M} refX={medium} fill={config.link.color} />
-                <Marker id={MARKERS.MARKER_MH} refX={medium} fill={config.link.highlightColor} />
-                <Marker id={MARKERS.MARKER_L} refX={large} fill={config.link.color} />
-                <Marker id={MARKERS.MARKER_LH} refX={large} fill={config.link.highlightColor} />
+                <Marker id={MARKERS.MARKER_S} refX={small} fill={config.link.color} {...markerProps} />
+                <Marker id={MARKERS.MARKER_SH} refX={small} fill={config.link.highlightColor} {...markerProps} />
+                <Marker id={MARKERS.MARKER_M} refX={medium} fill={config.link.color} {...markerProps} />
+                <Marker id={MARKERS.MARKER_MH} refX={medium} fill={config.link.highlightColor} {...markerProps} />
+                <Marker id={MARKERS.MARKER_L} refX={large} fill={config.link.color} {...markerProps} />
+                <Marker id={MARKERS.MARKER_LH} refX={large} fill={config.link.highlightColor} {...markerProps} />
             </defs>
         );
 
