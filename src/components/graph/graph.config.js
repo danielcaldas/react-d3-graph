@@ -185,9 +185,9 @@
  * link.strokeWidth * (1 / transform); // transform is a zoom delta Δ value
  * ```
  * @param {number} [link.markerHeight=6] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerHeight">markerHeight</a>
- * property for the link arrowhead height.
+ * property for the link arrowhead height. *Note: this property can only be set in the first mount, it does not update dynamically.*
  * @param {number} [link.markerWidth=6] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerWidth">markerWidth</a>
- * property for the link arrowhead width.
+ * property for the link arrowhead width. *Note: this property can only be set in the first mount, it does not update dynamically.*
  * @param {string} [link.type="STRAIGHT"] - the type of line to draw, available types at this point are:
  * - "STRAIGHT" <small>(default)</small> - a straight line.
  * - "CURVE_SMOOTH" - a slight curve between two nodes
@@ -270,8 +270,8 @@ export default {
         renderLabel: false,
         semanticStrokeWidth: false,
         strokeWidth: 1.5,
-        markerHeight: "6",
-        markerWidth: "6",
+        markerHeight: 6,
+        markerWidth: 6,
         type: "STRAIGHT",
     },
 };

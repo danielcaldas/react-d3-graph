@@ -41,6 +41,8 @@ export default class Sandbox extends React.Component {
                 .reduce(tooltipReducer, schemaProps),
             height: { "ui:readonly": "true" },
             width: { "ui:readonly": "true" },
+            "link.markerWidth": { "ui:readonly": "true" },
+            "link.markerHeight": { "ui:readonly": "true" },
         };
 
         this.state = {
