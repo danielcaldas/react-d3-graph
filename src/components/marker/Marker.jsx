@@ -7,7 +7,6 @@ import React from "react";
  * <Marker id="marker-id" fill="black" />
  */
 export default class Marker extends React.Component {
-    // TODO: make Marker configurable in the future (markerWidth, markerHeight)
     render() {
         return (
             <marker
