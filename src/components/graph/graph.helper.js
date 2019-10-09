@@ -30,7 +30,7 @@ import CONST from "./graph.const";
 import DEFAULT_CONFIG from "./graph.config";
 import ERRORS from "../../err";
 
-import { isDeepEqual, isEmptyObject, merge, pick, antiPick, throwErr } from "../../utils";
+import { isDeepEqual, isEmptyObject, merge, pick, antiPick, throwErr, throwWarning } from "../../utils";
 import { computeNodeDegree } from "./collapse.helper";
 
 const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
@@ -205,15 +205,21 @@ function _tagOrphanNodes(nodes, linksMatrix) {
  * Some integrity validations on links and nodes structure. If some validation fails the function will
  * throw an error.
  * @param  {Object} data - Same as {@link #initializeGraphState|data in initializeGraphState}.
- * @throws can throw the following error msg:
+ * @throws can throw the following error or warning msg:
  * INSUFFICIENT_DATA - msg if no nodes are provided
  * INVALID_LINKS - if links point to nonexistent nodes
+ * INSUFFICIENT_LINKS - if no links are provided
  * @returns {undefined}
  * @memberof Graph/helper
  */
 function _validateGraphData(data) {
     if (!data.nodes || !data.nodes.length) {
         throwErr("Graph", ERRORS.INSUFFICIENT_DATA);
+    }
+
+    if (!data.links || !data.links.length) {
+        throwWarning("Graph", ERRORS.INSUFFICIENT_LINKS);
+        data.links = [];
     }
 
     const n = data.links.length;
