@@ -185,4 +185,17 @@ function throwErr(component, msg) {
     throw Error(error);
 }
 
-export { isDeepEqual, isEmptyObject, deepClone, merge, pick, antiPick, throwErr };
+/**
+ * Helper function for customized warning logging.
+ * @param  {string} component - the name of the component where the warning is to be thrown.
+ * @param  {string} msg - the message contain a more detailed explanation about the error.
+ * @returns {Warning} the thrown warning.
+ * @memberof utils
+ */
+function throwWarning(component, msg) {
+    const warning = `react-d3-graph :: ${component} :: ${msg}`;
+
+    console.warn(warning);
+}
+
+export { isDeepEqual, isEmptyObject, deepClone, merge, pick, antiPick, throwErr, throwWarning };
