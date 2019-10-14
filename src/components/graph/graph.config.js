@@ -188,7 +188,7 @@
  * property for the link arrowhead height. *Note: this property can only be set in the first mount, it does not update dynamically.*
  * @param {number} [link.markerWidth=6] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerWidth">markerWidth</a>
  * property for the link arrowhead width. *Note: this property can only be set in the first mount, it does not update dynamically.*
- * @param {string} [link.type="STRAIGHT"] - the type of line to draw, available types at this point are:
+ * @param {string} [link.type="STRAIGHT"] 🔍🔍🔍 - the type of line to draw, available types at this point are:
  * - "STRAIGHT" <small>(default)</small> - a straight line.
  * - "CURVE_SMOOTH" - a slight curve between two nodes
  * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
