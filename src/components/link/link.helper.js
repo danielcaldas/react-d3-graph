@@ -68,10 +68,10 @@ function getRadiusStrategy(type) {
  * @returns {string} the path definition for the requested link
  * @memberof Link/helper
  */
-function buildLinkPathDefinition({ source = {}, target = {}, linktype }, type = LINE_TYPES.STRAIGHT) {
+function buildLinkPathDefinition({ source = {}, target = {} }, type = LINE_TYPES.STRAIGHT) {
     const { x: sx, y: sy } = source;
     const { x: tx, y: ty } = target;
-    const validType = LINE_TYPES[linktype] || LINE_TYPES[type];
+    const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
     const radius = getRadiusStrategy(validType)(sx, sy, tx, ty);
 
     return `M${sx},${sy}A${radius},${radius} 0 0,1 ${tx},${ty}`;
