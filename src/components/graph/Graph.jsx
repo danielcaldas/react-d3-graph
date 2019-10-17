@@ -505,33 +505,33 @@ export default class Graph extends React.Component {
      * @returns {undefined}
      */
     // eslint-disable-next-line
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        const { graphElementsUpdated, newGraphElements } = checkForGraphElementsChanges(nextProps, this.state);
-        const state = graphElementsUpdated ? initializeGraphState(nextProps, this.state) : this.state;
-        const newConfig = nextProps.config || {};
-        const { configUpdated, d3ConfigUpdated } = checkForGraphConfigChanges(nextProps, this.state);
-        const config = configUpdated ? merge(DEFAULT_CONFIG, newConfig) : this.state.config;
 
-        // in order to properly update graph data we need to pause eventual d3 ongoing animations
-        newGraphElements && this.pauseSimulation();
+    static getDerivedStateFromProps(props, state) {
+        const { graphElementsUpdated, newGraphElements } = checkForGraphElementsChanges(props, state);
+        if (newGraphElements) {
+            const currentState = graphElementsUpdated ? initializeGraphState(props, state) : state;
+            const newConfig = props.config || {};
+            const { configUpdated, d3ConfigUpdated } = checkForGraphConfigChanges(props, state);
+            const config = configUpdated ? merge(DEFAULT_CONFIG, newConfig) : state.config;
 
-        const transform = newConfig.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
-        const focusedNodeId = nextProps.data.focusedNodeId;
-        const d3FocusedNode = this.state.d3Nodes.find(node => `${node.id}` === `${focusedNodeId}`);
-        const focusTransformation = getCenterAndZoomTransformation(d3FocusedNode, this.state.config);
-        const enableFocusAnimation = this.props.data.focusedNodeId !== nextProps.data.focusedNodeId;
+            // in order to properly update graph data we need to pause eventual d3 ongoing animations
+            newGraphElements && state.simulation.stop();
 
-        this.setState({
-            ...state,
-            config,
-            configUpdated,
-            d3ConfigUpdated,
-            newGraphElements,
-            transform,
-            focusedNodeId,
-            enableFocusAnimation,
-            focusTransformation,
-        });
+            const transform = newConfig.panAndZoom !== state.config.panAndZoom ? 1 : state.transform;
+            const focusedNodeId = props.data.focusedNodeId;
+            const d3FocusedNode = state.d3Nodes.find(node => `${node.id}` === `${focusedNodeId}`);
+            const focusTransformation = getCenterAndZoomTransformation(d3FocusedNode, state.config);
+
+            const enableFocusAnimation = state.focusedNodeId !== props.data.focusedNodeId;
+
+            return {
+                ...currentState,
+                focusedNodeId: focusedNodeId,
+                config,
+                newGraphElements,
+            };
+        }
+        return null;
     }
 
     componentDidUpdate() {
