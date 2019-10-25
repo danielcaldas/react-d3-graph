@@ -59,7 +59,11 @@ function loadDataset() {
         try {
             const data = require(`./data/${dataset}/${dataset}.data`);
             const datasetConfig = require(`./data/${dataset}/${dataset}.config`);
-            const config = merge(DEFAULT_CONFIG, datasetConfig);
+            // hasOwnProperty(datasetConfig, "default") hack to get around mixed module systems
+            const tmp = Object.prototype.hasOwnProperty.call(datasetConfig, "default")
+                ? datasetConfig.default
+                : datasetConfig;
+            const config = merge(DEFAULT_CONFIG, tmp);
 
             return { data, config, fullscreen };
         } catch (error) {
