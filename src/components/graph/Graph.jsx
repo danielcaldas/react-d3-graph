@@ -55,8 +55,9 @@ import { merge, throwErr } from "../../utils";
  *     }
  * };
  *
- * // graph event callbacks
- * const onClickGraph = function() {
+ * // Callback to handle click on the graph.
+ * // @param {Object} event click dom event
+ * const onClickGraph = function(event) {
  *      window.alert('Clicked the graph background');
  * };
  *
