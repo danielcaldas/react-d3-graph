@@ -313,7 +313,7 @@ export default class Graph extends React.Component {
         const svgContainerName = `svg-container-${this.state.id}`;
 
         if (tagName.toUpperCase() === "SVG" && name === svgContainerName) {
-            this.props.onClickGraph && this.props.onClickGraph();
+            this.props.onClickGraph && this.props.onClickGraph(e);
         }
     };
 
