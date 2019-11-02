@@ -1,7 +1,7 @@
 import React from "react";
 import CustomNode from "./CustomNode";
 
-module.exports = {
+export default {
     automaticRearrangeAfterDropNode: false,
     collapsible: false,
     height: 400,
