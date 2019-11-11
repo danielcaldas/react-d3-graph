@@ -908,10 +908,12 @@ have a higher level of granularity. These properties can be defined in the graph
           <div>
             <span class='code bold'>automaticRearrangeAfterDropNode</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>
             = <code>false</code>)</code>
-	    🚅🚅🚅 when true performing a node drag and drop should automatically
-rearrange all nodes positions based on new position of dragged node (note:
-<strong>staticGraph</strong>
- should be false).
+            🚅🚅🚅 when true performing a node drag and drop should automatically
+            rearrange all nodes positions based on new position of dragged node (note: <b>staticGraph</b> should be false). A few notes on this property:
+            <ul>
+            <li><b>automaticRearrangeAfterDropNode</b> needs to be set before the first graph render. Only the first set value will take effect.</li>
+            <li><b>automaticRearrangeAfterDropNode</b> won't work together with <b>nodeHighlightBehavior</b> (currently a known limitation, to be address in the future <a href="https://github.com/danielcaldas/react-d3-graph/issues/261" target="_blank">GitHub #261</a>).</li>
+            </ul>
 
           </div>
 
