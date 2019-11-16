@@ -436,13 +436,9 @@ export default class Graph extends React.Component {
             return;
         }
 
-        const { id, oldX, oldY, x, y } = node;
-        const deltaX = x - oldX;
-        const deltaY = y - oldY;
+        const { id, x, y } = node;
 
-        if (deltaX !== 0 || deltaY !== 0) {
-            this.props.onNodePositionChange(id, x, y);
-        }
+        this.props.onNodePositionChange(id, x, y);
     };
 
     /**
