@@ -206,7 +206,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         label,
         opacity,
         overrideGlobalViewGenerator: !node.viewGenerator && node.svg,
-        renderLabel: config.node.renderLabel,
+        renderLabel: node.renderLabel || config.node.renderLabel,
         size: nodeSize * t,
         stroke,
         strokeWidth: strokeWidth * t,
