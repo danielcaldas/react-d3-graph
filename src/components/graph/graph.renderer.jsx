@@ -6,7 +6,7 @@
 import React from "react";
 
 import CONST from "./graph.const";
-import { MARKERS, MARKER_SMALL_SIZE, MARKER_MEDIUM_OFFSET, MARKER_LARGE_OFFSET } from "../marker/marker.const";
+import { MARKERS } from "../marker/marker.const";
 
 import Link from "../link/Link";
 import Node from "../node/Node";
@@ -14,6 +14,7 @@ import Marker from "../marker/Marker";
 import { buildLinkProps, buildNodeProps } from "./graph.builder";
 import { getId } from "../graph/graph.helper";
 import { isNodeVisible } from "./collapse.helper";
+import { getMarkerSize } from "../marker/marker.helper";
 
 /**
  * Build Link components given a list of links.
@@ -105,10 +106,7 @@ function _renderDefs() {
             return cachedDefs;
         }
 
-        const small = MARKER_SMALL_SIZE;
-        const medium = small + (MARKER_MEDIUM_OFFSET * config.maxZoom) / 3;
-        const large = small + (MARKER_LARGE_OFFSET * config.maxZoom) / 3;
-
+        const { small, medium, large } = getMarkerSize(config);
         const markerProps = {
             markerWidth: config.link.markerWidth,
             markerHeight: config.link.markerHeight,

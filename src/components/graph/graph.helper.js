@@ -451,6 +451,65 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
     };
 }
 
+/**
+ *  Computes the normalized vector from a vector
+ *
+ * @param {Object} vector a 2D vector with x and y components
+ * @param {number} vector.x x coordinate
+ * @param {number} vector.y y coordinate
+ * @returns {Object} normalized vector
+ */
+function normalize(vector) {
+    let norm = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
+
+    return { x: vector.x / norm, y: vector.y / norm };
+}
+
+/**
+ * Computes new node coordinates to make arrowheads point at nodes
+ *
+ * @param {Object} node - the couple of nodes we need to compute new coordinates
+ * @param {Object} node.source - node source
+ * @param {Object} node.target - node target
+ * @param  {Object.<string, Object>} nodes - same as {@link #graphrenderer|nodes in renderGraph}.
+ * @param  {Object} config - same as {@link #graphrenderer|config in renderGraph}.
+ * @param {number} strokeWidth width of the link stroke
+ * @returns {Object} new nodes coordinates
+ *
+ */
+function getNormalizedNodeCoordinates({ source = {}, target = {} }, nodes, config, strokeWidth) {
+    let { x: x1, y: y1 } = source;
+
+    let { x: x2, y: y2 } = target;
+
+    if (config.node) {
+        // Arrow configuration is only available for circles for now
+        switch (config.node.symbolType) {
+            case CONST.SYMBOLS.CIRCLE: {
+                let directionVector = normalize({ x: x2 - x1, y: y2 - y1 });
+
+                let strokeSize = strokeWidth * Math.min(config.link.markerWidth, config.link.markerHeight);
+
+                let nodeSize = nodes?.[source]?.size || config.node.size;
+
+                // cause this is a circle and A = pi * r^2
+                // We multiply by 0.95, because if we don't the link is not melting properly
+                nodeSize = Math.sqrt(nodeSize / Math.PI) * 0.95;
+
+                // Points from the source, we move them not to begin in the circle but outside
+                x1 += nodeSize * directionVector.x;
+                y1 += nodeSize * directionVector.y;
+                // Points from the target, we move the by the size of the radius of the circle + the size of the arrow
+                x2 -= (nodeSize + (config.directed ? strokeSize : 0)) * directionVector.x;
+                y2 -= (nodeSize + (config.directed ? strokeSize : 0)) * directionVector.y;
+                break;
+            }
+        }
+    }
+
+    return { source: { x: x1, y: y1 }, target: { x: x2, y: y2 } };
+}
+
 export {
     checkForGraphConfigChanges,
     checkForGraphElementsChanges,
@@ -458,4 +517,5 @@ export {
     getId,
     initializeGraphState,
     updateNodeHighlightedValue,
+    getNormalizedNodeCoordinates,
 };

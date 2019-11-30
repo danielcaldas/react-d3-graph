@@ -7,6 +7,7 @@ import CONST from "./graph.const";
 
 import { buildLinkPathDefinition } from "../link/link.helper";
 import { getMarkerId } from "../marker/marker.helper";
+import { getNormalizedNodeCoordinates } from "./graph.helper";
 
 /**
  * Get the correct node opacity in order to properly make decisions based on context such as currently highlighted node.
@@ -53,12 +54,16 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
  */
 function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
     const { source, target } = link;
-    const x1 = nodes?.[source]?.x || 0;
-    const y1 = nodes?.[source]?.y || 0;
-    const x2 = nodes?.[target]?.x || 0;
-    const y2 = nodes?.[target]?.y || 0;
+
+    let x1 = nodes?.[source]?.x || 0;
+
+    let y1 = nodes?.[source]?.y || 0;
+
+    let x2 = nodes?.[target]?.x || 0;
+
+    let y2 = nodes?.[target]?.y || 0;
+
     const type = link.type || config.link.type;
-    const d = buildLinkPathDefinition({ source: { x: x1, y: y1 }, target: { x: x2, y: y2 } }, type);
 
     let mainNodeParticipates = false;
 
@@ -120,6 +125,14 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         fontColor = link.fontColor || config.link.fontColor;
         fontWeight = highlight ? config.link.highlightFontWeight : config.link.fontWeight;
     }
+
+    const normalizedNodeCoordinates = getNormalizedNodeCoordinates(
+        { source: { x: x1, y: y1 }, target: { x: x2, y: y2 } },
+        nodes,
+        config,
+        strokeWidth
+    );
+    const d = buildLinkPathDefinition(normalizedNodeCoordinates, type);
 
     return {
         className: CONST.LINK_CLASS_NAME,
