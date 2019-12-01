@@ -22,7 +22,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         markerHeight={6}
         markerWidth={6}
         orient="auto"
-        refX={16}
+        refX={0}
         refY="0"
         viewBox="0 -5 10 10"
       >
@@ -37,7 +37,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         markerHeight={6}
         markerWidth={6}
         orient="auto"
-        refX={16}
+        refX={0}
         refY="0"
         viewBox="0 -5 10 10"
       >
@@ -52,7 +52,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         markerHeight={6}
         markerWidth={6}
         orient="auto"
-        refX={21.333333333333332}
+        refX={0}
         refY="0"
         viewBox="0 -5 10 10"
       >
@@ -67,7 +67,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         markerHeight={6}
         markerWidth={6}
         orient="auto"
-        refX={21.333333333333332}
+        refX={0}
         refY="0"
         viewBox="0 -5 10 10"
       >
@@ -82,7 +82,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         markerHeight={6}
         markerWidth={6}
         orient="auto"
-        refX={26.666666666666664}
+        refX={0}
         refY="0"
         viewBox="0 -5 10 10"
       >
@@ -97,7 +97,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
         markerHeight={6}
         markerWidth={6}
         orient="auto"
-        refX={26.666666666666664}
+        refX={0}
         refY="0"
         viewBox="0 -5 10 10"
       >
@@ -118,7 +118,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M40,200A0,0 0 0,1 140,20"
+          d="M402.6029494893985485,200-4.685309080917388A0,0 0 0,1 137.39705051060145,24.68530908091739"
           id="Harry,Sally"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -138,7 +138,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M40,200A0,0 0 0,1 20,110"
+          d="M40-1.1627040942275513,200-5.232168424023981A0,0 0 0,1 21.16270409422755,115.23216842402398"
           id="Harry,Mario"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -158,7 +158,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M30,184A0,0 0 0,1 305,745"
+          d="M302.3591551111937417,1844.812676426835234A0,0 0 0,1 302.64084488880627,740.1873235731648"
           id="Sarah,Alice"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -178,7 +178,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M200,300A0,0 0 0,1 305,745"
+          d="M2001.230871970649426,3005.2165526375142335A0,0 0 0,1 303.76912802935055,739.7834473624857"
           id="Eveie,Alice"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -198,7 +198,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M120,270A0,0 0 0,1 305,745"
+          d="M1201.9451766013189067,2704.994372354737734A0,0 0 0,1 303.0548233986811,740.0056276452623"
           id="Peter,Alice"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -218,7 +218,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M20,110A0,0 0 0,1 305,745"
+          d="M202.194669099098748,1104.889876764658614A0,0 0 0,1 302.80533090090125,740.1101232353413"
           id="Mario,Alice"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -238,7 +238,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M190,609A0,0 0 0,1 305,745"
+          d="M1903.4607726849715568,6094.092739870922885A0,0 0 0,1 301.5392273150284,740.9072601290771"
           id="James,Alice"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -258,7 +258,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M40,200A0,0 0 0,1 101,201"
+          d="M405.359080979074426,2000.0878537865422037A0,0 0 0,1 95.64091902092558,200.9121462134578"
           id="Harry,Carol"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -278,7 +278,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M40,200A0,0 0 0,1 2,200"
+          d="M40-5.359801043703684,2000A0,0 0 0,1 7.359801043703684,200"
           id="Harry,Nicky"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -298,7 +298,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M404,404A0,0 0 0,1 14,30"
+          d="M404-3.868474145942595,404-3.709767514314181A0,0 0 0,1 17.868474145942596,33.70976751431418"
           id="Bobby,Frank"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -318,7 +318,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M305,745A0,0 0 0,1 20,110"
+          d="M305-2.194669099098748,745-4.889876764658614A0,0 0 0,1 22.194669099098746,114.88987676465861"
           id="Alice,Mario"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -338,7 +338,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M40,200A0,0 0 0,1 14,250"
+          d="M40-2.472758879369286,2004.755305537248627A0,0 0 0,1 16.472758879369287,245.24469446275137"
           id="Harry,Lynne"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -358,7 +358,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M30,184A0,0 0 0,1 190,609"
+          d="M301.8884174089776617,1845.016108742596914A0,0 0 0,1 188.11158259102234,603.9838912574031"
           id="Sarah,James"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -378,7 +378,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M14,259A0,0 0 0,1 190,609"
+          d="M142.4079147156322325,2594.788466764041372A0,0 0 0,1 187.59208528436776,604.2115332359587"
           id="Roger,James"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -398,7 +398,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M409,500A0,0 0 0,1 190,609"
+          d="M409-4.798325813522697,5002.388207824995315A0,0 0 0,1 194.7983258135227,606.6117921750047"
           id="Maddy,James"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -418,7 +418,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M520,123A0,0 0 0,1 14,259"
+          d="M520-5.1761004847648815,1231.3912048733755413A0,0 0 0,1 19.17610048476488,257.60879512662444"
           id="Sonny,Roger"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -438,7 +438,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M190,609A0,0 0 0,1 14,259"
+          d="M190-2.4079147156322325,609-4.788466764041372A0,0 0 0,1 16.40791471563223,263.78846676404135"
           id="James,Roger"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -458,7 +458,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M305,745A0,0 0 0,1 120,270"
+          d="M305-1.9451766013189067,745-4.994372354737734A0,0 0 0,1 121.9451766013189,274.9943723547377"
           id="Alice,Peter"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -478,7 +478,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M14,20A0,0 0 0,1 120,270"
+          d="M142.0922556386763027,204.934565185557317A0,0 0 0,1 117.9077443613237,265.0654348144427"
           id="Johan,Peter"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -498,7 +498,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M305,745A0,0 0 0,1 200,300"
+          d="M305-1.230871970649426,745-5.2165526375142335A0,0 0 0,1 201.23087197064942,305.2165526375142"
           id="Alice,Eveie"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -518,7 +518,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M40,200A0,0 0 0,1 200,300"
+          d="M404.545102194865424,2002.8406888717908902A0,0 0 0,1 195.45489780513458,297.1593111282091"
           id="Harry,Eveie"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -538,7 +538,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M200,300A0,0 0 0,1 40,200"
+          d="M200-4.545102194865424,300-2.8406888717908902A0,0 0 0,1 44.54510219486542,202.8406888717909"
           id="Eveie,Harry"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -558,7 +558,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M20,1A0,0 0 0,1 90,90"
+          d="M203.3134907219103313,14.212866775000279A0,0 0 0,1 86.68650927808967,85.78713322499972"
           id="Henry,Mikey"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -578,7 +578,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M90,656A0,0 0 0,1 90,90"
+          d="M900,656-5.359801043703684A0,0 0 0,1 90,95.35980104370368"
           id="Elric,Mikey"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -598,7 +598,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M190,609A0,0 0 0,1 30,184"
+          d="M190-1.8884174089776617,609-5.016108742596914A0,0 0 0,1 31.888417408977663,189.0161087425969"
           id="James,Sarah"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -618,7 +618,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M305,745A0,0 0 0,1 30,184"
+          d="M305-2.3591551111937417,745-4.812676426835234A0,0 0 0,1 32.35915511119374,188.81267642683522"
           id="Alice,Sarah"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -638,7 +638,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M190,609A0,0 0 0,1 409,500"
+          d="M1904.798325813522697,609-2.388207824995315A0,0 0 0,1 404.2016741864773,502.38820782499533"
           id="James,Maddy"
           onClick={[Function]}
           onContextMenu={[Function]}
@@ -658,7 +658,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       <g>
         <path
           className="link"
-          d="M120,270A0,0 0 0,1 14,20"
+          d="M120-2.0922556386763027,270-4.934565185557317A0,0 0 0,1 16.092255638676303,24.934565185557318"
           id="Peter,Johan"
           onClick={[Function]}
           onContextMenu={[Function]}
