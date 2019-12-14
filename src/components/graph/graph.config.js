@@ -237,6 +237,7 @@ export default {
         gravity: -100,
         linkLength: 100,
         linkStrength: 1,
+        disableLinkForce: false,
     },
     node: {
         color: "#d3d3d3",
