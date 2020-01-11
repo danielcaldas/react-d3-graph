@@ -362,7 +362,6 @@ const graph = {
         -   If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don"t overlap. (optional, default `-100`)
     -   `d3.linkLength` **[number][96]** the length of each link from the center of the nodes it joins. (optional, default `100`)
     -   `d3.linkStrength` **[number][96]** [see d3-force link.strength][107]
-    -   `d3.disableLinkForce` **[number][96]** when setting this value to true, the nodes will stay at the position chosen by the user, and no other d3 simulation will be done. (optional, default `false`)
         <br/> (optional, default `1`)
 -   `node` **[Object][99]** node object is explained in next section. ⬇️<h2 id="config-node"><a href="#config-node">#</a> Node level configurations</h2>
     -   `node.color` **[string][98]** 🔍🔍🔍 this is the color that will be applied to the node if no **color property**
