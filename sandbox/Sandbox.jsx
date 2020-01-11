@@ -163,7 +163,7 @@ export default class Sandbox extends React.Component {
      * Remove a node.
      */
     onClickRemoveNode = () => {
-        if (this.state.data.nodes && this.state.data.nodes.length) {
+        if (this.state.data.nodes && this.state.data.nodes.length > 1) {
             const id = this.state.data.nodes[0].id;
 
             this.state.data.nodes.splice(0, 1);
@@ -172,7 +172,7 @@ export default class Sandbox extends React.Component {
 
             this.setState({ data });
         } else {
-            toast("No more nodes to remove!");
+            toast("Need to have at least one node!");
         }
     };
 
