@@ -130,6 +130,7 @@ const onNodePositionChange = function(nodeId, x, y) {
     data={data}
     config={myConfig}
     onClickNode={onClickNode}
+    onDoubleClickNode={onDoubleClickNode}
     onRightClickNode={onRightClickNode}
     onClickGraph={onClickGraph}
     onClickLink={onClickLink}
