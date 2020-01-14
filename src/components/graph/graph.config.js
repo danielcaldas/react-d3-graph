@@ -80,6 +80,7 @@
  * the value the more the less highlighted nodes will be visible (related to <i>nodeHighlightBehavior</i>).
  * @param {number} [maxZoom=8] - max zoom that can be performed against the graph.
  * @param {number} [minZoom=0.1] - min zoom that can be performed against the graph.
+ * @param {number} [initialZoom=1] - initial zoom that can be performed against the graph.
  * @param {boolean} [panAndZoom=false] - 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
  * a similar functionality may be consulted <a target="_blank" href="https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39">here</a>.
  * @param {boolean} [staticGraph=false] - when setting this value to true the graph will be completely static, thus
@@ -229,6 +230,7 @@ export default {
     linkHighlightBehavior: false,
     maxZoom: 8,
     minZoom: 0.1,
+    initialZoom: 1,
     nodeHighlightBehavior: false,
     panAndZoom: false,
     staticGraph: false,
