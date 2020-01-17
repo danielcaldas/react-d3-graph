@@ -112,6 +112,24 @@ function getTargetLeafConnections(rootNodeId, linksMatrix = {}, { directed }) {
 }
 
 /**
+ * Filter out leaf connections of nodes which are not collapsible
+ * @param  {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
+ * @param {Array.<Object.<string, string>>} connections a list of leaf connections.
+ * @returns {Array.<Object.<string, string>>} a list of leaf nodes which are collapsible
+ * @memberof Graph/collapse-helper
+ */
+function filterNonCollapsibleNodes(nodes, connections = []) {
+    return connections.filter(connection => {
+        console.log(connection.target);
+        console.log(nodes[connection.target]);
+        const leafNode = nodes[connection.target];
+
+        return Object.hasOwnProperty.call(leafNode, "collapsible") ? leafNode.collapsible : true;
+
+    });
+}
+
+/**
  * Given a node and the connections matrix, check if node should be displayed
  * NOTE: this function is meant to be used under the `collapsible` toggle, meaning
  * that the `isNodeVisible` actually is checking visibility on collapsible graphs.
@@ -195,4 +213,5 @@ export {
     isNodeVisible,
     toggleLinksConnections,
     toggleLinksMatrixConnections,
+    filterNonCollapsibleNodes,
 };
