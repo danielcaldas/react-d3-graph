@@ -23,5 +23,6 @@ module.exports = {
     d3: {
         gravity: -400,
         linkLength: 180,
+        disableLinkForce: true,
     },
 };

@@ -1204,9 +1204,11 @@ components.
     },
     ...
     }
+
     ```
 
     ```
+
 -   `linkCallbacks` **[Array][100]&lt;[Function][101]>** array of callbacks for used defined event handler for link interactions.
 -   `config` **[Object][99]** an object containing rd3g consumer defined configurations [config][118] for the graph.
 -   `highlightedNode` **[string][98]** this value contains a string that represents the some currently highlighted node.

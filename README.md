@@ -47,7 +47,7 @@ npm install react-d3-graph
 
 #### About react and d3 peer dependencies
 
-**Note** that `react` and `d3` are [peer-dependencies](https://nodejs.org/en/blog/npm/peer-dependencies/), this means that the responsability to install them is delegated to the client. This will give you a bigger flexibility on what versions of `d3` and `react` you want to consume, you just need to make sure that you are compliant with the range of versions that `react-d3-graph` is compatible with. If you install `react-d3-graph` without first installing `d3` and `react` you might be propmt the following warnings:
+**Note** that `react` and `d3` are [peer-dependencies](https://nodejs.org/en/blog/npm/peer-dependencies/), this means that the responsibility to install them is delegated to the client. This will give you more flexibility on what versions of `d3` and `react` you want to consume, you just need to make sure that you are compliant with the range of versions that `react-d3-graph` is compatible with. If you install `react-d3-graph` without first installing `d3` and `react` you might see the following warnings:
 
 > npm WARN react-d3-graph@2.0.1 requires a peer of d3@^5.5.0 but none is installed. You must install peer dependencies yourself.
 > npm WARN react-d3-graph@2.0.1 requires a peer of react@^16.4.1 but none is installed. You must install peer dependencies yourself.
@@ -130,6 +130,7 @@ const onNodePositionChange = function(nodeId, x, y) {
     data={data}
     config={myConfig}
     onClickNode={onClickNode}
+    onDoubleClickNode={onDoubleClickNode}
     onRightClickNode={onRightClickNode}
     onClickGraph={onClickGraph}
     onClickLink={onClickLink}
@@ -144,17 +145,17 @@ const onNodePositionChange = function(nodeId, x, y) {
 
 ## Contributions
 
-Contributions are welcome fell free to submit new ideas/features, just open an issue or send me an email or something. If you are more a _hands on_ person, just submit a pull request. Before jumping into coding, please take at the contribution guidelines [CONTRIBUTING.md](https://github.com/danielcaldas/react-d3-graph/blob/master/CONTRIBUTING.md).
+Contributions are welcome, feel free to submit new ideas/features, just open an issue or send me an email or something. If you are more a _hands on_ person, just submit a pull request. Before jumping into coding, please take a look at the contribution guidelines [CONTRIBUTING.md](https://github.com/danielcaldas/react-d3-graph/blob/master/CONTRIBUTING.md).
 
 To run react-d3-graph in development mode you just need to run `npm run dev` and the interactive sandbox will reload with the changes to the library code, that way you can test your changes not only through unit test but also through a real life example. It's that simple. The development workflow usually should follow the steps:
 
--   Create a branch prefixed with `fix/` for bug fixes, `feature/` for new features, `chore/` or `refactor/` for refactoring or tolling and CI/CD related tasks.
+-   Create a branch prefixed with `fix/` for bug fixes, `feature/` for new features, `chore/` or `refactor/` for refactoring or tooling and CI/CD related tasks.
 -   Make sure you are up to date running `npm install`.
 -   Run `npm run dev`.
--   Do you changes inside the folder `src` and the interactive sandbox consumes your changes in real time
+-   Make you changes inside the folder `src` and the interactive sandbox consumes your changes in real time
     with webpack-dev-server.
 -   You can run tests locally with `npm run test` (for unit tests) or `npm run functional:local` for e2e tests.
--   After you're done open the Pull Request and describe the changes you've made.
+-   After you're done, open the Pull Request and describe the changes you've made.
 
 ## Alternatives (Not what you where looking for?)
 
