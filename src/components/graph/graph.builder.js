@@ -178,6 +178,8 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         label = config.node.labelProperty(node);
     }
 
+    let labelPosition = node.labelPosition || undefined;
+
     let strokeWidth = node.strokeWidth || config.node.strokeWidth;
 
     if (highlight && config.node.highlightStrokeWidth !== CONST.KEYWORDS.SAME) {
@@ -204,6 +206,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         fontWeight: highlight ? config.node.highlightFontWeight : config.node.fontWeight,
         id: node.id,
         label,
+        labelPosition,
         opacity,
         overrideGlobalViewGenerator: !node.viewGenerator && node.svg,
         renderLabel: node.renderLabel || config.node.renderLabel,

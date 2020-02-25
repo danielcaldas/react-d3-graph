@@ -59,6 +59,59 @@ function buildSvgSymbol(size = CONST.DEFAULT_NODE_SIZE, symbolTypeDesc = CONST.S
         .type(() => _convertTypeToD3Symbol(symbolTypeDesc))();
 }
 
+/**
+ * return dx, dy, and potentially alignmentBaseline and textAnchor props to put label in correct possition relative to node
+ * @param {number | undefined} dx - default computed offset of label to the right of the node
+ * @param {'left' | 'right' | 'top' | 'bottom' | 'center' | undefined} labelPosition - user specified position of label relative to node
+ * @returns {{dx: (number | string), dy: string} | {dx: string, dy: string, textAnchor: string, dominantBaseline: string}}
+ * props to put text svg for label in correct spot. default case returns just dx and dy, without textAnchor and dominantBaseline
+ */
+function getLabelPlacementProps(dx, labelPosition) {
+    switch (labelPosition) {
+        case "right":
+            return {
+                dx: `${dx}` || CONST.NODE_LABEL_DX,
+                dy: "0",
+                dominantBaseline: "middle",
+                textAnchor: "left",
+            };
+        case "left":
+            return {
+                dx: `${dx}` !== undefined ? `${-dx}` : `-${CONST.NODE_LABEL_DX}`,
+                dy: "0",
+                dominantBaseline: "middle",
+                textAnchor: "right",
+            };
+        case "top":
+            return {
+                dx: "0",
+                dy: `${dx}` !== undefined ? `${-dx}` : `-${CONST.NODE_LABEL_DX}`,
+                dominantBaseline: "baseline",
+                textAnchor: "middle",
+            };
+        case "bottom":
+            return {
+                dx: "0",
+                dy: `${dx}` || CONST.NODE_LABEL_DX,
+                dominantBaseline: "hanging",
+                textAnchor: "middle",
+            };
+        case "center":
+            return {
+                dx: "0",
+                dy: "0",
+                dominantBaseline: "middle",
+                textAnchor: "middle",
+            };
+        default:
+            return {
+                dx: dx || CONST.NODE_LABEL_DX,
+                dy: CONST.NODE_LABEL_DY,
+            };
+    }
+}
+
 export default {
     buildSvgSymbol,
+    getLabelPlacementProps,
 };
