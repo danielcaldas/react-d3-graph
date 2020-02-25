@@ -73,14 +73,14 @@ function getLabelPlacementProps(dx, labelPosition) {
                 dx: `${dx}` || CONST.NODE_LABEL_DX,
                 dy: "0",
                 dominantBaseline: "middle",
-                textAnchor: "left",
+                textAnchor: "start",
             };
         case "left":
             return {
                 dx: `${dx}` !== undefined ? `${-dx}` : `-${CONST.NODE_LABEL_DX}`,
                 dy: "0",
                 dominantBaseline: "middle",
-                textAnchor: "right",
+                textAnchor: "end",
             };
         case "top":
             return {
