@@ -118,6 +118,13 @@
  * @param {string} [node.highlightFontWeight="normal"] - fontWeight in highlighted state.
  * @param {string} [node.highlightStrokeColor="SAME"] - strokeColor in highlighted state.
  * @param {number} [node.highlightStrokeWidth="SAME"] - strokeWidth in highlighted state.
+ * @param {string} [node.labelPosition=null] - 🔍🔍🔍 location to place node label relative to node.
+ * The placement options are:
+ *   - "left"
+ *   - "right"
+ *   - "top"
+ *   - "bottom"
+ *   - "center"
  * @param {string|Function} [node.labelProperty="id"] - this is the node property that will be used in runtime to</br>
  * fetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set</br>
  * node.labelProperty to be <b>"firstName"</b>. <b>This can also be a function!</b>, if you pass a function here it will be called</br>
