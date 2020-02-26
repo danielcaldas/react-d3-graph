@@ -178,7 +178,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         label = config.node.labelProperty(node);
     }
 
-    let labelPosition = node.labelPosition || undefined;
+    let labelPosition = node.labelPosition || config.node.labelPosition;
 
     let strokeWidth = node.strokeWidth || config.node.strokeWidth;
 

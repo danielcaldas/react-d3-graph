@@ -252,6 +252,7 @@ export default {
         highlightStrokeColor: "SAME",
         highlightStrokeWidth: "SAME",
         labelProperty: "id",
+        labelPosition: null,
         mouseCursor: "pointer",
         opacity: 1,
         renderLabel: true,
