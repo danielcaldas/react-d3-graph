@@ -70,14 +70,14 @@ function getLabelPlacementProps(dx, labelPosition) {
     switch (labelPosition) {
         case "right":
             return {
-                dx: `${dx}` || CONST.NODE_LABEL_DX,
+                dx: dx ? `${dx}` : CONST.NODE_LABEL_DX,
                 dy: "0",
                 dominantBaseline: "middle",
                 textAnchor: "start",
             };
         case "left":
             return {
-                dx: `${dx}` !== undefined ? `${-dx}` : `-${CONST.NODE_LABEL_DX}`,
+                dx: dx ? `${-dx}` : `-${CONST.NODE_LABEL_DX}`,
                 dy: "0",
                 dominantBaseline: "middle",
                 textAnchor: "end",
@@ -85,14 +85,14 @@ function getLabelPlacementProps(dx, labelPosition) {
         case "top":
             return {
                 dx: "0",
-                dy: `${dx}` !== undefined ? `${-dx}` : `-${CONST.NODE_LABEL_DX}`,
+                dy: dx ? `${-dx}` : `-${CONST.NODE_LABEL_DX}`,
                 dominantBaseline: "baseline",
                 textAnchor: "middle",
             };
         case "bottom":
             return {
                 dx: "0",
-                dy: `${dx}` || CONST.NODE_LABEL_DX,
+                dy: dx ? `${dx}` : CONST.NODE_LABEL_DX,
                 dominantBaseline: "hanging",
                 textAnchor: "middle",
             };
@@ -105,7 +105,7 @@ function getLabelPlacementProps(dx, labelPosition) {
             };
         default:
             return {
-                dx: `${dx}` || CONST.NODE_LABEL_DX,
+                dx: dx ? `${dx}` : CONST.NODE_LABEL_DX,
                 dy: CONST.NODE_LABEL_DY,
             };
     }
