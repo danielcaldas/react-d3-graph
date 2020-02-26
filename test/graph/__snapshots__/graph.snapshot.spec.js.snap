@@ -695,7 +695,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -725,7 +725,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -755,7 +755,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -785,7 +785,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -815,7 +815,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -845,7 +845,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -875,7 +875,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -905,7 +905,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -935,7 +935,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -965,7 +965,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -995,7 +995,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -1025,7 +1025,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -1055,7 +1055,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -1085,7 +1085,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -1115,7 +1115,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -1145,7 +1145,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -1175,7 +1175,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -1205,7 +1205,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -1235,7 +1235,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -1265,7 +1265,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
@@ -1295,7 +1295,7 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           strokeWidth={1.5}
         />
         <text
-          dx={10.5}
+          dx="10.5"
           dy=".35em"
           fill="black"
           fontSize={8}
