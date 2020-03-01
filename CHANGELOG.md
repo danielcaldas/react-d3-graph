@@ -1,9 +1,61 @@
 # Change Log
 
-## Next up
+## [2.4.0](https://github.com/danielcaldas/react-d3-graph/tree/2.4.0)
 
--   https://github.com/DefinitelyTyped/DefinitelyTyped/pull/42240
-    thanks to @\hrngoode `react-d3-graph` is not on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.3.0...2.4.0)
+
+**Special announcement:**
+
+-   After https://github.com/DefinitelyTyped/DefinitelyTyped/pull/42240 being merged thanks to @hrngoode `react-d3-graph` is not available on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) in case you use TypeScript. 🎉 🎉 🎉
+
+**Implemented enhancements:**
+
+-   Make link end marker's width and height configurable [\#238](https://github.com/danielcaldas/react-d3-graph/issues/238)
+-   Avoid flashing graph when drag&drop node [\#237](https://github.com/danielcaldas/react-d3-graph/issues/237)
+-   Make `node.renderLabel` available at node level [\#192](https://github.com/danielcaldas/react-d3-graph/issues/192)
+
+**Sandbox & Documentation**
+
+-   Anchored links **per each configuration property** starting on version 2.4.0
+-   Deleting node is sandbox breaks the demo if the number of nodes reaches 0 [\#287](https://github.com/danielcaldas/react-d3-graph/issues/287)
+
+**Fixed bugs:**
+
+-   Collapsible node with no links errors out on click [\#292](https://github.com/danielcaldas/react-d3-graph/issues/292)
+-   Deleting node is sandbox breaks the demo if the number of nodes reaches 0 [\#287](https://github.com/danielcaldas/react-d3-graph/issues/287)
+-   onNodePositionChange doesn't always trigger [\#264](https://github.com/danielcaldas/react-d3-graph/issues/264)
+-   Custom node example is not loading on the sandbox [\#252](https://github.com/danielcaldas/react-d3-graph/issues/252)
+-   Not passing data.links breaks the library while it should throw a custom error [\#211](https://github.com/danielcaldas/react-d3-graph/issues/211)
+
+**Closed issues:**
+
+-   automaticRearrangeAfterDropNode - play button from live demo [\#261](https://github.com/danielcaldas/react-d3-graph/issues/261)
+-   Improve live example by replacing all window.alerts by toasts or other non blocking alerts [\#241](https://github.com/danielcaldas/react-d3-graph/issues/241)
+-   Add tooltips to sandbox playground configs [\#239](https://github.com/danielcaldas/react-d3-graph/issues/239)
+-   Make use of jest `.toMatchSnapshot` in library unit tests [\#236](https://github.com/danielcaldas/react-d3-graph/issues/236)
+-   link.type only can make effect in global [\#234](https://github.com/danielcaldas/react-d3-graph/issues/234)
+-   Node drag and drop methods [\#204](https://github.com/danielcaldas/react-d3-graph/issues/204)
+
+**Merged pull requests:**
+
+-   Chore: Misc bug bix travis node upgrade [\#305](https://github.com/danielcaldas/react-d3-graph/pull/305) ([danielcaldas](https://github.com/danielcaldas))
+-   Fix error on collapse for node with no links [\#293](https://github.com/danielcaldas/react-d3-graph/pull/293) ([vsramanujan](https://github.com/vsramanujan))
+-   Stop node removal when node count reaches 1 [\#288](https://github.com/danielcaldas/react-d3-graph/pull/288) ([pushpinder107](https://github.com/pushpinder107))
+-   Docs: Added missing event to \<Graph /\> [\#286](https://github.com/danielcaldas/react-d3-graph/pull/286) ([mknepprath](https://github.com/mknepprath))
+-   Fix typos [\#279](https://github.com/danielcaldas/react-d3-graph/pull/279) ([pushpinder107](https://github.com/pushpinder107))
+-   Adding a parameter in config to be able to disable link force [\#278](https://github.com/danielcaldas/react-d3-graph/pull/278) ([antoninklopp](https://github.com/antoninklopp))
+-   node_label changes enabled local param for renderLabel [\#267](https://github.com/danielcaldas/react-d3-graph/pull/267) ([gopherine](https://github.com/gopherine))
+-   fix/remove delta validation for onNodePositionChange [\#266](https://github.com/danielcaldas/react-d3-graph/pull/266) ([Kav91](https://github.com/Kav91))
+-   Update docs for automaticRearrangeAfterDropNode prop [\#262](https://github.com/danielcaldas/react-d3-graph/pull/262) ([danielcaldas](https://github.com/danielcaldas))
+-   Bug/custom nodes sandbox additions [\#256](https://github.com/danielcaldas/react-d3-graph/pull/256) ([danielcaldas](https://github.com/danielcaldas))
+-   Pass the event of onClickGraph to the prop [\#254](https://github.com/danielcaldas/react-d3-graph/pull/254) ([jameskfry](https://github.com/jameskfry))
+-   local link type added [\#247](https://github.com/danielcaldas/react-d3-graph/pull/247) ([gopherine](https://github.com/gopherine))
+-   Fix: data links error [\#246](https://github.com/danielcaldas/react-d3-graph/pull/246) ([mecm1993](https://github.com/mecm1993))
+-   Making Marker height and width configurable [\#245](https://github.com/danielcaldas/react-d3-graph/pull/245) ([SachinVarghese](https://github.com/SachinVarghese))
+-   Feature/better sandbox alerts [\#244](https://github.com/danielcaldas/react-d3-graph/pull/244) ([danielcaldas](https://github.com/danielcaldas))
+-   Fix: Update test with .toMatchSnapshot to test UI [\#243](https://github.com/danielcaldas/react-d3-graph/pull/243) ([nguyenami](https://github.com/nguyenami))
+-   Prevent graph flashing when dragging and dropping nodes [\#242](https://github.com/danielcaldas/react-d3-graph/pull/242) ([danielcaldas](https://github.com/danielcaldas))
+-   Feature/sandbox generate tooltips from jsdoc [\#240](https://github.com/danielcaldas/react-d3-graph/pull/240) ([danielcaldas](https://github.com/danielcaldas))
 
 ## [2.3.0](https://github.com/danielcaldas/react-d3-graph/tree/2.3.0)
 

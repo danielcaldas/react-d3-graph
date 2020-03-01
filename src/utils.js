@@ -177,6 +177,7 @@ function antiPick(o, props = []) {
  * @param {string} component component name.
  * @param {string} msg message to log.
  * @returns {string} the error message.
+ * @memberof utils
  */
 function buildFormattedErrorMessage(component = "N/A", msg = "N/A") {
     return `react-d3-graph :: ${component} :: ${msg}`;
@@ -198,6 +199,7 @@ function throwErr(component, msg) {
  * @param {string} component component name.
  * @param {string} msg message to log.
  * @returns {undefined}
+ * @memberof utils
  */
 function logError(component, msg) {
     console.error(buildFormattedErrorMessage(component, msg));

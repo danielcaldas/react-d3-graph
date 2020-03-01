@@ -75,7 +75,8 @@ function getParamInfo(param) {
     // make images smaller so that they fit in the tooltip
     const description = rawDescription
         .replace(/width="(\d+)"/gi, "width='400'")
-        .replace(/height="(\d+)"/gi, "height='200'");
+        .replace(/height="(\d+)"/gi, "height='200'")
+        .replace("🔗", ""); // drop docs anchor links
 
     return {
         [name]: `\
