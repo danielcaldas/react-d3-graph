@@ -4,8 +4,8 @@ addons:
         packages:
             - libgconf-2-4
 node_js:
-    - "8.9.0"
     - "10.14.0"
+    - "12.13.0"
 install:
     - npm install
 before_script:

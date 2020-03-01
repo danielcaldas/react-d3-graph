@@ -71,3 +71,4 @@ gen-docs
 .DS_Store
 cypress/videos/
 cypress/screenshots/
+yarn.lock # prevent yarn.lock to be pushed, please use npm instead

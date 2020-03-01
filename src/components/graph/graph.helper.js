@@ -30,7 +30,7 @@ import CONST from "./graph.const";
 import DEFAULT_CONFIG from "./graph.config";
 import ERRORS from "../../err";
 
-import { isDeepEqual, isEmptyObject, merge, pick, antiPick, throwErr, throwWarning } from "../../utils";
+import { isDeepEqual, isEmptyObject, merge, pick, antiPick, throwErr, logWarning } from "../../utils";
 import { computeNodeDegree } from "./collapse.helper";
 
 const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
@@ -218,7 +218,7 @@ function _validateGraphData(data) {
     }
 
     if (!data.links || !data.links.length) {
-        throwWarning("Graph", ERRORS.INSUFFICIENT_LINKS);
+        logWarning("Graph", ERRORS.INSUFFICIENT_LINKS);
         data.links = [];
     }
 
