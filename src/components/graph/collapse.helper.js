@@ -6,6 +6,7 @@
  * the links matrix.
  */
 import { getId } from "./graph.helper";
+import { logError } from "../../utils";
 
 /**
  * For directed graphs.
@@ -125,6 +126,18 @@ function getTargetLeafConnections(rootNodeId, linksMatrix = {}, { directed }) {
  * @memberof Graph/collapse-helper
  */
 function isNodeVisible(nodeId, nodes, linksMatrix) {
+    const node = nodes[nodeId];
+
+    if (!node) {
+        if (process.env.NODE_ENV === "development") {
+            logError(
+                "graph/collapse.helper",
+                `Trying to check if node ${nodeId} is visible but its not present in nodes: `,
+                nodes
+            );
+        }
+        return false;
+    }
     if (nodes[nodeId]._orphan) {
         return true;
     }
