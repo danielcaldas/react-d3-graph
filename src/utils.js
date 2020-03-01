@@ -173,6 +173,16 @@ function antiPick(o, props = []) {
 }
 
 /**
+ * Formats an error message with fallbacks for the given parameters.
+ * @param {string} component component name.
+ * @param {string} msg message to log.
+ * @returns {string} the error message.
+ */
+function buildFormattedErrorMessage(component = "N/A", msg = "N/A") {
+    return `react-d3-graph :: ${component} :: ${msg}`;
+}
+
+/**
  * Helper function for customized error logging.
  * @param  {string} component - the name of the component where the error is to be thrown.
  * @param  {string} msg - the message contain a more detailed explanation about the error.
@@ -180,9 +190,17 @@ function antiPick(o, props = []) {
  * @memberof utils
  */
 function throwErr(component, msg) {
-    const error = `react-d3-graph :: ${component} :: ${msg}`;
+    throw Error(buildFormattedErrorMessage(component, msg));
+}
 
-    throw Error(error);
+/**
+ * Logs formatted `react-d3-graph` error with `console.error`.
+ * @param {string} component component name.
+ * @param {string} msg message to log.
+ * @returns {undefined}
+ */
+function logError(component, msg) {
+    console.error(buildFormattedErrorMessage(component, msg));
 }
 
 /**
@@ -192,10 +210,10 @@ function throwErr(component, msg) {
  * @returns {Warning} the thrown warning.
  * @memberof utils
  */
-function throwWarning(component, msg) {
+function logWarning(component, msg) {
     const warning = `react-d3-graph :: ${component} :: ${msg}`;
 
     console.warn(warning);
 }
 
-export { isDeepEqual, isEmptyObject, deepClone, merge, pick, antiPick, throwErr, throwWarning };
+export { isDeepEqual, isEmptyObject, deepClone, merge, pick, antiPick, throwErr, logError, logWarning };
