@@ -99,7 +99,7 @@
  *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don"t overlap.
  * @param {number} [d3.linkLength=100] - the length of each link from the center of the nodes it joins.
  * @param {number} [d3.linkStrength=1] - <a target="_blank" href="https://github.com/d3/d3-force#link_strength">see d3-force link.strength</a>
- * @param {number} [d3.disableLinkForce=false] - ⚠️EXPERIMENTAL⚠️ it completely disables d3 force link and simulation to re-trigger so that one can obtain
+ * @param {number} [d3.disableLinkForce=false] - ⚠️🧪EXPERIMENTAL🧪⚠️ it completely disables d3 force link and simulation to re-trigger so that one can obtain
  * precise render of node positions as described by the author <a target="_blank" href="https://github.com/antoninklopp">@antoninklopp</a> in <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/pull/278">the Pull Request description</a>.
  * </br>
  * @param {Object} node node object is explained in next section. ⬇️
@@ -165,7 +165,7 @@
  * property for all links' labels.
  * @param {string} [link.fontWeight="normal"] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control">font-weight</a>
  * property for all links' labels.
- * @param {string} [link.highlightColor="#d3d3d3"] - links' color in highlight state.
+ * @param {string} [link.highlightColor="SAME"] - links' color in highlight state, default being the same color as `link.color`.
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
  * @param {number} [link.highlightFontSize=8] - <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control">font-size</a> in highlighted state.
  * @param {string} [link.highlightFontWeight="normal"] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control">font-weight</a> in highlighted state.
@@ -267,8 +267,7 @@ export default {
         fontColor: "black",
         fontSize: 8,
         fontWeight: "normal",
-        // FIXME: highlightColor default should be "SAME", breaking change
-        highlightColor: "#d3d3d3",
+        highlightColor: "SAME",
         highlightFontSize: 8,
         highlightFontWeight: "normal",
         labelProperty: "label",
