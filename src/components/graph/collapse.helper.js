@@ -97,7 +97,7 @@ function computeNodeDegree(nodeId, linksMatrix = {}) {
  * @memberof Graph/collapse-helper
  */
 function getTargetLeafConnections(rootNodeId, linksMatrix = {}, { directed }) {
-    const rootConnectionsNodesIds = Object.keys(linksMatrix[rootNodeId]);
+    const rootConnectionsNodesIds = linksMatrix[rootNodeId] ? Object.keys(linksMatrix[rootNodeId]) : [];
 
     return rootConnectionsNodesIds.reduce((leafConnections, target) => {
         if (_isLeaf(target, linksMatrix, directed)) {
