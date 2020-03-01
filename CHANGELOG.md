@@ -1,5 +1,10 @@
 # Change Log
 
+## Next up
+
+-   https://github.com/DefinitelyTyped/DefinitelyTyped/pull/42240
+    thanks to @\hrngoode `react-d3-graph` is not on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)
+
 ## [2.3.0](https://github.com/danielcaldas/react-d3-graph/tree/2.3.0)
 
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.2.0...2.3.0)
