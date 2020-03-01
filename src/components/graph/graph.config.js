@@ -36,22 +36,22 @@
  * </br>
  *
  * <h2 id="config-global"><a href="#config-global">#</a>  Graph global configurations</h2>
- * @param {boolean} [automaticRearrangeAfterDropNode=false] - 🚅🚅🚅 when true performing a node drag and drop should automatically
+ * @param {boolean} [automaticRearrangeAfterDropNode=false] - <span id="automatic-rearrange-after-drop-node"></span> 🚅🚅🚅 when true performing a node drag and drop should automatically
  * rearrange all nodes positions based on new position of dragged node (note: <b>staticGraph</b> should be false). A few notes on this property:
  * <ul>
  * <li><b>automaticRearrangeAfterDropNode</b> needs to be set before the first graph render. Only the first set value will take effect.</li>
  * <li><b>automaticRearrangeAfterDropNode</b> won't work together with <b>nodeHighlightBehavior</b> (currently a known limitation, to be address in the future <a href="https://github.com/danielcaldas/react-d3-graph/issues/261" target="_blank">GitHub issue #261</a>).</li>
  * </ul>
- * @param {boolean} [collapsible=false] - 🚅🚅🚅 Allow leaf neighbors nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.
+ * @param {boolean} [collapsible=false] - <span id="collapsible"></span> 🚅🚅🚅 Allow leaf neighbors nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.
  * To see an example of this behavior you can access this sandbox link that has a specific set up to experiment this feature. <b>NOTE</b>: At this moment
  * nodes without connections (orphan nodes) are not rendered when this property is activated (see <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/issues/129">GitHub issue #129</a>).
  * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-collapsible.gif?raw=true" width="820" height="480"/>
- * @param {boolean} [directed=false] - This property makes react-d3-graph handle your graph as a directed graph. It will
+ * @param {boolean} [directed=false] - <span id="directed"></span> This property makes react-d3-graph handle your graph as a directed graph. It will
  * out of the box provide the look and feel of a directed graph and add directional semantic to links. You can see a sample in the image below.
  * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-directed.gif?raw=true" width="820" height="480"/>
- * @param {number} [focusZoom=1] - zoom that will be applied when the graph view is focused in a node. Its value must be between
+ * @param {number} [focusZoom=1] - <span id="focus-zoom"></span> zoom that will be applied when the graph view is focused in a node. Its value must be between
  * <i>minZoom</i> and <i>maxZoom</i>. If the specified <i>focusZoom</i> is out of this range, <i>minZoom</i> or <i>maxZoom</i> will be applied instead.</br>
  * <b>NOTE</b>: This animation is not trigger by default. In order to trigger it you need to pass down to <code>react-d3-graph</code> the
  * node that you want to focus via prop <code>focusedNodeId</code> along side with nodes and links:
@@ -66,59 +66,59 @@
  *
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-zoom-animation.gif?raw=true" width="820" height="480"/>
  *
- * @param {number} [focusAnimationDuration=0.75] - duration (in seconds) for the animation that takes place when focusing the graph on a node.
- * @param {number} [height=400] - the height of the (svg) area where the graph will be rendered.
- * @param {boolean} [nodeHighlightBehavior=false] - 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
+ * @param {number} [focusAnimationDuration=0.75] - <span id="focus-animation-duration"></span> duration (in seconds) for the animation that takes place when focusing the graph on a node.
+ * @param {number} [height=400] - <span id="height"></span> the height of the (svg) area where the graph will be rendered.
+ * @param {boolean} [nodeHighlightBehavior=false] - <span id="node-highlight-behavior"></span> 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
  * connections will be highlighted (depending on the <i>highlightDegree</i> value). All the remaining nodes and links assume opacity value equal to <b>highlightOpacity</b>.
- * @param {boolean} [linkHighlightBehavior=false] - 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior
+ * @param {boolean} [linkHighlightBehavior=false] - <span id="link-highlight-behavior"></span> 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior
  * to <i>nodeHighlightBehavior</i> but for links <small>(just for historical reference this property was introduced in <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/releases/tag/1.0.0">v1.0.0</a>)</small>.
- * @param {number} [highlightDegree=1] - <b>Possible values: 0, 1 or 2</b>. This value represents the range of the
+ * @param {number} [highlightDegree=1] - <span id="highlight-degree"></span> <b>Possible values: 0, 1 or 2</b>. This value represents the range of the
  * highlight behavior when some node is highlighted. If the value is set to <b>0</b> only the selected node will be
  * highlighted. If the value is set to <b>1</b> the selected node and his 1st degree connections will be highlighted. If
  * the value is set to <b>2</b> the selected node will be highlighted as well as the 1st and 2nd common degree connections.
- * @param {number} [highlightOpacity=1] - this value is used to highlight nodes in the network. The lower
+ * @param {number} [highlightOpacity=1] - <span id="highlight-opacity"></span> this value is used to highlight nodes in the network. The lower
  * the value the more the less highlighted nodes will be visible (related to <i>nodeHighlightBehavior</i>).
- * @param {number} [maxZoom=8] - max zoom that can be performed against the graph.
- * @param {number} [minZoom=0.1] - min zoom that can be performed against the graph.
- * @param {boolean} [panAndZoom=false] - 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
+ * @param {number} [maxZoom=8] - <span id="max-zoom"></span> max zoom that can be performed against the graph.
+ * @param {number} [minZoom=0.1] - <span id="min-zoom"></span> min zoom that can be performed against the graph.
+ * @param {boolean} [panAndZoom=false] - <span id="pan-and-zoom"></span> 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
  * a similar functionality may be consulted <a target="_blank" href="https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39">here</a>.
- * @param {boolean} [staticGraph=false] - when setting this value to true the graph will be completely static, thus
+ * @param {boolean} [staticGraph=false] - <span id="static-graph"></span> when setting this value to true the graph will be completely static, thus
  * all forces and drag events upon nodes will produce not effect. Note that, if this value is true the nodes will be
  * rendered with the initial provided <b>x and y coordinates</b> (links positions will be automatically set
  * from the given nodes positions by rd3g), no coordinates will be calculated by rd3g or subjacent d3 modules.
- * @param {boolean} [staticGraphWithDragAndDrop] - exactly the same as above <code>staticGraph</code>, but it will allow users to drag&drop nodes.
+ * @param {boolean} [staticGraphWithDragAndDrop] - <span id="static-graph-with-drag-and-drop"></span> exactly the same as above <code>staticGraph</code>, but it will allow users to drag&drop nodes.
  * <b>Note</b>: If <code>staticGraph</code> is set to <code>true</code>, then <code>staticGraphWithDragAndDrop</code> will not produce the desired behaviour, make sure
  * to set only one of them to <code>true</code>.
- * @param {number} [width=800] - the width of the (svg) area where the graph will be rendered.
+ * @param {number} [width=800] - <span id="width"></span> the width of the (svg) area where the graph will be rendered.
  * </br>
  * @param {Object} d3 d3 object is explained in next section. ⬇️
  * <h2 id="config-d3"><a href="#config-d3">#</a> d3 level configurations</h2>
- * @param {number} [d3.alphaTarget=0.05] - <a target="_blank" href="https://github.com/d3/d3-force#simulation_alphaTarget">see d3-force simulation.alphaTarget</a>
- * @param {number} [d3.gravity=-100] - this will define how close nodes are to each other <a target="_blank" href="https://github.com/d3/d3-force#forces">see d3 reference for forces</a>.
+ * @param {number} [d3.alphaTarget=0.05] - <span id="d3-alpha-target"></span> <a target="_blank" href="https://github.com/d3/d3-force#simulation_alphaTarget">see d3-force simulation.alphaTarget</a>
+ * @param {number} [d3.gravity=-100] - <span id="d3-gravity"></span> this will define how close nodes are to each other <a target="_blank" href="https://github.com/d3/d3-force#forces">see d3 reference for forces</a>.
  *  - If value is positive, nodes will attract each other.
  *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don"t overlap.
- * @param {number} [d3.linkLength=100] - the length of each link from the center of the nodes it joins.
- * @param {number} [d3.linkStrength=1] - <a target="_blank" href="https://github.com/d3/d3-force#link_strength">see d3-force link.strength</a>
- * @param {number} [d3.disableLinkForce=false] - ⚠️🧪EXPERIMENTAL🧪⚠️ it completely disables d3 force link and simulation to re-trigger so that one can obtain
+ * @param {number} [d3.linkLength=100] - <span id="d3-link-length"></span> the length of each link from the center of the nodes it joins.
+ * @param {number} [d3.linkStrength=1] - <span id="d3-link-strength"></span> <a target="_blank" href="https://github.com/d3/d3-force#link_strength">see d3-force link.strength</a>
+ * @param {number} [d3.disableLinkForce=false] - <span id="d3-disable-link-force"></span> ⚠️🧪EXPERIMENTAL🧪⚠️ it completely disables d3 force link and simulation to re-trigger so that one can obtain
  * precise render of node positions as described by the author <a target="_blank" href="https://github.com/antoninklopp">@antoninklopp</a> in <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/pull/278">the Pull Request description</a>.
  * </br>
  * @param {Object} node node object is explained in next section. ⬇️
  * <h2 id="config-node"><a href="#config-node">#</a> Node level configurations</h2>
- * @param {string} [node.color="#d3d3d3"] - 🔍🔍🔍 this is the color that will be applied to the node if no <b>color property</b></br>
+ * @param {string} [node.color="#d3d3d3"] - <span id="node-color"></span> 🔍🔍🔍 this is the color that will be applied to the node if no <b>color property</b></br>
  * is found inside the node itself (yes <b>you can pass a property "color" inside</b></br>
  * <b>the node and that color will override the this default one</b>).
- * @param {string} [node.fontColor="black"] - 🔍🔍🔍 fill color for node"s <text> svg label.
- * @param {number} [node.fontSize=8] - <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control">font-size</a>
+ * @param {string} [node.fontColor="black"] - <span id="node-font-color"></span> 🔍🔍🔍 fill color for node"s <text> svg label.
+ * @param {number} [node.fontSize=8] - <span id="node-font-size"></span> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control">font-size</a>
  * property for all nodes" labels.
- * @param {string} [node.fontWeight="normal"] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control">font-weight</a>
+ * @param {string} [node.fontWeight="normal"] - <span id="node-font-weight"></span> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control">font-weight</a>
  * property for all nodes" labels.
- * @param {string} [node.highlightColor="SAME"] - color for all highlighted nodes (use string "SAME" if you
+ * @param {string} [node.highlightColor="SAME"] - <span id="node-highlight-color"></span> color for all highlighted nodes (use string "SAME" if you
  * want the node to keep its color in highlighted state).
- * @param {number} [node.highlightFontSize=8] - fontSize in highlighted state.
- * @param {string} [node.highlightFontWeight="normal"] - fontWeight in highlighted state.
- * @param {string} [node.highlightStrokeColor="SAME"] - strokeColor in highlighted state.
- * @param {number} [node.highlightStrokeWidth="SAME"] - strokeWidth in highlighted state.
- * @param {string|Function} [node.labelProperty="id"] - this is the node property that will be used in runtime to</br>
+ * @param {number} [node.highlightFontSize=8] - <span id="node-highlight-font-size"></span> fontSize in highlighted state.
+ * @param {string} [node.highlightFontWeight="normal"] - <span id="node-highlight-font-weight"></span> fontWeight in highlighted state.
+ * @param {string} [node.highlightStrokeColor="SAME"] - <span id="node-stroke-color"></span> strokeColor in highlighted state.
+ * @param {number} [node.highlightStrokeWidth="SAME"] - <span id="node-stroke-width"></span> strokeWidth in highlighted state.
+ * @param {string|Function} [node.labelProperty="id"] - <span id="node-label-property"></span> this is the node property that will be used in runtime to</br>
  * fetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set</br>
  * node.labelProperty to be <b>"firstName"</b>. <b>This can also be a function!</b>, if you pass a function here it will be called</br>
  * to obtain the <code>label</code> value on the fly, as a client you will receive all the node information that you passed down into react-d3-graph,</br>
@@ -131,19 +131,19 @@
  * ```
  * Then you just need to make sure that you pass this function in the config in <code>config.node.labelProperty</code>.
  * </br>
- * @param {string} [node.mouseCursor="pointer"] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control">cursor</a>
+ * @param {string} [node.mouseCursor="pointer"] - <span id="node-pointer"></span> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control">cursor</a>
  * property for when some node is mouse hovered.
- * @param {number} [node.opacity=1] 🔍🔍🔍 - by default all nodes will have this opacity value.
- * @param {boolean} [node.renderLabel=true] 🔍🔍🔍 - when set to false no labels will appear along side nodes in the
+ * @param {number} [node.opacity=1] - <span id="node-opacity"></span> 🔍🔍🔍 by default all nodes will have this opacity value.
+ * @param {boolean} [node.renderLabel=true] - <span id="node-render-label"></span> 🔍🔍🔍 when set to false no labels will appear along side nodes in the
  * graph.
- * @param {number} [node.size=200] - 🔍🔍🔍 defines the size of all nodes.
- * @param {string} [node.strokeColor="none"] - 🔍🔍🔍  this is the stroke color that will be applied to the node if no <b>strokeColor property</b> is found inside the node itself (yes <b>you can pass a property "strokeColor" inside the node and that stroke color will override this default one</b>).
- * @param {number} [node.strokeWidth=1.5] 🔍🔍🔍 - the width of the all node strokes.
- * @param {string} [node.svg=""] - 🔍🔍🔍 render custom svg for nodes in alternative to <b>node.symbolType</b>. This svg can
+ * @param {number} [node.size=200] - <span id="node-size"></span> 🔍🔍🔍 defines the size of all nodes.
+ * @param {string} [node.strokeColor="none"] - <span id="node-stroke-color"></span> 🔍🔍🔍  this is the stroke color that will be applied to the node if no <b>strokeColor property</b> is found inside the node itself (yes <b>you can pass a property "strokeColor" inside the node and that stroke color will override this default one</b>).
+ * @param {number} [node.strokeWidth=1.5] - <span id="node-stroke-width"></span> 🔍🔍🔍 the width of the all node strokes.
+ * @param {string} [node.svg=""] - <span id="node-svg"></span> 🔍🔍🔍 render custom svg for nodes in alternative to <b>node.symbolType</b>. This svg can
  * be provided as a string to either a remote svg resource or for a local one.
  * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-custom-svg.gif?raw=true" width="820" height="480"/>
- * @param {string} [node.symbolType="circle"] - 🔍🔍🔍 the <span id="node-symbol-type">shape</span> of the node.
+ * @param {string} [node.symbolType="circle"] - <span id="node-symbol-type"></span> 🔍🔍🔍 the <span id="node-symbol-type">shape</span> of the node.
  * Use the following values under a property <b>type</b> inside each node (nodes may have different types, same as colors):
  *   - "circle"
  *   - "cross"
@@ -154,47 +154,47 @@
  *   - "wye"
  *
  * <b>[note]</b> react-d3-graph will map this values to <a target="_blank" href="https://github.com/d3/d3-shape#symbols">d3 symbols</a>
- * @param {Function} [node.viewGenerator=null] - 🔍🔍🔍 function that receives a node and returns a JSX view.
+ * @param {Function} [node.viewGenerator=null] - <span id="node-view-generator"></span> 🔍🔍🔍 function that receives a node and returns a JSX view.
  * </br>
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2 id="config-link"><a href="#config-link">#</a> Link level configurations</h2>
- * @param {string} [link.color="#d3d3d3"] - 🔍🔍🔍 the color for links
+ * @param {string} [link.color="#d3d3d3"] - <span id="link-color"></span> 🔍🔍🔍 the color for links
  * (from version 1.3.0 this property can be configured at link level).
- * @param {string} [link.fontColor="black"] - 🔍🔍🔍 fill color for link's <text> svg label.
- * @param {number} [link.fontSize=8] - <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control">font-size</a>
+ * @param {string} [link.fontColor="black"] - <span id="link-font-color"></span> 🔍🔍🔍 fill color for link's <text> svg label.
+ * @param {number} [link.fontSize=8] - <span id="link-font-size"></span> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control">font-size</a>
  * property for all links' labels.
- * @param {string} [link.fontWeight="normal"] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control">font-weight</a>
+ * @param {string} [link.fontWeight="normal"] - <span id="link-font-weight"></span> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control">font-weight</a>
  * property for all links' labels.
- * @param {string} [link.highlightColor="SAME"] - links' color in highlight state, default being the same color as `link.color`.
+ * @param {string} [link.highlightColor="SAME"] - <span id="link-highlight-color"></span> links' color in highlight state, default being the same color as `link.color`.
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
- * @param {number} [link.highlightFontSize=8] - <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control">font-size</a> in highlighted state.
- * @param {string} [link.highlightFontWeight="normal"] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control">font-weight</a> in highlighted state.
- * @param {string|Function} [link.labelProperty="label"] - the property that will be rendered as label within some link. Note that</br>
+ * @param {number} [link.highlightFontSize=8] - <span id="link-highlight-font-size"></span> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control">font-size</a> in highlighted state.
+ * @param {string} [link.highlightFontWeight="normal"] - <span id="link-highlight-font-weight"></span> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control">font-weight</a> in highlighted state.
+ * @param {string|Function} [link.labelProperty="label"] - <span id="link-label-property"></span> the property that will be rendered as label within some link. Note that</br>
  * this property needs to be passed along the link payload (along side with source and target). This property can also be a function</br>
  * that receives the link itself as argument and returns a custom string, similarly to what happens with <code>node.labelProperty</code>.</br>
- * @param {string} [link.mouseCursor="pointer"] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control">cursor</a>
+ * @param {string} [link.mouseCursor="pointer"] - <span id="link-mouse-cursor"></span> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control">cursor</a>
  * property for when link is mouse hovered.
- * @param {number} [link.opacity=1] 🔍🔍🔍 - the default opacity value for links.
- * @param {boolean} [link.renderLabel=false] - when set to true labels will appear along side links in the
+ * @param {number} [link.opacity=1] 🔍🔍🔍 - <a href="#link-opacity"></span> the default opacity value for links.
+ * @param {boolean} [link.renderLabel=false] - <span id="link-render-label"></span> when set to true labels will appear along side links in the
  * graph. <b>Note</b>: this will only happen of course if proper label is passed within the link, check also <code>link.labelProperty</code>.
  * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-link-render-label.png?raw=true" width="820" height="480"/>
- * @param {boolean} [link.semanticStrokeWidth=false] - when set to true all links will have
+ * @param {boolean} [link.semanticStrokeWidth=false] - <span id="link-semantic-stroke-width"></span> when set to true all links will have
  * <i>"semantic width"</i>, this means that the width of the connections will be proportional to the value of each link.
  * This is how link strokeWidth will be calculated:
  * ```javascript
  * strokeWidth += (linkValue * strokeWidth) / 10;
  * ```
- * @param {number} [link.strokeWidth=1.5] 🔍🔍🔍 - strokeWidth for all links. By default the actual value is obtain by the
+ * @param {number} [link.strokeWidth=1.5] - <span id="link-stroke-width"></span> 🔍🔍🔍 strokeWidth for all links. By default the actual value is obtain by the
  * following expression:
  * ```javascript
  * link.strokeWidth * (1 / transform); // transform is a zoom delta Δ value
  * ```
- * @param {number} [link.markerHeight=6] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerHeight">markerHeight</a>
+ * @param {number} [link.markerHeight=6] - <span id="link-marker-height"></span> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerHeight">markerHeight</a>
  * property for the link arrowhead height. *Note: this property can only be set in the first mount, it does not update dynamically.*
- * @param {number} [link.markerWidth=6] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerWidth">markerWidth</a>
+ * @param {number} [link.markerWidth=6] - <span id="link-marker-width"></span> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerWidth">markerWidth</a>
  * property for the link arrowhead width. *Note: this property can only be set in the first mount, it does not update dynamically.*
- * @param {string} [link.type="STRAIGHT"] 🔍🔍🔍 - the type of line to draw, available types at this point are:
+ * @param {string} [link.type="STRAIGHT"] - <span id="link-type"></span> 🔍🔍🔍 the type of line to draw, available types at this point are:
  * - "STRAIGHT" <small>(default)</small> - a straight line.
  * - "CURVE_SMOOTH" - a slight curve between two nodes
  * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
