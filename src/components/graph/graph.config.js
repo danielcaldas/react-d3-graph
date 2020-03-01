@@ -134,7 +134,7 @@
  * @param {string} [node.mouseCursor="pointer"] - <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control">cursor</a>
  * property for when some node is mouse hovered.
  * @param {number} [node.opacity=1] 🔍🔍🔍 - by default all nodes will have this opacity value.
- * @param {boolean} [node.renderLabel=true] - when set to false no labels will appear along side nodes in the
+ * @param {boolean} [node.renderLabel=true] 🔍🔍🔍 - when set to false no labels will appear along side nodes in the
  * graph.
  * @param {number} [node.size=200] - 🔍🔍🔍 defines the size of all nodes.
  * @param {string} [node.strokeColor="none"] - 🔍🔍🔍  this is the stroke color that will be applied to the node if no <b>strokeColor property</b> is found inside the node itself (yes <b>you can pass a property "strokeColor" inside the node and that stroke color will override this default one</b>).
