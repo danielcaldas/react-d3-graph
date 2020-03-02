@@ -118,7 +118,7 @@
  * @param {string} [node.highlightFontWeight="normal"] - fontWeight in highlighted state.
  * @param {string} [node.highlightStrokeColor="SAME"] - strokeColor in highlighted state.
  * @param {number} [node.highlightStrokeWidth="SAME"] - strokeWidth in highlighted state.
- * @param {string} [node.labelPosition=null] - 🔍🔍🔍 location to place node label relative to node.
+ * @param {string} [node.labelPosition=null] - <span id="node-label-position"></span> 🔍🔍🔍 location to place node label relative to node.
  * The placement options are:
  *   - "left"
  *   - "right"
