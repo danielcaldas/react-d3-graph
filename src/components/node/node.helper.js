@@ -66,7 +66,7 @@ function buildSvgSymbol(size = CONST.DEFAULT_NODE_SIZE, symbolTypeDesc = CONST.S
  * @returns {{dx: string, dy: string} | {dx: string, dy: string, textAnchor: string, dominantBaseline: string}}
  * props to put text svg for label in correct spot. default case returns just dx and dy, without textAnchor and dominantBaseline
  */
-function _getLabelPlacementProps(dx, labelPosition) {
+function getLabelPlacementProps(dx, labelPosition) {
     switch (labelPosition) {
         case "right":
             return {
@@ -113,5 +113,5 @@ function _getLabelPlacementProps(dx, labelPosition) {
 
 export default {
     buildSvgSymbol,
-    _getLabelPlacementProps,
+    getLabelPlacementProps,
 };
