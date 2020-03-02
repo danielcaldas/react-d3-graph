@@ -4,6 +4,7 @@ import { JsonTree } from "react-editable-json-tree";
 import Form from "react-jsonschema-form";
 import ReactTooltip from "react-tooltip";
 import { toast } from "react-toastify";
+import "./analytics";
 import defaultConfig from "../src/components/graph/graph.config";
 import { Graph } from "../src";
 import { generateFormSchema, loadDataset, setValue, tooltipReducer } from "./utils";

@@ -6,20 +6,24 @@ import nodeHelper from "./node.helper";
  * Node component is responsible for encapsulating node render.
  * @example
  * const onClickNode = function(nodeId) {
- *      window.alert('Clicked node', nodeId);
+ *     window.alert('Clicked node', nodeId);
  * };
  *
  * const onRightClickNode = function(nodeId) {
- *      window.alert('Right clicked node', nodeId);
+ *     window.alert('Right clicked node', nodeId);
  * }
  *
  * const onMouseOverNode = function(nodeId) {
- *      window.alert('Mouse over node', nodeId);
+ *     window.alert('Mouse over node', nodeId);
  * };
  *
  * const onMouseOutNode = function(nodeId) {
- *      window.alert('Mouse out node', nodeId);
+ *     window.alert('Mouse out node', nodeId);
  * };
+ *
+ * const generateCustomNode(node) {
+ *     return <CustomComponent node={node} />;
+ * }
  *
  * <Node
  *     id='nodeId'
@@ -39,7 +43,7 @@ import nodeHelper from "./node.helper";
  *     strokeWidth=1.5
  *     svg='assets/my-svg.svg'
  *     type='square'
- *     viewGenerator=(node) => <CustomComponent node={node} />
+ *     viewGenerator={generateCustomNode}
  *     className='node'
  *     onClickNode={onClickNode}
  *     onRightClickNode={onRightClickNode}

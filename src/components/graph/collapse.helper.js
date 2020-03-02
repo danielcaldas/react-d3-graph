@@ -6,6 +6,7 @@
  * the links matrix.
  */
 import { getId } from "./graph.helper";
+import { logError } from "../../utils";
 
 /**
  * For directed graphs.
@@ -97,7 +98,7 @@ function computeNodeDegree(nodeId, linksMatrix = {}) {
  * @memberof Graph/collapse-helper
  */
 function getTargetLeafConnections(rootNodeId, linksMatrix = {}, { directed }) {
-    const rootConnectionsNodesIds = Object.keys(linksMatrix[rootNodeId]);
+    const rootConnectionsNodesIds = linksMatrix[rootNodeId] ? Object.keys(linksMatrix[rootNodeId]) : [];
 
     return rootConnectionsNodesIds.reduce((leafConnections, target) => {
         if (_isLeaf(target, linksMatrix, directed)) {
@@ -125,6 +126,18 @@ function getTargetLeafConnections(rootNodeId, linksMatrix = {}, { directed }) {
  * @memberof Graph/collapse-helper
  */
 function isNodeVisible(nodeId, nodes, linksMatrix) {
+    const node = nodes[nodeId];
+
+    if (!node) {
+        if (process.env.NODE_ENV === "development") {
+            logError(
+                "graph/collapse.helper",
+                `Trying to check if node ${nodeId} is visible but its not present in nodes: `,
+                nodes
+            );
+        }
+        return false;
+    }
     if (nodes[nodeId]._orphan) {
         return true;
     }
