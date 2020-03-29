@@ -1,7 +1,5 @@
 import React from "react";
 
-import CONST from "./node.const";
-
 import nodeHelper from "./node.helper";
 
 /**
@@ -37,6 +35,7 @@ import nodeHelper from "./node.helper";
  *     fontWeight='normal'
  *     dx=90
  *     label='label text'
+ *     labelPosition='top'
  *     opacity=1
  *     renderLabel=true
  *     size=200
@@ -88,8 +87,7 @@ export default class Node extends React.Component {
         };
 
         const textProps = {
-            dx: this.props.dx || CONST.NODE_LABEL_DX,
-            dy: CONST.NODE_LABEL_DY,
+            ...nodeHelper.getLabelPlacementProps(this.props.dx, this.props.labelPosition),
             fill: this.props.fontColor,
             fontSize: this.props.fontSize,
             fontWeight: this.props.fontWeight,

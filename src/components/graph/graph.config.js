@@ -118,6 +118,15 @@
  * @param {string} [node.highlightFontWeight="normal"] - <a id="node-highlight-font-weight" href="#node-highlight-font-weight">🔗</a> fontWeight in highlighted state.
  * @param {string} [node.highlightStrokeColor="SAME"] - <a id="node-stroke-color" href="#node-stroke-color">🔗</a> strokeColor in highlighted state.
  * @param {number} [node.highlightStrokeWidth="SAME"] - <a id="node-stroke-width" href="#node-stroke-width">🔗</a> strokeWidth in highlighted state.
+ * @param {string} [node.labelPosition=null] - <a id="node-label-position" href="#node-label-position">🔗</a> 🔍🔍🔍 location to place node label relative to node.
+ * The placement options are:
+ *   - "left"
+ *   - "right"
+ *   - "top"
+ *   - "bottom"
+ *   - "center"
+ *
+ * <b>[note]</b> not specifying a label position will fallback to the original placement scheme of to the right of the node. This is different than the implementation for "right", which has the label shifted very slightly upward compared to the original.
  * @param {string|Function} [node.labelProperty="id"] - <a id="node-label-property" href="#node-label-property">🔗</a> this is the node property that will be used in runtime to</br>
  * fetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set</br>
  * node.labelProperty to be <b>"firstName"</b>. <b>This can also be a function!</b>, if you pass a function here it will be called</br>
@@ -252,6 +261,7 @@ export default {
         highlightStrokeColor: "SAME",
         highlightStrokeWidth: "SAME",
         labelProperty: "id",
+        labelPosition: null,
         mouseCursor: "pointer",
         opacity: 1,
         renderLabel: true,
