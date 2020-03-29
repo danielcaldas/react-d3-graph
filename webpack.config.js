@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 
 module.exports = {
@@ -24,4 +25,9 @@ module.exports = {
     resolve: {
         extensions: [".js", ".jsx"],
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            rd3gRunningVersion: JSON.stringify(process.env.npm_package_version || "unknown"),
+        }),
+    ],
 };

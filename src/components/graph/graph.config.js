@@ -99,7 +99,7 @@
  *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don"t overlap.
  * @param {number} [d3.linkLength=100] - <a id="d3-link-length" href="#d3-link-length">🔗</a> the length of each link from the center of the nodes it joins.
  * @param {number} [d3.linkStrength=1] - <a id="d3-link-strength" href="#d3-link-strength">🔗</a> <a target="_blank" href="https://github.com/d3/d3-force#link_strength">see d3-force link.strength</a>
- * @param {number} [d3.disableLinkForce=false] - <a id="d3-disable-link-force" href="#d3-disable-link-force">🔗</a> ⚠️🧪EXPERIMENTAL🧪⚠️ it completely disables d3 force link and simulation to re-trigger so that one can obtain
+ * @param {boolean} [d3.disableLinkForce=false] - <a id="d3-disable-link-force" href="#d3-disable-link-force">🔗</a> ⚠️🧪EXPERIMENTAL🧪⚠️ it completely disables d3 force link and simulation to re-trigger so that one can obtain
  * precise render of node positions as described by the author <a target="_blank" href="https://github.com/antoninklopp">@antoninklopp</a> in <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/pull/278">the Pull Request description</a>.
  * </br>
  * @param {Object} node node object is explained in next section. ⬇️
