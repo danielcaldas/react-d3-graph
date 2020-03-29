@@ -5,7 +5,7 @@
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/DanielCaldas321)
 
-:book: [documentation](https://danielcaldas.github.io/react-d3-graph/docs/index.html)
+:book: [Documentation](https://danielcaldas.github.io/react-d3-graph/docs/index.html)
 
 ### _Interactive and configurable graphs with react and d3 effortlessly_
 
@@ -21,14 +21,16 @@ If you enjoy this library, please consider [supporting me](https://paypal.me/Dan
 
 [Here a live playground](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html) page where you can interactively config your own graph, and generate a ready to use configuration! :sunglasses:
 
-You can also load different datasets and configurations via URL query parameter, here are the links:
+You can also load different data sets and configurations via URL query parameter. Below is a table with all the data sets available in the live sandbox for you to interactively explore different kinds of integrations with the library.
 
--   [small dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=small) - small example.
--   [custom node dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=custom-node) - sample config with custom views.
--   [marvel dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=marvel) - sample config with directed collapsible graph and custom svg nodes.
--   [static dataset](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=static) - small sample config statically positioned nodes.
+| Name        | Link                                                                                             | Source                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| :---------- | :----------------------------------------------------------------------------------------------- | :------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| small       | [see it in action](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=small)       | `sandbox/data/small`       | This is a good example to get you started. It has only 4 nodes. It's good to discuss over integration details and it's also good to report issues that you might found in the library. It's much easier to debug over a tiny graph.                                                                                                                                                                                                                                                                    |
+| custom-node | [see it in action](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=custom-node) | `sandbox/data/custom-node` | In this example you'll be able to see the power of the feature [node.viewGenerator](https://goodguydaniel.com/react-d3-graph/docs/#node-view-generator) to create highly customizable nodes for you graph that go beyond the simple shapes that come out of the box with the library.                                                                                                                                                                                                                  |
+| marvel      | [see it in action](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=marvel)      | `sandbox/data/marvel`      | In this thematic example you can see how several features such as: [nodeHighlightBehavior](https://goodguydaniel.com/react-d3-graph/docs/#node-highlight-behavior), [custom SVGs for nodes](https://goodguydaniel.com/react-d3-graph/docs/#node-svg), [collapsible](https://goodguydaniel.com/react-d3-graph/docs/#collapsible) etc. come together on top of a directed graph that displays some characters from the Marvel Universe.                                                                  |
+| static      | [see it in action](https://goodguydaniel.com/react-d3-graph/sandbox/index.html?data=static)      | `sandbox/data/static`      | If your goal is not to have nodes dancing around with the default [d3 forces](https://goodguydaniel.com/react-d3-graph/docs/#config-d3) that the library provides, you can opt by making your nodes static and positioned them always in the same _(x, y)_ coordinates. To achieve this you can make use of [staticGraphWithDragAndDrop](https://goodguydaniel.com/react-d3-graph/docs/#static-graph-with-drag-and-drop) or [staticGraph](https://goodguydaniel.com/react-d3-graph/docs/#static-graph) |
 
-Do you want to visualize your own data set on the live sandbox? Just submit a PR! You're welcome 😁
+Do you want to visualize your own data set on the live sandbox? Just submit a PR! You're welcome 😁.
 
 ## Documentation :book:
 
@@ -63,7 +65,10 @@ import { Graph } from "react-d3-graph";
 // graph payload (with minimalist structure)
 const data = {
     nodes: [{ id: "Harry" }, { id: "Sally" }, { id: "Alice" }],
-    links: [{ source: "Harry", target: "Sally" }, { source: "Harry", target: "Alice" }],
+    links: [
+        { source: "Harry", target: "Sally" },
+        { source: "Harry", target: "Alice" },
+    ],
 };
 
 // the graph configuration, you only need to pass down properties
