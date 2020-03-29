@@ -16,6 +16,8 @@ import "./styles.css";
 const sandboxData = loadDataset();
 const NOT_ALLOWED_PROPERTIES = ["height", "width"];
 const isPropertyDocumented = k => !NOT_ALLOWED_PROPERTIES.includes(k);
+// eslint-disable-next-line no-undef
+const reactD3GraphVersion = rd3gRunningVersion;
 
 /**
  * This is a sample integration of react-d3-graph, in this particular case all the rd3g config properties
@@ -404,14 +406,26 @@ export default class Sandbox extends React.Component {
                     <div className="container__form">
                         <h4>
                             <a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">
-                                react-d3-graph
+                                {reactD3GraphVersion ? `react-d3-graph@${reactD3GraphVersion}` : "react-d3-graph"}
                             </a>
                         </h4>
                         <h4>
                             <a href="https://danielcaldas.github.io/react-d3-graph/docs/index.html" target="_blank">
-                                docs
+                                📖Documentation
                             </a>
                         </h4>
+                        <h5>
+                            <a href="https://paypal.me/DanielCaldas321" target="_blank">
+                                ❤️Donate
+                            </a>
+                            <a
+                                href="https://github.com/danielcaldas/react-d3-graph/stargazers"
+                                target="_blank"
+                                style={{ marginLeft: "4px" }}
+                            >
+                                ⭐Become a stargazer
+                            </a>
+                        </h5>
                         <h3>Configurations</h3>
                         <Form
                             className="form-wrapper"

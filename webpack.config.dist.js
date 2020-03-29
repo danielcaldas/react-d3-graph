@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 const Visualizer = require("webpack-visualizer-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
@@ -28,5 +29,8 @@ module.exports = {
             openAnalyzer: true,
         }),
         new Visualizer({ filename: "../gen-docs/visualizer-stats.html" }),
+        new webpack.DefinePlugin({
+            rd3gRunningVersion: JSON.stringify(process.env.npm_package_version || "unknown"),
+        }),
     ],
 };
