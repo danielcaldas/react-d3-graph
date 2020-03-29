@@ -1,8 +1,8 @@
 # Change Log
 
-## [2.4.0](https://github.com/danielcaldas/react-d3-graph/tree/2.4.0)
+## [2.4.1](https://github.com/danielcaldas/react-d3-graph/tree/2.4.1)
 
-[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.3.0...2.4.0)
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.3.0...2.4.1)
 
 **Special announcement:**
 
@@ -56,6 +56,10 @@
 -   Fix: Update test with .toMatchSnapshot to test UI [\#243](https://github.com/danielcaldas/react-d3-graph/pull/243) ([nguyenami](https://github.com/nguyenami))
 -   Prevent graph flashing when dragging and dropping nodes [\#242](https://github.com/danielcaldas/react-d3-graph/pull/242) ([danielcaldas](https://github.com/danielcaldas))
 -   Feature/sandbox generate tooltips from jsdoc [\#240](https://github.com/danielcaldas/react-d3-graph/pull/240) ([danielcaldas](https://github.com/danielcaldas))
+
+## [2.4.0](https://github.com/danielcaldas/react-d3-graph/tree/2.4.0)
+
+⚠️ This distribution is not valid, it not up to date with the changes described in its previous _CHANGELOG_.md. **Please use version 2.4.1 of this library instead**. Issue reported in [The release version does not contain some fixes #314](https://github.com/danielcaldas/react-d3-graph/issues/314).
 
 ## [2.3.0](https://github.com/danielcaldas/react-d3-graph/tree/2.3.0)
 

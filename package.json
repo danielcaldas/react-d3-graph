@@ -1,6 +1,6 @@
 {
   "name": "react-d3-graph",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "React component to build interactive and configurable graphs with d3 effortlessly",
   "author": "Daniel Caldas",
   "license": "MIT",
@@ -78,6 +78,7 @@
     "react-jsonschema-form": "1.0.4",
     "react-test-renderer": "16.9.0",
     "react-toastify": "5.5.0",
+    "react-tooltip": "3.11.6",
     "style-loader": "0.18.2",
     "typescript": "3.8.3",
     "webpack": "4.41.6",
@@ -109,8 +110,5 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "dependencies": {
-    "react-tooltip": "^3.11.1"
   }
 }
