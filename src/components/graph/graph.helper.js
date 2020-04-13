@@ -482,7 +482,7 @@ function getNormalizedNodeCoordinates({ source = {}, target = {} }, nodes, confi
 
     let { x: x2, y: y2 } = target;
 
-    if (config.node) {
+    if (config.node && !config.node.viewGenerator) {
         // Arrow configuration is only available for circles for now
         switch (config.node.symbolType) {
             case CONST.SYMBOLS.CIRCLE: {

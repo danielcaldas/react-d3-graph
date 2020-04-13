@@ -117,12 +117,14 @@ function getMarkerSize(config) {
 
     let large = small + (MARKER_LARGE_OFFSET * config.maxZoom) / 3;
 
-    switch (config.node.symbolType) {
-        case CONST.SYMBOLS.CIRCLE:
-            small = 0;
-            medium = 0;
-            large = 0;
-            break;
+    if (config.node && !config.node.viewGenerator) {
+        switch (config.node.symbolType) {
+            case CONST.SYMBOLS.CIRCLE:
+                small = 0;
+                medium = 0;
+                large = 0;
+                break;
+        }
     }
 
     return { small: small, medium: medium, large: large };
