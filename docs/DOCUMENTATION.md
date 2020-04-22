@@ -344,8 +344,8 @@ const graph = {
 -   `highlightOpacity` **[number][96]** this value is used to highlight nodes in the network. The lower
     the value the more the less highlighted nodes will be visible (related to _nodeHighlightBehavior_). (optional, default `1`)
 -   `maxZoom` **[number][96]** max zoom that can be performed against the graph. (optional, default `8`)
--   `minZoom` **[number][96]** min zoom that can be performed
--   `initialZoom` **[number][96]** initial zoom that can be performed against the graph. (optional, default `1`)
+-   `minZoom` **[number][96]** min zoom that can be performed against the graph. (optional, default `0.1`)
+-   `initialZoom` **[number][96]** initial zoom that can be set on the graph. (optional, default `null`)
 -   `panAndZoom` **[boolean][97]** 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
     a similar functionality may be consulted [here][104]. (optional, default `false`)
 -   `staticGraph` **[boolean][97]** when setting this value to true the graph will be completely static, thus
