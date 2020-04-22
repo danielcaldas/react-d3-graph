@@ -1,14 +1,50 @@
 const data = require("./graph-config-jsdoc");
 const TOOLTIPS_MAX_WIDTH = 400;
 const LIVE_DOCS_LINK = "https://goodguydaniel.com/react-d3-graph/docs/index.html";
-const DOCS_LINK_MARKUP = `\
-    <small>\
-        for more details check the <a target="_blank" href="${LIVE_DOCS_LINK}">official documentation</a>\
-    </small>\
-`;
 
 if (!data || !data.length || !data[0].params) {
     throw new Error("Invalid JSON provided from jsdoc parser");
+}
+
+/**
+ * Transforms a string into kebab case.
+ * @param {string} s string to transform to kebab case.
+ * @returns {string} new string which results on converting input string to kebab case.
+ */
+function strToKebabCase(s) {
+    const _s = s.replace(".", "-"); // drop all the '.' dots
+
+    return _s
+        .replace(/([a-z])([A-Z])/g, "$1-$2")
+        .replace(/\s+/g, "-")
+        .toLowerCase();
+}
+
+/**
+ * Generates anchor link based on the property name.
+ * @param {string} name the name of the property to generate the anchor link for.
+ * @returns {string} the anchor link, that points directly to the property `name` in the
+ * official documentation website.
+ */
+function generatePropertyAnchorLink(name) {
+    const suffix = strToKebabCase(name);
+
+    return `${LIVE_DOCS_LINK}#${suffix}`;
+}
+
+/**
+ * Generates anchor link based on the property name.
+ * @param {string} name the name of the property to generate the anchor link for.
+ * @returns {string} the footer for the given property.
+ */
+function generateCommonFooter(name) {
+    const href = generatePropertyAnchorLink(name);
+
+    return `\
+        <small>\
+            for more details check the <a target="_blank" href="${href}">official documentation</a>\
+        </small>\
+    `;
 }
 
 /**
@@ -39,7 +75,8 @@ function getParamInfo(param) {
     // make images smaller so that they fit in the tooltip
     const description = rawDescription
         .replace(/width="(\d+)"/gi, "width='400'")
-        .replace(/height="(\d+)"/gi, "height='200'");
+        .replace(/height="(\d+)"/gi, "height='200'")
+        .replace("🔗", ""); // drop docs anchor links
 
     return {
         [name]: `\
@@ -47,7 +84,7 @@ function getParamInfo(param) {
             <b>type</b>: ${ftype} | <b>default value</b>: ${defaultvalue} | <b>optional</b>: ${optional}\
             <h5>Description</h5>\
             <div style="max-width: ${TOOLTIPS_MAX_WIDTH}px;">${description}</div>\
-            ${DOCS_LINK_MARKUP}\
+            ${generateCommonFooter(name)}\
         `,
     };
 }

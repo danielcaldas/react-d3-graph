@@ -4,6 +4,7 @@ import { JsonTree } from "react-editable-json-tree";
 import Form from "react-jsonschema-form";
 import ReactTooltip from "react-tooltip";
 import { toast } from "react-toastify";
+import "./analytics";
 import defaultConfig from "../src/components/graph/graph.config";
 import { Graph } from "../src";
 import { generateFormSchema, loadDataset, setValue, tooltipReducer } from "./utils";
@@ -15,6 +16,8 @@ import "./styles.css";
 const sandboxData = loadDataset();
 const NOT_ALLOWED_PROPERTIES = ["height", "width"];
 const isPropertyDocumented = k => !NOT_ALLOWED_PROPERTIES.includes(k);
+// eslint-disable-next-line no-undef
+const reactD3GraphVersion = rd3gRunningVersion;
 
 /**
  * This is a sample integration of react-d3-graph, in this particular case all the rd3g config properties
@@ -163,7 +166,7 @@ export default class Sandbox extends React.Component {
      * Remove a node.
      */
     onClickRemoveNode = () => {
-        if (this.state.data.nodes && this.state.data.nodes.length) {
+        if (this.state.data.nodes && this.state.data.nodes.length > 1) {
             const id = this.state.data.nodes[0].id;
 
             this.state.data.nodes.splice(0, 1);
@@ -172,7 +175,7 @@ export default class Sandbox extends React.Component {
 
             this.setState({ data });
         } else {
-            toast("No more nodes to remove!");
+            toast("Need to have at least one node!");
         }
     };
 
@@ -403,14 +406,26 @@ export default class Sandbox extends React.Component {
                     <div className="container__form">
                         <h4>
                             <a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">
-                                react-d3-graph
+                                {reactD3GraphVersion ? `react-d3-graph@${reactD3GraphVersion}` : "react-d3-graph"}
                             </a>
                         </h4>
                         <h4>
                             <a href="https://danielcaldas.github.io/react-d3-graph/docs/index.html" target="_blank">
-                                docs
+                                📖Documentation
                             </a>
                         </h4>
+                        <h5>
+                            <a href="https://paypal.me/DanielCaldas321" target="_blank">
+                                ❤️Donate
+                            </a>
+                            <a
+                                href="https://github.com/danielcaldas/react-d3-graph/stargazers"
+                                target="_blank"
+                                style={{ marginLeft: "4px" }}
+                            >
+                                ⭐Become a stargazer
+                            </a>
+                        </h5>
                         <h3>Configurations</h3>
                         <Form
                             className="form-wrapper"

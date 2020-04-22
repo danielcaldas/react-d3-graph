@@ -1,27 +1,29 @@
 import React from "react";
 
-import CONST from "./node.const";
-
 import nodeHelper from "./node.helper";
 
 /**
  * Node component is responsible for encapsulating node render.
  * @example
  * const onClickNode = function(nodeId) {
- *      window.alert('Clicked node', nodeId);
+ *     window.alert('Clicked node', nodeId);
  * };
  *
  * const onRightClickNode = function(nodeId) {
- *      window.alert('Right clicked node', nodeId);
+ *     window.alert('Right clicked node', nodeId);
  * }
  *
  * const onMouseOverNode = function(nodeId) {
- *      window.alert('Mouse over node', nodeId);
+ *     window.alert('Mouse over node', nodeId);
  * };
  *
  * const onMouseOutNode = function(nodeId) {
- *      window.alert('Mouse out node', nodeId);
+ *     window.alert('Mouse out node', nodeId);
  * };
+ *
+ * const generateCustomNode(node) {
+ *     return <CustomComponent node={node} />;
+ * }
  *
  * <Node
  *     id='nodeId'
@@ -33,6 +35,7 @@ import nodeHelper from "./node.helper";
  *     fontWeight='normal'
  *     dx=90
  *     label='label text'
+ *     labelPosition='top'
  *     opacity=1
  *     renderLabel=true
  *     size=200
@@ -40,7 +43,7 @@ import nodeHelper from "./node.helper";
  *     strokeWidth=1.5
  *     svg='assets/my-svg.svg'
  *     type='square'
- *     viewGenerator=(node) => <CustomComponent node={node} />
+ *     viewGenerator={generateCustomNode}
  *     className='node'
  *     onClickNode={onClickNode}
  *     onRightClickNode={onRightClickNode}
@@ -84,8 +87,7 @@ export default class Node extends React.Component {
         };
 
         const textProps = {
-            dx: this.props.dx || CONST.NODE_LABEL_DX,
-            dy: CONST.NODE_LABEL_DY,
+            ...nodeHelper.getLabelPlacementProps(this.props.dx, this.props.labelPosition),
             fill: this.props.fontColor,
             fontSize: this.props.fontSize,
             fontWeight: this.props.fontWeight,

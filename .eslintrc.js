@@ -9,6 +9,7 @@ module.exports = {
         Reflect: true,
         window: true,
         __dirname: true,
+        process: true,
     },
     parser: "babel-eslint",
     parserOptions: {
