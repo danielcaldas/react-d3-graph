@@ -16,6 +16,7 @@ import {
     checkForGraphElementsChanges,
     getCenterAndZoomTransformation,
     initializeGraphState,
+    getNodesGroup,
 } from "./graph.helper";
 import { renderGraph } from "./graph.renderer";
 import { merge, throwErr } from "../../utils";
@@ -222,16 +223,24 @@ export default class Graph extends React.Component {
         if (!this.state.config.staticGraph) {
             // this is where d3 and react bind
             let draggedNode = this.state.nodes[id];
+            const draggedGroup = getNodesGroup(Object.values(this.state.nodes), draggedNode);
 
-            draggedNode.oldX = draggedNode.x;
-            draggedNode.oldY = draggedNode.y;
+            draggedGroup.forEach(node => {
+                node.oldX = node.x;
+                node.oldY = node.y;
 
-            draggedNode.x += d3Event.dx;
-            draggedNode.y += d3Event.dy;
+                node.x += d3Event.dx;
+                node.y += d3Event.dy;
 
-            // set nodes fixing coords fx and fy
-            draggedNode["fx"] = draggedNode.x;
-            draggedNode["fy"] = draggedNode.y;
+                // set nodes fixing coords fx and fy
+                node["fx"] = node.x;
+                node["fy"] = node.y;
+            });
+
+            // Call user callback
+            if (this.props.onNodeDrag) {
+                this.props.onNodeDrag(draggedNode, draggedGroup);
+            }
 
             this._tick({ draggedNode });
         }

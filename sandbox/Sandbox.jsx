@@ -293,6 +293,14 @@ export default class Sandbox extends React.Component {
     };
 
     /**
+     * Callback that is called every time a node is dragged.
+     */
+    onNodeDrag = (draggedNode, draggedGroup) => {
+        console.log("Dragged node:", draggedNode);
+        console.log("Dragged group:", draggedGroup);
+    };
+
+    /**
      * Build common piece of the interface that contains some interactions such as
      * fullscreen, play/pause, + and - buttons.
      */
@@ -379,6 +387,7 @@ export default class Sandbox extends React.Component {
             onMouseOverLink: this.onMouseOverLink,
             onMouseOutLink: this.onMouseOutLink,
             onNodePositionChange: this.onNodePositionChange,
+            onNodeDrag: this.onNodeDrag,
         };
 
         if (this.state.fullscreen) {
