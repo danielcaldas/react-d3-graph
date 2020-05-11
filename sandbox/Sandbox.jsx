@@ -292,6 +292,10 @@ export default class Sandbox extends React.Component {
         });
     };
 
+    onNodeDrag = x => {
+        console.log(x);
+    };
+
     /**
      * Build common piece of the interface that contains some interactions such as
      * fullscreen, play/pause, + and - buttons.
@@ -379,6 +383,7 @@ export default class Sandbox extends React.Component {
             onMouseOverLink: this.onMouseOverLink,
             onMouseOutLink: this.onMouseOutLink,
             onNodePositionChange: this.onNodePositionChange,
+            onNodeDrag: this.onNodeDrag,
         };
 
         if (this.state.fullscreen) {
