@@ -199,9 +199,7 @@ export default class Graph extends React.Component {
         this.isDraggingNode = false;
 
         if (this.state.draggedNode) {
-            const draggedGroup = getNodesGroup(Object.values(this.state.nodes), this.state.draggedNode);
-
-            this.onNodePositionChange(this.state.draggedNode, draggedGroup);
+            this.onNodePositionChange(this.state.draggedNode);
             this._tick({ draggedNode: null });
         }
 
