@@ -292,8 +292,8 @@ export default class Sandbox extends React.Component {
         });
     };
 
-    onNodeDrag = x => {
-        console.log(x);
+    onNodeDrag = (x, y) => {
+        console.log("a", x, y);
     };
 
     /**

@@ -451,6 +451,17 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
     };
 }
 
+/**
+ * Return all of the nodes containing the group id.
+ * In case there is no groupId return the given node as it as a group by its own.
+ * @param {{}[]} nodes All of the nodes.
+ * @param {{}} node The node whose group we want to return.
+ * @returns {{}[]} All of the nodes with the given group id.
+ */
+function getNodesGroup(nodes, node) {
+    return node.groupId ? nodes.filter(({ groupId }) => groupId === node.groupId) : [node];
+}
+
 export {
     checkForGraphConfigChanges,
     checkForGraphElementsChanges,
@@ -458,4 +469,5 @@ export {
     getId,
     initializeGraphState,
     updateNodeHighlightedValue,
+    getNodesGroup,
 };
