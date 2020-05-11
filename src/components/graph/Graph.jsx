@@ -232,7 +232,12 @@ export default class Graph extends React.Component {
             // set nodes fixing coords fx and fy
             draggedNode["fx"] = draggedNode.x;
             draggedNode["fy"] = draggedNode.y;
-            this.props.onNodeDrag(draggedNode);
+
+            // Call user callback
+            if (this.props.onNodeDrag) {
+                this.props.onNodeDrag(draggedNode);
+            }
+
             this._tick({ draggedNode });
         }
     };
