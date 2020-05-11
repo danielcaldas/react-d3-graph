@@ -292,8 +292,12 @@ export default class Sandbox extends React.Component {
         });
     };
 
-    onNodeDrag = (x, y) => {
-        console.log("a", x, y);
+    /**
+     * Callback that is called every time a node is dragged.
+     */
+    onNodeDrag = (draggedNode, draggedGroup) => {
+        console.log("Dragged node:", draggedNode);
+        console.log("Dragged group:", draggedGroup);
     };
 
     /**
