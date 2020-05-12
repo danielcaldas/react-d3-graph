@@ -374,7 +374,7 @@ function initializeGraphState({ data, id, config }, state) {
     if (state && state.nodes) {
         graph = {
             nodes: data.nodes.map(n =>
-                state.nodes[n.id] ? { ...n, ...pick(state.nodes[n.id], NODE_PROPS_WHITELIST) } : { ...n }
+                state.nodes[n.id] ? { ...pick(state.nodes[n.id], NODE_PROPS_WHITELIST), ...n } : { ...n }
             ),
             links: data.links.map((l, index) =>
                 _mergeDataLinkWithD3Link(l, index, state && state.d3Links, config, state)
