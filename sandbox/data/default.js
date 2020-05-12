@@ -96,23 +96,30 @@ module.exports = {
     nodes: [
         {
             id: "Androsynth",
+            groupId: 1,
         },
         {
             id: "Chenjesu",
+            groupId: 1,
         },
         {
             id: "Ilwrath",
+            groupId: 1,
         },
         {
             id: "Mycon",
+            groupId: 1,
         },
         {
+            groupId: 1,
             id: "Spathi",
         },
         {
+            groupId: 1,
             id: "Umgah",
         },
         {
+            groupId: 1,
             id: "VUX",
         },
         {
