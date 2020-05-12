@@ -1,8 +1,8 @@
 {
-  "name": "react-d3-graph",
-  "version": "2.4.1",
-  "description": "React component to build interactive and configurable graphs with d3 effortlessly",
-  "author": "Daniel Caldas",
+  "name": "react-d3-graph-extended",
+  "version": "2.4.2",
+  "description": "An extensions of Daniel Caldas awesome react-d3-graph",
+  "author": "Daniel Caldas & Nir Geller",
   "license": "MIT",
   "scripts": {
     "check": "npm run docs:lint && npm run lint && npm run test && npm run functional",
