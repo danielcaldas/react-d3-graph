@@ -83,7 +83,7 @@ export default class Link extends React.Component {
         };
 
         if (this.props.markerId) {
-            lineProps.markerEnd = `url(#${this.props.markerId})`;
+            lineProps.markerMid = `url(#${this.props.markerId})`;
         }
 
         const { label, id } = this.props;

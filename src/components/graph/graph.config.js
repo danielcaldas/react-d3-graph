@@ -289,5 +289,6 @@ export default {
         markerHeight: 6,
         markerWidth: 6,
         type: "STRAIGHT",
+        d: "pasten",
     },
 };

@@ -96,7 +96,7 @@ module.exports = {
     nodes: [
         {
             id: "Androsynth",
-            groupId: 1,
+            draggedNodeIds: ["Chenjesu", "Ilwrath"],
         },
         {
             id: "Chenjesu",

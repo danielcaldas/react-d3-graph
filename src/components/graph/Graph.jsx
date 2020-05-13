@@ -197,9 +197,14 @@ export default class Graph extends React.Component {
      */
     _onDragEnd = () => {
         this.isDraggingNode = false;
+        const draggedNodeIds = this.state.draggedNode.draggedNodeIds || [];
+        const draggedNodes = [
+            this.state.draggedNode,
+            ...draggedNodeIds.map(draggedNodeId => this.state.nodes[draggedNodeId]),
+        ];
 
         if (this.state.draggedNode) {
-            this.onNodePositionChange(this.state.draggedNode);
+            this.onNodePositionChange(this.state.draggedNode, draggedNodes);
             this._tick({ draggedNode: null });
         }
 
@@ -223,9 +228,10 @@ export default class Graph extends React.Component {
         if (!this.state.config.staticGraph) {
             // this is where d3 and react bind
             let draggedNode = this.state.nodes[id];
-            const draggedGroup = getNodesGroup(Object.values(this.state.nodes), draggedNode);
+            const draggedNodeIds = draggedNode.draggedNodeIds || [];
+            const draggedNodes = [draggedNode, ...draggedNodeIds.map(draggedNodeId => this.state.nodes[draggedNodeId])];
 
-            draggedGroup.forEach(node => {
+            draggedNodes.forEach(node => {
                 node.oldX = node.x;
                 node.oldY = node.y;
 
@@ -239,7 +245,7 @@ export default class Graph extends React.Component {
 
             // Call user callback
             if (this.props.onNodeDrag) {
-                this.props.onNodeDrag(draggedNode, draggedGroup);
+                this.props.onNodeDrag(draggedNode, draggedNodes);
             }
 
             this._tick({ draggedNode });
@@ -440,16 +446,17 @@ export default class Graph extends React.Component {
     /**
      * Handles node position change.
      * @param {Object} node - an object holding information about the dragged node.
+     * @param {Object[]} draggedNodes - A list of all the nodes that were dragged.
      * @returns {undefined}
      */
-    onNodePositionChange = node => {
+    onNodePositionChange = (node, draggedNodes) => {
         if (!this.props.onNodePositionChange) {
             return;
         }
 
         const { id, x, y } = node;
 
-        this.props.onNodePositionChange(id, x, y);
+        this.props.onNodePositionChange(id, x, y, draggedNodes);
     };
 
     /**
