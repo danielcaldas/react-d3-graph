@@ -5,6 +5,10 @@ module.exports = {
             target: "Chenjesu",
         },
         {
+            source: "Chenjesu",
+            target: "Androsynth",
+        },
+        {
             source: "Androsynth",
             target: "Ilwrath",
         },

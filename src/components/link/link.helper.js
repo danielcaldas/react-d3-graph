@@ -74,8 +74,8 @@ function buildLinkPathDefinition({ source = {}, target = {} }, type = LINE_TYPES
     const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
     const radius = getRadiusStrategy(validType)(sx, sy, tx, ty);
 
-    const midX = (tx - sx) / 2 + sx;
-    const midY = (ty - sy) / 2 + sy;
+    const midX = (tx - sx) * 0.9 + sx;
+    const midY = (ty - sy) * 0.9 + sy;
 
     return `M${sx},${sy}L${midX},${midY}A${radius},${radius} 0 0,1 ${tx},${ty}`;
 }
