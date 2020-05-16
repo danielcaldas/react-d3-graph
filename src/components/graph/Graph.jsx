@@ -197,13 +197,14 @@ export default class Graph extends React.Component {
      */
     _onDragEnd = () => {
         this.isDraggingNode = false;
-        const draggedNodeIds = this.state.draggedNode.draggedNodeIds || [];
-        const draggedNodes = [
-            this.state.draggedNode,
-            ...draggedNodeIds.map(draggedNodeId => this.state.nodes[draggedNodeId]),
-        ];
 
         if (this.state.draggedNode) {
+            const draggedNodeIds = this.state.draggedNode.draggedNodeIds || [];
+            const draggedNodes = [
+                this.state.draggedNode,
+                ...draggedNodeIds.map(draggedNodeId => this.state.nodes[draggedNodeId]),
+            ];
+
             this.onNodePositionChange(this.state.draggedNode, draggedNodes);
             this._tick({ draggedNode: null });
         }
