@@ -12,7 +12,6 @@ test
 .editorconfig
 .eslintrc.js
 .eslintrc.test.config.js
-.travis.yml
 cypress.json
 package-lock.json
 RELEASE_PROCESS
