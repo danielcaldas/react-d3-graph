@@ -97,3 +97,12 @@
 .tooltip-help {
     cursor: help;
 }
+
+.btn-clipboard {
+    border: none;
+    background-color: transparent;
+}
+
+.btn-clipboard:hover {
+    background-color: lightskyblue;
+}

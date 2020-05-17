@@ -351,6 +351,23 @@ export default class Sandbox extends React.Component {
         );
     };
 
+    copyConfigToClipboard = () => {
+        if (!this.state.generatedConfig || !Object.keys(this.state.generatedConfig).length) {
+            return;
+        }
+
+        try {
+            navigator.clipboard
+                .writeText(JSON.stringify(this.state.generatedConfig, null, 2))
+                .then(() => {
+                    toast("Configuration copied to clipboard!");
+                })
+                .catch(console.error);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     componentDidMount() {
         toast.configure();
     }
@@ -446,6 +463,9 @@ export default class Sandbox extends React.Component {
                     <div className="container__graph-config">
                         <h4>Your config</h4>
                         <JSONContainer data={this.state.generatedConfig} staticData={false} />
+                        <button className="btn-clipboard" onClick={this.copyConfigToClipboard}>
+                            📋 copy to clipboard
+                        </button>
                     </div>
                     <div className="container__graph-data">
                         <h4>

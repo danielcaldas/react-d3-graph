@@ -283,11 +283,12 @@ export default class Graph extends React.Component {
             .scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
             .on("zoom", this._zoomed);
 
-        // set initial zoom
         if (this.state.config.initialZoom !== null) {
             zoomObject.scaleTo(selector, this.state.config.initialZoom);
         }
 
+        // avoid double click on graph to trigger zoom
+        // for more details consult: https://github.com/danielcaldas/react-d3-graph/pull/202
         selector.call(zoomObject).on("dblclick.zoom", null);
     };
 
