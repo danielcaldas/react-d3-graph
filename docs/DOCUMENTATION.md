@@ -394,27 +394,28 @@ const graph = {
     out of the box provide the look and feel of a directed graph and add directional semantic to links. You can see a sample in the image below.
     </br>
     <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-directed.gif?raw=true" width="820" height="480"/> (optional, default `false`)
--   `focusZoom` **[number][173]** <a id="focus-zoom" href="#focus-zoom">🔗</a> zoom that will be applied when the graph view is focused in a node. Its value must be between
-    <i>minZoom</i> and <i>maxZoom</i>. If the specified <i>focusZoom</i> is out of this range, <i>minZoom</i> or <i>maxZoom</i> will be applied instead.</br>
-    <b>NOTE</b>: This animation is not trigger by default. In order to trigger it you need to pass down to <code>react-d3-graph</code> the
-    node that you want to focus via prop <code>focusedNodeId</code> along side with nodes and links:`javascript const data = { nodes: this.state.data.nodes, links: this.state.data.links, focusedNodeId: "nodeIdToTriggerZoomAnimation" };`<img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-zoom-animation.gif?raw=true" width="820" height="480"/> (optional, default `1`)
--   `focusAnimationDuration` **[number][173]** <a id="focus-animation-duration" href="#focus-animation-duration">🔗</a> duration (in seconds) for the animation that takes place when focusing the graph on a node. (optional, default `0.75`)
--   `height` **[number][173]** <a id="height" href="#height">🔗</a> the height of the (svg) area where the graph will be rendered. (optional, default `400`)
--   `nodeHighlightBehavior` **[boolean][174]** <a id="node-highlight-behavior" href="#node-highlight-behavior">🔗</a> 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
-    connections will be highlighted (depending on the <i>highlightDegree</i> value). All the remaining nodes and links assume opacity value equal to <b>highlightOpacity</b>. (optional, default `false`)
--   `linkHighlightBehavior` **[boolean][174]** <a id="link-highlight-behavior" href="#link-highlight-behavior">🔗</a> 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior
-    to <i>nodeHighlightBehavior</i> but for links <small>(just for historical reference this property was introduced in <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/releases/tag/1.0.0">v1.0.0</a>)</small>. (optional, default `false`)
--   `highlightDegree` **[number][173]** <a id="highlight-degree" href="#highlight-degree">🔗</a> <b>Possible values: 0, 1 or 2</b>. This value represents the range of the
-    highlight behavior when some node is highlighted. If the value is set to <b>0</b> only the selected node will be
-    highlighted. If the value is set to <b>1</b> the selected node and his 1st degree connections will be highlighted. If
-    the value is set to <b>2</b> the selected node will be highlighted as well as the 1st and 2nd common degree connections. (optional, default `1`)
--   `highlightOpacity` **[number][173]** <a id="highlight-opacity" href="#highlight-opacity">🔗</a> this value is used to highlight nodes in the network. The lower
-    the value the more the less highlighted nodes will be visible (related to <i>nodeHighlightBehavior</i>). (optional, default `1`)
--   `maxZoom` **[number][173]** <a id="max-zoom" href="#max-zoom">🔗</a> max zoom that can be performed against the graph. (optional, default `8`)
--   `minZoom` **[number][173]** <a id="min-zoom" href="#min-zoom">🔗</a> min zoom that can be performed against the graph. (optional, default `0.1`)
--   `panAndZoom` **[boolean][174]** <a id="pan-and-zoom" href="#pan-and-zoom">🔗</a> 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
-    a similar functionality may be consulted <a target="_blank" href="https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39">here</a>. (optional, default `false`)
--   `staticGraph` **[boolean][174]** <a id="static-graph" href="#static-graph">🔗</a> when setting this value to true the graph will be completely static, thus
+-   `focusZoom` **[number][96]** zoom that will be applied when the graph view is focused in a node. Its value must be between
+    _minZoom_ and _maxZoom_. If the specified _focusZoom_ is out of this range, _minZoom_ or _maxZoom_ will be applied instead.
+    **NOTE:** This animation is not trigger by default. In order to trigger it you need to pass down to `react-d3-graph` the
+    node that you want to focus via prop `focusedNodeId` along side with nodes and links:`javascript const data = { nodes: this.state.data.nodes, links: this.state.data.links, focusedNodeId: "nodeIdToTriggerZoomAnimation" };`<img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-zoom-animation.gif?raw=true" width="820" height="480"/> (optional, default `1`)
+-   `focusAnimationDuration` **[number][96]** duration (in seconds) for the animation that takes place when focusing the graph on a node. (optional, default `0.75`)
+-   `height` **[number][96]** the height of the (svg) area where the graph will be rendered. (optional, default `400`)
+-   `nodeHighlightBehavior` **[boolean][97]** 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
+    connections will be highlighted (depending on the _highlightDegree_ value). All the remaining nodes and links assume opacity value equal to **highlightOpacity**. (optional, default `false`)
+-   `linkHighlightBehavior` **[boolean][97]** 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior
+    to _nodeHighlightBehavior_ but for links <small>(just for historical reference this property was introduced in **v1.0.0**)</small>. (optional, default `false`)
+-   `highlightDegree` **[number][96]** **Possible values: 0, 1 or 2**. This value represents the range of the
+    highlight behavior when some node is highlighted. If the value is set to **0** only the selected node will be
+    highlighted. If the value is set to **1** the selected node and his 1st degree connections will be highlighted. If
+    the value is set to **2** the selected node will be highlighted as well as the 1st and 2nd common degree connections. (optional, default `1`)
+-   `highlightOpacity` **[number][96]** this value is used to highlight nodes in the network. The lower
+    the value the more the less highlighted nodes will be visible (related to _nodeHighlightBehavior_). (optional, default `1`)
+-   `maxZoom` **[number][96]** max zoom that can be performed against the graph. (optional, default `8`)
+-   `minZoom` **[number][96]** min zoom that can be performed against the graph. (optional, default `0.1`)
+-   `initialZoom` **[number][96]** initial zoom that can be set on the graph. (optional, default `null`)
+-   `panAndZoom` **[boolean][97]** 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
+    a similar functionality may be consulted [here][104]. (optional, default `false`)
+-   `staticGraph` **[boolean][97]** when setting this value to true the graph will be completely static, thus
     all forces and drag events upon nodes will produce not effect. Note that, if this value is true the nodes will be
     rendered with the initial provided <b>x and y coordinates</b> (links positions will be automatically set
     from the given nodes positions by rd3g), no coordinates will be calculated by rd3g or subjacent d3 modules. (optional, default `false`)
