@@ -1,6 +1,6 @@
 const data = require("./graph-config-jsdoc");
 const TOOLTIPS_MAX_WIDTH = 400;
-const LIVE_DOCS_LINK = "https://goodguydaniel.com/react-d3-graph/docs/index.html";
+const LIVE_DOCS_LINK = "https://danielcaldas.github.io/react-d3-graph/docs/index.html";
 
 if (!data || !data.length || !data[0].params) {
     throw new Error("Invalid JSON provided from jsdoc parser");
