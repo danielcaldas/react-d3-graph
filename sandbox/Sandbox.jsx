@@ -61,8 +61,8 @@ export default class Sandbox extends React.Component {
 
     onClickGraph = () => toast("Clicked the graph");
 
-    onClickNode = id => {
-        toast(`Clicked node ${id}`);
+    onClickNode = (id, event) => {
+        toast(`Clicked node ${id} the event was ${event}`);
         // NOTE: below sample implementation for focusAnimation when clicking on node
         // this.setState({
         //     data: {

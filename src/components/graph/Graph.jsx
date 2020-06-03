@@ -339,9 +339,10 @@ export default class Graph extends React.Component {
     /**
      * Collapses the nodes, then checks if the click is doubled and calls the callback passed to the component.
      * @param  {string} clickedNodeId - The id of the node where the click was performed.
+     * @param  {Object} event - React DOM's synthetic event.
      * @returns {undefined}
      */
-    onClickNode = clickedNodeId => {
+    onClickNode = (clickedNodeId, event) => {
         if (this.state.config.collapsible) {
             const leafConnections = getTargetLeafConnections(clickedNodeId, this.state.links, this.state.config);
             const links = toggleLinksMatrixConnections(this.state.links, leafConnections, this.state.config);
@@ -362,7 +363,7 @@ export default class Graph extends React.Component {
                     d3Links,
                 },
                 () => {
-                    this.props.onClickNode && this.props.onClickNode(clickedNodeId);
+                    this.props.onClickNode && this.props.onClickNode(clickedNodeId, event);
 
                     if (isExpanding) {
                         this._graphNodeDragConfig();
@@ -372,7 +373,7 @@ export default class Graph extends React.Component {
         } else {
             if (!this.nodeClickTimer) {
                 this.nodeClickTimer = setTimeout(() => {
-                    this.props.onClickNode && this.props.onClickNode(clickedNodeId);
+                    this.props.onClickNode && this.props.onClickNode(clickedNodeId, event);
                     this.nodeClickTimer = null;
                 }, CONST.TTL_DOUBLE_CLICK_IN_MS);
             } else {

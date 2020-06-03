@@ -53,9 +53,12 @@ import nodeHelper from "./node.helper";
 export default class Node extends React.Component {
     /**
      * Handle click on the node.
+     * @param {Object} event The DOM event
      * @returns {undefined}
      */
-    handleOnClickNode = () => this.props.onClickNode && this.props.onClickNode(this.props.id);
+    handleOnClickNode = event => {
+        return this.props.onClickNode && this.props.onClickNode(this.props.id, event);
+    };
 
     /**
      * Handle right click on the node.
