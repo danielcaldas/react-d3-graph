@@ -140,7 +140,6 @@ export default class Graph extends React.Component {
         }
 
         const transitionDuration = this.state.enableFocusAnimation ? this.state.config.focusAnimationDuration : 0;
-
         return {
             style: { transitionDuration: `${transitionDuration}s` },
             transform: focusedNodeId ? this.state.focusTransformation : null,
@@ -281,7 +280,8 @@ export default class Graph extends React.Component {
 
         const zoomObject = d3Zoom()
             .scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
-            .on("zoom", this._zoomed);
+            .on("zoom", this._zoomed)
+            .on("end", this._zoomEnd);
 
         // set initial zoom
         if (this.state.config.initialZoom !== null) {
@@ -301,6 +301,16 @@ export default class Graph extends React.Component {
         d3SelectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr("transform", transform);
 
         this.state.config.panAndZoom && this.setState({ transform: transform.k });
+    };
+
+    _zoomEnd = () => {
+        const transform = d3Event.transform;
+        this.setState({
+            focusTransformation: `
+                translate(${transform.x}, ${transform.y})
+                scale(${transform.k})
+            `,
+        });
     };
 
     /**
@@ -522,7 +532,8 @@ export default class Graph extends React.Component {
         const transform = newConfig.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
         const focusedNodeId = nextProps.data.focusedNodeId;
         const d3FocusedNode = this.state.d3Nodes.find(node => `${node.id}` === `${focusedNodeId}`);
-        const focusTransformation = getCenterAndZoomTransformation(d3FocusedNode, this.state.config);
+        const containerElId = `${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`;
+        const focusTransformation = getCenterAndZoomTransformation(d3FocusedNode, this.state.config, containerElId);
         const enableFocusAnimation = this.props.data.focusedNodeId !== nextProps.data.focusedNodeId;
 
         this.setState({
@@ -612,12 +623,11 @@ export default class Graph extends React.Component {
         );
 
         const svgStyle = {
-            height: this.state.config.height,
-            width: this.state.config.width,
+            height: this.props.height || this.state.config.height,
+            width: this.props.width || this.state.config.width,
         };
 
         const containerProps = this._generateFocusAnimationProps();
-
         return (
             <div id={`${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`}>
                 <svg name={`svg-container-${this.state.id}`} style={svgStyle} onClick={this.onClickGraph}>

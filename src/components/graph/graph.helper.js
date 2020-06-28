@@ -32,6 +32,9 @@ import ERRORS from "../../err";
 
 import { isDeepEqual, isEmptyObject, merge, pick, antiPick, throwErr, logWarning } from "../../utils";
 import { computeNodeDegree } from "./collapse.helper";
+import { select as d3Select } from "d3-selection";
+import * as d3 from "d3";
+import { zoom as d3Zoom } from "d3-zoom";
 
 const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
 const LINK_PROPS_WHITELIST = ["index", "source", "target", "isHidden"];
@@ -323,17 +326,27 @@ function checkForGraphConfigChanges(nextProps, currentState) {
  * @returns {string|undefined} transform rule to apply.
  * @memberof Graph/helper
  */
-function getCenterAndZoomTransformation(d3Node, config) {
+function getCenterAndZoomTransformation(d3Node, config, containerElId) {
     if (!d3Node) {
         return;
     }
 
-    const { width, height, focusZoom } = config;
+    const { focusZoom } = config;
+    const width = document.getElementById(containerElId).offsetWidth;
+    const height = document.getElementById(containerElId).offsetHeight;
+    const transform = {
+        x: width / 2 - d3Node.x,
+        y: height / 2 - d3Node.y,
+        k: focusZoom,
+    };
+
+    const selector = d3Select(`#${containerElId}`);
+    // in order to initilize the new position
+    selector.call(d3Zoom().transform, d3.zoomIdentity.translate(transform.x, transform.y).scale(transform.k));
 
     return `
-        translate(${width / 2}, ${height / 2})
-        scale(${focusZoom})
-        translate(${-d3Node.x}, ${-d3Node.y})
+        translate(${transform.x}, ${transform.y})
+        scale(${transform.k})
     `;
 }
 
