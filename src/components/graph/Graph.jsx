@@ -284,7 +284,7 @@ export default class Graph extends React.Component {
             .on("end", this._zoomEnd);
 
         // set initial zoom
-        if (this.state.config.initialZoom !== null) {
+        if (this.state.config.initialZoom) {
             zoomObject.scaleTo(selector, this.state.config.initialZoom);
         }
 
