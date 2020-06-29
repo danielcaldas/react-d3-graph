@@ -142,7 +142,7 @@ export default class Graph extends React.Component {
         const transitionDuration = this.state.enableFocusAnimation ? this.state.config.focusAnimationDuration : 0;
         return {
             style: { transitionDuration: `${transitionDuration}s` },
-            transform: focusedNodeId ? this.state.focusTransformation : null,
+            transform: this.state.focusTransformation,
         };
     };
 
@@ -533,7 +533,9 @@ export default class Graph extends React.Component {
         const focusedNodeId = nextProps.data.focusedNodeId;
         const d3FocusedNode = this.state.d3Nodes.find(node => `${node.id}` === `${focusedNodeId}`);
         const containerElId = `${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`;
-        const focusTransformation = getCenterAndZoomTransformation(d3FocusedNode, this.state.config, containerElId);
+        const focusTransformation =
+            getCenterAndZoomTransformation(d3FocusedNode, this.state.config, containerElId) ||
+            this.state.focusTransformation;
         const enableFocusAnimation = this.props.data.focusedNodeId !== nextProps.data.focusedNodeId;
 
         this.setState({
