@@ -156,6 +156,7 @@
  *    width: 300,
  * }
  * ```
+ * The actual node dimensions (in px) rendered on screen will be the size value divided by 10. For example, a node size of 200 will result in a node with a height and width of 20px.
  * @param {string} [node.strokeColor="none"] - <a id="node-stroke-color" href="#node-stroke-color">🔗</a> 🔍🔍🔍  this is the stroke color that will be applied to the node if no <b>strokeColor property</b> is found inside the node itself (yes <b>you can pass a property "strokeColor" inside the node and that stroke color will override this default one</b>).
  * @param {number} [node.strokeWidth=1.5] - <a id="node-stroke-width" href="#node-stroke-width">🔗</a> 🔍🔍🔍 the width of the all node strokes.
  * @param {string} [node.svg=""] - <a id="node-svg" href="#node-svg">🔗</a> 🔍🔍🔍 render custom svg for nodes in alternative to <b>node.symbolType</b>. This svg can
