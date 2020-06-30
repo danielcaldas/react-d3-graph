@@ -169,8 +169,8 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
 function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highlightedLink, transform) {
     const highlight =
         node.highlighted ||
-        (node.id === (highlightedLink && highlightedLink.source) ||
-            node.id === (highlightedLink && highlightedLink.target));
+        node.id === (highlightedLink && highlightedLink.source) ||
+            node.id === (highlightedLink && highlightedLink.target);
     const opacity = _getNodeOpacity(node, highlightedNode, highlightedLink, config);
 
     let fill = node.color || config.node.color;
@@ -201,8 +201,19 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
 
     const t = 1 / transform;
     const nodeSize = node.size || config.node.size;
+
+    let offset;
+
+    if (typeof nodeSize !== "object") {
+        offset = nodeSize;
+    } else if (labelPosition === "top" || labelPosition === "bottom") {
+        offset = nodeSize.height;
+    } else {
+        nodeSize.width;
+    }
+
     const fontSize = highlight ? config.node.highlightFontSize : config.node.fontSize;
-    const dx = fontSize * t + nodeSize / 100 + 1.5;
+    const dx = fontSize * t + offset / 100 + 1.5;
     const svg = node.svg || config.node.svg;
     const fontColor = node.fontColor || config.node.fontColor;
 
@@ -223,7 +234,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         opacity,
         overrideGlobalViewGenerator: !node.viewGenerator && node.svg,
         renderLabel: node.renderLabel || config.node.renderLabel,
-        size: nodeSize * t,
+        size: typeof nodeSize !== "object" ? nodeSize * t : { height: nodeSize.height * t, width: nodeSize.width * t },
         stroke,
         strokeWidth: strokeWidth * t,
         svg,
