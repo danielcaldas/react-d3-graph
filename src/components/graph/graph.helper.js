@@ -331,9 +331,8 @@ function getCenterAndZoomTransformation(d3Node, config, containerElId) {
         return;
     }
 
-    const { focusZoom } = config;
-    const width = document.getElementById(containerElId).offsetWidth;
-    const height = document.getElementById(containerElId).offsetHeight;
+    const { width, height, focusZoom } = config;
+
     const transform = {
         x: width / 2 - d3Node.x,
         y: height / 2 - d3Node.y,
@@ -345,8 +344,8 @@ function getCenterAndZoomTransformation(d3Node, config, containerElId) {
     selector.call(d3Zoom().transform, d3.zoomIdentity.translate(transform.x, transform.y).scale(transform.k));
 
     return `
-        translate(${transform.x}, ${transform.y})
-        scale(${transform.k})
+    translate(${transform.x}, ${transform.y})
+    scale(${transform.k})
     `;
 }
 
