@@ -170,7 +170,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     const highlight =
         node.highlighted ||
         node.id === (highlightedLink && highlightedLink.source) ||
-            node.id === (highlightedLink && highlightedLink.target);
+        node.id === (highlightedLink && highlightedLink.target);
     const opacity = _getNodeOpacity(node, highlightedNode, highlightedLink, config);
 
     let fill = node.color || config.node.color;
@@ -203,8 +203,9 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     const nodeSize = node.size || config.node.size;
 
     let offset;
+    const isSizeNumericValue = typeof nodeSize !== "object";
 
-    if (typeof nodeSize !== "object") {
+    if (isSizeNumericValue) {
         offset = nodeSize;
     } else if (labelPosition === "top" || labelPosition === "bottom") {
         offset = nodeSize.height;
@@ -234,7 +235,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         opacity,
         overrideGlobalViewGenerator: !node.viewGenerator && node.svg,
         renderLabel: node.renderLabel || config.node.renderLabel,
-        size: typeof nodeSize !== "object" ? nodeSize * t : { height: nodeSize.height * t, width: nodeSize.width * t },
+        size: isSizeNumericValue ? nodeSize * t : { height: nodeSize.height * t, width: nodeSize.width * t },
         stroke,
         strokeWidth: strokeWidth * t,
         svg,
