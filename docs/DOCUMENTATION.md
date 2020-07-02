@@ -386,7 +386,7 @@ const graph = {
     <li><b>automaticRearrangeAfterDropNode</b> won't work together with <b>nodeHighlightBehavior</b> (currently a known limitation, to be address in the future <a href="https://github.com/danielcaldas/react-d3-graph/issues/261" target="_blank">GitHub issue #261</a>).</li>
     </ul> (optional, default `false`)
 -   `collapsible` **[boolean][174]** <a id="collapsible" href="#collapsible">🔗</a> 🚅🚅🚅 Allow leaf neighbors nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.
-    To see an example of this behavior you can access this sandbox link that has a specific set up to experiment this feature. <b>NOTE</b>: At this moment
+    To see an example of this behavior you can access <a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=marvel" target="_blank" title="sandbox collapsible example">this sandbox link</a> that has a specific set up to experiment this feature. <b>NOTE</b>: At this moment
     nodes without connections (orphan nodes) are not rendered when this property is activated (see <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/issues/129">GitHub issue #129</a>).
     </br>
     <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-collapsible.gif?raw=true" width="820" height="480"/> (optional, default `false`)
@@ -1321,9 +1321,11 @@ components.
     },
     ...
     }
+
     ```
 
     ```
+
 -   `linkCallbacks` **[Array][177]&lt;[Function][178]>** array of callbacks for used defined event handler for link interactions.
 -   `config` **[Object][176]** an object containing rd3g consumer defined configurations [config][187] for the graph.
 -   `highlightedNode` **[string][175]** this value contains a string that represents the some currently highlighted node.
