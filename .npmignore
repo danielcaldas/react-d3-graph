@@ -20,3 +20,4 @@ webpack.config.js
 yarn.lock
 .DS_Store
 tools
+notes.txt
