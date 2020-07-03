@@ -475,14 +475,14 @@ function normalize(vector) {
  * @returns {Object} new nodes coordinates
  */
 function getNormalizedNodeCoordinates({ source = {}, target = {} }, nodes, config, strokeWidth) {
-    if (config.node && config.node.viewGenerator) {
+    if (config.node?.viewGenerator) {
         return { source, target };
     }
 
     let { x: x1, y: y1 } = source;
     let { x: x2, y: y2 } = target;
 
-    switch (config.node.symbolType) {
+    switch (config.node?.symbolType) {
         case CONST.SYMBOLS.CIRCLE: {
             const directionVector = normalize({ x: x2 - x1, y: y2 - y1 });
             const strokeSize = strokeWidth * Math.min(config.link.markerWidth, config.link.markerHeight);
