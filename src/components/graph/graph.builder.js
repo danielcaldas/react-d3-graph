@@ -54,13 +54,9 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
  */
 function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
     const { source, target } = link;
-
     let x1 = nodes?.[source]?.x || 0;
-
     let y1 = nodes?.[source]?.y || 0;
-
     let x2 = nodes?.[target]?.x || 0;
-
     let y2 = nodes?.[target]?.y || 0;
 
     const type = link.type || config.link.type;
@@ -218,6 +214,11 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     const svg = node.svg || config.node.svg;
     const fontColor = node.fontColor || config.node.fontColor;
 
+    let renderLabel = config.node.renderLabel;
+    if (node.renderLabel !== undefined && typeof node.renderLabel === "boolean") {
+        renderLabel = node.renderLabel;
+    }
+
     return {
         ...node,
         className: CONST.NODE_CLASS_NAME,
@@ -234,7 +235,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         labelPosition,
         opacity,
         overrideGlobalViewGenerator: !node.viewGenerator && node.svg,
-        renderLabel: node.renderLabel || config.node.renderLabel,
+        renderLabel,
         size: isSizeNumericValue ? nodeSize * t : { height: nodeSize.height * t, width: nodeSize.width * t },
         stroke,
         strokeWidth: strokeWidth * t,

@@ -28,7 +28,10 @@ export default {
         mouseCursor: "pointer",
         opacity: 1,
         renderLabel: false,
-        size: 700,
+        size: {
+            width: 700,
+            height: 900,
+        },
         strokeColor: "none",
         strokeWidth: 1.5,
         svg: "",

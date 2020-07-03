@@ -33,6 +33,11 @@ export default class Sandbox extends React.Component {
 
         const { config: configOverride, data, fullscreen } = sandboxData;
         const config = Object.assign(defaultConfig, configOverride);
+        // TODO: refactor this labelPosition assignment, move to somewhere
+        // in generateFormSchema
+        if (config.node.labelPosition === null) {
+            config.node.labelPosition = "";
+        }
         const schemaProps = generateFormSchema(config, "", {});
         const schema = {
             type: "object",
@@ -351,6 +356,23 @@ export default class Sandbox extends React.Component {
         );
     };
 
+    copyConfigToClipboard = () => {
+        if (!this.state.generatedConfig || !Object.keys(this.state.generatedConfig).length) {
+            return;
+        }
+
+        try {
+            navigator.clipboard
+                .writeText(JSON.stringify(this.state.generatedConfig, null, 2))
+                .then(() => {
+                    toast("✔️ Configuration copied to clipboard!");
+                })
+                .catch(console.error);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     componentDidMount() {
         toast.configure();
     }
@@ -444,7 +466,12 @@ export default class Sandbox extends React.Component {
                         </button>
                     </div>
                     <div className="container__graph-config">
-                        <h4>Your config</h4>
+                        <h4>
+                            Your config
+                            <small className="btn-clipboard" onClick={this.copyConfigToClipboard}>
+                                📋 copy to clipboard
+                            </small>
+                        </h4>
                         <JSONContainer data={this.state.generatedConfig} staticData={false} />
                     </div>
                     <div className="container__graph-data">

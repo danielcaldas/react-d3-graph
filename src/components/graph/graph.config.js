@@ -78,10 +78,10 @@
  * the value is set to <b>2</b> the selected node will be highlighted as well as the 1st and 2nd common degree connections.
  * @param {number} [highlightOpacity=1] - <a id="highlight-opacity" href="#highlight-opacity">🔗</a> this value is used to highlight nodes in the network. The lower
  * the value the more the less highlighted nodes will be visible (related to <i>nodeHighlightBehavior</i>).
- * @param {number} [maxZoom=8] - max zoom that can be performed against the graph.
- * @param {number} [minZoom=0.1] - min zoom that can be performed against the graph.
- * @param {number} [initialZoom=null] - initial zoom that can be set on the graph.
- * @param {boolean} [panAndZoom=false] - 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
+ * @param {number} [initialZoom=null] - <a id="max-zoom" href="#initial-zoom">🔗</a> initial zoom that can be set on the graph.
+ * @param {number} [maxZoom=8] - <a id="max-zoom" href="#max-zoom">🔗</a> max zoom that can be performed against the graph.
+ * @param {number} [minZoom=0.1] - <a id="min-zoom" href="#min-zoom">🔗</a> min zoom that can be performed against the graph.
+ * @param {boolean} [panAndZoom=false] - <a id="pan-and-zoom" href="#pan-and-zoom">🔗</a> 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
  * a similar functionality may be consulted <a target="_blank" href="https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39">here</a>.
  * @param {boolean} [staticGraph=false] - <a id="static-graph" href="#static-graph">🔗</a> when setting this value to true the graph will be completely static, thus
  * all forces and drag events upon nodes will produce not effect. Note that, if this value is true the nodes will be
