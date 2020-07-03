@@ -208,7 +208,7 @@ function _tagOrphanNodes(nodes, linksMatrix) {
  * @throws can throw the following error or warning msg:
  * INSUFFICIENT_DATA - msg if no nodes are provided
  * INVALID_LINKS - if links point to nonexistent nodes
- * INSUFFICIENT_LINKS - if no links are provided
+ * INSUFFICIENT_LINKS - if no links are provided (not even empty Array)
  * @returns {undefined}
  * @memberof Graph/helper
  */
@@ -217,7 +217,7 @@ function _validateGraphData(data) {
         throwErr("Graph", ERRORS.INSUFFICIENT_DATA);
     }
 
-    if (!data.links || !data.links.length) {
+    if (!data.links) {
         logWarning("Graph", ERRORS.INSUFFICIENT_LINKS);
         data.links = [];
     }
