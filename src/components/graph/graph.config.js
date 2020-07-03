@@ -146,7 +146,17 @@
  * @param {number} [node.opacity=1] - <a id="node-opacity" href="#node-opacity">🔗</a> 🔍🔍🔍 by default all nodes will have this opacity value.
  * @param {boolean} [node.renderLabel=true] - <a id="node-render-label" href="#node-render-label">🔗</a> 🔍🔍🔍 when set to false no labels will appear along side nodes in the
  * graph.
- * @param {number} [node.size=200] - <a id="node-size" href="#node-size">🔗</a> 🔍🔍🔍 defines the size of all nodes.
+ * @param {number|Object} [node.size=200] - <a id="node-size" href="#node-size">🔗</a> 🔍🔍🔍 defines the size of all nodes. When set to a number, the node will have equal height and width.</br>
+ * This can also be an object with a height and width property <b>when using custom nodes</b>.
+ * ```javascript
+ * size: 200
+ * // or
+ * size: {
+ *    height: 200,
+ *    width: 300,
+ * }
+ * ```
+ * The actual node dimensions (in px) rendered on screen will be the size value divided by 10. For example, a node size of 200 will result in a node with a height and width of 20px.
  * @param {string} [node.strokeColor="none"] - <a id="node-stroke-color" href="#node-stroke-color">🔗</a> 🔍🔍🔍  this is the stroke color that will be applied to the node if no <b>strokeColor property</b> is found inside the node itself (yes <b>you can pass a property "strokeColor" inside the node and that stroke color will override this default one</b>).
  * @param {number} [node.strokeWidth=1.5] - <a id="node-stroke-width" href="#node-stroke-width">🔗</a> 🔍🔍🔍 the width of the all node strokes.
  * @param {string} [node.svg=""] - <a id="node-svg" href="#node-svg">🔗</a> 🔍🔍🔍 render custom svg for nodes in alternative to <b>node.symbolType</b>. This svg can
