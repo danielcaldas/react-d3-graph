@@ -360,7 +360,7 @@ export default class Sandbox extends React.Component {
             navigator.clipboard
                 .writeText(JSON.stringify(this.state.generatedConfig, null, 2))
                 .then(() => {
-                    toast("Configuration copied to clipboard!");
+                    toast("✔️ Configuration copied to clipboard!");
                 })
                 .catch(console.error);
         } catch (error) {
@@ -461,11 +461,13 @@ export default class Sandbox extends React.Component {
                         </button>
                     </div>
                     <div className="container__graph-config">
-                        <h4>Your config</h4>
+                        <h4>
+                            Your config
+                            <small className="btn-clipboard" onClick={this.copyConfigToClipboard}>
+                                📋 copy to clipboard
+                            </small>
+                        </h4>
                         <JSONContainer data={this.state.generatedConfig} staticData={false} />
-                        <button className="btn-clipboard" onClick={this.copyConfigToClipboard}>
-                            📋 copy to clipboard
-                        </button>
                     </div>
                     <div className="container__graph-data">
                         <h4>
