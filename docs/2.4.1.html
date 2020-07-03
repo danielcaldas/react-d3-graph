@@ -3,13 +3,29 @@
 
 <head>
   <meta charset='utf-8'>
-  <title>react-d3-graph 2.5.0 | Documentation</title>
+  <title>react-d3-graph 2.4.1 | Documentation</title>
   <meta name='description' content='React component to build interactive and configurable graphs with d3 effortlessly'>
   <meta name='viewport' content='width=device-width,initial-scale=1'>
   <link href='assets/bass.css' rel='stylesheet'>
   <link href='assets/style.css' rel='stylesheet'>
   <link href='assets/github.css' rel='stylesheet'>
   <link href='assets/split.css' rel='stylesheet'>
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+      a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-121685077-2', 'auto');
+    ga('send', 'pageview');
+
+  </script>
 </head>
 
 <body class='documentation m0'>
@@ -29,7 +45,7 @@
           </a>
         </div>
         <h3 class='mb0 no-anchor'>react-d3-graph</h3>
-        <div class='mb1'><code>2.5.0</code></div>
+        <div class='mb1'><code>2.4.1</code></div>
         <h3>Quick Links</h3>
         <h4><a href="https://github.com/danielcaldas/react-d3-graph" target="_blank">🔗 GitHub Repo</a></h4>
         <h4><a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html" target="_blank">🔗 Live Demo</a>
@@ -767,12 +783,8 @@
               </a>
               🚅🚅🚅 Allow leaf neighbors nodes to be collapsed (folded), this will allow users to clear the way out and
               focus on the parts of the graph that really matter.
-              To see an example of this behavior you can access
-              <a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=marvel" target="_blank"
-                title="sandbox collapsible example">
-                this sandbox link
-              </a>
-              that has a specific set up to experiment this feature.
+              To see an example of this behavior you can access <a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=marvel" target="_blank" title="sandbox collapsible example">this sandbox link</a> that has a specific set up to
+              experiment this feature.
               <b>
                 NOTE
               </b>
@@ -1007,20 +1019,6 @@
 
           <div class='space-bottom0'>
             <div>
-              <span class='code bold'>initialZoom</span> <code class='quiet'>(<a
-                  href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
-                = <code>null</code>)</code>
-              <a id="max-zoom" href="#initial-zoom">
-                🔗
-              </a>
-              initial zoom that can be set on the graph.
-
-            </div>
-
-          </div>
-
-          <div class='space-bottom0'>
-            <div>
               <span class='code bold'>maxZoom</span> <code class='quiet'>(<a
                   href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
                 = <code>8</code>)</code>
@@ -1091,7 +1089,8 @@
 
           <div class='space-bottom0'>
             <div>
-              <span class='code bold'>staticGraphWithDragAndDrop</span> <code class='quiet'>(<a
+              <span class='code bold'>staticGraphWithDragAndDrop</span> <code
+                class='quiet'>(<a
                   href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>?)</code>
               <a id="static-graph-with-drag-and-drop" href="#static-graph-with-drag-and-drop">
                 🔗
@@ -1146,7 +1145,8 @@
 
           <div class='space-bottom0'>
             <div>
-              <span class='code bold'>d3</span> <code class='quiet'>(<a
+              <span class='code bold'>d3</span> <code
+                class='quiet'>(<a
                   href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
               d3 object is explained in next section. ⬇️
               <h2 id="config-d3"><a href="#config-d3">#</a> d3 level configurations</h2>
@@ -1167,7 +1167,8 @@
               <tbody class='mt1'>
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>d3.alphaTarget</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>d3.alphaTarget</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>0.05</code>)
@@ -1185,7 +1186,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>d3.gravity</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>d3.gravity</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>-100</code>)
@@ -1209,7 +1211,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>d3.linkLength</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>d3.linkLength</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>100</code>)
@@ -1224,7 +1227,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>d3.linkStrength</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>d3.linkStrength</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>1</code>)
@@ -1242,8 +1246,9 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>d3.disableLinkForce</span> <code class='quiet'><a
-                        href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
+                  <td class='break-word'><span class='code bold'>d3.disableLinkForce</span> <code
+                      class='quiet'><a
+                        href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>false</code>)
                   </td>
@@ -1275,7 +1280,8 @@
 
           <div class='space-bottom0'>
             <div>
-              <span class='code bold'>node</span> <code class='quiet'>(<a
+              <span class='code bold'>node</span> <code
+                class='quiet'>(<a
                   href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
               node object is explained in next section. ⬇️
               <h2 id="config-node"><a href="#config-node">#</a> Node level configurations</h2>
@@ -1296,7 +1302,8 @@
               <tbody class='mt1'>
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.color</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.color</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;#d3d3d3&quot;</code>)
@@ -1327,7 +1334,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.fontColor</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.fontColor</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;black&quot;</code>)
@@ -1344,7 +1352,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.fontSize</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.fontSize</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>8</code>)
@@ -1364,7 +1373,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.fontWeight</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.fontWeight</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;normal&quot;</code>)
@@ -1384,7 +1394,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.highlightColor</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.highlightColor</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;SAME&quot;</code>)
@@ -1400,7 +1411,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.highlightFontSize</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.highlightFontSize</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>8</code>)
@@ -1415,7 +1427,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.highlightFontWeight</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.highlightFontWeight</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;normal&quot;</code>)
@@ -1430,7 +1443,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.highlightStrokeColor</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.highlightStrokeColor</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;SAME&quot;</code>)
@@ -1445,7 +1459,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.highlightStrokeWidth</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.highlightStrokeWidth</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>&quot;SAME&quot;</code>)
@@ -1460,33 +1475,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.labelPosition</span> <code class='quiet'><a
-                        href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
-
-                    (default <code>null</code>)
-                  </td>
-                  <td class='break-word'><span><a id="node-label-position" href="#node-label-position">
-                        🔗
-                      </a>
-                      🔍🔍🔍 location to place node label relative to node.
-                      The placement options are:
-                      <ul>
-                        <li>"left"</li>
-                        <li>"right"</li>
-                        <li>"top"</li>
-                        <li>"bottom"</li>
-                        <li>"center"</li>
-                      </ul>
-                      <p><b>[note]</b> not specifying a label position will fallback to the original placement scheme of
-                        to the right of the node. This is different than the implementation for "right", which has the
-                        label shifted very slightly upward compared to the original.</p>
-                    </span></td>
-                </tr>
-
-
-
-                <tr>
-                  <td class='break-word'><span class='code bold'>node.labelProperty</span> <code class='quiet'>(<a
+                  <td class='break-word'><span class='code bold'>node.labelProperty</span> <code
+                      class='quiet'>(<a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
                       | <a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
@@ -1536,7 +1526,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.mouseCursor</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.mouseCursor</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;pointer&quot;</code>)
@@ -1556,7 +1547,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.opacity</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.opacity</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>1</code>)
@@ -1571,7 +1563,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.renderLabel</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.renderLabel</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
 
                     (default <code>true</code>)
@@ -1587,40 +1580,24 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.size</span> <code class='quiet'>(<a
-                        href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
-                      | <a
-                        href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+                  <td class='break-word'><span class='code bold'>node.size</span> <code
+                      class='quiet'><a
+                        href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>200</code>)
                   </td>
                   <td class='break-word'><span><a id="node-size" href="#node-size">
                         🔗
                       </a>
-                      🔍🔍🔍 defines the size of all nodes. When set to a number, the node will have equal height and
-                      width.
-                      </br>
-
-                      This can also be an object with a height and width property
-                      <b>
-                        when using custom nodes
-                      </b>
-                      .
-                      <pre class='hljs'>size: <span class="hljs-number">200</span>
-<span class="hljs-comment">// or</span>
-<span class="hljs-attr">size</span>: {
-   <span class="hljs-attr">height</span>: <span class="hljs-number">200</span>,
-   <span class="hljs-attr">width</span>: <span class="hljs-number">300</span>,
-}</pre>
-                      <p>The actual node dimensions (in px) rendered on screen will be the size value divided by 10. For
-                        example, a node size of 200 will result in a node with a height and width of 20px.</p>
+                      🔍🔍🔍 defines the size of all nodes.
                     </span></td>
                 </tr>
 
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.strokeColor</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.strokeColor</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;none&quot;</code>)
@@ -1644,7 +1621,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.strokeWidth</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.strokeWidth</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>1.5</code>)
@@ -1659,7 +1637,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.svg</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.svg</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;&quot;</code>)
@@ -1686,7 +1665,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.symbolType</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.symbolType</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;circle&quot;</code>)
@@ -1722,7 +1702,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>node.viewGenerator</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>node.viewGenerator</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></code>
 
                     (default <code>null</code>)
@@ -1745,7 +1726,8 @@
 
           <div class='space-bottom0'>
             <div>
-              <span class='code bold'>link</span> <code class='quiet'>(<a
+              <span class='code bold'>link</span> <code
+                class='quiet'>(<a
                   href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
               link object is explained in the next section. ⬇️
               <h2 id="config-link"><a href="#config-link">#</a> Link level configurations</h2>
@@ -1766,7 +1748,8 @@
               <tbody class='mt1'>
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.color</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.color</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;#d3d3d3&quot;</code>)
@@ -1782,7 +1765,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.fontColor</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.fontColor</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;black&quot;</code>)
@@ -1799,7 +1783,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.fontSize</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.fontSize</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>8</code>)
@@ -1819,7 +1804,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.fontWeight</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.fontWeight</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;normal&quot;</code>)
@@ -1839,7 +1825,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.highlightColor</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.highlightColor</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;SAME&quot;</code>)
@@ -1859,7 +1846,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.highlightFontSize</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.highlightFontSize</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>8</code>)
@@ -1878,7 +1866,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.highlightFontWeight</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.highlightFontWeight</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;normal&quot;</code>)
@@ -1897,7 +1886,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.labelProperty</span> <code class='quiet'>(<a
+                  <td class='break-word'><span class='code bold'>link.labelProperty</span> <code
+                      class='quiet'>(<a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
                       | <a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>)</code>
@@ -1927,7 +1917,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.mouseCursor</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.mouseCursor</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;pointer&quot;</code>)
@@ -1947,7 +1938,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.opacity</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.opacity</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>1</code>)
@@ -1963,7 +1955,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.renderLabel</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.renderLabel</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
 
                     (default <code>false</code>)
@@ -1994,7 +1987,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.semanticStrokeWidth</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.semanticStrokeWidth</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
 
                     (default <code>false</code>)
@@ -2016,7 +2010,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.strokeWidth</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.strokeWidth</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>1.5</code>)
@@ -2034,7 +2029,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.markerHeight</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.markerHeight</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>6</code>)
@@ -2055,7 +2051,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.markerWidth</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.markerWidth</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
 
                     (default <code>6</code>)
@@ -2076,7 +2073,8 @@
 
 
                 <tr>
-                  <td class='break-word'><span class='code bold'>link.type</span> <code class='quiet'><a
+                  <td class='break-word'><span class='code bold'>link.type</span> <code
+                      class='quiet'><a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
 
                     (default <code>&quot;STRAIGHT&quot;</code>)
@@ -2632,7 +2630,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>ev</span> <code class='quiet'>(<a
+                      <span class='code bold'>ev</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       if not undefined it will contain event data.
 
@@ -2642,7 +2641,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>index</span> <code class='quiet'>(<a
+                      <span class='code bold'>index</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       index of the node that is being dragged.
 
@@ -2652,7 +2652,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nodeList</span> <code class='quiet'>(<a
+                      <span class='code bold'>nodeList</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
                       array of d3 nodes. This list of nodes is provided by d3, each
@@ -2781,7 +2782,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>id</span> <code class='quiet'>(<a
+                      <span class='code bold'>id</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       the id of the node to highlight.
 
@@ -2875,7 +2877,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>cb</span> <code class='quiet'>(<a
+                      <span class='code bold'>cb</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>?)</code>
                       optional callback to fed in to
                       <a href="setState()">https://reactjs.org/docs/react-component.html#setstate</a>
@@ -3064,7 +3067,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>e</span> <code class='quiet'>(<a
+                      <span class='code bold'>e</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       The event of onClick handler.
 
@@ -3136,7 +3140,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>clickedNodeId</span> <code class='quiet'>(<a
+                      <span class='code bold'>clickedNodeId</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       The id of the node where the click was performed.
 
@@ -3207,7 +3212,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>id</span> <code class='quiet'>(<a
+                      <span class='code bold'>id</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       id of the node that participates in the event.
 
@@ -3278,7 +3284,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>id</span> <code class='quiet'>(<a
+                      <span class='code bold'>id</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       id of the node that participates in the event.
 
@@ -3349,7 +3356,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>source</span> <code class='quiet'>(<a
+                      <span class='code bold'>source</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       id of the source node that participates in the event.
 
@@ -3359,7 +3367,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>target</span> <code class='quiet'>(<a
+                      <span class='code bold'>target</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       id of the target node that participates in the event.
 
@@ -3430,7 +3439,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>source</span> <code class='quiet'>(<a
+                      <span class='code bold'>source</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       id of the source node that participates in the event.
 
@@ -3440,7 +3450,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>target</span> <code class='quiet'>(<a
+                      <span class='code bold'>target</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       id of the target node that participates in the event.
 
@@ -3511,7 +3522,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>node</span> <code class='quiet'>(<a
+                      <span class='code bold'>node</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       an object holding information about the dragged node.
 
@@ -3772,7 +3784,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nextProps</span> <code class='quiet'>(<a
+                      <span class='code bold'>nextProps</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       props.
 
@@ -3921,7 +3934,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nodes</span> <code class='quiet'>(<a
+                      <span class='code bold'>nodes</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -3936,7 +3950,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>links</span> <code class='quiet'>(<a
+                      <span class='code bold'>links</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
                       array of links
@@ -3949,7 +3964,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>linksMatrix</span> <code class='quiet'>(<a
+                      <span class='code bold'>linksMatrix</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
                       array of links
@@ -3962,7 +3978,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       same as
                       <a href="#graphrenderer">config in renderGraph</a>
@@ -3974,7 +3991,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>linkCallbacks</span> <code class='quiet'>(<a
+                      <span class='code bold'>linkCallbacks</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>>)</code>
                       same as
@@ -3987,7 +4005,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlightedNode</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlightedNode</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       same as
                       <a href="#graphrenderer">highlightedNode in renderGraph</a>
@@ -3999,7 +4018,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlightedLink</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlightedLink</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       same as
                       <a href="#graphrenderer">highlightedLink in renderGraph</a>
@@ -4011,7 +4031,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>transform</span> <code class='quiet'>(<a
+                      <span class='code bold'>transform</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       value that indicates the amount of zoom transformation.
 
@@ -4108,7 +4129,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nodes</span> <code class='quiet'>(<a
+                      <span class='code bold'>nodes</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -4121,7 +4143,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nodeCallbacks</span> <code class='quiet'>(<a
+                      <span class='code bold'>nodeCallbacks</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>>)</code>
                       array of callbacks for used defined event handler for node interactions.
@@ -4132,7 +4155,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       an object containing rd3g consumer defined configurations
                       <a href="#config">config</a>
@@ -4144,7 +4168,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlightedNode</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlightedNode</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       this value contains a string that represents the some currently highlighted node.
 
@@ -4154,7 +4179,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlightedLink</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlightedLink</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       this object contains a source and target property for a link that is highlighted at some point in
                       time.
@@ -4203,7 +4229,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>transform</span> <code class='quiet'>(<a
+                      <span class='code bold'>transform</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       value that indicates the amount of zoom transformation.
 
@@ -4213,7 +4240,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>linksMatrix</span> <code class='quiet'>(<a
+                      <span class='code bold'>linksMatrix</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -4348,7 +4376,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       an object containing rd3g consumer defined configurations
                       <a href="#config">config</a>
@@ -4453,7 +4482,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nodes</span> <code class='quiet'>(<a
+                      <span class='code bold'>nodes</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -4466,7 +4496,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nodeCallbacks</span> <code class='quiet'>(<a
+                      <span class='code bold'>nodeCallbacks</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>>)</code>
                       array of callbacks for used defined event handler for node interactions.
@@ -4477,7 +4508,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>links</span> <code class='quiet'>(<a
+                      <span class='code bold'>links</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
                       array of links
@@ -4490,7 +4522,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>linksMatrix</span> <code class='quiet'>(<a
+                      <span class='code bold'>linksMatrix</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -4525,7 +4558,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>linkCallbacks</span> <code class='quiet'>(<a
+                      <span class='code bold'>linkCallbacks</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>>)</code>
                       array of callbacks for used defined event handler for link interactions.
@@ -4536,7 +4570,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       an object containing rd3g consumer defined configurations
                       <a href="#config">config</a>
@@ -4548,7 +4583,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlightedNode</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlightedNode</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       this value contains a string that represents the some currently highlighted node.
 
@@ -4558,7 +4594,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlightedLink</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlightedLink</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       this object contains a source and target property for a link that is highlighted at some point in
                       time.
@@ -4607,7 +4644,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>transform</span> <code class='quiet'>(<a
+                      <span class='code bold'>transform</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       value that indicates the amount of zoom transformation.
 
@@ -4743,7 +4781,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>node</span> <code class='quiet'>(<a
+                      <span class='code bold'>node</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       the node object for whom we will generate properties.
 
@@ -4753,7 +4792,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlightedNode</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlightedNode</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       same as
                       <a href="#graphrenderer">highlightedNode in renderGraph</a>
@@ -4765,7 +4805,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlightedLink</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlightedLink</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       same as
                       <a href="#graphrenderer">highlightedLink in renderGraph</a>
@@ -4777,7 +4818,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       same as
                       <a href="#graphrenderer">config in renderGraph</a>
@@ -4875,7 +4917,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>link</span> <code class='quiet'>(<a
+                      <span class='code bold'>link</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       the link object for which we will generate properties.
 
@@ -4885,7 +4928,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nodes</span> <code class='quiet'>(<a
+                      <span class='code bold'>nodes</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -4900,7 +4944,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>links</span> <code class='quiet'>(<a
+                      <span class='code bold'>links</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -4915,7 +4960,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       same as
                       <a href="#graphrenderer">config in renderGraph</a>
@@ -4927,7 +4973,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>linkCallbacks</span> <code class='quiet'>(<a
+                      <span class='code bold'>linkCallbacks</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>>)</code>
                       same as
@@ -4940,7 +4987,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlightedNode</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlightedNode</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       same as
                       <a href="#graphrenderer">highlightedNode in renderGraph</a>
@@ -4952,7 +5000,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlightedLink</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlightedLink</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       same as
                       <a href="#graphrenderer">highlightedLink in renderGraph</a>
@@ -4964,7 +5013,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>transform</span> <code class='quiet'>(<a
+                      <span class='code bold'>transform</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       value that indicates the amount of zoom transformation.
 
@@ -5050,7 +5100,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>node</span> <code class='quiet'>(<a
+                      <span class='code bold'>node</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       the node object for whom we will generate properties.
 
@@ -5060,7 +5111,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       same as
                       <a href="#graphrenderer">config in renderGraph</a>
@@ -5086,7 +5138,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlightedNode</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlightedNode</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       same as
                       <a href="#graphrenderer">highlightedNode in renderGraph</a>
@@ -5098,7 +5151,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlightedLink</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlightedLink</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       same as
                       <a href="#graphrenderer">highlightedLink in renderGraph</a>
@@ -5110,7 +5164,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>transform</span> <code class='quiet'>(<a
+                      <span class='code bold'>transform</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       value that indicates the amount of zoom transformation.
 
@@ -5240,7 +5295,8 @@
                 <div>
 
                   <div class='space-bottom0'>
-                    <span class='code bold'>source</span> <code class='quiet'>(<a
+                    <span class='code bold'>source</span> <code
+                      class='quiet'>(<a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                     : the node id of the source in the link.
 
@@ -5248,7 +5304,8 @@
                   </div>
 
                   <div class='space-bottom0'>
-                    <span class='code bold'>target</span> <code class='quiet'>(<a
+                    <span class='code bold'>target</span> <code
+                      class='quiet'>(<a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                     : the node id of the target in the link.
 
@@ -5312,7 +5369,8 @@
                 <div>
 
                   <div class='space-bottom0'>
-                    <span class='code bold'>id</span> <code class='quiet'>(<a
+                    <span class='code bold'>id</span> <code
+                      class='quiet'>(<a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                     : the id of the node.
 
@@ -5320,7 +5378,8 @@
                   </div>
 
                   <div class='space-bottom0'>
-                    <span class='code bold'>color</span> <code class='quiet'>(<a
+                    <span class='code bold'>color</span> <code
+                      class='quiet'>(<a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
                     : color of the node (optional).
 
@@ -5328,7 +5387,8 @@
                   </div>
 
                   <div class='space-bottom0'>
-                    <span class='code bold'>fontColor</span> <code class='quiet'>(<a
+                    <span class='code bold'>fontColor</span> <code
+                      class='quiet'>(<a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
                     : node text label font color (optional).
 
@@ -5336,7 +5396,8 @@
                   </div>
 
                   <div class='space-bottom0'>
-                    <span class='code bold'>size</span> <code class='quiet'>(<a
+                    <span class='code bold'>size</span> <code
+                      class='quiet'>(<a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
                     : size of the node (optional).
 
@@ -5344,7 +5405,8 @@
                   </div>
 
                   <div class='space-bottom0'>
-                    <span class='code bold'>symbolType</span> <code class='quiet'>(<a
+                    <span class='code bold'>symbolType</span> <code
+                      class='quiet'>(<a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
                     : symbol type of the node (optional).
 
@@ -5352,7 +5414,8 @@
                   </div>
 
                   <div class='space-bottom0'>
-                    <span class='code bold'>svg</span> <code class='quiet'>(<a
+                    <span class='code bold'>svg</span> <code
+                      class='quiet'>(<a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>?)</code>
                     : custom svg for node (optional).
 
@@ -5421,7 +5484,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>width</span> <code class='quiet'>(<a
+                      <span class='code bold'>width</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       the width of the container area of the graph.
 
@@ -5431,7 +5495,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>height</span> <code class='quiet'>(<a
+                      <span class='code bold'>height</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       the height of the container area of the graph.
 
@@ -5441,7 +5506,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>gravity</span> <code class='quiet'>(<a
+                      <span class='code bold'>gravity</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       the force strength applied to the graph.
 
@@ -5536,7 +5602,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       the graph config.
 
@@ -5714,7 +5781,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>link</span> <code class='quiet'>(<a
+                      <span class='code bold'>link</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       input link.
 
@@ -5724,7 +5792,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>index</span> <code class='quiet'>(<a
+                      <span class='code bold'>index</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       index of the input link.
 
@@ -5746,7 +5815,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       same as
                       <a href="#graphrenderer">config in renderGraph</a>
@@ -5845,7 +5915,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nodes</span> <code class='quiet'>(<a
+                      <span class='code bold'>nodes</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -5858,7 +5929,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>linksMatrix</span> <code class='quiet'>(<a
+                      <span class='code bold'>linksMatrix</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -5941,7 +6013,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>data</span> <code class='quiet'>(<a
+                      <span class='code bold'>data</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       Same as
                       <a href="#initializeGraphState">data in initializeGraphState</a>
@@ -5974,7 +6047,7 @@
                   <li>any: can throw the following error or warning msg:
                     INSUFFICIENT_DATA - msg if no nodes are provided
                     INVALID_LINKS - if links point to nonexistent nodes
-                    INSUFFICIENT_LINKS - if no links are provided (not even empty Array)
+                    INSUFFICIENT_LINKS - if no links are provided
                   </li>
 
                 </ul>
@@ -6028,7 +6101,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>o</span> <code class='quiet'>(<a
+                      <span class='code bold'>o</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       object to pick from.
 
@@ -6102,7 +6176,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>o</span> <code class='quiet'>(<a
+                      <span class='code bold'>o</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       object to pick from.
 
@@ -6184,7 +6259,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nextProps</span> <code class='quiet'>(<a
+                      <span class='code bold'>nextProps</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       nextProps that graph will receive.
 
@@ -6194,7 +6270,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>currentState</span> <code class='quiet'>(<a
+                      <span class='code bold'>currentState</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       the current state of the graph.
 
@@ -6283,7 +6360,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nextProps</span> <code class='quiet'>(<a
+                      <span class='code bold'>nextProps</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       nextProps that graph will receive.
 
@@ -6293,7 +6371,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>currentState</span> <code class='quiet'>(<a
+                      <span class='code bold'>currentState</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       the current state of the graph.
 
@@ -6380,7 +6459,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>d3Node</span> <code class='quiet'>(<a
+                      <span class='code bold'>d3Node</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       node to focus the graph view on.
 
@@ -6390,7 +6470,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       same as
                       <a href="#graphrenderer">config in renderGraph</a>
@@ -6482,7 +6563,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>sot</span> <code class='quiet'>((<a
+                      <span class='code bold'>sot</span> <code
+                        class='quiet'>((<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
                         | <a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
@@ -6566,7 +6648,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>props</span> <code class='quiet'>(<a
+                      <span class='code bold'>props</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       Graph component props, object that holds data, id and config.
 
@@ -6586,7 +6669,8 @@
                       <tbody class='mt1'>
 
                         <tr>
-                          <td class='break-word'><span class='code bold'>props.data</span> <code class='quiet'><a
+                          <td class='break-word'><span class='code bold'>props.data</span> <code
+                              class='quiet'><a
                                 href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>
                           </td>
                           <td class='break-word'><span>Data object holds links (array of
@@ -6600,7 +6684,8 @@
 
 
                         <tr>
-                          <td class='break-word'><span class='code bold'>props.id</span> <code class='quiet'><a
+                          <td class='break-word'><span class='code bold'>props.id</span> <code
+                              class='quiet'><a
                                 href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>
                           </td>
                           <td class='break-word'><span>the graph id.
@@ -6610,7 +6695,8 @@
 
 
                         <tr>
-                          <td class='break-word'><span class='code bold'>props.config</span> <code class='quiet'><a
+                          <td class='break-word'><span class='code bold'>props.config</span> <code
+                              class='quiet'><a
                                 href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>
                           </td>
                           <td class='break-word'><span>same as
@@ -6628,7 +6714,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>state</span> <code class='quiet'>(<a
+                      <span class='code bold'>state</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       Graph component current state (same format as returned object on this function).
 
@@ -6717,7 +6804,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nodes</span> <code class='quiet'>(<a
+                      <span class='code bold'>nodes</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -6730,7 +6818,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>links</span> <code class='quiet'>(<a
+                      <span class='code bold'>links</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -6743,7 +6832,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       an object containing rd3g consumer defined configurations
                       <a href="#config">config</a>
@@ -6755,7 +6845,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>id</span> <code class='quiet'>(<a
+                      <span class='code bold'>id</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       identifier of node to update.
 
@@ -6786,278 +6877,6 @@
                     href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
                 returns an object containing the updated nodes
                 and the id of the highlighted node.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              </section>
-
-            </div>
-          </div>
-
-          <div class='border-bottom' id='graphhelpernormalize'>
-            <div class="clearfix small pointer toggle-sibling">
-              <div class="py1 contain">
-                <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-                <span class='code strong strong truncate'>normalize(vector)</span>
-              </div>
-            </div>
-            <div class="clearfix display-none toggle-target">
-              <section class='p2 mb2 clearfix bg-white minishadow'>
-
-
-
-                <p>Computes the normalized vector from a vector.</p>
-
-                <div class='pre p1 fill-light mt0'>normalize(vector: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>):
-                  <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-                <div class='py1 quiet mt1 prose-big'>Parameters</div>
-                <div class='prose'>
-
-                  <div class='space-bottom0'>
-                    <div>
-                      <span class='code bold'>vector</span> <code class='quiet'>(<a
-                          href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-                      a 2D vector with x and y components
-
-                    </div>
-
-                    <table class='mt1 mb2 fixed-table h5 col-12'>
-                      <colgroup>
-                        <col width='30%' />
-                        <col width='70%' />
-                      </colgroup>
-                      <thead>
-                        <tr class='bold fill-light'>
-                          <th>Name</th>
-                          <th>Description</th>
-                        </tr>
-                      </thead>
-                      <tbody class='mt1'>
-
-                        <tr>
-                          <td class='break-word'><span class='code bold'>vector.x</span> <code class='quiet'><a
-                                href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-                          </td>
-                          <td class='break-word'><span>x coordinate
-                            </span></td>
-                        </tr>
-
-
-
-                        <tr>
-                          <td class='break-word'><span class='code bold'>vector.y</span> <code class='quiet'><a
-                                href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>
-                          </td>
-                          <td class='break-word'><span>y coordinate
-                            </span></td>
-                        </tr>
-
-
-
-                      </tbody>
-                    </table>
-
-                  </div>
-
-                </div>
-
-
-
-
-
-
-                <div class='py1 quiet mt1 prose-big'>Returns</div>
-                <code><a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
-                normalized vector
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              </section>
-
-            </div>
-          </div>
-
-          <div class='border-bottom' id='graphhelpergetnormalizednodecoordinates'>
-            <div class="clearfix small pointer toggle-sibling">
-              <div class="py1 contain">
-                <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-                <span class='code strong strong truncate'>getNormalizedNodeCoordinates(node, nodes, config,
-                  strokeWidth)</span>
-              </div>
-            </div>
-            <div class="clearfix display-none toggle-target">
-              <section class='p2 mb2 clearfix bg-white minishadow'>
-
-
-
-                <p>Computes new node coordinates to make arrowheads point at nodes.
-                  Arrow configuration is only available for circles.</p>
-
-                <div class='pre p1 fill-light mt0'>getNormalizedNodeCoordinates(node: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>,
-                  nodes: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
-                  <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>,
-                  config: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>,
-                  strokeWidth: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>):
-                  <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-                <div class='py1 quiet mt1 prose-big'>Parameters</div>
-                <div class='prose'>
-
-                  <div class='space-bottom0'>
-                    <div>
-                      <span class='code bold'>node</span> <code class='quiet'>(<a
-                          href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-                      the couple of nodes we need to compute new coordinates
-
-                    </div>
-
-                    <table class='mt1 mb2 fixed-table h5 col-12'>
-                      <colgroup>
-                        <col width='30%' />
-                        <col width='70%' />
-                      </colgroup>
-                      <thead>
-                        <tr class='bold fill-light'>
-                          <th>Name</th>
-                          <th>Description</th>
-                        </tr>
-                      </thead>
-                      <tbody class='mt1'>
-
-                        <tr>
-                          <td class='break-word'><span class='code bold'>node.source</span> <code class='quiet'><a
-                                href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>
-
-                            (default <code>{}</code>)
-                          </td>
-                          <td class='break-word'><span>node source
-                            </span></td>
-                        </tr>
-
-
-
-                        <tr>
-                          <td class='break-word'><span class='code bold'>node.target</span> <code class='quiet'><a
-                                href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>
-
-                            (default <code>{}</code>)
-                          </td>
-                          <td class='break-word'><span>node target
-                            </span></td>
-                        </tr>
-
-
-
-                      </tbody>
-                    </table>
-
-                  </div>
-
-                  <div class='space-bottom0'>
-                    <div>
-                      <span class='code bold'>nodes</span> <code class='quiet'>(<a
-                          href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
-                          href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
-                        <a
-                          href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
-                      same as
-                      <a href="#graphrenderer">nodes in renderGraph</a>
-                      .
-
-                    </div>
-
-                  </div>
-
-                  <div class='space-bottom0'>
-                    <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
-                          href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-                      same as
-                      <a href="#graphrenderer">config in renderGraph</a>
-                      .
-
-                    </div>
-
-                  </div>
-
-                  <div class='space-bottom0'>
-                    <div>
-                      <span class='code bold'>strokeWidth</span> <code class='quiet'>(<a
-                          href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-                      width of the link stroke
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-
-
-
-
-                <div class='py1 quiet mt1 prose-big'>Returns</div>
-                <code><a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
-                new nodes coordinates
 
 
 
@@ -7173,7 +6992,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>inDegree</span> <code class='quiet'>(<a
+                      <span class='code bold'>inDegree</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       the in degree for a given node.
 
@@ -7183,7 +7003,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>outDegree</span> <code class='quiet'>(<a
+                      <span class='code bold'>outDegree</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       the out degree for a given node.
 
@@ -7261,7 +7082,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>inDegree</span> <code class='quiet'>(<a
+                      <span class='code bold'>inDegree</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       the in degree for a given node.
 
@@ -7271,7 +7093,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>outDegree</span> <code class='quiet'>(<a
+                      <span class='code bold'>outDegree</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       the out degree for a given node.
 
@@ -7353,7 +7176,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nodeId</span> <code class='quiet'>(<a
+                      <span class='code bold'>nodeId</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       The id of the node to get the cardinality of.
 
@@ -7363,7 +7187,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>linksMatrix</span> <code class='quiet'>(<a
+                      <span class='code bold'>linksMatrix</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -7376,7 +7201,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>directed</span> <code class='quiet'>(<a
+                      <span class='code bold'>directed</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
                       whether graph in context is directed or not.
 
@@ -7461,7 +7287,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nodeId</span> <code class='quiet'>((<a
+                      <span class='code bold'>nodeId</span> <code
+                        class='quiet'>((<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>
                         | <a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>))</code>
@@ -7572,7 +7399,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>rootNodeId</span> <code class='quiet'>(<a
+                      <span class='code bold'>rootNodeId</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       node who's leafs we want to calculate.
 
@@ -7597,7 +7425,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       same as
                       <a href="#graphrenderer">config in renderGraph</a>
@@ -7619,7 +7448,8 @@
                       <tbody class='mt1'>
 
                         <tr>
-                          <td class='break-word'><span class='code bold'>config.directed</span> <code class='quiet'><a
+                          <td class='break-word'><span class='code bold'>config.directed</span> <code
+                              class='quiet'><a
                                 href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
                           </td>
                           <td class='break-word'><span>tells whether linksMatrix represents a directed graph or not.
@@ -7721,7 +7551,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nodeId</span> <code class='quiet'>(<a
+                      <span class='code bold'>nodeId</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       The id of the node to get the cardinality of
 
@@ -7731,7 +7562,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>nodes</span> <code class='quiet'>(<a
+                      <span class='code bold'>nodes</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -7744,7 +7576,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>linksMatrix</span> <code class='quiet'>(<a
+                      <span class='code bold'>linksMatrix</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -7830,7 +7663,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>d3Links</span> <code class='quiet'>(<a
+                      <span class='code bold'>d3Links</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
                       An array containing all the d3 links.
@@ -7841,7 +7675,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>connectionMatrix</span> <code class='quiet'>(<a
+                      <span class='code bold'>connectionMatrix</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
@@ -7936,7 +7771,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>linksMatrix</span> <code class='quiet'>(<a
+                      <span class='code bold'>linksMatrix</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
                         <a
@@ -7950,7 +7786,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>connections</span> <code class='quiet'>(<a
+                      <span class='code bold'>connections</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
@@ -7964,7 +7801,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       same as
                       <a href="#graphrenderer">config in renderGraph</a>
@@ -7986,7 +7824,8 @@
                       <tbody class='mt1'>
 
                         <tr>
-                          <td class='break-word'><span class='code bold'>config.directed</span> <code class='quiet'><a
+                          <td class='break-word'><span class='code bold'>config.directed</span> <code
+                              class='quiet'><a
                                 href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>
                           </td>
                           <td class='break-word'><span>tells whether linksMatrix represents a directed graph or not.
@@ -8124,7 +7963,6 @@
     fontWeight=<span class="hljs-string">'normal'</span>
     dx=<span class="hljs-number">90</span>
     label=<span class="hljs-string">'label text'</span>
-    labelPosition=<span class="hljs-string">'top'</span>
     opacity=<span class="hljs-number">1</span>
     renderLabel=<span class="hljs-literal">true</span>
     size=<span class="hljs-number">200</span>
@@ -8234,7 +8072,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>event</span> <code class='quiet'>(<a
+                      <span class='code bold'>event</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       native event.
 
@@ -8476,7 +8315,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>typeName</span> <code class='quiet'>(<a
+                      <span class='code bold'>typeName</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       the string that specifies the symbol type (should be one of
                       <a href="#node-symbol-type">node.symbolType</a>
@@ -8588,121 +8428,6 @@
                 <code><a
                     href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
                 concrete instance of d3 symbol.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              </section>
-
-            </div>
-          </div>
-
-          <div class='border-bottom' id='nodehelpergetlabelplacementprops'>
-            <div class="clearfix small pointer toggle-sibling">
-              <div class="py1 contain">
-                <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-                <span class='code strong strong truncate'>getLabelPlacementProps(dx, labelPosition)</span>
-              </div>
-            </div>
-            <div class="clearfix display-none toggle-target">
-              <section class='p2 mb2 clearfix bg-white minishadow'>
-
-
-
-                <p>return dx, dy, and potentially alignmentBaseline and textAnchor props to put label in correct
-                  position relative to node</p>
-
-                <div class='pre p1 fill-light mt0'>getLabelPlacementProps(dx: (<a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
-                  | <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>),
-                  labelPosition: (<code>"left"</code> | <code>"right"</code> | <code>"top"</code> |
-                  <code>"bottom"</code> | <code>"center"</code> | <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>)):
-                  ({dx: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
-                  dy: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>}
-                  | {dx: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
-                  dy: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
-                  textAnchor: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
-                  dominantBaseline: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>})
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-                <div class='py1 quiet mt1 prose-big'>Parameters</div>
-                <div class='prose'>
-
-                  <div class='space-bottom0'>
-                    <div>
-                      <span class='code bold'>dx</span> <code class='quiet'>((<a
-                          href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>
-                        | <a
-                          href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>))</code>
-                      default computed offset of label to the right of the node
-
-                    </div>
-
-                  </div>
-
-                  <div class='space-bottom0'>
-                    <div>
-                      <span class='code bold'>labelPosition</span> <code class='quiet'>((<code>"left"</code> |
-                        <code>"right"</code> | <code>"top"</code> | <code>"bottom"</code> | <code>"center"</code> | <a
-                          href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a>))</code>
-                      user specified position of label relative to node
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-
-
-
-
-                <div class='py1 quiet mt1 prose-big'>Returns</div>
-                <code>({dx: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
-                  dy: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>}
-                  | {dx: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
-                  dy: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
-                  textAnchor: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>,
-                  dominantBaseline: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>})</code>:
-                props to put text svg for label in correct spot. default case returns just dx and dy, without textAnchor
-                and dominantBaseline
 
 
 
@@ -8910,7 +8635,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>event</span> <code class='quiet'>(<a
+                      <span class='code bold'>event</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       native event.
 
@@ -9212,7 +8938,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>x1</span> <code class='quiet'>(<a
+                      <span class='code bold'>x1</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       x value for point 1
 
@@ -9222,7 +8949,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>y1</span> <code class='quiet'>(<a
+                      <span class='code bold'>y1</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       y value for point 1
 
@@ -9232,7 +8960,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>x2</span> <code class='quiet'>(<a
+                      <span class='code bold'>x2</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       y value for point 2
 
@@ -9242,7 +8971,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>y2</span> <code class='quiet'>(<a
+                      <span class='code bold'>y2</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       y value for point 2
 
@@ -9456,7 +9186,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>link</span> <code class='quiet'>(<a
+                      <span class='code bold'>link</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       the link to build the path definition
 
@@ -9476,7 +9207,8 @@
                       <tbody class='mt1'>
 
                         <tr>
-                          <td class='break-word'><span class='code bold'>link.source</span> <code class='quiet'><a
+                          <td class='break-word'><span class='code bold'>link.source</span> <code
+                              class='quiet'><a
                                 href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>
 
                             (default <code>{}</code>)
@@ -9488,7 +9220,8 @@
 
 
                         <tr>
-                          <td class='break-word'><span class='code bold'>link.target</span> <code class='quiet'><a
+                          <td class='break-word'><span class='code bold'>link.target</span> <code
+                              class='quiet'><a
                                 href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>
 
                             (default <code>{}</code>)
@@ -9637,7 +9370,8 @@
                 <div>
 
                   <div class='space-bottom0'>
-                    <span class='code bold'>STRAIGHT</span> <code class='quiet'>(<a
+                    <span class='code bold'>STRAIGHT</span> <code
+                      class='quiet'>(<a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                     : a straight line.
 
@@ -9645,7 +9379,8 @@
                   </div>
 
                   <div class='space-bottom0'>
-                    <span class='code bold'>CURVE_SMOOTH</span> <code class='quiet'>(<a
+                    <span class='code bold'>CURVE_SMOOTH</span> <code
+                      class='quiet'>(<a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                     : a slight curve between two nodes
 
@@ -9653,7 +9388,8 @@
                   </div>
 
                   <div class='space-bottom0'>
-                    <span class='code bold'>CURVE_FULL</span> <code class='quiet'>(<a
+                    <span class='code bold'>CURVE_FULL</span> <code
+                      class='quiet'>(<a
                         href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                     : a semicircumference trajectory unites source and target nodes.
 
@@ -9833,7 +9569,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>size</span> <code class='quiet'>(<a
+                      <span class='code bold'>size</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       string that indicates size of marker.
 
@@ -9843,7 +9580,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlighted</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlighted</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       string that indicates highlight state of marker.
 
@@ -9922,7 +9660,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>transform</span> <code class='quiet'>(<a
+                      <span class='code bold'>transform</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       the delta zoom value to calculate resize transformations.
 
@@ -9932,7 +9671,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>mMax</span> <code class='quiet'>(<a
+                      <span class='code bold'>mMax</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       a derived value from the max zoom config.
 
@@ -9942,7 +9682,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>lMax</span> <code class='quiet'>(<a
+                      <span class='code bold'>lMax</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       a derived value from the min zoom config.
 
@@ -10021,7 +9762,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlight</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlight</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
                       tells us whether or not some element (link or node) is highlighted.
 
@@ -10031,7 +9773,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>transform</span> <code class='quiet'>(<a
+                      <span class='code bold'>transform</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       the delta zoom value to calculate resize transformations.
 
@@ -10041,7 +9784,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       the graph config object.
 
@@ -10201,7 +9945,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>highlight</span> <code class='quiet'>(<a
+                      <span class='code bold'>highlight</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
                       tells us whether or not some element (link or node) is highlighted.
 
@@ -10211,7 +9956,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>transform</span> <code class='quiet'>(<a
+                      <span class='code bold'>transform</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
                       the delta zoom value to calculate resize transformations.
 
@@ -10221,7 +9967,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
+                      <span class='code bold'>config</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       the graph config object.
 
@@ -10241,7 +9988,8 @@
                       <tbody class='mt1'>
 
                         <tr>
-                          <td class='break-word'><span class='code bold'>config.maxZoom</span> <code class='quiet'><a
+                          <td class='break-word'><span class='code bold'>config.maxZoom</span> <code
+                              class='quiet'><a
                                 href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>
                           </td>
                           <td class='break-word'><span>max zoom that can be performed against the graph.
@@ -10257,84 +10005,6 @@
 
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-              </section>
-
-            </div>
-          </div>
-
-          <div class='border-bottom' id='markerhelpergetmarkersize'>
-            <div class="clearfix small pointer toggle-sibling">
-              <div class="py1 contain">
-                <a class='icon pin-right py1 dark-link caret-right'>▸</a>
-                <span class='code strong strong truncate'>getMarkerSize(config)</span>
-              </div>
-            </div>
-            <div class="clearfix display-none toggle-target">
-              <section class='p2 mb2 clearfix bg-white minishadow'>
-
-
-
-                <p>Computes the three marker sizes
-                  For supported shapes in <a
-                    href="Graph/helper/getNormalizedNodeCoordinates">Graph/helper/getNormalizedNodeCoordinates</a>, the
-                  function should return 0,
-                  to be able to control more accurately nodes and arrows sizes and positions in directional graphs.</p>
-
-                <div class='pre p1 fill-light mt0'>getMarkerSize(config: <a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>):
-                  <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-                <div class='py1 quiet mt1 prose-big'>Parameters</div>
-                <div class='prose'>
-
-                  <div class='space-bottom0'>
-                    <div>
-                      <span class='code bold'>config</span> <code class='quiet'>(<a
-                          href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-                      the graph config object.
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-
-
-
-
-                <div class='py1 quiet mt1 prose-big'>Returns</div>
-                <code><a
-                    href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
-                size of markers
 
 
 
@@ -10448,7 +10118,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>o</span> <code class='quiet'>(<a
+                      <span class='code bold'>o</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       the object.
 
@@ -10458,7 +10129,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>k</span> <code class='quiet'>(<a
+                      <span class='code bold'>k</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       the object property.
 
@@ -10539,7 +10211,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>o1</span> <code class='quiet'>(<a
+                      <span class='code bold'>o1</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       one of the objects to be compared.
 
@@ -10549,7 +10222,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>o2</span> <code class='quiet'>(<a
+                      <span class='code bold'>o2</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       second object to compare with first.
 
@@ -10636,7 +10310,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>o</span> <code class='quiet'>(<a
+                      <span class='code bold'>o</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       object whom emptiness we want to check.
 
@@ -10714,7 +10389,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>o</span> <code class='quiet'>(<a
+                      <span class='code bold'>o</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       the object to clone.
 
@@ -10916,7 +10592,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>o</span> <code class='quiet'>(<a
+                      <span class='code bold'>o</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       the object to pick props from.
 
@@ -11005,7 +10682,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>o</span> <code class='quiet'>(<a
+                      <span class='code bold'>o</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
                       the object to pick props from.
 
@@ -11181,7 +10859,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>component</span> <code class='quiet'>(<a
+                      <span class='code bold'>component</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       the name of the component where the error is to be thrown.
 
@@ -11191,7 +10870,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>msg</span> <code class='quiet'>(<a
+                      <span class='code bold'>msg</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       the message contain a more detailed explanation about the error.
 
@@ -11268,7 +10948,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>component</span> <code class='quiet'>(<a
+                      <span class='code bold'>component</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       component name.
 
@@ -11278,7 +10959,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>msg</span> <code class='quiet'>(<a
+                      <span class='code bold'>msg</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       message to log.
 
@@ -11353,7 +11035,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>component</span> <code class='quiet'>(<a
+                      <span class='code bold'>component</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       the name of the component where the warning is to be thrown.
 
@@ -11363,7 +11046,8 @@
 
                   <div class='space-bottom0'>
                     <div>
-                      <span class='code bold'>msg</span> <code class='quiet'>(<a
+                      <span class='code bold'>msg</span> <code
+                        class='quiet'>(<a
                           href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
                       the message contain a more detailed explanation about the error.
 

@@ -107,6 +107,7 @@ const getMarkerId = _memoizedComputeMarkerId();
  * to be able to control more accurately nodes and arrows sizes and positions in directional graphs.
  * @param {Object} config - the graph config object.
  * @returns {Object} size of markers
+ * @memberof Marker/helper
  */
 function getMarkerSize(config) {
     let small = MARKER_SMALL_SIZE;

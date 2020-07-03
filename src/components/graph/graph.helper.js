@@ -457,6 +457,7 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
  * @param {number} vector.x x coordinate
  * @param {number} vector.y y coordinate
  * @returns {Object} normalized vector
+ * @memberof Graph/helper
  */
 function normalize(vector) {
     const norm = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
@@ -473,6 +474,7 @@ function normalize(vector) {
  * @param {Object} config - same as {@link #graphrenderer|config in renderGraph}.
  * @param {number} strokeWidth width of the link stroke
  * @returns {Object} new nodes coordinates
+ * @memberof Graph/helper
  */
 function getNormalizedNodeCoordinates({ source = {}, target = {} }, nodes, config, strokeWidth) {
     if (config.node?.viewGenerator) {
