@@ -214,6 +214,11 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     const svg = node.svg || config.node.svg;
     const fontColor = node.fontColor || config.node.fontColor;
 
+    let renderLabel = config.node.renderLabel;
+    if (node.renderLabel !== undefined && typeof node.renderLabel === "boolean") {
+        renderLabel = node.renderLabel;
+    }
+
     return {
         ...node,
         className: CONST.NODE_CLASS_NAME,
@@ -230,7 +235,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
         labelPosition,
         opacity,
         overrideGlobalViewGenerator: !node.viewGenerator && node.svg,
-        renderLabel: node.renderLabel || config.node.renderLabel,
+        renderLabel,
         size: isSizeNumericValue ? nodeSize * t : { height: nodeSize.height * t, width: nodeSize.width * t },
         stroke,
         strokeWidth: strokeWidth * t,
