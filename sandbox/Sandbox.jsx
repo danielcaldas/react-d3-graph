@@ -33,6 +33,11 @@ export default class Sandbox extends React.Component {
 
         const { config: configOverride, data, fullscreen } = sandboxData;
         const config = Object.assign(defaultConfig, configOverride);
+        // TODO: refactor this labelPosition assignment, move to somewhere
+        // in generateFormSchema
+        if (config.node.labelPosition === null) {
+            config.node.labelPosition = "";
+        }
         const schemaProps = generateFormSchema(config, "", {});
         const schema = {
             type: "object",
