@@ -1,6 +1,8 @@
 import React from "react";
 
 import nodeHelper from "./node.helper";
+import CONST from "./node.const";
+import { logWarning } from "../../utils";
 
 /**
  * Node component is responsible for encapsulating node render.
@@ -94,7 +96,8 @@ export default class Node extends React.Component {
             opacity: this.props.opacity,
         };
 
-        const size = this.props.size;
+        let size = this.props.size;
+        const isSizeNumericalValue = typeof size !== "object";
 
         let gtx = this.props.cx,
             gty = this.props.cy,
@@ -102,8 +105,8 @@ export default class Node extends React.Component {
             node = null;
 
         if (this.props.svg || this.props.viewGenerator) {
-            const height = size / 10;
-            const width = size / 10;
+            const height = isSizeNumericalValue ? size / 10 : size.height / 10;
+            const width = isSizeNumericalValue ? size / 10 : size.width / 10;
             const tx = width / 2;
             const ty = height / 2;
             const transform = `translate(${tx},${ty})`;
@@ -133,6 +136,10 @@ export default class Node extends React.Component {
             gtx -= tx;
             gty -= ty;
         } else {
+            if (!isSizeNumericalValue) {
+                logWarning("node.size should be a number when not using custom nodes.");
+                size = CONST.DEFAULT_NODE_SIZE;
+            }
             nodeProps.d = nodeHelper.buildSvgSymbol(size, this.props.type);
             nodeProps.fill = this.props.fill;
             nodeProps.stroke = this.props.stroke;

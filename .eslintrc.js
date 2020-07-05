@@ -29,7 +29,6 @@ module.exports = {
         "keyword-spacing": "error",
         "max-len": ["error", 120, 4, { ignoreComments: true }],
         "max-lines": ["error", { max: 450, skipComments: true }],
-        "newline-after-var": ["error", "always"],
         "no-nested-ternary": "error",
         "no-useless-constructor": "error",
         semi: "error",

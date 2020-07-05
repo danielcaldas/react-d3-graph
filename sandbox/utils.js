@@ -6,6 +6,8 @@ import DEFAULT_CONFIG from "../src/components/graph/graph.config";
 import { merge } from "../src/utils";
 import { tooltips } from "./graph-config-tooltips";
 
+const LABEL_POSITION_OPTIONS = ["left", "right", "top", "bottom", "center"];
+
 /**
  * This two functions generate the react-jsonschema-form
  * schema from some passed graph configuration.
@@ -19,6 +21,16 @@ function formMap(k, v) {
                 title: "link.type",
                 items: {
                     enum: Object.keys(LINE_TYPES),
+                },
+                uniqueItems: true,
+            };
+        }
+        case "node.labelPosition": {
+            return {
+                type: "array",
+                title: "node.labelPosition",
+                items: {
+                    enum: LABEL_POSITION_OPTIONS,
                 },
                 uniqueItems: true,
             };
@@ -37,7 +49,7 @@ function generateFormSchema(o, rootSpreadProp, accum = {}) {
         const kk = rootSpreadProp ? `${rootSpreadProp}.${k}` : k;
 
         if (o[k] !== undefined && o[k] !== null && typeof o[k] !== "function") {
-            typeof o[k] === "object" ? generateFormSchema(o[kk], kk, accum) : (accum[kk] = formMap(kk, o[k]));
+            typeof o[k] === "object" ? generateFormSchema(o[k], kk, accum) : (accum[kk] = formMap(kk, o[k]));
         }
     }
 
@@ -83,6 +95,10 @@ function loadDataset() {
     };
 }
 
+function isArray(o) {
+    return o && typeof o === "object" && Object.prototype.hasOwnProperty.call(o, "length");
+}
+
 function setValue(obj, access, value) {
     if (typeof access == "string") {
         access = access.split(".");
@@ -93,7 +109,13 @@ function setValue(obj, access, value) {
         obj[access[0]] = {};
     }
 
-    access.length > 1 ? setValue(obj[access.shift()], access, value) : (obj[access[0]] = value);
+    const v = isArray(value) ? value[0] : value;
+
+    if (access.length > 1) {
+        setValue(obj[access.shift()], access, v);
+    } else {
+        obj[access[0]] = v;
+    }
 }
 
 function tooltipReducer(schemaProps, key) {

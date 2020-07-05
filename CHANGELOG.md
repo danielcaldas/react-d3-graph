@@ -1,5 +1,35 @@
 # Change Log
 
+## [2.5.0](https://github.com/danielcaldas/react-d3-graph/tree/2.5.0)
+
+[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.4.1...2.5.0)
+
+**Implemented enhancements:**
+
+-   make node.size accept both height and width [\#336](https://github.com/danielcaldas/react-d3-graph/issues/336)
+
+**Fixed bugs:**
+
+-   Passing an empty data.links array throws a warning [\#323](https://github.com/danielcaldas/react-d3-graph/issues/323)
+-   renderLabel params are not working for single node [\#322](https://github.com/danielcaldas/react-d3-graph/issues/322)
+-   The release version does not contain some fixes [\#314](https://github.com/danielcaldas/react-d3-graph/issues/314)
+
+**Closed issues:**
+
+-   Docs missing collapsible sandbox example [\#337](https://github.com/danielcaldas/react-d3-graph/issues/337)
+-   Multiple Edges between 2 nodes [\#335](https://github.com/danielcaldas/react-d3-graph/issues/335)
+-   Ability to display node labels in different positions relative to the node center [\#299](https://github.com/danielcaldas/react-d3-graph/issues/299)
+
+**Merged pull requests:**
+
+-   Added ability to configure a node's width and height separately [\#342](https://github.com/danielcaldas/react-d3-graph/pull/342) ([terahn](https://github.com/terahn))
+-   Bump websocket-extensions from 0.1.3 to 0.1.4 [\#331](https://github.com/danielcaldas/react-d3-graph/pull/331) ([dependabot[bot]](https://github.com/apps/dependabot))
+-   Misc improvements cleanup from previous PRs [\#327](https://github.com/danielcaldas/react-d3-graph/pull/327) ([danielcaldas](https://github.com/danielcaldas))
+-   Add GitHub Actions Workflow for library CI [\#326](https://github.com/danielcaldas/react-d3-graph/pull/326) ([danielcaldas](https://github.com/danielcaldas))
+-   Fix/misc documentation sandbox improvements [\#315](https://github.com/danielcaldas/react-d3-graph/pull/315) ([danielcaldas](https://github.com/danielcaldas))
+-   Feature/initial zoom [\#289](https://github.com/danielcaldas/react-d3-graph/pull/289) ([Morta1](https://github.com/Morta1))
+-   Reorganizing the computation of arrows and links for circle nodes [\#271](https://github.com/danielcaldas/react-d3-graph/pull/271) ([antoninklopp](https://github.com/antoninklopp))
+
 ## [2.4.1](https://github.com/danielcaldas/react-d3-graph/tree/2.4.1)
 
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.3.0...2.4.1)

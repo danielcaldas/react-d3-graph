@@ -43,7 +43,7 @@
  * <li><b>automaticRearrangeAfterDropNode</b> won't work together with <b>nodeHighlightBehavior</b> (currently a known limitation, to be address in the future <a href="https://github.com/danielcaldas/react-d3-graph/issues/261" target="_blank">GitHub issue #261</a>).</li>
  * </ul>
  * @param {boolean} [collapsible=false] - <a id="collapsible" href="#collapsible">🔗</a> 🚅🚅🚅 Allow leaf neighbors nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.
- * To see an example of this behavior you can access this sandbox link that has a specific set up to experiment this feature. <b>NOTE</b>: At this moment
+ * To see an example of this behavior you can access <a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=marvel" target="_blank" title="sandbox collapsible example">this sandbox link</a> that has a specific set up to experiment this feature. <b>NOTE</b>: At this moment
  * nodes without connections (orphan nodes) are not rendered when this property is activated (see <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/issues/129">GitHub issue #129</a>).
  * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-collapsible.gif?raw=true" width="820" height="480"/>
@@ -78,10 +78,10 @@
  * the value is set to <b>2</b> the selected node will be highlighted as well as the 1st and 2nd common degree connections.
  * @param {number} [highlightOpacity=1] - <a id="highlight-opacity" href="#highlight-opacity">🔗</a> this value is used to highlight nodes in the network. The lower
  * the value the more the less highlighted nodes will be visible (related to <i>nodeHighlightBehavior</i>).
- * @param {number} [maxZoom=8] - max zoom that can be performed against the graph.
- * @param {number} [minZoom=0.1] - min zoom that can be performed against the graph.
- * @param {number} [initialZoom=null] - initial zoom that can be set on the graph.
- * @param {boolean} [panAndZoom=false] - 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
+ * @param {number} [initialZoom=null] - <a id="max-zoom" href="#initial-zoom">🔗</a> initial zoom that can be set on the graph.
+ * @param {number} [maxZoom=8] - <a id="max-zoom" href="#max-zoom">🔗</a> max zoom that can be performed against the graph.
+ * @param {number} [minZoom=0.1] - <a id="min-zoom" href="#min-zoom">🔗</a> min zoom that can be performed against the graph.
+ * @param {boolean} [panAndZoom=false] - <a id="pan-and-zoom" href="#pan-and-zoom">🔗</a> 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
  * a similar functionality may be consulted <a target="_blank" href="https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39">here</a>.
  * @param {boolean} [staticGraph=false] - <a id="static-graph" href="#static-graph">🔗</a> when setting this value to true the graph will be completely static, thus
  * all forces and drag events upon nodes will produce not effect. Note that, if this value is true the nodes will be
@@ -146,7 +146,17 @@
  * @param {number} [node.opacity=1] - <a id="node-opacity" href="#node-opacity">🔗</a> 🔍🔍🔍 by default all nodes will have this opacity value.
  * @param {boolean} [node.renderLabel=true] - <a id="node-render-label" href="#node-render-label">🔗</a> 🔍🔍🔍 when set to false no labels will appear along side nodes in the
  * graph.
- * @param {number} [node.size=200] - <a id="node-size" href="#node-size">🔗</a> 🔍🔍🔍 defines the size of all nodes.
+ * @param {number|Object} [node.size=200] - <a id="node-size" href="#node-size">🔗</a> 🔍🔍🔍 defines the size of all nodes. When set to a number, the node will have equal height and width.</br>
+ * This can also be an object with a height and width property <b>when using custom nodes</b>.
+ * ```javascript
+ * size: 200
+ * // or
+ * size: {
+ *    height: 200,
+ *    width: 300,
+ * }
+ * ```
+ * The actual node dimensions (in px) rendered on screen will be the size value divided by 10. For example, a node size of 200 will result in a node with a height and width of 20px.
  * @param {string} [node.strokeColor="none"] - <a id="node-stroke-color" href="#node-stroke-color">🔗</a> 🔍🔍🔍  this is the stroke color that will be applied to the node if no <b>strokeColor property</b> is found inside the node itself (yes <b>you can pass a property "strokeColor" inside the node and that stroke color will override this default one</b>).
  * @param {number} [node.strokeWidth=1.5] - <a id="node-stroke-width" href="#node-stroke-width">🔗</a> 🔍🔍🔍 the width of the all node strokes.
  * @param {string} [node.svg=""] - <a id="node-svg" href="#node-svg">🔗</a> 🔍🔍🔍 render custom svg for nodes in alternative to <b>node.symbolType</b>. This svg can
