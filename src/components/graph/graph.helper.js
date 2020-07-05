@@ -33,8 +33,7 @@ import ERRORS from "../../err";
 import { isDeepEqual, isEmptyObject, merge, pick, antiPick, throwErr, logWarning } from "../../utils";
 import { computeNodeDegree } from "./collapse.helper";
 import { select as d3Select } from "d3-selection";
-import * as d3 from "d3";
-import { zoom as d3Zoom } from "d3-zoom";
+import { zoom as d3Zoom, zoomIdentity as d3ZoomIdentity } from "d3-zoom";
 
 const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
 const LINK_PROPS_WHITELIST = ["index", "source", "target", "isHidden"];
@@ -323,6 +322,7 @@ function checkForGraphConfigChanges(nextProps, currentState) {
  * selected node.
  * @param {Object} d3Node - node to focus the graph view on.
  * @param {Object} config - same as {@link #graphrenderer|config in renderGraph}.
+ * @param {string} containerElId - container element id.
  * @returns {string|undefined} transform rule to apply.
  * @memberof Graph/helper
  */
@@ -340,8 +340,9 @@ function getCenterAndZoomTransformation(d3Node, config, containerElId) {
     };
 
     const selector = d3Select(`#${containerElId}`);
+
     // in order to initilize the new position
-    selector.call(d3Zoom().transform, d3.zoomIdentity.translate(transform.x, transform.y).scale(transform.k));
+    selector.call(d3Zoom().transform, d3ZoomIdentity.translate(transform.x, transform.y).scale(transform.k));
 
     return `
     translate(${transform.x}, ${transform.y})

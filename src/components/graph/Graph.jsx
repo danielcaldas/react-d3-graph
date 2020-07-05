@@ -125,8 +125,6 @@ export default class Graph extends React.Component {
      * @returns {Object} - Focus and zoom animation properties.
      */
     _generateFocusAnimationProps = () => {
-        const { focusedNodeId } = this.state;
-
         // In case an older animation was still not complete, clear previous timeout to ensure the new one is not cancelled
         if (this.state.enableFocusAnimation) {
             if (this.focusAnimationTimeout) {
@@ -140,6 +138,7 @@ export default class Graph extends React.Component {
         }
 
         const transitionDuration = this.state.enableFocusAnimation ? this.state.config.focusAnimationDuration : 0;
+
         return {
             style: { transitionDuration: `${transitionDuration}s` },
             transform: this.state.focusTransformation,
@@ -305,6 +304,7 @@ export default class Graph extends React.Component {
 
     _zoomEnd = () => {
         const transform = d3Event.transform;
+
         this.setState({
             focusTransformation: `
                 translate(${transform.x}, ${transform.y})
@@ -630,6 +630,7 @@ export default class Graph extends React.Component {
         };
 
         const containerProps = this._generateFocusAnimationProps();
+
         return (
             <div id={`${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`}>
                 <svg name={`svg-container-${this.state.id}`} style={svgStyle} onClick={this.onClickGraph}>
