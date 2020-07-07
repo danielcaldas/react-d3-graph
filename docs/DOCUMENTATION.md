@@ -524,6 +524,9 @@ const graph = {
         This is how link strokeWidth will be calculated:`javascript strokeWidth += (linkValue * strokeWidth) / 10;` (optional, default `false`)
     -   `link.strokeWidth` **[number][181]** <a id="link-stroke-width" href="#link-stroke-width">🔗</a> 🔍🔍🔍 strokeWidth for all links. By default the actual value is obtain by the
         following expression:`javascript link.strokeWidth * (1 / transform); // transform is a zoom delta Δ value` (optional, default `1.5`)
+    -   `link.strokeDasharray` **[string][183]** <a id="link-stroke-dasharray" href="#link-stroke-dasharray">🔗</a> 🔍🔍🔍 strokeDasharray for all links.
+    -   `link.strokeDashoffset` **[number][181]** <a id="link-stroke-dashoffset" href="#link-stroke-dashoffset">🔗</a> 🔍🔍🔍 strokeDashoffset for all links.
+    -   `link.strokeLinecap` **[string][183]** <a id="link-stroke-linecap" href="#link-stroke-linecap">🔗</a> 🔍🔍🔍 strokeLinecap for all links.
     -   `link.markerHeight` **[number][181]** <a id="link-marker-height" href="#link-marker-height">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerHeight">markerHeight</a>
         property for the link arrowhead height. _Note: this property can only be set in the first mount, it does not update dynamically._ (optional, default `6`)
     -   `link.markerWidth` **[number][181]** <a id="link-marker-width" href="#link-marker-width">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerWidth">markerWidth</a>
@@ -1387,9 +1390,11 @@ components.
     },
     ...
     }
+
     ```
 
     ```
+
 -   `linkCallbacks` **[Array][185]&lt;[Function][186]>** array of callbacks for used defined event handler for link interactions.
 -   `config` **[Object][184]** an object containing rd3g consumer defined configurations [config][195] for the graph.
 -   `highlightedNode` **[string][183]** this value contains a string that represents the some currently highlighted node.

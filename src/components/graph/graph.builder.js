@@ -92,6 +92,9 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     stroke = config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color : config.link.highlightColor;
   }
 
+  let strokeDasharray = link.strokeDasharray || config.link.strokeDasharray;
+  let strokeDashoffset = link.strokeDashoffset || config.link.strokeDashoffset;
+  let strokeLinecap = link.strokeLinecap || config.link.strokeLinecap;
   let strokeWidth = (link.strokeWidth || config.link.strokeWidth) * (1 / transform);
 
   if (config.link.semanticStrokeWidth) {
@@ -142,6 +145,9 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     source,
     stroke,
     strokeWidth,
+    strokeDasharray,
+    strokeDashoffset,
+    strokeLinecap,
     target,
     onClickLink: linkCallbacks.onClickLink,
     onMouseOutLink: linkCallbacks.onMouseOutLink,
