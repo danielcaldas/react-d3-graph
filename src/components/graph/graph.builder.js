@@ -94,6 +94,9 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     }
 
     let strokeWidth = (link.strokeWidth || config.link.strokeWidth) * (1 / transform);
+    let strokeDasharray = link.strokeDasharray || config.link.strokeDasharray;
+    let strokeDashoffset = link.strokeDashoffset || config.link.strokeDashoffset;
+    let strokeLinecap = link.strokeLinecap || config.link.strokeLinecap;
 
     if (config.link.semanticStrokeWidth) {
         const linkValue = links[source][target] || links[target][source] || 1;
@@ -143,6 +146,9 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         source,
         stroke,
         strokeWidth,
+        strokeDasharray,
+        strokeDashoffset,
+        strokeLinecap,
         target,
         onClickLink: linkCallbacks.onClickLink,
         onMouseOutLink: linkCallbacks.onMouseOutLink,

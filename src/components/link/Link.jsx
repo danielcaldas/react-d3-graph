@@ -26,6 +26,9 @@ import React from "react";
  *     markerId="marker-small"
  *     strokeWidth=1.5
  *     stroke="green"
+ *     strokeDasharray="5 1"
+ *     strokeDashoffset="3"
+ *     strokeLinecap="round"
  *     className="link"
  *     opacity=1
  *     mouseCursor="pointer"
@@ -65,11 +68,14 @@ export default class Link extends React.Component {
 
     render() {
         const lineStyle = {
-            strokeWidth: this.props.strokeWidth,
             stroke: this.props.stroke,
+            strokeWidth: this.props.strokeWidth,
+            strokeDasharray: this.props.strokeDasharray,
+            strokeDashoffset: this.props.strokeDasharray,
+            strokeLinecap: this.props.strokeLinecap,
             opacity: this.props.opacity,
-            fill: "none",
             cursor: this.props.mouseCursor,
+            fill: "none",
         };
 
         const lineProps = {
