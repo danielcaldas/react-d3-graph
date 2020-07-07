@@ -13,6 +13,9 @@ exports[`Snapshot - Link Component should match snapshot 1`] = `
         "fill": "none",
         "opacity": "1",
         "stroke": "red",
+        "strokeDasharray": undefined,
+        "strokeDashoffset": undefined,
+        "strokeLinecap": undefined,
         "strokeWidth": "2",
       }
     }
