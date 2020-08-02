@@ -111,11 +111,17 @@ function _initializeNodes(graphNodes) {
 
         node.highlighted = false;
 
-        if (!Object.prototype.hasOwnProperty.call(node, "x")) {
+        // if an fx (forced x) is given, we want to use that
+        if (Object.prototype.hasOwnProperty.call(node, "fx")) {
+            node.x = node.fx;
+        } else if (!Object.prototype.hasOwnProperty.call(node, "x")) {
             node.x = 0;
         }
 
-        if (!Object.prototype.hasOwnProperty.call(node, "y")) {
+        // if an fy (forced y) is given, we want to use that
+        if (Object.prototype.hasOwnProperty.call(node, "fy")) {
+            node.y = node.fy;
+        } else if (!Object.prototype.hasOwnProperty.call(node, "y")) {
             node.y = 0;
         }
 
