@@ -101,6 +101,10 @@ import { merge, throwErr } from "../../utils";
  *      window.alert(`Node ${nodeId} moved to new position x= ${x} y= ${y}`);
  * };
  *
+ * const onZoomChange = function(newZoom) {
+ *      window.alert(`Graph is now zoomed at ${newZoom}`);
+ * };
+ *
  *
  * <Graph
  *      id='graph-id' // id is mandatory, if no id is defined rd3g will throw an error
@@ -115,7 +119,8 @@ import { merge, throwErr } from "../../utils";
  *      onMouseOverNode={onMouseOverNode}
  *      onMouseOutNode={onMouseOutNode}
  *      onMouseOverLink={onMouseOverLink}
- *      onMouseOutLink={onMouseOutLink}/>
+ *      onMouseOutLink={onMouseOutLink}
+ *      onZoomChange={onZoomChange}/>
  */
 export default class Graph extends React.Component {
     /**
@@ -302,6 +307,12 @@ export default class Graph extends React.Component {
         d3SelectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr("transform", transform);
 
         this.state.config.panAndZoom && this.setState({ transform: transform.k });
+
+        // only send zoom change events if the zoom has changed (_zoomed() also gets called when panning)
+        if (this.props.onZoomChange && this.state.previousZoom !== transform.k) {
+            this.setState({ previousZoom: transform.k });
+            this.props.onZoomChange(transform.k);
+        }
     };
 
     /**
