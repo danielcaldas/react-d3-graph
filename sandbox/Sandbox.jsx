@@ -114,6 +114,15 @@ export default class Sandbox extends React.Component {
     };
 
     /**
+     * Called when the graph's zoom changes
+     * @param {number} prevZoom Previous zoom level
+     * @param {number} newZoom New zoom level
+     */
+    onZoomChange = (prevZoom, newZoom) => {
+        this.setState({ currentZoom: newZoom });
+    };
+
+    /**
      * Play stopped animations.
      */
     restartGraphSimulation = () => this.refs.graph.restartSimulation();
@@ -350,7 +359,8 @@ export default class Sandbox extends React.Component {
                     -
                 </button>
                 <span className="container__graph-info">
-                    <b>Nodes: </b> {this.state.data.nodes.length} | <b>Links: </b> {this.state.data.links.length}
+                    <b>Nodes: </b> {this.state.data.nodes.length} | <b>Links: </b> {this.state.data.links.length} |{" "}
+                    <b>Current zoom: </b> {this.state.currentZoom ? this.state.currentZoom.toFixed(3) : ""}
                 </span>
             </div>
         );
@@ -401,6 +411,7 @@ export default class Sandbox extends React.Component {
             onMouseOverLink: this.onMouseOverLink,
             onMouseOutLink: this.onMouseOutLink,
             onNodePositionChange: this.onNodePositionChange,
+            onZoomChange: this.onZoomChange,
         };
 
         if (this.state.fullscreen) {
