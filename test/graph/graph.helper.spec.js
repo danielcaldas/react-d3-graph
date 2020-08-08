@@ -36,7 +36,10 @@ describe("Graph Helper", () => {
                 test("should create graph structure absorbing stored nodes and links behavior", () => {
                     const data = {
                         nodes: [{ id: "A" }, { id: "B" }, { id: "C" }],
-                        links: [{ source: "A", target: "B" }, { source: "C", target: "A" }],
+                        links: [
+                            { source: "A", target: "B" },
+                            { source: "C", target: "A" },
+                        ],
                     };
                     const state = {
                         nodes: {
@@ -120,7 +123,10 @@ describe("Graph Helper", () => {
                 test("should create new graph structure with nodes and links", () => {
                     const data = {
                         nodes: [{ id: "A" }, { id: "B" }, { id: "C" }],
-                        links: [{ source: "A", target: "B" }, { source: "C", target: "A" }],
+                        links: [
+                            { source: "A", target: "B" },
+                            { source: "C", target: "A" },
+                        ],
                     };
                     const state = {};
 
@@ -147,13 +153,17 @@ describe("Graph Helper", () => {
                 });
 
                 const data = {
-                    nodes: [{ id: "A" }, { id: "B" }, { id: "C" }],
-                    links: [{ source: "A", target: "B" }, { source: "C", target: "A" }],
+                    nodes: [{ id: "A" }, { id: "B" }, { id: "C" }, { id: "D", fx: 80, fy: 100 }],
+                    links: [
+                        { source: "A", target: "B" },
+                        { source: "C", target: "A" },
+                    ],
                 };
                 const state = {
                     nodes: {
                         A: { x: 20, y: 40 },
                         B: { x: 40, y: 60 },
+                        D: { fx: 80, fy: 100 },
                     },
                     links: "links",
                     nodeIndexMapping: "nodeIndexMapping",
@@ -209,6 +219,15 @@ describe("Graph Helper", () => {
                             x: 0,
                             y: 0,
                         },
+                        {
+                            // the fx and fy here are used to set the node's x and y
+                            fx: 80,
+                            fy: 100,
+                            highlighted: false,
+                            id: "D",
+                            x: 80,
+                            y: 100,
+                        },
                     ],
                     highlightedNode: "",
                     id: "id",
@@ -243,6 +262,15 @@ describe("Graph Helper", () => {
                             id: "C",
                             x: 0,
                             y: 0,
+                        },
+                        D: {
+                            _orphan: true,
+                            fx: 80,
+                            fy: 100,
+                            highlighted: false,
+                            id: "D",
+                            x: 80,
+                            y: 100,
                         },
                     },
                     simulation: {
