@@ -18,7 +18,7 @@ import {
     initializeGraphState,
 } from "./graph.helper";
 import { renderGraph } from "./graph.renderer";
-import { merge, throwErr } from "../../utils";
+import { merge, debounce, throwErr } from "../../utils";
 
 /**
  * Graph component is the main component for react-d3-graph components, its interface allows its user
@@ -101,8 +101,11 @@ import { merge, throwErr } from "../../utils";
  *      window.alert(`Node ${nodeId} moved to new position x= ${x} y= ${y}`);
  * };
  *
- * const onZoomChange = function(newZoom) {
- *      window.alert(`Graph is now zoomed at ${newZoom}`);
+ * // Callback that's called whenever the graph is zoomed in/out
+ * // @param {number} previousZoom the previous graph zoom
+ * // @param {number} newZoom the new graph zoom
+ * const onZoomChange = function(previousZoom, newZoom) {
+ *      window.alert(`Graph is now zoomed at ${newZoom} from ${previousZoom}`);
  * };
  *
  *
@@ -309,9 +312,9 @@ export default class Graph extends React.Component {
         this.state.config.panAndZoom && this.setState({ transform: transform.k });
 
         // only send zoom change events if the zoom has changed (_zoomed() also gets called when panning)
-        if (this.props.onZoomChange && this.state.previousZoom !== transform.k) {
+        if (this.debouncedOnZoomChange && this.state.previousZoom !== transform.k) {
+            this.debouncedOnZoomChange(this.state.previousZoom, transform.k);
             this.setState({ previousZoom: transform.k });
-            this.props.onZoomChange(transform.k);
         }
     };
 
@@ -536,6 +539,12 @@ export default class Graph extends React.Component {
         const d3FocusedNode = this.state.d3Nodes.find(node => `${node.id}` === `${focusedNodeId}`);
         const focusTransformation = getCenterAndZoomTransformation(d3FocusedNode, this.state.config);
         const enableFocusAnimation = this.props.data.focusedNodeId !== nextProps.data.focusedNodeId;
+
+        // if we're given a function to call when the zoom changes, we create a debounced version of it
+        // this is because this function gets called in very rapid succession when zooming
+        if (nextProps.onZoomChange) {
+            this.debouncedOnZoomChange = debounce(nextProps.onZoomChange, 100);
+        }
 
         this.setState({
             ...state,
