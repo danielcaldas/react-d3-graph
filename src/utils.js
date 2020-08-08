@@ -173,6 +173,26 @@ function antiPick(o, props = []) {
 }
 
 /**
+ * Given a function, returns a function that will only be called after it stops
+ * being called for `time` seconds.
+ * @param {function} fn Function to debounce
+ * @param {number} time Milliseconds to wait before invoking the function if it is called repeatedly
+ * @returns {function} Version of function that will only be called every `time` milliseconds
+ */
+function debounce(fn, time) {
+    let timer;
+
+    return function exec(...args) {
+        const later = () => {
+            clearTimeout(timer);
+            fn(...args);
+        };
+        timer && clearTimeout(timer);
+        timer = setTimeout(later, time);
+    };
+}
+
+/**
  * Formats an error message with fallbacks for the given parameters.
  * @param {string} component component name.
  * @param {string} msg message to log.
@@ -218,4 +238,4 @@ function logWarning(component, msg) {
     console.warn(warning);
 }
 
-export { isDeepEqual, isEmptyObject, deepClone, merge, pick, antiPick, throwErr, logError, logWarning };
+export { isDeepEqual, isEmptyObject, deepClone, merge, pick, antiPick, debounce, throwErr, logError, logWarning };
