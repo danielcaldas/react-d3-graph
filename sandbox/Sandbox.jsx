@@ -360,7 +360,7 @@ export default class Sandbox extends React.Component {
                 </button>
                 <span className="container__graph-info">
                     <b>Nodes: </b> {this.state.data.nodes.length} | <b>Links: </b> {this.state.data.links.length} |{" "}
-                    <b>Current zoom: </b> {this.state.currentZoom ? this.state.currentZoom.toFixed(3) : ""}
+                    <b>Zoom: </b> {this.state.currentZoom ? this.state.currentZoom.toFixed(3) : "-"}
                 </span>
             </div>
         );

@@ -511,6 +511,7 @@ export default class Graph extends React.Component {
         this.nodeClickTimer = null;
         this.isDraggingNode = false;
         this.state = initializeGraphState(this.props, this.state);
+        this.debouncedOnZoomChange = this.props.onZoomChange ? debounce(this.props.onZoomChange, 100) : null;
     }
 
     /**
