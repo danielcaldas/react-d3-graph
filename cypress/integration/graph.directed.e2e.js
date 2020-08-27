@@ -3,6 +3,7 @@ const SANDBOX_URL = Cypress.env("SANDBOX_URL");
 const LinkPO = require("../page-objects/link.po");
 const NodePO = require("../page-objects/node.po");
 const SandboxPO = require("../page-objects/sandbox.po");
+const MarkerPO = require("../page-objects/marker.po");
 
 describe("[rd3g-graph-directed]", function() {
     beforeEach(function() {
@@ -168,6 +169,83 @@ describe("[rd3g-graph-directed]", function() {
             this.link14PO.hasMarker();
             this.link34PO.getLine().should("be.visible");
             this.link34PO.hasMarker();
+        });
+    });
+
+    describe("check graph markers", function() {
+        beforeEach(function() {
+            this.markerSmall = new MarkerPO("marker-small");
+            this.markerSmallHighlighted = new MarkerPO("marker-small-highlighted");
+            this.markerMedium = new MarkerPO("marker-medium");
+            this.markerMediumHighlighted = new MarkerPO("marker-medium-highlighted");
+            this.markerLarge = new MarkerPO("marker-large");
+            this.markerLargeHighlighted = new MarkerPO("marker-large-highlighted");
+        });
+
+        afterEach(function() {
+            // Reset link.color and link.highlightColor
+            cy.contains("link.color").scrollIntoView();
+            this.sandboxPO
+                .getFieldInput("link.color")
+                .clear()
+                .type("#d3d3d3");
+
+            cy.contains("link.highlightColor").scrollIntoView();
+            this.sandboxPO
+                .getFieldInput("link.highlightColor")
+                .clear()
+                .type("blue");
+        });
+
+        it("should correctly render inital marker colors", function() {
+            this.markerSmall.getColor().should("eq", "#d3d3d3");
+            this.markerSmallHighlighted.getColor().should("eq", "blue");
+            this.markerMedium.getColor().should("eq", "#d3d3d3");
+            this.markerMediumHighlighted.getColor().should("eq", "blue");
+            this.markerLarge.getColor().should("eq", "#d3d3d3");
+            this.markerLargeHighlighted.getColor().should("eq", "blue");
+        });
+
+        it("should correctly render marker colors based on current link.color and link.highlightColor", function() {
+            cy.contains("link.color").scrollIntoView();
+            this.sandboxPO
+                .getFieldInput("link.color")
+                .clear()
+                .type("rgba(255,0,0,0.9)");
+
+            cy.contains("link.highlightColor").scrollIntoView();
+            this.sandboxPO
+                .getFieldInput("link.highlightColor")
+                .clear()
+                .type("green");
+
+            this.markerSmall.getColor().should("eq", "rgba(255,0,0,0.9)");
+            this.markerSmallHighlighted.getColor().should("eq", "green");
+            this.markerMedium.getColor().should("eq", "rgba(255,0,0,0.9)");
+            this.markerMediumHighlighted.getColor().should("eq", "green");
+            this.markerLarge.getColor().should("eq", "rgba(255,0,0,0.9)");
+            this.markerLargeHighlighted.getColor().should("eq", "green");
+        });
+
+        it("should correctly render marker colors when link.highlightColor is SAME", function() {
+            cy.contains("link.color").scrollIntoView();
+            this.sandboxPO
+                .getFieldInput("link.color")
+                .clear()
+                .type("green");
+
+            cy.contains("link.highlightColor").scrollIntoView();
+            this.sandboxPO
+                .getFieldInput("link.highlightColor")
+                .clear()
+                .type("SAME");
+
+            this.markerSmall.getColor().should("eq", "green");
+            this.markerSmallHighlighted.getColor().should("eq", "green");
+            this.markerMedium.getColor().should("eq", "green");
+            this.markerMediumHighlighted.getColor().should("eq", "green");
+            this.markerLarge.getColor().should("eq", "green");
+            this.markerLargeHighlighted.getColor().should("eq", "green");
         });
     });
 });
