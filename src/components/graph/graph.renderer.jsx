@@ -99,31 +99,37 @@ function _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlighted
  * @memberof Graph/renderer
  */
 function _renderDefs() {
-    let cachedDefs;
+    let markerCache = {};
 
     return config => {
-        if (cachedDefs) {
-            return cachedDefs;
+        const highlightColor =
+            !config.link.highlightColor || config.link.highlightColor === "SAME"
+                ? config.link.color
+                : config.link.highlightColor;
+        const color = config.link.color;
+
+        const key = `${color}___${highlightColor}`;
+
+        if (!markerCache[key]) {
+            const { small, medium, large } = getMarkerSize(config);
+            const markerProps = {
+                markerWidth: config.link.markerWidth,
+                markerHeight: config.link.markerHeight,
+            };
+
+            markerCache[key] = (
+                <defs>
+                    <Marker id={MARKERS.MARKER_S} refX={small} fill={color} {...markerProps} />
+                    <Marker id={MARKERS.MARKER_SH} refX={small} fill={highlightColor} {...markerProps} />
+                    <Marker id={MARKERS.MARKER_M} refX={medium} fill={color} {...markerProps} />
+                    <Marker id={MARKERS.MARKER_MH} refX={medium} fill={highlightColor} {...markerProps} />
+                    <Marker id={MARKERS.MARKER_L} refX={large} fill={color} {...markerProps} />
+                    <Marker id={MARKERS.MARKER_LH} refX={large} fill={highlightColor} {...markerProps} />
+                </defs>
+            );
         }
 
-        const { small, medium, large } = getMarkerSize(config);
-        const markerProps = {
-            markerWidth: config.link.markerWidth,
-            markerHeight: config.link.markerHeight,
-        };
-
-        cachedDefs = (
-            <defs>
-                <Marker id={MARKERS.MARKER_S} refX={small} fill={config.link.color} {...markerProps} />
-                <Marker id={MARKERS.MARKER_SH} refX={small} fill={config.link.highlightColor} {...markerProps} />
-                <Marker id={MARKERS.MARKER_M} refX={medium} fill={config.link.color} {...markerProps} />
-                <Marker id={MARKERS.MARKER_MH} refX={medium} fill={config.link.highlightColor} {...markerProps} />
-                <Marker id={MARKERS.MARKER_L} refX={large} fill={config.link.color} {...markerProps} />
-                <Marker id={MARKERS.MARKER_LH} refX={large} fill={config.link.highlightColor} {...markerProps} />
-            </defs>
-        );
-
-        return cachedDefs;
+        return markerCache[key];
     };
 }
 
