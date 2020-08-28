@@ -179,7 +179,9 @@
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2 id="config-link"><a href="#config-link">#</a> Link level configurations</h2>
  * @param {string} [link.color="#d3d3d3"] - <a id="link-color" href="#link-color">🔗</a> 🔍🔍🔍 the color for links
- * (from version 1.3.0 this property can be configured at link level).
+ * (from version 1.3.0 this property can be configured at link level). <b>Note:</b> there's a current limitation where arrow markers in directed graphs won't have the same color as the link. Again this issue
+ * only occurs for individually colored links, if links are colored globally through `link.color`
+ * this won't be an issue <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/pull/361">#361</a>.
  * @param {string} [link.fontColor="black"] - <a id="link-font-color" href="#link-font-color">🔗</a> 🔍🔍🔍 fill color for link's <text> svg label.
  * @param {number} [link.fontSize=8] - <a id="link-font-size" href="#link-font-size">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control">font-size</a>
  * property for all links' labels.
