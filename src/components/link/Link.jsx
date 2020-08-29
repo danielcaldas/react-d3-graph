@@ -54,14 +54,16 @@ export default class Link extends React.Component {
      * @returns {undefined}
      */
     handleOnMouseOverLink = () =>
-        this.props.onMouseOverLink && this.props.onMouseOverLink(this.props.source, this.props.target);
+        // NOTE: this.props.id is optional, it might be undefined
+        this.props.onMouseOverLink && this.props.onMouseOverLink(this.props.source, this.props.target, this.props.id);
 
     /**
      * Handle mouse out link event.
      * @returns {undefined}
      */
     handleOnMouseOutLink = () =>
-        this.props.onMouseOutLink && this.props.onMouseOutLink(this.props.source, this.props.target);
+        // NOTE: this.props.id is optional, it might be undefined
+        this.props.onMouseOutLink && this.props.onMouseOutLink(this.props.source, this.props.target, this.props.id);
 
     render() {
         const lineStyle = {

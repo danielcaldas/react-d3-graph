@@ -20,12 +20,13 @@ function straightLineRadius() {
  * @param {number} y1 - y value for point 1
  * @param {number} x2 - y value for point 2
  * @param {number} y2 - y value for point 2
+ * @param {number} delta - additional factor to tweak curvature.
  * @returns{number} value of radius.
  * @memberof Link/helper
  */
-function smoothCurveRadius(x1, y1, x2, y2) {
-    const dx = x2 - x1;
-    const dy = y2 - y1;
+function smoothCurveRadius(x1, y1, x2, y2, delta = 1) {
+    const dx = (x2 - x1) * delta;
+    const dy = (y2 - y1) * delta;
 
     return Math.sqrt(dx * dx + dy * dy);
 }
@@ -57,22 +58,60 @@ function getRadiusStrategy(type) {
     return RADIUS_STRATEGIES[type] || RADIUS_STRATEGIES[LINE_TYPES.STRAIGHT];
 }
 
+const cacheLinksCount = new Map();
+const cacheIdCount = new Map();
+const _key = (s, t) => `${s}:${t}`;
+const addLink = (s, t, id) => {
+    if (!s || !t || !id) {
+        return;
+    }
+    const k = _key(s, t);
+    let c = 0;
+    if (cacheLinksCount.has(k)) {
+        const s = cacheLinksCount.get(k);
+        s.add(id);
+        c = s.size;
+        cacheLinksCount.set(k, s);
+    } else {
+        const s = new Set();
+        s.add(id);
+        c = s.size;
+        cacheLinksCount.set(k, s);
+    }
+    if (!cacheIdCount.has(id)) {
+        cacheIdCount.set(id, c);
+    }
+};
+const getCount = id => (id ? cacheIdCount.get(id) : undefined);
+
 /**
  * This method returns the path definition for a given link base on the line type
  * and the link source and target.
  * {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d|d attribute mdn}
  * @param {Object} link - the link to build the path definition
+ * @param {string} link.id - optional id that client might set for a link
  * @param {Object} link.source - link source
  * @param {Object} link.target - link target
  * @param {string} type - the link line type
  * @returns {string} the path definition for the requested link
  * @memberof Link/helper
  */
-function buildLinkPathDefinition({ source = {}, target = {} }, type = LINE_TYPES.STRAIGHT) {
+function buildLinkPathDefinition({ id, source, target }, type = LINE_TYPES.STRAIGHT) {
+    addLink(source.source, target.target, id);
+
     const { x: sx, y: sy } = source;
     const { x: tx, y: ty } = target;
     const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
-    const radius = getRadiusStrategy(validType)(sx, sy, tx, ty);
+    let computeRadius = getRadiusStrategy(validType);
+    const redundantCount = getCount(id);
+
+    if (id && redundantCount > 1) {
+        // for further redundant links we automatically compute the
+        // curvature radius with the CURVE_SMOOTH function
+        computeRadius = getRadiusStrategy(LINE_TYPES.CURVE_SMOOTH);
+    }
+
+    let radius = computeRadius(sx, sy, tx, ty, redundantCount);
 
     return `M${sx},${sy}A${radius},${radius} 0 0,1 ${tx},${ty}`;
 }

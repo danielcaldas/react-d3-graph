@@ -95,8 +95,8 @@ export default class Sandbox extends React.Component {
 
     onMouseOutNode = id => console.info(`Do something when mouse is out of node (${id})`);
 
-    onMouseOverLink = (source, target) =>
-        console.info(`Do something when mouse is over link between ${source} and ${target}`);
+    onMouseOverLink = (source, target, id) =>
+        console.info(`Do something when mouse is over link between ${source} and ${target} (id: ${id})`);
 
     onMouseOutLink = (source, target) =>
         console.info(`Do something when mouse is out of link between ${source} and ${target}`);

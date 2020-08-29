@@ -254,26 +254,6 @@ function _validateGraphData(data) {
 const NODE_PROPERTIES_DISCARD_TO_COMPARE = ["x", "y", "vx", "vy", "index"];
 
 /**
- * Picks the id.
- * @param {Object} o object to pick from.
- * @returns {Object} new object with id property only.
- * @memberof Graph/helper
- */
-function _pickId(o) {
-    return pick(o, ["id"]);
-}
-
-/**
- * Picks source and target.
- * @param {Object} o object to pick from.
- * @returns {Object} new object with source and target only.
- * @memberof Graph/helper
- */
-function _pickSourceAndTarget(o) {
-    return pick(o, ["source", "target"]);
-}
-
-/**
  * This function checks for graph elements (nodes and links) changes, in two different
  * levels of significance, updated elements (whether some property has changed in some
  * node or link) and new elements (whether some new elements or added/removed from the graph).
@@ -298,8 +278,14 @@ function checkForGraphElementsChanges(nextProps, currentState) {
     const newGraphElements =
         nextNodes.length !== stateD3Nodes.length ||
         nextLinks.length !== stateD3Links.length ||
-        !isDeepEqual(nextNodes.map(_pickId), stateD3Nodes.map(_pickId)) ||
-        !isDeepEqual(nextLinks.map(_pickSourceAndTarget), stateD3Links.map(_pickSourceAndTarget));
+        !isDeepEqual(
+            nextNodes.map(o => o.id),
+            stateD3Nodes.map(o => o.id)
+        ) ||
+        !isDeepEqual(
+            nextLinks.map(o => pick(o, ["source", "target"])),
+            stateD3Links.map(o => pick(o, ["source", "target"]))
+        );
 
     return { graphElementsUpdated, newGraphElements };
 }

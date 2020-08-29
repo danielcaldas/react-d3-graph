@@ -10,6 +10,8 @@ module.exports = {
         window: true,
         __dirname: true,
         process: true,
+        Map: true,
+        Set: true,
     },
     parser: "babel-eslint",
     parserOptions: {
