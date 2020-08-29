@@ -4,26 +4,31 @@ module.exports = {
             id: "12",
             source: 1,
             target: 2,
+            color: "green",
         },
         {
             id: "122",
             source: 1,
             target: 2,
+            color: "red",
         },
         {
             id: "123",
             source: 1,
             target: 2,
+            color: "yellow",
         },
         {
             id: "124",
             source: 1,
             target: 2,
+            color: "blue",
         },
         {
             id: "125",
             source: 1,
             target: 2,
+            color: "purple",
         },
         {
             id: "131",
