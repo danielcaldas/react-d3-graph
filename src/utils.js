@@ -17,13 +17,13 @@ const MAX_DEPTH = 20;
  * @memberof utils
  */
 function _isPropertyNestedObject(o, k) {
-    return (
-        !!o &&
-        Object.prototype.hasOwnProperty.call(o, k) &&
-        typeof o[k] === "object" &&
-        o[k] !== null &&
-        !isEmptyObject(o[k])
-    );
+  return (
+    !!o &&
+    Object.prototype.hasOwnProperty.call(o, k) &&
+    typeof o[k] === "object" &&
+    o[k] !== null &&
+    !isEmptyObject(o[k])
+  );
 }
 
 /**
@@ -35,42 +35,42 @@ function _isPropertyNestedObject(o, k) {
  * @memberof utils
  */
 function isDeepEqual(o1, o2, _depth = 0) {
-    let diffs = [];
+  let diffs = [];
 
-    if (_depth === 0 && o1 === o2) {
-        return true;
+  if (_depth === 0 && o1 === o2) {
+    return true;
+  }
+
+  if ((isEmptyObject(o1) && !isEmptyObject(o2)) || (!isEmptyObject(o1) && isEmptyObject(o2))) {
+    return false;
+  }
+
+  const o1Keys = Object.keys(o1);
+  const o2Keys = Object.keys(o2);
+
+  if (o1Keys.length !== o2Keys.length) {
+    return false;
+  }
+
+  for (let k of o1Keys) {
+    const nestedO = _isPropertyNestedObject(o1, k) && _isPropertyNestedObject(o2, k);
+
+    if (nestedO && _depth < MAX_DEPTH) {
+      diffs.push(isDeepEqual(o1[k], o2[k], _depth + 1));
+    } else {
+      const r =
+        (isEmptyObject(o1[k]) && isEmptyObject(o2[k])) ||
+        (Object.prototype.hasOwnProperty.call(o2, k) && o2[k] === o1[k]);
+
+      diffs.push(r);
+
+      if (!r) {
+        break;
+      }
     }
+  }
 
-    if ((isEmptyObject(o1) && !isEmptyObject(o2)) || (!isEmptyObject(o1) && isEmptyObject(o2))) {
-        return false;
-    }
-
-    const o1Keys = Object.keys(o1);
-    const o2Keys = Object.keys(o2);
-
-    if (o1Keys.length !== o2Keys.length) {
-        return false;
-    }
-
-    for (let k of o1Keys) {
-        const nestedO = _isPropertyNestedObject(o1, k) && _isPropertyNestedObject(o2, k);
-
-        if (nestedO && _depth < MAX_DEPTH) {
-            diffs.push(isDeepEqual(o1[k], o2[k], _depth + 1));
-        } else {
-            const r =
-                (isEmptyObject(o1[k]) && isEmptyObject(o2[k])) ||
-                (Object.prototype.hasOwnProperty.call(o2, k) && o2[k] === o1[k]);
-
-            diffs.push(r);
-
-            if (!r) {
-                break;
-            }
-        }
-    }
-
-    return diffs.indexOf(false) === -1;
+  return diffs.indexOf(false) === -1;
 }
 
 /**
@@ -81,7 +81,7 @@ function isDeepEqual(o1, o2, _depth = 0) {
  * @memberof utils
  */
 function isEmptyObject(o) {
-    return !!o && typeof o === "object" && !Object.keys(o).length;
+  return !!o && typeof o === "object" && !Object.keys(o).length;
 }
 
 /**
@@ -94,15 +94,15 @@ function isEmptyObject(o) {
  * @memberof utils
  */
 function deepClone(o, _clone = {}, _depth = 0) {
-    const oKeys = Object.keys(o);
+  const oKeys = Object.keys(o);
 
-    for (let k of oKeys) {
-        const nested = _isPropertyNestedObject(o, k);
+  for (let k of oKeys) {
+    const nested = _isPropertyNestedObject(o, k);
 
-        _clone[k] = nested && _depth < MAX_DEPTH ? deepClone(o[k], {}, _depth + 1) : o[k];
-    }
+    _clone[k] = nested && _depth < MAX_DEPTH ? deepClone(o[k], {}, _depth + 1) : o[k];
+  }
 
-    return _clone;
+  return _clone;
 }
 
 /**
@@ -116,29 +116,28 @@ function deepClone(o, _clone = {}, _depth = 0) {
  * @memberof utils
  */
 function merge(o1 = {}, o2 = {}, _depth = 0) {
-    let o = {};
+  let o = {};
 
-    if (Object.keys(o1 || {}).length === 0) {
-        return o2 && !isEmptyObject(o2) ? o2 : {};
+  if (Object.keys(o1 || {}).length === 0) {
+    return o2 && !isEmptyObject(o2) ? o2 : {};
+  }
+
+  for (let k of Object.keys(o1)) {
+    const nestedO = !!(o2[k] && typeof o2[k] === "object" && typeof o1[k] === "object" && _depth < MAX_DEPTH);
+
+    if (nestedO) {
+      const r = merge(o1[k], o2[k], _depth + 1);
+
+      o[k] =
+        Object.prototype.hasOwnProperty.call(o1[k], "length") && Object.prototype.hasOwnProperty.call(o2[k], "length")
+          ? Object.keys(r).map(rk => r[rk])
+          : r;
+    } else {
+      o[k] = Object.prototype.hasOwnProperty.call(o2, k) ? o2[k] : o1[k];
     }
+  }
 
-    for (let k of Object.keys(o1)) {
-        const nestedO = !!(o2[k] && typeof o2[k] === "object" && typeof o1[k] === "object" && _depth < MAX_DEPTH);
-
-        if (nestedO) {
-            const r = merge(o1[k], o2[k], _depth + 1);
-
-            o[k] =
-                Object.prototype.hasOwnProperty.call(o1[k], "length") &&
-                Object.prototype.hasOwnProperty.call(o2[k], "length")
-                    ? Object.keys(r).map(rk => r[rk])
-                    : r;
-        } else {
-            o[k] = Object.prototype.hasOwnProperty.call(o2, k) ? o2[k] : o1[k];
-        }
-    }
-
-    return o;
+  return o;
 }
 
 /**
@@ -150,13 +149,13 @@ function merge(o1 = {}, o2 = {}, _depth = 0) {
  * @memberof utils
  */
 function pick(o, props = []) {
-    return props.reduce((acc, k) => {
-        if (Object.prototype.hasOwnProperty.call(o, k)) {
-            acc[k] = o[k];
-        }
+  return props.reduce((acc, k) => {
+    if (Object.prototype.hasOwnProperty.call(o, k)) {
+      acc[k] = o[k];
+    }
 
-        return acc;
-    }, {});
+    return acc;
+  }, {});
 }
 
 /**
@@ -167,9 +166,9 @@ function pick(o, props = []) {
  * @memberof utils
  */
 function antiPick(o, props = []) {
-    const wanted = Object.keys(o).filter(k => !props.includes(k));
+  const wanted = Object.keys(o).filter(k => !props.includes(k));
 
-    return pick(o, wanted);
+  return pick(o, wanted);
 }
 
 /**
@@ -180,16 +179,16 @@ function antiPick(o, props = []) {
  * @returns {function} Version of function that will only be called every `time` milliseconds
  */
 function debounce(fn, time) {
-    let timer;
+  let timer;
 
-    return function exec(...args) {
-        const later = () => {
-            clearTimeout(timer);
-            fn(...args);
-        };
-        timer && clearTimeout(timer);
-        timer = setTimeout(later, time);
+  return function exec(...args) {
+    const later = () => {
+      clearTimeout(timer);
+      fn(...args);
     };
+    timer && clearTimeout(timer);
+    timer = setTimeout(later, time);
+  };
 }
 
 /**
@@ -200,7 +199,7 @@ function debounce(fn, time) {
  * @memberof utils
  */
 function buildFormattedErrorMessage(component = "N/A", msg = "N/A") {
-    return `react-d3-graph :: ${component} :: ${msg}`;
+  return `react-d3-graph :: ${component} :: ${msg}`;
 }
 
 /**
@@ -211,7 +210,7 @@ function buildFormattedErrorMessage(component = "N/A", msg = "N/A") {
  * @memberof utils
  */
 function throwErr(component, msg) {
-    throw Error(buildFormattedErrorMessage(component, msg));
+  throw Error(buildFormattedErrorMessage(component, msg));
 }
 
 /**
@@ -222,7 +221,7 @@ function throwErr(component, msg) {
  * @memberof utils
  */
 function logError(component, msg) {
-    console.error(buildFormattedErrorMessage(component, msg));
+  console.error(buildFormattedErrorMessage(component, msg));
 }
 
 /**
@@ -233,9 +232,9 @@ function logError(component, msg) {
  * @memberof utils
  */
 function logWarning(component, msg) {
-    const warning = `react-d3-graph :: ${component} :: ${msg}`;
+  const warning = `react-d3-graph :: ${component} :: ${msg}`;
 
-    console.warn(warning);
+  console.warn(warning);
 }
 
 export { isDeepEqual, isEmptyObject, deepClone, merge, pick, antiPick, debounce, throwErr, logError, logWarning };

@@ -1,22 +1,22 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "allowJs": true,
-        "outDir": "out"
-    },
-    "exclude": [
-        "cypress",
-        "dist",
-        "docs",
-        "gen-docs",
-        "lib",
-        "node_modules",
-        "test",
-        "sandbox/rd3g.sandbox.bundle.js",
-        "sandbox/rd3g.sandbox.bundle.js.map"
-    ],
-    "compileOnSave": true,
-    "typingOptions": {
-        "enableAutoDiscovery": true
-    }
+  "compilerOptions": {
+    "module": "commonjs",
+    "allowJs": true,
+    "outDir": "out"
+  },
+  "exclude": [
+    "cypress",
+    "dist",
+    "docs",
+    "gen-docs",
+    "lib",
+    "node_modules",
+    "test",
+    "sandbox/rd3g.sandbox.bundle.js",
+    "sandbox/rd3g.sandbox.bundle.js.map"
+  ],
+  "compileOnSave": true,
+  "typingOptions": {
+    "enableAutoDiscovery": true
+  }
 }

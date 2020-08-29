@@ -11,7 +11,7 @@ import { LINE_TYPES } from "./link.const";
  * @memberof Link/helper
  */
 function straightLineRadius() {
-    return 0;
+  return 0;
 }
 
 /**
@@ -24,10 +24,10 @@ function straightLineRadius() {
  * @memberof Link/helper
  */
 function smoothCurveRadius(x1, y1, x2, y2) {
-    const dx = x2 - x1;
-    const dy = y2 - y1;
+  const dx = x2 - x1;
+  const dy = y2 - y1;
 
-    return Math.sqrt(dx * dx + dy * dy);
+  return Math.sqrt(dx * dx + dy * dy);
 }
 
 /**
@@ -36,13 +36,13 @@ function smoothCurveRadius(x1, y1, x2, y2) {
  * @memberof Link/helper
  */
 function fullCurveRadius() {
-    return 1;
+  return 1;
 }
 
 const RADIUS_STRATEGIES = {
-    [LINE_TYPES.STRAIGHT]: straightLineRadius,
-    [LINE_TYPES.CURVE_SMOOTH]: smoothCurveRadius,
-    [LINE_TYPES.CURVE_FULL]: fullCurveRadius,
+  [LINE_TYPES.STRAIGHT]: straightLineRadius,
+  [LINE_TYPES.CURVE_SMOOTH]: smoothCurveRadius,
+  [LINE_TYPES.CURVE_FULL]: fullCurveRadius,
 };
 
 /**
@@ -54,7 +54,7 @@ const RADIUS_STRATEGIES = {
  * @memberof Link/helper
  */
 function getRadiusStrategy(type) {
-    return RADIUS_STRATEGIES[type] || RADIUS_STRATEGIES[LINE_TYPES.STRAIGHT];
+  return RADIUS_STRATEGIES[type] || RADIUS_STRATEGIES[LINE_TYPES.STRAIGHT];
 }
 
 /**
@@ -69,12 +69,12 @@ function getRadiusStrategy(type) {
  * @memberof Link/helper
  */
 function buildLinkPathDefinition({ source = {}, target = {} }, type = LINE_TYPES.STRAIGHT) {
-    const { x: sx, y: sy } = source;
-    const { x: tx, y: ty } = target;
-    const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
-    const radius = getRadiusStrategy(validType)(sx, sy, tx, ty);
+  const { x: sx, y: sy } = source;
+  const { x: tx, y: ty } = target;
+  const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
+  const radius = getRadiusStrategy(validType)(sx, sy, tx, ty);
 
-    return `M${sx},${sy}A${radius},${radius} 0 0,1 ${tx},${ty}`;
+  return `M${sx},${sy}A${radius},${radius} 0 0,1 ${tx},${ty}`;
 }
 
 export { buildLinkPathDefinition };

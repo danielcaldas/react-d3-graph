@@ -30,30 +30,30 @@ import { getMarkerSize } from "../marker/marker.helper";
  * @memberof Graph/renderer
  */
 function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
-    let outLinks = links;
+  let outLinks = links;
 
-    if (config.collapsible) {
-        outLinks = outLinks.filter(({ isHidden }) => !isHidden);
-    }
+  if (config.collapsible) {
+    outLinks = outLinks.filter(({ isHidden }) => !isHidden);
+  }
 
-    return outLinks.map(link => {
-        const { source, target } = link;
-        const sourceId = getId(source);
-        const targetId = getId(target);
-        const key = `${sourceId}${CONST.COORDS_SEPARATOR}${targetId}`;
-        const props = buildLinkProps(
-            { ...link, source: `${sourceId}`, target: `${targetId}` },
-            nodes,
-            linksMatrix,
-            config,
-            linkCallbacks,
-            `${highlightedNode}`,
-            highlightedLink,
-            transform
-        );
+  return outLinks.map(link => {
+    const { source, target } = link;
+    const sourceId = getId(source);
+    const targetId = getId(target);
+    const key = `${sourceId}${CONST.COORDS_SEPARATOR}${targetId}`;
+    const props = buildLinkProps(
+      { ...link, source: `${sourceId}`, target: `${targetId}` },
+      nodes,
+      linksMatrix,
+      config,
+      linkCallbacks,
+      `${highlightedNode}`,
+      highlightedLink,
+      transform
+    );
 
-        return <Link key={key} id={key} {...props} />;
-    });
+    return <Link key={key} id={key} {...props} />;
+  });
 }
 
 /**
@@ -71,24 +71,24 @@ function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highligh
  * @memberof Graph/renderer
  */
 function _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
-    let outNodes = Object.keys(nodes);
+  let outNodes = Object.keys(nodes);
 
-    if (config.collapsible) {
-        outNodes = outNodes.filter(nodeId => isNodeVisible(nodeId, nodes, linksMatrix));
-    }
+  if (config.collapsible) {
+    outNodes = outNodes.filter(nodeId => isNodeVisible(nodeId, nodes, linksMatrix));
+  }
 
-    return outNodes.map(nodeId => {
-        const props = buildNodeProps(
-            { ...nodes[nodeId], id: `${nodeId}` },
-            config,
-            nodeCallbacks,
-            highlightedNode,
-            highlightedLink,
-            transform
-        );
+  return outNodes.map(nodeId => {
+    const props = buildNodeProps(
+      { ...nodes[nodeId], id: `${nodeId}` },
+      config,
+      nodeCallbacks,
+      highlightedNode,
+      highlightedLink,
+      transform
+    );
 
-        return <Node key={nodeId} {...props} />;
-    });
+    return <Node key={nodeId} {...props} />;
+  });
 }
 
 /**
@@ -99,38 +99,38 @@ function _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlighted
  * @memberof Graph/renderer
  */
 function _renderDefs() {
-    let markerCache = {};
+  let markerCache = {};
 
-    return config => {
-        const highlightColor =
-            !config.link.highlightColor || config.link.highlightColor === "SAME"
-                ? config.link.color
-                : config.link.highlightColor;
-        const color = config.link.color;
+  return config => {
+    const highlightColor =
+      !config.link.highlightColor || config.link.highlightColor === "SAME"
+        ? config.link.color
+        : config.link.highlightColor;
+    const color = config.link.color;
 
-        const key = `${color}___${highlightColor}`;
+    const key = `${color}___${highlightColor}`;
 
-        if (!markerCache[key]) {
-            const { small, medium, large } = getMarkerSize(config);
-            const markerProps = {
-                markerWidth: config.link.markerWidth,
-                markerHeight: config.link.markerHeight,
-            };
+    if (!markerCache[key]) {
+      const { small, medium, large } = getMarkerSize(config);
+      const markerProps = {
+        markerWidth: config.link.markerWidth,
+        markerHeight: config.link.markerHeight,
+      };
 
-            markerCache[key] = (
-                <defs>
-                    <Marker id={MARKERS.MARKER_S} refX={small} fill={color} {...markerProps} />
-                    <Marker id={MARKERS.MARKER_SH} refX={small} fill={highlightColor} {...markerProps} />
-                    <Marker id={MARKERS.MARKER_M} refX={medium} fill={color} {...markerProps} />
-                    <Marker id={MARKERS.MARKER_MH} refX={medium} fill={highlightColor} {...markerProps} />
-                    <Marker id={MARKERS.MARKER_L} refX={large} fill={color} {...markerProps} />
-                    <Marker id={MARKERS.MARKER_LH} refX={large} fill={highlightColor} {...markerProps} />
-                </defs>
-            );
-        }
+      markerCache[key] = (
+        <defs>
+          <Marker id={MARKERS.MARKER_S} refX={small} fill={color} {...markerProps} />
+          <Marker id={MARKERS.MARKER_SH} refX={small} fill={highlightColor} {...markerProps} />
+          <Marker id={MARKERS.MARKER_M} refX={medium} fill={color} {...markerProps} />
+          <Marker id={MARKERS.MARKER_MH} refX={medium} fill={highlightColor} {...markerProps} />
+          <Marker id={MARKERS.MARKER_L} refX={large} fill={color} {...markerProps} />
+          <Marker id={MARKERS.MARKER_LH} refX={large} fill={highlightColor} {...markerProps} />
+        </defs>
+      );
+    }
 
-        return markerCache[key];
-    };
+    return markerCache[key];
+  };
 }
 
 /**
@@ -183,30 +183,21 @@ const _memoizedRenderDefs = _renderDefs();
  * @memberof Graph/renderer
  */
 function renderGraph(
-    nodes,
-    nodeCallbacks,
-    links,
-    linksMatrix,
-    linkCallbacks,
-    config,
-    highlightedNode,
-    highlightedLink,
-    transform
+  nodes,
+  nodeCallbacks,
+  links,
+  linksMatrix,
+  linkCallbacks,
+  config,
+  highlightedNode,
+  highlightedLink,
+  transform
 ) {
-    return {
-        nodes: _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix),
-        links: _renderLinks(
-            nodes,
-            links,
-            linksMatrix,
-            config,
-            linkCallbacks,
-            highlightedNode,
-            highlightedLink,
-            transform
-        ),
-        defs: _memoizedRenderDefs(config),
-    };
+  return {
+    nodes: _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix),
+    links: _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform),
+    defs: _memoizedRenderDefs(config),
+  };
 }
 
 export { renderGraph };
