@@ -37,10 +37,11 @@ function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highligh
     }
 
     return outLinks.map(link => {
-        const { source, target } = link;
+        const { id, source, target } = link;
         const sourceId = getId(source);
         const targetId = getId(target);
-        const key = `${sourceId}${CONST.COORDS_SEPARATOR}${targetId}`;
+        const _id = id ? `_${id}` : "";
+        const key = `${sourceId}${CONST.COORDS_SEPARATOR}${targetId}${_id}`;
         const props = buildLinkProps(
             { ...link, source: `${sourceId}`, target: `${targetId}` },
             nodes,
@@ -52,7 +53,7 @@ function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highligh
             transform
         );
 
-        return <Link key={key} id={key} {...props} />;
+        return <Link key={key} id={id} {...props} />;
     });
 }
 

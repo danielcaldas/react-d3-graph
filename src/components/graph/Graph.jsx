@@ -89,8 +89,10 @@ import { merge, debounce, throwErr } from "../../utils";
  *      window.alert('Right clicked link between ${source} and ${target}');
  * };
  *
- * const onMouseOverLink = function(source, target) {
- *      window.alert(`Mouse over in link between ${source} and ${target}`);
+ * // @deprecated in react-d3-graph 3.0.0 signature will change to
+ * // onMouseOverLink(id, source, target)
+ * const onMouseOverLink = function(source, target, id) {
+ *      window.alert(`Mouse over in link between ${source} and ${target} (id: ${id})`);
  * };
  *
  * const onMouseOutLink = function(source, target) {
@@ -420,13 +422,16 @@ export default class Graph extends React.Component {
      * Handles mouse over link event.
      * @param  {string} source - id of the source node that participates in the event.
      * @param  {string} target - id of the target node that participates in the event.
+     * @param {string} id - unique identifier for the link (this property is optional).
      * @returns {undefined}
      */
-    onMouseOverLink = (source, target) => {
-        this.props.onMouseOverLink && this.props.onMouseOverLink(source, target);
+    onMouseOverLink = (source, target, id) => {
+        // exclude id from arguments in case is not defined so that the onMouseOverLink API is
+        // retro-compatible and will function if the callee is expecting only (source, target) arguments
+        this.props.onMouseOverLink && this.props.onMouseOverLink(source, target, id);
 
         if (this.state.config.linkHighlightBehavior) {
-            const highlightedLink = { source, target };
+            const highlightedLink = { id, source, target };
 
             this._tick({ highlightedLink });
         }

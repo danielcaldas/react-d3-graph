@@ -4,22 +4,34 @@ module.exports = {
             id: "12",
             source: 1,
             target: 2,
-            label: "link between 1 and 2",
         },
         {
             id: "122",
             source: 1,
             target: 2,
-            label: "second link between 1 and 2",
         },
         {
             id: "123",
             source: 1,
             target: 2,
-            label: "third link between 1 and 2",
         },
         {
-            id: "13",
+            id: "124",
+            source: 1,
+            target: 2,
+        },
+        {
+            id: "125",
+            source: 1,
+            target: 2,
+        },
+        {
+            id: "131",
+            source: 1,
+            target: 3,
+        },
+        {
+            id: "132",
             source: 1,
             target: 3,
         },
@@ -35,6 +47,11 @@ module.exports = {
         },
         {
             id: "341",
+            source: 3,
+            target: 4,
+        },
+        {
+            id: "342",
             source: 3,
             target: 4,
         },

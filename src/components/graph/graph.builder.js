@@ -53,7 +53,7 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
  * @memberof Graph/builder
  */
 function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
-    const { source, target } = link;
+    const { id, source, target } = link;
     let x1 = nodes?.[source]?.x || 0;
     let y1 = nodes?.[source]?.y || 0;
     let x2 = nodes?.[target]?.x || 0;
@@ -76,14 +76,22 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     }
 
     const guiltyNode = mainNodeParticipates && nodes[source].highlighted && nodes[target].highlighted;
-    const guiltyLink =
-        source === (highlightedLink && highlightedLink.source) &&
-        target === (highlightedLink && highlightedLink.target);
+
+    let guiltyLink = false;
+
+    if (id !== undefined && highlightedLink?.id !== undefined) {
+        guiltyLink = id === highlightedLink?.id;
+    } else {
+        guiltyLink =
+            source === (highlightedLink && highlightedLink?.source) &&
+            target === (highlightedLink && highlightedLink?.target);
+    }
+
     const highlight = guiltyNode || guiltyLink;
 
     let opacity = link.opacity || config.link.opacity;
 
-    if (highlightedNode || (highlightedLink && highlightedLink.source)) {
+    if (highlightedNode || highlightedLink?.source) {
         opacity = highlight ? config.link.opacity : config.highlightOpacity;
     }
 
@@ -128,7 +136,20 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
         config,
         strokeWidth
     );
-    const d = buildLinkPathDefinition(normalizedNodeCoordinates, type);
+    const d = buildLinkPathDefinition(
+        {
+            id,
+            source: {
+                source,
+                ...normalizedNodeCoordinates.source,
+            },
+            target: {
+                target,
+                ...normalizedNodeCoordinates.target,
+            },
+        },
+        type
+    );
 
     return {
         className: CONST.LINK_CLASS_NAME,
