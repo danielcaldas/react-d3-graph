@@ -4,14 +4,14 @@
  * Some methods that help no the process of rendering a node.
  */
 import {
-    symbolCircle as d3SymbolCircle,
-    symbolCross as d3SymbolCross,
-    symbolDiamond as d3SymbolDiamond,
-    symbolSquare as d3SymbolSquare,
-    symbolStar as d3SymbolStar,
-    symbolTriangle as d3SymbolTriangle,
-    symbolWye as d3SymbolWye,
-    symbol as d3Symbol,
+  symbolCircle as d3SymbolCircle,
+  symbolCross as d3SymbolCross,
+  symbolDiamond as d3SymbolDiamond,
+  symbolSquare as d3SymbolSquare,
+  symbolStar as d3SymbolStar,
+  symbolTriangle as d3SymbolTriangle,
+  symbolWye as d3SymbolWye,
+  symbol as d3Symbol,
 } from "d3-shape";
 
 import CONST from "./node.const";
@@ -25,24 +25,24 @@ import CONST from "./node.const";
  * @memberof Node/helper
  */
 function _convertTypeToD3Symbol(typeName) {
-    switch (typeName) {
-        case CONST.SYMBOLS.CIRCLE:
-            return d3SymbolCircle;
-        case CONST.SYMBOLS.CROSS:
-            return d3SymbolCross;
-        case CONST.SYMBOLS.DIAMOND:
-            return d3SymbolDiamond;
-        case CONST.SYMBOLS.SQUARE:
-            return d3SymbolSquare;
-        case CONST.SYMBOLS.STAR:
-            return d3SymbolStar;
-        case CONST.SYMBOLS.TRIANGLE:
-            return d3SymbolTriangle;
-        case CONST.SYMBOLS.WYE:
-            return d3SymbolWye;
-        default:
-            return d3SymbolCircle;
-    }
+  switch (typeName) {
+    case CONST.SYMBOLS.CIRCLE:
+      return d3SymbolCircle;
+    case CONST.SYMBOLS.CROSS:
+      return d3SymbolCross;
+    case CONST.SYMBOLS.DIAMOND:
+      return d3SymbolDiamond;
+    case CONST.SYMBOLS.SQUARE:
+      return d3SymbolSquare;
+    case CONST.SYMBOLS.STAR:
+      return d3SymbolStar;
+    case CONST.SYMBOLS.TRIANGLE:
+      return d3SymbolTriangle;
+    case CONST.SYMBOLS.WYE:
+      return d3SymbolWye;
+    default:
+      return d3SymbolCircle;
+  }
 }
 
 /**
@@ -54,9 +54,9 @@ function _convertTypeToD3Symbol(typeName) {
  * @memberof Node/helper
  */
 function buildSvgSymbol(size = CONST.DEFAULT_NODE_SIZE, symbolTypeDesc = CONST.SYMBOLS.CIRCLE) {
-    return d3Symbol()
-        .size(() => size)
-        .type(() => _convertTypeToD3Symbol(symbolTypeDesc))();
+  return d3Symbol()
+    .size(() => size)
+    .type(() => _convertTypeToD3Symbol(symbolTypeDesc))();
 }
 
 /**
@@ -68,51 +68,51 @@ function buildSvgSymbol(size = CONST.DEFAULT_NODE_SIZE, symbolTypeDesc = CONST.S
  * @memberof Node/helper
  */
 function getLabelPlacementProps(dx, labelPosition) {
-    switch (labelPosition) {
-        case "right":
-            return {
-                dx: dx ? `${dx}` : CONST.NODE_LABEL_DX,
-                dy: "0",
-                dominantBaseline: "middle",
-                textAnchor: "start",
-            };
-        case "left":
-            return {
-                dx: dx ? `${-dx}` : `-${CONST.NODE_LABEL_DX}`,
-                dy: "0",
-                dominantBaseline: "middle",
-                textAnchor: "end",
-            };
-        case "top":
-            return {
-                dx: "0",
-                dy: dx ? `${-dx}` : `-${CONST.NODE_LABEL_DX}`,
-                dominantBaseline: "baseline",
-                textAnchor: "middle",
-            };
-        case "bottom":
-            return {
-                dx: "0",
-                dy: dx ? `${dx}` : CONST.NODE_LABEL_DX,
-                dominantBaseline: "hanging",
-                textAnchor: "middle",
-            };
-        case "center":
-            return {
-                dx: "0",
-                dy: "0",
-                dominantBaseline: "middle",
-                textAnchor: "middle",
-            };
-        default:
-            return {
-                dx: dx ? `${dx}` : CONST.NODE_LABEL_DX,
-                dy: CONST.NODE_LABEL_DY,
-            };
-    }
+  switch (labelPosition) {
+    case "right":
+      return {
+        dx: dx ? `${dx}` : CONST.NODE_LABEL_DX,
+        dy: "0",
+        dominantBaseline: "middle",
+        textAnchor: "start",
+      };
+    case "left":
+      return {
+        dx: dx ? `${-dx}` : `-${CONST.NODE_LABEL_DX}`,
+        dy: "0",
+        dominantBaseline: "middle",
+        textAnchor: "end",
+      };
+    case "top":
+      return {
+        dx: "0",
+        dy: dx ? `${-dx}` : `-${CONST.NODE_LABEL_DX}`,
+        dominantBaseline: "baseline",
+        textAnchor: "middle",
+      };
+    case "bottom":
+      return {
+        dx: "0",
+        dy: dx ? `${dx}` : CONST.NODE_LABEL_DX,
+        dominantBaseline: "hanging",
+        textAnchor: "middle",
+      };
+    case "center":
+      return {
+        dx: "0",
+        dy: "0",
+        dominantBaseline: "middle",
+        textAnchor: "middle",
+      };
+    default:
+      return {
+        dx: dx ? `${dx}` : CONST.NODE_LABEL_DX,
+        dy: CONST.NODE_LABEL_DY,
+      };
+  }
 }
 
 export default {
-    buildSvgSymbol,
-    getLabelPlacementProps,
+  buildSvgSymbol,
+  getLabelPlacementProps,
 };

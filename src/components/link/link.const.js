@@ -11,9 +11,9 @@
  * @memberof Link/const
  */
 const LINE_TYPES = {
-    STRAIGHT: "STRAIGHT",
-    CURVE_SMOOTH: "CURVE_SMOOTH",
-    CURVE_FULL: "CURVE_FULL",
+  STRAIGHT: "STRAIGHT",
+  CURVE_SMOOTH: "CURVE_SMOOTH",
+  CURVE_FULL: "CURVE_FULL",
 };
 
 export { LINE_TYPES };

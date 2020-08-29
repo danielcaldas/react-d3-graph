@@ -17,7 +17,7 @@ import { logError } from "../../utils";
  * @memberof Graph/collapse-helper
  */
 function _isLeafDirected(inDegree, outDegree) {
-    return inDegree <= 1 && outDegree < 1;
+  return inDegree <= 1 && outDegree < 1;
 }
 
 /**
@@ -29,7 +29,7 @@ function _isLeafDirected(inDegree, outDegree) {
  * @memberof Graph/collapse-helper
  */
 function _isLeafNotDirected(inDegree, outDegree) {
-    return inDegree <= 1 && outDegree <= 1;
+  return inDegree <= 1 && outDegree <= 1;
 }
 
 /**
@@ -41,10 +41,10 @@ function _isLeafNotDirected(inDegree, outDegree) {
  * @memberof Graph/collapse-helper
  */
 function _isLeaf(nodeId, linksMatrix, directed) {
-    const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
-    const fn = directed ? _isLeafDirected : _isLeafNotDirected;
+  const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
+  const fn = directed ? _isLeafDirected : _isLeafNotDirected;
 
-    return fn(inDegree, outDegree);
+  return fn(inDegree, outDegree);
 }
 
 /**
@@ -58,31 +58,31 @@ function _isLeaf(nodeId, linksMatrix, directed) {
  * @memberof Graph/collapse-helper
  */
 function computeNodeDegree(nodeId, linksMatrix = {}) {
-    return Object.keys(linksMatrix).reduce(
-        (acc, source) => {
-            if (!linksMatrix[source]) {
-                return acc;
-            }
+  return Object.keys(linksMatrix).reduce(
+    (acc, source) => {
+      if (!linksMatrix[source]) {
+        return acc;
+      }
 
-            const currentNodeConnections = Object.keys(linksMatrix[source]);
+      const currentNodeConnections = Object.keys(linksMatrix[source]);
 
-            return currentNodeConnections.reduce((_acc, target) => {
-                if (nodeId === source) {
-                    _acc.outDegree += linksMatrix[nodeId][target];
-                }
-
-                if (nodeId === target) {
-                    _acc.inDegree += linksMatrix[source][nodeId];
-                }
-
-                return _acc;
-            }, acc);
-        },
-        {
-            inDegree: 0,
-            outDegree: 0,
+      return currentNodeConnections.reduce((_acc, target) => {
+        if (nodeId === source) {
+          _acc.outDegree += linksMatrix[nodeId][target];
         }
-    );
+
+        if (nodeId === target) {
+          _acc.inDegree += linksMatrix[source][nodeId];
+        }
+
+        return _acc;
+      }, acc);
+    },
+    {
+      inDegree: 0,
+      outDegree: 0,
+    }
+  );
 }
 
 /**
@@ -98,18 +98,18 @@ function computeNodeDegree(nodeId, linksMatrix = {}) {
  * @memberof Graph/collapse-helper
  */
 function getTargetLeafConnections(rootNodeId, linksMatrix = {}, { directed }) {
-    const rootConnectionsNodesIds = linksMatrix[rootNodeId] ? Object.keys(linksMatrix[rootNodeId]) : [];
+  const rootConnectionsNodesIds = linksMatrix[rootNodeId] ? Object.keys(linksMatrix[rootNodeId]) : [];
 
-    return rootConnectionsNodesIds.reduce((leafConnections, target) => {
-        if (_isLeaf(target, linksMatrix, directed)) {
-            leafConnections.push({
-                source: rootNodeId,
-                target,
-            });
-        }
+  return rootConnectionsNodesIds.reduce((leafConnections, target) => {
+    if (_isLeaf(target, linksMatrix, directed)) {
+      leafConnections.push({
+        source: rootNodeId,
+        target,
+      });
+    }
 
-        return leafConnections;
-    }, []);
+    return leafConnections;
+  }, []);
 }
 
 /**
@@ -126,25 +126,25 @@ function getTargetLeafConnections(rootNodeId, linksMatrix = {}, { directed }) {
  * @memberof Graph/collapse-helper
  */
 function isNodeVisible(nodeId, nodes, linksMatrix) {
-    const node = nodes[nodeId];
+  const node = nodes[nodeId];
 
-    if (!node) {
-        if (process.env.NODE_ENV === "development") {
-            logError(
-                "graph/collapse.helper",
-                `Trying to check if node ${nodeId} is visible but its not present in nodes: `,
-                nodes
-            );
-        }
-        return false;
+  if (!node) {
+    if (process.env.NODE_ENV === "development") {
+      logError(
+        "graph/collapse.helper",
+        `Trying to check if node ${nodeId} is visible but its not present in nodes: `,
+        nodes
+      );
     }
-    if (nodes[nodeId]._orphan) {
-        return true;
-    }
+    return false;
+  }
+  if (nodes[nodeId]._orphan) {
+    return true;
+  }
 
-    const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
+  const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
 
-    return inDegree > 0 || outDegree > 0;
+  return inDegree > 0 || outDegree > 0;
 }
 
 /**
@@ -155,16 +155,16 @@ function isNodeVisible(nodeId, nodes, linksMatrix) {
  * @memberof Graph/collapse-helper
  */
 function toggleLinksConnections(d3Links, connectionMatrix) {
-    return d3Links.map(d3Link => {
-        const { source, target } = d3Link;
-        const sourceId = getId(source);
-        const targetId = getId(target);
-        // connectionMatrix[sourceId][targetId] can be 0 or non existent
-        const connection = connectionMatrix && connectionMatrix[sourceId] && connectionMatrix[sourceId][targetId];
-        const isHidden = !connection;
+  return d3Links.map(d3Link => {
+    const { source, target } = d3Link;
+    const sourceId = getId(source);
+    const targetId = getId(target);
+    // connectionMatrix[sourceId][targetId] can be 0 or non existent
+    const connection = connectionMatrix && connectionMatrix[sourceId] && connectionMatrix[sourceId][targetId];
+    const isHidden = !connection;
 
-        return { ...d3Link, isHidden };
-    });
+    return { ...d3Link, isHidden };
+  });
 }
 
 /**
@@ -178,34 +178,34 @@ function toggleLinksConnections(d3Links, connectionMatrix) {
  * @memberof Graph/collapse-helper
  */
 function toggleLinksMatrixConnections(linksMatrix, connections, { directed }) {
-    return connections.reduce(
-        (newMatrix, link) => {
-            if (!newMatrix[link.source]) {
-                newMatrix[link.source] = {};
-            }
+  return connections.reduce(
+    (newMatrix, link) => {
+      if (!newMatrix[link.source]) {
+        newMatrix[link.source] = {};
+      }
 
-            if (!newMatrix[link.source][link.target]) {
-                newMatrix[link.source][link.target] = 0;
-            }
+      if (!newMatrix[link.source][link.target]) {
+        newMatrix[link.source][link.target] = 0;
+      }
 
-            const newConnectionValue = newMatrix[link.source][link.target] === 0 ? 1 : 0;
+      const newConnectionValue = newMatrix[link.source][link.target] === 0 ? 1 : 0;
 
-            newMatrix[link.source][link.target] = newConnectionValue;
+      newMatrix[link.source][link.target] = newConnectionValue;
 
-            if (!directed) {
-                newMatrix[link.target][link.source] = newConnectionValue;
-            }
+      if (!directed) {
+        newMatrix[link.target][link.source] = newConnectionValue;
+      }
 
-            return newMatrix;
-        },
-        { ...linksMatrix }
-    );
+      return newMatrix;
+    },
+    { ...linksMatrix }
+  );
 }
 
 export {
-    computeNodeDegree,
-    getTargetLeafConnections,
-    isNodeVisible,
-    toggleLinksConnections,
-    toggleLinksMatrixConnections,
+  computeNodeDegree,
+  getTargetLeafConnections,
+  isNodeVisible,
+  toggleLinksConnections,
+  toggleLinksMatrixConnections,
 };

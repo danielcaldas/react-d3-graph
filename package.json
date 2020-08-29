@@ -27,7 +27,8 @@
     "test:clean": "jest --no-cache --updateSnapshot --verbose --coverage --config jest.config.js",
     "test:watch": "jest --verbose --coverage --watchAll --config jest.config.js",
     "test": "jest --verbose --coverage --config jest.config.js",
-    "sandbox": "npm run dist:sandbox && npm run start"
+    "sandbox": "npm run dist:sandbox && npm run start",
+    "prettier": "prettier --write test/**/*"
   },
   "lint-staged": {
     "*.{js,jsx,json,css,md}": [

@@ -4,13 +4,13 @@
  * in the tree directory.
  */
 export default {
-    SYMBOLS: {
-        CIRCLE: "circle",
-        CROSS: "cross",
-        DIAMOND: "diamond",
-        SQUARE: "square",
-        STAR: "star",
-        TRIANGLE: "triangle",
-        WYE: "wye",
-    },
+  SYMBOLS: {
+    CIRCLE: "circle",
+    CROSS: "cross",
+    DIAMOND: "diamond",
+    SQUARE: "square",
+    STAR: "star",
+    TRIANGLE: "triangle",
+    WYE: "wye",
+  },
 };
