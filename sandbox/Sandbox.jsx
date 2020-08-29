@@ -359,7 +359,8 @@ export default class Sandbox extends React.Component {
           -
         </button>
         <span className="container__graph-info">
-          <b>Nodes: </b> {this.state.data.nodes.length} | <b>Links: </b> {this.state.data.links.length} | <b>Zoom: </b>{" "}
+          {/* eslint-disable-next-line max-len */}
+          <b>Nodes: </b> {this.state.data.nodes.length} |<b>Links: </b> {this.state.data.links.length} |<b>Zoom: </b>{" "}
           {this.state.currentZoom ? this.state.currentZoom.toFixed(3) : "-"}
         </span>
       </div>

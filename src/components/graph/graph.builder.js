@@ -167,7 +167,6 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     node.id === (highlightedLink && highlightedLink.source) ||
     node.id === (highlightedLink && highlightedLink.target);
   const opacity = _getNodeOpacity(node, highlightedNode, highlightedLink, config);
-
   let fill = node.color || config.node.color;
 
   if (highlight && config.node.highlightColor !== CONST.KEYWORDS.SAME) {
@@ -187,7 +186,6 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
   }
 
   let labelPosition = node.labelPosition || config.node.labelPosition;
-
   let strokeWidth = node.strokeWidth || config.node.strokeWidth;
 
   if (highlight && config.node.highlightStrokeWidth !== CONST.KEYWORDS.SAME) {
