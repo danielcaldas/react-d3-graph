@@ -15,7 +15,10 @@ This is not yet a full automated process, so here are a few steps to get the thi
 3.  npm run docs
 4.  Small tweaks on documentation page (quicklinks)
 5.  Replace current files in docs for the generated ones in gen-docs
-6.  Generate CHANGELOG.md (github_changelog_generator -u GITHUB_USERNAME)
+6.  Generate CHANGELOG.md
+    ```bash
+        github_changelog_generator since-tag=<PREVIOUS_RELEASED_VERSION> -u GITHUB_USERNAME
+    ```
 7.  git commit -m "Release x.x.x"
 8.  Create release x.x.x in github
 9.  git pull (origin master)
