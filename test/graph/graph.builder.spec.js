@@ -28,10 +28,10 @@ describe("Graph Helper", () => {
       test("should call buildLinkPathDefinition with expected parameters", () => {
         graphHelper.buildLinkProps(that.link, {}, {}, that.config, [], undefined, undefined, 1);
 
-        expect(linkHelper.buildLinkPathDefinition).toHaveBeenCalledWith(
-          { source: { x: 0, y: 0 }, target: { x: 0, y: 0 } },
-          "STRAIGHT"
-        );
+        const sourceCoords = { x: 0, y: 0 };
+        const targetCoords = { x: 0, y: 0 };
+
+        expect(linkHelper.buildLinkPathDefinition).toHaveBeenCalledWith(sourceCoords, targetCoords, "STRAIGHT");
       });
 
       describe("and no custom color is set", () => {
