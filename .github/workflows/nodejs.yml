@@ -17,7 +17,8 @@ jobs:
     strategy:
       matrix:
         node-version: [10.x, 12.x]
-        react-version: [15.x, latest, next]
+        react-version: [latest, next]
+        d3-version: [5.x, latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -27,6 +28,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm install react@${{ matrix.react-version }}
+    - run: npm install d3@${{ matrix.d3-version }}
     - run: npm run dist:sandbox
     - run: npm start -- --silent &
     - run: npm run lint
