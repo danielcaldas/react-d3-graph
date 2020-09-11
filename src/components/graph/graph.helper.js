@@ -468,6 +468,8 @@ function normalize(vector) {
   return norm === 0 ? vector : { x: vector.x / norm, y: vector.y / norm };
 }
 
+const SYMBOLS_WITH_OPTIMIZED_POSITIONING = new Set([CONST.SYMBOLS.CIRCLE]);
+
 /**
  * Computes new node coordinates to make arrowheads point at nodes.
  * Arrow configuration is only available for circles.
@@ -499,26 +501,46 @@ function getNormalizedNodeCoordinates(
     return { sourceCoords, targetCoords };
   }
 
+  const sourceSymbolType = sourceNode.symbolType || config.node?.symbolType;
+  const targetSymbolType = targetNode.symbolType || config.node?.symbolType;
+
+  if (
+    !SYMBOLS_WITH_OPTIMIZED_POSITIONING.has(sourceSymbolType) &&
+    !SYMBOLS_WITH_OPTIMIZED_POSITIONING.has(targetSymbolType)
+  ) {
+    // if symbols don't have optimized positioning implementations fallback to input coords
+    return { sourceCoords, targetCoords };
+  }
+
   let { x: x1, y: y1 } = sourceCoords;
   let { x: x2, y: y2 } = targetCoords;
+  const directionVector = normalize({ x: x2 - x1, y: y2 - y1 });
 
-  switch (config.node?.symbolType) {
+  switch (sourceSymbolType) {
     case CONST.SYMBOLS.CIRCLE: {
-      const directionVector = normalize({ x: x2 - x1, y: y2 - y1 });
-      // it's fine `markerWidth` or `markerHeight` we just want to fallback to a number
-      // to avoid NaN on `Math.min(undefined, undefined) > NaN
-      let strokeSize = strokeWidth * Math.min(config.link?.markerWidth || 0, config.link?.markerHeight || 0);
       let sourceNodeSize = sourceNode?.size || config.node.size;
-      let targetNodeSize = targetNode?.size || config.node.size;
 
       // because this is a circle and A = pi * r^2
       // we multiply by 0.95, because if we don't the link is not melting properly
       sourceNodeSize = Math.sqrt(sourceNodeSize / Math.PI) * 0.95;
-      targetNodeSize = Math.sqrt(targetNodeSize / Math.PI) * 0.95;
 
       // points from the sourceCoords, we move them not to begin in the circle but outside
       x1 += sourceNodeSize * directionVector.x;
       y1 += sourceNodeSize * directionVector.y;
+      break;
+    }
+  }
+
+  switch (targetSymbolType) {
+    case CONST.SYMBOLS.CIRCLE: {
+      // it's fine `markerWidth` or `markerHeight` we just want to fallback to a number
+      // to avoid NaN on `Math.min(undefined, undefined) > NaN
+      let strokeSize = strokeWidth * Math.min(config.link?.markerWidth || 0, config.link?.markerHeight || 0);
+      let targetNodeSize = targetNode?.size || config.node.size;
+
+      // because this is a circle and A = pi * r^2
+      // we multiply by 0.95, because if we don't the link is not melting properly
+      targetNodeSize = Math.sqrt(targetNodeSize / Math.PI) * 0.95;
 
       // points from the targetCoords, we move the by the size of the radius of the circle + the size of the arrow
       x2 -= (targetNodeSize + (config.directed ? strokeSize : 0)) * directionVector.x;
