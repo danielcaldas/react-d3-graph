@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import * as graphHelper from "../../src/components/graph/graph.helper";
 
 import * as utils from "../../src/utils";
@@ -352,6 +353,238 @@ describe("Graph Helper", () => {
             );
           });
         });
+      });
+    });
+  });
+
+  describe("#getNormalizedNodeCoordinates", () => {
+    const mockInfo = {
+      sourceId: "a",
+      targetId: "b",
+      sourceCoords: {
+        x: 1,
+        y: 1,
+      },
+      targetCoords: {
+        x: 2,
+        y: 2,
+      },
+    };
+
+    it("should return same sourceCoords and targetCoords when nodes are not in the collection of nodes", () => {
+      let coords = graphHelper.getNormalizedNodeCoordinates(
+        mockInfo,
+        {
+          a: {},
+        },
+        {
+          node: {},
+        }
+      );
+
+      expect(coords).toEqual({
+        sourceCoords: { x: 1, y: 1 },
+        targetCoords: { x: 2, y: 2 },
+      });
+
+      coords = graphHelper.getNormalizedNodeCoordinates(
+        mockInfo,
+        {
+          b: {},
+        },
+        {
+          node: {},
+        }
+      );
+
+      expect(coords).toEqual({
+        sourceCoords: { x: 1, y: 1 },
+        targetCoords: { x: 2, y: 2 },
+      });
+    });
+
+    it("should return same coordinates when config or nodes have a viewGenerator", () => {
+      let coords = graphHelper.getNormalizedNodeCoordinates(
+        mockInfo,
+        {
+          a: {},
+          b: {},
+        },
+        {
+          node: {
+            viewGenerator: () => {},
+          },
+        }
+      );
+
+      expect(coords).toEqual({
+        sourceCoords: { x: 1, y: 1 },
+        targetCoords: { x: 2, y: 2 },
+      });
+
+      coords = graphHelper.getNormalizedNodeCoordinates(
+        mockInfo,
+        {
+          a: {
+            id: "a",
+            viewGenerator: () => {},
+            symbolType: "circle",
+          },
+          b: {},
+        },
+        {
+          node: {
+            symbolType: "circle",
+          },
+        }
+      );
+
+      expect(coords).toEqual({
+        sourceCoords: { x: 1, y: 1 },
+        targetCoords: { x: 2, y: 2 },
+      });
+    });
+
+    it("should return same sourceCoords and targetCoords when symbolType is something rather than CIRCLE", () => {
+      let coords = graphHelper.getNormalizedNodeCoordinates(
+        mockInfo,
+        {
+          a: {},
+          b: {},
+        },
+        {
+          node: {
+            symbolType: "square",
+          },
+        }
+      );
+
+      expect(coords).toEqual({
+        sourceCoords: { x: 1, y: 1 },
+        targetCoords: { x: 2, y: 2 },
+      });
+
+      coords = graphHelper.getNormalizedNodeCoordinates(
+        mockInfo,
+        {
+          a: {
+            symbolType: "square",
+          },
+          b: {},
+        },
+        {
+          node: {},
+        }
+      );
+
+      expect(coords).toEqual({
+        sourceCoords: { x: 1, y: 1 },
+        targetCoords: { x: 2, y: 2 },
+      });
+    });
+
+    it("should properly compute new coordinates for symbolType CIRCLE", () => {
+      let coords = graphHelper.getNormalizedNodeCoordinates(
+        mockInfo,
+        {
+          a: { size: 100 },
+          b: { size: 200 },
+        },
+        {
+          node: {
+            symbolType: "circle",
+          },
+          link: {
+            markerWith: 2,
+            markerHeight: 4,
+          },
+        }
+      );
+      const expectedCoords = {
+        sourceCoords: { x: 4.78995166381361, y: 4.78995166381361 },
+        targetCoords: { x: -3.3598010437036843, y: -3.3598010437036843 },
+      };
+
+      expect(coords).toEqual(expectedCoords);
+
+      // check for global fallback
+      coords = graphHelper.getNormalizedNodeCoordinates(
+        mockInfo,
+        {
+          a: {},
+          b: { size: 200 },
+        },
+        {
+          node: {
+            symbolType: "circle",
+            size: 100,
+          },
+          link: {
+            markerWith: 2,
+            markerHeight: 4,
+          },
+        }
+      );
+
+      expect(coords).toEqual(expectedCoords);
+    });
+
+    it("should properly compute new coordinates if given (x, y) for source and target are 0", () => {
+      // caught in: https://github.com/danielcaldas/react-d3-graph/issues/351
+      let coords = graphHelper.getNormalizedNodeCoordinates(
+        {
+          ...mockInfo,
+          targetCoords: {
+            x: 1,
+            y: 1,
+          },
+        },
+        {
+          a: { size: 100 },
+          b: { size: 200 },
+        },
+        {
+          node: {
+            symbolType: "circle",
+          },
+          link: {
+            markerWith: 2,
+            markerHeight: 4,
+          },
+        }
+      );
+
+      expect(coords).toEqual({
+        sourceCoords: { x: 1, y: 1 },
+        targetCoords: { x: 1, y: 1 },
+      });
+
+      // with config.directed: true and no link marker properties
+      coords = graphHelper.getNormalizedNodeCoordinates(
+        {
+          ...mockInfo,
+          targetCoords: {
+            x: 1,
+            y: 1,
+          },
+        },
+        {
+          a: { size: 100 },
+          b: { size: 200 },
+        },
+        {
+          directed: true,
+          node: {
+            symbolType: "circle",
+          },
+          link: {},
+        },
+        2 // strokeWidth
+      );
+
+      expect(coords).toEqual({
+        sourceCoords: { x: 1, y: 1 },
+        targetCoords: { x: 1, y: 1 },
       });
     });
   });

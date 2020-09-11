@@ -121,13 +121,13 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     fontWeight = highlight ? config.link.highlightFontWeight : config.link.fontWeight;
   }
 
-  const normalizedNodeCoordinates = getNormalizedNodeCoordinates(
-    { source: { x: x1, y: y1 }, target: { x: x2, y: y2 } },
+  const { sourceCoords, targetCoords } = getNormalizedNodeCoordinates(
+    { sourceId: source, targetId: target, sourceCoords: { x: x1, y: y1 }, targetCoords: { x: x2, y: y2 } },
     nodes,
     config,
     strokeWidth
   );
-  const d = buildLinkPathDefinition(normalizedNodeCoordinates, type);
+  const d = buildLinkPathDefinition(sourceCoords, targetCoords, type);
 
   return {
     className: CONST.LINK_CLASS_NAME,

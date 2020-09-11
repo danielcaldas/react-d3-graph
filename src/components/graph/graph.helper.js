@@ -465,50 +465,69 @@ function updateNodeHighlightedValue(nodes, links, config, id, value = false) {
  */
 function normalize(vector) {
   const norm = Math.sqrt(Math.pow(vector.x, 2) + Math.pow(vector.y, 2));
-  return { x: vector.x / norm, y: vector.y / norm };
+  return norm === 0 ? vector : { x: vector.x / norm, y: vector.y / norm };
 }
 
 /**
  * Computes new node coordinates to make arrowheads point at nodes.
  * Arrow configuration is only available for circles.
- * @param {Object} node - the couple of nodes we need to compute new coordinates
- * @param {Object} node.source - node source
- * @param {Object} node.target - node target
+ * @param {Object} info - the couple of nodes we need to compute new coordinates
+ * @param {string} info.sourceId - node source id
+ * @param {string} info.targetId - node target id
+ * @param {Object} info.sourceCoords - node source coordinates
+ * @param {Object} info.targetCoords - node target coordinates
  * @param {Object.<string, Object>} nodes - same as {@link #graphrenderer|nodes in renderGraph}.
  * @param {Object} config - same as {@link #graphrenderer|config in renderGraph}.
  * @param {number} strokeWidth width of the link stroke
  * @returns {Object} new nodes coordinates
  * @memberof Graph/helper
  */
-function getNormalizedNodeCoordinates({ source = {}, target = {} }, nodes, config, strokeWidth) {
-  if (config.node?.viewGenerator) {
-    return { source, target };
+function getNormalizedNodeCoordinates(
+  { sourceId, targetId, sourceCoords = {}, targetCoords = {} },
+  nodes,
+  config,
+  strokeWidth
+) {
+  const sourceNode = nodes?.[sourceId];
+  const targetNode = nodes?.[targetId];
+
+  if (!sourceNode || !targetNode) {
+    return { sourceCoords, targetCoords };
   }
 
-  let { x: x1, y: y1 } = source;
-  let { x: x2, y: y2 } = target;
+  if (config.node?.viewGenerator || sourceNode?.viewGenerator || targetNode?.viewGenerator) {
+    return { sourceCoords, targetCoords };
+  }
+
+  let { x: x1, y: y1 } = sourceCoords;
+  let { x: x2, y: y2 } = targetCoords;
 
   switch (config.node?.symbolType) {
     case CONST.SYMBOLS.CIRCLE: {
       const directionVector = normalize({ x: x2 - x1, y: y2 - y1 });
-      const strokeSize = strokeWidth * Math.min(config.link.markerWidth, config.link.markerHeight);
-      let nodeSize = nodes?.[source]?.size || config.node.size;
+      // it's fine `markerWidth` or `markerHeight` we just want to fallback to a number
+      // to avoid NaN on `Math.min(undefined, undefined) > NaN
+      let strokeSize = strokeWidth * Math.min(config.link?.markerWidth || 0, config.link?.markerHeight || 0);
+      let sourceNodeSize = sourceNode?.size || config.node.size;
+      let targetNodeSize = targetNode?.size || config.node.size;
 
-      // cause this is a circle and A = pi * r^2
+      // because this is a circle and A = pi * r^2
       // we multiply by 0.95, because if we don't the link is not melting properly
-      nodeSize = Math.sqrt(nodeSize / Math.PI) * 0.95;
+      sourceNodeSize = Math.sqrt(sourceNodeSize / Math.PI) * 0.95;
+      targetNodeSize = Math.sqrt(targetNodeSize / Math.PI) * 0.95;
 
-      // points from the source, we move them not to begin in the circle but outside
-      x1 += nodeSize * directionVector.x;
-      y1 += nodeSize * directionVector.y;
-      // points from the target, we move the by the size of the radius of the circle + the size of the arrow
-      x2 -= (nodeSize + (config.directed ? strokeSize : 0)) * directionVector.x;
-      y2 -= (nodeSize + (config.directed ? strokeSize : 0)) * directionVector.y;
+      // points from the sourceCoords, we move them not to begin in the circle but outside
+      x1 += sourceNodeSize * directionVector.x;
+      y1 += sourceNodeSize * directionVector.y;
+
+      // points from the targetCoords, we move the by the size of the radius of the circle + the size of the arrow
+      x2 -= (targetNodeSize + (config.directed ? strokeSize : 0)) * directionVector.x;
+      y2 -= (targetNodeSize + (config.directed ? strokeSize : 0)) * directionVector.y;
       break;
     }
   }
 
-  return { source: { x: x1, y: y1 }, target: { x: x2, y: y2 } };
+  return { sourceCoords: { x: x1, y: y1 }, targetCoords: { x: x2, y: y2 } };
 }
 
 export {

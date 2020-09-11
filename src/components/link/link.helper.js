@@ -61,16 +61,15 @@ function getRadiusStrategy(type) {
  * This method returns the path definition for a given link base on the line type
  * and the link source and target.
  * {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d|d attribute mdn}
- * @param {Object} link - the link to build the path definition
- * @param {Object} link.source - link source
- * @param {Object} link.target - link target
+ * @param {Object} sourceCoords - link sourceCoords
+ * @param {Object} targetCoords - link targetCoords
  * @param {string} type - the link line type
  * @returns {string} the path definition for the requested link
  * @memberof Link/helper
  */
-function buildLinkPathDefinition({ source = {}, target = {} }, type = LINE_TYPES.STRAIGHT) {
-  const { x: sx, y: sy } = source;
-  const { x: tx, y: ty } = target;
+function buildLinkPathDefinition(sourceCoords = {}, targetCoords = {}, type = LINE_TYPES.STRAIGHT) {
+  const { x: sx, y: sy } = sourceCoords;
+  const { x: tx, y: ty } = targetCoords;
   const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
   const radius = getRadiusStrategy(validType)(sx, sy, tx, ty);
 
