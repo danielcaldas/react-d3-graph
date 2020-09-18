@@ -133,8 +133,6 @@ export default class Graph extends React.Component {
    * @returns {Object} - Focus and zoom animation properties.
    */
   _generateFocusAnimationProps = () => {
-    const { focusedNodeId } = this.state;
-
     // In case an older animation was still not complete, clear previous timeout to ensure the new one is not cancelled
     if (this.state.enableFocusAnimation) {
       if (this.focusAnimationTimeout) {
@@ -151,7 +149,7 @@ export default class Graph extends React.Component {
 
     return {
       style: { transitionDuration: `${transitionDuration}s` },
-      transform: focusedNodeId ? this.state.focusTransformation : null,
+      transform: this.state.focusTransformation,
     };
   };
 
@@ -538,7 +536,9 @@ export default class Graph extends React.Component {
     const transform = newConfig.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
     const focusedNodeId = nextProps.data.focusedNodeId;
     const d3FocusedNode = this.state.d3Nodes.find(node => `${node.id}` === `${focusedNodeId}`);
-    const focusTransformation = getCenterAndZoomTransformation(d3FocusedNode, this.state.config);
+    const containerElId = `${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`;
+    const focusTransformation =
+      getCenterAndZoomTransformation(d3FocusedNode, this.state.config, containerElId) || this.state.focusTransformation;
     const enableFocusAnimation = this.props.data.focusedNodeId !== nextProps.data.focusedNodeId;
 
     // if we're given a function to call when the zoom changes, we create a debounced version of it
