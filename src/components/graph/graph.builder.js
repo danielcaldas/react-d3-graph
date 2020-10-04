@@ -206,8 +206,12 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     nodeSize.width;
   }
 
-  const fontSize = highlight ? config.node.highlightFontSize : config.node.fontSize;
-  const dx = fontSize * t + offset / 100 + 1.5;
+  const fontSize = node.fontSize || config.node.fontSize;
+  const highlightFontSize = node.highlightFontSize || config.node.highlightFontSize;
+
+  const finalFontSize = highlight ? highlightFontSize : fontSize;
+  const dx = finalFontSize * t + offset / 100 + 1.5;
+
   const svg = node.svg || config.node.svg;
   const fontColor = node.fontColor || config.node.fontColor;
 
@@ -225,7 +229,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     dx,
     fill,
     fontColor,
-    fontSize: fontSize * t,
+    fontSize: finalFontSize * t,
     fontWeight: highlight ? config.node.highlightFontWeight : config.node.fontWeight,
     id: node.id,
     label,
