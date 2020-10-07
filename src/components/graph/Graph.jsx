@@ -16,6 +16,7 @@ import {
   checkForGraphElementsChanges,
   getCenterAndZoomTransformation,
   initializeGraphState,
+  initializeNodes,
 } from "./graph.helper";
 import { renderGraph } from "./graph.renderer";
 import { merge, debounce, throwErr } from "../../utils";
@@ -478,12 +479,19 @@ export default class Graph extends React.Component {
    */
   resetNodesPositions = () => {
     if (!this.state.config.staticGraph) {
+      let initialNodesState = initializeNodes(this.props.data.nodes);
       for (let nodeId in this.state.nodes) {
         let node = this.state.nodes[nodeId];
 
         if (node.fx && node.fy) {
           Reflect.deleteProperty(node, "fx");
           Reflect.deleteProperty(node, "fy");
+        }
+
+        if (nodeId in initialNodesState) {
+          let initialNode = initialNodesState[nodeId];
+          node.x = initialNode.x;
+          node.y = initialNode.y;
         }
       }
 
