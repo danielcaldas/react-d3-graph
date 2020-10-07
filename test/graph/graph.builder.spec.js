@@ -156,5 +156,32 @@ describe("Graph Helper", () => {
         expect(props.stroke).toEqual("yellow");
       });
     });
+    describe("and no custom fontSize is set", () => {
+      test("should return the fontSize from the config in the props", () => {
+        const props = graphHelper.buildNodeProps(
+          that.node,
+          { ...that.config, node: { ...that.config.node, fontSize: 10 } },
+          undefined,
+          undefined,
+          undefined,
+          1
+        );
+        expect(props.fontSize).toEqual(10);
+      });
+    });
+    describe("and custom fontSize is set to 6", () => {
+      test("should override the value of fontSize set in the props", () => {
+        const props = graphHelper.buildNodeProps(
+          { ...that.node, fontSize: 6 },
+          { ...that.config, node: { ...that.config.node, fontSize: 10 } },
+          undefined,
+          undefined,
+          undefined,
+          1
+        );
+
+        expect(props.fontSize).toEqual(6);
+      });
+    });
   });
 });
