@@ -10,7 +10,7 @@
  * ⭐ <b>tip</b> <i>to achieve smoother interactions you may want to provide a toggle to set <b>staticGraph</b> or (better) <b>staticGraphWithDragAndDrop</b> to <b>true</b></i></br>
  * </br>
  * <b>Note about granularity</b></br>
- * Some of the properties listed in the <a href="#config-node">Node section</a> are marked with 🔍🔍🔍. This means that this properties
+ * Some of the properties listed in the <a href="#config-node">Node section</a> are marked with 🔍. This means that this properties
  * have a higher level of granularity. These properties can be defined in the graph payload at a node level. (sample payload below)
  * ```javascript
  * const graph = {
@@ -105,21 +105,21 @@
  * </br>
  * @param {Object} node node object is explained in next section. ⬇️
  * <h2 id="config-node"><a href="#config-node">#</a> Node level configurations</h2>
- * @param {string} [node.color="#d3d3d3"] - <a id="node-color" href="#node-color">🔗</a> 🔍🔍🔍 this is the color that will be applied to the node if no <b>color property</b></br>
+ * @param {string} [node.color="#d3d3d3"] - <a id="node-color" href="#node-color">🔗</a> 🔍 this is the color that will be applied to the node if no <b>color property</b></br>
  * is found inside the node itself (yes <b>you can pass a property "color" inside</b></br>
  * <b>the node and that color will override the this default one</b>).
- * @param {string} [node.fontColor="black"] - <a id="node-font-color" href="#node-font-color">🔗</a> 🔍🔍🔍 fill color for node"s <text> svg label.
- * @param {number} [node.fontSize=8] - <a id="node-font-size" href="#node-font-size">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control">font-size</a>
+ * @param {string} [node.fontColor="black"] - <a id="node-font-color" href="#node-font-color">🔗</a> 🔍 fill color for node"s <text> svg label.
+ * @param {number} [node.fontSize=8] - <a id="node-font-size" href="#node-font-size">🔗</a> 🔍 <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control">font-size</a>
  * property for all nodes" labels.
  * @param {string} [node.fontWeight="normal"] - <a id="node-font-weight" href="#node-font-weight">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control">font-weight</a>
  * property for all nodes" labels.
  * @param {string} [node.highlightColor="SAME"] - <a id="node-highlight-color" href="#node-highlight-color">🔗</a> color for all highlighted nodes (use string "SAME" if you
  * want the node to keep its color in highlighted state).
- * @param {number} [node.highlightFontSize=8] - <a id="node-highlight-font-size" href="#node-highlight-font-size">🔗</a> fontSize in highlighted state.
+ * @param {number} [node.highlightFontSize=8] - <a id="node-highlight-font-size" href="#node-highlight-font-size">🔗</a> 🔍 fontSize in highlighted state.
  * @param {string} [node.highlightFontWeight="normal"] - <a id="node-highlight-font-weight" href="#node-highlight-font-weight">🔗</a> fontWeight in highlighted state.
  * @param {string} [node.highlightStrokeColor="SAME"] - <a id="node-stroke-color" href="#node-stroke-color">🔗</a> strokeColor in highlighted state.
  * @param {number} [node.highlightStrokeWidth="SAME"] - <a id="node-stroke-width" href="#node-stroke-width">🔗</a> strokeWidth in highlighted state.
- * @param {string} [node.labelPosition=null] - <a id="node-label-position" href="#node-label-position">🔗</a> 🔍🔍🔍 location to place node label relative to node.
+ * @param {string} [node.labelPosition=null] - <a id="node-label-position" href="#node-label-position">🔗</a> 🔍 location to place node label relative to node.
  * The placement options are:
  *   - "left"
  *   - "right"
@@ -143,10 +143,10 @@
  * </br>
  * @param {string} [node.mouseCursor="pointer"] - <a id="node-pointer" href="#node-pointer">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control">cursor</a>
  * property for when some node is mouse hovered.
- * @param {number} [node.opacity=1] - <a id="node-opacity" href="#node-opacity">🔗</a> 🔍🔍🔍 by default all nodes will have this opacity value.
- * @param {boolean} [node.renderLabel=true] - <a id="node-render-label" href="#node-render-label">🔗</a> 🔍🔍🔍 when set to false no labels will appear along side nodes in the
+ * @param {number} [node.opacity=1] - <a id="node-opacity" href="#node-opacity">🔗</a> 🔍 by default all nodes will have this opacity value.
+ * @param {boolean} [node.renderLabel=true] - <a id="node-render-label" href="#node-render-label">🔗</a> 🔍 when set to false no labels will appear along side nodes in the
  * graph.
- * @param {number|Object} [node.size=200] - <a id="node-size" href="#node-size">🔗</a> 🔍🔍🔍 defines the size of all nodes. When set to a number, the node will have equal height and width.</br>
+ * @param {number|Object} [node.size=200] - <a id="node-size" href="#node-size">🔗</a> 🔍 defines the size of all nodes. When set to a number, the node will have equal height and width.</br>
  * This can also be an object with a height and width property <b>when using custom nodes</b>.
  * ```javascript
  * size: 200
@@ -157,13 +157,13 @@
  * }
  * ```
  * The actual node dimensions (in px) rendered on screen will be the size value divided by 10. For example, a node size of 200 will result in a node with a height and width of 20px.
- * @param {string} [node.strokeColor="none"] - <a id="node-stroke-color" href="#node-stroke-color">🔗</a> 🔍🔍🔍  this is the stroke color that will be applied to the node if no <b>strokeColor property</b> is found inside the node itself (yes <b>you can pass a property "strokeColor" inside the node and that stroke color will override this default one</b>).
- * @param {number} [node.strokeWidth=1.5] - <a id="node-stroke-width" href="#node-stroke-width">🔗</a> 🔍🔍🔍 the width of the all node strokes.
- * @param {string} [node.svg=""] - <a id="node-svg" href="#node-svg">🔗</a> 🔍🔍🔍 render custom svg for nodes in alternative to <b>node.symbolType</b>. This svg can
+ * @param {string} [node.strokeColor="none"] - <a id="node-stroke-color" href="#node-stroke-color">🔗</a> 🔍  this is the stroke color that will be applied to the node if no <b>strokeColor property</b> is found inside the node itself (yes <b>you can pass a property "strokeColor" inside the node and that stroke color will override this default one</b>).
+ * @param {number} [node.strokeWidth=1.5] - <a id="node-stroke-width" href="#node-stroke-width">🔗</a> 🔍 the width of the all node strokes.
+ * @param {string} [node.svg=""] - <a id="node-svg" href="#node-svg">🔗</a> 🔍 render custom svg for nodes in alternative to <b>node.symbolType</b>. This svg can
  * be provided as a string to either a remote svg resource or for a local one.
  * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-custom-svg.gif?raw=true" width="820" height="480"/>
- * @param {string} [node.symbolType="circle"] - <a id="node-symbol-type" href="#node-symbol-type">🔗</a> 🔍🔍🔍 the <a id="node-symbol-type">shape</span> of the node.
+ * @param {string} [node.symbolType="circle"] - <a id="node-symbol-type" href="#node-symbol-type">🔗</a> 🔍 the <a id="node-symbol-type">shape</span> of the node.
  * Use the following values under a property <b>type</b> inside each node (nodes may have different types, same as colors):
  *   - "circle"
  *   - "cross"
@@ -174,15 +174,15 @@
  *   - "wye"
  *
  * <b>[note]</b> react-d3-graph will map this values to <a target="_blank" href="https://github.com/d3/d3-shape#symbols">d3 symbols</a>
- * @param {Function} [node.viewGenerator=null] - <a id="node-view-generator" href="#node-view-generator">🔗</a> 🔍🔍🔍 function that receives a node and returns a JSX view.
+ * @param {Function} [node.viewGenerator=null] - <a id="node-view-generator" href="#node-view-generator">🔗</a> 🔍 function that receives a node and returns a JSX view.
  * </br>
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2 id="config-link"><a href="#config-link">#</a> Link level configurations</h2>
- * @param {string} [link.color="#d3d3d3"] - <a id="link-color" href="#link-color">🔗</a> 🔍🔍🔍 the color for links
+ * @param {string} [link.color="#d3d3d3"] - <a id="link-color" href="#link-color">🔗</a> 🔍 the color for links
  * (from version 1.3.0 this property can be configured at link level). <b>Note:</b> there's a current limitation where arrow markers in directed graphs won't have the same color as the link. Again this issue
  * only occurs for individually colored links, if links are colored globally through `link.color`
  * this won't be an issue <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/pull/361">#361</a>.
- * @param {string} [link.fontColor="black"] - <a id="link-font-color" href="#link-font-color">🔗</a> 🔍🔍🔍 fill color for link's <text> svg label.
+ * @param {string} [link.fontColor="black"] - <a id="link-font-color" href="#link-font-color">🔗</a> 🔍 fill color for link's <text> svg label.
  * @param {number} [link.fontSize=8] - <a id="link-font-size" href="#link-font-size">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control">font-size</a>
  * property for all links' labels.
  * @param {string} [link.fontWeight="normal"] - <a id="link-font-weight" href="#link-font-weight">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control">font-weight</a>
@@ -196,7 +196,7 @@
  * that receives the link itself as argument and returns a custom string, similarly to what happens with <code>node.labelProperty</code>.</br>
  * @param {string} [link.mouseCursor="pointer"] - <a id="link-mouse-cursor" href="#link-mouse-cursor">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control">cursor</a>
  * property for when link is mouse hovered.
- * @param {number} [link.opacity=1] 🔍🔍🔍 - <a href="#link-opacity" href="">🔗</a> the default opacity value for links.
+ * @param {number} [link.opacity=1] 🔍 - <a href="#link-opacity" href="">🔗</a> the default opacity value for links.
  * @param {boolean} [link.renderLabel=false] - <a id="link-render-label" href="#link-render-label">🔗</a> when set to true labels will appear along side links in the
  * graph. <b>Note</b>: this will only happen of course if proper label is passed within the link, check also <code>link.labelProperty</code>.
  * </br>
@@ -207,7 +207,7 @@
  * ```javascript
  * strokeWidth += (linkValue * strokeWidth) / 10;
  * ```
- * @param {number} [link.strokeWidth=1.5] - <a id="link-stroke-width" href="#link-stroke-width">🔗</a> 🔍🔍🔍 strokeWidth for all links. By default the actual value is obtain by the
+ * @param {number} [link.strokeWidth=1.5] - <a id="link-stroke-width" href="#link-stroke-width">🔗</a> 🔍 strokeWidth for all links. By default the actual value is obtain by the
  * following expression:
  * ```javascript
  * link.strokeWidth * (1 / transform); // transform is a zoom delta Δ value
@@ -216,7 +216,7 @@
  * property for the link arrowhead height. *Note: this property can only be set in the first mount, it does not update dynamically.*
  * @param {number} [link.markerWidth=6] - <a id="link-marker-width" href="#link-marker-width">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerWidth">markerWidth</a>
  * property for the link arrowhead width. *Note: this property can only be set in the first mount, it does not update dynamically.*
- * @param {string} [link.type="STRAIGHT"] - <a id="link-type" href="#link-type">🔗</a> 🔍🔍🔍 the type of line to draw, available types at this point are:
+ * @param {string} [link.type="STRAIGHT"] - <a id="link-type" href="#link-type">🔗</a> 🔍 the type of line to draw, available types at this point are:
  * - "STRAIGHT" <small>(default)</small> - a straight line.
  * - "CURVE_SMOOTH" - a slight curve between two nodes
  * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
