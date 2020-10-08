@@ -64,16 +64,25 @@ function getRadiusStrategy(type) {
  * @param {Object} sourceCoords - link sourceCoords
  * @param {Object} targetCoords - link targetCoords
  * @param {string} type - the link line type
+ * @param {Array.<Object>} breakPoints - additional set of points that the link will cross
  * @returns {string} the path definition for the requested link
  * @memberof Link/helper
  */
-function buildLinkPathDefinition(sourceCoords = {}, targetCoords = {}, type = LINE_TYPES.STRAIGHT) {
+function buildLinkPathDefinition(sourceCoords = {}, targetCoords = {}, type = LINE_TYPES.STRAIGHT, breakPoints = []) {
   const { x: sx, y: sy } = sourceCoords;
-  const { x: tx, y: ty } = targetCoords;
   const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
-  const radius = getRadiusStrategy(validType)(sx, sy, tx, ty);
 
-  return `M${sx},${sy}A${radius},${radius} 0 0,1 ${tx},${ty}`;
+  const restOfLinkPoints = [...breakPoints, targetCoords];
+  const restOfLinkPath = restOfLinkPoints
+    .map(({ x, y }, i) => {
+      const { x: px, y: py } = i > 0 ? restOfLinkPoints[i - 1] : sourceCoords;
+      const radius = getRadiusStrategy(validType)(px, py, x, y);
+
+      return ` A${radius},${radius} 0 0,1 ${x},${y}`;
+    })
+    .join("");
+
+  return `M${sx},${sy}${restOfLinkPath}`;
 }
 
 export { buildLinkPathDefinition };
