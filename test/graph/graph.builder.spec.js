@@ -183,5 +183,61 @@ describe("Graph Helper", () => {
         expect(props.fontSize).toEqual(6);
       });
     });
+    describe("when node.size is numeric value", () => {
+      test("should calculate label offset correctly", () => {
+        const props = graphHelper.buildNodeProps(
+          { ...that.node, fontSize: 1, size: 100 },
+          that.config,
+          undefined,
+          undefined,
+          undefined,
+          1
+        );
+
+        expect(props.dx).toEqual(3.5);
+      });
+    });
+    describe("when node.size is object and labelPosition is top", () => {
+      test("should calculate label offset correctly", () => {
+        const props = graphHelper.buildNodeProps(
+          { ...that.node, fontSize: 1, size: { height: 100, width: 100 }, labelPosition: "top" },
+          that.config,
+          undefined,
+          undefined,
+          undefined,
+          1
+        );
+
+        expect(props.dx).toEqual(3.5);
+      });
+    });
+    describe("when node.size is object and labelPosition is right", () => {
+      test("should calculate label offset correctly", () => {
+        const props = graphHelper.buildNodeProps(
+          { ...that.node, fontSize: 1, size: { height: 100, width: 100 }, labelPosition: "right" },
+          that.config,
+          undefined,
+          undefined,
+          undefined,
+          1
+        );
+
+        expect(props.dx).toEqual(3.5);
+      });
+    });
+    describe("when node.size is object and labelPosition is center", () => {
+      test("should calculate label offset correctly", () => {
+        const props = graphHelper.buildNodeProps(
+          { ...that.node, fontSize: 1, size: { height: 100, width: 100 }, labelPosition: "center" },
+          that.config,
+          undefined,
+          undefined,
+          undefined,
+          1
+        );
+
+        expect(props.dx).toEqual(2.5);
+      });
+    });
   });
 });
