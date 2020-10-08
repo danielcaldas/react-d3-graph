@@ -2,7 +2,7 @@ import React from "react";
 
 import { drag as d3Drag } from "d3-drag";
 import { forceLink as d3ForceLink } from "d3-force";
-import { select as d3Select, selectAll as d3SelectAll, event as d3Event } from "d3-selection";
+import { select as d3Select, selectAll as d3SelectAll } from "d3-selection";
 import { zoom as d3Zoom } from "d3-zoom";
 
 import CONST from "./graph.const";
@@ -181,7 +181,10 @@ export default class Graph extends React.Component {
       .on("end", this._onDragEnd);
 
     d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`)
-      .selectAll(".node")
+      .selectAll("g.node[id]")
+      .datum(function() {
+        return this.id; // The variable `this` will be equal to each of the selected `HTMLElement`s!
+      })
       .call(customNodeDrag);
   }
 
@@ -218,22 +221,19 @@ export default class Graph extends React.Component {
   /**
    * Handles d3 'drag' event.
    * {@link https://github.com/d3/d3-drag/blob/master/README.md#drag_subject|more about d3 drag}
-   * @param  {Object} ev - if not undefined it will contain event data.
-   * @param  {number} index - index of the node that is being dragged.
-   * @param  {Array.<Object>} nodeList - array of d3 nodes. This list of nodes is provided by d3, each
-   * node contains all information that was previously fed by rd3g.
+   * @param  {Object} d3Event - `DragEvent` contains d3 event data.
+   * @param  {string} datum - The datum we configured inside, our d3Select call,
+   * currently happening inside _graphNodeDragConfig function.
+   * in our case the datum, will be equal to the nodeId.
    * @returns {undefined}
    */
-  _onDragMove = (ev, index, nodeList) => {
-    const id = nodeList[index].id;
-
+  _onDragMove = (d3Event, datum) => {
     if (!this.state.config.staticGraph) {
       // this is where d3 and react bind
-      let draggedNode = this.state.nodes[id];
+      let draggedNode = this.state.nodes[datum];
 
       draggedNode.oldX = draggedNode.x;
       draggedNode.oldY = draggedNode.y;
-
       draggedNode.x += d3Event.dx;
       draggedNode.y += d3Event.dy;
 
@@ -302,9 +302,10 @@ export default class Graph extends React.Component {
 
   /**
    * Handler for 'zoom' event within zoom config.
+   * @param {Object} d3Event - `ZoomEvent` contains d3 event data
    * @returns {Object} returns the transformed elements within the svg graph area.
    */
-  _zoomed = () => {
+  _zoomed = d3Event => {
     const transform = d3Event.transform;
 
     d3SelectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr("transform", transform);
