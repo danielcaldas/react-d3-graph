@@ -533,6 +533,7 @@ const graph = {
         -   "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
             </br>
             <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/> (optional, default `"STRAIGHT"`)
+    -   `link.breakPoints` **[Array][185]&lt;[Object][184]>** <a id="link-type" href="#link-type">🔗</a> 🔍🔍🔍 Array of Objects that include x, y members of type `Number` (i.e. {'x': 5, 'y': 3}), which represent the additional points which the link will cross in its route from its node source to its node target. (optional, default `[]`)
 
 ### Examples
 
