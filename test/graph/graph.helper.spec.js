@@ -331,9 +331,8 @@ describe("Graph Helper", () => {
 
             expect(utils.throwErr).toHaveBeenCalledWith(
               "Graph",
-              "you provided a invalid links data" +
-                // eslint-disable-next-line
-                ' structure. Links source and target attributes must point to an existent node - "B" is not a valid source node id'
+              "you provided a invalid links data structure. " +
+                'Links source and target attributes must point to an existent node - "B" is not a valid source node id'
             );
           });
         });
@@ -345,9 +344,8 @@ describe("Graph Helper", () => {
 
             expect(utils.throwErr).toHaveBeenCalledWith(
               "Graph",
-              "you provided a invalid links data" +
-                // eslint-disable-next-line
-                ' structure. Links source and target attributes must point to an existent node - "B" is not a valid target node id'
+              "you provided a invalid links data structure. " +
+                'Links source and target attributes must point to an existent node - "B" is not a valid target node id'
             );
           });
         });
