@@ -285,18 +285,31 @@ describe("Graph Helper", () => {
     });
 
     describe("when invalid graph data is provided", () => {
+      const callInitializeGraph = data => graphHelper.initializeGraphState(
+        {
+          data,
+          id: "id",
+          config: "config",
+        },
+        "state"
+      );
+
+      describe("when no data is provided", () => {
+        test("should log INSUFFICIENT_DATA warning", () => {
+          callInitializeGraph({});
+
+          expect(utils.logWarning).toHaveBeenCalledWith(
+            "Graph",
+            "you have not provided enough data" +
+              " for react-d3-graph to render something. You need to provide at least one node"
+          );
+        });
+      });
+
       describe("when no nodes are provided", () => {
         test("should log INSUFFICIENT_DATA warning", () => {
-          const data = { nodes: [], links: [] };
-
-          graphHelper.initializeGraphState(
-            {
-              data,
-              id: "id",
-              config: "config",
-            },
-            "state"
-          );
+          const data = { nodes: [] };
+          callInitializeGraph(data);
 
           expect(utils.logWarning).toHaveBeenCalledWith(
             "Graph",
@@ -314,15 +327,7 @@ describe("Graph Helper", () => {
         describe("when link source references nonexistent node", () => {
           test("should throw INVALID_LINKS error", () => {
             const data = { nodes: [{ id: "A" }], links: [{ source: "B", target: "A" }] };
-
-            graphHelper.initializeGraphState(
-              {
-                data,
-                id: "id",
-                config: "config",
-              },
-              "state"
-            );
+            callInitializeGraph(data);
 
             expect(utils.throwErr).toHaveBeenCalledWith(
               "Graph",
@@ -336,15 +341,7 @@ describe("Graph Helper", () => {
         describe("when link target references nonexistent node", () => {
           test("should throw INVALID_LINKS error", () => {
             const data = { nodes: [{ id: "A" }], links: [{ source: "A", target: "B" }] };
-
-            graphHelper.initializeGraphState(
-              {
-                data,
-                id: "id",
-                config: "config",
-              },
-              "state"
-            );
+            callInitializeGraph(data);
 
             expect(utils.throwErr).toHaveBeenCalledWith(
               "Graph",
