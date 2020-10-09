@@ -17,6 +17,7 @@ describe("Graph Helper", () => {
     utils.isEmptyObject = jest.fn();
     utils.merge = jest.fn();
     utils.throwErr = jest.fn();
+    utils.logWarning = jest.fn();
   });
 
   describe("#initializeGraphState", () => {
@@ -285,7 +286,7 @@ describe("Graph Helper", () => {
 
     describe("when invalid graph data is provided", () => {
       describe("when no nodes are provided", () => {
-        test("should throw INSUFFICIENT_DATA error", () => {
+        test("should log INSUFFICIENT_DATA warning", () => {
           const data = { nodes: [], links: [] };
 
           graphHelper.initializeGraphState(
@@ -297,7 +298,7 @@ describe("Graph Helper", () => {
             "state"
           );
 
-          expect(utils.throwErr).toHaveBeenCalledWith(
+          expect(utils.logWarning).toHaveBeenCalledWith(
             "Graph",
             "you have not provided enough data" +
               " for react-d3-graph to render something. You need to provide at least one node"
