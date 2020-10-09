@@ -220,7 +220,8 @@ function _tagOrphanNodes(nodes, linksMatrix) {
  */
 function _validateGraphData(data) {
   if (!data.nodes || !data.nodes.length) {
-    throwErr("Graph", ERRORS.INSUFFICIENT_DATA);
+    logWarning("Graph", ERRORS.INSUFFICIENT_DATA);
+    data.nodes = [];
   }
 
   if (!data.links) {
