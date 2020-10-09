@@ -285,19 +285,21 @@ describe("Graph Helper", () => {
     });
 
     describe("when invalid graph data is provided", () => {
-      const callInitializeGraph = data => graphHelper.initializeGraphState(
-        {
-          data,
-          id: "id",
-          config: "config",
-        },
-        "state"
-      );
+      const callInitializeGraph = data =>
+        graphHelper.initializeGraphState(
+          {
+            data,
+            id: "id",
+            config: "config",
+          },
+          "state"
+        );
 
       describe("when no data is provided", () => {
         test("should log INSUFFICIENT_DATA warning", () => {
           callInitializeGraph({});
 
+          expect(utils.throwErr).not.toHaveBeenCalled();
           expect(utils.logWarning).toHaveBeenCalledWith(
             "Graph",
             "you have not provided enough data" +
@@ -311,6 +313,7 @@ describe("Graph Helper", () => {
           const data = { nodes: [] };
           callInitializeGraph(data);
 
+          expect(utils.throwErr).not.toHaveBeenCalled();
           expect(utils.logWarning).toHaveBeenCalledWith(
             "Graph",
             "you have not provided enough data" +
