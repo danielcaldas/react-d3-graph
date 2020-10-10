@@ -102,7 +102,7 @@ function _initializeLinks(graphLinks, config) {
  * and highlighted values.
  * @memberof Graph/helper
  */
-function _initializeNodes(graphNodes) {
+function initializeNodes(graphNodes) {
   let nodes = {};
   const n = graphNodes.length;
 
@@ -394,7 +394,7 @@ function initializeGraphState({ data, id, config }, state) {
 
   let newConfig = { ...merge(DEFAULT_CONFIG, config || {}) },
     links = _initializeLinks(graph.links, newConfig), // matrix of graph connections
-    nodes = _tagOrphanNodes(_initializeNodes(graph.nodes), links);
+    nodes = _tagOrphanNodes(initializeNodes(graph.nodes), links);
   const { nodes: d3Nodes, links: d3Links } = graph;
   const formatedId = id.replace(/ /g, "_");
   const simulation = _createForceSimulation(newConfig.width, newConfig.height, newConfig.d3 && newConfig.d3.gravity);
@@ -561,4 +561,5 @@ export {
   initializeGraphState,
   updateNodeHighlightedValue,
   getNormalizedNodeCoordinates,
+  initializeNodes,
 };
