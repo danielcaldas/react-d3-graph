@@ -235,14 +235,27 @@ export default class Graph extends React.Component {
       draggedNode.oldX = draggedNode.x;
       draggedNode.oldY = draggedNode.y;
 
-      draggedNode.x += d3Event.dx;
-      draggedNode.y += d3Event.dy;
+      const { transform, config } = this.state;
+      const newX = draggedNode.x + d3Event.dx;
+      const newY = draggedNode.y + d3Event.dy;
+      const invertTransformZoom = 1 / transform.k;
+      const shouldUpdateNode =
+        !config.bounded ||
+        (newX > -transform.x * invertTransformZoom &&
+          newX < (config.width - transform.x) * invertTransformZoom &&
+          newY > -transform.y * invertTransformZoom &&
+          newY < (config.height - transform.y) * invertTransformZoom);
 
-      // set nodes fixing coords fx and fy
-      draggedNode["fx"] = draggedNode.x;
-      draggedNode["fy"] = draggedNode.y;
+      if (shouldUpdateNode) {
+        draggedNode.x = newX;
+        draggedNode.y = newY;
 
-      this._tick({ draggedNode });
+        // set nodes fixing coords fx and fy
+        draggedNode["fx"] = draggedNode.x;
+        draggedNode["fy"] = draggedNode.y;
+
+        this._tick({ draggedNode });
+      }
     }
   };
 
@@ -310,10 +323,10 @@ export default class Graph extends React.Component {
 
     d3SelectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr("transform", transform);
 
-    this.state.config.panAndZoom && this.setState({ transform: transform.k });
+    this.setState({ transform: transform });
 
     // only send zoom change events if the zoom has changed (_zoomed() also gets called when panning)
-    if (this.debouncedOnZoomChange && this.state.previousZoom !== transform.k) {
+    if (this.debouncedOnZoomChange && this.state.previousZoom !== transform.k && !this.state.config.panAndZoom) {
       this.debouncedOnZoomChange(this.state.previousZoom, transform.k);
       this.setState({ previousZoom: transform.k });
     }
@@ -543,7 +556,8 @@ export default class Graph extends React.Component {
     // in order to properly update graph data we need to pause eventual d3 ongoing animations
     newGraphElements && this.pauseSimulation();
 
-    const transform = newConfig.panAndZoom !== this.state.config.panAndZoom ? 1 : this.state.transform;
+    const transform =
+      newConfig.panAndZoom !== this.state.config.panAndZoom ? { x: 0, y: 0, k: 1 } : this.state.transform;
     const focusedNodeId = nextProps.data.focusedNodeId;
     const d3FocusedNode = this.state.d3Nodes.find(node => `${node.id}` === `${focusedNodeId}`);
     const focusTransformation = getCenterAndZoomTransformation(d3FocusedNode, this.state.config);
@@ -638,7 +652,7 @@ export default class Graph extends React.Component {
       this.state.config,
       this.state.highlightedNode,
       this.state.highlightedLink,
-      this.state.transform
+      this.state.transform.k
     );
 
     const svgStyle = {

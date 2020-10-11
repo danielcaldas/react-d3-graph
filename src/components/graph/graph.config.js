@@ -90,6 +90,8 @@
  * @param {boolean} [staticGraphWithDragAndDrop] - <a id="static-graph-with-drag-and-drop" href="#static-graph-with-drag-and-drop">🔗</a> exactly the same as above <code>staticGraph</code>, but it will allow users to drag&drop nodes.
  * <b>Note</b>: If <code>staticGraph</code> is set to <code>true</code>, then <code>staticGraphWithDragAndDrop</code> will not produce the desired behaviour, make sure
  * to set only one of them to <code>true</code>.
+ * @param {boolean} [bounded=false] - <a id="bounded" href="#bounded">🔗</a> if the graph is set as bounded, it will be impossible
+ * to drag nodes outside the viewport. It does not apply to moving the entire graph around or when zooming in or out.
  * @param {number} [width=800] - <a id="width" href="#width">🔗</a> the width of the (svg) area where the graph will be rendered.
  * </br>
  * @param {Object} d3 d3 object is explained in next section. ⬇️
@@ -256,6 +258,7 @@ export default {
   panAndZoom: false,
   staticGraph: false,
   staticGraphWithDragAndDrop: false,
+  bounded: false,
   width: 800,
   d3: {
     alphaTarget: 0.05,

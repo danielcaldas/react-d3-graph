@@ -417,7 +417,7 @@ function initializeGraphState({ data, id, config }, state) {
     simulation,
     newGraphElements: false,
     configUpdated: false,
-    transform: 1,
+    transform: { x: 0, y: 0, k: 1 },
     draggedNode: null,
   };
 }
