@@ -71,12 +71,13 @@ function getRadiusStrategy(type) {
 function buildLinkPathDefinition(sourceCoords = {}, targetCoords = {}, type = LINE_TYPES.STRAIGHT, breakPoints = []) {
   const { x: sx, y: sy } = sourceCoords;
   const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
+  const calcRadiusFn = getRadiusStrategy(validType);
 
   const restOfLinkPoints = [...breakPoints, targetCoords];
   const restOfLinkPath = restOfLinkPoints
     .map(({ x, y }, i) => {
       const { x: px, y: py } = i > 0 ? restOfLinkPoints[i - 1] : sourceCoords;
-      const radius = getRadiusStrategy(validType)(px, py, x, y);
+      const radius = calcRadiusFn(px, py, x, y);
 
       return ` A${radius},${radius} 0 0,1 ${x},${y}`;
     })
