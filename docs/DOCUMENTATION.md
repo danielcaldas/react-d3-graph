@@ -984,7 +984,7 @@ return dx, dy, and potentially alignmentBaseline and textAnchor props to put lab
 
 #### Parameters
 
--   `dx` **([number][181] \| [undefined][193])** default computed offset of label
+-   `dx` **([number][181] \| [undefined][193])** default computed offset of label to the right of the node
 -   `labelPosition` **(`"left"` \| `"right"` \| `"top"` \| `"bottom"` \| `"center"` \| [undefined][193])** user specified position of label relative to node
 
 Returns **({dx: [string][183], dy: [string][183]} | {dx: [string][183], dy: [string][183], textAnchor: [string][183], dominantBaseline: [string][183]})** props to put text svg for label in correct spot. default case returns just dx and dy, without textAnchor and dominantBaseline
