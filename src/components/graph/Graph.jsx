@@ -347,6 +347,8 @@ export default class Graph extends React.Component {
    * @returns {undefined}
    */
   onClickNode = clickedNodeId => {
+    const clickedNode = this.state.nodes[clickedNodeId];
+
     if (this.state.config.collapsible) {
       const leafConnections = getTargetLeafConnections(clickedNodeId, this.state.links, this.state.config);
       const links = toggleLinksMatrixConnections(this.state.links, leafConnections, this.state.config);
@@ -367,7 +369,7 @@ export default class Graph extends React.Component {
           d3Links,
         },
         () => {
-          this.props.onClickNode && this.props.onClickNode(clickedNodeId);
+          this.props.onClickNode && this.props.onClickNode(clickedNodeId, clickedNode);
 
           if (isExpanding) {
             this._graphNodeDragConfig();
@@ -377,14 +379,24 @@ export default class Graph extends React.Component {
     } else {
       if (!this.nodeClickTimer) {
         this.nodeClickTimer = setTimeout(() => {
-          this.props.onClickNode && this.props.onClickNode(clickedNodeId);
+          this.props.onClickNode && this.props.onClickNode(clickedNodeId, clickedNode);
           this.nodeClickTimer = null;
         }, CONST.TTL_DOUBLE_CLICK_IN_MS);
       } else {
-        this.props.onDoubleClickNode && this.props.onDoubleClickNode(clickedNodeId);
+        this.props.onDoubleClickNode && this.props.onDoubleClickNode(clickedNodeId, clickedNode);
         this.nodeClickTimer = clearTimeout(this.nodeClickTimer);
       }
     }
+  };
+
+  /**
+   * Handles right click event on a node.
+   * @param  {string} id - id of the node that participates in the event.
+   * @returns {undefined}
+   */
+  onRightClickNode = (event, id) => {
+    const clickedNode = this.state.nodes[id];
+    this.props.onRightClickNode && this.props.onRightClickNode(event, id, clickedNode);
   };
 
   /**
@@ -397,7 +409,8 @@ export default class Graph extends React.Component {
       return;
     }
 
-    this.props.onMouseOverNode && this.props.onMouseOverNode(id);
+    const clickedNode = this.state.nodes[id];
+    this.props.onMouseOverNode && this.props.onMouseOverNode(id, clickedNode);
 
     this.state.config.nodeHighlightBehavior && this._setNodeHighlightedValue(id, true);
   };
@@ -412,7 +425,8 @@ export default class Graph extends React.Component {
       return;
     }
 
-    this.props.onMouseOutNode && this.props.onMouseOutNode(id);
+    const clickedNode = this.state.nodes[id];
+    this.props.onMouseOutNode && this.props.onMouseOutNode(id, clickedNode);
 
     this.state.config.nodeHighlightBehavior && this._setNodeHighlightedValue(id, false);
   };
@@ -623,7 +637,7 @@ export default class Graph extends React.Component {
       {
         onClickNode: this.onClickNode,
         onDoubleClickNode: this.onDoubleClickNode,
-        onRightClickNode: this.props.onRightClickNode,
+        onRightClickNode: this.onRightClickNode,
         onMouseOverNode: this.onMouseOverNode,
         onMouseOut: this.onMouseOutNode,
       },
