@@ -391,6 +391,7 @@ export default class Graph extends React.Component {
 
   /**
    * Handles right click event on a node.
+   * @param  {Object} event - Right click event.
    * @param  {string} id - id of the node that participates in the event.
    * @returns {undefined}
    */
