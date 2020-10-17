@@ -62,24 +62,24 @@ import { merge, debounce, throwErr } from "../../utils";
  *      window.alert('Clicked the graph background');
  * };
  *
- * const onClickNode = function(nodeId) {
- *      window.alert('Clicked node ${nodeId}');
+ * const onClickNode = function(nodeId, node) {
+ *      window.alert('Clicked node ${nodeId} in position (${node.x}, ${node.y})');
  * };
  *
- * const onDoubleClickNode = function(nodeId) {
- *      window.alert('Double clicked node ${nodeId}');
+ * const onDoubleClickNode = function(nodeId, node) {
+ *      window.alert('Double clicked node ${nodeId} in position (${node.x}, ${node.y})');
  * };
  *
- * const onRightClickNode = function(event, nodeId) {
- *      window.alert('Right clicked node ${nodeId}');
+ * const onRightClickNode = function(event, nodeId, node) {
+ *      window.alert('Right clicked node ${nodeId} in position (${node.x}, ${node.y})');
  * };
  *
- * const onMouseOverNode = function(nodeId) {
- *      window.alert(`Mouse over node ${nodeId}`);
+ * const onMouseOverNode = function(nodeId, node) {
+ *      window.alert(`Mouse over node ${nodeId} in position (${node.x}, ${node.y})`);
  * };
  *
- * const onMouseOutNode = function(nodeId) {
- *      window.alert(`Mouse out node ${nodeId}`);
+ * const onMouseOutNode = function(nodeId, node) {
+ *      window.alert(`Mouse out node ${nodeId} in position (${node.x}, ${node.y})`);
  * };
  *
  * const onClickLink = function(source, target) {
