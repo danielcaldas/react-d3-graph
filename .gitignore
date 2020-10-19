@@ -65,7 +65,8 @@ typings/
 
 # Project stuff
 dist
-lib
+#temporary pushing lib for testing purposes
+#lib
 coverage
 gen-docs
 .DS_Store
