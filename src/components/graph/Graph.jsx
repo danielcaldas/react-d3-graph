@@ -196,7 +196,9 @@ export default class Graph extends React.Component {
       this.state.simulation.nodes(this.state.d3Nodes).on("tick", this._tick);
       this._graphLinkForceConfig();
     }
-    this._graphNodeDragConfig();
+    if (!this.state.config.freezeAllDragEvents) {
+      this._graphNodeDragConfig();
+    }
   }
 
   /**
