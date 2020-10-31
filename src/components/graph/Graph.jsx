@@ -292,7 +292,7 @@ export default class Graph extends React.Component {
 
     const zoomObject = d3Zoom()
       .scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
-      .on("zoom", this._zoomed);
+      .on("zoom", !this.state.config.freezeAllDragEvents ? this._zoomed : null);
 
     if (this.state.config.initialZoom !== null) {
       zoomObject.scaleTo(selector, this.state.config.initialZoom);
