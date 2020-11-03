@@ -454,18 +454,6 @@ export default class Sandbox extends React.Component {
                 📖Documentation
               </a>
             </h4>
-            <h5>
-              <a href="https://paypal.me/DanielCaldas321" target="_blank">
-                ❤️Donate
-              </a>
-              <a
-                href="https://github.com/danielcaldas/react-d3-graph/stargazers"
-                target="_blank"
-                style={{ marginLeft: "4px" }}
-              >
-                ⭐Become a stargazer
-              </a>
-            </h5>
             <h3>Configurations</h3>
             <Form
               className="form-wrapper"
