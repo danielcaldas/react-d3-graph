@@ -3,19 +3,11 @@
 [![npm version](https://img.shields.io/npm/v/react-d3-graph.svg?style=flat-square)](https://www.npmjs.com/package/react-d3-graph) [![npm](https://img.shields.io/npm/dw/react-d3-graph.svg?style=flat-square)](https://www.npmjs.com/package/react-d3-graph)
 [![npm](https://img.shields.io/npm/dt/react-d3-graph.svg?style=flat-square)](https://www.npmjs.com/package/react-d3-graph) [![probot enabled](https://img.shields.io/badge/probot:stale-enabled-yellow.svg?longCache=true&style=flat-square)](https://probot.github.io/) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/DanielCaldas321)
-
 :book: [Documentation](https://danielcaldas.github.io/react-d3-graph/docs/index.html)
 
 ### _Interactive and configurable graphs with react and d3 effortlessly_
 
 [![react-d3-graph gif sample](https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/rd3g_v2.gif?raw=true)](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html)
-
-## Donations
-
-If you enjoy this library, please consider [supporting me](https://paypal.me/DanielCaldas321) for developing and maintaining it.
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/DanielCaldas321)
 
 ## Playground
 
@@ -148,9 +140,18 @@ const onNodePositionChange = function(nodeId, x, y) {
 />;
 ```
 
+## Core Team
+
+The group of maintainers driving the project.
+
+| [Daniel Caldas](https://github.com/danielcaldas)                                                                        | [Sara Hernández](https://github.com/LonelyPrincess)                                                                       | [Terahn Harrison](https://github.com/terahn)                                                                      |
+| ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| ![danielcaldas](https://avatars2.githubusercontent.com/u/11733994?s=120&u=e6b6edacde9c76844785e21d0568a4ba7c7f9aa4&v=4) | ![LonelyPrincess](https://avatars3.githubusercontent.com/u/17673317?s=120&u=d3170de2d3d4adf6268b892213927c8439d2f513&v=4) | ![terahn](https://avatars2.githubusercontent.com/u/23760949?s=120&u=9182d8d602285c507a1e88a0629785323b2f8703&v=4) |
+| [@\_danielcaldas](https://twitter.com/_danielcaldas)                                                                    |                                                                                                                           |                                                                                                                   |
+
 ## Contributions
 
-Contributions are welcome, feel free to submit new ideas/features, just open an issue or send me an email or something. If you are more a _hands on_ person, just submit a pull request. Before jumping into coding, please take a look at the contribution guidelines [CONTRIBUTING.md](https://github.com/danielcaldas/react-d3-graph/blob/master/CONTRIBUTING.md).
+Contributions are welcome, feel free to submit new ideas/features, just go ahead and open an issue. If you are more a _hands on_ person, just submit a pull request. Before jumping into coding, please take a look at the contribution guidelines [CONTRIBUTING.md](https://github.com/danielcaldas/react-d3-graph/blob/master/CONTRIBUTING.md).
 
 To run react-d3-graph in development mode you just need to run `npm run dev` and the interactive sandbox will reload with the changes to the library code, that way you can test your changes not only through unit test but also through a real life example. It's that simple. The development workflow usually should follow the steps:
 

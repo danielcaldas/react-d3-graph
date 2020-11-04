@@ -455,9 +455,6 @@ export default class Sandbox extends React.Component {
               </a>
             </h4>
             <h5>
-              <a href="https://paypal.me/DanielCaldas321" target="_blank">
-                ❤️Donate
-              </a>
               <a
                 href="https://github.com/danielcaldas/react-d3-graph/stargazers"
                 target="_blank"
