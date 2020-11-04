@@ -3,4 +3,3 @@ package-lock.json
 *.snap
 *.bundle.js
 *.bundle.js.map
-README.md

@@ -144,10 +144,10 @@ const onNodePositionChange = function(nodeId, x, y) {
 
 The group of maintainers driving the project.
 
-|  [Daniel Caldas](https://github.com/danielcaldas) |  [Sara Hernández](https://github.com/LonelyPrincess)  | [Terahn Harrison](https://github.com/terahn)  |
-|--|--|--|
+| [Daniel Caldas](https://github.com/danielcaldas)                                                                        | [Sara Hernández](https://github.com/LonelyPrincess)                                                                       | [Terahn Harrison](https://github.com/terahn)                                                                      |
+| ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | ![danielcaldas](https://avatars2.githubusercontent.com/u/11733994?s=120&u=e6b6edacde9c76844785e21d0568a4ba7c7f9aa4&v=4) | ![LonelyPrincess](https://avatars3.githubusercontent.com/u/17673317?s=120&u=d3170de2d3d4adf6268b892213927c8439d2f513&v=4) | ![terahn](https://avatars2.githubusercontent.com/u/23760949?s=120&u=9182d8d602285c507a1e88a0629785323b2f8703&v=4) |
-| [@_danielcaldas](https://twitter.com/_danielcaldas) | [@_handler](TBD) | [@_handler](TBD) |
+| [@\_danielcaldas](https://twitter.com/_danielcaldas)                                                                    |                                                                                                                           |                                                                                                                   |
 
 ## Contributions
 
