@@ -17,78 +17,175 @@ import { isNodeVisible } from "./collapse.helper";
 import { getMarkerSize } from "../marker/marker.helper";
 
 /**
- * Build Link components given a list of links.
- * @param  {Object.<string, Object>} nodes - same as {@link #graphrenderer|nodes in renderGraph}.
+ * Function that builds Node components.
+ * @param  {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
  * @param  {Array.<Object>} links - array of links {@link #Link|Link}.
  * @param  {Array.<Object>} linksMatrix - array of links {@link #Link|Link}.
- * @param  {Object} config - same as {@link #graphrenderer|config in renderGraph}.
+ * @param  {Object} config - an object containing rd3g consumer defined configurations {@link #config config} for the graph.
  * @param  {Function[]} linkCallbacks - same as {@link #graphrenderer|linkCallbacks in renderGraph}.
- * @param  {string} highlightedNode - same as {@link #graphrenderer|highlightedNode in renderGraph}.
- * @param  {Object} highlightedLink - same as {@link #graphrenderer|highlightedLink in renderGraph}.
+ * @param  {string} highlightedNode - this value contains a string that represents the some currently highlighted node.
+ * @param  {Object} highlightedLink - this object contains a source and target property for a link that is highlighted at some point in time.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
- * @returns {Array.<Object>} returns the generated array of Link components.
+ * @returns {Object} returns the generated link component.
  * @memberof Graph/renderer
  */
-function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
-    let outLinks = links;
+function _renderLink(nodes, link, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
+    const { source, target } = link;
+    const sourceId = getId(source);
+    const targetId = getId(target);
+    const key = `${sourceId}${CONST.COORDS_SEPARATOR}${targetId}`;
+    const props = buildLinkProps(
+        { ...link, source: `${sourceId}`, target: `${targetId}` },
+        nodes,
+        linksMatrix,
+        config,
+        linkCallbacks,
+        `${highlightedNode}`,
+        highlightedLink,
+        transform
+    );
 
-    if (config.collapsible) {
-        outLinks = outLinks.filter(({ isHidden }) => !isHidden);
-    }
-
-    return outLinks.map(link => {
-        const { source, target } = link;
-        const sourceId = getId(source);
-        const targetId = getId(target);
-        const key = `${sourceId}${CONST.COORDS_SEPARATOR}${targetId}`;
-        const props = buildLinkProps(
-            { ...link, source: `${sourceId}`, target: `${targetId}` },
-            nodes,
-            linksMatrix,
-            config,
-            linkCallbacks,
-            `${highlightedNode}`,
-            highlightedLink,
-            transform
-        );
-
-        return <Link key={key} id={key} {...props} />;
-    });
+    return <Link key={key} id={key} {...props} />;
 }
 
 /**
  * Function that builds Node components.
  * @param  {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
- * @param  {Function[]} nodeCallbacks - array of callbacks for used defined event handler for node interactions.
+ * @param  {string} nodeId - id of a node.
  * @param  {Object} config - an object containing rd3g consumer defined configurations {@link #config config} for the graph.
+ * @param  {Function[]} nodeCallbacks - array of callbacks for used defined event handler for node interactions.
  * @param  {string} highlightedNode - this value contains a string that represents the some currently highlighted node.
  * @param  {Object} highlightedLink - this object contains a source and target property for a link that is highlighted at some point in time.
- * @param  {string} highlightedLink.source - id of source node for highlighted link.
- * @param  {string} highlightedLink.target - id of target node for highlighted link.
  * @param  {number} transform - value that indicates the amount of zoom transformation.
- * @param  {Object.<string, Object>} linksMatrix - the matrix of connections of the graph
- * @returns {Array.<Object>} returns the generated array of node components
+ * @returns {Object} returns the generated node component.
  * @memberof Graph/renderer
  */
-function _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
-    let outNodes = Object.keys(nodes);
+function _renderNode(nodes, nodeId, config, nodeCallbacks, highlightedNode, highlightedLink, transform) {
+    const props = buildNodeProps(
+        { ...nodes[nodeId], id: `${nodeId}` },
+        config,
+        nodeCallbacks,
+        highlightedNode,
+        highlightedLink,
+        transform
+    );
 
-    if (config.collapsible) {
-        outNodes = outNodes.filter(nodeId => isNodeVisible(nodeId, nodes, linksMatrix));
+    return <Node key={nodeId} {...props} />;
+}
+
+/**
+ * Function that builds Graph with Breadth First Search.
+ * @param {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
+ * @param {Function[]} nodeCallbacks - array of callbacks for used defined event handler for node interactions.
+ * @param {Object} config - an object containing rd3g consumer defined configurations {@link #config config} for the graph.
+ * @param {string} highlightedNode - this value contains a string that represents the some currently highlighted node.
+ * @param {Object} highlightedLink - this object contains a source and target property for a link that is highlighted at some point in time.
+ * @param {number} transform - value that indicates the amount of zoom transformation.
+ * @param {Array.<Object>} linksMatrix - array of links {@link #Link|Link}.
+ * @param {Array.<Object>} links - array of links {@link #Link|Link}.
+ * @param {Function[]} linkCallbacks - same as {@link #graphrenderer|linkCallbacks in renderGraph}.
+ */
+function renderWithBFS(
+    nodes,
+    nodeCallbacks,
+    config,
+    highlightedNode,
+    highlightedLink,
+    transform,
+    linksMatrix,
+    links,
+    linkCallbacks
+) {
+    const visitedNodeIds = [];
+    const visitedLinks = [];
+    const elements = [];
+
+    const startNodeId = nodes[Object.keys(nodes)[0]].id;
+    elements.push(_renderNode(nodes, startNodeId, config, nodeCallbacks, highlightedNode, highlightedLink, transform));
+    visitedNodeIds.push(startNodeId);
+    bfs(
+        startNodeId,
+        elements,
+        visitedNodeIds,
+        visitedLinks,
+        nodes,
+        nodeCallbacks,
+        config,
+        highlightedNode,
+        highlightedLink,
+        transform,
+        linksMatrix,
+        links,
+        linkCallbacks
+    );
+
+    return elements;
+}
+
+function bfs(
+    nodeId,
+    elements,
+    visitedNodeIds,
+    visitedLinks,
+    nodes,
+    nodeCallbacks,
+    config,
+    highlightedNode,
+    highlightedLink,
+    transform,
+    linksMatrix,
+    links,
+    linkCallbacks
+) {
+    if (visitedLinks.length === links.length && visitedNodeIds.length === Object.keys(nodes).length) {
+        return;
     }
 
-    return outNodes.map(nodeId => {
-        const props = buildNodeProps(
-            { ...nodes[nodeId], id: `${nodeId}` },
-            config,
+    const linksToRender = links
+        .filter(link => getId(link.source) === nodeId || getId(link.target) === nodeId)
+        .filter(link => {
+            return (
+                visitedLinks.filter(
+                    visitedLink => visitedLink.source === link.source && visitedLink.target === link.target
+                ).length === 0
+            );
+        });
+
+    linksToRender.forEach(link => {
+        elements.push(
+            _renderLink(nodes, link, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform)
+        );
+        const connectedNodeId = getId(link.source) === nodeId ? getId(link.target) : getId(link.source);
+        if (visitedNodeIds.filter(visitedNodeId => visitedNodeId === connectedNodeId).length === 0) {
+            elements.push(
+                _renderNode(nodes, connectedNodeId, config, nodeCallbacks, highlightedNode, highlightedLink, transform)
+            );
+            visitedNodeIds.push(connectedNodeId);
+        }
+    });
+    visitedLinks.push(...linksToRender);
+
+    const nextLayerNodeIds = linksToRender.map(link => {
+        return getId(link.source) === nodeId ? getId(link.target) : getId(link.source);
+    });
+
+    nextLayerNodeIds.forEach(nodeId =>
+        bfs(
+            nodeId,
+            elements,
+            visitedNodeIds,
+            visitedLinks,
+            nodes,
             nodeCallbacks,
+            config,
             highlightedNode,
             highlightedLink,
-            transform
-        );
-
-        return <Node key={nodeId} {...props} />;
-    });
+            transform,
+            linksMatrix,
+            links,
+            linkCallbacks
+        )
+    );
 }
 
 /**
@@ -176,31 +273,8 @@ const _memoizedRenderDefs = _renderDefs();
  * @returns {Object} returns an object containing the generated nodes and links that form the graph.
  * @memberof Graph/renderer
  */
-function renderGraph(
-    nodes,
-    nodeCallbacks,
-    links,
-    linksMatrix,
-    linkCallbacks,
-    config,
-    highlightedNode,
-    highlightedLink,
-    transform
-) {
-    return {
-        nodes: _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix),
-        links: _renderLinks(
-            nodes,
-            links,
-            linksMatrix,
-            config,
-            linkCallbacks,
-            highlightedNode,
-            highlightedLink,
-            transform
-        ),
-        defs: _memoizedRenderDefs(config),
-    };
+function renderGraphDefs(config) {
+    return _memoizedRenderDefs(config);
 }
 
-export { renderGraph };
+export { renderGraphDefs, renderWithBFS };

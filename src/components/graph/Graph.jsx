@@ -17,7 +17,7 @@ import {
     getCenterAndZoomTransformation,
     initializeGraphState,
 } from "./graph.helper";
-import { renderGraph } from "./graph.renderer";
+import { renderGraphDefs, renderWithBFS } from "./graph.renderer";
 import { merge, debounce, throwErr } from "../../utils";
 
 /**
@@ -610,7 +610,9 @@ export default class Graph extends React.Component {
     }
 
     render() {
-        const { nodes, links, defs } = renderGraph(
+        const defs = renderGraphDefs(this.state.config);
+
+        const elements = renderWithBFS(
             this.state.nodes,
             {
                 onClickNode: this.onClickNode,
@@ -619,18 +621,18 @@ export default class Graph extends React.Component {
                 onMouseOverNode: this.onMouseOverNode,
                 onMouseOut: this.onMouseOutNode,
             },
-            this.state.d3Links,
+            this.state.config,
+            this.state.highlightedNode,
+            this.state.highlightedLink,
+            this.state.transform,
             this.state.links,
+            this.state.d3Links,
             {
                 onClickLink: this.props.onClickLink,
                 onRightClickLink: this.props.onRightClickLink,
                 onMouseOverLink: this.onMouseOverLink,
                 onMouseOutLink: this.onMouseOutLink,
-            },
-            this.state.config,
-            this.state.highlightedNode,
-            this.state.highlightedLink,
-            this.state.transform
+            }
         );
 
         const svgStyle = {
@@ -645,8 +647,7 @@ export default class Graph extends React.Component {
                 <svg name={`svg-container-${this.state.id}`} style={svgStyle} onClick={this.onClickGraph}>
                     {defs}
                     <g id={`${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`} {...containerProps}>
-                        {links}
-                        {nodes}
+                        {elements}
                     </g>
                 </svg>
             </div>

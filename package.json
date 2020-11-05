@@ -40,7 +40,7 @@
     "react": "^16.4.1"
   },
   "devDependencies": {
-    "@babel/cli": "7.6.0",
+    "@babel/cli": "^7.12.1",
     "@babel/core": "7.6.0",
     "@babel/plugin-proposal-class-properties": "7.5.5",
     "@babel/plugin-proposal-optional-chaining": "7.6.0",
@@ -63,7 +63,7 @@
     "eslint-plugin-react": "7.14.3",
     "eslint-plugin-standard": "4.0.1",
     "html-webpack-plugin": "2.30.1",
-    "http-server": "^0.12.1",
+    "http-server": "^0.12.3",
     "husky": "3.0.5",
     "jest": "24.9.0",
     "jsdoc": "^3.6.3",
@@ -84,7 +84,7 @@
     "webpack": "4.41.6",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "3.3.8",
-    "webpack-dev-server": "^3.1.14",
+    "webpack-dev-server": "^3.11.0",
     "webpack-visualizer-plugin": "0.1.11"
   },
   "engines": {
