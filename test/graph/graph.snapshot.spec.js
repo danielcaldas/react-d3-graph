@@ -35,7 +35,7 @@ describe("Snapshot - Graph Component", () => {
   beforeEach(() => {
     const config = { ...that.config, collapsible: true };
     const data = {
-      nodes: [...graphMock.nodes, { id: "Simba", x: "290", y: "290" }],
+      nodes: graphMock.nodes,
       links: graphMock.links,
     };
 

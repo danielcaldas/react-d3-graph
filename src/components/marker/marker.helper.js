@@ -11,7 +11,7 @@ import {
   MARKER_MEDIUM_OFFSET,
   MARKER_LARGE_OFFSET,
 } from "./marker.const";
-import CONST from "../graph/graph.const";
+import GRAPH_CONST from "../graph/graph.const";
 
 /**
  * This function is a key template builder to access MARKERS structure.
@@ -103,7 +103,7 @@ const getMarkerId = _memoizedComputeMarkerId();
 
 /**
  * Computes the three marker sizes
- * For supported shapes in {@link Graph/helper/getNormalizedNodeCoordinates}, the function should return 0,
+ * For supported shapes in {@link Graph/coords/getNormalizedNodeCoordinates}, the function should return 0,
  * to be able to control more accurately nodes and arrows sizes and positions in directional graphs.
  * @param {Object} config - the graph config object.
  * @returns {Object} size of markers
@@ -114,14 +114,10 @@ function getMarkerSize(config) {
   let medium = small + (MARKER_MEDIUM_OFFSET * config.maxZoom) / 3;
   let large = small + (MARKER_LARGE_OFFSET * config.maxZoom) / 3;
 
-  if (config.node && !config.node.viewGenerator) {
-    switch (config.node.symbolType) {
-      case CONST.SYMBOLS.CIRCLE:
-        small = 0;
-        medium = 0;
-        large = 0;
-        break;
-    }
+  if (config.node?.viewGenerator || GRAPH_CONST.SYMBOLS_WITH_OPTIMIZED_POSITIONING.has(config.node?.symbolType)) {
+    small = 0;
+    medium = 0;
+    large = 0;
   }
 
   return { small, medium, large };

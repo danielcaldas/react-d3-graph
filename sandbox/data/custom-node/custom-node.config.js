@@ -14,6 +14,7 @@ export default {
   panAndZoom: false,
   staticGraph: false,
   width: 800,
+  directed: true,
   node: {
     color: "#d3d3d3",
     fontColor: "black",
@@ -36,7 +37,6 @@ export default {
     strokeColor: "none",
     strokeWidth: 1.5,
     svg: "",
-    symbolType: "circle",
     viewGenerator: node => <CustomNode person={node} />,
   },
   link: {
