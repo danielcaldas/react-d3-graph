@@ -1,1917 +1,1917 @@
 [
-  {
-    "comment": "/**\n * <div style=\"text-align: right;\"><i>This is certainly the only extra piece of documentation that you will ever need</i></div>\n * </br></br>\n * Here you can consult a detailed description of each graph configurable property as well as the default values\n * of those properties.\n *\n * <b>Note about performance</b></br>\n * Some of the properties have a major performance impact when toggled while rendering graphs of medium or large dimensions (hundreds or thousand of elements).\n * These properties are marked with 🚅🚅🚅.</br>\n * ⭐ <b>tip</b> <i>to achieve smoother interactions you may want to provide a toggle to set <b>staticGraph</b> or (better) <b>staticGraphWithDragAndDrop</b> to <b>true</b></i></br>\n * </br>\n * <b>Note about granularity</b></br>\n * Some of the properties listed in the <a href=\"#config-node\">Node section</a> are marked with 🔍🔍🔍. This means that this properties\n * have a higher level of granularity. These properties can be defined in the graph payload at a node level. (sample payload below)\n * ```javascript\n * const graph = {\n *     nodes: [\n *         {\n *             id: \"id\",\n *             color: \"red\",         // only this node will be red\n *             size: 300,            // only this node will have size 300\n *             symbolType: \"diamond\" // only this node will have \"diamond\" shape\n *         }\n *     ],\n *     links: [...]\n * };\n * ```\n *\n * </br>\n *\n * - <a href=\"#config-global\">Graph global configurations</a>\n * - <a href=\"#config-d3\">d3 level configurations</a>\n * - <a href=\"#config-node\">Node level configurations</a>\n * - <a href=\"#config-link\">Link level configurations</a>\n *\n * </br>\n *\n * <h2 id=\"config-global\"><a href=\"#config-global\">#</a>  Graph global configurations</h2>\n * @param {boolean} [automaticRearrangeAfterDropNode=false] - <a id=\"automatic-rearrange-after-drop-node\" href=\"#automatic-rearrange-after-drop-node\">🔗</a> 🚅🚅🚅 when true performing a node drag and drop should automatically\n * rearrange all nodes positions based on new position of dragged node (note: <b>staticGraph</b> should be false). A few notes on this property:\n * <ul>\n * <li><b>automaticRearrangeAfterDropNode</b> needs to be set before the first graph render. Only the first set value will take effect.</li>\n * <li><b>automaticRearrangeAfterDropNode</b> won't work together with <b>nodeHighlightBehavior</b> (currently a known limitation, to be address in the future <a href=\"https://github.com/danielcaldas/react-d3-graph/issues/261\" target=\"_blank\">GitHub issue #261</a>).</li>\n * </ul>\n * @param {boolean} [collapsible=false] - <a id=\"collapsible\" href=\"#collapsible\">🔗</a> 🚅🚅🚅 Allow leaf neighbors nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.\n * To see an example of this behavior you can access <a href=\"https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=marvel\" target=\"_blank\" title=\"sandbox collapsible example\">this sandbox link</a> that has a specific set up to experiment this feature. <b>NOTE</b>: At this moment\n * nodes without connections (orphan nodes) are not rendered when this property is activated (see <a target=\"_blank\" href=\"https://github.com/danielcaldas/react-d3-graph/issues/129\">GitHub issue #129</a>).\n * </br>\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-collapsible.gif?raw=true\" width=\"820\" height=\"480\"/>\n * @param {boolean} [directed=false] - <a id=\"directed\" href=\"#directed\">🔗</a> This property makes react-d3-graph handle your graph as a directed graph. It will\n * out of the box provide the look and feel of a directed graph and add directional semantic to links. You can see a sample in the image below.\n * </br>\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-directed.gif?raw=true\" width=\"820\" height=\"480\"/>\n * @param {number} [focusZoom=1] - <a id=\"focus-zoom\" href=\"#focus-zoom\">🔗</a> zoom that will be applied when the graph view is focused in a node. Its value must be between\n * <i>minZoom</i> and <i>maxZoom</i>. If the specified <i>focusZoom</i> is out of this range, <i>minZoom</i> or <i>maxZoom</i> will be applied instead.</br>\n * <b>NOTE</b>: This animation is not trigger by default. In order to trigger it you need to pass down to <code>react-d3-graph</code> the\n * node that you want to focus via prop <code>focusedNodeId</code> along side with nodes and links:\n *\n * ```javascript\n * const data = {\n *    nodes: this.state.data.nodes,\n *    links: this.state.data.links,\n *    focusedNodeId: \"nodeIdToTriggerZoomAnimation\"\n * };\n * ```\n *\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-zoom-animation.gif?raw=true\" width=\"820\" height=\"480\"/>\n *\n * @param {number} [focusAnimationDuration=0.75] - <a id=\"focus-animation-duration\" href=\"#focus-animation-duration\">🔗</a> duration (in seconds) for the animation that takes place when focusing the graph on a node.\n * @param {number} [height=400] - <a id=\"height\" href=\"#height\">🔗</a> the height of the (svg) area where the graph will be rendered.\n * @param {boolean} [nodeHighlightBehavior=false] - <a id=\"node-highlight-behavior\" href=\"#node-highlight-behavior\">🔗</a> 🚅🚅🚅 when user mouse hovers a node that node and adjacent common\n * connections will be highlighted (depending on the <i>highlightDegree</i> value). All the remaining nodes and links assume opacity value equal to <b>highlightOpacity</b>.\n * @param {boolean} [linkHighlightBehavior=false] - <a id=\"link-highlight-behavior\" href=\"#link-highlight-behavior\">🔗</a> 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior\n * to <i>nodeHighlightBehavior</i> but for links <small>(just for historical reference this property was introduced in <a target=\"_blank\" href=\"https://github.com/danielcaldas/react-d3-graph/releases/tag/1.0.0\">v1.0.0</a>)</small>.\n * @param {number} [highlightDegree=1] - <a id=\"highlight-degree\" href=\"#highlight-degree\">🔗</a> <b>Possible values: 0, 1 or 2</b>. This value represents the range of the\n * highlight behavior when some node is highlighted. If the value is set to <b>0</b> only the selected node will be\n * highlighted. If the value is set to <b>1</b> the selected node and his 1st degree connections will be highlighted. If\n * the value is set to <b>2</b> the selected node will be highlighted as well as the 1st and 2nd common degree connections.\n * @param {number} [highlightOpacity=1] - <a id=\"highlight-opacity\" href=\"#highlight-opacity\">🔗</a> this value is used to highlight nodes in the network. The lower\n * the value the more the less highlighted nodes will be visible (related to <i>nodeHighlightBehavior</i>).\n * @param {number} [initialZoom=null] - <a id=\"max-zoom\" href=\"#initial-zoom\">🔗</a> initial zoom that can be set on the graph.\n * @param {number} [maxZoom=8] - <a id=\"max-zoom\" href=\"#max-zoom\">🔗</a> max zoom that can be performed against the graph.\n * @param {number} [minZoom=0.1] - <a id=\"min-zoom\" href=\"#min-zoom\">🔗</a> min zoom that can be performed against the graph.\n * @param {boolean} [panAndZoom=false] - <a id=\"pan-and-zoom\" href=\"#pan-and-zoom\">🔗</a> 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,\n * a similar functionality may be consulted <a target=\"_blank\" href=\"https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39\">here</a>.\n * @param {boolean} [staticGraph=false] - <a id=\"static-graph\" href=\"#static-graph\">🔗</a> when setting this value to true the graph will be completely static, thus\n * all forces and drag events upon nodes will produce not effect. Note that, if this value is true the nodes will be\n * rendered with the initial provided <b>x and y coordinates</b> (links positions will be automatically set\n * from the given nodes positions by rd3g), no coordinates will be calculated by rd3g or subjacent d3 modules.\n * @param {boolean} [staticGraphWithDragAndDrop] - <a id=\"static-graph-with-drag-and-drop\" href=\"#static-graph-with-drag-and-drop\">🔗</a> exactly the same as above <code>staticGraph</code>, but it will allow users to drag&drop nodes.\n * <b>Note</b>: If <code>staticGraph</code> is set to <code>true</code>, then <code>staticGraphWithDragAndDrop</code> will not produce the desired behaviour, make sure\n * to set only one of them to <code>true</code>.\n * @param {number} [width=800] - <a id=\"width\" href=\"#width\">🔗</a> the width of the (svg) area where the graph will be rendered.\n * </br>\n * @param {Object} d3 d3 object is explained in next section. ⬇️\n * <h2 id=\"config-d3\"><a href=\"#config-d3\">#</a> d3 level configurations</h2>\n * @param {number} [d3.alphaTarget=0.05] - <a id=\"d3-alpha-target\" href=\"#d3-alpha-target\">🔗</a> <a target=\"_blank\" href=\"https://github.com/d3/d3-force#simulation_alphaTarget\">see d3-force simulation.alphaTarget</a>\n * @param {number} [d3.gravity=-100] - <a id=\"d3-gravity\" href=\"#d3-gravity\">🔗</a> this will define how close nodes are to each other <a target=\"_blank\" href=\"https://github.com/d3/d3-force#forces\">see d3 reference for forces</a>.\n *  - If value is positive, nodes will attract each other.\n *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don\"t overlap.\n * @param {number} [d3.linkLength=100] - <a id=\"d3-link-length\" href=\"#d3-link-length\">🔗</a> the length of each link from the center of the nodes it joins.\n * @param {number} [d3.linkStrength=1] - <a id=\"d3-link-strength\" href=\"#d3-link-strength\">🔗</a> <a target=\"_blank\" href=\"https://github.com/d3/d3-force#link_strength\">see d3-force link.strength</a>\n * @param {boolean} [d3.disableLinkForce=false] - <a id=\"d3-disable-link-force\" href=\"#d3-disable-link-force\">🔗</a> ⚠️🧪EXPERIMENTAL🧪⚠️ it completely disables d3 force link and simulation to re-trigger so that one can obtain\n * precise render of node positions as described by the author <a target=\"_blank\" href=\"https://github.com/antoninklopp\">@antoninklopp</a> in <a target=\"_blank\" href=\"https://github.com/danielcaldas/react-d3-graph/pull/278\">the Pull Request description</a>.\n * </br>\n * @param {Object} node node object is explained in next section. ⬇️\n * <h2 id=\"config-node\"><a href=\"#config-node\">#</a> Node level configurations</h2>\n * @param {string} [node.color=\"#d3d3d3\"] - <a id=\"node-color\" href=\"#node-color\">🔗</a> 🔍🔍🔍 this is the color that will be applied to the node if no <b>color property</b></br>\n * is found inside the node itself (yes <b>you can pass a property \"color\" inside</b></br>\n * <b>the node and that color will override the this default one</b>).\n * @param {string} [node.fontColor=\"black\"] - <a id=\"node-font-color\" href=\"#node-font-color\">🔗</a> 🔍🔍🔍 fill color for node\"s <text> svg label.\n * @param {number} [node.fontSize=8] - <a id=\"node-font-size\" href=\"#node-font-size\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control\">font-size</a>\n * property for all nodes\" labels.\n * @param {string} [node.fontWeight=\"normal\"] - <a id=\"node-font-weight\" href=\"#node-font-weight\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control\">font-weight</a>\n * property for all nodes\" labels.\n * @param {string} [node.highlightColor=\"SAME\"] - <a id=\"node-highlight-color\" href=\"#node-highlight-color\">🔗</a> color for all highlighted nodes (use string \"SAME\" if you\n * want the node to keep its color in highlighted state).\n * @param {number} [node.highlightFontSize=8] - <a id=\"node-highlight-font-size\" href=\"#node-highlight-font-size\">🔗</a> fontSize in highlighted state.\n * @param {string} [node.highlightFontWeight=\"normal\"] - <a id=\"node-highlight-font-weight\" href=\"#node-highlight-font-weight\">🔗</a> fontWeight in highlighted state.\n * @param {string} [node.highlightStrokeColor=\"SAME\"] - <a id=\"node-stroke-color\" href=\"#node-stroke-color\">🔗</a> strokeColor in highlighted state.\n * @param {number} [node.highlightStrokeWidth=\"SAME\"] - <a id=\"node-stroke-width\" href=\"#node-stroke-width\">🔗</a> strokeWidth in highlighted state.\n * @param {string} [node.labelPosition=null] - <a id=\"node-label-position\" href=\"#node-label-position\">🔗</a> 🔍🔍🔍 location to place node label relative to node.\n * The placement options are:\n *   - \"left\"\n *   - \"right\"\n *   - \"top\"\n *   - \"bottom\"\n *   - \"center\"\n *\n * <b>[note]</b> not specifying a label position will fallback to the original placement scheme of to the right of the node. This is different than the implementation for \"right\", which has the label shifted very slightly upward compared to the original.\n * @param {string|Function} [node.labelProperty=\"id\"] - <a id=\"node-label-property\" href=\"#node-label-property\">🔗</a> this is the node property that will be used in runtime to</br>\n * fetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set</br>\n * node.labelProperty to be <b>\"firstName\"</b>. <b>This can also be a function!</b>, if you pass a function here it will be called</br>\n * to obtain the <code>label</code> value on the fly, as a client you will receive all the node information that you passed down into react-d3-graph,</br>\n * so the signature of the function would be:\n * ```javascript\n * function myCustomLabelBuilder(node) {\n *     // do stuff to get the final result...\n *     return \"label string\";\n * }\n * ```\n * Then you just need to make sure that you pass this function in the config in <code>config.node.labelProperty</code>.\n * </br>\n * @param {string} [node.mouseCursor=\"pointer\"] - <a id=\"node-pointer\" href=\"#node-pointer\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control\">cursor</a>\n * property for when some node is mouse hovered.\n * @param {number} [node.opacity=1] - <a id=\"node-opacity\" href=\"#node-opacity\">🔗</a> 🔍🔍🔍 by default all nodes will have this opacity value.\n * @param {boolean} [node.renderLabel=true] - <a id=\"node-render-label\" href=\"#node-render-label\">🔗</a> 🔍🔍🔍 when set to false no labels will appear along side nodes in the\n * graph.\n * @param {number|Object} [node.size=200] - <a id=\"node-size\" href=\"#node-size\">🔗</a> 🔍🔍🔍 defines the size of all nodes. When set to a number, the node will have equal height and width.</br>\n * This can also be an object with a height and width property <b>when using custom nodes</b>.\n * ```javascript\n * size: 200\n * // or\n * size: {\n *    height: 200,\n *    width: 300,\n * }\n * ```\n * The actual node dimensions (in px) rendered on screen will be the size value divided by 10. For example, a node size of 200 will result in a node with a height and width of 20px.\n * @param {string} [node.strokeColor=\"none\"] - <a id=\"node-stroke-color\" href=\"#node-stroke-color\">🔗</a> 🔍🔍🔍  this is the stroke color that will be applied to the node if no <b>strokeColor property</b> is found inside the node itself (yes <b>you can pass a property \"strokeColor\" inside the node and that stroke color will override this default one</b>).\n * @param {number} [node.strokeWidth=1.5] - <a id=\"node-stroke-width\" href=\"#node-stroke-width\">🔗</a> 🔍🔍🔍 the width of the all node strokes.\n * @param {string} [node.svg=\"\"] - <a id=\"node-svg\" href=\"#node-svg\">🔗</a> 🔍🔍🔍 render custom svg for nodes in alternative to <b>node.symbolType</b>. This svg can\n * be provided as a string to either a remote svg resource or for a local one.\n * </br>\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-custom-svg.gif?raw=true\" width=\"820\" height=\"480\"/>\n * @param {string} [node.symbolType=\"circle\"] - <a id=\"node-symbol-type\" href=\"#node-symbol-type\">🔗</a> 🔍🔍🔍 the <a id=\"node-symbol-type\">shape</span> of the node.\n * Use the following values under a property <b>type</b> inside each node (nodes may have different types, same as colors):\n *   - \"circle\"\n *   - \"cross\"\n *   - \"diamond\"\n *   - \"square\"\n *   - \"star\"\n *   - \"triangle\"\n *   - \"wye\"\n *\n * <b>[note]</b> react-d3-graph will map this values to <a target=\"_blank\" href=\"https://github.com/d3/d3-shape#symbols\">d3 symbols</a>\n * @param {Function} [node.viewGenerator=null] - <a id=\"node-view-generator\" href=\"#node-view-generator\">🔗</a> 🔍🔍🔍 function that receives a node and returns a JSX view.\n * </br>\n * @param {Object} link link object is explained in the next section. ⬇️\n * <h2 id=\"config-link\"><a href=\"#config-link\">#</a> Link level configurations</h2>\n * @param {string} [link.color=\"#d3d3d3\"] - <a id=\"link-color\" href=\"#link-color\">🔗</a> 🔍🔍🔍 the color for links\n * (from version 1.3.0 this property can be configured at link level).\n * @param {string} [link.fontColor=\"black\"] - <a id=\"link-font-color\" href=\"#link-font-color\">🔗</a> 🔍🔍🔍 fill color for link's <text> svg label.\n * @param {number} [link.fontSize=8] - <a id=\"link-font-size\" href=\"#link-font-size\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control\">font-size</a>\n * property for all links' labels.\n * @param {string} [link.fontWeight=\"normal\"] - <a id=\"link-font-weight\" href=\"#link-font-weight\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control\">font-weight</a>\n * property for all links' labels.\n * @param {string} [link.highlightColor=\"SAME\"] - <a id=\"link-highlight-color\" href=\"#link-highlight-color\">🔗</a> links' color in highlight state, default being the same color as `link.color`.\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true\" width=\"820\" height=\"480\"/>\n * @param {number} [link.highlightFontSize=8] - <a id=\"link-highlight-font-size\" href=\"#link-highlight-font-size\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control\">font-size</a> in highlighted state.\n * @param {string} [link.highlightFontWeight=\"normal\"] - <a id=\"link-highlight-font-weight\" href=\"#link-highlight-font-weight\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control\">font-weight</a> in highlighted state.\n * @param {string|Function} [link.labelProperty=\"label\"] - <a id=\"link-label-property\" href=\"#link-label-property\">🔗</a> the property that will be rendered as label within some link. Note that</br>\n * this property needs to be passed along the link payload (along side with source and target). This property can also be a function</br>\n * that receives the link itself as argument and returns a custom string, similarly to what happens with <code>node.labelProperty</code>.</br>\n * @param {string} [link.mouseCursor=\"pointer\"] - <a id=\"link-mouse-cursor\" href=\"#link-mouse-cursor\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control\">cursor</a>\n * property for when link is mouse hovered.\n * @param {number} [link.opacity=1] 🔍🔍🔍 - <a href=\"#link-opacity\" href=\"\">🔗</a> the default opacity value for links.\n * @param {boolean} [link.renderLabel=false] - <a id=\"link-render-label\" href=\"#link-render-label\">🔗</a> when set to true labels will appear along side links in the\n * graph. <b>Note</b>: this will only happen of course if proper label is passed within the link, check also <code>link.labelProperty</code>.\n * </br>\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-link-render-label.png?raw=true\" width=\"820\" height=\"480\"/>\n * @param {boolean} [link.semanticStrokeWidth=false] - <a id=\"link-semantic-stroke-width\" href=\"#link-semantic-stroke-width\">🔗</a> when set to true all links will have\n * <i>\"semantic width\"</i>, this means that the width of the connections will be proportional to the value of each link.\n * This is how link strokeWidth will be calculated:\n * ```javascript\n * strokeWidth += (linkValue * strokeWidth) / 10;\n * ```\n * @param {number} [link.strokeWidth=1.5] - <a id=\"link-stroke-width\" href=\"#link-stroke-width\">🔗</a> 🔍🔍🔍 strokeWidth for all links. By default the actual value is obtain by the\n * following expression:\n * ```javascript\n * link.strokeWidth * (1 / transform); // transform is a zoom delta Δ value\n * ```\n * @param {number} [link.markerHeight=6] - <a id=\"link-marker-height\" href=\"#link-marker-height\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerHeight\">markerHeight</a>\n * property for the link arrowhead height. *Note: this property can only be set in the first mount, it does not update dynamically.*\n * @param {number} [link.markerWidth=6] - <a id=\"link-marker-width\" href=\"#link-marker-width\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerWidth\">markerWidth</a>\n * property for the link arrowhead width. *Note: this property can only be set in the first mount, it does not update dynamically.*\n * @param {string} [link.type=\"STRAIGHT\"] - <a id=\"link-type\" href=\"#link-type\">🔗</a> 🔍🔍🔍 the type of line to draw, available types at this point are:\n * - \"STRAIGHT\" <small>(default)</small> - a straight line.\n * - \"CURVE_SMOOTH\" - a slight curve between two nodes\n * - \"CURVE_FULL\" - a semicircumference trajectory unites source and target nodes.\n * </br>\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true\" width=\"820\" height=\"480\"/>\n *\n * @example\n * // A simple config that uses some properties\n * const myConfig = {\n *     nodeHighlightBehavior: true,\n *     node: {\n *         color: \"lightgreen\",\n *         size: 120,\n *         highlightStrokeColor: \"blue\"\n *     },\n *     link: {\n *         highlightColor: \"lightblue\"\n *     }\n * };\n *\n * // Sorry for the long config description, here\"s a potato 🥔.\n */",
-    "meta": {
-      "range": [21767, 23432],
-      "filename": "graph.config.js",
-      "lineno": 240,
-      "columnno": 0,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000002",
-        "name": "module.exports",
-        "type": "ObjectExpression"
-      }
+    {
+        "comment": "/**\n * <div style=\"text-align: right;\"><i>This is certainly the only extra piece of documentation that you will ever need</i></div>\n * </br></br>\n * Here you can consult a detailed description of each graph configurable property as well as the default values\n * of those properties.\n *\n * <b>Note about performance</b></br>\n * Some of the properties have a major performance impact when toggled while rendering graphs of medium or large dimensions (hundreds or thousand of elements).\n * These properties are marked with 🚅🚅🚅.</br>\n * ⭐ <b>tip</b> <i>to achieve smoother interactions you may want to provide a toggle to set <b>staticGraph</b> or (better) <b>staticGraphWithDragAndDrop</b> to <b>true</b></i></br>\n * </br>\n * <b>Note about granularity</b></br>\n * Some of the properties listed in the <a href=\"#config-node\">Node section</a> are marked with 🔍🔍🔍. This means that this properties\n * have a higher level of granularity. These properties can be defined in the graph payload at a node level. (sample payload below)\n * ```javascript\n * const graph = {\n *     nodes: [\n *         {\n *             id: \"id\",\n *             color: \"red\",         // only this node will be red\n *             size: 300,            // only this node will have size 300\n *             symbolType: \"diamond\" // only this node will have \"diamond\" shape\n *         }\n *     ],\n *     links: [...]\n * };\n * ```\n *\n * </br>\n *\n * - <a href=\"#config-global\">Graph global configurations</a>\n * - <a href=\"#config-d3\">d3 level configurations</a>\n * - <a href=\"#config-node\">Node level configurations</a>\n * - <a href=\"#config-link\">Link level configurations</a>\n *\n * </br>\n *\n * <h2 id=\"config-global\"><a href=\"#config-global\">#</a>  Graph global configurations</h2>\n * @param {boolean} [automaticRearrangeAfterDropNode=false] - <a id=\"automatic-rearrange-after-drop-node\" href=\"#automatic-rearrange-after-drop-node\">🔗</a> 🚅🚅🚅 when true performing a node drag and drop should automatically\n * rearrange all nodes positions based on new position of dragged node (note: <b>staticGraph</b> should be false). A few notes on this property:\n * <ul>\n * <li><b>automaticRearrangeAfterDropNode</b> needs to be set before the first graph render. Only the first set value will take effect.</li>\n * <li><b>automaticRearrangeAfterDropNode</b> won't work together with <b>nodeHighlightBehavior</b> (currently a known limitation, to be address in the future <a href=\"https://github.com/danielcaldas/react-d3-graph/issues/261\" target=\"_blank\">GitHub issue #261</a>).</li>\n * </ul>\n * @param {boolean} [collapsible=false] - <a id=\"collapsible\" href=\"#collapsible\">🔗</a> 🚅🚅🚅 Allow leaf neighbors nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.\n * To see an example of this behavior you can access <a href=\"https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=marvel\" target=\"_blank\" title=\"sandbox collapsible example\">this sandbox link</a> that has a specific set up to experiment this feature. <b>NOTE</b>: At this moment\n * nodes without connections (orphan nodes) are not rendered when this property is activated (see <a target=\"_blank\" href=\"https://github.com/danielcaldas/react-d3-graph/issues/129\">GitHub issue #129</a>).\n * </br>\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-collapsible.gif?raw=true\" width=\"820\" height=\"480\"/>\n * @param {boolean} [directed=false] - <a id=\"directed\" href=\"#directed\">🔗</a> This property makes react-d3-graph handle your graph as a directed graph. It will\n * out of the box provide the look and feel of a directed graph and add directional semantic to links. You can see a sample in the image below.\n * </br>\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-directed.gif?raw=true\" width=\"820\" height=\"480\"/>\n * @param {number} [focusZoom=1] - <a id=\"focus-zoom\" href=\"#focus-zoom\">🔗</a> zoom that will be applied when the graph view is focused in a node. Its value must be between\n * <i>minZoom</i> and <i>maxZoom</i>. If the specified <i>focusZoom</i> is out of this range, <i>minZoom</i> or <i>maxZoom</i> will be applied instead.</br>\n * <b>NOTE</b>: This animation is not trigger by default. In order to trigger it you need to pass down to <code>react-d3-graph</code> the\n * node that you want to focus via prop <code>focusedNodeId</code> along side with nodes and links:\n *\n * ```javascript\n * const data = {\n *    nodes: this.state.data.nodes,\n *    links: this.state.data.links,\n *    focusedNodeId: \"nodeIdToTriggerZoomAnimation\"\n * };\n * ```\n *\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-zoom-animation.gif?raw=true\" width=\"820\" height=\"480\"/>\n *\n * @param {number} [focusAnimationDuration=0.75] - <a id=\"focus-animation-duration\" href=\"#focus-animation-duration\">🔗</a> duration (in seconds) for the animation that takes place when focusing the graph on a node.\n * @param {number} [height=400] - <a id=\"height\" href=\"#height\">🔗</a> the height of the (svg) area where the graph will be rendered.\n * @param {boolean} [nodeHighlightBehavior=false] - <a id=\"node-highlight-behavior\" href=\"#node-highlight-behavior\">🔗</a> 🚅🚅🚅 when user mouse hovers a node that node and adjacent common\n * connections will be highlighted (depending on the <i>highlightDegree</i> value). All the remaining nodes and links assume opacity value equal to <b>highlightOpacity</b>.\n * @param {boolean} [linkHighlightBehavior=false] - <a id=\"link-highlight-behavior\" href=\"#link-highlight-behavior\">🔗</a> 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior\n * to <i>nodeHighlightBehavior</i> but for links <small>(just for historical reference this property was introduced in <a target=\"_blank\" href=\"https://github.com/danielcaldas/react-d3-graph/releases/tag/1.0.0\">v1.0.0</a>)</small>.\n * @param {number} [highlightDegree=1] - <a id=\"highlight-degree\" href=\"#highlight-degree\">🔗</a> <b>Possible values: 0, 1 or 2</b>. This value represents the range of the\n * highlight behavior when some node is highlighted. If the value is set to <b>0</b> only the selected node will be\n * highlighted. If the value is set to <b>1</b> the selected node and his 1st degree connections will be highlighted. If\n * the value is set to <b>2</b> the selected node will be highlighted as well as the 1st and 2nd common degree connections.\n * @param {number} [highlightOpacity=1] - <a id=\"highlight-opacity\" href=\"#highlight-opacity\">🔗</a> this value is used to highlight nodes in the network. The lower\n * the value the more the less highlighted nodes will be visible (related to <i>nodeHighlightBehavior</i>).\n * @param {number} [initialZoom=null] - <a id=\"max-zoom\" href=\"#initial-zoom\">🔗</a> initial zoom that can be set on the graph.\n * @param {number} [maxZoom=8] - <a id=\"max-zoom\" href=\"#max-zoom\">🔗</a> max zoom that can be performed against the graph.\n * @param {number} [minZoom=0.1] - <a id=\"min-zoom\" href=\"#min-zoom\">🔗</a> min zoom that can be performed against the graph.\n * @param {boolean} [panAndZoom=false] - <a id=\"pan-and-zoom\" href=\"#pan-and-zoom\">🔗</a> 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,\n * a similar functionality may be consulted <a target=\"_blank\" href=\"https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39\">here</a>.\n * @param {boolean} [staticGraph=false] - <a id=\"static-graph\" href=\"#static-graph\">🔗</a> when setting this value to true the graph will be completely static, thus\n * all forces and drag events upon nodes will produce not effect. Note that, if this value is true the nodes will be\n * rendered with the initial provided <b>x and y coordinates</b> (links positions will be automatically set\n * from the given nodes positions by rd3g), no coordinates will be calculated by rd3g or subjacent d3 modules.\n * @param {boolean} [staticGraphWithDragAndDrop] - <a id=\"static-graph-with-drag-and-drop\" href=\"#static-graph-with-drag-and-drop\">🔗</a> exactly the same as above <code>staticGraph</code>, but it will allow users to drag&drop nodes.\n * <b>Note</b>: If <code>staticGraph</code> is set to <code>true</code>, then <code>staticGraphWithDragAndDrop</code> will not produce the desired behaviour, make sure\n * to set only one of them to <code>true</code>.\n * @param {number} [width=800] - <a id=\"width\" href=\"#width\">🔗</a> the width of the (svg) area where the graph will be rendered.\n * </br>\n * @param {Object} d3 d3 object is explained in next section. ⬇️\n * <h2 id=\"config-d3\"><a href=\"#config-d3\">#</a> d3 level configurations</h2>\n * @param {number} [d3.alphaTarget=0.05] - <a id=\"d3-alpha-target\" href=\"#d3-alpha-target\">🔗</a> <a target=\"_blank\" href=\"https://github.com/d3/d3-force#simulation_alphaTarget\">see d3-force simulation.alphaTarget</a>\n * @param {number} [d3.gravity=-100] - <a id=\"d3-gravity\" href=\"#d3-gravity\">🔗</a> this will define how close nodes are to each other <a target=\"_blank\" href=\"https://github.com/d3/d3-force#forces\">see d3 reference for forces</a>.\n *  - If value is positive, nodes will attract each other.\n *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don\"t overlap.\n * @param {number} [d3.linkLength=100] - <a id=\"d3-link-length\" href=\"#d3-link-length\">🔗</a> the length of each link from the center of the nodes it joins.\n * @param {number} [d3.linkStrength=1] - <a id=\"d3-link-strength\" href=\"#d3-link-strength\">🔗</a> <a target=\"_blank\" href=\"https://github.com/d3/d3-force#link_strength\">see d3-force link.strength</a>\n * @param {boolean} [d3.disableLinkForce=false] - <a id=\"d3-disable-link-force\" href=\"#d3-disable-link-force\">🔗</a> ⚠️🧪EXPERIMENTAL🧪⚠️ it completely disables d3 force link and simulation to re-trigger so that one can obtain\n * precise render of node positions as described by the author <a target=\"_blank\" href=\"https://github.com/antoninklopp\">@antoninklopp</a> in <a target=\"_blank\" href=\"https://github.com/danielcaldas/react-d3-graph/pull/278\">the Pull Request description</a>.\n * </br>\n * @param {Object} node node object is explained in next section. ⬇️\n * <h2 id=\"config-node\"><a href=\"#config-node\">#</a> Node level configurations</h2>\n * @param {string} [node.color=\"#d3d3d3\"] - <a id=\"node-color\" href=\"#node-color\">🔗</a> 🔍🔍🔍 this is the color that will be applied to the node if no <b>color property</b></br>\n * is found inside the node itself (yes <b>you can pass a property \"color\" inside</b></br>\n * <b>the node and that color will override the this default one</b>).\n * @param {string} [node.fontColor=\"black\"] - <a id=\"node-font-color\" href=\"#node-font-color\">🔗</a> 🔍🔍🔍 fill color for node\"s <text> svg label.\n * @param {number} [node.fontSize=8] - <a id=\"node-font-size\" href=\"#node-font-size\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control\">font-size</a>\n * property for all nodes\" labels.\n * @param {string} [node.fontWeight=\"normal\"] - <a id=\"node-font-weight\" href=\"#node-font-weight\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control\">font-weight</a>\n * property for all nodes\" labels.\n * @param {string} [node.highlightColor=\"SAME\"] - <a id=\"node-highlight-color\" href=\"#node-highlight-color\">🔗</a> color for all highlighted nodes (use string \"SAME\" if you\n * want the node to keep its color in highlighted state).\n * @param {number} [node.highlightFontSize=8] - <a id=\"node-highlight-font-size\" href=\"#node-highlight-font-size\">🔗</a> fontSize in highlighted state.\n * @param {string} [node.highlightFontWeight=\"normal\"] - <a id=\"node-highlight-font-weight\" href=\"#node-highlight-font-weight\">🔗</a> fontWeight in highlighted state.\n * @param {string} [node.highlightStrokeColor=\"SAME\"] - <a id=\"node-stroke-color\" href=\"#node-stroke-color\">🔗</a> strokeColor in highlighted state.\n * @param {number} [node.highlightStrokeWidth=\"SAME\"] - <a id=\"node-stroke-width\" href=\"#node-stroke-width\">🔗</a> strokeWidth in highlighted state.\n * @param {string} [node.labelPosition=null] - <a id=\"node-label-position\" href=\"#node-label-position\">🔗</a> 🔍🔍🔍 location to place node label relative to node.\n * The placement options are:\n *   - \"left\"\n *   - \"right\"\n *   - \"top\"\n *   - \"bottom\"\n *   - \"center\"\n *\n * <b>[note]</b> not specifying a label position will fallback to the original placement scheme of to the right of the node. This is different than the implementation for \"right\", which has the label shifted very slightly upward compared to the original.\n * @param {string|Function} [node.labelProperty=\"id\"] - <a id=\"node-label-property\" href=\"#node-label-property\">🔗</a> this is the node property that will be used in runtime to</br>\n * fetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set</br>\n * node.labelProperty to be <b>\"firstName\"</b>. <b>This can also be a function!</b>, if you pass a function here it will be called</br>\n * to obtain the <code>label</code> value on the fly, as a client you will receive all the node information that you passed down into react-d3-graph,</br>\n * so the signature of the function would be:\n * ```javascript\n * function myCustomLabelBuilder(node) {\n *     // do stuff to get the final result...\n *     return \"label string\";\n * }\n * ```\n * Then you just need to make sure that you pass this function in the config in <code>config.node.labelProperty</code>.\n * </br>\n * @param {string} [node.mouseCursor=\"pointer\"] - <a id=\"node-pointer\" href=\"#node-pointer\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control\">cursor</a>\n * property for when some node is mouse hovered.\n * @param {number} [node.opacity=1] - <a id=\"node-opacity\" href=\"#node-opacity\">🔗</a> 🔍🔍🔍 by default all nodes will have this opacity value.\n * @param {boolean} [node.renderLabel=true] - <a id=\"node-render-label\" href=\"#node-render-label\">🔗</a> 🔍🔍🔍 when set to false no labels will appear along side nodes in the\n * graph.\n * @param {number|Object} [node.size=200] - <a id=\"node-size\" href=\"#node-size\">🔗</a> 🔍🔍🔍 defines the size of all nodes. When set to a number, the node will have equal height and width.</br>\n * This can also be an object with a height and width property <b>when using custom nodes</b>.\n * ```javascript\n * size: 200\n * // or\n * size: {\n *    height: 200,\n *    width: 300,\n * }\n * ```\n * The actual node dimensions (in px) rendered on screen will be the size value divided by 10. For example, a node size of 200 will result in a node with a height and width of 20px.\n * @param {string} [node.strokeColor=\"none\"] - <a id=\"node-stroke-color\" href=\"#node-stroke-color\">🔗</a> 🔍🔍🔍  this is the stroke color that will be applied to the node if no <b>strokeColor property</b> is found inside the node itself (yes <b>you can pass a property \"strokeColor\" inside the node and that stroke color will override this default one</b>).\n * @param {number} [node.strokeWidth=1.5] - <a id=\"node-stroke-width\" href=\"#node-stroke-width\">🔗</a> 🔍🔍🔍 the width of the all node strokes.\n * @param {string} [node.svg=\"\"] - <a id=\"node-svg\" href=\"#node-svg\">🔗</a> 🔍🔍🔍 render custom svg for nodes in alternative to <b>node.symbolType</b>. This svg can\n * be provided as a string to either a remote svg resource or for a local one.\n * </br>\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-custom-svg.gif?raw=true\" width=\"820\" height=\"480\"/>\n * @param {string} [node.symbolType=\"circle\"] - <a id=\"node-symbol-type\" href=\"#node-symbol-type\">🔗</a> 🔍🔍🔍 the <a id=\"node-symbol-type\">shape</span> of the node.\n * Use the following values under a property <b>type</b> inside each node (nodes may have different types, same as colors):\n *   - \"circle\"\n *   - \"cross\"\n *   - \"diamond\"\n *   - \"square\"\n *   - \"star\"\n *   - \"triangle\"\n *   - \"wye\"\n *\n * <b>[note]</b> react-d3-graph will map this values to <a target=\"_blank\" href=\"https://github.com/d3/d3-shape#symbols\">d3 symbols</a>\n * @param {Function} [node.viewGenerator=null] - <a id=\"node-view-generator\" href=\"#node-view-generator\">🔗</a> 🔍🔍🔍 function that receives a node and returns a JSX view.\n * </br>\n * @param {Object} link link object is explained in the next section. ⬇️\n * <h2 id=\"config-link\"><a href=\"#config-link\">#</a> Link level configurations</h2>\n * @param {string} [link.color=\"#d3d3d3\"] - <a id=\"link-color\" href=\"#link-color\">🔗</a> 🔍🔍🔍 the color for links\n * (from version 1.3.0 this property can be configured at link level).\n * @param {string} [link.fontColor=\"black\"] - <a id=\"link-font-color\" href=\"#link-font-color\">🔗</a> 🔍🔍🔍 fill color for link's <text> svg label.\n * @param {number} [link.fontSize=8] - <a id=\"link-font-size\" href=\"#link-font-size\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control\">font-size</a>\n * property for all links' labels.\n * @param {string} [link.fontWeight=\"normal\"] - <a id=\"link-font-weight\" href=\"#link-font-weight\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control\">font-weight</a>\n * property for all links' labels.\n * @param {string} [link.highlightColor=\"SAME\"] - <a id=\"link-highlight-color\" href=\"#link-highlight-color\">🔗</a> links' color in highlight state, default being the same color as `link.color`.\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true\" width=\"820\" height=\"480\"/>\n * @param {number} [link.highlightFontSize=8] - <a id=\"link-highlight-font-size\" href=\"#link-highlight-font-size\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control\">font-size</a> in highlighted state.\n * @param {string} [link.highlightFontWeight=\"normal\"] - <a id=\"link-highlight-font-weight\" href=\"#link-highlight-font-weight\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control\">font-weight</a> in highlighted state.\n * @param {string|Function} [link.labelProperty=\"label\"] - <a id=\"link-label-property\" href=\"#link-label-property\">🔗</a> the property that will be rendered as label within some link. Note that</br>\n * this property needs to be passed along the link payload (along side with source and target). This property can also be a function</br>\n * that receives the link itself as argument and returns a custom string, similarly to what happens with <code>node.labelProperty</code>.</br>\n * @param {string} [link.mouseCursor=\"pointer\"] - <a id=\"link-mouse-cursor\" href=\"#link-mouse-cursor\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control\">cursor</a>\n * property for when link is mouse hovered.\n * @param {number} [link.opacity=1] 🔍🔍🔍 - <a href=\"#link-opacity\" href=\"\">🔗</a> the default opacity value for links.\n * @param {boolean} [link.renderLabel=false] - <a id=\"link-render-label\" href=\"#link-render-label\">🔗</a> when set to true labels will appear along side links in the\n * graph. <b>Note</b>: this will only happen of course if proper label is passed within the link, check also <code>link.labelProperty</code>.\n * </br>\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-link-render-label.png?raw=true\" width=\"820\" height=\"480\"/>\n * @param {boolean} [link.semanticStrokeWidth=false] - <a id=\"link-semantic-stroke-width\" href=\"#link-semantic-stroke-width\">🔗</a> when set to true all links will have\n * <i>\"semantic width\"</i>, this means that the width of the connections will be proportional to the value of each link.\n * This is how link strokeWidth will be calculated:\n * ```javascript\n * strokeWidth += (linkValue * strokeWidth) / 10;\n * ```\n * @param {number} [link.strokeWidth=1.5] - <a id=\"link-stroke-width\" href=\"#link-stroke-width\">🔗</a> 🔍🔍🔍 strokeWidth for all links. By default the actual value is obtain by the\n * following expression:\n * ```javascript\n * link.strokeWidth * (1 / transform); // transform is a zoom delta Δ value\n * ```\n * @param {number} [link.markerHeight=6] - <a id=\"link-marker-height\" href=\"#link-marker-height\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerHeight\">markerHeight</a>\n * property for the link arrowhead height. *Note: this property can only be set in the first mount, it does not update dynamically.*\n * @param {number} [link.markerWidth=6] - <a id=\"link-marker-width\" href=\"#link-marker-width\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerWidth\">markerWidth</a>\n * property for the link arrowhead width. *Note: this property can only be set in the first mount, it does not update dynamically.*\n * @param {string} [link.type=\"STRAIGHT\"] - <a id=\"link-type\" href=\"#link-type\">🔗</a> 🔍🔍🔍 the type of line to draw, available types at this point are:\n * - \"STRAIGHT\" <small>(default)</small> - a straight line.\n * - \"CURVE_SMOOTH\" - a slight curve between two nodes\n * - \"CURVE_FULL\" - a semicircumference trajectory unites source and target nodes.\n * </br>\n * <img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true\" width=\"820\" height=\"480\"/>\n *\n * @example\n * // A simple config that uses some properties\n * const myConfig = {\n *     nodeHighlightBehavior: true,\n *     node: {\n *         color: \"lightgreen\",\n *         size: 120,\n *         highlightStrokeColor: \"blue\"\n *     },\n *     link: {\n *         highlightColor: \"lightblue\"\n *     }\n * };\n *\n * // Sorry for the long config description, here\"s a potato 🥔.\n */",
+        "meta": {
+            "range": [21767, 23432],
+            "filename": "graph.config.js",
+            "lineno": 240,
+            "columnno": 0,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000002",
+                "name": "module.exports",
+                "type": "ObjectExpression"
+            }
+        },
+        "description": "<div style=\"text-align: right;\"><i>This is certainly the only extra piece of documentation that you will ever need</i></div>\n</br></br>\nHere you can consult a detailed description of each graph configurable property as well as the default values\nof those properties.\n\n<b>Note about performance</b></br>\nSome of the properties have a major performance impact when toggled while rendering graphs of medium or large dimensions (hundreds or thousand of elements).\nThese properties are marked with 🚅🚅🚅.</br>\n⭐ <b>tip</b> <i>to achieve smoother interactions you may want to provide a toggle to set <b>staticGraph</b> or (better) <b>staticGraphWithDragAndDrop</b> to <b>true</b></i></br>\n</br>\n<b>Note about granularity</b></br>\nSome of the properties listed in the <a href=\"#config-node\">Node section</a> are marked with 🔍🔍🔍. This means that this properties\nhave a higher level of granularity. These properties can be defined in the graph payload at a node level. (sample payload below)\n```javascript\nconst graph = {\n    nodes: [\n        {\n            id: \"id\",\n            color: \"red\",         // only this node will be red\n            size: 300,            // only this node will have size 300\n            symbolType: \"diamond\" // only this node will have \"diamond\" shape\n        }\n    ],\n    links: [...]\n};\n```\n\n</br>\n\n- <a href=\"#config-global\">Graph global configurations</a>\n- <a href=\"#config-d3\">d3 level configurations</a>\n- <a href=\"#config-node\">Node level configurations</a>\n- <a href=\"#config-link\">Link level configurations</a>\n\n</br>\n\n<h2 id=\"config-global\"><a href=\"#config-global\">#</a>  Graph global configurations</h2>",
+        "params": [
+            {
+                "type": {
+                    "names": ["boolean"]
+                },
+                "optional": true,
+                "defaultvalue": false,
+                "description": "<a id=\"automatic-rearrange-after-drop-node\" href=\"#automatic-rearrange-after-drop-node\">🔗</a> 🚅🚅🚅 when true performing a node drag and drop should automatically\nrearrange all nodes positions based on new position of dragged node (note: <b>staticGraph</b> should be false). A few notes on this property:\n<ul>\n<li><b>automaticRearrangeAfterDropNode</b> needs to be set before the first graph render. Only the first set value will take effect.</li>\n<li><b>automaticRearrangeAfterDropNode</b> won't work together with <b>nodeHighlightBehavior</b> (currently a known limitation, to be address in the future <a href=\"https://github.com/danielcaldas/react-d3-graph/issues/261\" target=\"_blank\">GitHub issue #261</a>).</li>\n</ul>",
+                "name": "automaticRearrangeAfterDropNode"
+            },
+            {
+                "type": {
+                    "names": ["boolean"]
+                },
+                "optional": true,
+                "defaultvalue": false,
+                "description": "<a id=\"collapsible\" href=\"#collapsible\">🔗</a> 🚅🚅🚅 Allow leaf neighbors nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.\nTo see an example of this behavior you can access <a href=\"https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=marvel\" target=\"_blank\" title=\"sandbox collapsible example\">this sandbox link</a> that has a specific set up to experiment this feature. <b>NOTE</b>: At this moment\nnodes without connections (orphan nodes) are not rendered when this property is activated (see <a target=\"_blank\" href=\"https://github.com/danielcaldas/react-d3-graph/issues/129\">GitHub issue #129</a>).\n</br>\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-collapsible.gif?raw=true\" width=\"820\" height=\"480\"/>",
+                "name": "collapsible"
+            },
+            {
+                "type": {
+                    "names": ["boolean"]
+                },
+                "optional": true,
+                "defaultvalue": false,
+                "description": "<a id=\"directed\" href=\"#directed\">🔗</a> This property makes react-d3-graph handle your graph as a directed graph. It will\nout of the box provide the look and feel of a directed graph and add directional semantic to links. You can see a sample in the image below.\n</br>\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-directed.gif?raw=true\" width=\"820\" height=\"480\"/>",
+                "name": "directed"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 1,
+                "description": "<a id=\"focus-zoom\" href=\"#focus-zoom\">🔗</a> zoom that will be applied when the graph view is focused in a node. Its value must be between\n<i>minZoom</i> and <i>maxZoom</i>. If the specified <i>focusZoom</i> is out of this range, <i>minZoom</i> or <i>maxZoom</i> will be applied instead.</br>\n<b>NOTE</b>: This animation is not trigger by default. In order to trigger it you need to pass down to <code>react-d3-graph</code> the\nnode that you want to focus via prop <code>focusedNodeId</code> along side with nodes and links:\n\n```javascript\nconst data = {\n   nodes: this.state.data.nodes,\n   links: this.state.data.links,\n   focusedNodeId: \"nodeIdToTriggerZoomAnimation\"\n};\n```\n\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-zoom-animation.gif?raw=true\" width=\"820\" height=\"480\"/>",
+                "name": "focusZoom"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 0.75,
+                "description": "<a id=\"focus-animation-duration\" href=\"#focus-animation-duration\">🔗</a> duration (in seconds) for the animation that takes place when focusing the graph on a node.",
+                "name": "focusAnimationDuration"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 400,
+                "description": "<a id=\"height\" href=\"#height\">🔗</a> the height of the (svg) area where the graph will be rendered.",
+                "name": "height"
+            },
+            {
+                "type": {
+                    "names": ["boolean"]
+                },
+                "optional": true,
+                "defaultvalue": false,
+                "description": "<a id=\"node-highlight-behavior\" href=\"#node-highlight-behavior\">🔗</a> 🚅🚅🚅 when user mouse hovers a node that node and adjacent common\nconnections will be highlighted (depending on the <i>highlightDegree</i> value). All the remaining nodes and links assume opacity value equal to <b>highlightOpacity</b>.",
+                "name": "nodeHighlightBehavior"
+            },
+            {
+                "type": {
+                    "names": ["boolean"]
+                },
+                "optional": true,
+                "defaultvalue": false,
+                "description": "<a id=\"link-highlight-behavior\" href=\"#link-highlight-behavior\">🔗</a> 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior\nto <i>nodeHighlightBehavior</i> but for links <small>(just for historical reference this property was introduced in <a target=\"_blank\" href=\"https://github.com/danielcaldas/react-d3-graph/releases/tag/1.0.0\">v1.0.0</a>)</small>.",
+                "name": "linkHighlightBehavior"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 1,
+                "description": "<a id=\"highlight-degree\" href=\"#highlight-degree\">🔗</a> <b>Possible values: 0, 1 or 2</b>. This value represents the range of the\nhighlight behavior when some node is highlighted. If the value is set to <b>0</b> only the selected node will be\nhighlighted. If the value is set to <b>1</b> the selected node and his 1st degree connections will be highlighted. If\nthe value is set to <b>2</b> the selected node will be highlighted as well as the 1st and 2nd common degree connections.",
+                "name": "highlightDegree"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 1,
+                "description": "<a id=\"highlight-opacity\" href=\"#highlight-opacity\">🔗</a> this value is used to highlight nodes in the network. The lower\nthe value the more the less highlighted nodes will be visible (related to <i>nodeHighlightBehavior</i>).",
+                "name": "highlightOpacity"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": null,
+                "description": "<a id=\"max-zoom\" href=\"#initial-zoom\">🔗</a> initial zoom that can be set on the graph.",
+                "name": "initialZoom"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 8,
+                "description": "<a id=\"max-zoom\" href=\"#max-zoom\">🔗</a> max zoom that can be performed against the graph.",
+                "name": "maxZoom"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 0.1,
+                "description": "<a id=\"min-zoom\" href=\"#min-zoom\">🔗</a> min zoom that can be performed against the graph.",
+                "name": "minZoom"
+            },
+            {
+                "type": {
+                    "names": ["boolean"]
+                },
+                "optional": true,
+                "defaultvalue": false,
+                "description": "<a id=\"pan-and-zoom\" href=\"#pan-and-zoom\">🔗</a> 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,\na similar functionality may be consulted <a target=\"_blank\" href=\"https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39\">here</a>.",
+                "name": "panAndZoom"
+            },
+            {
+                "type": {
+                    "names": ["boolean"]
+                },
+                "optional": true,
+                "defaultvalue": false,
+                "description": "<a id=\"static-graph\" href=\"#static-graph\">🔗</a> when setting this value to true the graph will be completely static, thus\nall forces and drag events upon nodes will produce not effect. Note that, if this value is true the nodes will be\nrendered with the initial provided <b>x and y coordinates</b> (links positions will be automatically set\nfrom the given nodes positions by rd3g), no coordinates will be calculated by rd3g or subjacent d3 modules.",
+                "name": "staticGraph"
+            },
+            {
+                "type": {
+                    "names": ["boolean"]
+                },
+                "optional": true,
+                "description": "<a id=\"static-graph-with-drag-and-drop\" href=\"#static-graph-with-drag-and-drop\">🔗</a> exactly the same as above <code>staticGraph</code>, but it will allow users to drag&drop nodes.\n<b>Note</b>: If <code>staticGraph</code> is set to <code>true</code>, then <code>staticGraphWithDragAndDrop</code> will not produce the desired behaviour, make sure\nto set only one of them to <code>true</code>.",
+                "name": "staticGraphWithDragAndDrop"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 800,
+                "description": "<a id=\"width\" href=\"#width\">🔗</a> the width of the (svg) area where the graph will be rendered.\n</br>",
+                "name": "width"
+            },
+            {
+                "type": {
+                    "names": ["Object"]
+                },
+                "description": "d3 object is explained in next section. ⬇️\n<h2 id=\"config-d3\"><a href=\"#config-d3\">#</a> d3 level configurations</h2>",
+                "name": "d3"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 0.05,
+                "description": "<a id=\"d3-alpha-target\" href=\"#d3-alpha-target\">🔗</a> <a target=\"_blank\" href=\"https://github.com/d3/d3-force#simulation_alphaTarget\">see d3-force simulation.alphaTarget</a>",
+                "name": "d3.alphaTarget"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": -100,
+                "description": "<a id=\"d3-gravity\" href=\"#d3-gravity\">🔗</a> this will define how close nodes are to each other <a target=\"_blank\" href=\"https://github.com/d3/d3-force#forces\">see d3 reference for forces</a>.\n - If value is positive, nodes will attract each other.\n - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don\"t overlap.",
+                "name": "d3.gravity"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 100,
+                "description": "<a id=\"d3-link-length\" href=\"#d3-link-length\">🔗</a> the length of each link from the center of the nodes it joins.",
+                "name": "d3.linkLength"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 1,
+                "description": "<a id=\"d3-link-strength\" href=\"#d3-link-strength\">🔗</a> <a target=\"_blank\" href=\"https://github.com/d3/d3-force#link_strength\">see d3-force link.strength</a>",
+                "name": "d3.linkStrength"
+            },
+            {
+                "type": {
+                    "names": ["boolean"]
+                },
+                "optional": true,
+                "defaultvalue": false,
+                "description": "<a id=\"d3-disable-link-force\" href=\"#d3-disable-link-force\">🔗</a> ⚠️🧪EXPERIMENTAL🧪⚠️ it completely disables d3 force link and simulation to re-trigger so that one can obtain\nprecise render of node positions as described by the author <a target=\"_blank\" href=\"https://github.com/antoninklopp\">@antoninklopp</a> in <a target=\"_blank\" href=\"https://github.com/danielcaldas/react-d3-graph/pull/278\">the Pull Request description</a>.\n</br>",
+                "name": "d3.disableLinkForce"
+            },
+            {
+                "type": {
+                    "names": ["Object"]
+                },
+                "description": "node object is explained in next section. ⬇️\n<h2 id=\"config-node\"><a href=\"#config-node\">#</a> Node level configurations</h2>",
+                "name": "node"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"#d3d3d3\"",
+                "description": "<a id=\"node-color\" href=\"#node-color\">🔗</a> 🔍🔍🔍 this is the color that will be applied to the node if no <b>color property</b></br>\nis found inside the node itself (yes <b>you can pass a property \"color\" inside</b></br>\n<b>the node and that color will override the this default one</b>).",
+                "name": "node.color"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"black\"",
+                "description": "<a id=\"node-font-color\" href=\"#node-font-color\">🔗</a> 🔍🔍🔍 fill color for node\"s <text> svg label.",
+                "name": "node.fontColor"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 8,
+                "description": "<a id=\"node-font-size\" href=\"#node-font-size\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control\">font-size</a>\nproperty for all nodes\" labels.",
+                "name": "node.fontSize"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"normal\"",
+                "description": "<a id=\"node-font-weight\" href=\"#node-font-weight\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control\">font-weight</a>\nproperty for all nodes\" labels.",
+                "name": "node.fontWeight"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"SAME\"",
+                "description": "<a id=\"node-highlight-color\" href=\"#node-highlight-color\">🔗</a> color for all highlighted nodes (use string \"SAME\" if you\nwant the node to keep its color in highlighted state).",
+                "name": "node.highlightColor"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 8,
+                "description": "<a id=\"node-highlight-font-size\" href=\"#node-highlight-font-size\">🔗</a> fontSize in highlighted state.",
+                "name": "node.highlightFontSize"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"normal\"",
+                "description": "<a id=\"node-highlight-font-weight\" href=\"#node-highlight-font-weight\">🔗</a> fontWeight in highlighted state.",
+                "name": "node.highlightFontWeight"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"SAME\"",
+                "description": "<a id=\"node-stroke-color\" href=\"#node-stroke-color\">🔗</a> strokeColor in highlighted state.",
+                "name": "node.highlightStrokeColor"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": "\"SAME\"",
+                "description": "<a id=\"node-stroke-width\" href=\"#node-stroke-width\">🔗</a> strokeWidth in highlighted state.",
+                "name": "node.highlightStrokeWidth"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": null,
+                "description": "<a id=\"node-label-position\" href=\"#node-label-position\">🔗</a> 🔍🔍🔍 location to place node label relative to node.\nThe placement options are:\n  - \"left\"\n  - \"right\"\n  - \"top\"\n  - \"bottom\"\n  - \"center\"\n\n<b>[note]</b> not specifying a label position will fallback to the original placement scheme of to the right of the node. This is different than the implementation for \"right\", which has the label shifted very slightly upward compared to the original.",
+                "name": "node.labelPosition"
+            },
+            {
+                "type": {
+                    "names": ["string", "function"]
+                },
+                "optional": true,
+                "defaultvalue": "\"id\"",
+                "description": "<a id=\"node-label-property\" href=\"#node-label-property\">🔗</a> this is the node property that will be used in runtime to</br>\nfetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set</br>\nnode.labelProperty to be <b>\"firstName\"</b>. <b>This can also be a function!</b>, if you pass a function here it will be called</br>\nto obtain the <code>label</code> value on the fly, as a client you will receive all the node information that you passed down into react-d3-graph,</br>\nso the signature of the function would be:\n```javascript\nfunction myCustomLabelBuilder(node) {\n    // do stuff to get the final result...\n    return \"label string\";\n}\n```\nThen you just need to make sure that you pass this function in the config in <code>config.node.labelProperty</code>.\n</br>",
+                "name": "node.labelProperty"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"pointer\"",
+                "description": "<a id=\"node-pointer\" href=\"#node-pointer\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control\">cursor</a>\nproperty for when some node is mouse hovered.",
+                "name": "node.mouseCursor"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 1,
+                "description": "<a id=\"node-opacity\" href=\"#node-opacity\">🔗</a> 🔍🔍🔍 by default all nodes will have this opacity value.",
+                "name": "node.opacity"
+            },
+            {
+                "type": {
+                    "names": ["boolean"]
+                },
+                "optional": true,
+                "defaultvalue": true,
+                "description": "<a id=\"node-render-label\" href=\"#node-render-label\">🔗</a> 🔍🔍🔍 when set to false no labels will appear along side nodes in the\ngraph.",
+                "name": "node.renderLabel"
+            },
+            {
+                "type": {
+                    "names": ["number", "Object"]
+                },
+                "optional": true,
+                "defaultvalue": 200,
+                "description": "<a id=\"node-size\" href=\"#node-size\">🔗</a> 🔍🔍🔍 defines the size of all nodes. When set to a number, the node will have equal height and width.</br>\nThis can also be an object with a height and width property <b>when using custom nodes</b>.\n```javascript\nsize: 200\n// or\nsize: {\n   height: 200,\n   width: 300,\n}\n```\nThe actual node dimensions (in px) rendered on screen will be the size value divided by 10. For example, a node size of 200 will result in a node with a height and width of 20px.",
+                "name": "node.size"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"none\"",
+                "description": "<a id=\"node-stroke-color\" href=\"#node-stroke-color\">🔗</a> 🔍🔍🔍  this is the stroke color that will be applied to the node if no <b>strokeColor property</b> is found inside the node itself (yes <b>you can pass a property \"strokeColor\" inside the node and that stroke color will override this default one</b>).",
+                "name": "node.strokeColor"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 1.5,
+                "description": "<a id=\"node-stroke-width\" href=\"#node-stroke-width\">🔗</a> 🔍🔍🔍 the width of the all node strokes.",
+                "name": "node.strokeWidth"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"\"",
+                "description": "<a id=\"node-svg\" href=\"#node-svg\">🔗</a> 🔍🔍🔍 render custom svg for nodes in alternative to <b>node.symbolType</b>. This svg can\nbe provided as a string to either a remote svg resource or for a local one.\n</br>\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-custom-svg.gif?raw=true\" width=\"820\" height=\"480\"/>",
+                "name": "node.svg"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"circle\"",
+                "description": "<a id=\"node-symbol-type\" href=\"#node-symbol-type\">🔗</a> 🔍🔍🔍 the <a id=\"node-symbol-type\">shape</span> of the node.\nUse the following values under a property <b>type</b> inside each node (nodes may have different types, same as colors):\n  - \"circle\"\n  - \"cross\"\n  - \"diamond\"\n  - \"square\"\n  - \"star\"\n  - \"triangle\"\n  - \"wye\"\n\n<b>[note]</b> react-d3-graph will map this values to <a target=\"_blank\" href=\"https://github.com/d3/d3-shape#symbols\">d3 symbols</a>",
+                "name": "node.symbolType"
+            },
+            {
+                "type": {
+                    "names": ["function"]
+                },
+                "optional": true,
+                "defaultvalue": null,
+                "description": "<a id=\"node-view-generator\" href=\"#node-view-generator\">🔗</a> 🔍🔍🔍 function that receives a node and returns a JSX view.\n</br>",
+                "name": "node.viewGenerator"
+            },
+            {
+                "type": {
+                    "names": ["Object"]
+                },
+                "description": "link object is explained in the next section. ⬇️\n<h2 id=\"config-link\"><a href=\"#config-link\">#</a> Link level configurations</h2>",
+                "name": "link"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"#d3d3d3\"",
+                "description": "<a id=\"link-color\" href=\"#link-color\">🔗</a> 🔍🔍🔍 the color for links\n(from version 1.3.0 this property can be configured at link level).",
+                "name": "link.color"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"black\"",
+                "description": "<a id=\"link-font-color\" href=\"#link-font-color\">🔗</a> 🔍🔍🔍 fill color for link's <text> svg label.",
+                "name": "link.fontColor"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 8,
+                "description": "<a id=\"link-font-size\" href=\"#link-font-size\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control\">font-size</a>\nproperty for all links' labels.",
+                "name": "link.fontSize"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"normal\"",
+                "description": "<a id=\"link-font-weight\" href=\"#link-font-weight\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control\">font-weight</a>\nproperty for all links' labels.",
+                "name": "link.fontWeight"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"SAME\"",
+                "description": "<a id=\"link-highlight-color\" href=\"#link-highlight-color\">🔗</a> links' color in highlight state, default being the same color as `link.color`.\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true\" width=\"820\" height=\"480\"/>",
+                "name": "link.highlightColor"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 8,
+                "description": "<a id=\"link-highlight-font-size\" href=\"#link-highlight-font-size\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control\">font-size</a> in highlighted state.",
+                "name": "link.highlightFontSize"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"normal\"",
+                "description": "<a id=\"link-highlight-font-weight\" href=\"#link-highlight-font-weight\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control\">font-weight</a> in highlighted state.",
+                "name": "link.highlightFontWeight"
+            },
+            {
+                "type": {
+                    "names": ["string", "function"]
+                },
+                "optional": true,
+                "defaultvalue": "\"label\"",
+                "description": "<a id=\"link-label-property\" href=\"#link-label-property\">🔗</a> the property that will be rendered as label within some link. Note that</br>\nthis property needs to be passed along the link payload (along side with source and target). This property can also be a function</br>\nthat receives the link itself as argument and returns a custom string, similarly to what happens with <code>node.labelProperty</code>.</br>",
+                "name": "link.labelProperty"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"pointer\"",
+                "description": "<a id=\"link-mouse-cursor\" href=\"#link-mouse-cursor\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control\">cursor</a>\nproperty for when link is mouse hovered.",
+                "name": "link.mouseCursor"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 1,
+                "description": "🔍🔍🔍 - <a href=\"#link-opacity\" href=\"\">🔗</a> the default opacity value for links.",
+                "name": "link.opacity"
+            },
+            {
+                "type": {
+                    "names": ["boolean"]
+                },
+                "optional": true,
+                "defaultvalue": false,
+                "description": "<a id=\"link-render-label\" href=\"#link-render-label\">🔗</a> when set to true labels will appear along side links in the\ngraph. <b>Note</b>: this will only happen of course if proper label is passed within the link, check also <code>link.labelProperty</code>.\n</br>\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-link-render-label.png?raw=true\" width=\"820\" height=\"480\"/>",
+                "name": "link.renderLabel"
+            },
+            {
+                "type": {
+                    "names": ["boolean"]
+                },
+                "optional": true,
+                "defaultvalue": false,
+                "description": "<a id=\"link-semantic-stroke-width\" href=\"#link-semantic-stroke-width\">🔗</a> when set to true all links will have\n<i>\"semantic width\"</i>, this means that the width of the connections will be proportional to the value of each link.\nThis is how link strokeWidth will be calculated:\n```javascript\nstrokeWidth += (linkValue * strokeWidth) / 10;\n```",
+                "name": "link.semanticStrokeWidth"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 1.5,
+                "description": "<a id=\"link-stroke-width\" href=\"#link-stroke-width\">🔗</a> 🔍🔍🔍 strokeWidth for all links. By default the actual value is obtain by the\nfollowing expression:\n```javascript\nlink.strokeWidth * (1 / transform); // transform is a zoom delta Δ value\n```",
+                "name": "link.strokeWidth"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 6,
+                "description": "<a id=\"link-marker-height\" href=\"#link-marker-height\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerHeight\">markerHeight</a>\nproperty for the link arrowhead height. *Note: this property can only be set in the first mount, it does not update dynamically.*",
+                "name": "link.markerHeight"
+            },
+            {
+                "type": {
+                    "names": ["number"]
+                },
+                "optional": true,
+                "defaultvalue": 6,
+                "description": "<a id=\"link-marker-width\" href=\"#link-marker-width\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerWidth\">markerWidth</a>\nproperty for the link arrowhead width. *Note: this property can only be set in the first mount, it does not update dynamically.*",
+                "name": "link.markerWidth"
+            },
+            {
+                "type": {
+                    "names": ["string"]
+                },
+                "optional": true,
+                "defaultvalue": "\"STRAIGHT\"",
+                "description": "<a id=\"link-type\" href=\"#link-type\">🔗</a> 🔍🔍🔍 the type of line to draw, available types at this point are:\n- \"STRAIGHT\" <small>(default)</small> - a straight line.\n- \"CURVE_SMOOTH\" - a slight curve between two nodes\n- \"CURVE_FULL\" - a semicircumference trajectory unites source and target nodes.\n</br>\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true\" width=\"820\" height=\"480\"/>",
+                "name": "link.type"
+            }
+        ],
+        "examples": [
+            "// A simple config that uses some properties\nconst myConfig = {\n    nodeHighlightBehavior: true,\n    node: {\n        color: \"lightgreen\",\n        size: 120,\n        highlightStrokeColor: \"blue\"\n    },\n    link: {\n        highlightColor: \"lightblue\"\n    }\n};\n\n// Sorry for the long config description, here\"s a potato 🥔."
+        ],
+        "name": "exports",
+        "longname": "module.exports",
+        "kind": "member",
+        "memberof": "module",
+        "scope": "static"
     },
-    "description": "<div style=\"text-align: right;\"><i>This is certainly the only extra piece of documentation that you will ever need</i></div>\n</br></br>\nHere you can consult a detailed description of each graph configurable property as well as the default values\nof those properties.\n\n<b>Note about performance</b></br>\nSome of the properties have a major performance impact when toggled while rendering graphs of medium or large dimensions (hundreds or thousand of elements).\nThese properties are marked with 🚅🚅🚅.</br>\n⭐ <b>tip</b> <i>to achieve smoother interactions you may want to provide a toggle to set <b>staticGraph</b> or (better) <b>staticGraphWithDragAndDrop</b> to <b>true</b></i></br>\n</br>\n<b>Note about granularity</b></br>\nSome of the properties listed in the <a href=\"#config-node\">Node section</a> are marked with 🔍🔍🔍. This means that this properties\nhave a higher level of granularity. These properties can be defined in the graph payload at a node level. (sample payload below)\n```javascript\nconst graph = {\n    nodes: [\n        {\n            id: \"id\",\n            color: \"red\",         // only this node will be red\n            size: 300,            // only this node will have size 300\n            symbolType: \"diamond\" // only this node will have \"diamond\" shape\n        }\n    ],\n    links: [...]\n};\n```\n\n</br>\n\n- <a href=\"#config-global\">Graph global configurations</a>\n- <a href=\"#config-d3\">d3 level configurations</a>\n- <a href=\"#config-node\">Node level configurations</a>\n- <a href=\"#config-link\">Link level configurations</a>\n\n</br>\n\n<h2 id=\"config-global\"><a href=\"#config-global\">#</a>  Graph global configurations</h2>",
-    "params": [
-      {
-        "type": {
-          "names": ["boolean"]
+    {
+        "comment": "",
+        "meta": {
+            "range": [21788, 21826],
+            "filename": "graph.config.js",
+            "lineno": 241,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000004",
+                "name": "automaticRearrangeAfterDropNode",
+                "type": "Literal",
+                "value": false
+            }
         },
-        "optional": true,
-        "defaultvalue": false,
-        "description": "<a id=\"automatic-rearrange-after-drop-node\" href=\"#automatic-rearrange-after-drop-node\">🔗</a> 🚅🚅🚅 when true performing a node drag and drop should automatically\nrearrange all nodes positions based on new position of dragged node (note: <b>staticGraph</b> should be false). A few notes on this property:\n<ul>\n<li><b>automaticRearrangeAfterDropNode</b> needs to be set before the first graph render. Only the first set value will take effect.</li>\n<li><b>automaticRearrangeAfterDropNode</b> won't work together with <b>nodeHighlightBehavior</b> (currently a known limitation, to be address in the future <a href=\"https://github.com/danielcaldas/react-d3-graph/issues/261\" target=\"_blank\">GitHub issue #261</a>).</li>\n</ul>",
-        "name": "automaticRearrangeAfterDropNode"
-      },
-      {
-        "type": {
-          "names": ["boolean"]
-        },
-        "optional": true,
-        "defaultvalue": false,
-        "description": "<a id=\"collapsible\" href=\"#collapsible\">🔗</a> 🚅🚅🚅 Allow leaf neighbors nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.\nTo see an example of this behavior you can access <a href=\"https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=marvel\" target=\"_blank\" title=\"sandbox collapsible example\">this sandbox link</a> that has a specific set up to experiment this feature. <b>NOTE</b>: At this moment\nnodes without connections (orphan nodes) are not rendered when this property is activated (see <a target=\"_blank\" href=\"https://github.com/danielcaldas/react-d3-graph/issues/129\">GitHub issue #129</a>).\n</br>\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-collapsible.gif?raw=true\" width=\"820\" height=\"480\"/>",
-        "name": "collapsible"
-      },
-      {
-        "type": {
-          "names": ["boolean"]
-        },
-        "optional": true,
-        "defaultvalue": false,
-        "description": "<a id=\"directed\" href=\"#directed\">🔗</a> This property makes react-d3-graph handle your graph as a directed graph. It will\nout of the box provide the look and feel of a directed graph and add directional semantic to links. You can see a sample in the image below.\n</br>\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-directed.gif?raw=true\" width=\"820\" height=\"480\"/>",
-        "name": "directed"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 1,
-        "description": "<a id=\"focus-zoom\" href=\"#focus-zoom\">🔗</a> zoom that will be applied when the graph view is focused in a node. Its value must be between\n<i>minZoom</i> and <i>maxZoom</i>. If the specified <i>focusZoom</i> is out of this range, <i>minZoom</i> or <i>maxZoom</i> will be applied instead.</br>\n<b>NOTE</b>: This animation is not trigger by default. In order to trigger it you need to pass down to <code>react-d3-graph</code> the\nnode that you want to focus via prop <code>focusedNodeId</code> along side with nodes and links:\n\n```javascript\nconst data = {\n   nodes: this.state.data.nodes,\n   links: this.state.data.links,\n   focusedNodeId: \"nodeIdToTriggerZoomAnimation\"\n};\n```\n\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-zoom-animation.gif?raw=true\" width=\"820\" height=\"480\"/>",
-        "name": "focusZoom"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 0.75,
-        "description": "<a id=\"focus-animation-duration\" href=\"#focus-animation-duration\">🔗</a> duration (in seconds) for the animation that takes place when focusing the graph on a node.",
-        "name": "focusAnimationDuration"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 400,
-        "description": "<a id=\"height\" href=\"#height\">🔗</a> the height of the (svg) area where the graph will be rendered.",
-        "name": "height"
-      },
-      {
-        "type": {
-          "names": ["boolean"]
-        },
-        "optional": true,
-        "defaultvalue": false,
-        "description": "<a id=\"node-highlight-behavior\" href=\"#node-highlight-behavior\">🔗</a> 🚅🚅🚅 when user mouse hovers a node that node and adjacent common\nconnections will be highlighted (depending on the <i>highlightDegree</i> value). All the remaining nodes and links assume opacity value equal to <b>highlightOpacity</b>.",
-        "name": "nodeHighlightBehavior"
-      },
-      {
-        "type": {
-          "names": ["boolean"]
-        },
-        "optional": true,
-        "defaultvalue": false,
-        "description": "<a id=\"link-highlight-behavior\" href=\"#link-highlight-behavior\">🔗</a> 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior\nto <i>nodeHighlightBehavior</i> but for links <small>(just for historical reference this property was introduced in <a target=\"_blank\" href=\"https://github.com/danielcaldas/react-d3-graph/releases/tag/1.0.0\">v1.0.0</a>)</small>.",
-        "name": "linkHighlightBehavior"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 1,
-        "description": "<a id=\"highlight-degree\" href=\"#highlight-degree\">🔗</a> <b>Possible values: 0, 1 or 2</b>. This value represents the range of the\nhighlight behavior when some node is highlighted. If the value is set to <b>0</b> only the selected node will be\nhighlighted. If the value is set to <b>1</b> the selected node and his 1st degree connections will be highlighted. If\nthe value is set to <b>2</b> the selected node will be highlighted as well as the 1st and 2nd common degree connections.",
-        "name": "highlightDegree"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 1,
-        "description": "<a id=\"highlight-opacity\" href=\"#highlight-opacity\">🔗</a> this value is used to highlight nodes in the network. The lower\nthe value the more the less highlighted nodes will be visible (related to <i>nodeHighlightBehavior</i>).",
-        "name": "highlightOpacity"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": null,
-        "description": "<a id=\"max-zoom\" href=\"#initial-zoom\">🔗</a> initial zoom that can be set on the graph.",
-        "name": "initialZoom"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 8,
-        "description": "<a id=\"max-zoom\" href=\"#max-zoom\">🔗</a> max zoom that can be performed against the graph.",
-        "name": "maxZoom"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 0.1,
-        "description": "<a id=\"min-zoom\" href=\"#min-zoom\">🔗</a> min zoom that can be performed against the graph.",
-        "name": "minZoom"
-      },
-      {
-        "type": {
-          "names": ["boolean"]
-        },
-        "optional": true,
-        "defaultvalue": false,
-        "description": "<a id=\"pan-and-zoom\" href=\"#pan-and-zoom\">🔗</a> 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,\na similar functionality may be consulted <a target=\"_blank\" href=\"https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39\">here</a>.",
-        "name": "panAndZoom"
-      },
-      {
-        "type": {
-          "names": ["boolean"]
-        },
-        "optional": true,
-        "defaultvalue": false,
-        "description": "<a id=\"static-graph\" href=\"#static-graph\">🔗</a> when setting this value to true the graph will be completely static, thus\nall forces and drag events upon nodes will produce not effect. Note that, if this value is true the nodes will be\nrendered with the initial provided <b>x and y coordinates</b> (links positions will be automatically set\nfrom the given nodes positions by rd3g), no coordinates will be calculated by rd3g or subjacent d3 modules.",
-        "name": "staticGraph"
-      },
-      {
-        "type": {
-          "names": ["boolean"]
-        },
-        "optional": true,
-        "description": "<a id=\"static-graph-with-drag-and-drop\" href=\"#static-graph-with-drag-and-drop\">🔗</a> exactly the same as above <code>staticGraph</code>, but it will allow users to drag&drop nodes.\n<b>Note</b>: If <code>staticGraph</code> is set to <code>true</code>, then <code>staticGraphWithDragAndDrop</code> will not produce the desired behaviour, make sure\nto set only one of them to <code>true</code>.",
-        "name": "staticGraphWithDragAndDrop"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 800,
-        "description": "<a id=\"width\" href=\"#width\">🔗</a> the width of the (svg) area where the graph will be rendered.\n</br>",
-        "name": "width"
-      },
-      {
-        "type": {
-          "names": ["Object"]
-        },
-        "description": "d3 object is explained in next section. ⬇️\n<h2 id=\"config-d3\"><a href=\"#config-d3\">#</a> d3 level configurations</h2>",
-        "name": "d3"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 0.05,
-        "description": "<a id=\"d3-alpha-target\" href=\"#d3-alpha-target\">🔗</a> <a target=\"_blank\" href=\"https://github.com/d3/d3-force#simulation_alphaTarget\">see d3-force simulation.alphaTarget</a>",
-        "name": "d3.alphaTarget"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": -100,
-        "description": "<a id=\"d3-gravity\" href=\"#d3-gravity\">🔗</a> this will define how close nodes are to each other <a target=\"_blank\" href=\"https://github.com/d3/d3-force#forces\">see d3 reference for forces</a>.\n - If value is positive, nodes will attract each other.\n - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don\"t overlap.",
-        "name": "d3.gravity"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 100,
-        "description": "<a id=\"d3-link-length\" href=\"#d3-link-length\">🔗</a> the length of each link from the center of the nodes it joins.",
-        "name": "d3.linkLength"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 1,
-        "description": "<a id=\"d3-link-strength\" href=\"#d3-link-strength\">🔗</a> <a target=\"_blank\" href=\"https://github.com/d3/d3-force#link_strength\">see d3-force link.strength</a>",
-        "name": "d3.linkStrength"
-      },
-      {
-        "type": {
-          "names": ["boolean"]
-        },
-        "optional": true,
-        "defaultvalue": false,
-        "description": "<a id=\"d3-disable-link-force\" href=\"#d3-disable-link-force\">🔗</a> ⚠️🧪EXPERIMENTAL🧪⚠️ it completely disables d3 force link and simulation to re-trigger so that one can obtain\nprecise render of node positions as described by the author <a target=\"_blank\" href=\"https://github.com/antoninklopp\">@antoninklopp</a> in <a target=\"_blank\" href=\"https://github.com/danielcaldas/react-d3-graph/pull/278\">the Pull Request description</a>.\n</br>",
-        "name": "d3.disableLinkForce"
-      },
-      {
-        "type": {
-          "names": ["Object"]
-        },
-        "description": "node object is explained in next section. ⬇️\n<h2 id=\"config-node\"><a href=\"#config-node\">#</a> Node level configurations</h2>",
-        "name": "node"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"#d3d3d3\"",
-        "description": "<a id=\"node-color\" href=\"#node-color\">🔗</a> 🔍🔍🔍 this is the color that will be applied to the node if no <b>color property</b></br>\nis found inside the node itself (yes <b>you can pass a property \"color\" inside</b></br>\n<b>the node and that color will override the this default one</b>).",
-        "name": "node.color"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"black\"",
-        "description": "<a id=\"node-font-color\" href=\"#node-font-color\">🔗</a> 🔍🔍🔍 fill color for node\"s <text> svg label.",
-        "name": "node.fontColor"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 8,
-        "description": "<a id=\"node-font-size\" href=\"#node-font-size\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control\">font-size</a>\nproperty for all nodes\" labels.",
-        "name": "node.fontSize"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"normal\"",
-        "description": "<a id=\"node-font-weight\" href=\"#node-font-weight\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control\">font-weight</a>\nproperty for all nodes\" labels.",
-        "name": "node.fontWeight"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"SAME\"",
-        "description": "<a id=\"node-highlight-color\" href=\"#node-highlight-color\">🔗</a> color for all highlighted nodes (use string \"SAME\" if you\nwant the node to keep its color in highlighted state).",
-        "name": "node.highlightColor"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 8,
-        "description": "<a id=\"node-highlight-font-size\" href=\"#node-highlight-font-size\">🔗</a> fontSize in highlighted state.",
-        "name": "node.highlightFontSize"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"normal\"",
-        "description": "<a id=\"node-highlight-font-weight\" href=\"#node-highlight-font-weight\">🔗</a> fontWeight in highlighted state.",
-        "name": "node.highlightFontWeight"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"SAME\"",
-        "description": "<a id=\"node-stroke-color\" href=\"#node-stroke-color\">🔗</a> strokeColor in highlighted state.",
-        "name": "node.highlightStrokeColor"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": "\"SAME\"",
-        "description": "<a id=\"node-stroke-width\" href=\"#node-stroke-width\">🔗</a> strokeWidth in highlighted state.",
-        "name": "node.highlightStrokeWidth"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": null,
-        "description": "<a id=\"node-label-position\" href=\"#node-label-position\">🔗</a> 🔍🔍🔍 location to place node label relative to node.\nThe placement options are:\n  - \"left\"\n  - \"right\"\n  - \"top\"\n  - \"bottom\"\n  - \"center\"\n\n<b>[note]</b> not specifying a label position will fallback to the original placement scheme of to the right of the node. This is different than the implementation for \"right\", which has the label shifted very slightly upward compared to the original.",
-        "name": "node.labelPosition"
-      },
-      {
-        "type": {
-          "names": ["string", "function"]
-        },
-        "optional": true,
-        "defaultvalue": "\"id\"",
-        "description": "<a id=\"node-label-property\" href=\"#node-label-property\">🔗</a> this is the node property that will be used in runtime to</br>\nfetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set</br>\nnode.labelProperty to be <b>\"firstName\"</b>. <b>This can also be a function!</b>, if you pass a function here it will be called</br>\nto obtain the <code>label</code> value on the fly, as a client you will receive all the node information that you passed down into react-d3-graph,</br>\nso the signature of the function would be:\n```javascript\nfunction myCustomLabelBuilder(node) {\n    // do stuff to get the final result...\n    return \"label string\";\n}\n```\nThen you just need to make sure that you pass this function in the config in <code>config.node.labelProperty</code>.\n</br>",
-        "name": "node.labelProperty"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"pointer\"",
-        "description": "<a id=\"node-pointer\" href=\"#node-pointer\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control\">cursor</a>\nproperty for when some node is mouse hovered.",
-        "name": "node.mouseCursor"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 1,
-        "description": "<a id=\"node-opacity\" href=\"#node-opacity\">🔗</a> 🔍🔍🔍 by default all nodes will have this opacity value.",
-        "name": "node.opacity"
-      },
-      {
-        "type": {
-          "names": ["boolean"]
-        },
-        "optional": true,
-        "defaultvalue": true,
-        "description": "<a id=\"node-render-label\" href=\"#node-render-label\">🔗</a> 🔍🔍🔍 when set to false no labels will appear along side nodes in the\ngraph.",
-        "name": "node.renderLabel"
-      },
-      {
-        "type": {
-          "names": ["number", "Object"]
-        },
-        "optional": true,
-        "defaultvalue": 200,
-        "description": "<a id=\"node-size\" href=\"#node-size\">🔗</a> 🔍🔍🔍 defines the size of all nodes. When set to a number, the node will have equal height and width.</br>\nThis can also be an object with a height and width property <b>when using custom nodes</b>.\n```javascript\nsize: 200\n// or\nsize: {\n   height: 200,\n   width: 300,\n}\n```\nThe actual node dimensions (in px) rendered on screen will be the size value divided by 10. For example, a node size of 200 will result in a node with a height and width of 20px.",
-        "name": "node.size"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"none\"",
-        "description": "<a id=\"node-stroke-color\" href=\"#node-stroke-color\">🔗</a> 🔍🔍🔍  this is the stroke color that will be applied to the node if no <b>strokeColor property</b> is found inside the node itself (yes <b>you can pass a property \"strokeColor\" inside the node and that stroke color will override this default one</b>).",
-        "name": "node.strokeColor"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 1.5,
-        "description": "<a id=\"node-stroke-width\" href=\"#node-stroke-width\">🔗</a> 🔍🔍🔍 the width of the all node strokes.",
-        "name": "node.strokeWidth"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"\"",
-        "description": "<a id=\"node-svg\" href=\"#node-svg\">🔗</a> 🔍🔍🔍 render custom svg for nodes in alternative to <b>node.symbolType</b>. This svg can\nbe provided as a string to either a remote svg resource or for a local one.\n</br>\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-custom-svg.gif?raw=true\" width=\"820\" height=\"480\"/>",
-        "name": "node.svg"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"circle\"",
-        "description": "<a id=\"node-symbol-type\" href=\"#node-symbol-type\">🔗</a> 🔍🔍🔍 the <a id=\"node-symbol-type\">shape</span> of the node.\nUse the following values under a property <b>type</b> inside each node (nodes may have different types, same as colors):\n  - \"circle\"\n  - \"cross\"\n  - \"diamond\"\n  - \"square\"\n  - \"star\"\n  - \"triangle\"\n  - \"wye\"\n\n<b>[note]</b> react-d3-graph will map this values to <a target=\"_blank\" href=\"https://github.com/d3/d3-shape#symbols\">d3 symbols</a>",
-        "name": "node.symbolType"
-      },
-      {
-        "type": {
-          "names": ["function"]
-        },
-        "optional": true,
-        "defaultvalue": null,
-        "description": "<a id=\"node-view-generator\" href=\"#node-view-generator\">🔗</a> 🔍🔍🔍 function that receives a node and returns a JSX view.\n</br>",
-        "name": "node.viewGenerator"
-      },
-      {
-        "type": {
-          "names": ["Object"]
-        },
-        "description": "link object is explained in the next section. ⬇️\n<h2 id=\"config-link\"><a href=\"#config-link\">#</a> Link level configurations</h2>",
-        "name": "link"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"#d3d3d3\"",
-        "description": "<a id=\"link-color\" href=\"#link-color\">🔗</a> 🔍🔍🔍 the color for links\n(from version 1.3.0 this property can be configured at link level).",
-        "name": "link.color"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"black\"",
-        "description": "<a id=\"link-font-color\" href=\"#link-font-color\">🔗</a> 🔍🔍🔍 fill color for link's <text> svg label.",
-        "name": "link.fontColor"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 8,
-        "description": "<a id=\"link-font-size\" href=\"#link-font-size\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control\">font-size</a>\nproperty for all links' labels.",
-        "name": "link.fontSize"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"normal\"",
-        "description": "<a id=\"link-font-weight\" href=\"#link-font-weight\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control\">font-weight</a>\nproperty for all links' labels.",
-        "name": "link.fontWeight"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"SAME\"",
-        "description": "<a id=\"link-highlight-color\" href=\"#link-highlight-color\">🔗</a> links' color in highlight state, default being the same color as `link.color`.\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true\" width=\"820\" height=\"480\"/>",
-        "name": "link.highlightColor"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 8,
-        "description": "<a id=\"link-highlight-font-size\" href=\"#link-highlight-font-size\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en-US/docs/Web/CSS/font-size?v=control\">font-size</a> in highlighted state.",
-        "name": "link.highlightFontSize"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"normal\"",
-        "description": "<a id=\"link-highlight-font-weight\" href=\"#link-highlight-font-weight\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/font-weight?v=control\">font-weight</a> in highlighted state.",
-        "name": "link.highlightFontWeight"
-      },
-      {
-        "type": {
-          "names": ["string", "function"]
-        },
-        "optional": true,
-        "defaultvalue": "\"label\"",
-        "description": "<a id=\"link-label-property\" href=\"#link-label-property\">🔗</a> the property that will be rendered as label within some link. Note that</br>\nthis property needs to be passed along the link payload (along side with source and target). This property can also be a function</br>\nthat receives the link itself as argument and returns a custom string, similarly to what happens with <code>node.labelProperty</code>.</br>",
-        "name": "link.labelProperty"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"pointer\"",
-        "description": "<a id=\"link-mouse-cursor\" href=\"#link-mouse-cursor\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/CSS/cursor?v=control\">cursor</a>\nproperty for when link is mouse hovered.",
-        "name": "link.mouseCursor"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 1,
-        "description": "🔍🔍🔍 - <a href=\"#link-opacity\" href=\"\">🔗</a> the default opacity value for links.",
-        "name": "link.opacity"
-      },
-      {
-        "type": {
-          "names": ["boolean"]
-        },
-        "optional": true,
-        "defaultvalue": false,
-        "description": "<a id=\"link-render-label\" href=\"#link-render-label\">🔗</a> when set to true labels will appear along side links in the\ngraph. <b>Note</b>: this will only happen of course if proper label is passed within the link, check also <code>link.labelProperty</code>.\n</br>\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-link-render-label.png?raw=true\" width=\"820\" height=\"480\"/>",
-        "name": "link.renderLabel"
-      },
-      {
-        "type": {
-          "names": ["boolean"]
-        },
-        "optional": true,
-        "defaultvalue": false,
-        "description": "<a id=\"link-semantic-stroke-width\" href=\"#link-semantic-stroke-width\">🔗</a> when set to true all links will have\n<i>\"semantic width\"</i>, this means that the width of the connections will be proportional to the value of each link.\nThis is how link strokeWidth will be calculated:\n```javascript\nstrokeWidth += (linkValue * strokeWidth) / 10;\n```",
-        "name": "link.semanticStrokeWidth"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 1.5,
-        "description": "<a id=\"link-stroke-width\" href=\"#link-stroke-width\">🔗</a> 🔍🔍🔍 strokeWidth for all links. By default the actual value is obtain by the\nfollowing expression:\n```javascript\nlink.strokeWidth * (1 / transform); // transform is a zoom delta Δ value\n```",
-        "name": "link.strokeWidth"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 6,
-        "description": "<a id=\"link-marker-height\" href=\"#link-marker-height\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerHeight\">markerHeight</a>\nproperty for the link arrowhead height. *Note: this property can only be set in the first mount, it does not update dynamically.*",
-        "name": "link.markerHeight"
-      },
-      {
-        "type": {
-          "names": ["number"]
-        },
-        "optional": true,
-        "defaultvalue": 6,
-        "description": "<a id=\"link-marker-width\" href=\"#link-marker-width\">🔗</a> <a target=\"_blank\" href=\"https://developer.mozilla.org/en/docs/Web/SVG/Attribute/markerWidth\">markerWidth</a>\nproperty for the link arrowhead width. *Note: this property can only be set in the first mount, it does not update dynamically.*",
-        "name": "link.markerWidth"
-      },
-      {
-        "type": {
-          "names": ["string"]
-        },
-        "optional": true,
-        "defaultvalue": "\"STRAIGHT\"",
-        "description": "<a id=\"link-type\" href=\"#link-type\">🔗</a> 🔍🔍🔍 the type of line to draw, available types at this point are:\n- \"STRAIGHT\" <small>(default)</small> - a straight line.\n- \"CURVE_SMOOTH\" - a slight curve between two nodes\n- \"CURVE_FULL\" - a semicircumference trajectory unites source and target nodes.\n</br>\n<img src=\"https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true\" width=\"820\" height=\"480\"/>",
-        "name": "link.type"
-      }
-    ],
-    "examples": [
-      "// A simple config that uses some properties\nconst myConfig = {\n    nodeHighlightBehavior: true,\n    node: {\n        color: \"lightgreen\",\n        size: 120,\n        highlightStrokeColor: \"blue\"\n    },\n    link: {\n        highlightColor: \"lightblue\"\n    }\n};\n\n// Sorry for the long config description, here\"s a potato 🥔."
-    ],
-    "name": "exports",
-    "longname": "module.exports",
-    "kind": "member",
-    "memberof": "module",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [21788, 21826],
-      "filename": "graph.config.js",
-      "lineno": 241,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000004",
+        "undocumented": true,
         "name": "automaticRearrangeAfterDropNode",
-        "type": "Literal",
-        "value": false
-      }
+        "longname": "module.exports.automaticRearrangeAfterDropNode",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "automaticRearrangeAfterDropNode",
-    "longname": "module.exports.automaticRearrangeAfterDropNode",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [21832, 21850],
-      "filename": "graph.config.js",
-      "lineno": 242,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000006",
+    {
+        "comment": "",
+        "meta": {
+            "range": [21832, 21850],
+            "filename": "graph.config.js",
+            "lineno": 242,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000006",
+                "name": "collapsible",
+                "type": "Literal",
+                "value": false
+            }
+        },
+        "undocumented": true,
         "name": "collapsible",
-        "type": "Literal",
-        "value": false
-      }
+        "longname": "module.exports.collapsible",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "collapsible",
-    "longname": "module.exports.collapsible",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [21856, 21871],
-      "filename": "graph.config.js",
-      "lineno": 243,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000008",
+    {
+        "comment": "",
+        "meta": {
+            "range": [21856, 21871],
+            "filename": "graph.config.js",
+            "lineno": 243,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000008",
+                "name": "directed",
+                "type": "Literal",
+                "value": false
+            }
+        },
+        "undocumented": true,
         "name": "directed",
-        "type": "Literal",
-        "value": false
-      }
+        "longname": "module.exports.directed",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "directed",
-    "longname": "module.exports.directed",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [21877, 21905],
-      "filename": "graph.config.js",
-      "lineno": 244,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000010",
+    {
+        "comment": "",
+        "meta": {
+            "range": [21877, 21905],
+            "filename": "graph.config.js",
+            "lineno": 244,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000010",
+                "name": "focusAnimationDuration",
+                "type": "Literal",
+                "value": 0.75
+            }
+        },
+        "undocumented": true,
         "name": "focusAnimationDuration",
-        "type": "Literal",
-        "value": 0.75
-      }
+        "longname": "module.exports.focusAnimationDuration",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "focusAnimationDuration",
-    "longname": "module.exports.focusAnimationDuration",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [21911, 21923],
-      "filename": "graph.config.js",
-      "lineno": 245,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000012",
+    {
+        "comment": "",
+        "meta": {
+            "range": [21911, 21923],
+            "filename": "graph.config.js",
+            "lineno": 245,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000012",
+                "name": "focusZoom",
+                "type": "Literal",
+                "value": 1
+            }
+        },
+        "undocumented": true,
         "name": "focusZoom",
-        "type": "Literal",
-        "value": 1
-      }
+        "longname": "module.exports.focusZoom",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "focusZoom",
-    "longname": "module.exports.focusZoom",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [21929, 21940],
-      "filename": "graph.config.js",
-      "lineno": 246,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000014",
+    {
+        "comment": "",
+        "meta": {
+            "range": [21929, 21940],
+            "filename": "graph.config.js",
+            "lineno": 246,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000014",
+                "name": "height",
+                "type": "Literal",
+                "value": 400
+            }
+        },
+        "undocumented": true,
         "name": "height",
-        "type": "Literal",
-        "value": 400
-      }
+        "longname": "module.exports.height",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "height",
-    "longname": "module.exports.height",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [21946, 21964],
-      "filename": "graph.config.js",
-      "lineno": 247,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000016",
+    {
+        "comment": "",
+        "meta": {
+            "range": [21946, 21964],
+            "filename": "graph.config.js",
+            "lineno": 247,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000016",
+                "name": "highlightDegree",
+                "type": "Literal",
+                "value": 1
+            }
+        },
+        "undocumented": true,
         "name": "highlightDegree",
-        "type": "Literal",
-        "value": 1
-      }
+        "longname": "module.exports.highlightDegree",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "highlightDegree",
-    "longname": "module.exports.highlightDegree",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [21970, 21989],
-      "filename": "graph.config.js",
-      "lineno": 248,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000018",
+    {
+        "comment": "",
+        "meta": {
+            "range": [21970, 21989],
+            "filename": "graph.config.js",
+            "lineno": 248,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000018",
+                "name": "highlightOpacity",
+                "type": "Literal",
+                "value": 1
+            }
+        },
+        "undocumented": true,
         "name": "highlightOpacity",
-        "type": "Literal",
-        "value": 1
-      }
+        "longname": "module.exports.highlightOpacity",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "highlightOpacity",
-    "longname": "module.exports.highlightOpacity",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [21995, 22023],
-      "filename": "graph.config.js",
-      "lineno": 249,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000020",
+    {
+        "comment": "",
+        "meta": {
+            "range": [21995, 22023],
+            "filename": "graph.config.js",
+            "lineno": 249,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000020",
+                "name": "linkHighlightBehavior",
+                "type": "Literal",
+                "value": false
+            }
+        },
+        "undocumented": true,
         "name": "linkHighlightBehavior",
-        "type": "Literal",
-        "value": false
-      }
+        "longname": "module.exports.linkHighlightBehavior",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "linkHighlightBehavior",
-    "longname": "module.exports.linkHighlightBehavior",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22029, 22039],
-      "filename": "graph.config.js",
-      "lineno": 250,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000022",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22029, 22039],
+            "filename": "graph.config.js",
+            "lineno": 250,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000022",
+                "name": "maxZoom",
+                "type": "Literal",
+                "value": 8
+            }
+        },
+        "undocumented": true,
         "name": "maxZoom",
-        "type": "Literal",
-        "value": 8
-      }
+        "longname": "module.exports.maxZoom",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "maxZoom",
-    "longname": "module.exports.maxZoom",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22045, 22057],
-      "filename": "graph.config.js",
-      "lineno": 251,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000024",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22045, 22057],
+            "filename": "graph.config.js",
+            "lineno": 251,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000024",
+                "name": "minZoom",
+                "type": "Literal",
+                "value": 0.1
+            }
+        },
+        "undocumented": true,
         "name": "minZoom",
-        "type": "Literal",
-        "value": 0.1
-      }
+        "longname": "module.exports.minZoom",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "minZoom",
-    "longname": "module.exports.minZoom",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22063, 22080],
-      "filename": "graph.config.js",
-      "lineno": 252,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000026",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22063, 22080],
+            "filename": "graph.config.js",
+            "lineno": 252,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000026",
+                "name": "initialZoom",
+                "type": "Literal",
+                "value": null
+            }
+        },
+        "undocumented": true,
         "name": "initialZoom",
-        "type": "Literal",
-        "value": null
-      }
+        "longname": "module.exports.initialZoom",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "initialZoom",
-    "longname": "module.exports.initialZoom",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22086, 22114],
-      "filename": "graph.config.js",
-      "lineno": 253,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000028",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22086, 22114],
+            "filename": "graph.config.js",
+            "lineno": 253,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000028",
+                "name": "nodeHighlightBehavior",
+                "type": "Literal",
+                "value": false
+            }
+        },
+        "undocumented": true,
         "name": "nodeHighlightBehavior",
-        "type": "Literal",
-        "value": false
-      }
+        "longname": "module.exports.nodeHighlightBehavior",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "nodeHighlightBehavior",
-    "longname": "module.exports.nodeHighlightBehavior",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22120, 22137],
-      "filename": "graph.config.js",
-      "lineno": 254,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000030",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22120, 22137],
+            "filename": "graph.config.js",
+            "lineno": 254,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000030",
+                "name": "panAndZoom",
+                "type": "Literal",
+                "value": false
+            }
+        },
+        "undocumented": true,
         "name": "panAndZoom",
-        "type": "Literal",
-        "value": false
-      }
+        "longname": "module.exports.panAndZoom",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "panAndZoom",
-    "longname": "module.exports.panAndZoom",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22143, 22161],
-      "filename": "graph.config.js",
-      "lineno": 255,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000032",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22143, 22161],
+            "filename": "graph.config.js",
+            "lineno": 255,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000032",
+                "name": "staticGraph",
+                "type": "Literal",
+                "value": false
+            }
+        },
+        "undocumented": true,
         "name": "staticGraph",
-        "type": "Literal",
-        "value": false
-      }
+        "longname": "module.exports.staticGraph",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "staticGraph",
-    "longname": "module.exports.staticGraph",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22167, 22200],
-      "filename": "graph.config.js",
-      "lineno": 256,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000034",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22167, 22200],
+            "filename": "graph.config.js",
+            "lineno": 256,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000034",
+                "name": "staticGraphWithDragAndDrop",
+                "type": "Literal",
+                "value": false
+            }
+        },
+        "undocumented": true,
         "name": "staticGraphWithDragAndDrop",
-        "type": "Literal",
-        "value": false
-      }
+        "longname": "module.exports.staticGraphWithDragAndDrop",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "staticGraphWithDragAndDrop",
-    "longname": "module.exports.staticGraphWithDragAndDrop",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22206, 22216],
-      "filename": "graph.config.js",
-      "lineno": 257,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000036",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22206, 22216],
+            "filename": "graph.config.js",
+            "lineno": 257,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000036",
+                "name": "width",
+                "type": "Literal",
+                "value": 800
+            }
+        },
+        "undocumented": true,
         "name": "width",
-        "type": "Literal",
-        "value": 800
-      }
+        "longname": "module.exports.width",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "width",
-    "longname": "module.exports.width",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22222, 22366],
-      "filename": "graph.config.js",
-      "lineno": 258,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000038",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22222, 22366],
+            "filename": "graph.config.js",
+            "lineno": 258,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000038",
+                "name": "d3",
+                "type": "ObjectExpression",
+                "value": "{\"alphaTarget\":0.05,\"gravity\":\"\",\"linkLength\":100,\"linkStrength\":1,\"disableLinkForce\":false}"
+            }
+        },
+        "undocumented": true,
         "name": "d3",
-        "type": "ObjectExpression",
-        "value": "{\"alphaTarget\":0.05,\"gravity\":\"\",\"linkLength\":100,\"linkStrength\":1,\"disableLinkForce\":false}"
-      }
+        "longname": "module.exports.d3",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "d3",
-    "longname": "module.exports.d3",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22236, 22253],
-      "filename": "graph.config.js",
-      "lineno": 259,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000040",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22236, 22253],
+            "filename": "graph.config.js",
+            "lineno": 259,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000040",
+                "name": "alphaTarget",
+                "type": "Literal",
+                "value": 0.05
+            }
+        },
+        "undocumented": true,
         "name": "alphaTarget",
-        "type": "Literal",
-        "value": 0.05
-      }
+        "longname": "module.exports.d3.alphaTarget",
+        "kind": "member",
+        "memberof": "module.exports.d3",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "alphaTarget",
-    "longname": "module.exports.d3.alphaTarget",
-    "kind": "member",
-    "memberof": "module.exports.d3",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22263, 22276],
-      "filename": "graph.config.js",
-      "lineno": 260,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000042",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22263, 22276],
+            "filename": "graph.config.js",
+            "lineno": 260,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000042",
+                "name": "gravity",
+                "type": "UnaryExpression",
+                "value": -100
+            }
+        },
+        "undocumented": true,
         "name": "gravity",
-        "type": "UnaryExpression",
-        "value": -100
-      }
+        "longname": "module.exports.d3.gravity",
+        "kind": "member",
+        "memberof": "module.exports.d3",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "gravity",
-    "longname": "module.exports.d3.gravity",
-    "kind": "member",
-    "memberof": "module.exports.d3",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22286, 22301],
-      "filename": "graph.config.js",
-      "lineno": 261,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000045",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22286, 22301],
+            "filename": "graph.config.js",
+            "lineno": 261,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000045",
+                "name": "linkLength",
+                "type": "Literal",
+                "value": 100
+            }
+        },
+        "undocumented": true,
         "name": "linkLength",
-        "type": "Literal",
-        "value": 100
-      }
+        "longname": "module.exports.d3.linkLength",
+        "kind": "member",
+        "memberof": "module.exports.d3",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "linkLength",
-    "longname": "module.exports.d3.linkLength",
-    "kind": "member",
-    "memberof": "module.exports.d3",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22311, 22326],
-      "filename": "graph.config.js",
-      "lineno": 262,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000047",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22311, 22326],
+            "filename": "graph.config.js",
+            "lineno": 262,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000047",
+                "name": "linkStrength",
+                "type": "Literal",
+                "value": 1
+            }
+        },
+        "undocumented": true,
         "name": "linkStrength",
-        "type": "Literal",
-        "value": 1
-      }
+        "longname": "module.exports.d3.linkStrength",
+        "kind": "member",
+        "memberof": "module.exports.d3",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "linkStrength",
-    "longname": "module.exports.d3.linkStrength",
-    "kind": "member",
-    "memberof": "module.exports.d3",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22336, 22359],
-      "filename": "graph.config.js",
-      "lineno": 263,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000049",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22336, 22359],
+            "filename": "graph.config.js",
+            "lineno": 263,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000049",
+                "name": "disableLinkForce",
+                "type": "Literal",
+                "value": false
+            }
+        },
+        "undocumented": true,
         "name": "disableLinkForce",
-        "type": "Literal",
-        "value": false
-      }
+        "longname": "module.exports.d3.disableLinkForce",
+        "kind": "member",
+        "memberof": "module.exports.d3",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "disableLinkForce",
-    "longname": "module.exports.d3.disableLinkForce",
-    "kind": "member",
-    "memberof": "module.exports.d3",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22372, 22954],
-      "filename": "graph.config.js",
-      "lineno": 265,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000051",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22372, 22954],
+            "filename": "graph.config.js",
+            "lineno": 265,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000051",
+                "name": "node",
+                "type": "ObjectExpression",
+                "value": "{\"color\":\"#d3d3d3\",\"fontColor\":\"black\",\"fontSize\":8,\"fontWeight\":\"normal\",\"highlightColor\":\"SAME\",\"highlightFontSize\":8,\"highlightFontWeight\":\"normal\",\"highlightStrokeColor\":\"SAME\",\"highlightStrokeWidth\":\"SAME\",\"labelProperty\":\"id\",\"labelPosition\":null,\"mouseCursor\":\"pointer\",\"opacity\":1,\"renderLabel\":true,\"size\":200,\"strokeColor\":\"none\",\"strokeWidth\":1.5,\"svg\":\"\",\"symbolType\":\"circle\",\"viewGenerator\":null}"
+            }
+        },
+        "undocumented": true,
         "name": "node",
-        "type": "ObjectExpression",
-        "value": "{\"color\":\"#d3d3d3\",\"fontColor\":\"black\",\"fontSize\":8,\"fontWeight\":\"normal\",\"highlightColor\":\"SAME\",\"highlightFontSize\":8,\"highlightFontWeight\":\"normal\",\"highlightStrokeColor\":\"SAME\",\"highlightStrokeWidth\":\"SAME\",\"labelProperty\":\"id\",\"labelPosition\":null,\"mouseCursor\":\"pointer\",\"opacity\":1,\"renderLabel\":true,\"size\":200,\"strokeColor\":\"none\",\"strokeWidth\":1.5,\"svg\":\"\",\"symbolType\":\"circle\",\"viewGenerator\":null}"
-      }
+        "longname": "module.exports.node",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "node",
-    "longname": "module.exports.node",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22388, 22404],
-      "filename": "graph.config.js",
-      "lineno": 266,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000053",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22388, 22404],
+            "filename": "graph.config.js",
+            "lineno": 266,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000053",
+                "name": "color",
+                "type": "Literal",
+                "value": "#d3d3d3"
+            }
+        },
+        "undocumented": true,
         "name": "color",
-        "type": "Literal",
-        "value": "#d3d3d3"
-      }
+        "longname": "module.exports.node.color",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "color",
-    "longname": "module.exports.node.color",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22414, 22432],
-      "filename": "graph.config.js",
-      "lineno": 267,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000055",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22414, 22432],
+            "filename": "graph.config.js",
+            "lineno": 267,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000055",
+                "name": "fontColor",
+                "type": "Literal",
+                "value": "black"
+            }
+        },
+        "undocumented": true,
         "name": "fontColor",
-        "type": "Literal",
-        "value": "black"
-      }
+        "longname": "module.exports.node.fontColor",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "fontColor",
-    "longname": "module.exports.node.fontColor",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22442, 22453],
-      "filename": "graph.config.js",
-      "lineno": 268,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000057",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22442, 22453],
+            "filename": "graph.config.js",
+            "lineno": 268,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000057",
+                "name": "fontSize",
+                "type": "Literal",
+                "value": 8
+            }
+        },
+        "undocumented": true,
         "name": "fontSize",
-        "type": "Literal",
-        "value": 8
-      }
+        "longname": "module.exports.node.fontSize",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "fontSize",
-    "longname": "module.exports.node.fontSize",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22463, 22483],
-      "filename": "graph.config.js",
-      "lineno": 269,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000059",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22463, 22483],
+            "filename": "graph.config.js",
+            "lineno": 269,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000059",
+                "name": "fontWeight",
+                "type": "Literal",
+                "value": "normal"
+            }
+        },
+        "undocumented": true,
         "name": "fontWeight",
-        "type": "Literal",
-        "value": "normal"
-      }
+        "longname": "module.exports.node.fontWeight",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "fontWeight",
-    "longname": "module.exports.node.fontWeight",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22493, 22515],
-      "filename": "graph.config.js",
-      "lineno": 270,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000061",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22493, 22515],
+            "filename": "graph.config.js",
+            "lineno": 270,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000061",
+                "name": "highlightColor",
+                "type": "Literal",
+                "value": "SAME"
+            }
+        },
+        "undocumented": true,
         "name": "highlightColor",
-        "type": "Literal",
-        "value": "SAME"
-      }
+        "longname": "module.exports.node.highlightColor",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "highlightColor",
-    "longname": "module.exports.node.highlightColor",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22525, 22545],
-      "filename": "graph.config.js",
-      "lineno": 271,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000063",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22525, 22545],
+            "filename": "graph.config.js",
+            "lineno": 271,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000063",
+                "name": "highlightFontSize",
+                "type": "Literal",
+                "value": 8
+            }
+        },
+        "undocumented": true,
         "name": "highlightFontSize",
-        "type": "Literal",
-        "value": 8
-      }
+        "longname": "module.exports.node.highlightFontSize",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "highlightFontSize",
-    "longname": "module.exports.node.highlightFontSize",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22555, 22584],
-      "filename": "graph.config.js",
-      "lineno": 272,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000065",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22555, 22584],
+            "filename": "graph.config.js",
+            "lineno": 272,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000065",
+                "name": "highlightFontWeight",
+                "type": "Literal",
+                "value": "normal"
+            }
+        },
+        "undocumented": true,
         "name": "highlightFontWeight",
-        "type": "Literal",
-        "value": "normal"
-      }
+        "longname": "module.exports.node.highlightFontWeight",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "highlightFontWeight",
-    "longname": "module.exports.node.highlightFontWeight",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22594, 22622],
-      "filename": "graph.config.js",
-      "lineno": 273,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000067",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22594, 22622],
+            "filename": "graph.config.js",
+            "lineno": 273,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000067",
+                "name": "highlightStrokeColor",
+                "type": "Literal",
+                "value": "SAME"
+            }
+        },
+        "undocumented": true,
         "name": "highlightStrokeColor",
-        "type": "Literal",
-        "value": "SAME"
-      }
+        "longname": "module.exports.node.highlightStrokeColor",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "highlightStrokeColor",
-    "longname": "module.exports.node.highlightStrokeColor",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22632, 22660],
-      "filename": "graph.config.js",
-      "lineno": 274,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000069",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22632, 22660],
+            "filename": "graph.config.js",
+            "lineno": 274,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000069",
+                "name": "highlightStrokeWidth",
+                "type": "Literal",
+                "value": "SAME"
+            }
+        },
+        "undocumented": true,
         "name": "highlightStrokeWidth",
-        "type": "Literal",
-        "value": "SAME"
-      }
+        "longname": "module.exports.node.highlightStrokeWidth",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "highlightStrokeWidth",
-    "longname": "module.exports.node.highlightStrokeWidth",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22670, 22689],
-      "filename": "graph.config.js",
-      "lineno": 275,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000071",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22670, 22689],
+            "filename": "graph.config.js",
+            "lineno": 275,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000071",
+                "name": "labelProperty",
+                "type": "Literal",
+                "value": "id"
+            }
+        },
+        "undocumented": true,
         "name": "labelProperty",
-        "type": "Literal",
-        "value": "id"
-      }
+        "longname": "module.exports.node.labelProperty",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "labelProperty",
-    "longname": "module.exports.node.labelProperty",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22699, 22718],
-      "filename": "graph.config.js",
-      "lineno": 276,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000073",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22699, 22718],
+            "filename": "graph.config.js",
+            "lineno": 276,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000073",
+                "name": "labelPosition",
+                "type": "Literal",
+                "value": null
+            }
+        },
+        "undocumented": true,
         "name": "labelPosition",
-        "type": "Literal",
-        "value": null
-      }
+        "longname": "module.exports.node.labelPosition",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "labelPosition",
-    "longname": "module.exports.node.labelPosition",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22728, 22750],
-      "filename": "graph.config.js",
-      "lineno": 277,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000075",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22728, 22750],
+            "filename": "graph.config.js",
+            "lineno": 277,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000075",
+                "name": "mouseCursor",
+                "type": "Literal",
+                "value": "pointer"
+            }
+        },
+        "undocumented": true,
         "name": "mouseCursor",
-        "type": "Literal",
-        "value": "pointer"
-      }
+        "longname": "module.exports.node.mouseCursor",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "mouseCursor",
-    "longname": "module.exports.node.mouseCursor",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22760, 22770],
-      "filename": "graph.config.js",
-      "lineno": 278,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000077",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22760, 22770],
+            "filename": "graph.config.js",
+            "lineno": 278,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000077",
+                "name": "opacity",
+                "type": "Literal",
+                "value": 1
+            }
+        },
+        "undocumented": true,
         "name": "opacity",
-        "type": "Literal",
-        "value": 1
-      }
+        "longname": "module.exports.node.opacity",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "opacity",
-    "longname": "module.exports.node.opacity",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22780, 22797],
-      "filename": "graph.config.js",
-      "lineno": 279,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000079",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22780, 22797],
+            "filename": "graph.config.js",
+            "lineno": 279,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000079",
+                "name": "renderLabel",
+                "type": "Literal",
+                "value": true
+            }
+        },
+        "undocumented": true,
         "name": "renderLabel",
-        "type": "Literal",
-        "value": true
-      }
+        "longname": "module.exports.node.renderLabel",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "renderLabel",
-    "longname": "module.exports.node.renderLabel",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22807, 22816],
-      "filename": "graph.config.js",
-      "lineno": 280,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000081",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22807, 22816],
+            "filename": "graph.config.js",
+            "lineno": 280,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000081",
+                "name": "size",
+                "type": "Literal",
+                "value": 200
+            }
+        },
+        "undocumented": true,
         "name": "size",
-        "type": "Literal",
-        "value": 200
-      }
+        "longname": "module.exports.node.size",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "size",
-    "longname": "module.exports.node.size",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22826, 22845],
-      "filename": "graph.config.js",
-      "lineno": 281,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000083",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22826, 22845],
+            "filename": "graph.config.js",
+            "lineno": 281,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000083",
+                "name": "strokeColor",
+                "type": "Literal",
+                "value": "none"
+            }
+        },
+        "undocumented": true,
         "name": "strokeColor",
-        "type": "Literal",
-        "value": "none"
-      }
+        "longname": "module.exports.node.strokeColor",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "strokeColor",
-    "longname": "module.exports.node.strokeColor",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22855, 22871],
-      "filename": "graph.config.js",
-      "lineno": 282,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000085",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22855, 22871],
+            "filename": "graph.config.js",
+            "lineno": 282,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000085",
+                "name": "strokeWidth",
+                "type": "Literal",
+                "value": 1.5
+            }
+        },
+        "undocumented": true,
         "name": "strokeWidth",
-        "type": "Literal",
-        "value": 1.5
-      }
+        "longname": "module.exports.node.strokeWidth",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "strokeWidth",
-    "longname": "module.exports.node.strokeWidth",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22881, 22888],
-      "filename": "graph.config.js",
-      "lineno": 283,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000087",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22881, 22888],
+            "filename": "graph.config.js",
+            "lineno": 283,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000087",
+                "name": "svg",
+                "type": "Literal",
+                "value": ""
+            }
+        },
+        "undocumented": true,
         "name": "svg",
-        "type": "Literal",
-        "value": ""
-      }
+        "longname": "module.exports.node.svg",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "svg",
-    "longname": "module.exports.node.svg",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22898, 22918],
-      "filename": "graph.config.js",
-      "lineno": 284,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000089",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22898, 22918],
+            "filename": "graph.config.js",
+            "lineno": 284,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000089",
+                "name": "symbolType",
+                "type": "Literal",
+                "value": "circle"
+            }
+        },
+        "undocumented": true,
         "name": "symbolType",
-        "type": "Literal",
-        "value": "circle"
-      }
+        "longname": "module.exports.node.symbolType",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "symbolType",
-    "longname": "module.exports.node.symbolType",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22928, 22947],
-      "filename": "graph.config.js",
-      "lineno": 285,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000091",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22928, 22947],
+            "filename": "graph.config.js",
+            "lineno": 285,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000091",
+                "name": "viewGenerator",
+                "type": "Literal",
+                "value": null
+            }
+        },
+        "undocumented": true,
         "name": "viewGenerator",
-        "type": "Literal",
-        "value": null
-      }
+        "longname": "module.exports.node.viewGenerator",
+        "kind": "member",
+        "memberof": "module.exports.node",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "viewGenerator",
-    "longname": "module.exports.node.viewGenerator",
-    "kind": "member",
-    "memberof": "module.exports.node",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22960, 23428],
-      "filename": "graph.config.js",
-      "lineno": 287,
-      "columnno": 4,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000093",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22960, 23428],
+            "filename": "graph.config.js",
+            "lineno": 287,
+            "columnno": 4,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000093",
+                "name": "link",
+                "type": "ObjectExpression",
+                "value": "{\"color\":\"#d3d3d3\",\"fontColor\":\"black\",\"fontSize\":8,\"fontWeight\":\"normal\",\"highlightColor\":\"SAME\",\"highlightFontSize\":8,\"highlightFontWeight\":\"normal\",\"labelProperty\":\"label\",\"mouseCursor\":\"pointer\",\"opacity\":1,\"renderLabel\":false,\"semanticStrokeWidth\":false,\"strokeWidth\":1.5,\"markerHeight\":6,\"markerWidth\":6,\"type\":\"STRAIGHT\"}"
+            }
+        },
+        "undocumented": true,
         "name": "link",
-        "type": "ObjectExpression",
-        "value": "{\"color\":\"#d3d3d3\",\"fontColor\":\"black\",\"fontSize\":8,\"fontWeight\":\"normal\",\"highlightColor\":\"SAME\",\"highlightFontSize\":8,\"highlightFontWeight\":\"normal\",\"labelProperty\":\"label\",\"mouseCursor\":\"pointer\",\"opacity\":1,\"renderLabel\":false,\"semanticStrokeWidth\":false,\"strokeWidth\":1.5,\"markerHeight\":6,\"markerWidth\":6,\"type\":\"STRAIGHT\"}"
-      }
+        "longname": "module.exports.link",
+        "kind": "member",
+        "memberof": "module.exports",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "link",
-    "longname": "module.exports.link",
-    "kind": "member",
-    "memberof": "module.exports",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [22976, 22992],
-      "filename": "graph.config.js",
-      "lineno": 288,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000095",
+    {
+        "comment": "",
+        "meta": {
+            "range": [22976, 22992],
+            "filename": "graph.config.js",
+            "lineno": 288,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000095",
+                "name": "color",
+                "type": "Literal",
+                "value": "#d3d3d3"
+            }
+        },
+        "undocumented": true,
         "name": "color",
-        "type": "Literal",
-        "value": "#d3d3d3"
-      }
+        "longname": "module.exports.link.color",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "color",
-    "longname": "module.exports.link.color",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23002, 23020],
-      "filename": "graph.config.js",
-      "lineno": 289,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000097",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23002, 23020],
+            "filename": "graph.config.js",
+            "lineno": 289,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000097",
+                "name": "fontColor",
+                "type": "Literal",
+                "value": "black"
+            }
+        },
+        "undocumented": true,
         "name": "fontColor",
-        "type": "Literal",
-        "value": "black"
-      }
+        "longname": "module.exports.link.fontColor",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "fontColor",
-    "longname": "module.exports.link.fontColor",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23030, 23041],
-      "filename": "graph.config.js",
-      "lineno": 290,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000099",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23030, 23041],
+            "filename": "graph.config.js",
+            "lineno": 290,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000099",
+                "name": "fontSize",
+                "type": "Literal",
+                "value": 8
+            }
+        },
+        "undocumented": true,
         "name": "fontSize",
-        "type": "Literal",
-        "value": 8
-      }
+        "longname": "module.exports.link.fontSize",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "fontSize",
-    "longname": "module.exports.link.fontSize",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23051, 23071],
-      "filename": "graph.config.js",
-      "lineno": 291,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000101",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23051, 23071],
+            "filename": "graph.config.js",
+            "lineno": 291,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000101",
+                "name": "fontWeight",
+                "type": "Literal",
+                "value": "normal"
+            }
+        },
+        "undocumented": true,
         "name": "fontWeight",
-        "type": "Literal",
-        "value": "normal"
-      }
+        "longname": "module.exports.link.fontWeight",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "fontWeight",
-    "longname": "module.exports.link.fontWeight",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23081, 23103],
-      "filename": "graph.config.js",
-      "lineno": 292,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000103",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23081, 23103],
+            "filename": "graph.config.js",
+            "lineno": 292,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000103",
+                "name": "highlightColor",
+                "type": "Literal",
+                "value": "SAME"
+            }
+        },
+        "undocumented": true,
         "name": "highlightColor",
-        "type": "Literal",
-        "value": "SAME"
-      }
+        "longname": "module.exports.link.highlightColor",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "highlightColor",
-    "longname": "module.exports.link.highlightColor",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23113, 23133],
-      "filename": "graph.config.js",
-      "lineno": 293,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000105",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23113, 23133],
+            "filename": "graph.config.js",
+            "lineno": 293,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000105",
+                "name": "highlightFontSize",
+                "type": "Literal",
+                "value": 8
+            }
+        },
+        "undocumented": true,
         "name": "highlightFontSize",
-        "type": "Literal",
-        "value": 8
-      }
+        "longname": "module.exports.link.highlightFontSize",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "highlightFontSize",
-    "longname": "module.exports.link.highlightFontSize",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23143, 23172],
-      "filename": "graph.config.js",
-      "lineno": 294,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000107",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23143, 23172],
+            "filename": "graph.config.js",
+            "lineno": 294,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000107",
+                "name": "highlightFontWeight",
+                "type": "Literal",
+                "value": "normal"
+            }
+        },
+        "undocumented": true,
         "name": "highlightFontWeight",
-        "type": "Literal",
-        "value": "normal"
-      }
+        "longname": "module.exports.link.highlightFontWeight",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "highlightFontWeight",
-    "longname": "module.exports.link.highlightFontWeight",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23182, 23204],
-      "filename": "graph.config.js",
-      "lineno": 295,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000109",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23182, 23204],
+            "filename": "graph.config.js",
+            "lineno": 295,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000109",
+                "name": "labelProperty",
+                "type": "Literal",
+                "value": "label"
+            }
+        },
+        "undocumented": true,
         "name": "labelProperty",
-        "type": "Literal",
-        "value": "label"
-      }
+        "longname": "module.exports.link.labelProperty",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "labelProperty",
-    "longname": "module.exports.link.labelProperty",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23214, 23236],
-      "filename": "graph.config.js",
-      "lineno": 296,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000111",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23214, 23236],
+            "filename": "graph.config.js",
+            "lineno": 296,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000111",
+                "name": "mouseCursor",
+                "type": "Literal",
+                "value": "pointer"
+            }
+        },
+        "undocumented": true,
         "name": "mouseCursor",
-        "type": "Literal",
-        "value": "pointer"
-      }
+        "longname": "module.exports.link.mouseCursor",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "mouseCursor",
-    "longname": "module.exports.link.mouseCursor",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23246, 23256],
-      "filename": "graph.config.js",
-      "lineno": 297,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000113",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23246, 23256],
+            "filename": "graph.config.js",
+            "lineno": 297,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000113",
+                "name": "opacity",
+                "type": "Literal",
+                "value": 1
+            }
+        },
+        "undocumented": true,
         "name": "opacity",
-        "type": "Literal",
-        "value": 1
-      }
+        "longname": "module.exports.link.opacity",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "opacity",
-    "longname": "module.exports.link.opacity",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23266, 23284],
-      "filename": "graph.config.js",
-      "lineno": 298,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000115",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23266, 23284],
+            "filename": "graph.config.js",
+            "lineno": 298,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000115",
+                "name": "renderLabel",
+                "type": "Literal",
+                "value": false
+            }
+        },
+        "undocumented": true,
         "name": "renderLabel",
-        "type": "Literal",
-        "value": false
-      }
+        "longname": "module.exports.link.renderLabel",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "renderLabel",
-    "longname": "module.exports.link.renderLabel",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23294, 23320],
-      "filename": "graph.config.js",
-      "lineno": 299,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000117",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23294, 23320],
+            "filename": "graph.config.js",
+            "lineno": 299,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000117",
+                "name": "semanticStrokeWidth",
+                "type": "Literal",
+                "value": false
+            }
+        },
+        "undocumented": true,
         "name": "semanticStrokeWidth",
-        "type": "Literal",
-        "value": false
-      }
+        "longname": "module.exports.link.semanticStrokeWidth",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "semanticStrokeWidth",
-    "longname": "module.exports.link.semanticStrokeWidth",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23330, 23346],
-      "filename": "graph.config.js",
-      "lineno": 300,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000119",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23330, 23346],
+            "filename": "graph.config.js",
+            "lineno": 300,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000119",
+                "name": "strokeWidth",
+                "type": "Literal",
+                "value": 1.5
+            }
+        },
+        "undocumented": true,
         "name": "strokeWidth",
-        "type": "Literal",
-        "value": 1.5
-      }
+        "longname": "module.exports.link.strokeWidth",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "strokeWidth",
-    "longname": "module.exports.link.strokeWidth",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23356, 23371],
-      "filename": "graph.config.js",
-      "lineno": 301,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000121",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23356, 23371],
+            "filename": "graph.config.js",
+            "lineno": 301,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000121",
+                "name": "markerHeight",
+                "type": "Literal",
+                "value": 6
+            }
+        },
+        "undocumented": true,
         "name": "markerHeight",
-        "type": "Literal",
-        "value": 6
-      }
+        "longname": "module.exports.link.markerHeight",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "markerHeight",
-    "longname": "module.exports.link.markerHeight",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23381, 23395],
-      "filename": "graph.config.js",
-      "lineno": 302,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000123",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23381, 23395],
+            "filename": "graph.config.js",
+            "lineno": 302,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000123",
+                "name": "markerWidth",
+                "type": "Literal",
+                "value": 6
+            }
+        },
+        "undocumented": true,
         "name": "markerWidth",
-        "type": "Literal",
-        "value": 6
-      }
+        "longname": "module.exports.link.markerWidth",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "markerWidth",
-    "longname": "module.exports.link.markerWidth",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "comment": "",
-    "meta": {
-      "range": [23405, 23421],
-      "filename": "graph.config.js",
-      "lineno": 303,
-      "columnno": 8,
-      "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
-      "code": {
-        "id": "astnode100000125",
+    {
+        "comment": "",
+        "meta": {
+            "range": [23405, 23421],
+            "filename": "graph.config.js",
+            "lineno": 303,
+            "columnno": 8,
+            "path": "/home/caldasd/dev/react-d3-graph/src/components/graph",
+            "code": {
+                "id": "astnode100000125",
+                "name": "type",
+                "type": "Literal",
+                "value": "STRAIGHT"
+            }
+        },
+        "undocumented": true,
         "name": "type",
-        "type": "Literal",
-        "value": "STRAIGHT"
-      }
+        "longname": "module.exports.link.type",
+        "kind": "member",
+        "memberof": "module.exports.link",
+        "scope": "static"
     },
-    "undocumented": true,
-    "name": "type",
-    "longname": "module.exports.link.type",
-    "kind": "member",
-    "memberof": "module.exports.link",
-    "scope": "static"
-  },
-  {
-    "kind": "package",
-    "longname": "package:undefined",
-    "files": ["/home/caldasd/dev/react-d3-graph/src/components/graph/graph.config.js"]
-  }
+    {
+        "kind": "package",
+        "longname": "package:undefined",
+        "files": ["/home/caldasd/dev/react-d3-graph/src/components/graph/graph.config.js"]
+    }
 ]
