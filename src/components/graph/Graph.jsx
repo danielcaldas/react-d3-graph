@@ -196,7 +196,9 @@ export default class Graph extends React.Component {
       this.state.simulation.nodes(this.state.d3Nodes).on("tick", this._tick);
       this._graphLinkForceConfig();
     }
-    this._graphNodeDragConfig();
+    if (!this.state.config.freezeAllDragEvents) {
+      this._graphNodeDragConfig();
+    }
   }
 
   /**
@@ -288,9 +290,11 @@ export default class Graph extends React.Component {
   _zoomConfig = () => {
     const selector = d3Select(`#${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`);
 
-    const zoomObject = d3Zoom()
-      .scaleExtent([this.state.config.minZoom, this.state.config.maxZoom])
-      .on("zoom", this._zoomed);
+    const zoomObject = d3Zoom().scaleExtent([this.state.config.minZoom, this.state.config.maxZoom]);
+
+    if (!this.state.config.freezeAllDragEvents) {
+      zoomObject.on("zoom", this._zoomed);
+    }
 
     if (this.state.config.initialZoom !== null) {
       zoomObject.scaleTo(selector, this.state.config.initialZoom);

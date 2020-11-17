@@ -66,6 +66,8 @@
  *
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-zoom-animation.gif?raw=true" width="820" height="480"/>
  *
+ * @param {boolean} [freezeAllDragEvents=false] - <a id="freeze-all-drag-events" href="#freeze-all-drag-events">🔗</a> Disables manipulation of graph through drag
+ * and drop. This includes dragging graph elements, panning and zooming. *Note: this property can only be set in the first mount, it does not update dynamically.*
  * @param {number} [focusAnimationDuration=0.75] - <a id="focus-animation-duration" href="#focus-animation-duration">🔗</a> duration (in seconds) for the animation that takes place when focusing the graph on a node.
  * @param {number} [height=400] - <a id="height" href="#height">🔗</a> the height of the (svg) area where the graph will be rendered.
  * @param {boolean} [nodeHighlightBehavior=false] - <a id="node-highlight-behavior" href="#node-highlight-behavior">🔗</a> 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
@@ -245,6 +247,7 @@ export default {
   directed: false,
   focusAnimationDuration: 0.75,
   focusZoom: 1,
+  freezeAllDragEvents: false,
   height: 400,
   highlightDegree: 1,
   highlightOpacity: 1,
