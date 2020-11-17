@@ -31,7 +31,12 @@ describe("Graph Helper", () => {
         const sourceCoords = { x: 0, y: 0 };
         const targetCoords = { x: 0, y: 0 };
 
-        expect(linkHelper.buildLinkPathDefinition).toHaveBeenCalledWith(sourceCoords, targetCoords, "STRAIGHT");
+        expect(linkHelper.buildLinkPathDefinition).toHaveBeenCalledWith(
+          sourceCoords,
+          targetCoords,
+          "STRAIGHT",
+          undefined
+        );
       });
 
       describe("and no custom color is set", () => {
