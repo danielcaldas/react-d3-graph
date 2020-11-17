@@ -70,6 +70,8 @@ function getRadiusStrategy(type) {
  */
 function buildLinkPathDefinition(sourceCoords = {}, targetCoords = {}, type = LINE_TYPES.STRAIGHT, breakPoints = []) {
   const { x: sx, y: sy } = sourceCoords;
+  const { x: tx, y: ty } = targetCoords;
+  if (sx === tx && sy === ty) return `M${sx},${sy} A40,30 -45 1,1 ${tx + 1},${ty + 1}`;
   const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
   const calcRadiusFn = getRadiusStrategy(validType);
 
