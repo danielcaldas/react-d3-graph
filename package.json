@@ -15,7 +15,7 @@
     "docs:lint": "documentation lint src/**/*.js",
     "docs:watch": "documentation --config documentation.yml build src/**/*.js -f html -o gen-docs --watch",
     "docs": "npm run docs:lint && documentation --config documentation.yml build src/**/*.js -f html -o gen-docs && documentation build src/**/*.js -f md > gen-docs/DOCUMENTATION.md",
-    "functional:local": "cross-env CYPRESS_SANDBOX_URL=\"http://localhost:3002\" && cypress open",
+    "functional:local": "cross-env CYPRESS_SANDBOX_URL=\"http://localhost:3002\" cypress open",
     "functional:remote": "cross-env CYPRESS_SANDBOX_URL=\"https://danielcaldas.github.io/react-d3-graph/sandbox/index.html\" cypress open",
     "functional": "cross-env CYPRESS_SANDBOX_URL=\"http://127.0.0.1:8888\" cypress run",
     "generate:tooltips": "jsdoc -X ./src/components/graph/graph.config.js > ./tools/graph-config-jsdoc.json && cd tools && node tooltips-docs-generator.js > ../sandbox/graph-config-tooltips.js",

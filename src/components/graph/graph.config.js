@@ -180,6 +180,19 @@
  * </br>
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2 id="config-link"><a href="#config-link">#</a> Link level configurations</h2>
+ * @param {Array.<Object>} [link.breakPoints=[]] - <a id="link-breakpoints" href="#link-breakPoints">🔗</a> 🔍 an array of coordinates, each coordinate indicates a breakpoint
+ * where the link will break its natural flow and link to the next breakpoint in the list. [Here's the original feature request](https://github.com/danielcaldas/react-d3-graph/issues/373) it should give you an idea of the capabilities of this feature.
+ * **Note that** this property can only be defined a link level and **not** through the config object.
+ * ```javascript
+ * const data = {
+ *   nodes: [ ... ],
+ *   links: [
+ *     source: 'a',
+ *     target: 'b',
+ *     breakPoints: [{ x: 100, y: 20 }, { x: 20, y: 100 }]
+ *   ]
+ * };
+ * ```
  * @param {string} [link.color="#d3d3d3"] - <a id="link-color" href="#link-color">🔗</a> 🔍 the color for links
  * (from version 1.3.0 this property can be configured at link level). <b>Note:</b> there's a current limitation where arrow markers in directed graphs won't have the same color as the link. Again this issue
  * only occurs for individually colored links, if links are colored globally through `link.color`
