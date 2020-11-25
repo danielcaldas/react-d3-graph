@@ -65,13 +65,22 @@ function getRadiusStrategy(type) {
  * @param {Object} targetCoords - link targetCoords
  * @param {string} type - the link line type
  * @param {Array.<Object>} breakPoints - additional set of points that the link will cross
+ * @param {string|number} sourceId - the source node id
+ * @param {string|number} targetId - the target node id
  * @returns {string} the path definition for the requested link
  * @memberof Link/helper
  */
-function buildLinkPathDefinition(sourceCoords = {}, targetCoords = {}, type = LINE_TYPES.STRAIGHT, breakPoints = []) {
+function buildLinkPathDefinition(
+  sourceCoords = {},
+  targetCoords = {},
+  type = LINE_TYPES.STRAIGHT,
+  breakPoints = [],
+  sourceId,
+  targetId
+) {
   const { x: sx, y: sy } = sourceCoords;
   const { x: tx, y: ty } = targetCoords;
-  if (sx === tx && sy === ty) return `M${sx},${sy} A40,30 -45 1,1 ${tx + 1},${ty + 1}`;
+  if (sourceId === targetId && sx === tx && sy === ty) return `M${sx},${sy} A40,30 -45 1,1 ${tx + 1},${ty + 1}`;
   const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
   const calcRadiusFn = getRadiusStrategy(validType);
 

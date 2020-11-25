@@ -128,7 +128,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     strokeWidth
   );
 
-  const d = buildLinkPathDefinition(sourceCoords, targetCoords, type, link.breakPoints);
+  const d = buildLinkPathDefinition(sourceCoords, targetCoords, type, link.breakPoints, link.source, link.target);
 
   return {
     className: CONST.LINK_CLASS_NAME,
