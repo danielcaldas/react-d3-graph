@@ -10,7 +10,19 @@ describe("Snapshot - Link Component", () => {
     that.callbackMock = jest.fn();
 
     that.link = renderer.create(
-      <Link x1="2" y1="2" x2="4" y2="4" opacity="1" stroke="red" strokeWidth="2" onClickLink={that.callbackMock} />
+      <Link
+        x1="2"
+        y1="2"
+        x2="4"
+        y2="4"
+        opacity="1"
+        stroke="red"
+        strokeWidth="2"
+        onClickLink={that.callbackMock}
+        strokeDasharray={0}
+        strokeDashoffset={0}
+        strokeLinecap="butt"
+      />
     );
 
     that.tree = that.link.toJSON();
