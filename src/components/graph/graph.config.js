@@ -237,6 +237,16 @@
  * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
  * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
+ * @param {number} [link.strokeDasharray=0] - <a id="link-stroke-dasharray" href="#link-stroke-dasharray">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray">stroke-dasharray</a>
+ * The stroke-dasharray attribute defines the pattern of dashes and gaps used to paint the link.
+ * @param {number} [link.strokeDashoffset=0] - <a id="link-stroke-dashoffset" href="#link-stroke-dashoffset">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dashoffset">stroke-dashoffset</a>
+ * The stroke-dashoffset attribute defines an offset on the rendering of the associated dash array.
+ * @param {string} [link.strokeLinecap="butt"] - <a id="link-stroke-linecap" href="#link-stroke-linecap">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap">stroke-linecap</a>
+ * The stroke-linecap attribute defines the shape to be used at the start and end of the link.
+ * The stroke-linecap options are:
+ *   - "butt"
+ *   - "round"
+ *   - "square"
  *
  * @example
  * // A simple config that uses some properties
@@ -319,5 +329,8 @@ export default {
     markerHeight: 6,
     markerWidth: 6,
     type: "STRAIGHT",
+    strokeDasharray: 0,
+    strokeDashoffset: 0,
+    strokeLinecap: "butt",
   },
 };
