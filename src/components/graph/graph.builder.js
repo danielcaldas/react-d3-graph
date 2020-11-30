@@ -196,15 +196,14 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
   const t = 1 / transform;
   const nodeSize = node.size || config.node.size;
 
-  let offset;
   const isSizeNumericValue = typeof nodeSize !== "object";
-
+  let offset = 0;
   if (isSizeNumericValue) {
     offset = nodeSize;
   } else if (labelPosition === "top" || labelPosition === "bottom") {
     offset = nodeSize.height;
-  } else {
-    nodeSize.width;
+  } else if (labelPosition === "right" || labelPosition === "left") {
+    offset = nodeSize.width;
   }
 
   const fontSize = node.fontSize || config.node.fontSize;

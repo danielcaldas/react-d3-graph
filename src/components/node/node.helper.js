@@ -61,7 +61,7 @@ function buildSvgSymbol(size = CONST.DEFAULT_NODE_SIZE, symbolTypeDesc = CONST.S
 
 /**
  * return dx, dy, and potentially alignmentBaseline and textAnchor props to put label in correct position relative to node
- * @param {number | undefined} dx - default computed offset of label to the right of the node
+ * @param {number | undefined} dx - default computed offset of label
  * @param {'left' | 'right' | 'top' | 'bottom' | 'center' | undefined} labelPosition - user specified position of label relative to node
  * @returns {{dx: string, dy: string} | {dx: string, dy: string, textAnchor: string, dominantBaseline: string}}
  * props to put text svg for label in correct spot. default case returns just dx and dy, without textAnchor and dominantBaseline
