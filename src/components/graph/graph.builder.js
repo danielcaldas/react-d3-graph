@@ -60,6 +60,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
   let y2 = nodes?.[target]?.y || 0;
 
   const type = link.type || config.link.type;
+  const selfLinkDirection = link.selfLinkDirection || config.link.selfLinkDirection;
 
   let mainNodeParticipates = false;
 
@@ -128,7 +129,15 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     strokeWidth
   );
 
-  const d = buildLinkPathDefinition(sourceCoords, targetCoords, type, link.breakPoints, link.source, link.target);
+  const d = buildLinkPathDefinition(
+    sourceCoords,
+    targetCoords,
+    type,
+    link.breakPoints,
+    link.source,
+    link.target,
+    selfLinkDirection
+  );
 
   return {
     className: CONST.LINK_CLASS_NAME,
