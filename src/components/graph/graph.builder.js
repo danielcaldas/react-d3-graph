@@ -93,6 +93,10 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     stroke = config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color : config.link.highlightColor;
   }
 
+  const strokeDasharray = link.strokeDasharray || config.link.strokeDasharray;
+  const strokeDashoffset = link.strokeDashoffset || config.link.strokeDashoffset;
+  const strokeLinecap = link.strokeLinecap || config.link.strokeLinecap;
+
   let strokeWidth = (link.strokeWidth || config.link.strokeWidth) * (1 / transform);
 
   if (config.link.semanticStrokeWidth) {
@@ -152,6 +156,9 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     source,
     stroke,
     strokeWidth,
+    strokeDasharray,
+    strokeDashoffset,
+    strokeLinecap,
     target,
     onClickLink: linkCallbacks.onClickLink,
     onMouseOutLink: linkCallbacks.onMouseOutLink,
@@ -205,15 +212,14 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
   const t = 1 / transform;
   const nodeSize = node.size || config.node.size;
 
-  let offset;
   const isSizeNumericValue = typeof nodeSize !== "object";
-
+  let offset = 0;
   if (isSizeNumericValue) {
     offset = nodeSize;
   } else if (labelPosition === "top" || labelPosition === "bottom") {
     offset = nodeSize.height;
-  } else {
-    nodeSize.width;
+  } else if (labelPosition === "right" || labelPosition === "left") {
+    offset = nodeSize.width;
   }
 
   const fontSize = node.fontSize || config.node.fontSize;

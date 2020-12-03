@@ -130,6 +130,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -150,6 +153,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -170,6 +176,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -190,6 +199,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -210,6 +222,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -230,6 +245,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -250,6 +268,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -270,6 +291,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -290,6 +314,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -310,6 +337,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -330,6 +360,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -350,6 +383,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -370,6 +406,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -390,6 +429,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -410,6 +452,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -430,6 +475,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -450,6 +498,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -470,6 +521,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -490,6 +544,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -510,6 +567,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -530,6 +590,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -550,6 +613,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -570,6 +636,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -590,6 +659,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -610,6 +682,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -630,6 +705,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -650,6 +728,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }
@@ -670,6 +751,9 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
               "fill": "none",
               "opacity": 1,
               "stroke": "#d3d3d3",
+              "strokeDasharray": 0,
+              "strokeDashoffset": 0,
+              "strokeLinecap": "butt",
               "strokeWidth": 1.5,
             }
           }

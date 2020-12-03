@@ -2,11 +2,6 @@ module.exports = {
   links: [
     {
       source: 1,
-      target: 2,
-      label: "link 1 and 2",
-    },
-    {
-      source: 1,
       target: 3,
     },
     {
@@ -15,11 +10,12 @@ module.exports = {
     },
     {
       source: 3,
+      target: 3,
+      selfLinkDirection: "BOTTOM_LEFT",
+    },
+    {
+      source: 3,
       target: 4,
-      breakPoints: [
-        { x: 100, y: 20 },
-        { x: 20, y: 100 },
-      ],
     },
   ],
   nodes: [
