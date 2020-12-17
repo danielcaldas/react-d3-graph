@@ -124,6 +124,7 @@ import { merge, debounce, throwErr } from "../../utils";
  *      onMouseOutNode={onMouseOutNode}
  *      onMouseOverLink={onMouseOverLink}
  *      onMouseOutLink={onMouseOutLink}
+ *      onNodePositionChange={onNodePositionChange}
  *      onZoomChange={onZoomChange}/>
  */
 export default class Graph extends React.Component {
