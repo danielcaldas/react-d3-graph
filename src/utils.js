@@ -177,6 +177,7 @@ function antiPick(o, props = []) {
  * @param {function} fn Function to debounce
  * @param {number} time Milliseconds to wait before invoking the function if it is called repeatedly
  * @returns {function} Version of function that will only be called every `time` milliseconds
+ * @memberof utils
  */
 function debounce(fn, time) {
   let timer;
