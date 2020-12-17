@@ -22,10 +22,3 @@ Here are the steps to get the thing properly released on GitHub and published un
     2.  Copy & paste the output of the new CHANGELOG into the release notes.
 8.  Once you're done on GitHub, go back to you terminal and type `git pull origin master` to pull the latest tag.
 9.  `npm publish` (see [npm-publish docs](https://docs.npmjs.com/cli/v6/commands/npm-publish) for more details).
-
-#### This is now automated
-
-- Generate CHANGELOG.md
-  ```bash
-      github_changelog_generator since-tag=<PREVIOUS_RELEASED_VERSION> -u GITHUB_USERNAME
-  ```
