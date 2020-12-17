@@ -1,6 +1,13 @@
 /**
  * <div style="text-align: right;"><i>This is certainly the only extra piece of documentation that you will ever need</i></div>
  * </br></br>
+ *
+ * <b>Links</b></br>
+ * <ul>
+ * <li><a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html" target="_blank" title="react-d3-graph live demo">🔗 Live Demo</a></li>
+ * <li><a href="https://github.com/danielcaldas/react-d3-graph" target="_blank" title="react-d3-graph repository">🔗 GitHub</a></li>
+ * </ul>
+ *
  * Here you can consult a detailed description of each graph configurable property as well as the default values
  * of those properties.
  *
@@ -102,7 +109,7 @@
  *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don"t overlap.
  * @param {number} [d3.linkLength=100] - <a id="d3-link-length" href="#d3-link-length">🔗</a> the length of each link from the center of the nodes it joins.
  * @param {number} [d3.linkStrength=1] - <a id="d3-link-strength" href="#d3-link-strength">🔗</a> <a target="_blank" href="https://github.com/d3/d3-force#link_strength">see d3-force link.strength</a>
- * @param {boolean} [d3.disableLinkForce=false] - <a id="d3-disable-link-force" href="#d3-disable-link-force">🔗</a> ⚠️🧪EXPERIMENTAL🧪⚠️ it completely disables d3 force link and simulation to re-trigger so that one can obtain
+ * @param {boolean} [d3.disableLinkForce=false] - <a id="d3-disable-link-force" href="#d3-disable-link-force">🔗</a> Completely disables d3 force link and simulation to re-trigger so that one can obtain
  * precise render of node positions as described by the author <a target="_blank" href="https://github.com/antoninklopp">@antoninklopp</a> in <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/pull/278">the Pull Request description</a>.
  * </br>
  * @param {Object} node node object is explained in next section. ⬇️
@@ -213,7 +220,7 @@
  * property for when link is mouse hovered.
  * @param {number} [link.opacity=1] 🔍 - <a href="#link-opacity" href="">🔗</a> the default opacity value for links.
  * @param {boolean} [link.renderLabel=false] - <a id="link-render-label" href="#link-render-label">🔗</a> when set to true labels will appear along side links in the
- * graph. <b>Note</b>: this will only happen of course if proper label is passed within the link, check also <code>link.labelProperty</code>.
+ * graph. <b>Note:</b> this will only happen of course if proper label is passed within the link, check also <code>link.labelProperty</code>.
  * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-link-render-label.png?raw=true" width="820" height="480"/>
  * @param {boolean} [link.semanticStrokeWidth=false] - <a id="link-semantic-stroke-width" href="#link-semantic-stroke-width">🔗</a> when set to true all links will have
