@@ -25,6 +25,8 @@ import {
   forceSimulation as d3ForceSimulation,
   forceManyBody as d3ForceManyBody,
 } from "d3-force";
+import { select as d3Select } from "d3-selection";
+import { zoom as d3Zoom, zoomIdentity as d3ZoomIdentity } from "d3-zoom";
 
 import CONST from "./graph.const";
 import DEFAULT_CONFIG from "./graph.config";
@@ -327,21 +329,33 @@ function checkForGraphConfigChanges(nextProps, currentState) {
  * selected node.
  * @param {Object} d3Node - node to focus the graph view on.
  * @param {Object} config - same as {@link #graphrenderer|config in renderGraph}.
+ * @param {string} containerElId - ID of container element
  * @returns {string|undefined} transform rule to apply.
  * @memberof Graph/helper
  */
-function getCenterAndZoomTransformation(d3Node, config) {
+function getCenterAndZoomTransformation(d3Node, config, containerElId) {
   if (!d3Node) {
     return;
   }
 
   const { width, height, focusZoom } = config;
 
+  const selector = d3Select(`#${containerElId}`);
+
+  // in order to initialize the new position
+  selector.call(
+    d3Zoom().transform,
+    d3ZoomIdentity
+      .translate(width / 2, height / 2)
+      .scale(focusZoom)
+      .translate(-d3Node.x, -d3Node.y)
+  );
+
   return `
-        translate(${width / 2}, ${height / 2})
-        scale(${focusZoom})
-        translate(${-d3Node.x}, ${-d3Node.y})
-    `;
+    translate(${width / 2}, ${height / 2})
+    scale(${focusZoom})
+    translate(${-d3Node.x}, ${-d3Node.y})
+  `;
 }
 
 /**

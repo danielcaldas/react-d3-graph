@@ -113,7 +113,6 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
           "transitionDuration": "0s",
         }
       }
-      transform={null}
     >
       <g>
         <path
