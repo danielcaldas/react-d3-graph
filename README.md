@@ -15,12 +15,12 @@
 
 You can also load different data sets and configurations via URL query parameter. Below is a table with all the data sets available in the live sandbox for you to interactively explore different kinds of integrations with the library.
 
-| Name        | Link                                                                                                  | Source                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| :---------- | :---------------------------------------------------------------------------------------------------- | :------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| small       | [see it in action](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=small)       | `sandbox/data/small`       | This is a good example to get you started. It has only 4 nodes. It's good to discuss over integration details and it's also good to report issues that you might found in the library. It's much easier to debug over a tiny graph.                                                                                                                                                                                                                                                                                   |
-| custom-node | [see it in action](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=custom-node) | `sandbox/data/custom-node` | In this example you'll be able to see the power of the feature [node.viewGenerator](https://danielcaldas.github.io/react-d3-graph/docs/#node-view-generator) to create highly customizable nodes for you graph that go beyond the simple shapes that come out of the box with the library.                                                                                                                                                                                                                            |
-| marvel      | [see it in action](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=marvel)      | `sandbox/data/marvel`      | In this thematic example you can see how several features such as: [nodeHighlightBehavior](https://danielcaldas.github.io/react-d3-graph/docs/#node-highlight-behavior), [custom SVGs for nodes](https://danielcaldas.github.io/react-d3-graph/docs/#node-svg), [collapsible](https://danielcaldas.github.io/react-d3-graph/docs/#collapsible) etc. come together on top of a directed graph that displays some characters from the Marvel Universe.                                                                  |
-| static      | [see it in action](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=static)      | `sandbox/data/static`      | If your goal is not to have nodes dancing around with the default [d3 forces](https://danielcaldas.github.io/react-d3-graph/docs/#config-d3) that the library provides, you can opt by making your nodes static and positioned them always in the same _(x, y)_ coordinates. To achieve this you can make use of [staticGraphWithDragAndDrop](https://danielcaldas.github.io/react-d3-graph/docs/#static-graph-with-drag-and-drop) or [staticGraph](https://danielcaldas.github.io/react-d3-graph/docs/#static-graph) |
+| Name   | Link                                                                                      | Source                     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| :----- | :---------------------------------------------------------------------------------------- | :------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| small  | [demo](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=small)       | `sandbox/data/small`       | This is a good example to get you started. It has only 4 nodes. It's good to discuss over integration details and it's also good to report issues that you might found in the library. It's much easier to debug over a tiny graph.                                                                                                                                                                                                                                                                                   |
+| custom | [demo](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=custom-node) | `sandbox/data/custom-node` | In this example you'll be able to see the power of the feature [node.viewGenerator](https://danielcaldas.github.io/react-d3-graph/docs/#node-view-generator) to create highly customizable nodes for you graph that go beyond the simple shapes that come out of the box with the library.                                                                                                                                                                                                                            |
+| marvel | [demo](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=marvel)      | `sandbox/data/marvel`      | In this thematic example you can see how several features such as: [nodeHighlightBehavior](https://danielcaldas.github.io/react-d3-graph/docs/#node-highlight-behavior), [custom SVGs for nodes](https://danielcaldas.github.io/react-d3-graph/docs/#node-svg), [collapsible](https://danielcaldas.github.io/react-d3-graph/docs/#collapsible) etc. come together on top of a directed graph that displays some characters from the Marvel Universe.                                                                  |
+| static | [demo](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=static)      | `sandbox/data/static`      | If your goal is not to have nodes dancing around with the default [d3 forces](https://danielcaldas.github.io/react-d3-graph/docs/#config-d3) that the library provides, you can opt by making your nodes static and positioned them always in the same _(x, y)_ coordinates. To achieve this you can make use of [staticGraphWithDragAndDrop](https://danielcaldas.github.io/react-d3-graph/docs/#static-graph-with-drag-and-drop) or [staticGraph](https://danielcaldas.github.io/react-d3-graph/docs/#static-graph) |
 
 Do you want to visualize your own data set on the live sandbox? Just submit a PR! You're welcome 😁.
 
@@ -46,7 +46,7 @@ npm install react-d3-graph
 > npm WARN react-d3-graph@2.0.1 requires a peer of d3@^5.5.0 but none is installed. You must install peer dependencies yourself.
 > npm WARN react-d3-graph@2.0.1 requires a peer of react@^16.4.1 but none is installed. You must install peer dependencies yourself.
 
-## Usage sample
+## Minimal usage example
 
 Graph component is the main component for react-d3-graph components, its interface allows its user to build the graph once the user provides the data, configuration (optional) and callback interactions (also optional).
 The code for the [live example](https://danielcaldas.github.io/react-d3-graph/sandbox/index.html) can be consulted [here](https://github.com/danielcaldas/react-d3-graph/blob/master/sandbox/Sandbox.jsx).
@@ -63,8 +63,7 @@ const data = {
   ],
 };
 
-// the graph configuration, you only need to pass down properties
-// that you want to override, otherwise default ones will be used
+// the graph configuration, just override the ones you need
 const myConfig = {
   nodeHighlightBehavior: true,
   node: {
@@ -77,68 +76,24 @@ const myConfig = {
   },
 };
 
-// graph event callbacks
-const onClickGraph = function() {
-  window.alert(`Clicked the graph background`);
-};
-
 const onClickNode = function(nodeId) {
   window.alert(`Clicked node ${nodeId}`);
-};
-
-const onDoubleClickNode = function(nodeId) {
-  window.alert(`Double clicked node ${nodeId}`);
-};
-
-const onRightClickNode = function(event, nodeId) {
-  window.alert(`Right clicked node ${nodeId}`);
-};
-
-const onMouseOverNode = function(nodeId) {
-  window.alert(`Mouse over node ${nodeId}`);
-};
-
-const onMouseOutNode = function(nodeId) {
-  window.alert(`Mouse out node ${nodeId}`);
 };
 
 const onClickLink = function(source, target) {
   window.alert(`Clicked link between ${source} and ${target}`);
 };
 
-const onRightClickLink = function(event, source, target) {
-  window.alert(`Right clicked link between ${source} and ${target}`);
-};
-
-const onMouseOverLink = function(source, target) {
-  window.alert(`Mouse over in link between ${source} and ${target}`);
-};
-
-const onMouseOutLink = function(source, target) {
-  window.alert(`Mouse out link between ${source} and ${target}`);
-};
-
-const onNodePositionChange = function(nodeId, x, y) {
-  window.alert(`Node ${nodeId} is moved to new position. New position is x= ${x} y= ${y}`);
-};
-
 <Graph
-  id="graph-id" // id is mandatory, if no id is defined rd3g will throw an error
+  id="graph-id" // id is mandatory
   data={data}
   config={myConfig}
   onClickNode={onClickNode}
-  onDoubleClickNode={onDoubleClickNode}
-  onRightClickNode={onRightClickNode}
-  onClickGraph={onClickGraph}
   onClickLink={onClickLink}
-  onRightClickLink={onRightClickLink}
-  onMouseOverNode={onMouseOverNode}
-  onMouseOutNode={onMouseOutNode}
-  onMouseOverLink={onMouseOverLink}
-  onMouseOutLink={onMouseOutLink}
-  onNodePositionChange={onNodePositionChange}
 />;
 ```
+
+For more advanced use cases check [the official documentation](https://danielcaldas.github.io/react-d3-graph/docs/index.html).
 
 ## Core Team
 
