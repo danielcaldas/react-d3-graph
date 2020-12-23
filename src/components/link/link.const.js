@@ -16,4 +16,7 @@ const LINE_TYPES = {
     CURVE_FULL: "CURVE_FULL",
 };
 
-export { LINE_TYPES };
+// Offset, in pixels, to slightly shift the line by to prevent collision between links in opposite directions.
+const LINE_POS_OFFSET = 3;
+
+export { LINE_TYPES, LINE_POS_OFFSET };

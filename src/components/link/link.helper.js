@@ -3,7 +3,7 @@
  * @description
  * A set of helper methods to manipulate/create links.
  */
-import { LINE_TYPES } from "./link.const";
+import { LINE_TYPES, LINE_POS_OFFSET } from "./link.const";
 
 /**
  * Computes radius value for a straight line.
@@ -58,6 +58,24 @@ function getRadiusStrategy(type) {
 }
 
 /**
+ * Returns the angle between the line defined by the given points and the X axis.
+ * @param {number} x1 X-coordinate of the first point.
+ * @param {number} y1 Y-coordinate of the first point.
+ * @param {number} x2 X-coordinate of the second point.
+ * @param {number} y2 Y-coordinate of the second point.
+ * @returns {number} Angle between the two points and the X axis..
+ */
+function angleBetweenPoints(x1, y1, x2, y2) {
+    if (x1 === x2) {
+        if (y1 > y2) {
+            return -Math.PI / 2;
+        }
+        return Math.PI / 2;
+    }
+    return Math.atan2(y2 - y1, x2 - x1);
+}
+
+/**
  * This method returns the path definition for a given link base on the line type
  * and the link source and target.
  * {@link https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d|d attribute mdn}
@@ -69,8 +87,15 @@ function getRadiusStrategy(type) {
  * @memberof Link/helper
  */
 function buildLinkPathDefinition({ source = {}, target = {} }, type = LINE_TYPES.STRAIGHT) {
-    const { x: sx, y: sy } = source;
-    const { x: tx, y: ty } = target;
+    const { x: _sx, y: _sy } = source;
+    const { x: _tx, y: _ty } = target;
+    // Shift the line along its normal to prevent collision
+    const offsetX = LINE_POS_OFFSET * Math.sin(angleBetweenPoints(_sx, _sy, _tx, _ty));
+    const offsetY = LINE_POS_OFFSET * -Math.cos(angleBetweenPoints(_sx, _sy, _tx, _ty));
+    const sx = _sx + offsetX;
+    const sy = _sy + offsetY;
+    const tx = _tx + offsetX;
+    const ty = _ty + offsetY;
     const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
     const radius = getRadiusStrategy(validType)(sx, sy, tx, ty);
 
