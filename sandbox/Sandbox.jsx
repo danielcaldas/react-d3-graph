@@ -369,6 +369,12 @@ export default class Sandbox extends React.Component {
           <b>Nodes: </b> {this.state.data.nodes.length} |<b>Links: </b> {this.state.data.links.length} |<b>Zoom: </b>{" "}
           {this.state.currentZoom ? this.state.currentZoom.toFixed(3) : "-"}
         </span>
+        <a
+          className="container__graph-info"
+          href="https://codesandbox.io/s/react-d3-graph-small-c4y1v?fontsize=14&hidenavigation=1&theme=dark"
+        >
+          <img alt="Edit react-d3-graph-small" src="https://codesandbox.io/static/img/play-codesandbox.svg" />
+        </a>
       </div>
     );
   };
