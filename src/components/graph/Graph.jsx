@@ -17,6 +17,7 @@ import {
   getCenterAndZoomTransformation,
   initializeGraphState,
   initializeNodes,
+  isPositionInBounds,
 } from "./graph.helper";
 import { renderGraph } from "./graph.renderer";
 import { merge, debounce, throwErr } from "../../utils";
@@ -235,16 +236,9 @@ export default class Graph extends React.Component {
       draggedNode.oldX = draggedNode.x;
       draggedNode.oldY = draggedNode.y;
 
-      const { transform, config } = this.state;
       const newX = draggedNode.x + d3Event.dx;
       const newY = draggedNode.y + d3Event.dy;
-      const invertTransformZoom = 1 / transform.k;
-      const shouldUpdateNode =
-        !config.bounded ||
-        (newX > -transform.x * invertTransformZoom &&
-          newX < (config.width - transform.x) * invertTransformZoom &&
-          newY > -transform.y * invertTransformZoom &&
-          newY < (config.height - transform.y) * invertTransformZoom);
+      const shouldUpdateNode = !this.state.config.bounded || isPositionInBounds({ x: newX, y: newY }, this.state);
 
       if (shouldUpdateNode) {
         draggedNode.x = newX;
