@@ -3,7 +3,7 @@
  * @description
  * A set of helper methods to manipulate/create links.
  */
-import { LINE_TYPES } from "./link.const";
+import { LINE_TYPES, SELF_LINK_DIRECTION } from "./link.const";
 
 /**
  * Computes radius value for a straight line.
@@ -65,11 +65,35 @@ function getRadiusStrategy(type) {
  * @param {Object} targetCoords - link targetCoords
  * @param {string} type - the link line type
  * @param {Array.<Object>} breakPoints - additional set of points that the link will cross
+ * @param {string|number} sourceId - the source node id
+ * @param {string|number} targetId - the target node id
+ * @param {string} selfLinkDirection - the direction that self links will be rendered in
  * @returns {string} the path definition for the requested link
  * @memberof Link/helper
  */
-function buildLinkPathDefinition(sourceCoords = {}, targetCoords = {}, type = LINE_TYPES.STRAIGHT, breakPoints = []) {
+function buildLinkPathDefinition(
+  sourceCoords = {},
+  targetCoords = {},
+  type = LINE_TYPES.STRAIGHT,
+  breakPoints = [],
+  sourceId,
+  targetId,
+  selfLinkDirection = SELF_LINK_DIRECTION.TOP_RIGHT
+) {
   const { x: sx, y: sy } = sourceCoords;
+  const { x: tx, y: ty } = targetCoords;
+  if (sourceId === targetId && sx === tx && sy === ty) {
+    switch (selfLinkDirection) {
+      case SELF_LINK_DIRECTION.TOP_LEFT:
+        return `M${sx},${sy} A40,30 45 1,1 ${tx + 1},${ty - 1}`;
+      case SELF_LINK_DIRECTION.BOTTOM_LEFT:
+        return `M${sx},${sy} A40,30 -45 1,1 ${tx - 1},${ty - 1}`;
+      case SELF_LINK_DIRECTION.BOTTOM_RIGHT:
+        return `M${sx},${sy} A40,30 45 1,1 ${tx - 1},${ty + 1}`;
+      default:
+        return `M${sx},${sy} A40,30 -45 1,1 ${tx + 1},${ty + 1}`;
+    }
+  }
   const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
   const calcRadiusFn = getRadiusStrategy(validType);
 

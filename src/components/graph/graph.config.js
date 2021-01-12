@@ -336,6 +336,7 @@ export default {
     markerHeight: 6,
     markerWidth: 6,
     type: "STRAIGHT",
+    selfLinkDirection: "TOP_RIGHT",
     strokeDasharray: 0,
     strokeDashoffset: 0,
     strokeLinecap: "butt",

@@ -35,7 +35,10 @@ describe("Graph Helper", () => {
           sourceCoords,
           targetCoords,
           "STRAIGHT",
-          undefined
+          undefined,
+          that.link.source,
+          that.link.target,
+          "TOP_RIGHT"
         );
       });
 
