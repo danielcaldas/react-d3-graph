@@ -317,7 +317,7 @@ export default class Graph extends React.Component {
 
     d3SelectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr("transform", transform);
 
-    this.setState({ transform: transform });
+    this.setState({ transform });
 
     // only send zoom change events if the zoom has changed (_zoomed() also gets called when panning)
     if (this.debouncedOnZoomChange && this.state.previousZoom !== transform.k && !this.state.config.panAndZoom) {
