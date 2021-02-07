@@ -49,22 +49,6 @@ function formatFile(json) {
 }
 
 /**
- * Remove the viewGenerator as it is not supported for now
- */
-function formatConfig(config) {
-  if (!config.node?.viewGenerator) {
-    return config;
-  }
-  return {
-    ...config,
-    node: {
-      ...config.node,
-      viewGenerator: undefined,
-    },
-  };
-}
-
-/**
  * Create and send the code sandbox from the current sandbox data
  * @param {*} config current sandbox config
  * @param {*} data current sandbox data
@@ -84,7 +68,7 @@ export function createCodeSandbox(config, data) {
         },
       },
       "index.js": { content: getIndexFile() },
-      "config.js": { content: formatFile(formatConfig(config)) },
+      "config.js": { content: formatFile(config) },
       "data.js": { content: formatFile(data) },
     },
   });
@@ -97,4 +81,13 @@ export function createCodeSandbox(config, data) {
   document.body.appendChild(form);
   form.submit();
   document.body.removeChild(form);
+}
+
+/**
+ * We deactivate code sandboxes link generation for sandboxes that
+ * have a view generator
+ * See : https://github.com/danielcaldas/react-d3-graph/pull/417#issuecomment-763051874
+ */
+export function deactivateCodeSandboxLink(config) {
+  return config.node?.viewGenerator;
 }

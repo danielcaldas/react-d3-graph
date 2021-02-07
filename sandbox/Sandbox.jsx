@@ -9,7 +9,7 @@ import defaultConfig from "../src/components/graph/graph.config";
 import { Graph } from "../src";
 import { generateFormSchema, loadDataset, setValue, tooltipReducer } from "./utils";
 import { isDeepEqual, merge } from "../src/utils";
-import { createCodeSandbox } from "./createCodeSandbox";
+import { createCodeSandbox, deactivateCodeSandboxLink } from "./createCodeSandbox";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./styles.css";
@@ -370,12 +370,16 @@ export default class Sandbox extends React.Component {
           <b>Nodes: </b> {this.state.data.nodes.length} |<b>Links: </b> {this.state.data.links.length} |<b>Zoom: </b>{" "}
           {this.state.currentZoom ? this.state.currentZoom.toFixed(3) : "-"}
         </span>
-        <img
-          width="150px"
-          alt="Edit react-d3-graph"
-          src="https://codesandbox.io/static/img/play-codesandbox.svg"
-          onClick={() => createCodeSandbox(this.state.config, this.state.data)}
-        />
+        {!deactivateCodeSandboxLink(this.state.config) && (
+          <a href="javascript:void(0)">
+            <img
+              width="150px"
+              alt="Edit react-d3-graph"
+              src="https://codesandbox.io/static/img/play-codesandbox.svg"
+              onClick={() => createCodeSandbox(this.state.config, this.state.data)}
+            />
+          </a>
+        )}
       </div>
     );
   };
