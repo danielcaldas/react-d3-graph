@@ -1,5 +1,12 @@
+/*eslint require-jsdoc: 0, valid-jsdoc: 0*/
+
 import LZString from "lz-string";
 
+/**
+ * Compressing an object into a sendable string
+ *
+ * @param {Object} object object to compress
+ */
 function compress(object) {
   return LZString.compressToBase64(JSON.stringify(object))
     .replace(/\+/g, "-") // Convert '+' to '-'
@@ -7,6 +14,9 @@ function compress(object) {
     .replace(/=+$/, ""); // Remove ending '='
 }
 
+/**
+ * Creating an hidden input to send the codesandbox
+ */
 function addHiddenInput(form, name, value) {
   const input = document.createElement("input");
   input.type = "hidden";
@@ -15,6 +25,9 @@ function addHiddenInput(form, name, value) {
   form.appendChild(input);
 }
 
+/**
+ * Content of the index.js file
+ */
 function getIndexFile() {
   return `import React from "react";
 import ReactDOM from "react-dom";
@@ -27,11 +40,17 @@ const rootElement = document.getElementById("root");
 ReactDOM.render(<Graph id="graph" config={config} data={data} />, rootElement);`.trim();
 }
 
+/**
+ * Formatting file into a sendable string
+ * @param {*} json object to send
+ */
 function formatFile(json) {
   return `module.exports = ${JSON.stringify(json)}`;
 }
 
-// Remove the viewGenerator as it is not supported for now
+/**
+ * Remove the viewGenerator as it is not supported for now
+ */
 function formatConfig(config) {
   if (!config.node?.viewGenerator) {
     return config;
@@ -45,6 +64,11 @@ function formatConfig(config) {
   };
 }
 
+/**
+ * Create and send the code sandbox from the current sandbox data
+ * @param {*} config current sandbox config
+ * @param {*} data current sandbox data
+ */
 export function createCodeSandbox(config, data) {
   const parameters = compress({
     files: {

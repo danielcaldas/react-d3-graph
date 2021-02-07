@@ -1,4 +1,4 @@
-/*eslint require-jsdoc: 0, valid-jsdoc: 0, no-console: 0*/
+/*eslint require-jsdoc: 0, valid-jsdoc: 0, no-console: 0, max-lines: 0*/
 import React from "react";
 import { JsonTree } from "react-editable-json-tree";
 import Form from "react-jsonschema-form";
