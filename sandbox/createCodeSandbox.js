@@ -1,11 +1,10 @@
-/*eslint require-jsdoc: 0, valid-jsdoc: 0*/
-
 import LZString from "lz-string";
 
 /**
  * Compressing an object into a sendable string
- *
+ * lz-string API: https://pieroxy.net/blog/pages/lz-string/index.html
  * @param {Object} object object to compress
+ * @returns {string} base64 encoded string
  */
 function compress(object) {
   return LZString.compressToBase64(JSON.stringify(object))
@@ -16,6 +15,10 @@ function compress(object) {
 
 /**
  * Creating an hidden input to send the codesandbox
+ * @param {HTMLFormElement} form target to add the hidden input
+ * @param {string} name input name
+ * @param {string} value input value
+ * @returns {undefined}
  */
 function addHiddenInput(form, name, value) {
   const input = document.createElement("input");
@@ -27,6 +30,7 @@ function addHiddenInput(form, name, value) {
 
 /**
  * Content of the index.js file
+ * @returns {string} index file code in a string
  */
 function getIndexFile() {
   return `import React from "react";
@@ -42,7 +46,8 @@ ReactDOM.render(<Graph id="graph" config={config} data={data} />, rootElement);`
 
 /**
  * Formatting file into a sendable string
- * @param {*} json object to send
+ * @param {Object} json object to send
+ * @returns {string} exports statement
  */
 function formatFile(json) {
   return `module.exports = ${JSON.stringify(json)}`;
@@ -50,8 +55,9 @@ function formatFile(json) {
 
 /**
  * Create and send the code sandbox from the current sandbox data
- * @param {*} config current sandbox config
- * @param {*} data current sandbox data
+ * @param {Object} config current sandbox config
+ * @param {Object} data current sandbox data
+ * @returns {undefined}
  */
 export function createCodeSandbox(config, data) {
   const parameters = compress({
@@ -87,7 +93,9 @@ export function createCodeSandbox(config, data) {
  * We deactivate code sandboxes link generation for sandboxes that
  * have a view generator
  * See : https://github.com/danielcaldas/react-d3-graph/pull/417#issuecomment-763051874
+ * @param {Object} config react-d3-graph config
+ * @returns {boolean} true if the code sandbox link should not apply
  */
 export function deactivateCodeSandboxLink(config) {
-  return config.node?.viewGenerator;
+  return !!config.node?.viewGenerator;
 }
