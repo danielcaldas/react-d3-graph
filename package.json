@@ -38,7 +38,7 @@
     ]
   },
   "peerDependencies": {
-    "d3": "^5.5.0",
+    "d3": "^6.2.0",
     "react": "^16.4.1"
   },
   "devDependencies": {
@@ -53,7 +53,7 @@
     "cross-env": "5.2.1",
     "css-loader": "2.0.2",
     "cypress": "3.8.3",
-    "d3": "^5.5.0",
+    "d3": "^6.2.0",
     "documentation": "12.1.2",
     "eslint": "6.3.0",
     "eslint-config-recommended": "4.0.0",
