@@ -25,6 +25,7 @@ export default {
         highlightStrokeColor: "SAME",
         highlightStrokeWidth: 1.5,
         labelProperty: "name",
+        labelClass: "person-node-label",
         mouseCursor: "pointer",
         opacity: 1,
         renderLabel: false,

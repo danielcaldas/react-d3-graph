@@ -65,3 +65,12 @@
     width: 80%;
     height: 30%;
 }
+
+/* --- Node label style --- */
+
+.person-node-label {
+    fill: black;
+    text-shadow: rgb(255, 255, 255) 0px -2px 0px, rgb(255, 255, 255) 0px 2px 0px, rgb(255, 255, 255) 2px 0px 0px,
+        rgb(255, 255, 255) -2px 0px 0px;
+    transform: rotate(-25deg) translateX(40px) translateY(15px);
+}

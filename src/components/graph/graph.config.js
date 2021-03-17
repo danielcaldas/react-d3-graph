@@ -135,6 +135,7 @@
  *   - "top"
  *   - "bottom"
  *   - "center"
+ * @param {string} [node.labelClass=""] - <a id="node-label-class href="#node-label-class">🔗</a> 🔍 CSS class to apply to the node label.
  *
  * <b>[note]</b> not specifying a label position will fallback to the original placement scheme of to the right of the node. This is different than the implementation for "right", which has the label shifted very slightly upward compared to the original.
  * @param {string|Function} [node.labelProperty="id"] - <a id="node-label-property" href="#node-label-property">🔗</a> this is the node property that will be used in runtime to</br>
@@ -309,6 +310,7 @@ export default {
     highlightStrokeWidth: "SAME",
     labelProperty: "id",
     labelPosition: null,
+    labelClass: "",
     mouseCursor: "pointer",
     opacity: 1,
     renderLabel: true,
