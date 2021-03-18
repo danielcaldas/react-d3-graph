@@ -4,6 +4,7 @@
  * Offers a series of methods that isolate the way graph elements are built (nodes and links mainly).
  */
 import CONST from "./graph.const";
+import { isNil } from "../../utils";
 
 import { buildLinkPathDefinition } from "../link/link.helper";
 import { getMarkerId } from "../marker/marker.helper";
@@ -232,12 +233,12 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
   const fontColor = node.fontColor || config.node.fontColor;
 
   let renderLabel = config.node.renderLabel;
-  if (node.renderLabel !== undefined && typeof node.renderLabel === "boolean") {
+  if (!isNil(node.renderLabel) && typeof node.renderLabel === "boolean") {
     renderLabel = node.renderLabel;
   }
 
   var labelClass = config.node.labelClass;
-  if (node.labelClass !== undefined && typeof node.labelClass === "string") {
+  if (!isNil(node.labelClass) && typeof node.labelClass === "string") {
     labelClass = node.labelClass;
   }
 

@@ -85,6 +85,16 @@ function isEmptyObject(o) {
 }
 
 /**
+ * Checks if given input is undefined or null
+ * @param {any} o variable target
+ * @returns {boolean} true if input is either undefined or null
+ * @memberof utils
+ */
+function isNil(o) {
+  return o === undefined || o === null;
+}
+
+/**
  * Function to deep clone plain javascript objects.
  * @param {Object} o - the object to clone.
  * @param {Object} _clone - carries the cloned output throughout the
@@ -238,4 +248,16 @@ function logWarning(component, msg) {
   console.warn(warning);
 }
 
-export { isDeepEqual, isEmptyObject, deepClone, merge, pick, antiPick, debounce, throwErr, logError, logWarning };
+export {
+  isDeepEqual,
+  isEmptyObject,
+  isNil,
+  deepClone,
+  merge,
+  pick,
+  antiPick,
+  debounce,
+  throwErr,
+  logError,
+  logWarning,
+};
