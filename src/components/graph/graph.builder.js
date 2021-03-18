@@ -236,6 +236,11 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     renderLabel = node.renderLabel;
   }
 
+  var labelClass = config.node.labelClass;
+  if (node.labelClass !== undefined && typeof node.labelClass === "string") {
+    labelClass = node.labelClass;
+  }
+
   return {
     ...node,
     className: CONST.NODE_CLASS_NAME,
@@ -253,6 +258,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     opacity,
     overrideGlobalViewGenerator: !node.viewGenerator && node.svg,
     renderLabel,
+    labelClass,
     size: isSizeNumericValue ? nodeSize * t : { height: nodeSize.height * t, width: nodeSize.width * t },
     stroke,
     strokeWidth: strokeWidth * t,
