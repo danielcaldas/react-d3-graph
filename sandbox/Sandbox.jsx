@@ -257,22 +257,6 @@ export default class Sandbox extends React.Component {
   };
 
   /**
-   * This function decorates nodes and links with positions. The motivation
-   * for this function its to set `config.staticGraph` to true on the first render
-   * call, and to get nodes and links statically set to their initial positions.
-   * @param  {Object} nodes nodes and links with minimalist structure.
-   * @return {Object} the graph where now nodes containing (x,y) coords.
-   */
-  decorateGraphNodesWithInitialPositioning = nodes => {
-    return nodes.map(n =>
-      Object.assign({}, n, {
-        x: n.x || Math.floor(Math.random() * 500),
-        y: n.y || Math.floor(Math.random() * 500),
-      })
-    );
-  };
-
-  /**
    * Before removing elements (nodes, links)
    * from the graph data, this function is executed.
    * https://github.com/oxyno-zeta/react-editable-json-tree#beforeremoveaction
@@ -409,7 +393,7 @@ export default class Sandbox extends React.Component {
     // This does not happens in this sandbox scenario running time, but if we set staticGraph config
     // to true in the constructor we will provide nodes with initial positions
     const data = {
-      nodes: this.decorateGraphNodesWithInitialPositioning(this.state.data.nodes),
+      nodes: this.state.data.nodes,
       links: this.state.data.links,
       focusedNodeId: this.state.data.focusedNodeId,
     };
