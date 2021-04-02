@@ -3,10 +3,11 @@ import { logWarning } from "../../utils";
 
 /**
  * Computes the normalized vector from a vector.
- * @param {Object} vector a 2D vector with x and y components
- * @param {number} vector.x x coordinate
- * @param {number} vector.y y coordinate
- * @returns {Object} normalized vector
+ *
+ * @param {Object} vector - A 2D vector with x and y components.
+ * @param {number} vector.x - The X coordinate.
+ * @param {number} vector.y - The Y coordinate.
+ * @returns {Object} Normalized vector.
  * @memberof Graph/helper
  */
 function normalize(vector) {
@@ -15,13 +16,12 @@ function normalize(vector) {
 }
 
 /**
- * Calculate the length of a vector, from the center of a rectangle,
- * to one of it's edges.
+ * Calculates the vector length from the center of a rectangle to the closest edge following a direction.
  * This calculation is taken from https://stackoverflow.com/a/3197924.
  *
- * @param {Object.<string, number>} RectangleCoords, The coords of the left-top vertex, and the right-bottom vertex.
- * @param {Object.<string, number>} VectorOriginCoords The center of the rectangle coords.
- * @param {Object.<string, number>} directionVector a 2D vector with x and y components.
+ * @param {Object.<string, number>} RectangleCoords - The coords of the left-top vertex, and the right-bottom vertex.
+ * @param {Object.<string, number>} VectorOriginCoords - The center of the rectangle coords.
+ * @param {Object.<string, number>} directionVector - A 2D vector with x and y components.
  * @returns {number} The length of the vector from the center of the symbol to it's closet edge, considering the given direction vector.
  */
 function calcRectangleVectorLengthFromCoords({ x1, y1, x2, y2 }, { px, py }, directionVector) {
@@ -46,10 +46,10 @@ function calcRectangleVectorLengthFromCoords({ x1, y1, x2, y2 }, { px, py }, dir
 }
 
 /**
- * Calculate a the vector length from the center of a circle to it's perimeter.
+ * Calculates the radius of the node.
  *
- * @param {number} nodeSize The size of the circle, when no viewGenerator is specified, else the size of an edge of the viewGenerator square.
- * @param {boolean} isCustomNode is viewGenerator specified.
+ * @param {number} nodeSize - The size of the circle, when no viewGenerator is specified, else the size of an edge of the viewGenerator square.
+ * @param {boolean} isCustomNode - Is viewGenerator specified.
  * @returns {number} The length of the vector from the center of the symbol to it's closet edge, considering the given direction vector.
  */
 function calcCircleVectorLength(nodeSize, isCustomNode) {
@@ -58,20 +58,19 @@ function calcCircleVectorLength(nodeSize, isCustomNode) {
     // nodeSize equals the Diameter in the case of custome-node.
     radiusLength = nodeSize / 10 / 2;
   } else {
-    // because this is a circle and A = pi * r^2
-    // we multiply by 0.95, because if we don't the link is not melting properly
+    // because this is a circle and A = pi * r^2.
     radiusLength = Math.sqrt(nodeSize / Math.PI);
   }
   return radiusLength;
 }
 
 /**
- * Calculate a the vector length from the center of a square to it's perimeter.
+ * Calculates the vector length from the center of a square to the closest edge following a direction.
  *
- * @param {number} nodeSize The size of the square, when no viewGenerator is specified, else the size of an edge of the viewGenerator square.
- * @param {Object.<string, number>} nodeCoords The coords of a the square node.
- * @param {Object.<string, number>} directionVector a 2D vector with x and y components
- * @param {boolean} isCustomNode is viewGenerator specified.
+ * @param {number} nodeSize - The size of the square, when no viewGenerator is specified, else the size of an edge of the viewGenerator square.
+ * @param {Object.<string, number>} nodeCoords - The coords of a the square node.
+ * @param {Object.<string, number>} directionVector - A 2D vector with x and y components.
+ * @param {boolean} isCustomNode - Is viewGenerator specified.
  * @returns {number} The length of the vector from the center of the symbol to it's closet edge, considering the given direction vector.
  */
 function calcSquareVectorLength(nodeSize, { x, y }, directionVector, isCustomNode) {
@@ -80,11 +79,11 @@ function calcSquareVectorLength(nodeSize, { x, y }, directionVector, isCustomNod
     // nodeSize equals the edgeSize in the case of custome-node.
     edgeSize = nodeSize / 10;
   } else {
-    // All the edges of a square are equal, inorder to calc it's size we multplie two edges.
+    // All the edges of a square are equal, inorder to calc its size we multplie two edges.
     edgeSize = Math.sqrt(nodeSize);
   }
 
-  // The x and y coords in this library, represent the top center of the component.
+  // The x and y coords represent the top center of the component
   const leftSquareX = x - edgeSize / 2;
   const topSquareY = y - edgeSize / 2;
 
@@ -96,11 +95,11 @@ function calcSquareVectorLength(nodeSize, { x, y }, directionVector, isCustomNod
 }
 
 /**
- * Calculate a the vector length from the center of a rectangle to it's perimeter.
+ * Calculates the vector length from the center of a rectangle to the closest edge following a direction.
  *
- * @param {number} nodeSize The size of the square, when no viewGenerator is specified, else the size of an edge of the viewGenerator square.
- * @param {Object.<string, number>} nodeCoords The coords of a the square node.
- * @param {Object.<string, number>} directionVector a 2D vector with x and y components.
+ * @param {number} nodeSize - The size of the square, when no viewGenerator is specified, else the size of an edge of the viewGenerator square.
+ * @param {Object.<string, number>} nodeCoords - The coords of a the square node.
+ * @param {Object.<string, number>} directionVector - A 2D vector with x and y components.
  * @returns {number} The length of the vector from the center of the symbol to it's closet edge, considering the given direction vector.
  */
 function calcRectangleVectorLength(nodeSize, { x, y }, directionVector) {
@@ -122,15 +121,15 @@ function calcRectangleVectorLength(nodeSize, { x, y }, directionVector) {
 /**
  * Calculate a the vector length of symbol that included in symbols with optimized positioning.
  *
- * @param {string} symbolType the string that specifies the symbol type (should be one of {@link #node-symbol-type|node.symbolType})
- * @param {(number | Object.<string, number>)} nodeSize The size of the square, when no viewGenerator is specified, else the size of an edge of the viewGenerator square.
- * @param {Object.<string, number>} nodeCoords The coords of a the square node.
- * @param {Object.<string, number>} directionVector a 2D vector with x and y components.
- * @param {boolean} isCustomNode is viewGenerator specified.
+ * @param {string} symbolType - The string that specifies the symbol type (should be one of {@link #node-symbol-type|node.symbolType}).
+ * @param {(number | Object.<string, number>)} nodeSize - The size of the square, when no viewGenerator is specified, else the size of an edge of the viewGenerator square.
+ * @param {Object.<string, number>} nodeCoords - The coords of a the square node.
+ * @param {Object.<string, number>} directionVector - A 2D vector with x and y components.
+ * @param {boolean} isCustomNode - Is viewGenerator specified.
  * @returns {number} The length of the vector from the center of the symbol to it's closet edge, considering the given direction vector.
  */
 function calcVectorLength(symbolType, nodeSize, { x, y }, directionVector, isCustomNode) {
-  if (typeof nodeSize === "object" && nodeSize?.width && nodeSize?.height) {
+  if (isCustomNode && typeof nodeSize === "object" && nodeSize?.width && nodeSize?.height) {
     return calcRectangleVectorLength(nodeSize, { x, y }, directionVector);
   }
 
@@ -155,12 +154,12 @@ function calcVectorLength(symbolType, nodeSize, { x, y }, directionVector, isCus
 
 /**
  * When directed graph is specified, we add arrow head to the link.
- * In order to add the arrow head we subtract it's size from the last point of the link.
+ * In order to add the arrow head we subtract its size from the last point of the link.
  *
- * @param {number} p1 x or y, of the link last point.
- * @param {number} p2 x or y, of the link ending point.
- * @param {number} pDirectionVector The link direction vector in the x or y axis.
- * @param {number} arrowSize The size of the arrow head.
+ * @param {number} p1 - x or y coordinate, of the link last point.
+ * @param {number} p2 - x or y coordinate, of the link ending point.
+ * @param {number} pDirectionVector - The link direction vector in the x or y axis.
+ * @param {number} arrowSize - The size of the arrow head.
  * @returns {number} The amount we should add to the x or y coords, in order to free up space for the arrow head.
  */
 function directedGraphCoordsOptimization(p1, p2, pDirectionVector, arrowSize) {
@@ -180,15 +179,15 @@ function directedGraphCoordsOptimization(p1, p2, pDirectionVector, arrowSize) {
 
 /**
  * When directed graph is specified, we add arrow head to the link.
- * In order to add the arrow head we subtract it's size from the last point of the link.
+ * In order to add the arrow head we subtract its size from the last point of the link.
  *
- * @param {Object.<string, number>} optimizedTargetCoords The modified coords of the target node.
- * @param {Object.<string, number>} prevCoords The coords of a the last point in the link (last link.breakPoints or the sourceCoords).
- * @param {Object.<string, number>} directionVector a 2D vector with x and y components.
- * @param {number} arrowSize The size of the arrow head.
- * @param {Object.<string, number>} targetCoords The initial coords of the target node.
- * @param {(number | Object.<string, number>)} targetNodeSize The target node size.
- * @param {boolean} isCustomNode is viewGenerator specified.
+ * @param {Object.<string, number>} optimizedTargetCoords - The modified coords of the target node.
+ * @param {Object.<string, number>} prevCoords - The coords of a the last point in the link (last link.breakPoints or the sourceCoords).
+ * @param {Object.<string, number>} directionVector - A 2D vector with x and y components.
+ * @param {number} arrowSize - The size of the arrow head.
+ * @param {Object.<string, number>} targetCoords - The initial coords of the target node.
+ * @param {(number | Object.<string, number>)} targetNodeSize - The target node size.
+ * @param {boolean} isCustomNode - Is viewGenerator specified.
  * @returns {Object.<string, number>} The amount we should add to the x or y coords, in order to free up space for the arrow head.
  */
 function directedGraphOptimization(
@@ -200,21 +199,19 @@ function directedGraphOptimization(
   targetNodeSize,
   isCustomNode
 ) {
-  if (isCustomNode) {
-    // Check if lastLinkCoord overlaps with the target node.
-    if (typeof targetNodeSize === "object" && targetNodeSize?.width && targetNodeSize?.height) {
-      const targetNodeWidth = targetNodeSize.width / 10;
-      const targetNodeHeight = targetNodeSize.height / 10;
+  // Check if the last link coord overlaps with the target node.
+  if (isCustomNode && typeof targetNodeSize === "object" && targetNodeSize?.width && targetNodeSize?.height) {
+    const targetNodeWidth = targetNodeSize.width / 10;
+    const targetNodeHeight = targetNodeSize.height / 10;
 
-      const leftTargetNodeRectangleX = targetCoords.x - targetNodeWidth / 2;
-      const xOverlaps = leftTargetNodeRectangleX < prevX && prevX < leftTargetNodeRectangleX + targetNodeWidth;
+    const leftTargetNodeRectangleX = targetCoords.x - targetNodeWidth / 2;
+    const xOverlaps = leftTargetNodeRectangleX < prevX && prevX < leftTargetNodeRectangleX + targetNodeWidth;
 
-      const topTargetNodeRectangleY = targetCoords.y - targetNodeHeight / 2;
-      const yOverlaps = topTargetNodeRectangleY < prevY && prevY < topTargetNodeRectangleY + targetNodeHeight;
+    const topTargetNodeRectangleY = targetCoords.y - targetNodeHeight / 2;
+    const yOverlaps = topTargetNodeRectangleY < prevY && prevY < topTargetNodeRectangleY + targetNodeHeight;
 
-      if (xOverlaps && yOverlaps) {
-        return targetCoords;
-      }
+    if (xOverlaps && yOverlaps) {
+      return targetCoords;
     }
   }
   const optTrgX = directedGraphCoordsOptimization(prevX, trgX, directionVector.x, arrowSize);
@@ -230,15 +227,15 @@ function directedGraphOptimization(
  * Computes new node coordinates to make arrowheads point at nodes.
  * Arrow configuration is only available for circles, squares and rectangles.
  *
- * @param {Object} info - the couple of nodes we need to compute new coordinates
- * @param {string} info.sourceId - node source id
- * @param {string} info.targetId - node target id
- * @param {Object} info.sourceCoords - node source coordinates
- * @param {Object} info.targetCoords - node target coordinates
- * @param {Object.<string, Object>} nodes - same as {@link #graphrenderer|nodes in renderGraph}.
- * @param {Object} config - same as {@link #graphrenderer|config in renderGraph}.
- * @param {number} strokeWidth - width of the link stroke
- * @param {Array.<Object>} breakPoints - additional set of points that the link will cross
+ * @param {Object} info - The couple of nodes we need to compute new coordinates.
+ * @param {string} info.sourceId - Node source id.
+ * @param {string} info.targetId - Node target id.
+ * @param {Object} info.sourceCoords - Node source coordinates.
+ * @param {Object} info.targetCoords - Node target coordinates.
+ * @param {Object.<string, Object>} nodes - Same as {@link #graphrenderer|nodes in renderGraph}.
+ * @param {Object} config - Same as {@link #graphrenderer|config in renderGraph}.
+ * @param {number} strokeWidth - Width of the link stroke.
+ * @param {Array.<Object>} breakPoints - Additional set of points that the link will cross.
  * @returns {Object} new nodes coordinates
  * @memberof Graph/helper
  */
