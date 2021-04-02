@@ -451,7 +451,7 @@ describe("Graph Helper", () => {
 
       expect(coords).toEqual({
         sourceCoords: { x: 1.4749999999999999, y: 1.4749999999999999 },
-        targetCoords: { x: 1.5250000000000001, y: 1.5250000000000001 },
+        targetCoords: { x: 1.3282485578727798, y: 1.3282485578727798 },
       });
     });
 
