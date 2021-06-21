@@ -49,11 +49,11 @@ function _getNodeOpacity(node, highlightedNode, highlightedLink, config) {
  * @param  {Function[]} linkCallbacks - same as {@link #graphrenderer|linkCallbacks in renderGraph}.
  * @param  {string} highlightedNode - same as {@link #graphrenderer|highlightedNode in renderGraph}.
  * @param  {Object} highlightedLink - same as {@link #graphrenderer|highlightedLink in renderGraph}.
- * @param  {number} transform - value that indicates the amount of zoom transformation.
+ * @param  {number} scaleFactor - value that indicates the amount of zoom scaleFactor.
  * @returns {Object} returns an object that aggregates all props for creating respective Link component instance.
  * @memberof Graph/builder
  */
-function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
+function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNode, highlightedLink, scaleFactor) {
   const { source, target } = link;
   let x1 = nodes?.[source]?.x || 0;
   let y1 = nodes?.[source]?.y || 0;
@@ -98,7 +98,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
   const strokeDashoffset = link.strokeDashoffset || config.link.strokeDashoffset;
   const strokeLinecap = link.strokeLinecap || config.link.strokeLinecap;
 
-  let strokeWidth = (link.strokeWidth || config.link.strokeWidth) * (1 / transform);
+  let strokeWidth = (link.strokeWidth || config.link.strokeWidth) * (1 / scaleFactor);
 
   if (config.link.semanticStrokeWidth) {
     const linkValue = links[source][target] || links[target][source] || 1;
@@ -106,9 +106,9 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     strokeWidth += (linkValue * strokeWidth) / 10;
   }
 
-  const markerId = config.directed ? getMarkerId(highlight, transform, config) : null;
+  const markerId = config.directed ? getMarkerId(highlight, scaleFactor, config) : null;
 
-  const t = 1 / transform;
+  const t = 1 / scaleFactor;
 
   let fontSize = null,
     fontColor = null,
@@ -175,11 +175,11 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
  * @param  {Function[]} nodeCallbacks - same as {@link #graphrenderer|nodeCallbacks in renderGraph}.
  * @param  {string} highlightedNode - same as {@link #graphrenderer|highlightedNode in renderGraph}.
  * @param  {Object} highlightedLink - same as {@link #graphrenderer|highlightedLink in renderGraph}.
- * @param  {number} transform - value that indicates the amount of zoom transformation.
+ * @param  {number} scaleFactor - value that indicates the amount of zoom transformation.
  * @returns {Object} returns object that contain Link props ready to be feeded to the Link component.
  * @memberof Graph/builder
  */
-function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highlightedLink, transform) {
+function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highlightedLink, scaleFactor) {
   const highlight =
     node.highlighted ||
     node.id === (highlightedLink && highlightedLink.source) ||
@@ -210,7 +210,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     strokeWidth = config.node.highlightStrokeWidth;
   }
 
-  const t = 1 / transform;
+  const t = 1 / scaleFactor;
   const nodeSize = node.size || config.node.size;
 
   const isSizeNumericValue = typeof nodeSize !== "object";

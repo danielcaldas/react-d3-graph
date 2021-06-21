@@ -25,11 +25,11 @@ import { getMarkerSize } from "../marker/marker.helper";
  * @param  {Function[]} linkCallbacks - same as {@link #graphrenderer|linkCallbacks in renderGraph}.
  * @param  {string} highlightedNode - same as {@link #graphrenderer|highlightedNode in renderGraph}.
  * @param  {Object} highlightedLink - same as {@link #graphrenderer|highlightedLink in renderGraph}.
- * @param  {number} transform - value that indicates the amount of zoom transformation.
+ * @param  {number} scaleFactor - value that indicates the amount of zoom transformation.
  * @returns {Array.<Object>} returns the generated array of Link components.
  * @memberof Graph/renderer
  */
-function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform) {
+function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, scaleFactor) {
   let outLinks = links;
 
   if (config.collapsible) {
@@ -49,7 +49,7 @@ function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highligh
       linkCallbacks,
       `${highlightedNode}`,
       highlightedLink,
-      transform
+      scaleFactor
     );
 
     return <Link key={key} id={key} {...props} />;
@@ -65,12 +65,12 @@ function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highligh
  * @param  {Object} highlightedLink - this object contains a source and target property for a link that is highlighted at some point in time.
  * @param  {string} highlightedLink.source - id of source node for highlighted link.
  * @param  {string} highlightedLink.target - id of target node for highlighted link.
- * @param  {number} transform - value that indicates the amount of zoom transformation.
+ * @param  {number} scaleFactor - value that indicates the amount of zoom transformation.
  * @param  {Object.<string, Object>} linksMatrix - the matrix of connections of the graph
  * @returns {Array.<Object>} returns the generated array of node components
  * @memberof Graph/renderer
  */
-function _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix) {
+function _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, scaleFactor, linksMatrix) {
   let outNodes = Object.keys(nodes);
 
   if (config.collapsible) {
@@ -84,7 +84,7 @@ function _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlighted
       nodeCallbacks,
       highlightedNode,
       highlightedLink,
-      transform
+      scaleFactor
     );
 
     return <Node key={nodeId} {...props} />;
@@ -142,6 +142,53 @@ function _renderDefs() {
 const _memoizedRenderDefs = _renderDefs();
 
 /**
+ * Generates the pattern defs for drawing the grid lines.
+ * This pattern is rendered inside of a rect in the graph.
+ *
+ * @param {Object} config - an object containing rd3g consumer defined configurations {@link #config config} for the graph.
+ * @param {Object} transform - object that represents current graph transform
+ * @returns Pattern defs for gridlines. Returns empty object if gridlines are disabled.
+ */
+const _gridLineDefs = (config, transform) => {
+  const { renderGridLines, spacingX, spacingY, color, smallStrokeSize, largeStrokeSize } = config.grid;
+
+  // grid lines turned off; return nothing
+  if (!renderGridLines) {
+    return {};
+  }
+
+  const width = spacingX * transform.k;
+  const height = spacingY * transform.k;
+
+  return (
+    <>
+      {/* This is the "inner" grid lines that are thinner than the outer ones */}
+      <pattern
+        id={CONST.GRID_LINES_SMALL_GRID_PATTERN_ID}
+        width={width / 2}
+        height={height / 2}
+        patternUnits="userSpaceOnUse"
+      >
+        <path d={`M ${width / 2} 0 L 0 0 0 ${height / 2}`} fill="none" stroke={color} strokeWidth={smallStrokeSize} />
+      </pattern>
+
+      {/* Larger grid lines with the smaller pattern above inside of them */}
+      <pattern
+        id={CONST.GRID_LINES_LARGE_GRID_PATTERN_ID}
+        x={transform.x}
+        y={transform.y}
+        width={width}
+        height={height}
+        patternUnits="userSpaceOnUse"
+      >
+        <rect width={width} height={height} fill={`url(#${CONST.GRID_LINES_SMALL_GRID_PATTERN_ID})`} />
+        <path d={`M ${width} 0 L 0 0 0 ${width}`} fill="none" stroke={color} strokeWidth={largeStrokeSize} />
+      </pattern>
+    </>
+  );
+};
+
+/**
  * Method that actually is exported an consumed by Graph component in order to build all Nodes and Link
  * components.
  * @param  {Object.<string, Object>} nodes - an object containing all nodes mapped by their id.
@@ -178,7 +225,7 @@ const _memoizedRenderDefs = _renderDefs();
  * @param  {Object} highlightedLink - this object contains a source and target property for a link that is highlighted at some point in time.
  * @param  {string} highlightedLink.source - id of source node for highlighted link.
  * @param  {string} highlightedLink.target - id of target node for highlighted link.
- * @param  {number} transform - value that indicates the amount of zoom transformation.
+ * @param  {object} transform - object that represents current graph transform
  * @returns {Object} returns an object containing the generated nodes and links that form the graph.
  * @memberof Graph/renderer
  */
@@ -194,9 +241,21 @@ function renderGraph(
   transform
 ) {
   return {
-    nodes: _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform, linksMatrix),
-    links: _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highlightedNode, highlightedLink, transform),
-    defs: _memoizedRenderDefs(config),
+    nodes: _renderNodes(nodes, nodeCallbacks, config, highlightedNode, highlightedLink, transform.k, linksMatrix),
+    links: _renderLinks(
+      nodes,
+      links,
+      linksMatrix,
+      config,
+      linkCallbacks,
+      highlightedNode,
+      highlightedLink,
+      transform.k
+    ),
+    defs: {
+      ..._memoizedRenderDefs(config),
+      ..._gridLineDefs(config, transform),
+    },
   };
 }
 

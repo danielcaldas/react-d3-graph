@@ -666,7 +666,7 @@ export default class Graph extends React.Component {
       this.state.config,
       this.state.highlightedNode,
       this.state.highlightedLink,
-      this.state.transform.k
+      this.state.transform
     );
 
     const svgStyle = {
@@ -680,6 +680,15 @@ export default class Graph extends React.Component {
       <div id={`${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`}>
         <svg name={`svg-container-${this.state.id}`} style={svgStyle} onClick={this.onClickGraph}>
           {defs}
+          {this.state.config.grid.renderGridLines && (
+            // this rect is filled with a pattern generated in the `defs` above
+            <rect
+              id={`${this.state.id}-${CONST.GRID_LINES_CONTAINER_ID}`}
+              width="100%"
+              height="100%"
+              fill={`url(#${CONST.GRID_LINES_LARGE_GRID_PATTERN_ID})`}
+            />
+          )}
           <g id={`${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`} {...containerProps}>
             {links}
             {nodes}

@@ -257,6 +257,13 @@
  *   - "butt"
  *   - "round"
  *   - "square"
+ * @param {Object} grid grid object is explained in the next section. ⬇️
+ * @param {boolean} [grid.renderGridLines] Whether or not to render grid lines
+ * @param {number} [grid.spacingX] How far apart to put grid lines on the X axis
+ * @param {number} [grid.spacingY] How far apart to put grid lines on the Y axis
+ * @param {number} [grid.smallStrokeSize] How thick to make the inner strokes between grid lines
+ * @param {number} [grid.largeStrokeSize] How thick to make the strokes between grid lines
+ * @param {string} [grid.color] The color to use for the grid lines
  *
  * @example
  * // A simple config that uses some properties
@@ -345,5 +352,13 @@ export default {
     strokeDasharray: 0,
     strokeDashoffset: 0,
     strokeLinecap: "butt",
+  },
+  grid: {
+    renderGridLines: false,
+    spacingX: 100,
+    spacingY: 100,
+    smallStrokeSize: 2,
+    largeStrokeSize: 3,
+    color: "#bbbbbb",
   },
 };
