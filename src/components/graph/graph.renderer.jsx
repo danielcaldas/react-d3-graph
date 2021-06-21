@@ -147,7 +147,7 @@ const _memoizedRenderDefs = _renderDefs();
  *
  * @param {Object} config - an object containing rd3g consumer defined configurations {@link #config config} for the graph.
  * @param {Object} transform - object that represents current graph transform
- * @returns Pattern defs for gridlines. Returns empty object if gridlines are disabled.
+ * @returns {Object} Pattern defs for gridlines. Returns empty object if gridlines are disabled.
  */
 const _gridLineDefs = (config, transform) => {
   const { renderGridLines, spacingX, spacingY, color, smallStrokeSize, largeStrokeSize } = config.grid;
@@ -225,7 +225,7 @@ const _gridLineDefs = (config, transform) => {
  * @param  {Object} highlightedLink - this object contains a source and target property for a link that is highlighted at some point in time.
  * @param  {string} highlightedLink.source - id of source node for highlighted link.
  * @param  {string} highlightedLink.target - id of target node for highlighted link.
- * @param  {object} transform - object that represents current graph transform
+ * @param  {Object} transform - object that represents current graph transform
  * @returns {Object} returns an object containing the generated nodes and links that form the graph.
  * @memberof Graph/renderer
  */
