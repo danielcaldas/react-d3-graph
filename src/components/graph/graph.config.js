@@ -358,8 +358,8 @@ export default {
     strokeLinecap: "butt",
   },
   grid: {
-    renderGridLines: true,
-    snapToGrid: true,
+    renderGridLines: false,
+    snapToGrid: false,
     gridWidth: 100,
     gridHeight: 100,
     strokeWidth: 3,
