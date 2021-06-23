@@ -158,7 +158,8 @@ const _renderGridLineDefs = (config, transform) => {
     innerGridStrokeWidth,
     strokeWidth,
     innerGridStrokeColor,
-    innerGridDivisions,
+    innerGridXDivisions,
+    innerGridYDivisions,
   } = config.grid;
 
   // grid lines turned off; return nothing
@@ -174,12 +175,12 @@ const _renderGridLineDefs = (config, transform) => {
       {/* This is the "inner" grid lines that are thinner than the outer ones */}
       <pattern
         id={CONST.GRID_LINES_SMALL_GRID_PATTERN_ID}
-        width={width / innerGridDivisions}
-        height={height / innerGridDivisions}
+        width={width / innerGridXDivisions}
+        height={height / innerGridYDivisions}
         patternUnits="userSpaceOnUse"
       >
         <path
-          d={`M ${width / innerGridDivisions} 0 L 0 0 0 ${height / innerGridDivisions}`}
+          d={`M ${width / innerGridXDivisions} 0 L 0 0 0 ${height / innerGridYDivisions}`}
           fill="none"
           stroke={innerGridStrokeColor}
           strokeWidth={innerGridStrokeWidth}

@@ -202,6 +202,44 @@ export default class Graph extends React.Component {
   }
 
   /**
+   * Given a node id, will snap the node to the nearest grid intersection.
+   * @param {string} nodeId ID of node to snap to the grid
+   */
+  _snapNodeToGrid = nodeId => {
+    const { gridWidth, gridHeight, innerGridXDivisions, innerGridYDivisions } = this.state.config.grid;
+
+    let node = this.state.nodes[nodeId];
+
+    const { x, y } = node;
+
+    // have to find _actual_ width of each grid cell
+    // we use `|| 1` in case it is set to undefined or 0
+    const dividedGridWidth = gridWidth / (innerGridXDivisions || 1);
+    const dividedGridHeight = gridHeight / (innerGridYDivisions || 1);
+
+    // snap to x
+    let snappedX = x;
+    if (x % dividedGridWidth < dividedGridWidth / 2) {
+      snappedX = x - (x % dividedGridWidth);
+    } else {
+      snappedX = x + (dividedGridWidth - (x % dividedGridWidth));
+    }
+
+    // snap to y
+    let snappedY = y;
+    if (y % dividedGridHeight < dividedGridHeight / 2) {
+      snappedY = y - (y % dividedGridHeight);
+    } else {
+      snappedY = y + (dividedGridHeight - (y % dividedGridHeight));
+    }
+
+    node.x = snappedX;
+    node.y = snappedY;
+    node.fx = node.x;
+    node.fy = node.y;
+  };
+
+  /**
    * Handles d3 drag 'end' event.
    * @returns {undefined}
    */
@@ -209,34 +247,11 @@ export default class Graph extends React.Component {
     this.isDraggingNode = false;
 
     if (this.state.draggedNode) {
-      const { snapToGrid, gridWidth, gridHeight } = this.state.config.grid;
+      const { snapToGrid } = this.state.config.grid;
 
       // when releasing the dragged node, we check if we should snap it to the grid
       if (snapToGrid) {
-        const { id, x, y } = this.state.draggedNode;
-
-        let draggedNode = this.state.nodes[id];
-
-        // snap to x
-        let snappedX = x;
-        if (x % gridWidth < gridWidth / 2) {
-          snappedX = x - (x % gridWidth);
-        } else {
-          snappedX = x + (gridWidth - (x % gridWidth));
-        }
-
-        // snap to y
-        let snappedY = y;
-        if (y % gridWidth < gridHeight / 2) {
-          snappedY = y - (y % gridHeight);
-        } else {
-          snappedY = y + (gridHeight - (y % gridHeight));
-        }
-
-        draggedNode.x = snappedX;
-        draggedNode.y = snappedY;
-        draggedNode.fx = draggedNode.x;
-        draggedNode.fy = draggedNode.y;
+        this._snapNodeToGrid(this.state.draggedNode.id);
       }
 
       this.onNodePositionChange(this.state.draggedNode);

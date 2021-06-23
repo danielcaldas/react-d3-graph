@@ -264,7 +264,8 @@
  * @param {number} [grid.gridHeight] How far apart to put grid lines on the Y axis
  * @param {number} [grid.strokeWidth] How thick to make the strokes between grid lines
  * @param {string} [grid.strokeColor] The color to use for the grid lines
- * @param {number} [grid.innerGridDivisions] How many inner grid divisions to make (must be 2 or greater to have an effect)
+ * @param {number} [grid.innerGridXDivisions] How many inner grid divisions to make on the X axis
+ * @param {number} [grid.innerGridYDivisions] How many inner grid divisions to make on the Y axis
  * @param {number} [grid.innerGridStrokeWidth] How thick to make the inner strokes between grid lines
  * @param {number} [grid.innerGridStrokeColor] The color to use for the inner grid lines
  *
@@ -363,7 +364,8 @@ export default {
     gridHeight: 100,
     strokeWidth: 3,
     strokeColor: "#bbbbbb",
-    innerGridDivisions: 2,
+    innerGridXDivisions: 2,
+    innerGridYDivisions: 2,
     innerGridStrokeWidth: 2,
     innerGridStrokeColor: "#cccccc",
   },
