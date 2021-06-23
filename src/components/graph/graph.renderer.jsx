@@ -149,27 +149,41 @@ const _memoizedRenderDefs = _renderDefs();
  * @param {Object} transform - object that represents current graph transform
  * @returns {Object} Pattern defs for gridlines. Returns empty object if gridlines are disabled.
  */
-const _gridLineDefs = (config, transform) => {
-  const { renderGridLines, spacingX, spacingY, color, smallStrokeSize, largeStrokeSize } = config.grid;
+const _renderGridLineDefs = (config, transform) => {
+  const {
+    renderGridLines,
+    gridWidth,
+    gridHeight,
+    strokeColor,
+    innerGridStrokeWidth,
+    strokeWidth,
+    innerGridStrokeColor,
+    innerGridDivisions,
+  } = config.grid;
 
   // grid lines turned off; return nothing
   if (!renderGridLines) {
     return {};
   }
 
-  const width = spacingX * transform.k;
-  const height = spacingY * transform.k;
+  const width = gridWidth * transform.k;
+  const height = gridHeight * transform.k;
 
   return (
     <>
       {/* This is the "inner" grid lines that are thinner than the outer ones */}
       <pattern
         id={CONST.GRID_LINES_SMALL_GRID_PATTERN_ID}
-        width={width / 2}
-        height={height / 2}
+        width={width / innerGridDivisions}
+        height={height / innerGridDivisions}
         patternUnits="userSpaceOnUse"
       >
-        <path d={`M ${width / 2} 0 L 0 0 0 ${height / 2}`} fill="none" stroke={color} strokeWidth={smallStrokeSize} />
+        <path
+          d={`M ${width / innerGridDivisions} 0 L 0 0 0 ${height / innerGridDivisions}`}
+          fill="none"
+          stroke={innerGridStrokeColor}
+          strokeWidth={innerGridStrokeWidth}
+        />
       </pattern>
 
       {/* Larger grid lines with the smaller pattern above inside of them */}
@@ -182,7 +196,7 @@ const _gridLineDefs = (config, transform) => {
         patternUnits="userSpaceOnUse"
       >
         <rect width={width} height={height} fill={`url(#${CONST.GRID_LINES_SMALL_GRID_PATTERN_ID})`} />
-        <path d={`M ${width} 0 L 0 0 0 ${width}`} fill="none" stroke={color} strokeWidth={largeStrokeSize} />
+        <path d={`M ${width} 0 L 0 0 0 ${width}`} fill="none" stroke={strokeColor} strokeWidth={strokeWidth} />
       </pattern>
     </>
   );
@@ -254,7 +268,7 @@ function renderGraph(
     ),
     defs: {
       ..._memoizedRenderDefs(config),
-      ..._gridLineDefs(config, transform),
+      ..._renderGridLineDefs(config, transform),
     },
   };
 }

@@ -209,7 +209,7 @@ export default class Graph extends React.Component {
     this.isDraggingNode = false;
 
     if (this.state.draggedNode) {
-      const { snapToGrid, spacingX, spacingY } = this.state.config.grid;
+      const { snapToGrid, gridWidth, gridHeight } = this.state.config.grid;
 
       // when releasing the dragged node, we check if we should snap it to the grid
       if (snapToGrid) {
@@ -219,18 +219,18 @@ export default class Graph extends React.Component {
 
         // snap to x
         let snappedX = x;
-        if (x % spacingX < spacingX / 2) {
-          snappedX = x - (x % spacingX);
+        if (x % gridWidth < gridWidth / 2) {
+          snappedX = x - (x % gridWidth);
         } else {
-          snappedX = x + (spacingX - (x % spacingX));
+          snappedX = x + (gridWidth - (x % gridWidth));
         }
 
         // snap to y
         let snappedY = y;
-        if (y % spacingX < spacingY / 2) {
-          snappedY = y - (y % spacingY);
+        if (y % gridWidth < gridHeight / 2) {
+          snappedY = y - (y % gridHeight);
         } else {
-          snappedY = y + (spacingY - (y % spacingY));
+          snappedY = y + (gridHeight - (y % gridHeight));
         }
 
         draggedNode.x = snappedX;
