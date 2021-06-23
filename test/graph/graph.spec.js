@@ -38,12 +38,12 @@ describe("Graph Component", () => {
 
   describe("when onMouseOverNode is called", () => {
     const nodeOffset = 1;
-    const groupOffset = 3;
+    const groupOffset = 1;
     const nodeAdjOffset = 2;
     const nodeNotAdjOffset = 10;
 
     test("should call mouseOverNode callback", () => {
-      const linksNodes = that.tree.children[0].children[3].children;
+      const linksNodes = that.tree.children[0].children[groupOffset].children;
       const node = linksNodes[linksNodes.length - 1];
 
       node.children[0].props.onMouseOver();
