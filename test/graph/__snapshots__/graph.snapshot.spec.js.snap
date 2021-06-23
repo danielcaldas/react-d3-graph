@@ -14,98 +14,45 @@ exports[`Snapshot - Graph Component should match snapshot 1`] = `
       }
     }
   >
-    <defs>
-      <marker
-        className="marker"
-        fill="#d3d3d3"
-        id="marker-small"
-        markerHeight={6}
-        markerWidth={6}
-        orient="auto"
-        refX={0}
-        refY="0"
-        viewBox="0 -5 10 10"
-      >
-        <path
-          d="M0,-5L10,0L0,5"
-        />
-      </marker>
-      <marker
-        className="marker"
-        fill="blue"
-        id="marker-small-highlighted"
-        markerHeight={6}
-        markerWidth={6}
-        orient="auto"
-        refX={0}
-        refY="0"
-        viewBox="0 -5 10 10"
-      >
-        <path
-          d="M0,-5L10,0L0,5"
-        />
-      </marker>
-      <marker
-        className="marker"
-        fill="#d3d3d3"
-        id="marker-medium"
-        markerHeight={6}
-        markerWidth={6}
-        orient="auto"
-        refX={0}
-        refY="0"
-        viewBox="0 -5 10 10"
-      >
-        <path
-          d="M0,-5L10,0L0,5"
-        />
-      </marker>
-      <marker
-        className="marker"
-        fill="blue"
-        id="marker-medium-highlighted"
-        markerHeight={6}
-        markerWidth={6}
-        orient="auto"
-        refX={0}
-        refY="0"
-        viewBox="0 -5 10 10"
-      >
-        <path
-          d="M0,-5L10,0L0,5"
-        />
-      </marker>
-      <marker
-        className="marker"
-        fill="#d3d3d3"
-        id="marker-large"
-        markerHeight={6}
-        markerWidth={6}
-        orient="auto"
-        refX={0}
-        refY="0"
-        viewBox="0 -5 10 10"
-      >
-        <path
-          d="M0,-5L10,0L0,5"
-        />
-      </marker>
-      <marker
-        className="marker"
-        fill="blue"
-        id="marker-large-highlighted"
-        markerHeight={6}
-        markerWidth={6}
-        orient="auto"
-        refX={0}
-        refY="0"
-        viewBox="0 -5 10 10"
-      >
-        <path
-          d="M0,-5L10,0L0,5"
-        />
-      </marker>
-    </defs>
+    <pattern
+      height={50}
+      id="graph-grid-pattern-small"
+      patternUnits="userSpaceOnUse"
+      width={50}
+    >
+      <path
+        d="M 50 0 L 0 0 0 50"
+        fill="none"
+        stroke="#cccccc"
+        strokeWidth={2}
+      />
+    </pattern>
+    <pattern
+      height={100}
+      id="graph-grid-pattern-large"
+      patternUnits="userSpaceOnUse"
+      width={100}
+      x={0}
+      y={0}
+    >
+      <rect
+        fill="url(#graph-grid-pattern-small)"
+        height={100}
+        width={100}
+      />
+      <path
+        d="M 100 0 L 0 0 0 100"
+        fill="none"
+        stroke="#bbbbbb"
+        strokeWidth={3}
+      />
+    </pattern>
+    <rect
+      fill="url(#graph-grid-pattern-large)"
+      height="100%"
+      id="graphId-graph-grid-container"
+      width="100%"
+    />
     <g
       id="graphId-graph-container-zoomable"
       style={
