@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React from "react";
 
 import { drag as d3Drag } from "d3-drag";
@@ -18,6 +19,7 @@ import {
   initializeGraphState,
   initializeNodes,
   isPositionInBounds,
+  snapPointToGrid,
 } from "./graph.helper";
 import { renderGraph } from "./graph.renderer";
 import { merge, debounce, throwErr } from "../../utils";
@@ -204,37 +206,15 @@ export default class Graph extends React.Component {
   /**
    * Given a node id, will snap the node to the nearest grid intersection.
    * @param {string} nodeId ID of node to snap to the grid
+   * @returns {undefined}
    */
   _snapNodeToGrid = nodeId => {
-    const { gridWidth, gridHeight, innerGridXDivisions, innerGridYDivisions } = this.state.config.grid;
+    const node = this.state.nodes[nodeId];
 
-    let node = this.state.nodes[nodeId];
+    const { x, y } = snapPointToGrid(node.x, node.y, this.state.config.grid);
 
-    const { x, y } = node;
-
-    // have to find _actual_ width of each grid cell
-    // we use `|| 1` in case it is set to undefined or 0
-    const dividedGridWidth = gridWidth / (innerGridXDivisions || 1);
-    const dividedGridHeight = gridHeight / (innerGridYDivisions || 1);
-
-    // snap to x
-    let snappedX = x;
-    if (x % dividedGridWidth < dividedGridWidth / 2) {
-      snappedX = x - (x % dividedGridWidth);
-    } else {
-      snappedX = x + (dividedGridWidth - (x % dividedGridWidth));
-    }
-
-    // snap to y
-    let snappedY = y;
-    if (y % dividedGridHeight < dividedGridHeight / 2) {
-      snappedY = y - (y % dividedGridHeight);
-    } else {
-      snappedY = y + (dividedGridHeight - (y % dividedGridHeight));
-    }
-
-    node.x = snappedX;
-    node.y = snappedY;
+    node.x = x;
+    node.y = y;
     node.fx = node.x;
     node.fy = node.y;
   };
@@ -247,10 +227,8 @@ export default class Graph extends React.Component {
     this.isDraggingNode = false;
 
     if (this.state.draggedNode) {
-      const { snapToGrid } = this.state.config.grid;
-
       // when releasing the dragged node, we check if we should snap it to the grid
-      if (snapToGrid) {
+      if (this.state.config.grid.snapToGrid) {
         this._snapNodeToGrid(this.state.draggedNode.id);
       }
 
