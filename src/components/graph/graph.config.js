@@ -257,6 +257,17 @@
  *   - "butt"
  *   - "round"
  *   - "square"
+ * @param {Object} grid grid object is explained in the next section. ⬇️
+ * @param {boolean} [grid.renderGridLines] Whether or not to render grid lines
+ * @param {boolean} [grid.snapToGrid] Whether or not to snap dragged nodes grid lines
+ * @param {number} [grid.gridWidth] How far apart to put grid lines on the X axis
+ * @param {number} [grid.gridHeight] How far apart to put grid lines on the Y axis
+ * @param {number} [grid.strokeWidth] How thick to make the strokes between grid lines
+ * @param {string} [grid.strokeColor] The color to use for the grid lines
+ * @param {number} [grid.innerGridXDivisions] How many inner grid divisions to make on the X axis
+ * @param {number} [grid.innerGridYDivisions] How many inner grid divisions to make on the Y axis
+ * @param {number} [grid.innerGridStrokeWidth] How thick to make the inner strokes between grid lines
+ * @param {number} [grid.innerGridStrokeColor] The color to use for the inner grid lines
  *
  * @example
  * // A simple config that uses some properties
@@ -345,5 +356,17 @@ export default {
     strokeDasharray: 0,
     strokeDashoffset: 0,
     strokeLinecap: "butt",
+  },
+  grid: {
+    renderGridLines: false,
+    snapToGrid: false,
+    gridWidth: 100,
+    gridHeight: 100,
+    strokeWidth: 3,
+    strokeColor: "#bbbbbb",
+    innerGridXDivisions: 2,
+    innerGridYDivisions: 2,
+    innerGridStrokeWidth: 2,
+    innerGridStrokeColor: "#cccccc",
   },
 };

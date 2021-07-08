@@ -589,4 +589,37 @@ describe("Graph Helper", () => {
       });
     });
   });
+
+  describe("#snapPointToGrid", () => {
+    it("snaps points to the grid", () => {
+      /*
+        Imagine the grid like this, where Xs represent the "inner grid"
+        The middle point is 5,5
+
+        0,10           10,10
+          ┌───────────┐
+          │     x      │
+          │     x      │
+          │     x      │
+          │     x      │
+          │xxxxxxxxxxxx│
+          │     x 5,5  │
+          │     x      │
+          │     x      │
+          │     x      │
+          └───────────┘
+        0,0          10,0
+      */
+      const gridConfig = {
+        gridWidth: 10,
+        gridHeight: 10,
+        innerGridXDivisions: 2,
+        innerGridYDivisions: 2,
+      };
+
+      expect(graphHelper.snapPointToGrid(2.5, 2.5, gridConfig)).toEqual({ x: 5, y: 5 });
+      expect(graphHelper.snapPointToGrid(1, 1, gridConfig)).toEqual({ x: 0, y: 0 });
+      expect(graphHelper.snapPointToGrid(8, 8, gridConfig)).toEqual({ x: 10, y: 10 });
+    });
+  });
 });

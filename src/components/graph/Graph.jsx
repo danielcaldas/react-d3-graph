@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React from "react";
 
 import { drag as d3Drag } from "d3-drag";
@@ -18,6 +19,7 @@ import {
   initializeGraphState,
   initializeNodes,
   isPositionInBounds,
+  snapPointToGrid,
 } from "./graph.helper";
 import { renderGraph } from "./graph.renderer";
 import { merge, debounce, throwErr } from "../../utils";
@@ -202,6 +204,22 @@ export default class Graph extends React.Component {
   }
 
   /**
+   * Given a node id, will snap the node to the nearest grid intersection.
+   * @param {string} nodeId ID of node to snap to the grid
+   * @returns {undefined}
+   */
+  _snapNodeToGrid = nodeId => {
+    const node = this.state.nodes[nodeId];
+
+    const { x, y } = snapPointToGrid(node.x, node.y, this.state.config.grid);
+
+    node.x = x;
+    node.y = y;
+    node.fx = node.x;
+    node.fy = node.y;
+  };
+
+  /**
    * Handles d3 drag 'end' event.
    * @returns {undefined}
    */
@@ -209,6 +227,11 @@ export default class Graph extends React.Component {
     this.isDraggingNode = false;
 
     if (this.state.draggedNode) {
+      // when releasing the dragged node, we check if we should snap it to the grid
+      if (this.state.config.grid.snapToGrid) {
+        this._snapNodeToGrid(this.state.draggedNode.id);
+      }
+
       this.onNodePositionChange(this.state.draggedNode);
       this._tick({ draggedNode: null });
     }
@@ -246,8 +269,8 @@ export default class Graph extends React.Component {
         draggedNode.y = newY;
 
         // set nodes fixing coords fx and fy
-        draggedNode["fx"] = draggedNode.x;
-        draggedNode["fy"] = draggedNode.y;
+        draggedNode.fx = draggedNode.x;
+        draggedNode.fy = draggedNode.y;
 
         this._tick({ draggedNode });
       }
@@ -666,7 +689,7 @@ export default class Graph extends React.Component {
       this.state.config,
       this.state.highlightedNode,
       this.state.highlightedLink,
-      this.state.transform.k
+      this.state.transform
     );
 
     const svgStyle = {
@@ -680,6 +703,15 @@ export default class Graph extends React.Component {
       <div id={`${this.state.id}-${CONST.GRAPH_WRAPPER_ID}`}>
         <svg name={`svg-container-${this.state.id}`} style={svgStyle} onClick={this.onClickGraph}>
           {defs}
+          {this.state.config.grid.renderGridLines && (
+            // this rect is filled with a pattern generated in the `defs` above
+            <rect
+              id={`${this.state.id}-${CONST.GRID_LINES_CONTAINER_ID}`}
+              width="100%"
+              height="100%"
+              fill={`url(#${CONST.GRID_LINES_LARGE_GRID_PATTERN_ID})`}
+            />
+          )}
           <g id={`${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`} {...containerProps}>
             {links}
             {nodes}

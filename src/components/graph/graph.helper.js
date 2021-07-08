@@ -584,6 +584,43 @@ function isPositionInBounds(position, currentState) {
   );
 }
 
+/**
+ * Given a point, will snap it to the nearest grid line intersection
+ * @param {number} x X position to snap to grid
+ * @param {number} y Y position to snap to grid
+ * @param {Object} gridConfig Grid configuration
+ * @returns {Object} Position with x, y coordinates snapped to grid
+ */
+function snapPointToGrid(x, y, gridConfig) {
+  const { gridWidth, gridHeight, innerGridXDivisions, innerGridYDivisions } = gridConfig;
+
+  // have to find _actual_ width of each grid cell
+  // we use `|| 1` in case it is set to undefined or 0
+  const dividedGridWidth = gridWidth / (innerGridXDivisions || 1);
+  const dividedGridHeight = gridHeight / (innerGridYDivisions || 1);
+
+  // snap to x
+  let snappedX = x;
+  if (x % dividedGridWidth < dividedGridWidth / 2) {
+    snappedX = x - (x % dividedGridWidth);
+  } else {
+    snappedX = x + (dividedGridWidth - (x % dividedGridWidth));
+  }
+
+  // snap to y
+  let snappedY = y;
+  if (y % dividedGridHeight < dividedGridHeight / 2) {
+    snappedY = y - (y % dividedGridHeight);
+  } else {
+    snappedY = y + (dividedGridHeight - (y % dividedGridHeight));
+  }
+
+  return {
+    x: snappedX,
+    y: snappedY,
+  };
+}
+
 export {
   checkForGraphConfigChanges,
   checkForGraphElementsChanges,
@@ -594,4 +631,5 @@ export {
   getNormalizedNodeCoordinates,
   initializeNodes,
   isPositionInBounds,
+  snapPointToGrid,
 };
