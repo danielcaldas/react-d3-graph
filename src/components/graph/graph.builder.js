@@ -8,7 +8,7 @@ import { isNil } from "../../utils";
 
 import { buildLinkPathDefinition } from "../link/link.helper";
 import { getMarkerId } from "../marker/marker.helper";
-import { getNormalizedNodeCoordinates } from "./graph.helper";
+import { getNormalizedNodeCoordinates } from "./graph.coords";
 
 /**
  * Get the correct node opacity in order to properly make decisions based on context such as currently highlighted node.
@@ -131,7 +131,8 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     { sourceId: source, targetId: target, sourceCoords: { x: x1, y: y1 }, targetCoords: { x: x2, y: y2 } },
     nodes,
     config,
-    strokeWidth
+    strokeWidth,
+    link.breakPoints
   );
 
   const d = buildLinkPathDefinition(

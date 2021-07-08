@@ -37,9 +37,9 @@ describe("Graph Component", () => {
   });
 
   describe("when onMouseOverNode is called", () => {
-    const nodeOffset = 1;
-    const nodeAdjOffset = 2;
-    const nodeNotAdjOffset = 10;
+    const nodeOffset = 2;
+    const nodeAdjOffset = 3;
+    const nodeNotAdjOffset = 11;
 
     test("should call mouseOverNode callback", () => {
       const linksNodes = that.tree.children[0].children[1].children;
