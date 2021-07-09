@@ -193,7 +193,14 @@ export default class Graph extends React.Component {
    */
   _graphBindD3ToReactComponent() {
     if (!this.state.config.d3.disableLinkForce) {
-      this.state.simulation.nodes(this.state.d3Nodes).on("tick", this._tick);
+      this.state.simulation.nodes(this.state.d3Nodes).on("tick", () => {
+        // Propagate d3Nodes changes to nodes
+        const newNodes = {};
+        for (const node of this.state.d3Nodes) {
+          newNodes[node.id] = node;
+        }
+        this._tick({ d3Nodes: this.state.d3Nodes, nodes: newNodes });
+      });
       this._graphLinkForceConfig();
     }
     if (!this.state.config.freezeAllDragEvents) {
