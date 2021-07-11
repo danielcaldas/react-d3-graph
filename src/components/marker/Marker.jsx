@@ -17,7 +17,7 @@ export default class Marker extends React.Component {
         refY="0"
         markerWidth={this.props.markerWidth}
         markerHeight={this.props.markerHeight}
-        orient="auto"
+        orient="auto-start-reverse"
         fill={this.props.fill}
       >
         <path d="M0,-5L10,0L0,5" />

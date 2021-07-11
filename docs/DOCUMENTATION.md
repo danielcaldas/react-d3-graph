@@ -561,6 +561,18 @@ const graph = {
     The stroke-linecap options are:- "butt"
     - "round"
     - "square" (optional, default `"butt"`)
+  - `link.viewGenerator` **[Function][190]** <a id="link-view-generator" href="#link-view-generator">🔗</a> 🔍 function that receives parameters ( link label, source node, target node, link options ) and returns a JSX view.
+  ```js
+  viewGenerator: (props, options) => (
+      <CustomLink
+       label={props.label}
+       source={props.source}
+       target={props.target}
+       id={options.id}
+       textProps={options.textProps}
+       lineProps={options.lineProps}
+    />),
+  ```
 
 ### Examples
 
@@ -1438,9 +1450,11 @@ components.
   },
   ...
   }
+
   ```
 
   ```
+
 - `linkCallbacks` **[Array][189]&lt;[Function][190]>** array of callbacks for used defined event handler for link interactions.
 - `config` **[Object][188]** an object containing rd3g consumer defined configurations [config][200] for the graph.
 - `highlightedNode` **[string][187]** this value contains a string that represents the some currently highlighted node.

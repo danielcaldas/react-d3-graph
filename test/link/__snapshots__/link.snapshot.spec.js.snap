@@ -22,3 +22,5 @@ exports[`Snapshot - Link Component should match snapshot 1`] = `
   />
 </g>
 `;
+
+exports[`Snapshot - Link Component should match snapshot for viewGenerator 1`] = `null`;

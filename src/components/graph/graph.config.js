@@ -345,5 +345,6 @@ export default {
     strokeDasharray: 0,
     strokeDashoffset: 0,
     strokeLinecap: "butt",
+    viewGenerator: null,
   },
 };
