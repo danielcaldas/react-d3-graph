@@ -300,6 +300,9 @@ export default class Graph extends React.Component {
 
     if (!this.state.config.freezeAllDragEvents) {
       zoomObject.on("zoom", this._zoomed);
+      if (this.onDragChange) {
+        zoomObject.on("end", this._zoomedEnd);
+      }
     }
 
     if (this.state.config.initialZoom !== null) {
@@ -310,6 +313,12 @@ export default class Graph extends React.Component {
     // for more details consult: https://github.com/danielcaldas/react-d3-graph/pull/202
     selector.call(zoomObject).on("dblclick.zoom", null);
   };
+
+  _zoomedEnd = () => {
+    const transform = d3Event.transform;
+
+    this.onDragChange(transform);
+  }
 
   /**
    * Handler for 'zoom' event within zoom config.
@@ -545,6 +554,7 @@ export default class Graph extends React.Component {
     this.isDraggingNode = false;
     this.state = initializeGraphState(this.props, this.state);
     this.debouncedOnZoomChange = this.props.onZoomChange ? debounce(this.props.onZoomChange, 100) : null;
+    this.onDragChange = this.props.onDragChange ? this.props.onDragChange : null;
   }
 
   /**
