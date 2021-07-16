@@ -110,6 +110,10 @@ import { merge, debounce, throwErr } from "../../utils";
  *      window.alert(`Graph is now zoomed at ${newZoom} from ${previousZoom}`);
  * };
  *
+ * const onDragChange = function(newZoom) {
+ *      // newZoom is like {x: 1, y: 1, k: 1}
+ *      window.alert(`Graph is now zoomed/dragged ending at ${newZoom}`);
+ * };
  *
  * <Graph
  *      id='graph-id' // id is mandatory, if no id is defined rd3g will throw an error
@@ -126,7 +130,8 @@ import { merge, debounce, throwErr } from "../../utils";
  *      onMouseOverLink={onMouseOverLink}
  *      onMouseOutLink={onMouseOutLink}
  *      onNodePositionChange={onNodePositionChange}
- *      onZoomChange={onZoomChange}/>
+ *      onZoomChange={onZoomChange}
+ *      onDragChange={onDragChange} />
  */
 export default class Graph extends React.Component {
   /**
