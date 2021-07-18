@@ -99,6 +99,7 @@ export default class Link extends React.Component {
         fill: this.props.fontColor,
         fontSize: this.props.fontSize,
         fontWeight: this.props.fontWeight,
+        textAnchor: "middle",
       },
     };
 
@@ -106,7 +107,7 @@ export default class Link extends React.Component {
       <g>
         <path {...lineProps} id={id} />
         {label && (
-          <text style={{ textAnchor: "middle" }} {...textProps}>
+          <text {...textProps}>
             <textPath href={`#${id}`} startOffset="50%">
               {label}
             </textPath>
