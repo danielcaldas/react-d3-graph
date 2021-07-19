@@ -366,6 +366,11 @@ export default class Graph extends React.Component {
   onClickNode = clickedNodeId => {
     const clickedNode = this.state.nodes[clickedNodeId];
     if (!this.nodeClickTimer) {
+      // Note: onDoubleClickNode is not defined we don't need a long wait
+      // to understand weather a second click will arrive soon or not
+      // we can immediately trigger the click timer because we're 100%
+      // that the double click even is never intended
+      const ttl = this.props.onDoubleClickNode ? CONST.TTL_DOUBLE_CLICK_IN_MS : 0;
       this.nodeClickTimer = setTimeout(() => {
         if (this.state.config.collapsible) {
           const leafConnections = getTargetLeafConnections(clickedNodeId, this.state.links, this.state.config);
@@ -398,7 +403,7 @@ export default class Graph extends React.Component {
           this.props.onClickNode && this.props.onClickNode(clickedNodeId, clickedNode);
         }
         this.nodeClickTimer = null;
-      }, CONST.TTL_DOUBLE_CLICK_IN_MS);
+      }, ttl);
     } else {
       this.props.onDoubleClickNode && this.props.onDoubleClickNode(clickedNodeId, clickedNode);
       this.nodeClickTimer = clearTimeout(this.nodeClickTimer);
