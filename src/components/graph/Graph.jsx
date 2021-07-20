@@ -322,7 +322,7 @@ export default class Graph extends React.Component {
   _zoomedEnd = () => {
     const transform = d3Event.transform;
 
-    this.onDragChange(transform);
+    this.onDragChange && this.onDragChange(transform);
   }
 
   /**
