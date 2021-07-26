@@ -36,7 +36,6 @@ import { isDeepEqual, isEmptyObject, merge, pick, antiPick, throwErr, logWarning
 import { computeNodeDegree } from "./collapse.helper";
 
 const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
-const LINK_PROPS_WHITELIST = ["index", "source", "target", "isHidden"];
 
 /**
  * Create d3 forceSimulation to be applied on the graph.<br/>
@@ -145,49 +144,6 @@ function initializeNodes(graphNodes) {
  * @returns {Object} a d3Link.
  * @memberof Graph/helper
  */
-function _mergeDataLinkWithD3Link(link, index, d3Links = [], config, state = {}) {
-  // find the matching link if it exists
-  const tmp = d3Links.find(l => l.source.id === link.source && l.target.id === link.target);
-  const d3Link = tmp && pick(tmp, LINK_PROPS_WHITELIST);
-  const customProps = antiPick(link, ["source", "target"]);
-
-  if (d3Link) {
-    const toggledDirected =
-      state.config &&
-      Object.prototype.hasOwnProperty.call(state.config, "directed") &&
-      config.directed !== state.config.directed;
-    const refinedD3Link = {
-      index,
-      ...d3Link,
-      ...customProps,
-    };
-
-    // every time we toggle directed config all links should be visible again
-    if (toggledDirected) {
-      return { ...refinedD3Link, isHidden: false };
-    }
-
-    // every time we disable collapsible (collapsible is false) all links should be visible again
-    return config.collapsible ? refinedD3Link : { ...refinedD3Link, isHidden: false };
-  }
-
-  const highlighted = false;
-  const source = {
-    id: link.source,
-    highlighted,
-  };
-  const target = {
-    id: link.target,
-    highlighted,
-  };
-
-  return {
-    index,
-    source,
-    target,
-    ...customProps,
-  };
-}
 
 /**
  * Tags orphan nodes with a `_orphan` flag.
@@ -397,7 +353,7 @@ function initializeGraphState({ data, id, config }, state) {
       nodes: data.nodes.map(n =>
         state.nodes[n.id] ? { ...n, ...pick(state.nodes[n.id], NODE_PROPS_WHITELIST) } : { ...n }
       ),
-      links: data.links.map((l, index) => _mergeDataLinkWithD3Link(l, index, state && state.d3Links, config, state)),
+      links: data.links.map(l => ({ ...l })),
     };
   } else {
     graph = {
