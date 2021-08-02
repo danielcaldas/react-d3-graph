@@ -139,7 +139,7 @@ function isNodeVisible(nodeId, nodes, linksMatrix) {
     return false;
   }
   if (nodes[nodeId]._orphan) {
-    return false;
+    return true;
   }
 
   const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);

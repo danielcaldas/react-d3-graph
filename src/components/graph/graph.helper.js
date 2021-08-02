@@ -33,7 +33,6 @@ import DEFAULT_CONFIG from "./graph.config";
 import ERRORS from "../../err";
 
 import { isDeepEqual, isEmptyObject, merge, pick, antiPick, throwErr, logWarning } from "../../utils";
-import { computeNodeDegree } from "./collapse.helper";
 
 const NODE_PROPS_WHITELIST = ["id", "highlighted", "x", "y", "index", "vy", "vx"];
 const LINK_PROPS_WHITELIST = ["index", "source", "target", "isHidden"];
@@ -199,11 +198,8 @@ function _mergeDataLinkWithD3Link(link, index, d3Links = [], config, state = {})
  */
 function _tagOrphanNodes(nodes, linksMatrix) {
   return Object.keys(nodes).reduce((acc, nodeId) => {
-    const { inDegree, outDegree } = computeNodeDegree(nodeId, linksMatrix);
     const node = nodes[nodeId];
-    const taggedNode = inDegree === 0 && outDegree === 0 ? { ...node, _orphan: true } : node;
-
-    acc[nodeId] = taggedNode;
+    acc[nodeId] = linksMatrix[nodeId] ? node : { ...node, _orphan: true };
 
     return acc;
   }, {});
@@ -594,4 +590,5 @@ export {
   getNormalizedNodeCoordinates,
   initializeNodes,
   isPositionInBounds,
+  _tagOrphanNodes,
 };

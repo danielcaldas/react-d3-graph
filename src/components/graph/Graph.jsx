@@ -18,6 +18,7 @@ import {
   initializeGraphState,
   initializeNodes,
   isPositionInBounds,
+  _tagOrphanNodes,
 } from "./graph.helper";
 import { renderGraph } from "./graph.renderer";
 import { merge, debounce, throwErr } from "../../utils";
@@ -658,7 +659,7 @@ export default class Graph extends React.Component {
 
   render() {
     const { nodes, links, defs } = renderGraph(
-      this.state.nodes,
+      _tagOrphanNodes(this.state.nodes, this.state.links),
       {
         onClickNode: this.onClickNode,
         onDoubleClickNode: this.onDoubleClickNode,
