@@ -17,6 +17,7 @@ describe("Graph Helper", () => {
     utils.isEmptyObject = jest.fn();
     utils.merge = jest.fn();
     utils.throwErr = jest.fn();
+    utils.logWarning = jest.fn();
   });
 
   describe("#initializeGraphState", () => {
@@ -277,27 +278,43 @@ describe("Graph Helper", () => {
           simulation: {
             force: forceStub,
           },
-          transform: 1,
+          transform: { x: 0, y: 0, k: 1 },
           draggedNode: null,
         });
       });
     });
 
     describe("when invalid graph data is provided", () => {
-      describe("when no nodes are provided", () => {
-        test("should throw INSUFFICIENT_DATA error", () => {
-          const data = { nodes: [], links: [] };
+      const callInitializeGraph = data =>
+        graphHelper.initializeGraphState(
+          {
+            data,
+            id: "id",
+            config: "config",
+          },
+          "state"
+        );
 
-          graphHelper.initializeGraphState(
-            {
-              data,
-              id: "id",
-              config: "config",
-            },
-            "state"
+      describe("when no data is provided", () => {
+        test("should log INSUFFICIENT_DATA warning", () => {
+          callInitializeGraph({});
+
+          expect(utils.throwErr).not.toHaveBeenCalled();
+          expect(utils.logWarning).toHaveBeenCalledWith(
+            "Graph",
+            "you have not provided enough data" +
+              " for react-d3-graph to render something. You need to provide at least one node"
           );
+        });
+      });
 
-          expect(utils.throwErr).toHaveBeenCalledWith(
+      describe("when no nodes are provided", () => {
+        test("should log INSUFFICIENT_DATA warning", () => {
+          const data = { nodes: [] };
+          callInitializeGraph(data);
+
+          expect(utils.throwErr).not.toHaveBeenCalled();
+          expect(utils.logWarning).toHaveBeenCalledWith(
             "Graph",
             "you have not provided enough data" +
               " for react-d3-graph to render something. You need to provide at least one node"
@@ -313,21 +330,13 @@ describe("Graph Helper", () => {
         describe("when link source references nonexistent node", () => {
           test("should throw INVALID_LINKS error", () => {
             const data = { nodes: [{ id: "A" }], links: [{ source: "B", target: "A" }] };
-
-            graphHelper.initializeGraphState(
-              {
-                data,
-                id: "id",
-                config: "config",
-              },
-              "state"
-            );
+            callInitializeGraph(data);
 
             expect(utils.throwErr).toHaveBeenCalledWith(
               "Graph",
-              "you provided a invalid links data" +
+              "you provided a invalid links data structure. " +
                 // eslint-disable-next-line
-                ' structure. Links source and target attributes must point to an existent node - "B" is not a valid source node id'
+                'Links source and target attributes must point to an existent node - "B" is not a valid source node id'
             );
           });
         });
@@ -335,21 +344,13 @@ describe("Graph Helper", () => {
         describe("when link target references nonexistent node", () => {
           test("should throw INVALID_LINKS error", () => {
             const data = { nodes: [{ id: "A" }], links: [{ source: "A", target: "B" }] };
-
-            graphHelper.initializeGraphState(
-              {
-                data,
-                id: "id",
-                config: "config",
-              },
-              "state"
-            );
+            callInitializeGraph(data);
 
             expect(utils.throwErr).toHaveBeenCalledWith(
               "Graph",
-              "you provided a invalid links data" +
+              "you provided a invalid links data structure. " +
                 // eslint-disable-next-line
-                ' structure. Links source and target attributes must point to an existent node - "B" is not a valid target node id'
+                'Links source and target attributes must point to an existent node - "B" is not a valid target node id'
             );
           });
         });

@@ -25,6 +25,8 @@ import {
   forceSimulation as d3ForceSimulation,
   forceManyBody as d3ForceManyBody,
 } from "d3-force";
+import { select as d3Select } from "d3-selection";
+import { zoom as d3Zoom, zoomIdentity as d3ZoomIdentity } from "d3-zoom";
 
 import CONST from "./graph.const";
 import DEFAULT_CONFIG from "./graph.config";
@@ -102,7 +104,7 @@ function _initializeLinks(graphLinks, config) {
  * and highlighted values.
  * @memberof Graph/helper
  */
-function _initializeNodes(graphNodes) {
+function initializeNodes(graphNodes) {
   let nodes = {};
   const n = graphNodes.length;
 
@@ -220,7 +222,8 @@ function _tagOrphanNodes(nodes, linksMatrix) {
  */
 function _validateGraphData(data) {
   if (!data.nodes || !data.nodes.length) {
-    throwErr("Graph", ERRORS.INSUFFICIENT_DATA);
+    logWarning("Graph", ERRORS.INSUFFICIENT_DATA);
+    data.nodes = [];
   }
 
   if (!data.links) {
@@ -326,21 +329,33 @@ function checkForGraphConfigChanges(nextProps, currentState) {
  * selected node.
  * @param {Object} d3Node - node to focus the graph view on.
  * @param {Object} config - same as {@link #graphrenderer|config in renderGraph}.
+ * @param {string} containerElId - ID of container element
  * @returns {string|undefined} transform rule to apply.
  * @memberof Graph/helper
  */
-function getCenterAndZoomTransformation(d3Node, config) {
+function getCenterAndZoomTransformation(d3Node, config, containerElId) {
   if (!d3Node) {
     return;
   }
 
   const { width, height, focusZoom } = config;
 
+  const selector = d3Select(`#${containerElId}`);
+
+  // in order to initialize the new position
+  selector.call(
+    d3Zoom().transform,
+    d3ZoomIdentity
+      .translate(width / 2, height / 2)
+      .scale(focusZoom)
+      .translate(-d3Node.x, -d3Node.y)
+  );
+
   return `
-        translate(${width / 2}, ${height / 2})
-        scale(${focusZoom})
-        translate(${-d3Node.x}, ${-d3Node.y})
-    `;
+    translate(${width / 2}, ${height / 2})
+    scale(${focusZoom})
+    translate(${-d3Node.x}, ${-d3Node.y})
+  `;
 }
 
 /**
@@ -393,7 +408,7 @@ function initializeGraphState({ data, id, config }, state) {
 
   let newConfig = { ...merge(DEFAULT_CONFIG, config || {}) },
     links = _initializeLinks(graph.links, newConfig), // matrix of graph connections
-    nodes = _tagOrphanNodes(_initializeNodes(graph.nodes), links);
+    nodes = _tagOrphanNodes(initializeNodes(graph.nodes), links);
   const { nodes: d3Nodes, links: d3Links } = graph;
   const formatedId = id.replace(/ /g, "_");
   const simulation = _createForceSimulation(newConfig.width, newConfig.height, newConfig.d3 && newConfig.d3.gravity);
@@ -416,7 +431,7 @@ function initializeGraphState({ data, id, config }, state) {
     simulation,
     newGraphElements: false,
     configUpdated: false,
-    transform: 1,
+    transform: { x: 0, y: 0, k: 1 },
     draggedNode: null,
   };
 }
@@ -552,6 +567,23 @@ function getNormalizedNodeCoordinates(
   return { sourceCoords: { x: x1, y: y1 }, targetCoords: { x: x2, y: y2 } };
 }
 
+/**
+ * Checks if the position is inside the viewport bounds
+ * @param {{x: number, y: number}} position node's position
+ * @param {Object} currentState - the current state of the graph.
+ * @returns {boolean} true if the position is inside the viewport else false
+ */
+function isPositionInBounds(position, currentState) {
+  const { transform, config } = currentState;
+  const invertTransformZoom = 1 / transform.k;
+  return (
+    position.x > -transform.x * invertTransformZoom &&
+    position.x < (config.width - transform.x) * invertTransformZoom &&
+    position.y > -transform.y * invertTransformZoom &&
+    position.y < (config.height - transform.y) * invertTransformZoom
+  );
+}
+
 export {
   checkForGraphConfigChanges,
   checkForGraphElementsChanges,
@@ -560,4 +592,6 @@ export {
   initializeGraphState,
   updateNodeHighlightedValue,
   getNormalizedNodeCoordinates,
+  initializeNodes,
+  isPositionInBounds,
 };

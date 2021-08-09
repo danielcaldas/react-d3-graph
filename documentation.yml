@@ -1,15 +1,21 @@
 toc:
   - graph.config
   - Graph
-  - Graph/renderer
-  - Graph/builder
-  - Graph/helper
-  - Graph/collapse-helper
-  - Node
-  - Node/helper
-  - Link
-  - Link/helper
-  - Link/const
-  - Marker
-  - Marker/helper
-  - utils
+  - name: Internal Documentation
+    description: |
+      This section of the documentation is mainly targeted for contributors
+      working on react-d3-graph. If you're looking into making a change into the codebase
+      this section could give you an organized overview on the library modules.
+    children:
+      - Graph/renderer
+      - Graph/builder
+      - Graph/helper
+      - Graph/collapse-helper
+      - Node
+      - Node/helper
+      - Link
+      - Link/helper
+      - Link/const
+      - Marker
+      - Marker/helper
+      - utils

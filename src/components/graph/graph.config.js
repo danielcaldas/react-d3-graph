@@ -1,6 +1,13 @@
 /**
  * <div style="text-align: right;"><i>This is certainly the only extra piece of documentation that you will ever need</i></div>
  * </br></br>
+ *
+ * <b>Links</b></br>
+ * <ul>
+ * <li><a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html" target="_blank" title="react-d3-graph live demo">🔗 Live Demo</a></li>
+ * <li><a href="https://github.com/danielcaldas/react-d3-graph" target="_blank" title="react-d3-graph repository">🔗 GitHub</a></li>
+ * </ul>
+ *
  * Here you can consult a detailed description of each graph configurable property as well as the default values
  * of those properties.
  *
@@ -66,6 +73,8 @@
  *
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-zoom-animation.gif?raw=true" width="820" height="480"/>
  *
+ * @param {boolean} [freezeAllDragEvents=false] - <a id="freeze-all-drag-events" href="#freeze-all-drag-events">🔗</a> Disables manipulation of graph through drag
+ * and drop. This includes dragging graph elements, panning and zooming. *Note: this property can only be set in the first mount, it does not update dynamically.*
  * @param {number} [focusAnimationDuration=0.75] - <a id="focus-animation-duration" href="#focus-animation-duration">🔗</a> duration (in seconds) for the animation that takes place when focusing the graph on a node.
  * @param {number} [height=400] - <a id="height" href="#height">🔗</a> the height of the (svg) area where the graph will be rendered.
  * @param {boolean} [nodeHighlightBehavior=false] - <a id="node-highlight-behavior" href="#node-highlight-behavior">🔗</a> 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
@@ -90,6 +99,8 @@
  * @param {boolean} [staticGraphWithDragAndDrop] - <a id="static-graph-with-drag-and-drop" href="#static-graph-with-drag-and-drop">🔗</a> exactly the same as above <code>staticGraph</code>, but it will allow users to drag&drop nodes.
  * <b>Note</b>: If <code>staticGraph</code> is set to <code>true</code>, then <code>staticGraphWithDragAndDrop</code> will not produce the desired behaviour, make sure
  * to set only one of them to <code>true</code>.
+ * @param {boolean} [bounded=false] - <a id="bounded" href="#bounded">🔗</a> if the graph is set as bounded, it will be impossible
+ * to drag nodes outside the viewport. It does not apply to moving the entire graph around or when zooming in or out.
  * @param {number} [width=800] - <a id="width" href="#width">🔗</a> the width of the (svg) area where the graph will be rendered.
  * </br>
  * @param {Object} d3 d3 object is explained in next section. ⬇️
@@ -100,7 +111,7 @@
  *  - If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don"t overlap.
  * @param {number} [d3.linkLength=100] - <a id="d3-link-length" href="#d3-link-length">🔗</a> the length of each link from the center of the nodes it joins.
  * @param {number} [d3.linkStrength=1] - <a id="d3-link-strength" href="#d3-link-strength">🔗</a> <a target="_blank" href="https://github.com/d3/d3-force#link_strength">see d3-force link.strength</a>
- * @param {boolean} [d3.disableLinkForce=false] - <a id="d3-disable-link-force" href="#d3-disable-link-force">🔗</a> ⚠️🧪EXPERIMENTAL🧪⚠️ it completely disables d3 force link and simulation to re-trigger so that one can obtain
+ * @param {boolean} [d3.disableLinkForce=false] - <a id="d3-disable-link-force" href="#d3-disable-link-force">🔗</a> Completely disables d3 force link and simulation to re-trigger so that one can obtain
  * precise render of node positions as described by the author <a target="_blank" href="https://github.com/antoninklopp">@antoninklopp</a> in <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/pull/278">the Pull Request description</a>.
  * </br>
  * @param {Object} node node object is explained in next section. ⬇️
@@ -126,6 +137,7 @@
  *   - "top"
  *   - "bottom"
  *   - "center"
+ * @param {string} [node.labelClass=""] - <a id="node-label-class href="#node-label-class">🔗</a> 🔍 CSS class to apply to the node label.
  *
  * <b>[note]</b> not specifying a label position will fallback to the original placement scheme of to the right of the node. This is different than the implementation for "right", which has the label shifted very slightly upward compared to the original.
  * @param {string|Function} [node.labelProperty="id"] - <a id="node-label-property" href="#node-label-property">🔗</a> this is the node property that will be used in runtime to</br>
@@ -178,6 +190,19 @@
  * </br>
  * @param {Object} link link object is explained in the next section. ⬇️
  * <h2 id="config-link"><a href="#config-link">#</a> Link level configurations</h2>
+ * @param {Array.<Object>} [link.breakPoints=[]] - <a id="link-breakpoints" href="#link-breakPoints">🔗</a> 🔍 an array of coordinates, each coordinate indicates a breakpoint
+ * where the link will break its natural flow and link to the next breakpoint in the list. [Here's the original feature request](https://github.com/danielcaldas/react-d3-graph/issues/373) it should give you an idea of the capabilities of this feature.
+ * **Note that** this property can only be defined a link level and **not** through the config object.
+ * ```javascript
+ * const data = {
+ *   nodes: [ ... ],
+ *   links: [
+ *     source: 'a',
+ *     target: 'b',
+ *     breakPoints: [{ x: 100, y: 20 }, { x: 20, y: 100 }]
+ *   ]
+ * };
+ * ```
  * @param {string} [link.color="#d3d3d3"] - <a id="link-color" href="#link-color">🔗</a> 🔍 the color for links
  * (from version 1.3.0 this property can be configured at link level). <b>Note:</b> there's a current limitation where arrow markers in directed graphs won't have the same color as the link. Again this issue
  * only occurs for individually colored links, if links are colored globally through `link.color`
@@ -198,7 +223,7 @@
  * property for when link is mouse hovered.
  * @param {number} [link.opacity=1] 🔍 - <a href="#link-opacity" href="">🔗</a> the default opacity value for links.
  * @param {boolean} [link.renderLabel=false] - <a id="link-render-label" href="#link-render-label">🔗</a> when set to true labels will appear along side links in the
- * graph. <b>Note</b>: this will only happen of course if proper label is passed within the link, check also <code>link.labelProperty</code>.
+ * graph. <b>Note:</b> this will only happen of course if proper label is passed within the link, check also <code>link.labelProperty</code>.
  * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-link-render-label.png?raw=true" width="820" height="480"/>
  * @param {boolean} [link.semanticStrokeWidth=false] - <a id="link-semantic-stroke-width" href="#link-semantic-stroke-width">🔗</a> when set to true all links will have
@@ -222,6 +247,16 @@
  * - "CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
  * </br>
  * <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/>
+ * @param {number} [link.strokeDasharray=0] - <a id="link-stroke-dasharray" href="#link-stroke-dasharray">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dasharray">stroke-dasharray</a>
+ * The stroke-dasharray attribute defines the pattern of dashes and gaps used to paint the link.
+ * @param {number} [link.strokeDashoffset=0] - <a id="link-stroke-dashoffset" href="#link-stroke-dashoffset">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-dashoffset">stroke-dashoffset</a>
+ * The stroke-dashoffset attribute defines an offset on the rendering of the associated dash array.
+ * @param {string} [link.strokeLinecap="butt"] - <a id="link-stroke-linecap" href="#link-stroke-linecap">🔗</a> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke-linecap">stroke-linecap</a>
+ * The stroke-linecap attribute defines the shape to be used at the start and end of the link.
+ * The stroke-linecap options are:
+ *   - "butt"
+ *   - "round"
+ *   - "square"
  *
  * @example
  * // A simple config that uses some properties
@@ -245,6 +280,7 @@ export default {
   directed: false,
   focusAnimationDuration: 0.75,
   focusZoom: 1,
+  freezeAllDragEvents: false,
   height: 400,
   highlightDegree: 1,
   highlightOpacity: 1,
@@ -256,6 +292,7 @@ export default {
   panAndZoom: false,
   staticGraph: false,
   staticGraphWithDragAndDrop: false,
+  bounded: false,
   width: 800,
   d3: {
     alphaTarget: 0.05,
@@ -276,6 +313,7 @@ export default {
     highlightStrokeWidth: "SAME",
     labelProperty: "id",
     labelPosition: null,
+    labelClass: "",
     mouseCursor: "pointer",
     opacity: 1,
     renderLabel: true,
@@ -303,5 +341,9 @@ export default {
     markerHeight: 6,
     markerWidth: 6,
     type: "STRAIGHT",
+    selfLinkDirection: "TOP_RIGHT",
+    strokeDasharray: 0,
+    strokeDashoffset: 0,
+    strokeLinecap: "butt",
   },
 };

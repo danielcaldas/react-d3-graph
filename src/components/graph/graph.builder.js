@@ -4,6 +4,7 @@
  * Offers a series of methods that isolate the way graph elements are built (nodes and links mainly).
  */
 import CONST from "./graph.const";
+import { isNil } from "../../utils";
 
 import { buildLinkPathDefinition } from "../link/link.helper";
 import { getMarkerId } from "../marker/marker.helper";
@@ -60,6 +61,7 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
   let y2 = nodes?.[target]?.y || 0;
 
   const type = link.type || config.link.type;
+  const selfLinkDirection = link.selfLinkDirection || config.link.selfLinkDirection;
 
   let mainNodeParticipates = false;
 
@@ -91,6 +93,10 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
   if (highlight) {
     stroke = config.link.highlightColor === CONST.KEYWORDS.SAME ? config.link.color : config.link.highlightColor;
   }
+
+  const strokeDasharray = link.strokeDasharray || config.link.strokeDasharray;
+  const strokeDashoffset = link.strokeDashoffset || config.link.strokeDashoffset;
+  const strokeLinecap = link.strokeLinecap || config.link.strokeLinecap;
 
   let strokeWidth = (link.strokeWidth || config.link.strokeWidth) * (1 / transform);
 
@@ -127,7 +133,16 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     config,
     strokeWidth
   );
-  const d = buildLinkPathDefinition(sourceCoords, targetCoords, type);
+
+  const d = buildLinkPathDefinition(
+    sourceCoords,
+    targetCoords,
+    type,
+    link.breakPoints,
+    link.source,
+    link.target,
+    selfLinkDirection
+  );
 
   return {
     className: CONST.LINK_CLASS_NAME,
@@ -142,6 +157,9 @@ function buildLinkProps(link, nodes, links, config, linkCallbacks, highlightedNo
     source,
     stroke,
     strokeWidth,
+    strokeDasharray,
+    strokeDashoffset,
+    strokeLinecap,
     target,
     onClickLink: linkCallbacks.onClickLink,
     onMouseOutLink: linkCallbacks.onMouseOutLink,
@@ -195,15 +213,14 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
   const t = 1 / transform;
   const nodeSize = node.size || config.node.size;
 
-  let offset;
   const isSizeNumericValue = typeof nodeSize !== "object";
-
+  let offset = 0;
   if (isSizeNumericValue) {
     offset = nodeSize;
   } else if (labelPosition === "top" || labelPosition === "bottom") {
     offset = nodeSize.height;
-  } else {
-    nodeSize.width;
+  } else if (labelPosition === "right" || labelPosition === "left") {
+    offset = nodeSize.width;
   }
 
   const fontSize = node.fontSize || config.node.fontSize;
@@ -216,8 +233,13 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
   const fontColor = node.fontColor || config.node.fontColor;
 
   let renderLabel = config.node.renderLabel;
-  if (node.renderLabel !== undefined && typeof node.renderLabel === "boolean") {
+  if (!isNil(node.renderLabel) && typeof node.renderLabel === "boolean") {
     renderLabel = node.renderLabel;
+  }
+
+  var labelClass = config.node.labelClass;
+  if (!isNil(node.labelClass) && typeof node.labelClass === "string") {
+    labelClass = node.labelClass;
   }
 
   return {
@@ -237,6 +259,7 @@ function buildNodeProps(node, config, nodeCallbacks = {}, highlightedNode, highl
     opacity,
     overrideGlobalViewGenerator: !node.viewGenerator && node.svg,
     renderLabel,
+    labelClass,
     size: isSizeNumericValue ? nodeSize * t : { height: nodeSize.height * t, width: nodeSize.width * t },
     stroke,
     strokeWidth: strokeWidth * t,

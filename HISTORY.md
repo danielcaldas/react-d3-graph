@@ -1,58 +1,3 @@
-# Changelog
-
-## [2.6.0](https://github.com/danielcaldas/react-d3-graph/tree/2.6.0) (2020-12-18)
-
-[Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.5.0...2.6.0)
-
-**Implemented enhancements:**
-
-- Arrow color go out of sync with link color when link.color or link.highlightColor is updated [\#360](https://github.com/danielcaldas/react-d3-graph/issues/360)
-- Error: react-d3-graph :: Graph :: you have not provided enough data for react-d3-graph to render something. You need to provide at least one node [\#347](https://github.com/danielcaldas/react-d3-graph/issues/347)
-- get x, y and other node informations with event onMouseOverNode\(\) [\#306](https://github.com/danielcaldas/react-d3-graph/issues/306)
-- Arrows don't point to nodes as expected [\#265](https://github.com/danielcaldas/react-d3-graph/issues/265)
-- feature: expose node information to node related callbacks [\#385](https://github.com/danielcaldas/react-d3-graph/pull/385) ([LonelyPrincess](https://github.com/LonelyPrincess))
-- Don't throw error when there are no nodes [\#381](https://github.com/danielcaldas/react-d3-graph/pull/381) ([LonelyPrincess](https://github.com/LonelyPrincess))
-
-**Fixed bugs:**
-
-- Some properties make the graph becomes unresetable [\#372](https://github.com/danielcaldas/react-d3-graph/issues/372)
-- Node does not move/update when given coordinates or new coordinates [\#295](https://github.com/danielcaldas/react-d3-graph/issues/295)
-
-**Closed issues:**
-
-- Bendable links [\#373](https://github.com/danielcaldas/react-d3-graph/issues/373)
-- High res pdf [\#356](https://github.com/danielcaldas/react-d3-graph/issues/356)
-- Rendering graph with initial node positions doesn't properly place nodes without links [\#350](https://github.com/danielcaldas/react-d3-graph/issues/350)
-- Enhance control on links appearance - support dashed links [\#343](https://github.com/danielcaldas/react-d3-graph/issues/343)
-- Error when attempting to drag custom nodes [\#338](https://github.com/danielcaldas/react-d3-graph/issues/338)
-- fontSize parameter should be working for single node [\#330](https://github.com/danielcaldas/react-d3-graph/issues/330)
-- Adding the ability to completely freeze the graph [\#308](https://github.com/danielcaldas/react-d3-graph/issues/308)
-
-**Merged pull requests:**
-
-- Chore/documentation improvements [\#413](https://github.com/danielcaldas/react-d3-graph/pull/413) ([danielcaldas](https://github.com/danielcaldas))
-- Bump ini from 1.3.5 to 1.3.7 [\#411](https://github.com/danielcaldas/react-d3-graph/pull/411) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Adding missing onNodePositionChange property in Graph.jsx doc [\#405](https://github.com/danielcaldas/react-d3-graph/pull/405) ([antoninklopp](https://github.com/antoninklopp))
-- Bump highlight.js from 9.18.1 to 9.18.5 [\#402](https://github.com/danielcaldas/react-d3-graph/pull/402) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Add Antonin to Core Team section [\#398](https://github.com/danielcaldas/react-d3-graph/pull/398) ([danielcaldas](https://github.com/danielcaldas))
-- allow dashed links [\#397](https://github.com/danielcaldas/react-d3-graph/pull/397) ([lironhl](https://github.com/lironhl))
-- Chore/clean up repo add core team section [\#392](https://github.com/danielcaldas/react-d3-graph/pull/392) ([danielcaldas](https://github.com/danielcaldas))
-- New freezeAllDragEvents configuration property to prevent node drag-and-drop [\#388](https://github.com/danielcaldas/react-d3-graph/pull/388) ([Antrikshy](https://github.com/Antrikshy))
-- fix label offset calculation when labelPosition is horizontal [\#379](https://github.com/danielcaldas/react-d3-graph/pull/379) ([lironhl](https://github.com/lironhl))
-- Add the ability to make link cross multiple points across its route from source node to target node [\#378](https://github.com/danielcaldas/react-d3-graph/pull/378) ([lironhl](https://github.com/lironhl))
-- Fixing graph reset [\#377](https://github.com/danielcaldas/react-d3-graph/pull/377) ([antoninklopp](https://github.com/antoninklopp))
-- node.fontSize value now overrides config.node.fontSize value [\#376](https://github.com/danielcaldas/react-d3-graph/pull/376) ([lironhl](https://github.com/lironhl))
-- Bugs with focusedNodeId [\#374](https://github.com/danielcaldas/react-d3-graph/pull/374) ([TranquilMarmot](https://github.com/TranquilMarmot))
-- Update actions matrix to run against different react versions [\#371](https://github.com/danielcaldas/react-d3-graph/pull/371) ([danielcaldas](https://github.com/danielcaldas))
-- Bug fix around node offset improvement for arrow positioning \#271 [\#370](https://github.com/danielcaldas/react-d3-graph/pull/370) ([danielcaldas](https://github.com/danielcaldas))
-- Bump http-proxy from 1.18.0 to 1.18.1 [\#369](https://github.com/danielcaldas/react-d3-graph/pull/369) ([dependabot[bot]](https://github.com/apps/dependabot))
-- Chore/change indentation to tab with 2 spaces [\#363](https://github.com/danielcaldas/react-d3-graph/pull/363) ([danielcaldas](https://github.com/danielcaldas))
-- Fix to change arrow color when link color or highlight color changes [\#361](https://github.com/danielcaldas/react-d3-graph/pull/361) ([chetanladha](https://github.com/chetanladha))
-- Fix package.json scripts to be cross-platform [\#358](https://github.com/danielcaldas/react-d3-graph/pull/358) ([TranquilMarmot](https://github.com/TranquilMarmot))
-- Add onZoomChange prop to Graph [\#354](https://github.com/danielcaldas/react-d3-graph/pull/354) ([TranquilMarmot](https://github.com/TranquilMarmot))
-- Use fx and fy when initializing nodes [\#353](https://github.com/danielcaldas/react-d3-graph/pull/353) ([TranquilMarmot](https://github.com/TranquilMarmot))
-- Bump elliptic from 6.5.2 to 6.5.3 [\#352](https://github.com/danielcaldas/react-d3-graph/pull/352) ([dependabot[bot]](https://github.com/apps/dependabot))
-
 ## [2.5.0](https://github.com/danielcaldas/react-d3-graph/tree/2.5.0)
 
 [Full Changelog](https://github.com/danielcaldas/react-d3-graph/compare/2.4.1...2.5.0)
@@ -522,5 +467,3 @@ react and d3 versions.
 - Graph forces [\#1](https://github.com/danielcaldas/react-d3-graph/pull/1) ([danielcaldas](https://github.com/danielcaldas))
 
 \* _This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)_
-
-\* _This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)_
