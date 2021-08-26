@@ -25,9 +25,9 @@
     "lint:test": "eslint --config=.eslintrc.test.config.js \"test/**/*.spec.js\"",
     "lint": "npm run lint:src && npm run lint:test && npm run docs:lint",
     "start": "http-server ./sandbox/ -p 8888 -c-1",
-    "test:clean": "jest --no-cache --updateSnapshot --verbose --coverage --config jest.config.js",
-    "test:watch": "jest --verbose --coverage --watchAll --config jest.config.js",
-    "test": "jest --verbose --coverage --config jest.config.js",
+    "test:clean": "jest --no-cache --updateSnapshot --verbose --coverage --env jsdom --config jest.config.js",
+    "test:watch": "jest --verbose --coverage --watchAll --env jsdom --config jest.config.js",
+    "test": "jest --verbose --coverage --env jsdom --config jest.config.js",
     "sandbox": "npm run dist:sandbox && npm run start",
     "prettier": "prettier --write test/**/*"
   },
@@ -38,7 +38,7 @@
     ]
   },
   "peerDependencies": {
-    "d3": "^5.5.0",
+    "d3": "^7.0.0",
     "react": "^16.4.1"
   },
   "devDependencies": {
@@ -53,7 +53,7 @@
     "cross-env": "5.2.1",
     "css-loader": "2.0.2",
     "cypress": "3.8.3",
-    "d3": "^5.5.0",
+    "d3": "^7.0.0",
     "documentation": "12.1.2",
     "eslint": "6.3.0",
     "eslint-config-recommended": "4.0.0",
@@ -67,7 +67,7 @@
     "html-webpack-plugin": "2.30.1",
     "http-server": "^0.12.1",
     "husky": "3.0.5",
-    "jest": "24.9.0",
+    "jest": "27.0.6",
     "jsdoc": "^3.6.3",
     "lint-staged": "9.2.5",
     "lz-string": "^1.4.4",
