@@ -319,14 +319,6 @@ export default class Graph extends React.Component {
     const transform = d3Event.transform;
 
     d3SelectAll(`#${this.state.id}-${CONST.GRAPH_CONTAINER_ID}`).attr("transform", transform);
-
-    this.setState({ transform });
-
-    // only send zoom change events if the zoom has changed (_zoomed() also gets called when panning)
-    if (this.debouncedOnZoomChange && this.state.previousZoom !== transform.k && !this.state.config.panAndZoom) {
-      this.debouncedOnZoomChange(this.state.previousZoom, transform.k);
-      this.setState({ previousZoom: transform.k });
-    }
   };
 
   /**
@@ -396,6 +388,8 @@ export default class Graph extends React.Component {
       this.props.onDoubleClickNode && this.props.onDoubleClickNode(clickedNodeId, clickedNode);
       this.nodeClickTimer = clearTimeout(this.nodeClickTimer);
     }
+
+    this.setState({ clickedNode: true });
   };
 
   /**
@@ -605,6 +599,14 @@ export default class Graph extends React.Component {
 
     if (!this.state.config.staticGraph && (this.state.newGraphElements || this.state.d3ConfigUpdated)) {
       this._graphBindD3ToReactComponent();
+
+      if (this.state.clickedNode) {
+        this.pauseSimulation();
+      }
+
+      if (this.state.newGraphElements) {
+        this.restartSimulation();
+      }
 
       if (!this.state.config.staticGraphWithDragAndDrop) {
         this.restartSimulation();

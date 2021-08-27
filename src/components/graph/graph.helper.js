@@ -397,7 +397,7 @@ function initializeGraphState({ data, id, config }, state) {
       nodes: data.nodes.map(n =>
         state.nodes[n.id] ? { ...n, ...pick(state.nodes[n.id], NODE_PROPS_WHITELIST) } : { ...n }
       ),
-      links: data.links.map((l, index) => _mergeDataLinkWithD3Link(l, index, state && state.d3Links, config, state)),
+      links: data.links.map(l => ({ ...l })),
     };
   } else {
     graph = {
