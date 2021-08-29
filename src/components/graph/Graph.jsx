@@ -683,6 +683,8 @@ export default class Graph extends React.Component {
     const svgStyle = {
       height: this.state.config.height,
       width: this.state.config.width,
+      'background-color': this.state.config.backgroundColor,
+      'border-style': this.state.config.border,
     };
 
     const containerProps = this._generateFocusAnimationProps();
