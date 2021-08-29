@@ -110,6 +110,10 @@ import { merge, debounce, throwErr } from "../../utils";
  *      window.alert(`Graph is now zoomed at ${newZoom} from ${previousZoom}`);
  * };
  *
+ * const onDragChange = function(newZoom) {
+ *      // newZoom is like {x: 1, y: 1, k: 1}
+ *      window.alert(`Graph is now zoomed/dragged ending at ${newZoom}`);
+ * };
  *
  * <Graph
  *      id='graph-id' // id is mandatory, if no id is defined rd3g will throw an error
@@ -126,7 +130,8 @@ import { merge, debounce, throwErr } from "../../utils";
  *      onMouseOverLink={onMouseOverLink}
  *      onMouseOutLink={onMouseOutLink}
  *      onNodePositionChange={onNodePositionChange}
- *      onZoomChange={onZoomChange}/>
+ *      onZoomChange={onZoomChange}
+ *      onDragChange={onDragChange} />
  */
 export default class Graph extends React.Component {
   /**
@@ -307,6 +312,9 @@ export default class Graph extends React.Component {
 
     if (!this.state.config.freezeAllDragEvents) {
       zoomObject.on("zoom", this._zoomed);
+      if (this.onDragChange) {
+        zoomObject.on("end", this._zoomedEnd);
+      }
     }
 
     if (this.state.config.initialZoom !== null) {
@@ -317,6 +325,12 @@ export default class Graph extends React.Component {
     // for more details consult: https://github.com/danielcaldas/react-d3-graph/pull/202
     selector.call(zoomObject).on("dblclick.zoom", null);
   };
+
+  _zoomedEnd = () => {
+    const transform = d3Event.transform;
+
+    this.onDragChange && this.onDragChange(transform);
+  }
 
   /**
    * Handler for 'zoom' event within zoom config.
@@ -556,6 +570,7 @@ export default class Graph extends React.Component {
     this.isDraggingNode = false;
     this.state = initializeGraphState(this.props, this.state);
     this.debouncedOnZoomChange = this.props.onZoomChange ? debounce(this.props.onZoomChange, 100) : null;
+    this.onDragChange = this.props.onDragChange ? this.props.onDragChange : null;
   }
 
   /**
