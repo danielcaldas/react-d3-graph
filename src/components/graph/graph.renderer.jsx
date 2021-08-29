@@ -51,8 +51,8 @@ function _renderLinks(nodes, links, linksMatrix, config, linkCallbacks, highligh
       highlightedLink,
       transform
     );
-
-    return <Link key={key} id={key} {...props} />;
+    const node = { source: nodes[props.source], target: nodes[props.target] };
+    return <Link key={key} id={key} {...props} node={node} />;
   });
 }
 
