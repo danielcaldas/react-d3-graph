@@ -3,19 +3,19 @@ import React from "react";
 /**
  * Link component is responsible for encapsulating link render.
  * @example
- * const onClickLink = function(source, target) {
+ * const onClickLink = function(source, target, label) {
  *      window.alert(`Clicked link between ${source} and ${target}`);
  * };
  *
- * const onRightClickLink = function(source, target) {
+ * const onRightClickLink = function(source, target, label) {
  *      window.alert(`Right clicked link between ${source} and ${target}`);
  * };
  *
- * const onMouseOverLink = function(source, target) {
+ * const onMouseOverLink = function(source, target, label) {
  *      window.alert(`Mouse over in link between ${source} and ${target}`);
  * };
  *
- * const onMouseOutLink = function(source, target) {
+ * const onMouseOutLink = function(source, target, label) {
  *      window.alert(`Mouse out link between ${source} and ${target}`);
  * };
  *
@@ -42,7 +42,8 @@ export default class Link extends React.Component {
    * Handle link click event.
    * @returns {undefined}
    */
-  handleOnClickLink = () => this.props.onClickLink && this.props.onClickLink(this.props.source, this.props.target);
+  handleOnClickLink = () =>
+    this.props.onClickLink && this.props.onClickLink(this.props.source, this.props.target, this.props.label);
 
   /**
    * Handle link right click event.
@@ -50,21 +51,22 @@ export default class Link extends React.Component {
    * @returns {undefined}
    */
   handleOnRightClickLink = event =>
-    this.props.onRightClickLink && this.props.onRightClickLink(event, this.props.source, this.props.target);
+    this.props.onRightClickLink &&
+    this.props.onRightClickLink(event, this.props.source, this.props.target, this.props.label);
 
   /**
    * Handle mouse over link event.
    * @returns {undefined}
    */
   handleOnMouseOverLink = () =>
-    this.props.onMouseOverLink && this.props.onMouseOverLink(this.props.source, this.props.target);
+    this.props.onMouseOverLink && this.props.onMouseOverLink(this.props.source, this.props.target, this.props.label);
 
   /**
    * Handle mouse out link event.
    * @returns {undefined}
    */
   handleOnMouseOutLink = () =>
-    this.props.onMouseOutLink && this.props.onMouseOutLink(this.props.source, this.props.target);
+    this.props.onMouseOutLink && this.props.onMouseOutLink(this.props.source, this.props.target, this.props.label);
 
   render() {
     const lineStyle = {
