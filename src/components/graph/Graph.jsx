@@ -235,7 +235,7 @@ export default class Graph extends React.Component {
 
       draggedNode.oldX = draggedNode.x;
       draggedNode.oldY = draggedNode.y;
-
+      
       draggedNode.x += d3Event.dx;
       draggedNode.y += d3Event.dy;
 
@@ -244,6 +244,7 @@ export default class Graph extends React.Component {
       draggedNode["fy"] = draggedNode.y;
 
       this._tick({ draggedNode });
+      this.props.onDragMoveCallBack(ev, index, nodeList, d3Event.dx, d3Event.dy)
     }
   };
 
