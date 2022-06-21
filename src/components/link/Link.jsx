@@ -74,7 +74,7 @@ export default class Link extends React.Component {
       fill: "none",
       cursor: this.props.mouseCursor,
       strokeDasharray: this.props.strokeDasharray,
-      strokeDashoffset: this.props.strokeDasharray,
+      strokeDashoffset: this.props.strokeDashoffset,
       strokeLinecap: this.props.strokeLinecap,
     };
 
