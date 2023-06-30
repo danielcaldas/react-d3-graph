@@ -3,7 +3,7 @@
  * @description
  * A set of helper methods to manipulate/create links.
  */
-import { LINE_TYPES, SELF_LINK_DIRECTION } from "./link.const";
+import { LINE_TYPES } from "./link.const";
 
 /**
  * Computes radius value for a straight line.
@@ -65,9 +65,6 @@ function getRadiusStrategy(type) {
  * @param {Object} targetCoords - link targetCoords
  * @param {string} type - the link line type
  * @param {Array.<Object>} breakPoints - additional set of points that the link will cross
- * @param {string|number} sourceId - the source node id
- * @param {string|number} targetId - the target node id
- * @param {string} selfLinkDirection - the direction that self links will be rendered in
  * @returns {string} the path definition for the requested link
  * @memberof Link/helper
  */
@@ -76,24 +73,10 @@ function buildLinkPathDefinition(
   targetCoords = {},
   type = LINE_TYPES.STRAIGHT,
   breakPoints = [],
-  sourceId,
-  targetId,
-  selfLinkDirection = SELF_LINK_DIRECTION.TOP_RIGHT
+  targetWidth = 0,
+  targetHeight = 0
 ) {
   const { x: sx, y: sy } = sourceCoords;
-  const { x: tx, y: ty } = targetCoords;
-  if (sourceId === targetId && sx === tx && sy === ty) {
-    switch (selfLinkDirection) {
-      case SELF_LINK_DIRECTION.TOP_LEFT:
-        return `M${sx},${sy} A40,30 45 1,1 ${tx + 1},${ty - 1}`;
-      case SELF_LINK_DIRECTION.BOTTOM_LEFT:
-        return `M${sx},${sy} A40,30 -45 1,1 ${tx - 1},${ty - 1}`;
-      case SELF_LINK_DIRECTION.BOTTOM_RIGHT:
-        return `M${sx},${sy} A40,30 45 1,1 ${tx - 1},${ty + 1}`;
-      default:
-        return `M${sx},${sy} A40,30 -45 1,1 ${tx + 1},${ty + 1}`;
-    }
-  }
   const validType = LINE_TYPES[type] || LINE_TYPES.STRAIGHT;
   const calcRadiusFn = getRadiusStrategy(validType);
 
@@ -103,6 +86,32 @@ function buildLinkPathDefinition(
       const { x: px, y: py } = i > 0 ? restOfLinkPoints[i - 1] : sourceCoords;
       const radius = calcRadiusFn(px, py, x, y);
 
+      // Slope of the link line
+      var alpha = Math.atan((y - py) / (x - px));
+      // Slope of bottom left edge to top right edge of node (is positive)
+      var beta = Math.atan(targetHeight / targetWidth);
+      // Decrease percent
+      var percentThreshold = 0.8;
+      // Change x and y to be the edge of the target
+      if (alpha > -beta && alpha <= beta) {
+        // Left or right edge of target
+        // Calculate sign of x - px
+        var sign = Math.sign(x - px);
+        var widthPercent = (targetWidth / 2 / (x - px)) * percentThreshold;
+        var xNew = x - sign * (x - px) * widthPercent;
+        x = xNew;
+        var yNew = y - sign * (y - py) * widthPercent;
+        y = yNew;
+      } else {
+        // Top or bottom edge of target
+        // Calculate sign of y - py
+        var sign = Math.sign(y - py);
+        var heightPercent = (targetHeight / 2 / (y - py)) * percentThreshold;
+        var xNew = x - sign * (x - px) * heightPercent;
+        x = xNew;
+        var yNew = y - sign * (y - py) * heightPercent;
+        y = yNew;
+      }
       return ` A${radius},${radius} 0 0,1 ${x},${y}`;
     })
     .join("");

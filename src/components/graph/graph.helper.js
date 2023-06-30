@@ -431,7 +431,7 @@ function initializeGraphState({ data, id, config }, state) {
     simulation,
     newGraphElements: false,
     configUpdated: false,
-    transform: { x: 0, y: 0, k: 1 },
+    transform: 1,
     draggedNode: null,
   };
 }
@@ -567,23 +567,6 @@ function getNormalizedNodeCoordinates(
   return { sourceCoords: { x: x1, y: y1 }, targetCoords: { x: x2, y: y2 } };
 }
 
-/**
- * Checks if the position is inside the viewport bounds
- * @param {{x: number, y: number}} position node's position
- * @param {Object} currentState - the current state of the graph.
- * @returns {boolean} true if the position is inside the viewport else false
- */
-function isPositionInBounds(position, currentState) {
-  const { transform, config } = currentState;
-  const invertTransformZoom = 1 / transform.k;
-  return (
-    position.x > -transform.x * invertTransformZoom &&
-    position.x < (config.width - transform.x) * invertTransformZoom &&
-    position.y > -transform.y * invertTransformZoom &&
-    position.y < (config.height - transform.y) * invertTransformZoom
-  );
-}
-
 export {
   checkForGraphConfigChanges,
   checkForGraphElementsChanges,
@@ -593,5 +576,4 @@ export {
   updateNodeHighlightedValue,
   getNormalizedNodeCoordinates,
   initializeNodes,
-  isPositionInBounds,
 };
