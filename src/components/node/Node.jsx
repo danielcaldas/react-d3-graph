@@ -94,7 +94,6 @@ export default class Node extends React.Component {
       fontSize: this.props.fontSize,
       fontWeight: this.props.fontWeight,
       opacity: this.props.opacity,
-      ...(this.props.labelClass && { className: this.props.labelClass }),
     };
 
     let size = this.props.size;

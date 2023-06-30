@@ -99,8 +99,6 @@
  * @param {boolean} [staticGraphWithDragAndDrop] - <a id="static-graph-with-drag-and-drop" href="#static-graph-with-drag-and-drop">🔗</a> exactly the same as above <code>staticGraph</code>, but it will allow users to drag&drop nodes.
  * <b>Note</b>: If <code>staticGraph</code> is set to <code>true</code>, then <code>staticGraphWithDragAndDrop</code> will not produce the desired behaviour, make sure
  * to set only one of them to <code>true</code>.
- * @param {boolean} [bounded=false] - <a id="bounded" href="#bounded">🔗</a> if the graph is set as bounded, it will be impossible
- * to drag nodes outside the viewport. It does not apply to moving the entire graph around or when zooming in or out.
  * @param {number} [width=800] - <a id="width" href="#width">🔗</a> the width of the (svg) area where the graph will be rendered.
  * </br>
  * @param {Object} d3 d3 object is explained in next section. ⬇️
@@ -137,7 +135,6 @@
  *   - "top"
  *   - "bottom"
  *   - "center"
- * @param {string} [node.labelClass=""] - <a id="node-label-class href="#node-label-class">🔗</a> 🔍 CSS class to apply to the node label.
  *
  * <b>[note]</b> not specifying a label position will fallback to the original placement scheme of to the right of the node. This is different than the implementation for "right", which has the label shifted very slightly upward compared to the original.
  * @param {string|Function} [node.labelProperty="id"] - <a id="node-label-property" href="#node-label-property">🔗</a> this is the node property that will be used in runtime to</br>
@@ -292,7 +289,6 @@ export default {
   panAndZoom: false,
   staticGraph: false,
   staticGraphWithDragAndDrop: false,
-  bounded: false,
   width: 800,
   d3: {
     alphaTarget: 0.05,
@@ -313,7 +309,6 @@ export default {
     highlightStrokeWidth: "SAME",
     labelProperty: "id",
     labelPosition: null,
-    labelClass: "",
     mouseCursor: "pointer",
     opacity: 1,
     renderLabel: true,
@@ -341,7 +336,6 @@ export default {
     markerHeight: 6,
     markerWidth: 6,
     type: "STRAIGHT",
-    selfLinkDirection: "TOP_RIGHT",
     strokeDasharray: 0,
     strokeDashoffset: 0,
     strokeLinecap: "butt",
