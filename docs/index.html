@@ -318,15 +318,15 @@
 <li><a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html" target="_blank" title="react-d3-graph live demo">🔗 Live Demo</a></li>
 <li><a href="https://github.com/danielcaldas/react-d3-graph" target="_blank" title="react-d3-graph repository">🔗 GitHub</a></li>
 </ul>
-<p>Here you can consult a detailed description of each graph configurable property as well as the default values
-of those properties.</p>
+<p>Here, you can find a comprehensive description of each configurable property of a graph, along with their default values.
+</p>
 <p><b>Note about performance</b></br>
 Some of the properties have a major performance impact when toggled while rendering graphs of medium or large dimensions (hundreds or thousand of elements).
 These properties are marked with 🚅🚅🚅.</br>
-⭐ <b>tip</b> <i>to achieve smoother interactions you may want to provide a toggle to set <b>staticGraph</b> or (better) <b>staticGraphWithDragAndDrop</b> to <b>true</b></i></br>
+⭐ <b>tip</b> <i>to achieve smoother interactions, you may want to provide a toggle to set <b>staticGraph</b> or (better) <b>staticGraphWithDragAndDrop</b> to <b>true</b></i></br>
 </br>
 <b>Note about granularity</b></br>
-Some of the properties listed in the <a href="#config-node">Node section</a> are marked with 🔍. This means that this properties
+Some of the properties listed in the <a href="#config-node">Node section</a> are marked with 🔍. This means that these properties
 have a higher level of granularity. These properties can be defined in the graph payload at a node level. (sample payload below)</p>
 <pre class='hljs'><span class="hljs-keyword">const</span> graph = {
     <span class="hljs-attr">nodes</span>: [
@@ -371,15 +371,15 @@ have a higher level of granularity. These properties can be defined in the graph
 	    <a id="automatic-rearrange-after-drop-node" href="#automatic-rearrange-after-drop-node">
 🔗
 </a>
- 🚅🚅🚅 when true performing a node drag and drop should automatically
-rearrange all nodes positions based on new position of dragged node (note: 
+ 🚅🚅🚅 When true, performing a node drag and drop should automatically
+rearrange all nodes positions based on the new position of the dragged node (note: 
 <b>
 staticGraph
 </b>
  should be false). A few notes on this property:
 <ul>
 <li><b>automaticRearrangeAfterDropNode</b> needs to be set before the first graph render. Only the first set value will take effect.</li>
-<li><b>automaticRearrangeAfterDropNode</b> won't work together with <b>nodeHighlightBehavior</b> (currently a known limitation, to be address in the future <a href="https://github.com/danielcaldas/react-d3-graph/issues/261" target="_blank">GitHub issue #261</a>).</li>
+<li><b>automaticRearrangeAfterDropNode</b> won't work together with <b>nodeHighlightBehavior</b> (currently a known limitation, to be addressed in the future <a href="https://github.com/danielcaldas/react-d3-graph/issues/261" target="_blank">GitHub issue #261</a>).</li>
 </ul>
 
           </div>
@@ -393,12 +393,12 @@ staticGraph
 	    <a id="collapsible" href="#collapsible">
 🔗
 </a>
- 🚅🚅🚅 Allow leaf neighbors nodes to be collapsed (folded), this will allow users to clear the way out and focus on the parts of the graph that really matter.
-To see an example of this behavior you can access 
+ 🚅🚅🚅 Allow leaf neighbor nodes to be collapsed (folded). This will allow users to visually clean up the graph and focus on the parts that really matter.
+To see an example of this behavior, you can access 
 <a href="https://danielcaldas.github.io/react-d3-graph/sandbox/index.html?data=marvel" target="_blank" title="sandbox collapsible example">
 this sandbox link
 </a>
- that has a specific set up to experiment this feature. 
+ that has a specific set up to experiment with this feature. 
 <b>
 NOTE
 </b>
@@ -425,8 +425,8 @@ GitHub issue #129
 	    <a id="directed" href="#directed">
 🔗
 </a>
- This property makes react-d3-graph handle your graph as a directed graph. It will
-out of the box provide the look and feel of a directed graph and add directional semantic to links. You can see a sample in the image below.
+ This property makes react-d3-graph handle your graph as a directed graph. Out of the box, it will 
+provide the look and feel of a directed graph and add directional semantics to links. You can see a sample in the image below.
 
 </br>
 
@@ -444,7 +444,7 @@ out of the box provide the look and feel of a directed graph and add directional
 	    <a id="focus-zoom" href="#focus-zoom">
 🔗
 </a>
- zoom that will be applied when the graph view is focused in a node. Its value must be between
+ Zoom that will be applied when the graph view is focused on a node. Its value must be between
 
 <i>
 minZoom
@@ -472,16 +472,13 @@ maxZoom
 <b>
 NOTE
 </b>
-: This animation is not trigger by default. In order to trigger it you need to pass down to 
-<code>
-react-d3-graph
-</code>
+: This animation is not triggered by default. In order to trigger it, you need to pass
  the
-node that you want to focus via prop 
+node that you want to focus (via prop 
 <code>
 focusedNodeId
-</code>
- along side with nodes and links:
+</code>) down to <code>react-d3-graph</code>,
+ alongside the nodes and links:
 <pre class='hljs'><span class="hljs-keyword">const</span> data = {
    <span class="hljs-attr">nodes</span>: <span class="hljs-keyword">this</span>.state.data.nodes,
    <span class="hljs-attr">links</span>: <span class="hljs-keyword">this</span>.state.data.links,
@@ -515,7 +512,7 @@ and drop. This includes dragging graph elements, panning and zooming.
 	    <a id="focus-animation-duration" href="#focus-animation-duration">
 🔗
 </a>
- duration (in seconds) for the animation that takes place when focusing the graph on a node.
+ Duration (in seconds) of the animation that takes place when focusing the graph on a node.
 
           </div>
           
@@ -528,7 +525,7 @@ and drop. This includes dragging graph elements, panning and zooming.
 	    <a id="height" href="#height">
 🔗
 </a>
- the height of the (svg) area where the graph will be rendered.
+ The height of the (svg) area where the graph will be rendered.
 
           </div>
           
@@ -541,7 +538,7 @@ and drop. This includes dragging graph elements, panning and zooming.
 	    <a id="node-highlight-behavior" href="#node-highlight-behavior">
 🔗
 </a>
- 🚅🚅🚅 when user mouse hovers a node that node and adjacent common
+ 🚅🚅🚅 When the user mouse hovers over a node, that node and adjacent common
 connections will be highlighted (depending on the 
 <i>
 highlightDegree
@@ -563,7 +560,7 @@ highlightOpacity
 	    <a id="link-highlight-behavior" href="#link-highlight-behavior">
 🔗
 </a>
- 🚅🚅🚅 when the user mouse hovers some link that link and the correspondent nodes will be highlighted, this is a similar behavior
+ 🚅🚅🚅 When the user mouse hovers over a link, that link and the corresponding nodes will be highlighted. This is similar behavior
 to 
 <i>
 nodeHighlightBehavior
@@ -594,7 +591,7 @@ v1.0.0
 Possible values: 0, 1 or 2
 </b>
 . This value represents the range of the
-highlight behavior when some node is highlighted. If the value is set to 
+highlight behavior when a node is highlighted. If the value is set to 
 <b>
 0
 </b>
@@ -603,12 +600,12 @@ highlighted. If the value is set to
 <b>
 1
 </b>
- the selected node and his 1st degree connections will be highlighted. If
+ the selected node and its 1st degree connections will be highlighted. If
 the value is set to 
 <b>
 2
 </b>
- the selected node will be highlighted as well as the 1st and 2nd common degree connections.
+ the selected node will be highlighted, as well as the 1st and 2nd common degree connections.
 
           </div>
           
@@ -621,8 +618,8 @@ the value is set to
 	    <a id="highlight-opacity" href="#highlight-opacity">
 🔗
 </a>
- this value is used to highlight nodes in the network. The lower
-the value the more the less highlighted nodes will be visible (related to 
+ This value sets the visibility of nodes outside the adjacency (common connections) of a hovered-over node. Lower values make the non-adjacent nodes more visible.
+(related to 
 <i>
 nodeHighlightBehavior
 </i>
@@ -639,7 +636,7 @@ nodeHighlightBehavior
 	    <a id="max-zoom" href="#initial-zoom">
 🔗
 </a>
- initial zoom that can be set on the graph.
+ Initial zoom that can be set on the graph.
 
           </div>
           
@@ -652,7 +649,7 @@ nodeHighlightBehavior
 	    <a id="max-zoom" href="#max-zoom">
 🔗
 </a>
- max zoom that can be performed against the graph.
+ Maximum zoom that can be performed on the graph.
 
           </div>
           
@@ -665,7 +662,7 @@ nodeHighlightBehavior
 	    <a id="min-zoom" href="#min-zoom">
 🔗
 </a>
- min zoom that can be performed against the graph.
+ Minimum zoom that can be performed on the graph.
 
           </div>
           
@@ -678,8 +675,8 @@ nodeHighlightBehavior
 	    <a id="pan-and-zoom" href="#pan-and-zoom">
 🔗
 </a>
- 🚅🚅🚅 pan and zoom effect when performing zoom in the graph,
-a similar functionality may be consulted 
+ 🚅🚅🚅 Pan and zoom effect when performing zoom in the graph.
+A similar functionality may be consulted 
 <a target="_blank" href="https://bl.ocks.org/mbostock/2a39a768b1d4bc00a09650edef75ad39">
 here
 </a>
@@ -696,14 +693,14 @@ here
 	    <a id="static-graph" href="#static-graph">
 🔗
 </a>
- when setting this value to true the graph will be completely static, thus
-all forces and drag events upon nodes will produce not effect. Note that, if this value is true the nodes will be
-rendered with the initial provided 
+ When setting this value to true, the graph will be completely static. Thus,
+all forces and drag events upon nodes will produce no effect. Note that, if this value is true, the nodes will be
+rendered with the intially provided 
 <b>
 x and y coordinates
 </b>
- (links positions will be automatically set
-from the given nodes positions by rd3g), no coordinates will be calculated by rd3g or subjacent d3 modules.
+ (link positions will be automatically set
+from the given node positions by rd3g). No coordinates will be calculated by rd3g or subjacent d3 modules.
 
           </div>
           
@@ -715,7 +712,7 @@ from the given nodes positions by rd3g), no coordinates will be calculated by rd
 	    <a id="static-graph-with-drag-and-drop" href="#static-graph-with-drag-and-drop">
 🔗
 </a>
- exactly the same as above 
+ Exactly the same as the above 
 <code>
 staticGraph
 </code>
@@ -736,7 +733,7 @@ true
 <code>
 staticGraphWithDragAndDrop
 </code>
- will not produce the desired behaviour, make sure
+ will not produce the desired behaviour. Make sure
 to set only one of them to 
 <code>
 true
@@ -754,7 +751,7 @@ true
 	    <a id="width" href="#width">
 🔗
 </a>
- the width of the (svg) area where the graph will be rendered.
+ The width of the (svg) area where the graph will be rendered.
 
 </br>
 
@@ -808,14 +805,14 @@ see d3-force simulation.alphaTarget
   <td class='break-word'><span><a id="d3-gravity" href="#d3-gravity">
 🔗
 </a>
- this will define how close nodes are to each other 
+ This will define how close nodes are to each other 
 <a target="_blank" href="https://github.com/d3/d3-force#forces">
 see d3 reference for forces
 </a>
 .
 <ul>
-<li>If value is positive, nodes will attract each other.</li>
-<li>If value is negative, nodes will repel each other. Most of the times this is what we want, so nodes don"t overlap.</li>
+<li>If the value is positive, nodes will attract each other.</li>
+<li>If the value is negative, nodes will repel each other. Most of the time, this is what we want to prevent nodes from overlapping.</li>
 </ul>
 </span></td>
 </tr>
@@ -830,7 +827,7 @@ see d3 reference for forces
   <td class='break-word'><span><a id="d3-link-length" href="#d3-link-length">
 🔗
 </a>
- the length of each link from the center of the nodes it joins.
+ The length of each link from the center of each node it joins.
 </span></td>
 </tr>
 
@@ -861,8 +858,8 @@ see d3-force link.strength
   <td class='break-word'><span><a id="d3-disable-link-force" href="#d3-disable-link-force">
 🔗
 </a>
- Completely disables d3 force link and simulation to re-trigger so that one can obtain
-precise render of node positions as described by the author 
+ Completely disables d3 force link and re-triggers simulation so that one can obtain
+a precise render of node positions, as described by the author 
 <a target="_blank" href="https://github.com/antoninklopp">
 @antoninklopp
 </a>
@@ -912,21 +909,21 @@ the Pull Request description
   <td class='break-word'><span><a id="node-color" href="#node-color">
 🔗
 </a>
- 🔍 this is the color that will be applied to the node if no 
+ 🔍 This is the color that will be applied to the node if no 
 <b>
 color property
 </b>
 </br>
 
-is found inside the node itself (yes 
+is found inside the node itself (yes, 
 <b>
-you can pass a property "color" inside
+you can pass a property "color" to 
 </b>
 </br>
 
 
 <b>
-the node and that color will override the this default one
+the node, and that color will override the this default one
 </b>
 ).
 </span></td>
@@ -942,7 +939,7 @@ the node and that color will override the this default one
   <td class='break-word'><span><a id="node-font-color" href="#node-font-color">
 🔗
 </a>
- 🔍 fill color for node"s 
+ 🔍 Fill color for node's 
 <text>
  svg label.
 </span></td>
@@ -963,7 +960,7 @@ the node and that color will override the this default one
 font-size
 </a>
 
-property for all nodes" labels.
+property for all nodes' labels.
 </span></td>
 </tr>
 
@@ -982,7 +979,7 @@ property for all nodes" labels.
 font-weight
 </a>
 
-property for all nodes" labels.
+property for all nodes' labels.
 </span></td>
 </tr>
 
@@ -996,7 +993,7 @@ property for all nodes" labels.
   <td class='break-word'><span><a id="node-highlight-color" href="#node-highlight-color">
 🔗
 </a>
- color for all highlighted nodes (use string "SAME" if you
+ Color for all highlighted nodes (use string "SAME" if you
 want the node to keep its color in highlighted state).
 </span></td>
 </tr>
@@ -1067,7 +1064,7 @@ want the node to keep its color in highlighted state).
   <td class='break-word'><span><a id="node-label-position" href="#node-label-position">
 🔗
 </a>
- 🔍 location to place node label relative to node.
+ 🔍 Location to place node label relative to node.
 The placement options are:
 <ul>
 <li>"left"</li>
@@ -1076,7 +1073,7 @@ The placement options are:
 <li>"bottom"</li>
 <li>"center"</li>
 </ul>
-<p><b>[note]</b> not specifying a label position will fallback to the original placement scheme of to the right of the node. This is different than the implementation for "right", which has the label shifted very slightly upward compared to the original.</p>
+<p><b>[note]</b> Not specifying a label position will fallback to the original placement scheme of "to the right of the node." This is different than the implementation for "right", which has the label shifted very slightly upward compared to the original.</p>
 </span></td>
 </tr>
 
@@ -1090,10 +1087,10 @@ The placement options are:
   <td class='break-word'><span><a id="node-label-property" href="#node-label-property">
 🔗
 </a>
- this is the node property that will be used in runtime to
+ This is the node property that will be used in runtime to
 </br>
 
-fetch the label content. You just need to add some property (e.g. firstName) to the node payload and then set
+fetch the label content. You just need to add some property (e.g. firstName) to the node payload, then set
 </br>
 
 node.labelProperty to be 
@@ -1104,14 +1101,14 @@ node.labelProperty to be
 <b>
 This can also be a function!
 </b>
-, if you pass a function here it will be called
+ If you pass a function here it will be called
 </br>
 
 to obtain the 
 <code>
 label
 </code>
- value on the fly, as a client you will receive all the node information that you passed down into react-d3-graph,
+ value on the fly. As a client, you will receive all the node information that you passed down into react-d3-graph,
 </br>
 
 so the signature of the function would be:
@@ -1119,7 +1116,7 @@ so the signature of the function would be:
     <span class="hljs-comment">// do stuff to get the final result...</span>
     <span class="hljs-keyword">return</span> <span class="hljs-string">"label string"</span>;
 }</pre>
-<p>Then you just need to make sure that you pass this function in the config in <code>config.node.labelProperty</code>.
+<p>Then, you just need to make sure that you pass this function into the config in <code>config.node.labelProperty</code>.
 </br></p>
 </span></td>
 </tr>
@@ -1153,7 +1150,7 @@ property for when some node is mouse hovered.
   <td class='break-word'><span><a id="node-opacity" href="#node-opacity">
 🔗
 </a>
- 🔍 by default all nodes will have this opacity value.
+ 🔍 All nodes will default to this opacity value.
 </span></td>
 </tr>
 
@@ -1167,7 +1164,7 @@ property for when some node is mouse hovered.
   <td class='break-word'><span><a id="node-render-label" href="#node-render-label">
 🔗
 </a>
- 🔍 when set to false no labels will appear along side nodes in the
+ 🔍 When set to false, no labels will appear alongside nodes in the
 graph.
 </span></td>
 </tr>
@@ -1182,7 +1179,7 @@ graph.
   <td class='break-word'><span><a id="node-size" href="#node-size">
 🔗
 </a>
- 🔍 defines the size of all nodes. When set to a number, the node will have equal height and width.
+ 🔍 Defines the size of all nodes. When set to a number, the node will have equal height and width.
 </br>
 
 This can also be an object with a height and width property 
@@ -1210,11 +1207,11 @@ when using custom nodes
   <td class='break-word'><span><a id="node-stroke-color" href="#node-stroke-color">
 🔗
 </a>
- 🔍  this is the stroke color that will be applied to the node if no 
+ 🔍  This is the stroke color that will be applied to the node if no 
 <b>
 strokeColor property
 </b>
- is found inside the node itself (yes 
+ is found inside the node itself (yes, 
 <b>
 you can pass a property "strokeColor" inside the node and that stroke color will override this default one
 </b>
@@ -1232,7 +1229,7 @@ you can pass a property "strokeColor" inside the node and that stroke color will
   <td class='break-word'><span><a id="node-stroke-width" href="#node-stroke-width">
 🔗
 </a>
- 🔍 the width of the all node strokes.
+ 🔍 The width of all node strokes.
 </span></td>
 </tr>
 
@@ -1246,12 +1243,12 @@ you can pass a property "strokeColor" inside the node and that stroke color will
   <td class='break-word'><span><a id="node-svg" href="#node-svg">
 🔗
 </a>
- 🔍 render custom svg for nodes in alternative to 
+ 🔍 Render a custom svg for nodes as an alternative to 
 <b>
 node.symbolType
 </b>
 . This svg can
-be provided as a string to either a remote svg resource or for a local one.
+be provided as a path string to either a remote svg resource or a local one.
 
 </br>
 
@@ -1270,7 +1267,7 @@ be provided as a string to either a remote svg resource or for a local one.
   <td class='break-word'><span><a id="node-symbol-type" href="#node-symbol-type">
 🔗
 </a>
- 🔍 the 
+ 🔍 The 
 <a id="node-symbol-type">
 shape
 </span>
@@ -1303,7 +1300,7 @@ type
   <td class='break-word'><span><a id="node-view-generator" href="#node-view-generator">
 🔗
 </a>
- 🔍 function that receives a node and returns a JSX view.
+ 🔍 Function that receives a node and returns a JSX view.
 
 </br>
 </span></td>
@@ -1345,13 +1342,13 @@ type
   <td class='break-word'><span><a id="link-breakpoints" href="#link-breakPoints">
 🔗
 </a>
- 🔍 an array of coordinates, each coordinate indicates a breakpoint
+ 🔍 An array of coordinates. Each coordinate indicates a breakpoint
 where the link will break its natural flow and link to the next breakpoint in the list. 
-<a href="https://github.com/danielcaldas/react-d3-graph/issues/373">Here's the original feature request</a>
+<a href="https://github.com/danielcaldas/react-d3-graph/issues/373">Here's the original feature request</a>,
  it should give you an idea of the capabilities of this feature.
 
-<strong>Note that</strong>
- this property can only be defined a link level and 
+<strong>Note that</strong>,
+ this property can only be defined at link level and 
 <strong>not</strong>
  through the config object.
 <pre class='hljs'><span class="hljs-keyword">const</span> data = {
@@ -1375,14 +1372,14 @@ where the link will break its natural flow and link to the next breakpoint in th
   <td class='break-word'><span><a id="link-color" href="#link-color">
 🔗
 </a>
- 🔍 the color for links
-(from version 1.3.0 this property can be configured at link level). 
+ 🔍 The color for links
+(from version 1.3.0, this property can be configured at link level). 
 <b>
 Note:
 </b>
- there's a current limitation where arrow markers in directed graphs won't have the same color as the link. Again this issue
-only occurs for individually colored links, if links are colored globally through 
-<code>link.color</code>
+ There's a current limitation where arrow markers in directed graphs won't have the same color as the link. Again, this issue
+only occurs for individually colored links. If links are colored globally through 
+<code>link.color</code>,
 
 this won't be an issue 
 <a target="_blank" href="https://github.com/danielcaldas/react-d3-graph/pull/361">
@@ -1402,7 +1399,7 @@ this won't be an issue
   <td class='break-word'><span><a id="link-font-color" href="#link-font-color">
 🔗
 </a>
- 🔍 fill color for link's 
+ 🔍 Fill color for a link's 
 <text>
  svg label.
 </span></td>
@@ -1510,10 +1507,10 @@ font-weight
   <td class='break-word'><span><a id="link-label-property" href="#link-label-property">
 🔗
 </a>
- the property that will be rendered as label within some link. Note that
+ The property that will be rendered as label within a link. Note that
 </br>
 
-this property needs to be passed along the link payload (along side with source and target). This property can also be a function
+this property needs to be passed along to the link payload (along with source and target). This property can also be a function
 </br>
 
 that receives the link itself as argument and returns a custom string, similarly to what happens with 
@@ -1555,7 +1552,7 @@ property for when link is mouse hovered.
 <a href="#link-opacity" href="">
 🔗
 </a>
- the default opacity value for links.
+ The default opacity value for links.
 </span></td>
 </tr>
 
@@ -1569,12 +1566,12 @@ property for when link is mouse hovered.
   <td class='break-word'><span><a id="link-render-label" href="#link-render-label">
 🔗
 </a>
- when set to true labels will appear along side links in the
+ When set to true, labels will appear alongside links in the
 graph. 
 <b>
 Note:
 </b>
- this will only happen of course if proper label is passed within the link, check also 
+ This will only happen if a proper label is passed within the link, see also 
 <code>
 link.labelProperty
 </code>
@@ -1597,12 +1594,12 @@ link.labelProperty
   <td class='break-word'><span><a id="link-semantic-stroke-width" href="#link-semantic-stroke-width">
 🔗
 </a>
- when set to true all links will have
+ When set to true, all links will have
 
 <i>
 "semantic width"
 </i>
-, this means that the width of the connections will be proportional to the value of each link.
+. This means that the width of the connections will be proportional to the value of each link.
 This is how link strokeWidth will be calculated:
 <pre class='hljs'>strokeWidth += (linkValue * strokeWidth) / 10;</pre>
 </span></td>
@@ -1618,7 +1615,7 @@ This is how link strokeWidth will be calculated:
   <td class='break-word'><span><a id="link-stroke-width" href="#link-stroke-width">
 🔗
 </a>
- 🔍 strokeWidth for all links. By default the actual value is obtain by the
+ 🔍 strokeWidth for all links. By default, the actual value is obtain by the
 following expression:
 <pre class='hljs'>link.strokeWidth * (<span class="hljs-number">1</span> / transform); <span class="hljs-comment">// transform is a zoom delta Δ value</span></pre>
 </span></td>
@@ -1640,7 +1637,7 @@ markerHeight
 </a>
 
 property for the link arrowhead height. 
-<em>Note: this property can only be set in the first mount, it does not update dynamically.</em>
+<em>Note: This property can only be set upon the first mount, it does not update dynamically.</em>
 </span></td>
 </tr>
 
@@ -1660,7 +1657,7 @@ markerWidth
 </a>
 
 property for the link arrowhead width. 
-<em>Note: this property can only be set in the first mount, it does not update dynamically.</em>
+<em>Note: This property can only be set upon the first mount, it does not update dynamically.</em>
 </span></td>
 </tr>
 
@@ -1674,11 +1671,11 @@ property for the link arrowhead width.
   <td class='break-word'><span><a id="link-type" href="#link-type">
 🔗
 </a>
- 🔍 the type of line to draw, available types at this point are:
+ 🔍 The type of line to draw. Available types at this point are:
 <ul>
 <li>"STRAIGHT" <small>(default)</small> - a straight line.</li>
 <li>"CURVE_SMOOTH" - a slight curve between two nodes</li>
-<li>"CURVE_FULL" - a semicircumference trajectory unites source and target nodes.
+<li>"CURVE_FULL" - a semicircumference trajectory that unites source and target nodes.
 </br>
 <img src="https://github.com/danielcaldas/react-d3-graph/blob/master/docs/rd3g-bend.gif?raw=true" width="820" height="480"/></li>
 </ul>
@@ -1781,7 +1778,7 @@ The stroke-linecap options are:
     }
 };
 
-<span class="hljs-comment">// Sorry for the long config description, here"s a potato 🥔.</span></pre>
+<span class="hljs-comment">// Sorry for the long config description, here's a potato 🥔.</span></pre>
     
   
 
@@ -1978,8 +1975,8 @@ can be consulted <a href="https://github.com/danielcaldas/react-d3-graph/blob/ma
 
   
 
-  <p>Obtain a set of properties which will be used to perform the focus and zoom animation if
-required. In case there's not a focus and zoom animation in progress, it should reset the
+  <p>Obtain a set of properties that will be used to perform the focus and zoom animation if
+required. If there's not a focus and zoom animation in progress, it should reset the
 transition duration to zero and clear transformation styles.</p>
 
     <div class='pre p1 fill-light mt0'>_generateFocusAnimationProps</div>
@@ -2147,8 +2144,8 @@ against the current graph.</p>
 
   
 
-  <p>Sets d3 tick function and configures other d3 stuff such as forces and drag events.
-Whenever called binds Graph component state with d3.</p>
+  <p>Sets d3 tick function and configures other d3 stuff, such as forces and drag events.
+Whenever called, this binds Graph component state with d3.</p>
 
     <div class='pre p1 fill-light mt0'>_graphBindD3ToReactComponent(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></div>
   
@@ -2297,7 +2294,7 @@ Whenever called binds Graph component state with d3.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>nodeList</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
-	    array of d3 nodes. This list of nodes is provided by d3, each
+	    array of d3 nodes. This list of nodes is provided by d3. Each
 node contains all information that was previously fed by rd3g.
 
           </div>
@@ -2402,7 +2399,7 @@ node contains all information that was previously fed by rd3g.
 
   
 
-  <p>Sets nodes and links highlighted value.</p>
+  <p>Sets node and link highlighted value.</p>
 
     <div class='pre p1 fill-light mt0'>_setNodeHighlightedValue</div>
   
@@ -2481,8 +2478,8 @@ node contains all information that was previously fed by rd3g.
 
   
 
-  <p>The tick function simply calls React set state in order to update component and render nodes
-along time as d3 calculates new node positioning.</p>
+  <p>The tick function simply calls React's setState() in order to update the component and render nodes
+at the same time that d3 calculates new node positioning.</p>
 
     <div class='pre p1 fill-light mt0'>_tick</div>
   
@@ -2512,7 +2509,7 @@ along time as d3 calculates new node positioning.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>cb</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>?)</code>
-	    optional callback to fed in to 
+	    optional callback to be fed in to 
 <a href="setState()">https://reactjs.org/docs/react-component.html#setstate</a>
 .
 
@@ -2563,8 +2560,8 @@ along time as d3 calculates new node positioning.</p>
 
   
 
-  <p>Configures zoom upon graph with default or user provided values.<br/>
-NOTE: in order for users to be able to double click on nodes, we
+  <p>Configures zooming on the graph, with default or user provided values.<br/>
+NOTE: In order for users to be able to double click on nodes, we
 are disabling the native dblclick.zoom from d3 that performs a zoom
 whenever a user double clicks on top of the graph.
 <a href="https://github.com/d3/d3-zoom#zoom">https://github.com/d3/d3-zoom#zoom</a></p>
@@ -3312,8 +3309,8 @@ whenever a user double clicks on top of the graph.
 
   
 
-  <p>This method resets all nodes fixed positions by deleting the properties fx (fixed x)
-and fy (fixed y). Following this, a simulation is triggered in order to force nodes to go back
+  <p>This method resets all nodes' fixed positions by deleting the properties fx (fixed x)
+and fy (fixed y). Following this, a simulation is triggered to force nodes to go back
 to their original positions (or at least new positions according to the d3 force parameters).</p>
 
     <div class='pre p1 fill-light mt0'>resetNodesPositions</div>
@@ -3432,11 +3429,11 @@ to their original positions (or at least new positions according to the d3 force
 
   <div>Deprecated: <code>componentWillReceiveProps</code>
  has a replacement method in react v16.3 onwards.
-that is getDerivedStateFromProps.
-But one needs to be aware that if an anti pattern of 
+That is: getDerivedStateFromProps.
+But, one needs to be aware that if an anti-pattern of 
 <code>componentWillReceiveProps</code>
  is
-in place for this implementation the migration might not be that easy.
+in place for this implementation, the migration might not be that easy.
 See 
 <a href="https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html">https://reactjs.org/blog/2018/06/07/you-probably-dont-need-derived-state.html</a>
 .
@@ -3517,8 +3514,8 @@ See
   
 
   <p>This section of the documentation is mainly targeted for contributors
-working on react-d3-graph. If you're looking into making a change into the codebase
-this section could give you an organized overview on the library modules.</p>
+working on react-d3-graph. If you're looking into making a change to the codebase,
+this section could give you an organized overview of the library modules.</p>
 
     <div class='pre p1 fill-light mt0'>Internal Documentation</div>
   
@@ -3771,7 +3768,7 @@ this section could give you an organized overview on the library modules.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>nodeCallbacks</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>>)</code>
-	    array of callbacks for used defined event handler for node interactions.
+	    array of callbacks for user defined event handler for node interactions.
 
           </div>
           
@@ -3791,7 +3788,7 @@ this section could give you an organized overview on the library modules.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>highlightedNode</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    this value contains a string that represents the some currently highlighted node.
+	    this value contains a string that represents the currently highlighted node.
 
           </div>
           
@@ -3901,9 +3898,9 @@ this section could give you an organized overview on the library modules.</p>
 
   
 
-  <p>Builds graph defs (for now markers, but we could also have gradients for instance).
-NOTE: defs are static svg graphical objects, thus we only need to render them once, the result
-is cached on the 1st call and from there we simply return the cached jsx.</p>
+  <p>Builds graph defs (for now, markers, but we could also have gradients, for instance).
+NOTE: defs are static svg graphical objects, thus we only need to render them once. The result
+is cached on the 1st call, and from there we simply return the cached jsx.</p>
 
     <div class='pre p1 fill-light mt0'>_renderDefs(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a></div>
   
@@ -4031,7 +4028,7 @@ is cached on the 1st call and from there we simply return the cached jsx.</p>
 
   
 
-  <p>Method that actually is exported an consumed by Graph component in order to build all Nodes and Link
+  <p>Method that actually is exported and consumed by Graph component in order to build all Nodes and Link
 components.</p>
 
     <div class='pre p1 fill-light mt0'>renderGraph(nodes: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, nodeCallbacks: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>>, links: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, linksMatrix: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, linkCallbacks: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, highlightedNode: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, highlightedLink: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, transform: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
@@ -4061,7 +4058,7 @@ components.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>nodeCallbacks</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>>)</code>
-	    array of callbacks for used defined event handler for node interactions.
+	    array of callbacks for user defined event handler for node interactions.
 
           </div>
           
@@ -4081,8 +4078,8 @@ components.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>linksMatrix</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
-	    an object containing a matrix of connections of the graph, for each nodeId,
-there is an Object that maps adjacent nodes ids (string) and their values (number).
+	    an object containing a matrix of connections of the graph. For each nodeId,
+there is an Object that maps adjacent node ids (string) and their values (number).
 <pre class='hljs'> <span class="hljs-comment">// links example</span>
  {
     <span class="hljs-string">"Androsynth"</span>: {
@@ -4112,7 +4109,7 @@ there is an Object that maps adjacent nodes ids (string) and their values (numbe
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>linkCallbacks</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function">Function</a>>)</code>
-	    array of callbacks for used defined event handler for link interactions.
+	    array of callbacks for user defined event handler for link interactions.
 
           </div>
           
@@ -4132,7 +4129,7 @@ there is an Object that maps adjacent nodes ids (string) and their values (numbe
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>highlightedNode</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    this value contains a string that represents the some currently highlighted node.
+	    this value contains a string that represents the currently highlighted node.
 
           </div>
           
@@ -4286,7 +4283,7 @@ there is an Object that maps adjacent nodes ids (string) and their values (numbe
 
   
 
-  <p>Get the correct node opacity in order to properly make decisions based on context such as currently highlighted node.</p>
+  <p>Get the correct node opacity in order to properly make decisions based on context, such as currently highlighted node.</p>
 
     <div class='pre p1 fill-light mt0'>_getNodeOpacity(node: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, highlightedNode: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, highlightedLink: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
   
@@ -4306,7 +4303,7 @@ there is an Object that maps adjacent nodes ids (string) and their values (numbe
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>node</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    the node object for whom we will generate properties.
+	    the node object for which we will generate properties.
 
           </div>
           
@@ -4621,7 +4618,7 @@ there is an Object that maps adjacent nodes ids (string) and their values (numbe
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
-        returns object that contain Link props ready to be feeded to the Link component.
+        returns an object that contain Link props ready to be fed to the Link component.
 
       
     
@@ -4669,7 +4666,7 @@ there is an Object that maps adjacent nodes ids (string) and their values (numbe
 
   
 
-  <p>Offers a series of methods that isolate logic of Graph component and also from Graph rendering methods.</p>
+  <p>Offers a series of methods that isolate logic of Graph component and also Graph rendering methods.</p>
 
     <div class='pre p1 fill-light mt0'>Graph/helper</div>
   
@@ -4876,7 +4873,7 @@ there is an Object that maps adjacent nodes ids (string) and their values (numbe
 
   
 
-  <p>Create d3 forceSimulation to be applied on the graph.<br/>
+  <p>Create d3 forceSimulation to be applied to the graph.<br/>
 <a href="https://github.com/d3/d3-force#forceSimulation">d3-force#forceSimulation</a><br/>
 <a href="https://github.com/d3/d3-force#simulation_force">d3-force#simulation_force</a><br/>
 Wtf is a force? <a href="https://github.com/d3/d3-force#forces"> here</a></p>
@@ -4966,9 +4963,9 @@ Wtf is a force? <a href="https://github.com/d3/d3-force#forces"> here</a></p>
 
   
 
-  <p>Receives a matrix of the graph with the links source and target as concrete node instances and it transforms it
-in a lightweight matrix containing only links with source and target being strings representative of some node id
-and the respective link value (if non existent will default to 1).</p>
+  <p>Receives a matrix of the graph, with the links' source and target as concrete node instances. This transforms it
+in a lightweight matrix containing only links, with source and target being strings representative of some node id
+and the respective link value (if non existent, it will default to 1).</p>
 
     <div class='pre p1 fill-light mt0'>_initializeLinks(graphLinks: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#link">Link</a>>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></div>
   
@@ -5013,7 +5010,7 @@ and the respective link value (if non existent will default to 1).</p>
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></code>:
         an object containing a matrix of connections of the graph, for each nodeId,
-there is an object that maps adjacent nodes ids (string) and their values (number).
+there is an object that maps adjacent node ids (string) and their values (number).
 
       
     
@@ -5047,8 +5044,8 @@ there is an object that maps adjacent nodes ids (string) and their values (numbe
 
   
 
-  <p>Method that initialize graph nodes provided by rd3g consumer and adds additional default mandatory properties
-that are optional for the user. Also it generates an index mapping, this maps nodes ids the their index in the array
+  <p>Method that initializes graph nodes provided by rd3g consumer and adds additional default mandatory properties
+that are optional for the user. It also generates an index mapping. This maps node ids to their index in the array
 of nodes. This is needed because d3 callbacks such as node click and link click return the index of the node.</p>
 
     <div class='pre p1 fill-light mt0'>initializeNodes(graphNodes: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="#node">Node</a>>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></div>
@@ -5084,7 +5081,7 @@ of nodes. This is needed because d3 callbacks such as node click and link click 
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></code>:
-        returns the nodes ready to be used within rd3g with additional properties such as x, y
+        returns the nodes ready to be used within rd3g with additional properties, such as x, y
 and highlighted values.
 
       
@@ -5121,7 +5118,7 @@ and highlighted values.
 
   <p>Maps an input link (with format <code>{ source: 'sourceId', target: 'targetId' }</code>) to a d3Link
 (with format <code>{ source: { id: 'sourceId' }, target: { id: 'targetId' } }</code>). If d3Link with
-given index exists already that same d3Link is returned.</p>
+given index exists already, that same d3Link is returned.</p>
 
     <div class='pre p1 fill-light mt0'>_mergeDataLinkWithD3Link(link: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, index: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, d3Links: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, state: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
   
@@ -5259,8 +5256,8 @@ given index exists already that same d3Link is returned.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>linksMatrix</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
-	    an object containing a matrix of connections of the graph, for each nodeId,
-there is an object that maps adjacent nodes ids (string) and their values (number).
+	    an object containing a matrix of connections in the graph. For each nodeId,
+there is an object that maps adjacent node ids (string) and their values (number).
 
           </div>
           
@@ -5275,7 +5272,7 @@ there is an object that maps adjacent nodes ids (string) and their values (numbe
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>></code>:
-        same input nodes structure with tagged orphans nodes where applicable.
+        same input nodes structure with tagged orphan nodes where applicable.
 
       
     
@@ -5309,7 +5306,7 @@ there is an object that maps adjacent nodes ids (string) and their values (numbe
 
   
 
-  <p>Some integrity validations on links and nodes structure. If some validation fails the function will
+  <p>Some integrity validations on links and nodes structure. If some validation fails, the function will
 throw an error.</p>
 
     <div class='pre p1 fill-light mt0'>_validateGraphData(data: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined">undefined</a></div>
@@ -5530,9 +5527,9 @@ INSUFFICIENT_LINKS - if no links are provided (not even empty Array)
 
   
 
-  <p>This function checks for graph elements (nodes and links) changes, in two different
+  <p>This function checks for graph element (nodes and links) changes in two different
 levels of significance, updated elements (whether some property has changed in some
-node or link) and new elements (whether some new elements or added/removed from the graph).</p>
+node or link) and new elements (whether some new elements exist or have been added/removed from the graph).</p>
 
     <div class='pre p1 fill-light mt0'>checkForGraphElementsChanges(nextProps: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, currentState: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>></div>
   
@@ -5793,8 +5790,8 @@ selected node.</p>
 According to <a href="https://github.com/d3/d3-force#link_links">d3-force</a>
 d3 links might be initialized with "source" and "target"
 properties as numbers or strings, but after initialization they
-are converted to an object. This small utility functions ensures
-that weather in initialization or further into the lifetime of the graph
+are converted to an object. This small utility function ensures
+that whether in initialization or further into the lifetime of the graph,
 we always get the id.</p>
 
     <div class='pre p1 fill-light mt0'>getId(sot: (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)): (<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
@@ -5993,7 +5990,7 @@ we want to extract an id.
 
   
 
-  <p>This function updates the highlighted value for a given node and also updates highlight props.</p>
+  <p>This function updates the highlighted value of a given node and also updates highlight props.</p>
 
     <div class='pre p1 fill-light mt0'>updateNodeHighlightedValue(nodes: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, links: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, value: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
   
@@ -6226,7 +6223,7 @@ Arrow configuration is only available for circles.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>info</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    the couple of nodes we need to compute new coordinates
+	    the couple of nodes we need to compute new coordinates for
 
           </div>
           
@@ -6376,8 +6373,8 @@ Arrow configuration is only available for circles.</p>
 
   
 
-  <p>Offers a series of methods that allow graph to perform the necessary operations to
-create the collapsible behavior. These functions will most likely operate on
+  <p>Offers a series of methods that allow the graph to perform the necessary operations to
+create collapsible behavior. These functions will most likely operate on
 the links matrix.</p>
 
     <div class='pre p1 fill-light mt0'>Graph/collapse-helper</div>
@@ -6418,7 +6415,7 @@ the links matrix.</p>
   
 
   <p>For directed graphs.
-Check based on node degrees whether it is a leaf node or not.</p>
+Check, based on node degrees, whether it is a leaf node or not.</p>
 
     <div class='pre p1 fill-light mt0'>_isLeafDirected(inDegree: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, outDegree: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
   
@@ -6462,7 +6459,7 @@ Check based on node degrees whether it is a leaf node or not.</p>
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
-        based on the degrees tells whether node is leaf or not.
+        based on the degrees, tells whether node is leaf or not.
 
       
     
@@ -6496,8 +6493,8 @@ Check based on node degrees whether it is a leaf node or not.</p>
 
   
 
-  <p>For not directed graphs.
-Check based on node degrees whether it is a leaf node or not.</p>
+  <p>For non-directed graphs.
+Check, based on node degrees, whether it is a leaf node or not.</p>
 
     <div class='pre p1 fill-light mt0'>_isLeafNotDirected(inDegree: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, outDegree: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
   
@@ -6541,7 +6538,7 @@ Check based on node degrees whether it is a leaf node or not.</p>
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
-        based on the degrees tells whether node is leaf or not.
+        based on the degrees, tells whether node is leaf or not.
 
       
     
@@ -6575,7 +6572,7 @@ Check based on node degrees whether it is a leaf node or not.</p>
 
   
 
-  <p>Given in and out degree tells whether degrees indicate a leaf or non leaf scenario.</p>
+  <p>Given in and out degree, tells whether degrees indicate a leaf or non leaf scenario.</p>
 
     <div class='pre p1 fill-light mt0'>_isLeaf(nodeId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, linksMatrix: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>>, directed: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
   
@@ -6595,7 +6592,7 @@ Check based on node degrees whether it is a leaf node or not.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>nodeId</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    The id of the node to get the cardinality of.
+	    The id of a node to get the cardinality of it.
 
           </div>
           
@@ -6682,7 +6679,7 @@ Check based on node degrees whether it is a leaf node or not.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>nodeId</span> <code class='quiet'>((<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a> | <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>))</code>
-	    the id of the node whom degree we want to compute.
+	    the id of the node whose degree we want to compute.
 
           </div>
           
@@ -6692,8 +6689,8 @@ Check based on node degrees whether it is a leaf node or not.</p>
           <div>
             <span class='code bold'>linksMatrix</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>
             = <code>{}</code>)</code>
-	    an object containing a matrix of connections of the graph, for each nodeId,
-there is an object that maps adjacent nodes ids (string) and their values (number).
+	    an object containing a matrix of connections of the graph. For each nodeId,
+there is an object that maps adjacent node ids (string) and their values (number).
 
           </div>
           
@@ -6746,7 +6743,7 @@ there is an object that maps adjacent nodes ids (string) and their values (numbe
 
   
 
-  <p>Given a node id we want to calculate the list of leaf connections</p>
+  <p>Given a node id, calculate the list of leaf connections</p>
 
     <div class='pre p1 fill-light mt0'>getTargetLeafConnections(rootNodeId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, linksMatrix: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>></div>
   
@@ -6776,8 +6773,8 @@ there is an object that maps adjacent nodes ids (string) and their values (numbe
           <div>
             <span class='code bold'>linksMatrix</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>
             = <code>{}</code>)</code>
-	    an object containing a matrix of connections of the graph, for each nodeId,
-there is an object that maps adjacent nodes ids (string) and their values (number).
+	    an object containing a matrix of connections of the graph. For each nodeId,
+there is an object that maps adjacent node ids (string) and their values (number).
 
           </div>
           
@@ -6829,7 +6826,7 @@ there is an object that maps adjacent nodes ids (string) and their values (numbe
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>></code>:
         a list of leaf connections.
-What is a leaf connection? A leaf connection is a link between some node A and other node B
+What is a leaf connection? A leaf connection is a link between some node A and other node B,
 where A has id equal to rootNodeId and B has inDegree 1 and outDegree 0 (or outDegree 1 but the connection is with A).
 
       
@@ -6864,11 +6861,11 @@ where A has id equal to rootNodeId and B has inDegree 1 and outDegree 0 (or outD
 
   
 
-  <p>Given a node and the connections matrix, check if node should be displayed
-NOTE: this function is meant to be used under the <code>collapsible</code> toggle, meaning
+  <p>Given a node and the connections matrix, check if node should be displayed.
+NOTE: This function is meant to be used under the <code>collapsible</code> toggle, meaning
 that the <code>isNodeVisible</code> actually is checking visibility on collapsible graphs.
 If you think that this code is confusing and could potentially collide (🤞) with #_isLeaf
-always remember that <em>A leaf can, throughout time, both a visible or an invisible node!</em>.</p>
+always remember that <em>A leaf can, throughout time, be either a visible or an invisible node!</em>.</p>
 
     <div class='pre p1 fill-light mt0'>isNodeVisible(nodeId: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, nodes: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>, linksMatrix: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
   
@@ -6921,7 +6918,7 @@ always remember that <em>A leaf can, throughout time, both a visible or an invis
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
-        flag that indicates whether node should or not be displayed.
+        flag that indicates whether or not a node should be displayed.
 
       
     
@@ -7053,8 +7050,8 @@ always remember that <em>A leaf can, throughout time, both a visible or an invis
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>linksMatrix</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
-	    an object containing a matrix of connections of the graph, for each nodeId,
-there is an object that maps adjacent nodes ids (string) and their values (number).
+	    an object containing a matrix of connections of the graph. For each nodeId,
+there is an object that maps adjacent node ids (string) and their values (number).
 
           </div>
           
@@ -7505,7 +7502,7 @@ there is an object that maps adjacent nodes ids (string) and their values (numbe
 
   
 
-  <p>Some methods that help no the process of rendering a node.</p>
+  <p>Some methods that help the process of rendering a node.</p>
 
     <div class='pre p1 fill-light mt0'>Node/helper</div>
   
@@ -7617,7 +7614,7 @@ of d3 symbol.<br/>
 
   
 
-  <p>Build a d3 svg symbol based on passed symbol and symbol type.</p>
+  <p>Build a d3 svg symbol based on passed-in symbol and symbol type.</p>
 
     <div class='pre p1 fill-light mt0'>buildSvgSymbol(size: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, symbolTypeDesc: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
   
@@ -7744,7 +7741,7 @@ of d3 symbol.<br/>
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code>({dx: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, dy: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>} | {dx: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, dy: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, textAnchor: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, dominantBaseline: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>})</code>:
-        props to put text svg for label in correct spot. default case returns just dx and dy, without textAnchor and dominantBaseline
+        props to put text svg for label in correct spot. Default case returns just dx and dy, without textAnchor and dominantBaseline.
 
       
     
@@ -8314,7 +8311,7 @@ of d3 symbol.<br/>
 
   
 
-  <p>Computes radius value for a full curve (semi circumference).</p>
+  <p>Computes radius value for a full curve (semi-circumference).</p>
 
     <div class='pre p1 fill-light mt0'>fullCurveRadius(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
   
@@ -8441,7 +8438,7 @@ to match curve type expectation. Fallback is the straight line.
 
   
 
-  <p>This method returns the path definition for a given link base on the line type
+  <p>This method returns the path definition for a given link based on the line type
 and the link source and target.
 <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d">d attribute mdn</a></p>
 
@@ -8635,7 +8632,7 @@ and the link source and target.
       
         <div class='space-bottom0'>
           <span class='code bold'>CURVE_FULL</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-          : a semicircumference trajectory unites source and target nodes.
+          : a semi-circumference trajectory that unites source and target nodes.
 
           
         </div>
@@ -8687,7 +8684,7 @@ and the link source and target.
 
   
 
-  <p>Market component provides configurable interface to marker definition.</p>
+  <p>Marker component provides configurable interface to marker definition.</p>
 
     <div class='pre p1 fill-light mt0'>new Marker()</div>
   
@@ -8953,7 +8950,7 @@ where the marker is to be applied.</p>
   
 
   <p>This function holds logic to retrieve the appropriate marker id that reflects the input
-parameters, markers can vary with highlight and transform value.</p>
+parameters. Markers can vary with highlight and transform value.</p>
 
     <div class='pre p1 fill-light mt0'>_computeMarkerId(highlight: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>, transform: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></div>
   
@@ -9064,8 +9061,8 @@ parameters, markers can vary with highlight and transform value.</p>
 
   
 
-  <p>This function memoize results for _computeMarkerId
-since many of the times user will be playing around with the same zoom
+  <p>This function memoizes results for _computeMarkerId,
+since many of the times, a user will be playing around with the same zoom
 factor, we can take advantage of this and cache the results for a
 given combination of highlight state, zoom transform value and maxZoom config.</p>
 
@@ -9122,8 +9119,8 @@ given combination of highlight state, zoom transform value and maxZoom config.</
 
   
 
-  <p>Memoized reference for _memoizedComputeMarkerId exposed
-as getter for sake of readability.
+  <p>Memoized reference for _memoizedComputeMarkerId. Exposed
+as getter for the sake of readability.
 Gets proper marker id given the highlight state and the zoom
 transform.</p>
 
@@ -9231,7 +9228,7 @@ transform.</p>
 
   <p>Computes the three marker sizes
 For supported shapes in <a href="Graph/helper/getNormalizedNodeCoordinates">Graph/helper/getNormalizedNodeCoordinates</a>, the function should return 0,
-to be able to control more accurately nodes and arrows sizes and positions in directional graphs.</p>
+to be able to control more accurately node and arrow sizes and positions in directional graphs.</p>
 
     <div class='pre p1 fill-light mt0'>getMarkerSize(config: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
   
@@ -9315,7 +9312,7 @@ to be able to control more accurately nodes and arrows sizes and positions in di
   
 
   <p>Offers a series of generic methods for object manipulation, and other operations
-that are common across rd3g such as error logging.</p>
+that are common across rd3g, such as error logging.</p>
 
     <div class='pre p1 fill-light mt0'>utils</div>
   
@@ -9434,7 +9431,7 @@ that are common across rd3g such as error logging.</p>
 
   
 
-  <p>Generic deep comparison between javascript simple or complex objects.</p>
+  <p>Generic deep comparison between JavaScript simple or complex objects.</p>
 
     <div class='pre p1 fill-light mt0'>isDeepEqual(o1: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, o2: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, _depth: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
   
@@ -9523,7 +9520,7 @@ that are common across rd3g such as error logging.</p>
   
 
   <p>Checks whether or not a certain object is empty.
-NOTE: If the passed parameter is not an object the method return false.</p>
+NOTE: If the passed parameter is not an object, the method returns false.</p>
 
     <div class='pre p1 fill-light mt0'>isEmptyObject(o: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
   
@@ -9543,7 +9540,7 @@ NOTE: If the passed parameter is not an object the method return false.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>o</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
-	    object whom emptiness we want to check.
+	    object whose emptiness we want to check.
 
           </div>
           
@@ -9592,7 +9589,7 @@ NOTE: If the passed parameter is not an object the method return false.</p>
 
   
 
-  <p>Function to deep clone plain javascript objects.</p>
+  <p>Function to deep clone plain JavaScript objects.</p>
 
     <div class='pre p1 fill-light mt0'>deepClone(o: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, _clone: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, _depth: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
   
@@ -9683,7 +9680,7 @@ recursive calls. Parameter serves only for internal usage.
   
 
   <p>This function merges two objects o1 and o2, where o2 properties override existent o1 properties, and
-if o2 doesn't posses some o1 property the fallback will be the o1 property.</p>
+if o2 doesn't possess some o1 property, the fallback will be the o1 property.</p>
 
     <div class='pre p1 fill-light mt0'>merge(o1: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, o2: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, _depth: int): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
   
@@ -9774,7 +9771,7 @@ existent o1 properties.
 
   
 
-  <p>Create new object from the inputted one only with the props passed
+  <p>Create new object from the input one only with the props passed
 in the props list.</p>
 
     <div class='pre p1 fill-light mt0'>pick(o: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, props: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></div>
@@ -9899,7 +9896,7 @@ in the props list.</p>
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code>:
-        the object resultant from the anti picking operation.
+        the object resultant from the anti-picking operation.
 
       
     
@@ -10123,7 +10120,7 @@ being called for <code>time</code> seconds.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>msg</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    the message contain a more detailed explanation about the error.
+	    the message containing a more detailed explanation about the error.
 
           </div>
           
@@ -10279,7 +10276,7 @@ being called for <code>time</code> seconds.</p>
         <div class='space-bottom0'>
           <div>
             <span class='code bold'>msg</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    the message contain a more detailed explanation about the error.
+	    the message containing a more detailed explanation about the error.
 
           </div>
           
